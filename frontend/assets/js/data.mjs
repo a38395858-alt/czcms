@@ -1,0 +1,127 @@
+const stat = (label, value, tone, icon) => ({ label, value, tone, icon })
+
+export const navigationItems = [
+  { key: 'dashboard', label: '控制台', description: '站点、内容与发布状态概览', path: '/admin', icon: 'home', keywords: '仪表盘 概览 dashboard' },
+  { key: 'sites', label: '站点管理', description: '域名、国家市场和运行环境', path: '/admin/sites', icon: 'globe', keywords: '域名 国家 市场 site domain' },
+  { key: 'languages', label: '语言管理', description: 'Locale、回退语言和站点启用状态', path: '/admin/languages', icon: 'languages', keywords: '多语言 locale 本土化' },
+  { key: 'content', label: '内容管理', description: '文章、页面、版本与审核发布', path: '/admin/content', icon: 'file', keywords: '文章 页面 栏目 发布' },
+  { key: 'taxonomy', label: '栏目与标签', description: '按站点和语言管理内容分类与 Tag', path: '/admin/taxonomy', icon: 'clipboard', keywords: '栏目 分类 标签 tag taxonomy' },
+  { key: 'templates', label: '模板管理', description: '每种语言独立绑定模板套装', path: '/admin/templates', icon: 'template', keywords: '主题 模板 语言绑定 theme' },
+  { key: 'seo', label: 'SEO中心', description: '关键词、Sitemap、Canonical 与 hreflang', path: '/admin/seo', icon: 'search', keywords: '关键词 sitemap hreflang canonical' },
+  { key: 'localization', label: 'AI本土化', description: '按目标国家语境重写内容与 SEO', path: '/admin/localization', icon: 'bot', keywords: 'AI 语境 改写 关键词 同步 审核' },
+  { key: 'urls', label: 'URL与伪静态', description: 'Slug、路由规则、历史 URL 与重定向', path: '/admin/urls', icon: 'link', keywords: 'slug 路由 重定向 301' },
+  { key: 'media', label: '媒体中心', description: '图片、文件、对象存储与 Alt', path: '/admin/media', icon: 'image', keywords: '图片 文件 alt 对象存储' },
+  { key: 'publishing', label: '发布管理', description: '静态发布、缓存刷新与回滚', path: '/admin/publishing', icon: 'send', keywords: '缓存 静态化 CDN 回滚' },
+  { key: 'jobs', label: '任务中心', description: '异步队列、重试和死信处理', path: '/admin/jobs', icon: 'clipboard', keywords: '队列 异步 重试 失败' },
+  { key: 'users', label: '用户与权限', description: '角色、MFA、RBAC 与审计', path: '/admin/users', icon: 'users', keywords: '角色 MFA RBAC 安全' },
+  { key: 'audit', label: '审计日志', description: '查询不可修改的安全与操作记录', path: '/admin/audit', icon: 'lock', keywords: '审计 安全 操作日志 audit' },
+  { key: 'settings', label: '系统设置', description: '配置、缓存、备份与生命周期', path: '/admin/settings', icon: 'settings', keywords: '配置 备份 日志 维护 API' },
+]
+
+export const quickActions = [
+  { label: '新建内容', description: '创建新的多语言内容组', path: '/admin/content', action: 'create', icon: 'file', permission: 'content.write' },
+  { label: '查看 AI 本土化状态', description: '查看语境改写与 SEO 接入情况', path: '/admin/localization', icon: 'bot', permission: 'seo.manage' },
+  { label: '检查 SEO 问题', description: '查看重复标题、断链和 hreflang', path: '/admin/seo', icon: 'search', permission: 'seo.manage' },
+  { label: '查看发布失败', description: '重试或回滚失败的发布任务', path: '/admin/jobs', icon: 'alert', permission: 'jobs.manage' },
+]
+
+export const modules = {
+  sites: {
+    title: '站点管理', subtitle: '管理域名、国家市场、环境与站点运行状态', primaryAction: '新建站点', entityName: '站点',
+    stats: [stat('站点总数', '0', 'blue', 'globe'), stat('运行中', '0', 'green', 'check'), stat('需要处理', '0', 'amber', 'alert'), stat('绑定域名', '0', 'cyan', 'link')],
+    filters: ['全部站点', '运行中', '维护中', '已停用'],
+    columns: [{ key: 'name', label: '站点' }, { key: 'market', label: '国家市场' }, { key: 'domain', label: '访问地址' }, { key: 'languages', label: '语言' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '最近更新' }],
+    rows: [],
+  },
+  languages: {
+    title: '语言管理', subtitle: '配置语言、Locale、回退规则与站点启用状态', primaryAction: '添加语言', entityName: '语言',
+    stats: [stat('预置语言', '0', 'blue', 'languages'), stat('已启用', '0', 'green', 'check'), stat('待本土化', '—', 'gray', 'globe'), stat('RTL 语言', '0', 'purple', 'languages')],
+    filters: ['全部语言', '已启用', '未启用', 'RTL'],
+    columns: [{ key: 'name', label: '语言' }, { key: 'native', label: '本地名称' }, { key: 'locale', label: '默认 Locale' }, { key: 'sites', label: '启用站点' }, { key: 'completion', label: '内容完成度' }, { key: 'status', label: '状态' }],
+    rows: [],
+  },
+  content: {
+    title: '内容管理', subtitle: '编辑、审核、版本化和发布所有语言内容', primaryAction: '新建内容', entityName: '内容',
+    stats: [stat('内容总数', '0', 'blue', 'file'), stat('待审核', '0', 'amber', 'clipboard'), stat('已发布', '0', 'green', 'check'), stat('需要更新', '0', 'red', 'alert')],
+    filters: ['全部内容', '草稿', '待审核', '定时发布', '已发布', '需要更新'],
+    columns: [{ key: 'name', label: '标题' }, { key: 'type', label: '内容类型' }, { key: 'language', label: '语言' }, { key: 'owner', label: '负责人' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '最近更新' }],
+    rows: [],
+  },
+  taxonomy: {
+    title: '栏目与标签', subtitle: '按站点和 Locale 管理内容分类、层级与 Tag 使用情况', primaryAction: '新建栏目或标签', entityName: '栏目或标签',
+    stats: [stat('栏目', '0', 'blue', 'clipboard'), stat('标签', '0', 'cyan', 'link'), stat('正在使用', '0', 'green', 'check'), stat('已停用', '0', 'gray', 'alert')],
+    filters: ['全部条目', '栏目', '标签', '使用中', '已停用'],
+    columns: [{ key: 'name', label: '名称' }, { key: 'kind', label: '类型' }, { key: 'scope', label: '站点 / Locale' }, { key: 'parent', label: '上级栏目' }, { key: 'usage', label: '使用次数' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '更新时间' }],
+    rows: [],
+  },
+  templates: {
+    title: '模板管理', subtitle: '为每个站点和语言绑定独立的完整模板套装', primaryAction: '安装模板', entityName: '模板',
+    stats: [stat('模板套装', '0', 'blue', 'template'), stat('当前生效', '0', 'green', 'check'), stat('待部署', '0', 'amber', 'alert'), stat('历史版本', '0', 'gray', 'layers')],
+    filters: ['全部模板', '已生效', '可绑定', '尚未绑定', '待部署', '已停用'],
+    columns: [{ key: 'name', label: '模板套装' }, { key: 'language', label: '绑定使用' }, { key: 'version', label: '版本' }, { key: 'pages', label: '渲染入口' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '安装时间' }],
+    rows: [],
+  },
+  seo: {
+    title: 'SEO 中心', subtitle: '按站点自动生成 Sitemap、robots.txt 和页面级收录规则', primaryAction: '刷新状态', entityName: 'SEO 站点',
+    stats: [stat('接入站点', '0', 'blue', 'globe'), stat('运行中站点', '0', 'green', 'check'), stat('可收录 URL', '0', 'cyan', 'search'), stat('单页面 noindex', '0', 'gray', 'lock')],
+    filters: ['全部问题', '严重', '警告', '建议'],
+    columns: [{ key: 'name', label: '检查项' }, { key: 'scope', label: '作用范围' }, { key: 'affected', label: '受影响页面' }, { key: 'level', label: '级别' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '最后检查' }],
+    rows: [],
+  },
+  localization: {
+    title: 'AI 本土化', subtitle: '以英语为源内容，按目标国家语境重写正文、SEO 与关键词，并进入人工审核', primaryAction: '新建英语内容', entityName: '本土化任务',
+    stats: [stat('实际任务', '0', 'blue', 'bot'), stat('待审核版本', '0', 'amber', 'clipboard'), stat('执行失败', '0', 'red', 'alert'), stat('AI 服务', '读取中', 'gray', 'refresh')],
+    filters: ['全部任务', '执行中', '部分完成', '已完成', '失败'],
+    columns: [{ key: 'name', label: '英语源内容' }, { key: 'target', label: '目标结果' }, { key: 'mode', label: '同步模式' }, { key: 'progress', label: '执行结果' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '更新时间' }],
+    rows: [],
+  },
+  urls: {
+    title: 'URL 与伪静态', subtitle: '配置路由规则、Slug、历史 URL 和重定向', primaryAction: '新建重定向', entityName: 'URL 规则',
+    stats: [stat('重定向规则', '0', 'blue', 'link'), stat('301 重定向', '0', 'green', 'refresh'), stat('冲突', '—', 'red', 'alert'), stat('410 页面', '0', 'gray', 'file')],
+    filters: ['全部规则', '规范 URL', '301', '302', '410'],
+    columns: [{ key: 'name', label: '来源 URL' }, { key: 'target', label: '目标 URL' }, { key: 'site', label: '站点' }, { key: 'code', label: '状态码' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '更新时间' }],
+    rows: [],
+  },
+  media: {
+    title: '媒体中心', subtitle: '管理对象存储中的图片、文件、衍生尺寸和 Alt', primaryAction: '上传媒体', entityName: '媒体',
+    stats: [stat('媒体文件', '0', 'blue', 'image'), stat('存储用量', '0 B', 'cyan', 'layers'), stat('缺少 Alt', '0', 'amber', 'alert'), stat('被内容引用', '0', 'green', 'check')],
+    filters: ['全部媒体', '图片', '缺少 Alt'],
+    columns: [{ key: 'name', label: '文件名' }, { key: 'type', label: '类型' }, { key: 'size', label: '大小' }, { key: 'references', label: '引用次数' }, { key: 'status', label: 'Alt 状态' }, { key: 'updatedAt', label: '上传时间' }],
+    rows: [],
+  },
+  publishing: {
+    title: '发布管理', subtitle: '查看静态生成、缓存刷新、原子切换和回滚状态', primaryAction: '创建发布', entityName: '发布任务',
+    stats: [stat('发布记录', '0', 'blue', 'send'), stat('成功率', '—', 'green', 'check'), stat('发布失败', '0', 'red', 'alert'), stat('平均耗时', '—', 'cyan', 'clipboard')],
+    filters: ['全部发布', '排队中', '进行中', '已完成', '失败', '已回滚'],
+    columns: [{ key: 'name', label: '发布任务' }, { key: 'scope', label: '发布范围' }, { key: 'pages', label: '页面数' }, { key: 'duration', label: '耗时' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '开始时间' }],
+    rows: [],
+  },
+  jobs: {
+    title: '任务中心', subtitle: '发布记录已可用；统一异步任务队列正在开发', primaryAction: '查看发布记录', entityName: '任务',
+    stats: [stat('统一队列', '待接入', 'gray', 'refresh'), stat('重试', '待接入', 'gray', 'clipboard'), stat('死信', '待接入', 'gray', 'alert'), stat('发布记录', '已可用', 'green', 'check')],
+    filters: ['全部任务', '等待中', '运行中', '失败', '已完成'],
+    columns: [{ key: 'name', label: '任务' }, { key: 'queue', label: '队列' }, { key: 'progress', label: '进度' }, { key: 'attempts', label: '重试' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '更新时间' }],
+    rows: [],
+  },
+  users: {
+    title: '用户与权限', subtitle: '管理账号、角色、MFA 和站点语言访问权限', primaryAction: '创建用户', entityName: '用户',
+    stats: [stat('用户总数', '0', 'blue', 'users'), stat('已启用 MFA', '0', 'green', 'lock'), stat('已停用', '0', 'amber', 'alert'), stat('系统角色', '0', 'purple', 'users')],
+    filters: ['全部用户', '活跃', '待邀请', '已停用'],
+    columns: [{ key: 'name', label: '用户' }, { key: 'role', label: '角色' }, { key: 'scope', label: '权限范围' }, { key: 'mfa', label: 'MFA' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '最后登录' }],
+    rows: [],
+  },
+  audit: {
+    title: '审计日志', subtitle: '查询登录、安全、内容、媒体、权限与备份操作；记录只追加不可修改', primaryAction: '刷新日志', entityName: '审计记录',
+    stats: [stat('本页记录', '0', 'blue', 'clipboard'), stat('成功操作', '0', 'green', 'check'), stat('失败操作', '0', 'red', 'alert'), stat('不可变保护', '已启用', 'purple', 'lock')],
+    filters: ['全部记录', '成功', '失败', '安全事件'],
+    columns: [{ key: 'name', label: '操作' }, { key: 'actor', label: '操作人' }, { key: 'target', label: '对象' }, { key: 'ip', label: 'IP' }, { key: 'status', label: '结果' }, { key: 'updatedAt', label: '时间' }],
+    rows: [],
+  },
+  settings: {
+    title: '系统状态与备份', subtitle: '查看运行状态、SQLite 用量、进程资源和加密备份记录', primaryAction: '创建加密备份', entityName: '系统项目',
+    stats: [stat('服务状态', '读取中', 'blue', 'refresh'), stat('SQLite 数据', '—', 'cyan', 'layers'), stat('进程内存', '—', 'blue', 'clipboard'), stat('最近备份', '尚无', 'amber', 'lock')],
+    filters: ['全部项目', '运行状态', '备份记录'],
+    columns: [{ key: 'name', label: '项目' }, { key: 'description', label: '说明' }, { key: 'value', label: '当前值' }, { key: 'owner', label: '记录人' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '更新时间' }],
+    rows: [],
+  },
+}

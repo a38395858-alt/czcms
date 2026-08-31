@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>{{.Title}} · CZCMS</title>
+    <link rel="stylesheet" href="/assets/css/auth.css" />
+  </head>
+  <body>
+    <main class="auth-shell">
+      <section class="auth-context" aria-labelledby="context-title">
+        <a class="auth-brand" href="/">CZCMS</a>
+        <div>
+          <p class="context-label">安全管理入口</p>
+          <h1 id="context-title">管理全球内容，<br />从可信身份开始。</h1>
+          <p>会话采用短期安全 Cookie，关键操作受 CSRF、权限范围和审计日志保护。</p>
+        </div>
+        <ul class="security-points" aria-label="安全能力">
+          <li><span aria-hidden="true">✓</span>Argon2id 密码保护</li>
+          <li><span aria-hidden="true">✓</span>可选多因素认证</li>
+          <li><span aria-hidden="true">✓</span>站点与语言级权限</li>
+        </ul>
+      </section>
+
+      <section class="auth-form-wrap">
+        <div class="auth-form-panel">
+          <header>
+            <h2>{{.Heading}}</h2>
+            <p>{{.Description}}</p>
+          </header>
+          {{if .Error}}<div class="form-message error" role="alert"><span aria-hidden="true">!</span><p>{{.Error}}</p></div>{{end}}
+
+          {{if eq .Mode "setup"}}
+          <form method="post" action="/setup" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+            {{if .RequireSetupToken}}<label><span>安装令牌</span><input type="password" name="setup_token" required autocomplete="off" /><small>由服务器环境变量 CZCMS_SETUP_TOKEN 提供。</small></label>{{end}}
+            <label><span>管理员用户名</span><input name="username" required minlength="3" maxlength="64" pattern="[A-Za-z0-9][A-Za-z0-9._-]{2,63}" autocomplete="username" autocapitalize="none" spellcheck="false" value="{{.Username}}" /><small>用于登录，建议使用英文与数字。</small></label>
+            <label><span>显示名称</span><input name="display_name" required maxlength="100" autocomplete="name" value="{{.DisplayName}}" /></label>
+            <label><span>邮箱</span><input type="email" name="email" maxlength="254" autocomplete="email" value="{{.Email}}" /></label>
+            <label><span>初始密码</span><input type="password" name="password" required minlength="12" maxlength="1024" autocomplete="new-password" /><small>至少 12 个字符；支持密码管理器生成长随机密码。</small></label>
+            <label><span>再次输入密码</span><input type="password" name="password_confirm" required minlength="12" maxlength="1024" autocomplete="new-password" /></label>
+            <button type="submit">创建系统所有者</button>
+          </form>
+          {{else if eq .Mode "login"}}
+          <form method="post" action="/login" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+            <input type="hidden" name="next" value="{{.Next}}" />
+            <label><span>用户名</span><input name="username" required maxlength="64" autocomplete="username" autocapitalize="none" spellcheck="false" value="{{.Username}}" autofocus /></label>
+            <label><span>密码</span><input type="password" name="password" required maxlength="1024" autocomplete="current-password" /></label>
+            <label><span>验证码或恢复码 <em>已启用 MFA 时填写</em></span><input name="mfa_code" inputmode="numeric" maxlength="24" autocomplete="one-time-code" /></label>
+            <button type="submit">安全登录</button>
+          </form>
+          {{else if eq .Mode "mfa_start"}}
+          <div class="enrollment-details"><p>继续后系统将生成新的验证器密钥。准备好身份验证器应用，并在 10 分钟内完成绑定。</p></div>
+          <form method="post" action="/account/mfa/start" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+            <button type="submit">开始安全绑定</button>
+          </form>
+          {{else if eq .Mode "mfa"}}
+          <div class="enrollment-details">
+            <p>在验证器应用中添加下方密钥，然后输入当前 6 位验证码。密钥只在本次配置中显示。</p>
+            <code>{{.MFASecret}}</code>
+          </div>
+          <form method="post" action="/account/mfa" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+            <label><span>6 位验证码</span><input name="code" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" autofocus /></label>
+            <button type="submit">验证并启用 MFA</button>
+          </form>
+          {{else if eq .Mode "recovery"}}
+          <div class="recovery-codes">
+            <p>请立即保存这些恢复码。每个只能使用一次，关闭本页后不再显示。</p>
+            <ul>{{range .RecoveryCodes}}<li><code>{{.}}</code></li>{{end}}</ul>
+          </div>
+          <a class="primary-link" href="/admin">我已安全保存，返回后台</a>
+          {{end}}
+          <footer>若不是你本人在操作，请关闭页面并联系系统所有者。</footer>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+{{define "public.html"}}
+<!doctype html>
+<html lang="{{.Locale}}" dir="{{.Direction}}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{{.PageTitle}}</title>
+    <meta name="description" content="{{.MetaDescription}}">
+    <meta name="theme-color" content="{{.ThemeColor}}">
+    {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}"><link rel="apple-touch-icon" href="{{.FaviconURL}}">{{end}}
+    {{if .Preview}}<meta name="robots" content="noindex,nofollow">{{else if .RobotsIndex}}<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">{{else}}<meta name="robots" content="noindex,follow">{{end}}
+    {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}">{{end}}
+    {{range .Hreflangs}}{{if .URL}}<link rel="alternate" hreflang="{{.Locale}}" href="{{.URL}}">{{end}}{{end}}
+    <meta property="og:type" content="{{if and .HasContent (not .IsHome)}}article{{else}}website{{end}}">
+    <meta property="og:site_name" content="{{.SiteName}}">
+    <meta property="og:locale" content="{{.Locale}}">
+    <meta property="og:title" content="{{.OGTitle}}">
+    <meta property="og:description" content="{{.OGDescription}}">
+    {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}">{{end}}
+		{{if and .HasContent (not .IsHome)}}{{if .Content.PublishedAt}}<meta property="article:published_time" content="{{.Content.PublishedAt}}">{{end}}{{if .Content.UpdatedAt}}<meta property="article:modified_time" content="{{.Content.UpdatedAt}}">{{end}}{{range .Content.Tags}}<meta property="article:tag" content="{{.}}">{{end}}{{end}}
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="{{.OGTitle}}">
+		<meta name="twitter:description" content="{{.OGDescription}}">
+    <script type="application/ld+json">{{.StructuredData}}</script>
+    <link rel="stylesheet" href="/assets/css/public.css?v=20260827.3">
+	{{if eq .ThemeKey "atlas-commerce"}}<link rel="stylesheet" href="/assets/css/public-atlas.css?v=20260827.3">{{end}}
+  </head>
+  <body class="public-site theme-{{.ThemeKey}} language-{{.LanguageCode}} {{if .IsHome}}page-home{{else}}page-article{{end}}" data-theme-id="{{.ThemeID}}" data-theme-version="{{.ThemeVersion}}">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    {{if .Preview}}<div class="preview-bar" role="status">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.8 19h18.4L12 3Zm0 5v5m0 3.5v.5"/></svg>
+      <span>{{.Copy.PreviewNote}}</span><span class="sr-only">本地预览</span>
+    </div>{{end}}
+
+    <header class="site-header">
+      <div class="header-shell">
+        <a class="brand" href="{{.HomePath}}" aria-label="{{.SiteName}}">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="brand-copy"><strong>{{.SiteName}}</strong><small>Global Route Network</small></span>
+        </a>
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="{{.HomePath}}#services">{{.Copy.NavServices}}</a>
+          <a href="{{.HomePath}}#guides">{{.Copy.NavGuides}}</a>
+          <a href="{{.HomePath}}#about">{{.Copy.NavAbout}}</a>
+          <a href="{{.HomePath}}#contact">{{.Copy.NavContact}}</a>
+        </nav>
+        <details class="mobile-nav">
+          <summary aria-label="Navigation menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <span class="sr-only">Navigation</span>
+          </summary>
+          <nav class="mobile-nav-menu" aria-label="Mobile navigation">
+            <a href="{{.HomePath}}#services">{{.Copy.NavServices}}</a>
+            <a href="{{.HomePath}}#guides">{{.Copy.NavGuides}}</a>
+            <a href="{{.HomePath}}#about">{{.Copy.NavAbout}}</a>
+            <a href="{{.HomePath}}#contact">{{.Copy.NavContact}}</a>
+          </nav>
+        </details>
+        <details class="language-picker">
+          <summary aria-label="{{.Copy.SwitchLabel}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.5 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.5-4-9s1.4-6.5 4-9Z"/></svg>
+            <span>{{.LanguageName}}</span>
+            <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+          </summary>
+          <div class="language-menu">
+            <span class="language-label">{{.Copy.SwitchLabel}}</span>
+            {{range .Languages}}<a href="{{.URL}}" lang="{{.Locale}}" {{if eq .Locale $.Locale}}aria-current="page"{{end}}><span>{{.NativeName}}</span><small>{{.Locale}}</small></a>{{end}}
+          </div>
+        </details>
+        <a class="header-cta" href="{{.HomePath}}#contact">{{.Copy.NavContact}}</a>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <span class="sr-only">{{.SiteName}}已可以访问</span>
+      {{if .Maintenance}}
+      <section class="maintenance-state">
+        <span class="maintenance-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5-5l2.4 2.4-3.4 3.4-2.4-2.4a4 4 0 0 0 5 5l7.2 7.2a2.1 2.1 0 1 1-3 3l-7.2-7.2a4 4 0 0 0-5-5"/></svg></span>
+        <h1>{{.Copy.MaintenanceTitle}}</h1>
+        <p>{{.Copy.MaintenanceBody}}</p>
+      </section>
+      {{else if .NotFound}}
+      <section class="not-found-state">
+        <div class="not-found-code" aria-hidden="true">404</div>
+        <div><h1>{{.Copy.NotFoundTitle}}</h1><p>{{.Copy.NotFoundBody}}</p><a class="button button-dark" href="{{.HomePath}}">{{.Copy.NotFoundButton}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+      </section>
+      {{else if .IsHome}}
+      <section class="hero">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <p class="hero-kicker"><span></span>{{.Copy.HeroKicker}}</p>
+            <h1>{{.Copy.HeroTitle}}</h1>
+            <p class="hero-lead">{{.Copy.HeroBody}}</p>
+            <div class="hero-actions">
+              <a class="button button-light" href="#services">{{.Copy.HeroPrimary}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
+              <a class="button button-ghost" href="#guides">{{.Copy.HeroSecondary}}</a>
+            </div>
+          </div>
+          <div class="route-visual" aria-label="International logistics route illustration" role="img">
+            <svg viewBox="0 0 640 520" aria-hidden="true">
+              <defs>
+                <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0v42" fill="none" stroke="currentColor" stroke-opacity=".13"/></pattern>
+              </defs>
+              <rect class="grid" x="0" y="0" width="640" height="520" rx="4" fill="url(#grid)"/>
+              <path class="map" d="M87 155c42-44 97-49 134-30l36 42 51 5 40-46 57-13 58 28 60-3 68 37-19 47-57 5-18 54-45 10-45 67-73 18-45-35-43-1-41-38-71 4-40-55-59-23 29-52 72-8Z"/>
+              <path class="route route-a" d="M113 310C203 170 352 126 524 198"/>
+              <path class="route route-b" d="M126 316c125 51 250 35 351-34"/>
+              <circle class="node node-a" cx="113" cy="310" r="9"/><circle class="node node-b" cx="524" cy="198" r="9"/><circle class="node node-c" cx="477" cy="282" r="7"/>
+              <g class="plane" transform="translate(334 182) rotate(-15)"><path d="m0 11 17-5 10-27 8-2-5 26 18-5c5-1 8 1 9 4L31 14l-7 22-6 2 2-20-14 6-6-13Z"/></g>
+              <g class="cargo" transform="translate(70 353)"><rect x="0" y="0" width="176" height="85" rx="5"/><path d="M12 15h44v55H12m55-55h44v55H67m55-55h42v55h-42M0 70h176"/><circle cx="35" cy="90" r="12"/><circle cx="144" cy="90" r="12"/></g>
+              <g class="route-tag" transform="translate(402 78)"><rect width="174" height="54" rx="4"/><circle cx="24" cy="27" r="6"/><path d="M42 20h105M42 32h72"/></g>
+            </svg>
+            <div class="visual-caption"><span>{{.Copy.TrustLabel}}</span><strong>{{.Copy.TrustValue}}</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip" id="about" aria-label="{{.Copy.TrustLabel}}">
+        <div class="content-shell proof-inner">
+          <span>{{.Copy.TrustLabel}}</span>
+          <ul><li>Express</li><li>Air freight</li><li>Ocean freight</li><li>Customs</li><li>Last mile</li></ul>
+        </div>
+      </section>
+
+      <section class="services-section" id="services">
+        <div class="content-shell service-layout">
+          <div class="section-intro">
+            <p class="section-kicker">{{.Copy.ServicesKicker}}</p>
+            <h2>{{.Copy.ServicesTitle}}</h2>
+            <p>{{.Copy.ServicesBody}}</p>
+          </div>
+          <div class="service-list">
+            <article><span class="service-marker" aria-hidden="true"></span><div><h3>{{.Copy.Service1Title}}</h3><p>{{.Copy.Service1Body}}</p></div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></article>
+            <article><span class="service-marker" aria-hidden="true"></span><div><h3>{{.Copy.Service2Title}}</h3><p>{{.Copy.Service2Body}}</p></div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></article>
+            <article><span class="service-marker" aria-hidden="true"></span><div><h3>{{.Copy.Service3Title}}</h3><p>{{.Copy.Service3Body}}</p></div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="guides-section" id="guides">
+        <div class="content-shell">
+          <div class="guides-heading"><div><p class="section-kicker">{{.Copy.GuidesKicker}}</p><h2>{{.Copy.GuidesTitle}}</h2></div><p>{{.Copy.GuidesBody}}</p></div>
+          {{if .HasContent}}<div class="content-grid">
+            {{range .Published}}<article class="content-card">
+              <a class="content-card-link" href="{{.URL}}">
+                <div class="content-art" aria-hidden="true"><span>{{if .Category}}{{.Category}}{{else}}Route intelligence{{end}}</span><svg viewBox="0 0 260 130"><path d="M8 104C55 35 109 19 168 58s73 17 84-35"/><circle cx="8" cy="104" r="5"/><circle cx="252" cy="23" r="5"/></svg></div>
+                <div class="content-card-body"><div class="content-meta"><span>{{if .Category}}{{.Category}}{{else}}Guide{{end}}</span><time datetime="{{.UpdatedAt}}">{{.UpdatedAt}}</time></div><h3>{{.Title}}</h3><p>{{.Summary}}</p><strong>{{$.Copy.ReadMore}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></strong></div>
+              </a>
+            </article>{{end}}
+          </div>{{else}}<div class="empty-guides"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z"/></svg><p>{{.Copy.NoGuides}}</p></div>{{end}}
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <div class="content-shell contact-layout">
+          <div><p class="section-kicker">{{.Copy.ContactKicker}}</p><h2>{{.Copy.ContactTitle}}</h2></div>
+          <div><p>{{.Copy.ContactBody}}</p><a class="button button-dark" href="mailto:logistics@example.com">{{.Copy.ContactButton}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        </div>
+      </section>
+      {{else}}
+      <article class="article-page">
+        <header class="article-masthead">
+          <div class="content-shell article-heading-shell">
+            <nav class="article-breadcrumb" aria-label="Breadcrumb">
+              <a href="{{.HomePath}}">{{.SiteName}}</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+              <a href="{{.HomePath}}#guides">{{.Copy.NavGuides}}</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+              <span aria-current="page">{{if .Content.Category}}{{.Content.Category}}{{else}}{{.Copy.NavGuides}}{{end}}</span>
+            </nav>
+            <a class="article-back" href="{{.HomePath}}#guides"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m5 5-5-5 5-5"/></svg>{{.Copy.ArticleBack}}</a>
+            <div class="article-title-row">
+              <div>
+                <div class="article-meta"><span>{{if .Content.Category}}{{.Content.Category}}{{else}}{{.Copy.NavGuides}}{{end}}</span><span>{{.Copy.ArticleReading}} · {{.Content.ReadingMinutes}} {{.Copy.ArticleMinute}}</span></div>
+                <h1>{{.Content.H1}}</h1>
+                {{if .Content.Summary}}<p>{{.Content.Summary}}</p>{{end}}
+              </div>
+              <div class="article-route-mark" aria-hidden="true">
+                <svg viewBox="0 0 220 154"><path d="M12 121C48 46 104 38 147 75s55 25 61-50"/><circle cx="12" cy="121" r="6"/><circle cx="208" cy="25" r="6"/><path class="route-plane" d="m104 59 20-6 9-22 7-2-4 21 16-4c4-1 7 1 8 4l-23 9-6 18-5 2 1-16-12 4-11-8Z"/></svg>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="content-shell article-layout">
+          <div class="article-main-column">
+            <div class="article-body">{{.Content.Body}}</div>
+            <footer class="article-footer">
+              <a href="{{.HomePath}}#contact">{{.Copy.ContactButton}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
+            </footer>
+          </div>
+          <aside class="article-aside" aria-label="{{.Copy.ArticleReading}}">
+            <dl class="article-facts">
+              {{if .Content.PublishedAt}}<div><dt>{{.Copy.ArticlePublished}}</dt><dd><time datetime="{{.Content.PublishedAt}}">{{.Content.PublishedAt}}</time></dd></div>{{end}}
+              {{if .Content.UpdatedAt}}<div><dt>{{.Copy.ArticleUpdated}}</dt><dd><time datetime="{{.Content.UpdatedAt}}">{{.Content.UpdatedAt}}</time></dd></div>{{end}}
+              <div><dt>{{.Copy.ArticleReading}}</dt><dd>{{.Content.ReadingMinutes}} {{.Copy.ArticleMinute}}</dd></div>
+              <div><dt>{{.Copy.SwitchLabel}}</dt><dd>{{.LanguageName}}</dd></div>
+            </dl>
+            {{if .Content.Tags}}<div class="article-tags"><strong>{{.Copy.ArticleTags}}</strong><div>{{range .Content.Tags}}<span>{{.}}</span>{{end}}</div></div>{{end}}
+          </aside>
+        </div>
+        {{if .Related}}<section class="article-related" aria-labelledby="related-heading"><div class="content-shell"><div class="related-heading"><h2 id="related-heading">{{.Copy.ArticleRelated}}</h2><a href="{{.HomePath}}#guides">{{.Copy.ArticleBack}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div><div class="content-grid">{{range .Related}}<article class="content-card"><a class="content-card-link" href="{{.URL}}"><div class="content-art" aria-hidden="true"><span>{{if .Category}}{{.Category}}{{else}}Guide{{end}}</span><svg viewBox="0 0 260 130"><path d="M8 104C55 35 109 19 168 58s73 17 84-35"/><circle cx="8" cy="104" r="5"/><circle cx="252" cy="23" r="5"/></svg></div><div class="content-card-body"><div class="content-meta"><span>{{if .Category}}{{.Category}}{{else}}Guide{{end}}</span><time datetime="{{.UpdatedAt}}">{{.UpdatedAt}}</time></div><h3>{{.Title}}</h3><p>{{.Summary}}</p><strong>{{$.Copy.ReadMore}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></strong></div></a></article>{{end}}</div></div></section>{{end}}
+      </article>
+      {{end}}
+    </main>
+
+    <footer class="site-footer">
+      <div class="content-shell footer-main">
+        <a class="brand brand-footer" href="{{.HomePath}}"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-copy"><strong>{{.SiteName}}</strong><small>{{.MarketCode}}</small></span></a>
+        <p>{{.Copy.FooterNote}}</p>
+        <nav aria-label="Footer navigation"><a href="{{.HomePath}}#services">{{.Copy.NavServices}}</a><a href="{{.HomePath}}#guides">{{.Copy.NavGuides}}</a><a href="{{.HomePath}}#contact">{{.Copy.NavContact}}</a></nav>
+      </div>
+      <div class="content-shell footer-bottom"><span>© 2026 {{.SiteName}}</span><span>{{.LanguageName}} · {{.Locale}}</span></div>
+    </footer>
+  </body>
+</html>
+{{end}}

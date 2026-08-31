@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="white" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="csrf-token" content="{{.CSRFToken}}" />
+    <title>控制台 · CZCMS</title>
+    <link rel="stylesheet" href="/assets/css/admin.css?v=20260828.10" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <svg class="svg-sprite" aria-hidden="true">
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9Z"/></symbol>
+      <symbol id="i-languages" viewBox="0 0 24 24"><path d="M4 5h9M8.5 3v2M6 5c.6 3.2 2.4 5.4 5 7M11 5c-.7 3.8-3 6.8-7 8M13 20l4-9 4 9M14.6 17h4.8"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6Z"/><path d="M14 3v4h4M9 12h6M9 16h4"/></symbol>
+      <symbol id="i-template" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 3v18M8 9h13"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+      <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M12 3v4M8 12h.01M16 12h.01M8 16h8M2 12h2M20 12h2"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="m10 13 4-4M7.5 16.5l-1 1a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0M16.5 7.5l1-1a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0"/></symbol>
+      <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 20"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+      <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 9h6M9 13h6M9 17h4"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M16 4.5a4 4 0 0 1 0 7.5M18 14c2.5.7 4 3 4 7"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 10 3 3 3-3"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20Z"/><path d="M12 9v5M12 18h.01"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
+      <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5h16M7 12h10M10 19h4"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2 5.4M20 4v7h-7"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24"><path d="m4 16.5-.8 3.7 3.7-.8L18.5 7.8a2.1 2.1 0 0 0-3-3L4 16.5Z"/><path d="m13.8 6.2 4 4"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"/><circle cx="12" cy="12" r="2.4"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 3h4l1 4H9l1-4ZM6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+    </svg>
+
+    <header class="topbar">
+      <a href="#/admin" class="brand" aria-label="CZCMS 控制台首页">CZCMS</a>
+      <div class="topbar-context">
+        <button class="icon-button mobile-menu-button" id="mobile-menu-button" type="button" aria-label="打开主导航" aria-controls="sidebar" aria-expanded="false">
+          <svg class="icon"><use href="#i-menu" /></svg>
+        </button>
+        <div class="site-switcher-wrap">
+          <button class="site-switcher" id="site-switcher" type="button" aria-haspopup="menu" aria-expanded="false">
+            <span id="current-site">全球站</span>
+            <svg class="icon icon-sm"><use href="#i-chevron" /></svg>
+          </button>
+          <div class="popover site-menu" id="site-menu" role="menu" hidden><div class="popover-loading">正在读取站点…</div></div>
+        </div>
+      </div>
+
+      <div class="global-search-wrap">
+        <label class="global-search" for="global-search-input">
+          <svg class="icon icon-muted"><use href="#i-search" /></svg>
+          <input id="global-search-input" type="search" placeholder="搜索内容、URL或任务" autocomplete="off" />
+          <kbd>⌘ K</kbd>
+        </label>
+        <div class="search-results" id="search-results" role="listbox" hidden></div>
+      </div>
+
+      <div class="account-actions">
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notification-button" type="button" aria-label="通知，正在读取" aria-haspopup="true" aria-expanded="false">
+            <svg class="icon"><use href="#i-bell" /></svg><span class="notification-dot" hidden>0</span>
+          </button>
+          <div class="popover notification-menu" id="notification-menu" hidden>
+            <div class="popover-heading"><strong>待处理通知</strong><span>实时</span></div>
+            <div id="notification-items" class="notification-items"><span class="notification-empty">正在读取真实待办…</span></div>
+          </div>
+        </div>
+        <div class="account-wrap">
+          <button class="account-button" id="account-button" type="button" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-users" /></svg></span>
+            <span class="account-name">{{.DisplayName}}</span>
+            <svg class="icon icon-sm"><use href="#i-chevron" /></svg>
+          </button>
+          <div class="popover account-menu" id="account-menu" role="menu" hidden>
+            <div class="account-summary"><strong>{{.DisplayName}}</strong><span>{{.Username}}</span></div>
+            <a href="/account/mfa" role="menuitem">安全与 MFA</a>
+            <a href="#/admin/settings" role="menuitem">系统设置</a>
+            <form method="post" action="/logout"><input type="hidden" name="csrf_token" value="{{.CSRFToken}}" /><button role="menuitem" type="submit">退出登录</button></form>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-overlay" id="mobile-overlay" hidden></div>
+    <aside class="sidebar" id="sidebar" aria-label="主导航">
+      <nav class="primary-nav">
+        <a href="#/admin" data-route="dashboard"><svg class="icon"><use href="#i-home" /></svg><span>控制台</span></a>
+        <a href="#/admin/sites" data-route="sites"><svg class="icon"><use href="#i-globe" /></svg><span>站点管理</span></a>
+        <a href="#/admin/languages" data-route="languages"><svg class="icon"><use href="#i-languages" /></svg><span>语言管理</span></a>
+        <a href="#/admin/content" data-route="content"><svg class="icon"><use href="#i-file" /></svg><span>内容管理</span></a>
+        <div class="content-subnav" data-content-subnav aria-label="内容管理二级菜单">
+          <a href="#/admin/content?section=articles" data-content-section="articles">文章管理</a>
+          <a href="#/admin/content?section=pages" data-content-section="pages">单页面</a>
+          <a href="#/admin/taxonomy" data-content-section="taxonomy">栏目与标签</a>
+        </div>
+        <a href="#/admin/templates" data-route="templates"><svg class="icon"><use href="#i-template" /></svg><span>模板管理</span></a>
+        <a href="#/admin/seo" data-route="seo"><svg class="icon"><use href="#i-search" /></svg><span>SEO中心</span></a>
+        <div class="seo-subnav" data-seo-subnav aria-label="SEO 中心二级菜单">
+          <a href="#/admin/seo?section=sitemap" data-seo-section="sitemap">站点地图设置</a>
+          <a href="#/admin/seo?section=robots" data-seo-section="robots">robots 设置</a>
+        </div>
+        <a href="#/admin/localization" data-route="localization"><svg class="icon"><use href="#i-bot" /></svg><span>AI本土化</span></a>
+        <a href="#/admin/urls" data-route="urls"><svg class="icon"><use href="#i-link" /></svg><span>URL与伪静态</span><svg class="icon icon-sm nav-chevron"><use href="#i-chevron" /></svg></a>
+        <a href="#/admin/media" data-route="media"><svg class="icon"><use href="#i-image" /></svg><span>媒体中心</span><svg class="icon icon-sm nav-chevron"><use href="#i-chevron" /></svg></a>
+        <a href="#/admin/publishing" data-route="publishing"><svg class="icon"><use href="#i-send" /></svg><span>发布管理</span></a>
+        <a href="#/admin/jobs" data-route="jobs"><svg class="icon"><use href="#i-clipboard" /></svg><span>任务中心</span></a>
+        <a href="#/admin/users" data-route="users"><svg class="icon"><use href="#i-users" /></svg><span>用户与权限</span></a>
+        <a href="#/admin/audit" data-route="audit"><svg class="icon"><use href="#i-lock" /></svg><span>审计日志</span></a>
+        <a href="#/admin/settings" data-route="settings"><svg class="icon"><use href="#i-settings" /></svg><span>系统设置</span><svg class="icon icon-sm nav-chevron"><use href="#i-chevron" /></svg></a>
+        <div class="settings-subnav" data-settings-subnav aria-label="系统设置二级菜单">
+          <a href="#/admin/settings?section=status" data-settings-section="status">运行状态</a>
+          <a href="#/admin/settings?section=backups" data-settings-section="backups">备份与恢复</a>
+          <a href="#/admin/settings?section=ai" data-settings-section="ai">AI 配置</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main-content" id="main-content" tabindex="-1">
+      <section id="dashboard-view" aria-labelledby="dashboard-title">
+        <div class="page-heading">
+          <div>
+            <h1 id="dashboard-title">控制台</h1>
+            <p>掌握站点、内容与发布状态</p>
+          </div>
+          <button class="button button-primary" type="button" data-open-create="内容">
+            <svg class="icon icon-sm"><use href="#i-plus" /></svg>新建内容
+          </button>
+        </div>
+
+        <section class="stats-grid" aria-label="关键状态">
+          <article class="stat-card"><div><span>待审核</span><strong id="review-count">—</strong></div><span class="stat-icon tone-amber"><svg class="icon"><use href="#i-file" /></svg></span></article>
+          <article class="stat-card"><div><span>AI 本土化</span><strong id="localization-count">待接入</strong></div><span class="stat-icon tone-blue"><svg class="icon"><use href="#i-globe" /></svg></span></article>
+          <article class="stat-card"><div><span>发布失败</span><strong id="failure-count">—</strong></div><span class="stat-icon tone-red"><svg class="icon"><use href="#i-alert" /></svg></span></article>
+          <article class="stat-card"><div><span>缓存策略</span><strong id="cache-state">内存</strong></div><span class="stat-icon tone-green"><svg class="icon"><use href="#i-layers" /></svg></span></article>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="panel overview-panel" aria-labelledby="overview-title">
+            <header class="panel-header"><h2 id="overview-title">站点运行概览</h2></header>
+            <div class="table-scroll dashboard-site-table">
+              <table>
+                <thead><tr><th>站点</th><th>市场</th><th>本地地址</th><th>语言</th><th>域名解析</th><th>状态</th></tr></thead>
+                <tbody id="dashboard-site-body"><tr><td colspan="6"><div class="dashboard-loading">正在读取真实站点状态…</div></td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="panel action-panel" aria-labelledby="action-title">
+            <header class="panel-header"><h2 id="action-title">需要处理</h2></header>
+            <div class="action-list" id="action-list">
+              <article data-task="加载中"><span class="task-icon tone-solid-blue"><svg class="icon"><use href="#i-refresh" /></svg></span><strong>正在读取待处理事项…</strong></article>
+            </div>
+            <div class="action-empty" id="action-empty" hidden><svg class="icon"><use href="#i-check" /></svg><strong>待办已处理完</strong><span>目前没有需要立即处理的任务</span></div>
+          </aside>
+        </div>
+
+        <section class="panel recent-panel" aria-labelledby="recent-title">
+          <header class="panel-header"><h2 id="recent-title">最近内容</h2><a class="panel-link" href="#/admin/content">查看全部<svg class="icon icon-sm"><use href="#i-arrow" /></svg></a></header>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>内容</th><th>语言</th><th>站点</th><th>状态</th><th>发布时间</th><th class="action-column">操作</th></tr></thead>
+              <tbody id="recent-content-body">
+                <tr><td colspan="6"><div class="dashboard-loading">正在读取最近内容…</div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <footer class="system-strip" aria-label="系统服务状态">
+          <span id="dashboard-database"><svg class="icon"><use href="#i-refresh" /></svg>数据库读取中</span><span id="dashboard-runtime"><svg class="icon"><use href="#i-refresh" /></svg>运行状态读取中</span><span><svg class="icon"><use href="#i-alert" /></svg>任务队列待接入</span><span id="dashboard-backup"><svg class="icon"><use href="#i-lock" /></svg>备份记录读取中</span>
+        </footer>
+      </section>
+
+      <section id="module-view" hidden aria-live="polite"></section>
+      <section id="content-editor-view" class="content-page" hidden aria-live="polite"></section>
+    </main>
+
+    <dialog class="dialog" id="entity-dialog" aria-labelledby="entity-dialog-title">
+      <form method="dialog" id="entity-form">
+        <div class="dialog-header"><div><h2 id="entity-dialog-title">新建内容</h2><p id="entity-dialog-description">填写基本信息，保存后可继续完善详细配置。</p></div><button class="icon-button" type="submit" formnovalidate value="cancel" aria-label="关闭"><svg class="icon"><use href="#i-close" /></svg></button></div>
+        <div class="dialog-body" id="entity-fields"></div>
+        <div class="dialog-error" id="entity-dialog-error" role="alert" hidden></div>
+        <div class="dialog-footer"><button class="button button-danger dialog-delete" id="delete-entity-button" type="button" hidden>停用</button><button class="button button-secondary" id="add-locale-button" type="button" hidden>添加语言版本</button><button class="button button-secondary content-workflow-button" id="content-review-button" type="button" hidden>提交审核</button><button class="button button-secondary content-workflow-button" id="content-publish-button" type="button" hidden>立即发布</button><span class="dialog-footer-spacer"></span><button class="button button-secondary" type="submit" formnovalidate value="cancel">取消</button><button class="button button-primary" id="save-entity-button" value="default">保存</button></div>
+      </form>
+    </dialog>
+
+    <dialog class="dialog localization-dialog" id="localization-dialog" aria-labelledby="localization-dialog-title">
+      <form method="dialog" id="localization-form">
+        <div class="dialog-header"><div><h2 id="localization-dialog-title">AI 同步其他语言</h2><p id="localization-dialog-description">从已发布英语内容为所有已上线模板分站生成符合当地语境的待审核版本。</p></div><button class="icon-button" type="submit" formnovalidate value="cancel" aria-label="关闭 AI 本土化窗口"><svg class="icon"><use href="#i-close" /></svg></button></div>
+        <div class="dialog-body localization-dialog-body" id="localization-dialog-body"></div>
+        <div class="dialog-error" id="localization-dialog-error" role="alert" tabindex="-1" hidden></div>
+        <div class="dialog-footer"><span class="dialog-footer-spacer"></span><button class="button button-secondary" type="submit" formnovalidate value="cancel">取消</button><button class="button button-primary" id="start-localization-button" type="button">同步到已上线分站</button></div>
+      </form>
+    </dialog>
+
+    <dialog class="dialog ai-provider-dialog" id="ai-provider-dialog" aria-labelledby="ai-provider-dialog-title">
+      <form method="dialog" id="ai-provider-form">
+        <div class="dialog-header"><div><h2 id="ai-provider-dialog-title">新增 AI 配置</h2><p id="ai-provider-dialog-description">配置一个 OpenAI Chat Completions 兼容接口。远程服务必须使用 HTTPS。</p></div><button class="icon-button" type="submit" formnovalidate value="cancel" aria-label="关闭 AI 配置窗口"><svg class="icon"><use href="#i-close" /></svg></button></div>
+        <div class="dialog-body" id="ai-provider-fields"></div>
+        <div class="dialog-error" id="ai-provider-dialog-error" role="alert" tabindex="-1" hidden></div>
+        <div class="dialog-footer"><span class="dialog-footer-spacer"></span><button class="button button-secondary" type="submit" formnovalidate value="cancel">取消</button><button class="button button-primary" id="save-ai-provider-button" value="default">保存配置</button></div>
+      </form>
+    </dialog>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <script type="module" src="/assets/js/app.mjs?v=20260828.10"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+/var/
+/internal/app/var/
+/bin/
+/.tools/
+*.db
+*.db-shm
+*.db-wal
+*.exe
+coverage.out
+.DS_Store
+.env
+/var/secrets/

@@ -1,0 +1,91 @@
+.theme-atlas-commerce {
+  --ink: #122b2a;
+  --ink-soft: #365653;
+  --muted: #5c716f;
+  --line: #d5dfdc;
+  --line-dark: #b8cac5;
+  --surface: #ffffff;
+  --surface-soft: #f2f7f5;
+  --brand: #0f766e;
+  --brand-dark: #104d49;
+  --brand-light: #d9efeb;
+  --signal: #d59b42;
+  --focus: 0 0 0 3px rgba(15, 118, 110, .27);
+}
+
+.theme-atlas-commerce .preview-bar { background: #e5f4f1; border-color: #beded8; color: #165c57; }
+.theme-atlas-commerce .site-header { border-color: #244a47; background: rgba(14, 54, 51, .98); color: #fff; }
+.theme-atlas-commerce .brand-mark { background: #fff; }
+.theme-atlas-commerce .brand-mark i { background: var(--brand-dark); }
+.theme-atlas-commerce .brand-copy small,
+.theme-atlas-commerce .desktop-nav a,
+.theme-atlas-commerce .language-picker summary { color: #d6e8e5; }
+.theme-atlas-commerce .language-picker summary:hover { background: rgba(255, 255, 255, .08); }
+.theme-atlas-commerce .header-cta { border-color: #fff; background: #fff; color: var(--brand-dark); }
+.theme-atlas-commerce .header-cta:hover { border-color: #d9efeb; background: #d9efeb; }
+
+.theme-atlas-commerce .hero { background: #eef5f2; color: var(--ink); }
+.theme-atlas-commerce .hero::before { inset: 0 0 auto; width: auto; height: 7px; background: var(--signal); }
+.theme-atlas-commerce .hero-shell { min-height: 620px; grid-template-columns: minmax(0, 1.08fr) minmax(410px, .92fr); }
+.theme-atlas-commerce .hero-kicker { color: var(--brand-dark); }
+.theme-atlas-commerce .hero-kicker span { width: 10px; height: 10px; border-radius: 50%; background: var(--signal); }
+.theme-atlas-commerce .hero h1 { color: #0e3431; font-size: clamp(2.65rem, 5vw, 4.8rem); line-height: 1.04; }
+.theme-atlas-commerce .hero-lead { color: var(--ink-soft); }
+.theme-atlas-commerce .button-light { background: var(--brand); color: #fff; }
+.theme-atlas-commerce .button-light:hover { background: var(--brand-dark); }
+.theme-atlas-commerce .button-ghost { border-color: #769b96; color: var(--brand-dark); }
+.theme-atlas-commerce .button-ghost:hover { border-color: var(--brand); background: #e0efeb; }
+.theme-atlas-commerce .route-visual { padding: clamp(1rem, 3vw, 2rem); border: 1px solid #244f4a; background: #123e3b; color: #8fc7c0; }
+.theme-atlas-commerce .route-visual .map { fill: rgba(64, 164, 152, .16); stroke: rgba(210, 239, 234, .48); }
+.theme-atlas-commerce .route-visual .cargo rect { fill: #167c73; stroke: #b6ddd7; }
+.theme-atlas-commerce .route-visual .route-tag rect { fill: rgba(4, 38, 36, .9); }
+.theme-atlas-commerce .visual-caption { right: 1rem; bottom: 1rem; box-shadow: none; border: 1px solid #c8dad6; }
+
+.theme-atlas-commerce .proof-strip { border-color: #194f4a; background: var(--brand-dark); color: #fff; }
+.theme-atlas-commerce .proof-inner > span { border-color: rgba(255, 255, 255, .24); color: #fff; }
+.theme-atlas-commerce .proof-inner ul { color: #c5ddda; }
+.theme-atlas-commerce .proof-inner li::before { border-color: var(--signal); background: var(--signal); }
+
+.theme-atlas-commerce .services-section { background: #fff; }
+.theme-atlas-commerce .service-layout { grid-template-columns: 1fr; gap: 3rem; }
+.theme-atlas-commerce .section-intro { position: static; display: grid; grid-template-columns: minmax(240px, .7fr) minmax(0, 1.3fr); gap: clamp(2rem, 8vw, 7rem); align-items: end; }
+.theme-atlas-commerce .section-intro > p:last-child { margin: 0; }
+.theme-atlas-commerce .service-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line-dark); }
+.theme-atlas-commerce .service-list article { min-height: 250px; display: flex; flex-direction: column; gap: 1rem; padding: 2rem; border: 0; }
+.theme-atlas-commerce .service-list article + article { border-left: 1px solid var(--line-dark); }
+.theme-atlas-commerce .service-list article > svg { margin-top: auto; }
+.theme-atlas-commerce .service-marker { width: 34px; height: 6px; background: var(--signal); }
+
+.theme-atlas-commerce .guides-section { background: var(--surface-soft); }
+.theme-atlas-commerce .content-grid { gap: 1rem; border: 0; }
+.theme-atlas-commerce .content-card { border: 1px solid var(--line-dark); background: #fff; }
+.theme-atlas-commerce .content-card-link:hover { background: #f8fbfa; }
+.theme-atlas-commerce .content-art { background: #dfeeea; color: var(--brand); }
+.theme-atlas-commerce .content-art::before { border-color: rgba(15, 118, 110, .11); }
+.theme-atlas-commerce .contact-section { border-color: #163d3a; background: #174b47; color: #fff; }
+.theme-atlas-commerce .contact-layout h2 { color: #fff; }
+.theme-atlas-commerce .contact-layout > div > p { color: #d2e5e2; }
+.theme-atlas-commerce .contact-section .section-kicker { color: #f1bf6e; }
+.theme-atlas-commerce .contact-section .button-dark { background: #fff; color: var(--brand-dark); }
+.theme-atlas-commerce .site-footer { background: #0a2927; }
+.theme-atlas-commerce .article-page { background: #fff; }
+.theme-atlas-commerce .article-masthead { border-color: var(--line-dark); background: #f0f6f4; }
+.theme-atlas-commerce .article-route-mark { color: var(--brand); }
+.theme-atlas-commerce .article-aside { border-color: var(--line-dark); }
+.theme-atlas-commerce .article-tags span { background: #edf5f2; border-color: #c9d9d5; }
+.theme-atlas-commerce .article-body blockquote { background: #e3f0ed; border-color: #bfd6d1; }
+.theme-atlas-commerce .article-related { border-color: var(--line-dark); background: #f2f7f5; }
+
+@media (max-width: 780px) {
+  .theme-atlas-commerce .hero-shell { grid-template-columns: 1fr; }
+  .theme-atlas-commerce .section-intro { grid-template-columns: 1fr; gap: 1.2rem; }
+  .theme-atlas-commerce .service-list { grid-template-columns: 1fr; }
+  .theme-atlas-commerce .service-list article { min-height: 0; }
+  .theme-atlas-commerce .service-list article + article { border-left: 0; border-top: 1px solid var(--line-dark); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-atlas-commerce *,
+  .theme-atlas-commerce *::before,
+  .theme-atlas-commerce *::after { transition-duration: .01ms !important; }
+}

@@ -1,0 +1,315 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" fill="#192337">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", Arial, sans-serif; }
+      .muted { fill: #647188; }
+      .subtle { fill: #8691a4; }
+      .label { font-size: 13px; font-weight: 600; }
+      .body { font-size: 13px; }
+      .small { font-size: 11px; }
+      .nav { font-size: 14px; }
+      .title { font-size: 26px; font-weight: 700; letter-spacing: -.5px; }
+      .section-title { font-size: 14px; font-weight: 650; }
+      .stroke { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+    <clipPath id="editorClip"><rect x="254" y="344" width="848" height="240" rx="0"/></clipPath>
+  </defs>
+
+  <!-- App canvas -->
+  <rect width="1536" height="1024" fill="#f8fafc"/>
+  <rect width="1536" height="68" fill="#ffffff"/>
+  <line x1="0" y1="67.5" x2="1536" y2="67.5" stroke="#dce2ea"/>
+  <rect width="208" height="1024" fill="#ffffff"/>
+  <line x1="207.5" y1="0" x2="207.5" y2="1024" stroke="#dce2ea"/>
+
+  <!-- Brand and global toolbar -->
+  <text x="31" y="43" font-size="28" font-weight="750" fill="#1768f2">CZCMS</text>
+  <g transform="translate(233 22)">
+    <circle cx="12" cy="12" r="8.5" fill="none" stroke="#536178" stroke-width="1.6"/>
+    <path d="M5 12h14M12 3.5c3 3.1 3 13.9 0 17M12 3.5c-3 3.1-3 13.9 0 17" fill="none" stroke="#536178" stroke-width="1.3"/>
+    <text x="32" y="17" font-size="15" font-weight="600">全球站</text>
+    <path d="M91 10l5 5 5-5" fill="none" stroke="#647188" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(631 17)">
+    <rect width="386" height="36" rx="6" fill="#ffffff" stroke="#d7dee8"/>
+    <circle cx="18" cy="17" r="5.8" fill="none" stroke="#7b8799" stroke-width="1.6"/>
+    <line x1="22.4" y1="21.4" x2="27" y2="26" stroke="#7b8799" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="38" y="23" font-size="13" class="muted">搜索内容、URL 或任务</text>
+    <rect x="344" y="8" width="30" height="20" rx="4" fill="#f1f4f8"/>
+    <text x="350" y="22" class="small muted">⌘ K</text>
+  </g>
+  <g transform="translate(1320 22)" fill="none" stroke="#42506a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 18c2-2 2-4.2 2-8a6 6 0 0112 0c0 3.8 0 6 2 8H8z"/>
+    <path d="M14 21c.6 1.5 3.4 1.5 4 0"/>
+  </g>
+  <circle cx="1344" cy="24" r="6" fill="#e5484d" stroke="#fff" stroke-width="2"/>
+  <g transform="translate(1382 18)">
+    <circle cx="16" cy="16" r="16" fill="#1768f2"/>
+    <circle cx="16" cy="12" r="5" fill="#ffffff" opacity=".95"/>
+    <path d="M7 27c1.5-6 16.5-6 18 0" fill="#ffffff" opacity=".95"/>
+    <text x="42" y="21" font-size="14" font-weight="550">管理员</text>
+    <path d="M102 12l5 5 5-5" fill="none" stroke="#647188" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Sidebar navigation -->
+  <g>
+    <g transform="translate(14 86)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <path d="M18 22h15M20 17h11M23 12h5M22 26h7M24 30h3" fill="none" stroke="#7b8799" stroke-width="1.8" stroke-linecap="round"/>
+      <text x="49" y="28" class="nav">控制台</text>
+    </g>
+    <g transform="translate(14 132)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <rect x="19" y="14" width="14" height="16" rx="2" fill="none" stroke="#7b8799" stroke-width="1.6"/>
+      <path d="M23 19h6M23 24h6" stroke="#7b8799" stroke-width="1.5"/>
+      <text x="49" y="28" class="nav">站点管理</text>
+    </g>
+    <g transform="translate(14 178)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <circle cx="26" cy="22" r="8" fill="none" stroke="#7b8799" stroke-width="1.6"/>
+      <path d="M18 22h16M26 14c3 3 3 13 0 16M26 14c-3 3-3 13 0 16" fill="none" stroke="#7b8799" stroke-width="1.2"/>
+      <text x="49" y="28" class="nav">语言管理</text>
+    </g>
+    <g transform="translate(14 224)">
+      <rect width="180" height="44" rx="7" fill="#eaf2ff"/>
+      <rect width="4" height="44" rx="2" fill="#1768f2"/>
+      <path d="M20 15h12v14H20zM23 19h6M23 23h6M23 27h4" fill="none" stroke="#1768f2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="49" y="28" class="nav" fill="#1768f2" font-weight="650">内容管理</text>
+      <path d="M159 19l4 4 4-4" fill="none" stroke="#1768f2" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(14 268)">
+      <rect width="180" height="36" fill="#ffffff"/>
+      <circle cx="31" cy="18" r="3" fill="#1768f2"/>
+      <text x="49" y="23" font-size="13" class="muted">内容列表</text>
+    </g>
+    <g transform="translate(14 304)">
+      <rect x="18" width="162" height="36" rx="6" fill="#f4f7fb"/>
+      <circle cx="31" cy="18" r="3" fill="#1768f2"/>
+      <text x="49" y="23" font-size="13" fill="#1768f2" font-weight="600">新增内容</text>
+    </g>
+    <g transform="translate(14 346)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <path d="M19 15h14v14H19zM22 12h14v14" fill="none" stroke="#7b8799" stroke-width="1.6" stroke-linejoin="round"/>
+      <text x="49" y="28" class="nav">模板管理</text>
+    </g>
+    <g transform="translate(14 392)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <circle cx="25" cy="21" r="7" fill="none" stroke="#7b8799" stroke-width="1.7"/>
+      <line x1="30" y1="26" x2="35" y2="31" stroke="#7b8799" stroke-width="1.7" stroke-linecap="round"/>
+      <text x="49" y="28" class="nav">SEO 中心</text>
+    </g>
+    <g transform="translate(14 438)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <path d="M22 25l-2 2a4 4 0 005 6l4-4a4 4 0 000-6M30 19l2-2a4 4 0 016 5l-4 4a4 4 0 01-6 0M25 27l8-8" fill="none" stroke="#7b8799" stroke-width="1.7" stroke-linecap="round"/>
+      <text x="49" y="28" class="nav">URL 与伪静态</text>
+    </g>
+    <g transform="translate(14 484)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <rect x="19" y="14" width="15" height="15" rx="2" fill="none" stroke="#7b8799" stroke-width="1.6"/>
+      <circle cx="24" cy="19" r="2" fill="#7b8799"/>
+      <path d="M20 27l4-4 3 3 2-2 4 4" fill="none" stroke="#7b8799" stroke-width="1.4"/>
+      <text x="49" y="28" class="nav">媒体中心</text>
+    </g>
+    <g transform="translate(14 530)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <path d="M19 28l15-12-5 16-3-6-7 2z" fill="none" stroke="#7b8799" stroke-width="1.6" stroke-linejoin="round"/>
+      <text x="49" y="28" class="nav">发布管理</text>
+    </g>
+    <g transform="translate(14 576)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <rect x="19" y="14" width="15" height="16" rx="2" fill="none" stroke="#7b8799" stroke-width="1.6"/>
+      <path d="M23 12v4M30 12v4M22 21h9M22 25h6" fill="none" stroke="#7b8799" stroke-width="1.4" stroke-linecap="round"/>
+      <text x="49" y="28" class="nav">任务中心</text>
+    </g>
+    <g transform="translate(14 622)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <circle cx="25" cy="18" r="4" fill="none" stroke="#7b8799" stroke-width="1.6"/>
+      <path d="M18 31c1-7 13-7 14 0M31 17a4 4 0 010 7M34 31c0-3-1-5-4-6" fill="none" stroke="#7b8799" stroke-width="1.6" stroke-linecap="round"/>
+      <text x="49" y="28" class="nav">用户与权限</text>
+    </g>
+    <g transform="translate(14 668)">
+      <rect width="180" height="44" rx="7" fill="#ffffff"/>
+      <circle cx="26" cy="22" r="5" fill="none" stroke="#7b8799" stroke-width="1.6"/>
+      <path d="M26 12v3M26 29v3M16 22h3M33 22h3M19 15l2 2M31 27l2 2M33 15l-2 2M21 27l-2 2" stroke="#7b8799" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="49" y="28" class="nav">系统设置</text>
+    </g>
+  </g>
+
+  <!-- Page heading -->
+  <text x="232" y="92" class="small muted">内容管理  /  新增内容</text>
+  <text x="232" y="124" class="title">新增内容</text>
+  <text x="352" y="123" font-size="13" class="muted">为全球站创建并发布本地化内容</text>
+  <g transform="translate(1074 91)">
+    <rect width="88" height="38" rx="6" fill="#ffffff" stroke="#cdd6e2"/>
+    <text x="44" y="24" font-size="13" text-anchor="middle">保存草稿</text>
+  </g>
+  <g transform="translate(1172 91)">
+    <rect width="88" height="38" rx="6" fill="#ffffff" stroke="#cdd6e2"/>
+    <text x="44" y="24" font-size="13" text-anchor="middle">提交审核</text>
+  </g>
+  <g transform="translate(1270 91)">
+    <rect width="74" height="38" rx="6" fill="#ffffff" stroke="#cdd6e2"/>
+    <text x="37" y="24" font-size="13" text-anchor="middle">预览</text>
+  </g>
+  <g transform="translate(1354 91)">
+    <rect width="148" height="38" rx="6" fill="#1768f2"/>
+    <text x="74" y="24" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">立即发布</text>
+  </g>
+
+  <!-- Main editor panel -->
+  <rect x="232" y="145" width="890" height="508" rx="7" fill="#ffffff" stroke="#d9e0e9"/>
+  <text x="254" y="174" class="label">内容标题 <tspan fill="#e5484d">*</tspan></text>
+  <rect x="254" y="185" width="846" height="48" rx="6" fill="#ffffff" stroke="#bfc9d8"/>
+  <text x="270" y="216" font-size="17" font-weight="600">如何提升多语言独立站的 Google SEO 表现</text>
+  <text x="1060" y="216" class="small subtle">23 / 60</text>
+
+  <text x="254" y="258" class="label">URL / 伪静态路径</text>
+  <rect x="254" y="269" width="846" height="40" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+  <rect x="254" y="269" width="186" height="40" rx="6" fill="#f4f7fb"/>
+  <line x1="440" y1="269" x2="440" y2="309" stroke="#d2dae5"/>
+  <text x="268" y="294" class="body muted">https://example.com</text>
+  <text x="455" y="294" class="body">/zh-cn/guide/multilingual-website-google-seo</text>
+  <text x="1000" y="294" class="small" fill="#1768f2">自动生成</text>
+  <text x="1072" y="294" class="small" fill="#1768f2">编辑</text>
+
+  <!-- Editor toolbar -->
+  <rect x="254" y="328" width="846" height="256" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <rect x="254" y="328" width="846" height="46" rx="6" fill="#f6f8fb"/>
+  <line x1="254" y1="374" x2="1100" y2="374" stroke="#d7dee8"/>
+  <g font-size="12" text-anchor="middle">
+    <text x="274" y="356" class="muted">↶</text>
+    <text x="302" y="356" class="muted">↷</text>
+    <line x1="322" y1="338" x2="322" y2="364" stroke="#d7dee8"/>
+    <rect x="336" y="338" width="90" height="27" rx="4" fill="#ffffff" stroke="#d2dae5"/>
+    <text x="372" y="356" text-anchor="middle">正文</text>
+    <path d="M407 348l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.3"/>
+    <text x="448" y="357" font-weight="700">B</text>
+    <text x="478" y="357" font-style="italic">I</text>
+    <text x="508" y="357" text-decoration="underline">U</text>
+    <line x1="530" y1="338" x2="530" y2="364" stroke="#d7dee8"/>
+    <text x="552" y="357" font-weight="650">H1</text>
+    <text x="588" y="357" font-weight="650">H2</text>
+    <text x="624" y="357">¶</text>
+    <line x1="646" y1="338" x2="646" y2="364" stroke="#d7dee8"/>
+  </g>
+  <g fill="none" stroke="#536178" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M668 344h14M668 350h14M668 356h14"/>
+    <path d="M700 344h13M700 350h13M700 356h13"/>
+    <circle cx="730" cy="344" r="1.2" fill="#536178"/><circle cx="730" cy="350" r="1.2" fill="#536178"/><circle cx="730" cy="356" r="1.2" fill="#536178"/>
+    <path d="M736 344h10M736 350h10M736 356h10"/>
+    <path d="M766 353l-2 2a3 3 0 004 4l4-4a3 3 0 000-4M773 346l2-2a3 3 0 014 4l-4 4a3 3 0 01-4 0M769 354l7-7"/>
+    <rect x="798" y="342" width="16" height="15" rx="2"/><circle cx="803" cy="347" r="1.6" fill="#536178"/><path d="M799 355l4-4 3 3 2-2 5 4"/>
+    <path d="M837 342h17v15h-17zM837 347h17M843 342v15M849 342v15"/>
+    <path d="M875 345c3-4 8-4 11 0l-5 12h-12l6-12z"/>
+    <path d="M909 345h15M909 350h15M909 355h15"/>
+    <path d="M945 342h13v15h-13zM948 346l7 7M955 346l-7 7"/>
+  </g>
+  <text x="982" y="357" class="small muted">源码</text>
+  <text x="1026" y="357" class="small muted">全屏</text>
+  <line x1="1062" y1="338" x2="1062" y2="364" stroke="#d7dee8"/>
+  <text x="1080" y="357" class="small subtle" text-anchor="middle">⋯</text>
+
+  <!-- Editor body -->
+  <g clip-path="url(#editorClip)">
+    <text x="278" y="411" font-size="20" font-weight="700">从本地化搜索意图开始</text>
+    <text x="278" y="443" class="body">多语言 SEO 并不是逐句翻译。每个国家的用户会使用不同的表达、词序和购买意图，</text>
+    <text x="278" y="466" class="body">内容发布前应先分析当地搜索结果、关键词难度和物流服务范围。</text>
+    <rect x="278" y="486" width="798" height="54" rx="4" fill="#f3f7ff" stroke="#d6e5ff"/>
+    <circle cx="296" cy="513" r="8" fill="#1768f2"/>
+    <text x="296" y="517" text-anchor="middle" font-size="11" fill="#ffffff" font-weight="700">i</text>
+    <text x="314" y="509" class="body" font-weight="600">本土化建议</text>
+    <text x="314" y="528" class="small muted">使用 AI 改写时保留事实与品牌语气，同时重新生成标题、关键词和 Meta Description。</text>
+    <text x="278" y="567" class="body muted">输入 “/” 可快速插入图片、表格、引用、代码块或内容模板…</text>
+  </g>
+  <rect x="254" y="584" width="846" height="45" fill="#fafbfc"/>
+  <line x1="254" y1="584" x2="1100" y2="584" stroke="#d7dee8"/>
+  <text x="271" y="611" class="small muted">字数 386 · 阅读约 2 分钟</text>
+  <circle cx="930" cy="606" r="4" fill="#24a461"/>
+  <text x="940" y="611" class="small muted">草稿已自动保存 10:42:18</text>
+
+  <!-- SEO panel -->
+  <rect x="232" y="669" width="890" height="329" rx="7" fill="#ffffff" stroke="#d9e0e9"/>
+  <text x="254" y="699" class="section-title">Google SEO 设置</text>
+  <rect x="984" y="683" width="94" height="25" rx="13" fill="#e9f8ef"/>
+  <circle cx="999" cy="695" r="4" fill="#24a461"/>
+  <text x="1009" y="700" class="small" fill="#18794e">SEO 评分 92</text>
+  <text x="254" y="724" class="label">SEO 标题</text>
+  <rect x="254" y="735" width="412" height="40" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+  <text x="267" y="760" class="body">多语言网站 Google SEO 优化完整指南</text>
+  <text x="630" y="760" class="small subtle">24 / 60</text>
+  <text x="686" y="724" class="label">关键词</text>
+  <rect x="686" y="735" width="414" height="40" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+  <rect x="698" y="744" width="98" height="22" rx="11" fill="#eef4ff" stroke="#d4e2ff"/>
+  <text x="747" y="759" class="small" fill="#1768f2" text-anchor="middle">多语言 SEO ×</text>
+  <rect x="804" y="744" width="92" height="22" rx="11" fill="#eef4ff" stroke="#d4e2ff"/>
+  <text x="850" y="759" class="small" fill="#1768f2" text-anchor="middle">Google SEO ×</text>
+  <text x="910" y="759" class="small subtle">添加关键词…</text>
+  <text x="254" y="802" class="label">Meta Description</text>
+  <rect x="254" y="813" width="846" height="58" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+  <text x="267" y="837" class="body">从搜索意图、页面结构、hreflang 到本地化关键词，系统讲解多语言独立站的 Google SEO 优化方法。</text>
+  <text x="1045" y="857" class="small subtle">49 / 160</text>
+  <text x="254" y="896" class="label">搜索结果预览</text>
+  <rect x="254" y="907" width="846" height="72" rx="6" fill="#fbfcfe" stroke="#e1e6ed"/>
+  <text x="269" y="928" class="small" fill="#18794e">example.com › zh-cn › guide › multilingual-website-google-seo</text>
+  <text x="269" y="950" font-size="16" fill="#1a0dab">多语言网站 Google SEO 优化完整指南｜CZCMS</text>
+  <text x="269" y="969" class="small muted">从搜索意图、页面结构、hreflang 到本地化关键词，系统讲解多语言独立站的 Google SEO 优化方法。</text>
+
+  <!-- Publishing sidebar -->
+  <rect x="1142" y="145" width="360" height="853" rx="7" fill="#ffffff" stroke="#d9e0e9"/>
+  <g>
+    <text x="1164" y="176" class="section-title">发布设置</text>
+    <line x1="1142" y1="192" x2="1502" y2="192" stroke="#e0e5ec"/>
+    <text x="1164" y="219" class="body muted">状态</text><text x="1465" y="219" class="body" text-anchor="end">草稿</text><path d="M1478 211l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.4"/>
+    <text x="1164" y="253" class="body muted">可见性</text><text x="1465" y="253" class="body" text-anchor="end">公开</text><path d="M1478 245l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.4"/>
+    <text x="1164" y="287" class="body muted">发布时间</text><text x="1465" y="287" class="body" text-anchor="end">立即发布</text><path d="M1478 279l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.4"/>
+    <text x="1164" y="321" class="body muted">作者</text><text x="1484" y="321" class="body" text-anchor="end">管理员</text>
+    <rect x="1164" y="341" width="316" height="40" rx="6" fill="#1768f2"/>
+    <text x="1322" y="366" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">立即发布</text>
+    <line x1="1142" y1="400" x2="1502" y2="400" stroke="#e0e5ec"/>
+  </g>
+  <g>
+    <text x="1164" y="430" class="section-title">站点与语言</text>
+    <text x="1480" y="430" class="small" fill="#1768f2" text-anchor="end">AI 本地化设置</text>
+    <text x="1164" y="458" class="small muted">目标站点</text>
+    <rect x="1164" y="468" width="316" height="40" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+    <circle cx="1182" cy="488" r="5" fill="#24a461"/>
+    <text x="1195" y="493" class="body">全球站 · localhost:8081</text>
+    <path d="M1459 484l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.4"/>
+    <text x="1164" y="528" class="small muted">内容语言</text>
+    <rect x="1164" y="538" width="316" height="40" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+    <rect x="1177" y="547" width="24" height="22" rx="4" fill="#eaf2ff"/>
+    <text x="1189" y="562" class="small" fill="#1768f2" text-anchor="middle">简</text>
+    <text x="1211" y="563" class="body">中文（简体）</text>
+    <path d="M1459 554l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.4"/>
+    <rect x="1164" y="590" width="316" height="39" rx="5" fill="#f3f7ff"/>
+    <rect x="1176" y="596" width="28" height="27" rx="4" fill="#dbe8ff" stroke="#bfd4ff"/>
+    <circle cx="1184" cy="603" r="2.5" fill="#1768f2"/>
+    <path d="M1179 619l6-7 5 5 4-4 7 6" fill="none" stroke="#1768f2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1214" y="606" class="small muted">封面图</text>
+    <text x="1214" y="620" class="small">未上传 · 建议 1200 × 630 WebP</text>
+    <line x1="1142" y1="648" x2="1502" y2="648" stroke="#e0e5ec"/>
+  </g>
+  <g>
+    <text x="1164" y="678" class="section-title">栏目、标签与模板</text>
+    <text x="1164" y="705" class="small muted">栏目</text>
+    <rect x="1164" y="714" width="316" height="38" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+    <text x="1177" y="738" class="body">SEO 指南</text><path d="M1459 728l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.4"/>
+    <text x="1164" y="777" class="small muted">标签</text>
+    <rect x="1164" y="786" width="316" height="44" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+    <rect x="1175" y="797" width="84" height="22" rx="11" fill="#f1f4f8"/>
+    <text x="1217" y="812" class="small" text-anchor="middle">独立站 SEO ×</text>
+    <text x="1272" y="812" class="small subtle">输入并回车添加…</text>
+    <text x="1164" y="854" class="small muted">页面模板</text>
+    <rect x="1164" y="863" width="316" height="38" rx="6" fill="#ffffff" stroke="#d2dae5"/>
+    <text x="1177" y="887" class="body">文章详情 · 中文模板</text><path d="M1459 877l4 4 4-4" fill="none" stroke="#647188" stroke-width="1.4"/>
+    <line x1="1142" y1="921" x2="1502" y2="921" stroke="#e0e5ec"/>
+  </g>
+  <g>
+    <text x="1164" y="950" class="section-title">发布前检查</text>
+    <circle cx="1170" cy="974" r="5" fill="#24a461"/><text x="1182" y="978" class="small">标题、URL 与 SEO 已完成</text>
+    <circle cx="1370" cy="974" r="5" fill="#f0a020"/><text x="1382" y="978" class="small">待上传封面图</text>
+  </g>
+
+  <!-- Bottom viewport boundary -->
+  <rect x="0" y="1018" width="1536" height="6" fill="#f8fafc"/>
+</svg>
