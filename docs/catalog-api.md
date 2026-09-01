@@ -66,16 +66,16 @@
 - 后台兼容预览入口也可访问 `/preview/{siteCode}/sitemap.xml`、`/preview/{siteCode}/robots.txt`，用于排查机器文件；预览响应同样输出 `noindex, nofollow`。
 - 正式绑定域名后，Host 路由自动在对应域名提供两份文件，例如 `https://www.example.com/sitemap.xml`。生产 robots 自动屏蔽后台、API、登录、预览和账户路径，并声明本站 Sitemap。
 - Sitemap 只包含：已发布、到达计划发布时间、`robots_index=true`、未删除、已启用语言且已绑定可渲染模板的内容，以及可渲染语言首页。草稿、审核、归档、未来定时内容、禁用语言或模板不可渲染的内容不会进入。
-- `content_type=page` 为单页面类型，系统强制输出 `<meta name="robots" content="noindex,follow">` 和 `X-Robots-Tag: noindex, follow`，并从 Sitemap 排除。不要把这类页面写入 `robots.txt Disallow`，否则搜索引擎无法抓取并读取 `noindex`。
+- `content_type=page` 为单页面类型，新建时默认输出 `<meta name="robots" content="noindex,follow">` 和 `X-Robots-Tag: noindex, follow`，并从 Sitemap 排除。后台可将企业介绍、服务或专题页的 `index_policy` 显式改为 `index`，此时页面会进入 Sitemap。不要把任何页面写入 `robots.txt Disallow` 来代替 noindex，否则搜索引擎无法抓取并读取页面 robots 指令。
 - robots 规则随站点状态、运行环境和域名绑定动态生成；后台只展示策略、测试入口和正式入口，不提供上传或覆盖 robots.txt 的假编辑器。需要改变策略时，应修改后端规则并经测试后发布。
 
 ### 2.2 单页面管理
 
 - 后台内容管理拆分为 `#/admin/content?section=articles`（文章管理）与 `#/admin/content?section=pages`（单页面）；后者只请求并展示 `content_type=page` 的真实内容数据，前者使用 `content_type=non_page` 保留文章、产品、栏目与落地页等其他内容类型。
 - 单页面是内容实例，不是模板文件。每个页面有独立标题、Slug、站点、Locale、正文、封面、SEO 与修订历史，可照常保存、审核、发布、预览和批量删除。
-- 新建单页面使用 `#/admin/content?section=pages&editor=create&content_type=page`，提供“关于我们、联系我们、专题页面、服务页面、自定义页面”预设。预设仅帮助填充标题、路径和栏目，最终仍需编辑并保存真实内容。
+- 新建单页面使用 `#/admin/content?section=pages&editor=create&content_type=page`，提供“关于我们、联系我们、专题页面、服务页面、自定义页面”模板。模板会填充标题、路径、栏目、页面布局和 `template_key`，最终仍需编辑并保存真实内容；联系我们模板保存时由服务端自动创建并绑定标准询盘表单。
 - 模板管理中 `pages/page.html` 的“管理页面 / 新建页面”入口与以上页面共用同一数据模型；`pages/page.html` 决定页面外观，页面内容由内容管理保存。
-- 单页面即使请求内提交 `robots_index=true` 也会由前端和服务端策略固定为 `noindex,follow`；其 JSON-LD 默认可使用 `WebPage`，不会进入站点地图。
+- 单页面的收录状态由 `index_policy` 统一控制：空值默认 `noindex`，`index` 会同步写入 `robots_index=true` 并在发布后进入站点地图。其 JSON-LD 默认可使用 `WebPage`。
 
 ## 3. 内容写入示例
 

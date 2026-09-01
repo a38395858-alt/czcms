@@ -381,6 +381,7 @@ func scanAIProvider(row rowScanner) (aiProvider, error) {
 		return aiProvider{}, err
 	}
 	item.Enabled = enabled == 1
+	item.DefaultModel = normalizeAIModelForProvider(item.BaseURL, item.DefaultModel)
 	item.apiKeyEncrypted = encrypted
 	item.APIKeyConfigured = len(encrypted) > 0
 	if tested.Valid {
@@ -439,6 +440,7 @@ func validateAIProviderInput(input *aiProviderInput, effectiveAPIKey string) err
 	if input.ProviderType == "" {
 		input.ProviderType = "openai_compatible"
 	}
+	input.DefaultModel = normalizeAIModelForProvider(input.BaseURL, input.DefaultModel)
 	if utf8.RuneCountInString(input.Name) < 2 || utf8.RuneCountInString(input.Name) > 100 {
 		return errors.New("配置名称必须为 2 到 100 个字符")
 	}
@@ -449,7 +451,7 @@ func validateAIProviderInput(input *aiProviderInput, effectiveAPIKey string) err
 		return errors.New("默认模型不能为空且不能超过 200 个字符")
 	}
 	if input.TimeoutSeconds == 0 {
-		input.TimeoutSeconds = 20
+		input.TimeoutSeconds = 120
 	}
 	if input.TimeoutSeconds < 1 || input.TimeoutSeconds > 120 {
 		return errors.New("请求超时必须为 1 到 120 秒")
@@ -466,6 +468,25 @@ func validateAIProviderInput(input *aiProviderInput, effectiveAPIKey string) err
 	}
 	_ = parsed
 	return nil
+}
+
+// normalizeAIModelForProvider accepts the display names commonly copied from
+// provider dashboards while sending the exact model IDs expected by the API.
+// The normalization is intentionally scoped to DeepSeek so custom providers
+// remain completely user-controlled.
+func normalizeAIModelForProvider(baseURL, model string) string {
+	model = strings.TrimSpace(model)
+	parsed, err := url.Parse(strings.TrimSpace(baseURL))
+	if err != nil || !strings.EqualFold(parsed.Hostname(), "api.deepseek.com") {
+		return model
+	}
+	switch strings.ToLower(model) {
+	case "deepseek-v4-flash", "deepseek-v4-flash-0731":
+		return "deepseek-v4-flash"
+	case "deepseek-v4-pro", "deepseek-v4-pro-0813":
+		return "deepseek-v4-pro"
+	}
+	return model
 }
 
 func validateAIBaseURL(value string) (*url.URL, bool, error) {
@@ -592,6 +613,7 @@ func (s *server) seoAssistantFromProvider(item aiProvider, modelOverride string)
 	if model == "" {
 		model = item.DefaultModel
 	}
+	model = normalizeAIModelForProvider(item.BaseURL, model)
 	return NewOpenAICompatibleSEOAssistant(OpenAICompatibleSEOConfig{BaseURL: item.BaseURL, APIKey: apiKey, Model: model, Timeout: time.Duration(item.TimeoutSeconds) * time.Second})
 }
 
@@ -604,6 +626,7 @@ func (s *server) localizationAssistantFromProvider(item aiProvider, modelOverrid
 	if model == "" {
 		model = item.DefaultModel
 	}
+	model = normalizeAIModelForProvider(item.BaseURL, model)
 	return NewOpenAICompatibleLocalizationAssistant(OpenAICompatibleSEOConfig{BaseURL: item.BaseURL, APIKey: apiKey, Model: model, Timeout: time.Duration(item.TimeoutSeconds) * time.Second})
 }
 

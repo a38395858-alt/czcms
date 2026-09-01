@@ -376,9 +376,12 @@ func (s *server) localizeContent(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		input := catalog.CreateContentInput{
-			ContentType: source.ContentType, SiteID: item.config.SiteID, Locale: item.config.Locale, Status: "review",
+			// AI output is a working draft, never a submitted-for-review item or
+			// an automatic publication. Editors choose when it is ready to enter
+			// the normal review workflow after checking the local language and SEO.
+			ContentType: source.ContentType, SiteID: item.config.SiteID, Locale: item.config.Locale, Status: "draft",
 			Title: normalized.Title, Slug: normalized.Slug, Category: normalized.Category, Tags: normalized.Tags,
-			TemplateKey: source.TemplateKey, CoverMediaID: source.CoverMediaID, Summary: normalized.Summary, BodyHTML: normalized.BodyHTML,
+			TemplateKey: source.TemplateKey, PageLayout: source.PageLayout, IndexPolicy: source.IndexPolicy, CoverMediaID: source.CoverMediaID, Summary: normalized.Summary, BodyHTML: normalized.BodyHTML,
 			AIState: "pending", RevisionAction: "ai_localized",
 			SEO: &catalog.SEOInput{H1: normalized.H1, Title: normalized.SEOTitle, MetaDescription: normalized.MetaDescription, PrimaryKeyword: normalized.PrimaryKeyword, SecondaryKeywords: normalized.SecondaryKeywords, RobotsIndex: true, OGTitle: normalized.OGTitle, OGDescription: normalized.OGDescription, StructuredData: normalized.StructuredData},
 		}
@@ -393,7 +396,7 @@ func (s *server) localizeContent(w http.ResponseWriter, r *http.Request) {
 			s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "content.ai_localization_save_failed", TargetType: "content", TargetID: strconv.FormatInt(contentID, 10), Success: false, Metadata: map[string]any{"job_id": jobID, "site_id": item.config.SiteID, "locale": item.config.Locale, "reason": createErr.Error()}})
 			continue
 		}
-		result.Status, result.Message, result.ContentLocaleID = "created", "AI 已生成待审核版本", created.ID
+		result.Status, result.Message, result.ContentLocaleID = "created", "AI 已生成草稿，等待人工审核", created.ID
 		results = append(results, result)
 		s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "content.ai_localized", TargetType: "content_locale", TargetID: strconv.FormatInt(created.ID, 10), Success: true, Metadata: map[string]any{"job_id": jobID, "content_id": contentID, "source_site_id": source.SiteID, "source_locale": source.Locale, "site_id": created.SiteID, "locale": created.Locale, "status": created.Status, "ai_state": created.AIState}})
 	}

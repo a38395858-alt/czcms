@@ -24,6 +24,7 @@
     <script type="application/ld+json">{{.StructuredData}}</script>
     <link rel="stylesheet" href="/assets/css/public.css?v=20260827.3">
 	{{if eq .ThemeKey "atlas-commerce"}}<link rel="stylesheet" href="/assets/css/public-atlas.css?v=20260827.3">{{end}}
+	{{if .ThemeID}}<link rel="stylesheet" href="/theme-assets/{{.ThemeID}}/theme_css"><link rel="stylesheet" href="/theme-assets/{{.ThemeID}}/page_css">{{if eq .Content.PageLayout "contact"}}<link rel="stylesheet" href="/theme-assets/{{.ThemeID}}/contact_css">{{end}}{{end}}
   </head>
   <body class="public-site theme-{{.ThemeKey}} language-{{.LanguageCode}} {{if .IsHome}}page-home{{else}}page-article{{end}}" data-theme-id="{{.ThemeID}}" data-theme-version="{{.ThemeVersion}}">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -182,6 +183,21 @@
         <div class="content-shell article-layout">
           <div class="article-main-column">
             <div class="article-body">{{.Content.Body}}</div>
+            {{if .Form}}<section class="public-form-section" aria-labelledby="public-form-heading">
+              <h2 id="public-form-heading">{{.Copy.ContactTitle}}</h2>
+              <form class="public-form" data-public-form method="post" action="{{.Form.Action}}" accept-charset="UTF-8">
+                <input type="hidden" name="form_token" value="{{.Form.CSRFToken}}">
+                <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot-field">
+                {{range .Form.Fields}}<label>{{.Label}}{{if .Required}}<span aria-hidden="true"> *</span>{{end}}
+                  {{if eq .Type "textarea"}}<textarea name="{{.Key}}" placeholder="{{.Placeholder}}" {{if .Required}}required{{end}}></textarea>
+                  {{else if eq .Type "select"}}<select name="{{.Key}}" {{if .Required}}required{{end}}><option value="">—</option>{{range .Options}}<option value="{{.}}">{{.}}</option>{{end}}</select>
+                  {{else if eq .Type "checkbox"}}<input type="checkbox" name="{{.Key}}" value="1" {{if .Required}}required{{end}}>
+                  {{else}}<input type="{{if eq .Type "email"}}email{{else if eq .Type "tel"}}tel{{else}}text{{end}}" name="{{.Key}}" placeholder="{{.Placeholder}}" {{if .Required}}required{{end}}>{{end}}
+                  {{if .HelpText}}<small>{{.HelpText}}</small>{{end}}
+                </label>{{end}}
+                <button class="button button-dark" type="submit">{{if .Form.SubmitLabel}}{{.Form.SubmitLabel}}{{else}}{{.Copy.ContactButton}}{{end}}</button>
+              </form>
+            </section>{{end}}
             <footer class="article-footer">
               <a href="{{.HomePath}}#contact">{{.Copy.ContactButton}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
             </footer>
@@ -210,5 +226,6 @@
       <div class="content-shell footer-bottom"><span>© 2026 {{.SiteName}}</span><span>{{.LanguageName}} · {{.Locale}}</span></div>
     </footer>
   </body>
+	{{if .ThemeID}}<script src="/theme-assets/{{.ThemeID}}/theme_js" defer></script>{{if eq .Content.PageLayout "contact"}}<script src="/theme-assets/{{.ThemeID}}/contact_js" defer></script>{{end}}{{end}}
 </html>
 {{end}}

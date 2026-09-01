@@ -177,8 +177,25 @@ type publicContentData struct {
 	PublishedAt     string
 	Status          string
 	ReadingMinutes  int
+	PageLayout      string
 	Tags            []string
 	Body            template.HTML
+}
+
+type publicFormField struct {
+	Key, Type, Label, Placeholder, HelpText string
+	Options                                 []string
+	Required                                bool
+}
+
+type publicFormData struct {
+	ID             int64
+	Key            string
+	Action         string
+	SubmitLabel    string
+	SuccessMessage string
+	CSRFToken      string
+	Fields         []publicFormField
 }
 
 type publicSitePageData struct {
@@ -216,6 +233,7 @@ type publicSitePageData struct {
 	ThemeKey        string
 	ThemeColor      string
 	FaviconURL      string
+	Form            *publicFormData
 }
 
 func New(deps Dependencies) http.Handler {
@@ -230,7 +248,7 @@ func New(deps Dependencies) http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Recoverer)
-	r.Use(middleware.Timeout(30 * time.Second))
+	r.Use(s.requestTimeout)
 	r.Use(s.securityHeaders)
 	r.Use(s.accessLog)
 
@@ -241,6 +259,7 @@ func New(deps Dependencies) http.Handler {
 	r.Get("/preview/{siteCode}/robots.txt", s.siteRobotsPreview)
 	r.Get("/preview/{siteCode}", s.sitePreview)
 	r.Get("/preview/{siteCode}/*", s.sitePreview)
+	r.Post("/preview/{siteCode}/forms/{formKey}/submit", s.submitPublicForm)
 	r.Get("/setup", s.setupPage)
 	r.Post("/setup", s.setupSubmit)
 	r.Get("/login", s.loginPage)
@@ -282,10 +301,19 @@ func New(deps Dependencies) http.Handler {
 			api.With(s.requirePermission("content.read"), s.requirePermission("seo.manage")).Get("/contents/{contentID}/localization-options", s.contentLocalizationOptions)
 			api.With(s.requirePermission("content.write"), s.requirePermission("seo.manage"), s.requireCSRF).Post("/contents/{contentID}/localize", s.localizeContent)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/contents/bulk-update", s.bulkUpdateContentLocales)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/contents/bulk-delete", s.bulkDeleteContents)
 			api.With(s.requirePermission("content.read")).Get("/contents/{contentID}/locales/{locale}", s.getContentLocale)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Put("/contents/{contentID}/locales/{locale}", s.updateContentLocale)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Delete("/contents/{contentID}", s.deleteContent)
 			api.With(s.requirePermission("content.read")).Get("/contents/{contentID}/revisions", s.listContentRevisions)
+			api.With(s.requirePermission("content.read")).Get("/forms", s.listForms)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/forms", s.createForm)
+			api.With(s.requirePermission("content.read")).Get("/forms/submissions", s.listFormSubmissions)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Put("/forms/submissions/{submissionID}", s.updateFormSubmissionStatus)
+			api.With(s.requirePermission("content.read")).Get("/forms/{formID}", s.getForm)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Put("/forms/{formID}", s.updateForm)
+			api.With(s.requirePermission("content.read")).Get("/content-locales/{contentLocaleID}/form", s.getPageForm)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Put("/content-locales/{contentLocaleID}/form", s.bindPageForm)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/contents/{contentID}/revisions/{revisionID}/restore", s.restoreContentRevision)
 			api.With(s.requirePermission("content.read")).Get("/taxonomy/terms", s.listTaxonomyTerms)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/taxonomy/terms", s.createTaxonomyTerm)
@@ -297,8 +325,11 @@ func New(deps Dependencies) http.Handler {
 			api.With(s.requirePermission("publishing.manage"), s.requireCSRF).Delete("/urls/redirects/{redirectID}", s.deleteURLRedirect)
 			api.With(s.requirePermission("templates.manage")).Get("/templates", s.listThemePackages)
 			api.With(s.requirePermission("templates.manage")).Get("/templates/{themeID}/files", s.listThemeFiles)
+			api.With(s.requirePermission("templates.manage")).Get("/templates/{themeID}/assets", s.listThemeAssets)
 			api.With(s.requirePermission("templates.manage"), s.requireCSRF).Post("/templates/{themeID}/files/{fileKey}/validate", s.validateThemeFile)
 			api.With(s.requirePermission("templates.manage"), s.requireCSRF).Put("/templates/{themeID}/files/{fileKey}", s.updateThemeFile)
+			api.With(s.requirePermission("templates.manage"), s.requireCSRF).Post("/templates/{themeID}/assets/{assetKey}/validate", s.validateThemeAsset)
+			api.With(s.requirePermission("templates.manage"), s.requireCSRF).Put("/templates/{themeID}/assets/{assetKey}", s.updateThemeAsset)
 			api.With(s.requirePermission("publishing.manage")).Get("/publishing/releases", s.listPublishingReleases)
 			api.With(s.requirePermission("publishing.manage"), s.requireCSRF).Post("/publishing/releases", s.createPublishingRelease)
 			api.With(s.requireCSRF).Post("/auth/mfa/disable", s.mfaDisable)
@@ -333,11 +364,37 @@ func New(deps Dependencies) http.Handler {
 	// the authenticated admin group so published pages can reference it.
 	r.Get("/media/{mediaID}/{token}", s.mediaServe)
 	r.Head("/media/{mediaID}/{token}", s.mediaServe)
+	r.Get("/theme-assets/{themeID}/{assetKey}", s.serveThemeAsset)
+	r.Post("/forms/{formKey}/submit", s.submitPublicForm)
 	// Host-routed public pages (for example https://example.com/en/guides/..)
 	// are handled last. Reserved application paths are rejected by
 	// publicCatchAll even if a future router change makes this wildcard win.
 	r.Get("/*", s.publicCatchAll)
 	return r
+}
+
+// requestTimeout keeps ordinary HTTP requests bounded tightly while allowing a
+// full AI localization run to use the provider's configured 120-second limit.
+// The extra headroom covers response validation, sanitizing and transactional
+// persistence after the upstream model has completed.
+func (s *server) requestTimeout(next http.Handler) http.Handler {
+	standard := middleware.Timeout(30 * time.Second)(next)
+	localization := middleware.Timeout(130 * time.Second)(next)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if isLocalizationRequest(r) {
+			localization.ServeHTTP(w, r)
+			return
+		}
+		standard.ServeHTTP(w, r)
+	})
+}
+
+func isLocalizationRequest(r *http.Request) bool {
+	if r.Method != http.MethodPost {
+		return false
+	}
+	parts := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
+	return len(parts) == 5 && parts[0] == "api" && parts[1] == "v1" && parts[2] == "contents" && parts[3] != "" && parts[4] == "localize"
 }
 
 func (s *server) root(w http.ResponseWriter, r *http.Request) {
@@ -664,6 +721,15 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 			data.CanonicalURL = content.CanonicalURL
 		}
 		s.applyPublicContentPage(r, &data, site, content)
+		if content.ContentType == "page" && content.PageLayout == "contact" {
+			if form, formErr := s.Catalog.GetPageForm(r.Context(), content.ID); formErr == nil && form.Status == "active" {
+				publicForm := &publicFormData{ID: form.ID, Key: form.Key, Action: strings.TrimSuffix(data.BasePath, "/") + "/forms/" + url.PathEscape(form.Key) + "/submit", SubmitLabel: form.SubmitLabel, SuccessMessage: form.SuccessMessage, CSRFToken: publicFormToken(s, form.ID, site.ID)}
+				for _, field := range form.Fields {
+					publicForm.Fields = append(publicForm.Fields, publicFormField{Key: field.Key, Type: field.Type, Label: field.Label, Placeholder: field.Placeholder, HelpText: field.HelpText, Options: field.Options, Required: field.Required})
+				}
+				data.Form = publicForm
+			}
+		}
 		alternates, alternateErr := s.Catalog.PublishedContentAlternates(r.Context(), content.ContentID)
 		if alternateErr != nil {
 			return publicSitePageData{}, http.StatusServiceUnavailable
@@ -764,10 +830,9 @@ func (s *server) applyPublicContentPage(r *http.Request, data *publicSitePageDat
 	data.MetaDescription = firstNonEmpty(content.MetaDescription, content.Summary, data.Copy.HeroBody)
 	data.OGTitle = firstNonEmpty(content.OGTitle, data.PageTitle)
 	data.OGDescription = firstNonEmpty(content.OGDescription, data.MetaDescription)
-	// CMS single pages are utility/landing routes rather than indexable
-	// editorial entries. Always emit noindex,follow for this type and keep
-	// them out of the generated sitemap regardless of the stored checkbox.
-	data.RobotsIndex = content.RobotsIndex && content.ContentType != "page"
+	// Respect the page-level SEO policy. Contact / legal utility pages default
+	// to noindex, while about, service and campaign pages can be crawlable.
+	data.RobotsIndex = content.RobotsIndex && (content.ContentType != "page" || content.IndexPolicy == "index")
 	data.StructuredData = template.JS(safeStructuredData(content.StructuredData, publicJSONLD(*data, site)))
 
 	items, err := s.Catalog.ListPublishedContent(r.Context(), site.ID, content.Locale, 8)
@@ -795,7 +860,7 @@ func publicThemeColor(renderKey string) string {
 }
 
 func publicContent(item catalog.ContentLocale, contentURL string) publicContentData {
-	return publicContentData{ID: item.ID, ContentID: item.ContentID, Title: item.Title, H1: firstNonEmpty(item.H1, item.Title), Summary: item.Summary, Slug: item.Slug, Category: item.Category, Locale: item.Locale, LanguageName: item.LanguageName, SEOTitle: item.SEOTitle, MetaDescription: item.MetaDescription, OGTitle: item.OGTitle, OGDescription: item.OGDescription, URL: contentURL, UpdatedAt: publicDate(item.UpdatedAt), PublishedAt: publicDate(derefString(item.PublishedAt)), Status: item.Status, ReadingMinutes: estimateReadingMinutes(item.BodyHTML), Tags: append([]string(nil), item.Tags...), Body: template.HTML(item.BodyHTML)}
+	return publicContentData{ID: item.ID, ContentID: item.ContentID, Title: item.Title, H1: firstNonEmpty(item.H1, item.Title), Summary: item.Summary, Slug: item.Slug, Category: item.Category, Locale: item.Locale, LanguageName: item.LanguageName, SEOTitle: item.SEOTitle, MetaDescription: item.MetaDescription, OGTitle: item.OGTitle, OGDescription: item.OGDescription, URL: contentURL, UpdatedAt: publicDate(item.UpdatedAt), PublishedAt: publicDate(derefString(item.PublishedAt)), Status: item.Status, ReadingMinutes: estimateReadingMinutes(item.BodyHTML), PageLayout: item.PageLayout, Tags: append([]string(nil), item.Tags...), Body: template.HTML(item.BodyHTML)}
 }
 
 func estimateReadingMinutes(bodyHTML string) int {

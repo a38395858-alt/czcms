@@ -44,7 +44,7 @@ export const modules = {
     title: '内容管理', subtitle: '编辑、审核、版本化和发布所有语言内容', primaryAction: '新建内容', entityName: '内容',
     stats: [stat('内容总数', '0', 'blue', 'file'), stat('待审核', '0', 'amber', 'clipboard'), stat('已发布', '0', 'green', 'check'), stat('需要更新', '0', 'red', 'alert')],
     filters: ['全部内容', '草稿', '待审核', '定时发布', '已发布', '需要更新'],
-    columns: [{ key: 'name', label: '标题' }, { key: 'type', label: '内容类型' }, { key: 'language', label: '语言' }, { key: 'owner', label: '负责人' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '最近更新' }],
+    columns: [{ key: 'name', label: '标题' }, { key: 'site', label: '所属站点' }, { key: 'type', label: '内容类型' }, { key: 'language', label: '语言' }, { key: 'owner', label: '负责人' }, { key: 'status', label: '状态' }, { key: 'updatedAt', label: '最近更新' }],
     rows: [],
   },
   taxonomy: {

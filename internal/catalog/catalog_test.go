@@ -77,11 +77,32 @@ func TestCatalogCRUDScopesSEORevisionsAndOptimisticLock(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if page.ContentType != "page" || page.RobotsIndex {
-		t.Fatalf("single page should persist noindex policy: %+v", page)
+	if page.ContentType != "page" || page.RobotsIndex || page.IndexPolicy != "noindex" {
+		t.Fatalf("new single page should default to noindex: %+v", page)
+	}
+	indexablePage, err := service.CreateContent(ctx, userID, CreateContentInput{
+		ContentType: "page", SiteID: sites[0].ID, Locale: "en", Status: "published",
+		Title: "International delivery services", Slug: "delivery-services", Summary: "Delivery services overview.", BodyHTML: "<p>Services.</p>", AIState: "manual",
+		PageLayout: "standard", IndexPolicy: "index", SEO: &SEOInput{Title: "International delivery services", RobotsIndex: false},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !indexablePage.RobotsIndex || indexablePage.IndexPolicy != "index" {
+		t.Fatalf("single page should allow explicit index policy: %+v", indexablePage)
+	}
+	preservedIndexablePage, err := service.UpdateContentLocale(ctx, userID, indexablePage.ContentID, indexablePage.SiteID, indexablePage.Locale, UpdateContentLocaleInput{
+		ContentType: "page", Status: "published", Title: indexablePage.Title,
+		Slug: indexablePage.Slug, Summary: indexablePage.Summary, BodyHTML: indexablePage.BodyHTML, AIState: "manual", Version: indexablePage.Version,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !preservedIndexablePage.RobotsIndex || preservedIndexablePage.IndexPolicy != "index" {
+		t.Fatalf("partial update should preserve explicit page index policy: %+v", preservedIndexablePage)
 	}
 	pageRows, pageTotal, err := service.ListContents(ctx, userID, ContentQuery{SiteID: sites[0].ID, ContentType: "page"})
-	if err != nil || pageTotal != 1 || len(pageRows) != 1 || pageRows[0].ContentType != "page" {
+	if err != nil || pageTotal != 2 || len(pageRows) != 2 || pageRows[0].ContentType != "page" {
 		t.Fatalf("single page query=%+v total=%d err=%v", pageRows, pageTotal, err)
 	}
 	nonPageRows, nonPageTotal, err := service.ListContents(ctx, userID, ContentQuery{SiteID: sites[0].ID, ContentType: "non_page"})
@@ -101,7 +122,7 @@ func TestCatalogCRUDScopesSEORevisionsAndOptimisticLock(t *testing.T) {
 		t.Fatalf("unexpected updated versions/status: %+v", updated)
 	}
 	counts, err := service.ContentCounts(ctx, userID, 0, "")
-	if err != nil || counts["published"] != 1 {
+	if err != nil || counts["published"] != 2 {
 		t.Fatalf("content counts=%v err=%v", counts, err)
 	}
 
@@ -125,6 +146,17 @@ func TestCatalogCRUDScopesSEORevisionsAndOptimisticLock(t *testing.T) {
 	})
 	if err != nil || localized.Locale != "de-DE" || localized.ContentID != created.ContentID || localized.ContentVersion != 3 {
 		t.Fatalf("localized=%+v err=%v", localized, err)
+	}
+	allSitesRows, allSitesTotal, err := service.ListContents(ctx, userID, ContentQuery{ContentType: "non_page"})
+	if err != nil || allSitesTotal != 2 || len(allSitesRows) != 2 {
+		t.Fatalf("unscoped content list total=%d rows=%+v err=%v", allSitesTotal, allSitesRows, err)
+	}
+	listedSites := map[int64]string{}
+	for _, row := range allSitesRows {
+		listedSites[row.SiteID] = row.SiteName
+	}
+	if listedSites[created.SiteID] == "" || listedSites[localized.SiteID] == "" {
+		t.Fatalf("unscoped content list must retain the site for every row: %+v", allSitesRows)
 	}
 	archived := "archived"
 	category := "物流指南"
@@ -180,6 +212,227 @@ func TestCatalogCRUDScopesSEORevisionsAndOptimisticLock(t *testing.T) {
 	items, total, err := service.ListContents(ctx, otherID, ContentQuery{})
 	if err != nil || total != 0 || len(items) != 0 {
 		t.Fatalf("scope leak: total=%d items=%v err=%v", total, items, err)
+	}
+}
+
+func TestContactFormBindingIsScopedAndPubliclyAddressable(t *testing.T) {
+	ctx := context.Background()
+	db, err := database.Open(ctx, filepath.Join(t.TempDir(), "forms.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	result, err := db.ExecContext(ctx, `INSERT INTO users(username, display_name, password_hash, password_changed_at, created_at, updated_at) VALUES ('form-owner', '表单管理员', 'test-only', ?, ?, ?)`, now, now, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	actor, _ := result.LastInsertId()
+	service := New(db, contentsafety.NewSanitizer())
+	site, err := service.SiteByCode(ctx, "global")
+	if err != nil {
+		t.Fatal(err)
+	}
+	page, err := service.CreateContent(ctx, actor, CreateContentInput{ContentType: "page", SiteID: site.ID, Locale: "en", Status: "published", Title: "Contact us", Slug: "contact-us", Summary: "Contact the team.", BodyHTML: "<p>Talk to us.</p>", AIState: "manual", PageLayout: "contact", IndexPolicy: "noindex", SEO: &SEOInput{RobotsIndex: false}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	autoForm, err := service.GetPageForm(ctx, page.ID)
+	if err != nil || autoForm.Status != "active" || len(autoForm.Fields) != 5 || autoForm.Fields[1].Type != "email" {
+		t.Fatalf("contact template should auto-bind the standard form: form=%+v err=%v", autoForm, err)
+	}
+	form, err := service.CreateForm(ctx, FormInput{SiteID: site.ID, Locale: "en", Key: "shipping-enquiry", Name: "物流咨询", SuccessMessage: "Thanks, we will reply shortly.", NotifyEnabled: true, Fields: []FormFieldInput{{Key: "name", Type: "text", Label: "Name", Required: true}, {Key: "email", Type: "email", Label: "Email", Required: true}, {Key: "message", Type: "textarea", Label: "Message"}}}, actor)
+	if err != nil || len(form.Fields) != 3 {
+		t.Fatalf("form=%+v err=%v", form, err)
+	}
+	if form.SubmitLabel != "提交咨询" {
+		t.Fatalf("default submit label=%q, want 提交咨询", form.SubmitLabel)
+	}
+	if err = service.BindPageForm(ctx, page.ID, form.ID); err != nil {
+		t.Fatal(err)
+	}
+	public, pageID, err := service.PublicFormByKey(ctx, site.ID, "shipping-enquiry")
+	if err != nil || pageID != page.ID || public.ID != form.ID {
+		t.Fatalf("public=%+v page=%d err=%v", public, pageID, err)
+	}
+	values := map[string]string{"name": "Ada", "email": "ada@example.com", "message": "Need a quote"}
+	id, err := service.SaveFormSubmission(ctx, form.ID, page.ID, site.ID, "en", "/contact-us", HashSubmission(values), "ip", "ua", []byte("encrypted"))
+	if err != nil || id < 1 {
+		t.Fatalf("submission id=%d err=%v", id, err)
+	}
+	if _, err = service.SaveFormSubmission(ctx, form.ID, page.ID, site.ID, "en", "/contact-us", HashSubmission(values), "ip", "ua", []byte("encrypted")); err == nil {
+		t.Fatal("duplicate submission should be rejected")
+	}
+	updatedForm, err := service.UpdateForm(ctx, form.ID, FormInput{SiteID: site.ID, Locale: "en", Key: form.Key, Name: "物流咨询新版", SubmitLabel: "Get a quote", Status: "active", SuccessMessage: "We will reply soon.", NotifyEnabled: true, Version: form.Version, Fields: []FormFieldInput{{Key: "email", Type: "email", Label: "Email", Required: true}, {Key: "message", Type: "textarea", Label: "Message", Required: true}}}, actor)
+	if err != nil || updatedForm.Version != form.Version+1 || len(updatedForm.Fields) != 2 || updatedForm.SubmitLabel != "Get a quote" {
+		t.Fatalf("form update=%+v err=%v", updatedForm, err)
+	}
+	if _, err = service.UpdateForm(ctx, form.ID, FormInput{SiteID: site.ID, Locale: "en", Key: form.Key, Name: "stale", Status: "active", SuccessMessage: "stale", NotifyEnabled: true, Version: form.Version, Fields: []FormFieldInput{{Key: "email", Type: "email", Label: "Email", Required: true}}}, actor); !errors.Is(err, ErrConflict) {
+		t.Fatalf("stale form update error=%v", err)
+	}
+}
+
+func TestPublicFormValuesUseServerSideTypeAndOptionValidation(t *testing.T) {
+	fields := []FormField{
+		{Key: "email", Type: "email", Label: "Email", Required: true},
+		{Key: "phone", Type: "tel", Label: "Phone"},
+		{Key: "service", Type: "select", Label: "Service", Options: []string{"Express", "Air freight"}, Required: true},
+		{Key: "consent", Type: "checkbox", Label: "Consent", Required: true},
+	}
+	valid := map[string]string{"email": "ada@example.com", "phone": "+49 (30) 123456", "service": "Express", "consent": "1"}
+	if err := ValidatePublicFormValues(fields, valid); err != nil {
+		t.Fatalf("valid form rejected: %v", err)
+	}
+	for name, values := range map[string]map[string]string{
+		"email":   {"email": "not-an-email", "service": "Express", "consent": "1"},
+		"phone":   {"email": "ada@example.com", "phone": "call-me", "service": "Express", "consent": "1"},
+		"select":  {"email": "ada@example.com", "service": "Other", "consent": "1"},
+		"consent": {"email": "ada@example.com", "service": "Express", "consent": "no"},
+	} {
+		if err := ValidatePublicFormValues(fields, values); !errors.Is(err, ErrInvalid) {
+			t.Fatalf("%s validation error=%v, want invalid", name, err)
+		}
+	}
+}
+
+func TestFormDefinitionRequiresContactMethodAndSelectOptions(t *testing.T) {
+	base := FormInput{
+		SiteID:         1,
+		Locale:         "en",
+		Key:            "contact-request",
+		Name:           "Contact request",
+		SubmitLabel:    "Send request",
+		Status:         "active",
+		SuccessMessage: "Thank you",
+	}
+	withoutContact := base
+	withoutContact.Fields = []FormFieldInput{{Key: "message", Type: "textarea", Label: "Message", Required: true}}
+	if err := validateFormInput(withoutContact); !errors.Is(err, ErrInvalid) {
+		t.Fatalf("form without contact method error=%v, want invalid", err)
+	}
+	withoutOptions := base
+	withoutOptions.Fields = []FormFieldInput{{Key: "email", Type: "email", Label: "Email", Required: true}, {Key: "service", Type: "select", Label: "Service"}}
+	if err := validateFormInput(withoutOptions); !errors.Is(err, ErrInvalid) {
+		t.Fatalf("select without options error=%v, want invalid", err)
+	}
+	valid := base
+	valid.Fields = []FormFieldInput{{Key: "email", Type: "email", Label: "Email", Required: true}, {Key: "service", Type: "select", Label: "Service", Options: []string{"Express", "Air freight"}}}
+	if err := validateFormInput(valid); err != nil {
+		t.Fatalf("valid form definition error=%v", err)
+	}
+}
+
+func TestBulkSoftDeleteContentsIsAtomicAndRetainsRevisions(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	db, err := database.Open(ctx, filepath.Join(t.TempDir(), "bulk-delete.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = db.Close() })
+	now := time.Now().UTC().Format(time.RFC3339)
+	result, err := db.ExecContext(ctx, `
+		INSERT INTO users(username, display_name, password_hash, password_changed_at, created_at, updated_at)
+		VALUES ('bulk-delete-owner', '批量删除管理员', 'test-only', ?, ?, ?)`, now, now, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	userID, _ := result.LastInsertId()
+	if _, err = db.ExecContext(ctx, `INSERT INTO user_access_scopes(user_id, site_id, locale, created_at) VALUES (?, 0, '*', ?)`, userID, now); err != nil {
+		t.Fatal(err)
+	}
+
+	service := New(db, contentsafety.NewSanitizer())
+	sites, err := service.ListSites(ctx, userID)
+	if err != nil || len(sites) == 0 {
+		t.Fatalf("sites=%v err=%v", sites, err)
+	}
+	var germanySiteID int64
+	for _, site := range sites {
+		if site.Code == "germany" {
+			germanySiteID = site.ID
+			break
+		}
+	}
+	if germanySiteID == 0 {
+		t.Fatal("Germany site missing")
+	}
+	create := func(title, slug string) ContentLocale {
+		item, createErr := service.CreateContent(ctx, userID, CreateContentInput{
+			ContentType: "article", SiteID: sites[0].ID, Locale: "en", Status: "draft",
+			Title: title, Slug: slug, BodyHTML: "<p>批量删除测试正文。</p>", AIState: "manual",
+			SEO: &SEOInput{Title: title, PrimaryKeyword: "logistics", RobotsIndex: true},
+		})
+		if createErr != nil {
+			t.Fatalf("create %s: %v", title, createErr)
+		}
+		return item
+	}
+
+	first := create("First bulk delete group", "first-bulk-delete-group")
+	localized, err := service.CreateContentLocale(ctx, userID, first.ContentID, CreateContentInput{
+		ContentType: "article", SiteID: germanySiteID, Locale: "de-DE", Status: "review",
+		Title: "Erste Löschgruppe", Slug: "erste-loeschgruppe", BodyHTML: "<p>Lokalisierter Testinhalt.</p>", AIState: "localized",
+		SEO: &SEOInput{Title: "Erste Löschgruppe", PrimaryKeyword: "Logistik", RobotsIndex: true},
+	})
+	if err != nil {
+		t.Fatalf("create localized content: %v", err)
+	}
+	second := create("Second bulk delete group", "second-bulk-delete-group")
+
+	deleted, err := service.BulkSoftDeleteContents(ctx, userID, BulkContentDeleteInput{Targets: []BulkContentDeleteTarget{
+		{ContentID: first.ContentID, Version: localized.ContentVersion},
+		{ContentID: second.ContentID, Version: second.ContentVersion},
+	}})
+	if err != nil || deleted.Deleted != 2 {
+		t.Fatalf("bulk delete=%+v err=%v", deleted, err)
+	}
+	listed, total, err := service.ListContents(ctx, userID, ContentQuery{})
+	if err != nil || total != 0 || len(listed) != 0 {
+		t.Fatalf("soft-deleted content leaked into list: total=%d items=%+v err=%v", total, listed, err)
+	}
+	revisions, err := service.ListRevisions(ctx, userID, first.ContentID, 20)
+	if err != nil {
+		t.Fatalf("list revisions after delete: %v", err)
+	}
+	deletedRevisions := 0
+	for _, revision := range revisions {
+		if revision.Action == "deleted" {
+			deletedRevisions++
+		}
+	}
+	if deletedRevisions != 2 {
+		t.Fatalf("deleted group must retain a revision for each locale: %+v", revisions)
+	}
+
+	firstRollback := create("Rollback first group", "rollback-first-group")
+	staleRollback := create("Rollback stale group", "rollback-stale-group")
+	updatedStale, err := service.UpdateContentLocale(ctx, userID, staleRollback.ContentID, staleRollback.SiteID, staleRollback.Locale, UpdateContentLocaleInput{
+		ContentType: "article", Status: "review", Title: staleRollback.Title, Slug: staleRollback.Slug,
+		BodyHTML: staleRollback.BodyHTML, AIState: "manual", Version: staleRollback.Version,
+	})
+	if err != nil {
+		t.Fatalf("prepare stale delete target: %v", err)
+	}
+	if updatedStale.ContentVersion == staleRollback.ContentVersion {
+		t.Fatalf("stale target version did not advance: before=%d after=%d", staleRollback.ContentVersion, updatedStale.ContentVersion)
+	}
+	_, err = service.BulkSoftDeleteContents(ctx, userID, BulkContentDeleteInput{Targets: []BulkContentDeleteTarget{
+		{ContentID: firstRollback.ContentID, Version: firstRollback.ContentVersion},
+		{ContentID: staleRollback.ContentID, Version: staleRollback.ContentVersion},
+	}})
+	if !errors.Is(err, ErrConflict) {
+		t.Fatalf("stale bulk delete error=%v, want conflict", err)
+	}
+	if _, err = service.GetContentLocale(ctx, firstRollback.ContentID, firstRollback.SiteID, firstRollback.Locale); err != nil {
+		t.Fatalf("a conflict must roll back an earlier deletion, got %v", err)
+	}
+	_, err = service.BulkSoftDeleteContents(ctx, userID, BulkContentDeleteInput{Targets: []BulkContentDeleteTarget{
+		{ContentID: firstRollback.ContentID, Version: firstRollback.ContentVersion},
+		{ContentID: firstRollback.ContentID, Version: firstRollback.ContentVersion + 1},
+	}})
+	if !errors.Is(err, ErrInvalid) {
+		t.Fatalf("duplicate content group with mismatched versions error=%v, want invalid", err)
 	}
 }
 

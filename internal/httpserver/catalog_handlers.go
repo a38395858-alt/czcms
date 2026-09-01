@@ -492,6 +492,58 @@ func (s *server) bulkUpdateContentLocales(w http.ResponseWriter, r *http.Request
 	writeJSON(w, http.StatusOK, result)
 }
 
+// bulkDeleteContents moves complete content groups to the recycle bin. A
+// content group can span several sites and locales, therefore checking the
+// permission of only the row visible in the current list would be unsafe.
+func (s *server) bulkDeleteContents(w http.ResponseWriter, r *http.Request) {
+	var input catalog.BulkContentDeleteInput
+	if err := decodeJSON(w, r, &input, 128<<10); err != nil {
+		return
+	}
+	if len(input.Targets) < 1 || len(input.Targets) > 100 {
+		writeJSONError(w, http.StatusBadRequest, "批量删除必须选择 1 到 100 个内容组")
+		return
+	}
+
+	session := sessionFromContext(r.Context())
+	seen := make(map[int64]struct{}, len(input.Targets))
+	for _, target := range input.Targets {
+		if target.ContentID < 1 || target.Version < 1 {
+			writeJSONError(w, http.StatusBadRequest, "批量删除包含无效的内容或版本")
+			return
+		}
+		if _, duplicate := seen[target.ContentID]; duplicate {
+			continue
+		}
+		seen[target.ContentID] = struct{}{}
+		scopes, err := s.Catalog.ContentScopes(r.Context(), target.ContentID)
+		if err != nil {
+			writeCatalogError(w, err, "读取内容范围失败")
+			return
+		}
+		for _, scope := range scopes {
+			if !s.canAccess(w, r, session.User.ID, "content.write", scope.SiteID, scope.Locale) {
+				return
+			}
+		}
+	}
+
+	result, err := s.Catalog.BulkSoftDeleteContents(r.Context(), session.User.ID, input)
+	if err != nil {
+		writeCatalogError(w, err, "批量删除内容失败")
+		return
+	}
+	s.audit(r, audit.Event{
+		ActorUserID: &session.User.ID,
+		Action:      "content.bulk_deleted",
+		TargetType:  "content",
+		TargetID:    "bulk",
+		Success:     true,
+		Metadata:    map[string]any{"deleted": result.Deleted, "soft_delete": true},
+	})
+	writeJSON(w, http.StatusOK, result)
+}
+
 func (s *server) deleteContent(w http.ResponseWriter, r *http.Request) {
 	contentID, ok := pathID(w, r, "contentID", "内容")
 	if !ok {

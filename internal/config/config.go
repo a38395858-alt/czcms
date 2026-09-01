@@ -96,7 +96,7 @@ func Load() (Config, error) {
 	if cfg.RequestTimeout, err = durationEnv("CZCMS_REQUEST_TIMEOUT", 10*time.Second); err != nil || cfg.RequestTimeout <= 0 {
 		return Config{}, fmt.Errorf("CZCMS_REQUEST_TIMEOUT 必须是有效的正数时间")
 	}
-	if cfg.AIRequestTimeout, err = durationEnv("CZCMS_AI_REQUEST_TIMEOUT", 20*time.Second); err != nil || cfg.AIRequestTimeout < time.Second || cfg.AIRequestTimeout > 2*time.Minute {
+	if cfg.AIRequestTimeout, err = durationEnv("CZCMS_AI_REQUEST_TIMEOUT", 120*time.Second); err != nil || cfg.AIRequestTimeout < time.Second || cfg.AIRequestTimeout > 2*time.Minute {
 		return Config{}, fmt.Errorf("CZCMS_AI_REQUEST_TIMEOUT 必须在 1 秒到 2 分钟之间")
 	}
 	if cfg.SessionIdleTTL, err = durationEnv("CZCMS_SESSION_IDLE_TTL", 30*time.Minute); err != nil || cfg.SessionIdleTTL < 5*time.Minute {
@@ -146,7 +146,7 @@ func (cfg Config) Normalize() (Config, error) {
 		cfg.RequestTimeout = 10 * time.Second
 	}
 	if cfg.AIRequestTimeout == 0 {
-		cfg.AIRequestTimeout = 20 * time.Second
+		cfg.AIRequestTimeout = 120 * time.Second
 	}
 	if cfg.SessionIdleTTL == 0 {
 		cfg.SessionIdleTTL = 30 * time.Minute

@@ -129,4 +129,20 @@ func TestAIProviderValidationRequiresHTTPSAndRemoteKey(t *testing.T) {
 	if err := validateAIProviderInput(&input, ""); err != nil {
 		t.Fatalf("loopback model without key was rejected: %v", err)
 	}
+	input.TimeoutSeconds = 0
+	if err := validateAIProviderInput(&input, ""); err != nil || input.TimeoutSeconds != 120 {
+		t.Fatalf("default timeout=%d err=%v, want 120 seconds", input.TimeoutSeconds, err)
+	}
+}
+
+func TestNormalizeAIModelForDeepSeekProvider(t *testing.T) {
+	if got := normalizeAIModelForProvider("https://api.deepseek.com", "DeepSeek-V4-Flash"); got != "deepseek-v4-flash" {
+		t.Fatalf("display model was not normalized: %q", got)
+	}
+	if got := normalizeAIModelForProvider("https://api.deepseek.com/v1", "DeepSeek-V4-Pro-0813"); got != "deepseek-v4-pro" {
+		t.Fatalf("versioned DeepSeek model was not normalized: %q", got)
+	}
+	if got := normalizeAIModelForProvider("https://example.com/v1", "DeepSeek-V4-Flash"); got != "DeepSeek-V4-Flash" {
+		t.Fatalf("custom provider model was unexpectedly changed: %q", got)
+	}
 }

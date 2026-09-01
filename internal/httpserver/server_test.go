@@ -59,6 +59,31 @@ func TestSecurityHeadersPermitOnlySameOriginInternalPreviewsToBeFramed(t *testin
 	}
 }
 
+func TestRequestTimeoutAllowsAILocalizationHeadroomOnly(t *testing.T) {
+	server := &server{}
+	remaining := make(chan time.Duration, 1)
+	handler := server.requestTimeout(http.HandlerFunc(func(_ http.ResponseWriter, r *http.Request) {
+		deadline, ok := r.Context().Deadline()
+		if !ok {
+			t.Error("request context does not have a timeout deadline")
+			return
+		}
+		remaining <- time.Until(deadline)
+	}))
+
+	localization := httptest.NewRequest(http.MethodPost, "/api/v1/contents/6/localize", nil)
+	handler.ServeHTTP(httptest.NewRecorder(), localization)
+	if got := <-remaining; got < 120*time.Second || got > 130*time.Second {
+		t.Fatalf("localization timeout remaining=%s, want approximately 130 seconds", got)
+	}
+
+	ordinary := httptest.NewRequest(http.MethodGet, "/api/v1/contents", nil)
+	handler.ServeHTTP(httptest.NewRecorder(), ordinary)
+	if got := <-remaining; got < 25*time.Second || got > 30*time.Second {
+		t.Fatalf("ordinary timeout remaining=%s, want approximately 30 seconds", got)
+	}
+}
+
 func TestEstimateReadingMinutesIgnoresMarkupAndCountsLocalizedText(t *testing.T) {
 	if got := estimateReadingMinutes(`<h2>Route planning</h2><p>Fast customs support for European deliveries.</p>`); got != 1 {
 		t.Fatalf("short latin article minutes=%d", got)

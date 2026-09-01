@@ -34,6 +34,10 @@ var migrations = []migration{
 	{version: 14, apply: migrateSiteSEOV14},
 	{version: 15, apply: migrateSitemapLookupV15},
 	{version: 16, apply: migrateSiteSEODescriptionV16},
+	{version: 17, apply: migrateAIDraftStatusV17},
+	{version: 18, apply: migratePageFormsAndThemeAssetsV18},
+	{version: 19, apply: migrateFormSubmitLabelV19},
+	{version: 20, apply: migrateContactPageDefaultsV20},
 }
 
 func runMigrations(ctx context.Context, db *sql.DB) error {
@@ -427,6 +431,213 @@ func migrateSiteSEODescriptionV16(ctx context.Context, tx *sql.Tx) error {
 	return nil
 }
 
+// migrateAIDraftStatusV17 aligns AI-generated language versions with the
+// editorial workflow. Older builds stored them as review items immediately;
+// they are now explicit drafts so an editor can inspect and revise them before
+// submitting them for review. Only records marked as AI-pending are changed.
+func migrateAIDraftStatusV17(ctx context.Context, tx *sql.Tx) error {
+	_, err := tx.ExecContext(ctx, `UPDATE content_locales SET status = 'draft', updated_at = ? WHERE status = 'review' AND ai_state = 'pending'`, time.Now().UTC().Format(time.RFC3339Nano))
+	return err
+}
+
+// migratePageFormsAndThemeAssetsV18 separates page presentation, public
+// enquiry forms and editable theme resources from rich-text content.  This
+// keeps user supplied HTML passive while still letting a site operator build a
+// real contact page and tune a template's CSS / reviewed JavaScript.
+func migratePageFormsAndThemeAssetsV18(ctx context.Context, tx *sql.Tx) error {
+	columns, err := tableColumns(ctx, tx, "content_locales")
+	if err != nil {
+		return err
+	}
+	for _, addition := range []struct{ name, definition string }{
+		{"page_layout", "TEXT NOT NULL DEFAULT 'standard' CHECK (page_layout IN ('standard', 'contact', 'landing', 'custom'))"},
+		{"index_policy", "TEXT NOT NULL DEFAULT 'noindex' CHECK (index_policy IN ('index', 'noindex'))"},
+	} {
+		if columns[addition.name] {
+			continue
+		}
+		if _, err = tx.ExecContext(ctx, `ALTER TABLE content_locales ADD COLUMN `+addition.name+` `+addition.definition); err != nil {
+			return fmt.Errorf("为 content_locales 添加字段 %s: %w", addition.name, err)
+		}
+	}
+	statements := []string{
+		`UPDATE content_locales SET page_layout = 'contact', index_policy = 'noindex'
+		 WHERE content_id IN (SELECT id FROM contents WHERE content_type = 'page')
+		   AND (lower(slug) IN ('contact', 'contact-us', 'contact-us/') OR lower(title) LIKE '%contact%')`,
+		`UPDATE content_locales SET index_policy = 'index'
+		 WHERE content_id IN (SELECT id FROM contents WHERE content_type <> 'page')`,
+		`CREATE INDEX IF NOT EXISTS idx_content_locales_page_policy ON content_locales(site_id, locale, status, index_policy, page_layout)`,
+		`CREATE TABLE IF NOT EXISTS forms (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			locale TEXT NOT NULL,
+			form_key TEXT NOT NULL,
+			name TEXT NOT NULL,
+			status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'disabled')),
+			success_message TEXT NOT NULL DEFAULT '',
+			notify_enabled INTEGER NOT NULL DEFAULT 1 CHECK (notify_enabled IN (0, 1)),
+			version INTEGER NOT NULL DEFAULT 1,
+			created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+			created_at TEXT NOT NULL,
+			updated_at TEXT NOT NULL,
+			UNIQUE(site_id, locale, form_key)
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_forms_scope ON forms(site_id, locale, status)`,
+		`CREATE TABLE IF NOT EXISTS form_fields (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			form_id INTEGER NOT NULL REFERENCES forms(id) ON DELETE CASCADE,
+			field_key TEXT NOT NULL,
+			field_type TEXT NOT NULL CHECK (field_type IN ('text', 'email', 'tel', 'country', 'select', 'textarea', 'checkbox')),
+			label TEXT NOT NULL,
+			placeholder TEXT NOT NULL DEFAULT '',
+			help_text TEXT NOT NULL DEFAULT '',
+			options_json TEXT NOT NULL DEFAULT '[]',
+			required INTEGER NOT NULL DEFAULT 0 CHECK (required IN (0, 1)),
+			sort_order INTEGER NOT NULL DEFAULT 0,
+			validation_json TEXT NOT NULL DEFAULT '{}',
+			UNIQUE(form_id, field_key)
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_form_fields_order ON form_fields(form_id, sort_order, id)`,
+		`CREATE TABLE IF NOT EXISTS page_forms (
+			content_locale_id INTEGER PRIMARY KEY REFERENCES content_locales(id) ON DELETE CASCADE,
+			form_id INTEGER NOT NULL REFERENCES forms(id) ON DELETE RESTRICT,
+			version INTEGER NOT NULL DEFAULT 1,
+			created_at TEXT NOT NULL,
+			updated_at TEXT NOT NULL
+		)`,
+		`CREATE TABLE IF NOT EXISTS form_submissions (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			form_id INTEGER NOT NULL REFERENCES forms(id) ON DELETE RESTRICT,
+			content_locale_id INTEGER REFERENCES content_locales(id) ON DELETE SET NULL,
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			locale TEXT NOT NULL,
+			source_path TEXT NOT NULL,
+			values_encrypted BLOB NOT NULL,
+			status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'processing', 'contacted', 'invalid', 'closed')),
+			dedupe_hash TEXT NOT NULL DEFAULT '',
+			ip_hash TEXT NOT NULL DEFAULT '',
+			user_agent_hash TEXT NOT NULL DEFAULT '',
+			created_at TEXT NOT NULL,
+			updated_at TEXT NOT NULL
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_form_submissions_scope ON form_submissions(site_id, locale, status, created_at DESC)`,
+		`CREATE INDEX IF NOT EXISTS idx_form_submissions_dedupe ON form_submissions(form_id, dedupe_hash, created_at DESC)`,
+		`CREATE TABLE IF NOT EXISTS theme_assets (
+			theme_package_id INTEGER NOT NULL REFERENCES theme_packages(id) ON DELETE CASCADE,
+			asset_key TEXT NOT NULL,
+			asset_type TEXT NOT NULL CHECK (asset_type IN ('css', 'js')),
+			label TEXT NOT NULL,
+			filename TEXT NOT NULL,
+			content TEXT NOT NULL,
+			version INTEGER NOT NULL DEFAULT 1,
+			updated_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+			created_at TEXT NOT NULL,
+			updated_at TEXT NOT NULL,
+			PRIMARY KEY(theme_package_id, asset_key),
+			UNIQUE(theme_package_id, filename)
+		)`,
+		`CREATE TABLE IF NOT EXISTS theme_asset_revisions (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			theme_package_id INTEGER NOT NULL REFERENCES theme_packages(id) ON DELETE CASCADE,
+			asset_key TEXT NOT NULL,
+			version INTEGER NOT NULL,
+			content TEXT NOT NULL,
+			change_note TEXT NOT NULL DEFAULT '',
+			actor_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+			created_at TEXT NOT NULL,
+			UNIQUE(theme_package_id, asset_key, version)
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_theme_asset_revisions ON theme_asset_revisions(theme_package_id, asset_key, version DESC)`,
+	}
+	for _, statement := range statements {
+		if _, err = tx.ExecContext(ctx, statement); err != nil {
+			return err
+		}
+	}
+	return seedThemeAssetsV18(ctx, tx)
+}
+
+// migrateFormSubmitLabelV19 adds the visible submit-button copy to each form.
+// It is kept with the form definition so every site/Locale can localize the
+// call to action without changing the shared public template.
+func migrateFormSubmitLabelV19(ctx context.Context, tx *sql.Tx) error {
+	columns, err := tableColumns(ctx, tx, "forms")
+	if err != nil {
+		return err
+	}
+	if columns["submit_label"] {
+		return nil
+	}
+	_, err = tx.ExecContext(ctx, `ALTER TABLE forms ADD COLUMN submit_label TEXT NOT NULL DEFAULT '提交咨询'`)
+	return err
+}
+
+// migrateContactPageDefaultsV20 backfills the standard form for contact pages
+// created before contact templates became self-contained. New pages use the
+// same provisioning helper in catalog.CreateContent; this migration keeps old
+// installations consistent without requiring an editor to open and resave a
+// page first.
+func migrateContactPageDefaultsV20(ctx context.Context, tx *sql.Tx) error {
+	type page struct {
+		ID, SiteID    int64
+		Locale, Title string
+	}
+	rows, err := tx.QueryContext(ctx, `SELECT cl.id, cl.site_id, cl.locale, cl.title FROM content_locales cl JOIN contents c ON c.id = cl.content_id LEFT JOIN page_forms pf ON pf.content_locale_id = cl.id WHERE c.content_type = 'page' AND cl.page_layout = 'contact' AND pf.content_locale_id IS NULL`)
+	if err != nil {
+		return err
+	}
+	pages := make([]page, 0)
+	for rows.Next() {
+		var item page
+		if err = rows.Scan(&item.ID, &item.SiteID, &item.Locale, &item.Title); err != nil {
+			rows.Close()
+			return err
+		}
+		pages = append(pages, item)
+	}
+	if err = rows.Err(); err != nil {
+		rows.Close()
+		return err
+	}
+	rows.Close()
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	for _, item := range pages {
+		english := strings.HasPrefix(strings.ToLower(strings.TrimSpace(item.Locale)), "en")
+		name, submit, success := "姓名 / 联系人", "提交咨询", "感谢您的咨询，我们会尽快回复。"
+		if english {
+			name, submit, success = "Name", "Send enquiry", "Thank you. We will get back to you shortly."
+		}
+		key := fmt.Sprintf("contact-enquiry-%d", item.ID)
+		result, execErr := tx.ExecContext(ctx, `INSERT INTO forms(site_id, locale, form_key, name, submit_label, status, success_message, notify_enabled, version, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'active', ?, 1, 1, ?, ?)`, item.SiteID, item.Locale, key, strings.TrimSpace(item.Title)+" · 询盘表单", submit, success, now, now)
+		if execErr != nil {
+			return execErr
+		}
+		formID, execErr := result.LastInsertId()
+		if execErr != nil {
+			return execErr
+		}
+		fields := []struct {
+			key, typ, label, placeholder string
+			required                     int
+		}{
+			{"name", "text", name, "", 1},
+			{"email", "email", map[bool]string{true: "Email", false: "邮箱"}[english], "name@example.com", 1},
+			{"phone", "tel", map[bool]string{true: "Phone", false: "联系电话"}[english], "+49 30 123456", 0},
+			{"message", "textarea", map[bool]string{true: "Message", false: "需求说明"}[english], "", 1},
+			{"consent", "checkbox", map[bool]string{true: "I agree to the processing of this enquiry", false: "我同意使用以上信息处理本次咨询"}[english], "", 1},
+		}
+		for sort, field := range fields {
+			if _, execErr = tx.ExecContext(ctx, `INSERT INTO form_fields(form_id, field_key, field_type, label, placeholder, help_text, options_json, required, sort_order, validation_json) VALUES (?, ?, ?, ?, ?, '', '[]', ?, ?, '{}')`, formID, field.key, field.typ, field.label, field.placeholder, field.required, sort); execErr != nil {
+				return execErr
+			}
+		}
+		if _, execErr = tx.ExecContext(ctx, `INSERT INTO page_forms(content_locale_id, form_id, version, created_at, updated_at) VALUES (?, ?, 1, ?, ?)`, item.ID, formID, now, now); execErr != nil {
+			return execErr
+		}
+	}
+	return nil
+}
+
 // migrateIndependentLanguageSitesV7 converts the original single-site,
 // locale-prefixed installation into six independent sites. Content, revision
 // history, publishing records, template bindings and scoped access all keep
@@ -720,7 +931,7 @@ func migrateAIConfigurationV12(ctx context.Context, tx *sql.Tx) error {
 			api_key_last_four TEXT NOT NULL DEFAULT '',
 			default_model TEXT NOT NULL,
 			enabled INTEGER NOT NULL DEFAULT 1 CHECK (enabled IN (0, 1)),
-			timeout_seconds INTEGER NOT NULL DEFAULT 20 CHECK (timeout_seconds BETWEEN 1 AND 120),
+			timeout_seconds INTEGER NOT NULL DEFAULT 120 CHECK (timeout_seconds BETWEEN 1 AND 120),
 			last_test_status TEXT NOT NULL DEFAULT 'untested' CHECK (last_test_status IN ('untested', 'testing', 'online', 'offline')),
 			last_test_message TEXT NOT NULL DEFAULT '',
 			last_tested_at TEXT,

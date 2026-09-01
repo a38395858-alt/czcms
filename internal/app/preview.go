@@ -126,7 +126,7 @@ func localPreviewHandler(base http.Handler, siteCode string) http.Handler {
 		switch {
 		case r.URL.Path == "/":
 			servePreviewPath(base, w, r, previewPath)
-		case strings.HasPrefix(r.URL.Path, "/assets/") || r.URL.Path == "/healthz":
+		case strings.HasPrefix(r.URL.Path, "/assets/") || strings.HasPrefix(r.URL.Path, "/theme-assets/") || r.URL.Path == "/healthz":
 			base.ServeHTTP(w, r)
 		default:
 			// A dedicated preview port behaves like a real site: /en and

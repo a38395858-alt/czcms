@@ -5,8 +5,8 @@ import (
 )
 
 // SitemapEntry is a single public, canonical route eligible for a site's
-// sitemap.xml. It deliberately omits non-indexable, scheduled, draft and
-// single-page records so callers never need to repeat SEO eligibility rules.
+// sitemap.xml. It deliberately omits non-indexable, scheduled and draft
+// records so callers never need to repeat SEO eligibility rules.
 type SitemapEntry struct {
 	Locale    string `json:"locale"`
 	Slug      string `json:"slug"`
@@ -58,8 +58,9 @@ func (s *Service) PublicSitemapLocales(ctx context.Context, siteID int64) ([]str
 }
 
 // PublicSitemapEntries is the public crawl boundary used by sitemap.xml.
-// "page" is the CMS single-page type; it is intentionally noindex and is
-// therefore omitted even if an editor accidentally left robots_index enabled.
+// Single pages follow their explicit index_policy. Contact and legal utility
+// pages default to noindex, while about, service and campaign pages can be
+// included when an editor enables them.
 func (s *Service) PublicSitemapEntries(ctx context.Context, siteID int64) ([]SitemapEntry, error) {
 	rows, err := s.db.QueryContext(ctx, `
 		SELECT cl.locale, cl.slug, COALESCE(NULLIF(cl.updated_at, ''), cl.published_at, cl.created_at)
@@ -68,8 +69,8 @@ func (s *Service) PublicSitemapEntries(ctx context.Context, siteID int64) ([]Sit
 		JOIN site_languages sl ON sl.site_id = cl.site_id AND sl.locale = cl.locale
 		JOIN languages l ON l.id = sl.language_id
 		JOIN theme_packages t ON t.id = sl.theme_package_id
-		WHERE cl.site_id = ? AND c.deleted_at IS NULL AND c.content_type <> 'page'
-		  AND cl.status = 'published' AND cl.robots_index = 1
+		WHERE cl.site_id = ? AND c.deleted_at IS NULL
+		  AND cl.status = 'published' AND cl.robots_index = 1 AND (c.content_type <> 'page' OR cl.index_policy = 'index')
 		  AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
 		  AND sl.enabled = 1 AND l.enabled = 1
 		  AND t.status = 'validated' AND t.render_key IN ('global-route', 'atlas-commerce')
@@ -109,8 +110,8 @@ func (s *Service) ListSitemapSites(ctx context.Context, userID int64) ([]Sitemap
 		         JOIN site_languages sl ON sl.site_id = cl.site_id AND sl.locale = cl.locale
 		         JOIN languages l ON l.id = sl.language_id
 		         JOIN theme_packages t ON t.id = sl.theme_package_id
-		         WHERE cl.site_id = s.id AND c.deleted_at IS NULL AND c.content_type <> 'page'
-		           AND cl.status = 'published' AND cl.robots_index = 1
+		         WHERE cl.site_id = s.id AND c.deleted_at IS NULL
+		           AND cl.status = 'published' AND cl.robots_index = 1 AND (c.content_type <> 'page' OR cl.index_policy = 'index')
 		           AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
 		           AND sl.enabled = 1 AND l.enabled = 1
 		           AND t.status = 'validated' AND t.render_key IN ('global-route', 'atlas-commerce')
@@ -124,7 +125,7 @@ func (s *Service) ListSitemapSites(ctx context.Context, userID int64) ([]Sitemap
 		         WHERE cl.site_id = s.id AND c.deleted_at IS NULL
 		           AND cl.status = 'published'
 		           AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
-		           AND (c.content_type = 'page' OR cl.robots_index = 0)
+		           AND (cl.index_policy = 'noindex' OR cl.robots_index = 0)
 		           AND sl.enabled = 1 AND l.enabled = 1
 		           AND t.status = 'validated' AND t.render_key IN ('global-route', 'atlas-commerce')
 		       ),
@@ -134,7 +135,7 @@ func (s *Service) ListSitemapSites(ctx context.Context, userID int64) ([]Sitemap
 		         JOIN site_languages sl ON sl.site_id = cl.site_id AND sl.locale = cl.locale
 		         JOIN languages l ON l.id = sl.language_id
 		         JOIN theme_packages t ON t.id = sl.theme_package_id
-		         WHERE cl.site_id = s.id AND c.deleted_at IS NULL AND c.content_type = 'page'
+		         WHERE cl.site_id = s.id AND c.deleted_at IS NULL AND c.content_type = 'page' AND cl.index_policy = 'noindex'
 		           AND cl.status = 'published'
 		           AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
 		           AND sl.enabled = 1 AND l.enabled = 1

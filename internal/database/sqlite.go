@@ -500,6 +500,9 @@ func seed(ctx context.Context, db *sql.DB) error {
 	if err = seedThemeFilesV13(ctx, tx); err != nil {
 		return err
 	}
+	if err = seedThemeAssetsV18(ctx, tx); err != nil {
+		return err
+	}
 
 	for _, site := range defaultSites {
 		if _, err = tx.ExecContext(ctx, `

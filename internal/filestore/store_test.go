@@ -230,3 +230,28 @@ func TestThemeEditorValidatesVersionsAndRejectsUnlistedPaths(t *testing.T) {
 		t.Fatalf("active template source error=%v", err)
 	}
 }
+
+func TestThemeAssetsRejectUnsafeJavaScriptAndKeepRevisions(t *testing.T) {
+	ctx := context.Background()
+	root := t.TempDir()
+	db, err := database.Open(ctx, filepath.Join(root, "theme-assets.db"))
+	if err != nil { t.Fatal(err) }
+	defer db.Close()
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	result, err := db.ExecContext(ctx, `INSERT INTO users(username, display_name, password_hash, password_changed_at, created_at, updated_at) VALUES ('asset-editor', 'Asset Editor', 'test', ?, ?, ?)`, now, now, now)
+	if err != nil { t.Fatal(err) }
+	userID, _ := result.LastInsertId()
+	store, err := New(db, filepath.Join(root, "uploads"), filepath.Join(root, "themes"), 2<<20, 5<<20, "")
+	if err != nil { t.Fatal(err) }
+	var themeID int64
+	if err = db.QueryRowContext(ctx, `SELECT id FROM theme_packages WHERE render_key = 'global-route'`).Scan(&themeID); err != nil { t.Fatal(err) }
+	assets, err := store.ListThemeAssets(ctx, themeID)
+	if err != nil || len(assets) != 5 { t.Fatalf("assets=%d err=%v", len(assets), err) }
+	asset, err := store.GetThemeAsset(ctx, themeID, "theme_js")
+	if err != nil { t.Fatal(err) }
+	unsafe, err := store.ValidateThemeAsset(ctx, themeID, "theme_js", `eval("alert(1)")`)
+	if err != nil || unsafe.Valid { t.Fatalf("unsafe=%+v err=%v", unsafe, err) }
+	updated, err := store.UpdateThemeAsset(ctx, themeID, "theme_js", `document.addEventListener('DOMContentLoaded', () => document.documentElement.classList.add('ready'))`, asset.Version, userID, "增加无障碍状态")
+	if err != nil || updated.Version != asset.Version+1 || updated.ChangeCount != 1 { t.Fatalf("updated=%+v err=%v", updated, err) }
+	if _, err = store.UpdateThemeAsset(ctx, themeID, "theme_js", updated.Content, asset.Version, userID, "过期写入"); !errors.Is(err, ErrThemeFileConflict) { t.Fatalf("conflict=%v", err) }
+}

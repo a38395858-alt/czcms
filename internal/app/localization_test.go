@@ -189,7 +189,7 @@ func TestAILocalizationCreatesReviewVersionsOnlyForLiveTemplateSites(t *testing.
 			t.Fatal(err)
 		}
 		localized.Body.Close()
-		if item.Status != "review" || item.AIState != "pending" || !strings.Contains(item.Title, target.locale) {
+		if item.Status != "draft" || item.AIState != "pending" || !strings.Contains(item.Title, target.locale) {
 			t.Fatalf("localized item=%+v", item)
 		}
 	}

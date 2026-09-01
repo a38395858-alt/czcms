@@ -288,6 +288,8 @@ type CreateContentInput struct {
 	BodyHTML       string    `json:"body_html"`
 	AIState        string    `json:"ai_state"`
 	SEO            *SEOInput `json:"seo,omitempty"`
+	PageLayout     string    `json:"page_layout,omitempty"`
+	IndexPolicy    string    `json:"index_policy,omitempty"`
 	RevisionAction string    `json:"-"`
 }
 
@@ -305,6 +307,8 @@ type UpdateContentLocaleInput struct {
 	BodyHTML       string    `json:"body_html"`
 	AIState        string    `json:"ai_state"`
 	SEO            *SEOInput `json:"seo,omitempty"`
+	PageLayout     string    `json:"page_layout,omitempty"`
+	IndexPolicy    string    `json:"index_policy,omitempty"`
 	Version        int64     `json:"version"`
 	RevisionAction string    `json:"-"`
 }
@@ -324,6 +328,21 @@ type BulkContentUpdateInput struct {
 
 type BulkContentUpdateResult struct {
 	Updated int `json:"updated"`
+}
+
+// BulkContentDeleteTarget represents a whole content group. Deleting a group
+// deliberately removes every site and locale version together.
+type BulkContentDeleteTarget struct {
+	ContentID int64 `json:"content_id"`
+	Version   int64 `json:"version"`
+}
+
+type BulkContentDeleteInput struct {
+	Targets []BulkContentDeleteTarget `json:"targets"`
+}
+
+type BulkContentDeleteResult struct {
+	Deleted int `json:"deleted"`
 }
 
 type ContentLocale struct {
@@ -358,6 +377,8 @@ type ContentLocale struct {
 	OGDescription     string          `json:"og_description"`
 	StructuredData    json.RawMessage `json:"structured_data"`
 	AIState           string          `json:"ai_state"`
+	PageLayout        string          `json:"page_layout"`
+	IndexPolicy       string          `json:"index_policy"`
 	OwnerID           *int64          `json:"owner_id,omitempty"`
 	OwnerName         string          `json:"owner_name"`
 	Version           int64           `json:"version"`
@@ -1138,7 +1159,7 @@ func (s *Service) ListContents(ctx context.Context, userID int64, query ContentQ
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1231,7 +1252,7 @@ func (s *Service) GetContentLocale(ctx context.Context, contentID, siteID int64,
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.body_html, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1261,7 +1282,7 @@ func (s *Service) GetPublishedContentByPath(ctx context.Context, siteID int64, l
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.body_html, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1295,7 +1316,7 @@ func (s *Service) ListPublishedContent(ctx context.Context, siteID int64, locale
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1362,6 +1383,10 @@ func (s *Service) PublishedContentAlternates(ctx context.Context, contentID int6
 
 func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input CreateContentInput) (ContentLocale, error) {
 	normalizeCreateContent(&input)
+	applyPageDefaults(&input.ContentType, &input.PageLayout, &input.IndexPolicy, input.Slug, input.Title)
+	if err := validatePageOptions(input.ContentType, input.PageLayout, input.IndexPolicy); err != nil {
+		return ContentLocale{}, err
+	}
 	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID); err != nil {
 		return ContentLocale{}, err
 	}
@@ -1376,6 +1401,9 @@ func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input Cr
 	seo, err := normalizeContentSEO(input.ContentType, input.SEO, input.Title)
 	if err != nil {
 		return ContentLocale{}, err
+	}
+	if input.ContentType == "page" {
+		seo.RobotsIndex = input.IndexPolicy == "index"
 	}
 	secondary, _ := json.Marshal(seo.SecondaryKeywords)
 	tags, _ := json.Marshal(input.Tags)
@@ -1404,17 +1432,22 @@ func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input Cr
 	localeResult, err := tx.ExecContext(ctx, `
 		INSERT INTO content_locales(content_id, site_id, locale, status, title, slug, category, tags_json, template_key, scheduled_at, cover_media_id, summary, body_html, h1,
 		seo_title, meta_description, primary_keyword, secondary_keywords_json, canonical_url, robots_index,
-		og_title, og_description, structured_data_json, ai_state, published_at, version, created_at, updated_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
+		og_title, og_description, structured_data_json, ai_state, published_at, page_layout, index_policy, version, created_at, updated_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
 		contentID, input.SiteID, input.Locale, input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, input.Summary, input.BodyHTML,
 		seo.H1, seo.Title, seo.MetaDescription, seo.PrimaryKeyword, string(secondary), seo.CanonicalURL, boolInt(seo.RobotsIndex),
-		seo.OGTitle, seo.OGDescription, string(structured), input.AIState, publishedAt, now, now)
+		seo.OGTitle, seo.OGDescription, string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, now, now)
 	if err != nil {
 		return ContentLocale{}, classifyConstraint(err)
 	}
 	localeID, _ := localeResult.LastInsertId()
 	if err = syncContentTaxonomyTx(ctx, tx, localeID, input.SiteID, input.Locale, input.Category, input.Tags); err != nil {
 		return ContentLocale{}, err
+	}
+	if input.ContentType == "page" && input.PageLayout == "contact" {
+		if err = ensureDefaultContactFormTx(ctx, tx, localeID, input.SiteID, input.Locale, input.Title, input.Slug, actorUserID, now); err != nil {
+			return ContentLocale{}, err
+		}
 	}
 	if err = insertRevision(ctx, tx, localeID, contentID, input.SiteID, input.Locale, 1, "created", actorUserID); err != nil {
 		return ContentLocale{}, err
@@ -1427,6 +1460,10 @@ func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input Cr
 
 func (s *Service) CreateContentLocale(ctx context.Context, actorUserID, contentID int64, input CreateContentInput) (ContentLocale, error) {
 	normalizeCreateContent(&input)
+	applyPageDefaults(&input.ContentType, &input.PageLayout, &input.IndexPolicy, input.Slug, input.Title)
+	if err := validatePageOptions(input.ContentType, input.PageLayout, input.IndexPolicy); err != nil {
+		return ContentLocale{}, err
+	}
 	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID); err != nil {
 		return ContentLocale{}, err
 	}
@@ -1444,6 +1481,9 @@ func (s *Service) CreateContentLocale(ctx context.Context, actorUserID, contentI
 	seo, err := normalizeContentSEO(input.ContentType, input.SEO, input.Title)
 	if err != nil {
 		return ContentLocale{}, err
+	}
+	if input.ContentType == "page" {
+		seo.RobotsIndex = input.IndexPolicy == "index"
 	}
 	secondary, _ := json.Marshal(seo.SecondaryKeywords)
 	tags, _ := json.Marshal(input.Tags)
@@ -1476,17 +1516,22 @@ func (s *Service) CreateContentLocale(ctx context.Context, actorUserID, contentI
 	localeResult, err := tx.ExecContext(ctx, `
 		INSERT INTO content_locales(content_id, site_id, locale, status, title, slug, category, tags_json, template_key, scheduled_at, cover_media_id, summary, body_html, h1,
 		seo_title, meta_description, primary_keyword, secondary_keywords_json, canonical_url, robots_index,
-		og_title, og_description, structured_data_json, ai_state, published_at, version, created_at, updated_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
+		og_title, og_description, structured_data_json, ai_state, published_at, page_layout, index_policy, version, created_at, updated_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
 		contentID, input.SiteID, input.Locale, input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, input.Summary, input.BodyHTML,
 		seo.H1, seo.Title, seo.MetaDescription, seo.PrimaryKeyword, string(secondary), seo.CanonicalURL, boolInt(seo.RobotsIndex),
-		seo.OGTitle, seo.OGDescription, string(structured), input.AIState, publishedAt, now, now)
+		seo.OGTitle, seo.OGDescription, string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, now, now)
 	if err != nil {
 		return ContentLocale{}, classifyConstraint(err)
 	}
 	localeID, _ := localeResult.LastInsertId()
 	if err = syncContentTaxonomyTx(ctx, tx, localeID, input.SiteID, input.Locale, input.Category, input.Tags); err != nil {
 		return ContentLocale{}, err
+	}
+	if input.ContentType == "page" && input.PageLayout == "contact" {
+		if err = ensureDefaultContactFormTx(ctx, tx, localeID, input.SiteID, input.Locale, input.Title, input.Slug, actorUserID, now); err != nil {
+			return ContentLocale{}, err
+		}
 	}
 	if _, err = tx.ExecContext(ctx, `UPDATE contents SET version = version + 1, updated_at = ? WHERE id = ?`, now, contentID); err != nil {
 		return ContentLocale{}, err
@@ -1546,7 +1591,27 @@ func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentI
 		}
 	}
 	if input.ContentType == "page" {
-		seo.RobotsIndex = false
+		// A partial API update should retain the existing page configuration.
+		// The browser sends these values explicitly; this mainly protects other
+		// authenticated clients from silently turning a contact page into a
+		// standard page.
+		if input.PageLayout == "" {
+			input.PageLayout = current.PageLayout
+		}
+		if input.IndexPolicy == "" {
+			input.IndexPolicy = current.IndexPolicy
+		}
+	}
+	applyPageDefaults(&input.ContentType, &input.PageLayout, &input.IndexPolicy, input.Slug, input.Title)
+	if input.ContentType != "page" {
+		input.PageLayout = "standard"
+		input.IndexPolicy = "index"
+	}
+	if input.ContentType == "page" {
+		seo.RobotsIndex = input.IndexPolicy == "index"
+	}
+	if err := validatePageOptions(input.ContentType, input.PageLayout, input.IndexPolicy); err != nil {
+		return ContentLocale{}, err
 	}
 	secondary, _ := json.Marshal(seo.SecondaryKeywords)
 	tags, _ := json.Marshal(input.Tags)
@@ -1562,12 +1627,12 @@ func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentI
 	result, err := tx.ExecContext(ctx, `
 		UPDATE content_locales SET status = ?, title = ?, slug = ?, category = ?, tags_json = ?, template_key = ?, scheduled_at = ?, cover_media_id = ?, summary = ?, body_html = ?, h1 = ?, seo_title = ?,
 		meta_description = ?, primary_keyword = ?, secondary_keywords_json = ?, canonical_url = ?, robots_index = ?,
-		og_title = ?, og_description = ?, structured_data_json = ?, ai_state = ?, published_at = ?,
+		og_title = ?, og_description = ?, structured_data_json = ?, ai_state = ?, published_at = ?, page_layout = ?, index_policy = ?,
 		version = version + 1, updated_at = ?
 		WHERE content_id = ? AND site_id = ? AND locale = ? AND version = ?`,
 		input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, input.Summary, input.BodyHTML, seo.H1, seo.Title, seo.MetaDescription,
 		seo.PrimaryKeyword, string(secondary), seo.CanonicalURL, boolInt(seo.RobotsIndex), seo.OGTitle, seo.OGDescription,
-		string(structured), input.AIState, publishedAt, nowUTC(), contentID, siteID, locale, input.Version)
+		string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, nowUTC(), contentID, siteID, locale, input.Version)
 	if err != nil {
 		return ContentLocale{}, classifyConstraint(err)
 	}
@@ -1580,6 +1645,11 @@ func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentI
 	}
 	if err = syncContentTaxonomyTx(ctx, tx, current.ID, siteID, locale, input.Category, input.Tags); err != nil {
 		return ContentLocale{}, err
+	}
+	if input.ContentType == "page" && input.PageLayout == "contact" {
+		if err = ensureDefaultContactFormTx(ctx, tx, current.ID, siteID, locale, input.Title, input.Slug, actorUserID, nowUTC()); err != nil {
+			return ContentLocale{}, err
+		}
 	}
 	action := strings.TrimSpace(input.RevisionAction)
 	if action == "" {
@@ -1738,6 +1808,75 @@ func (s *Service) SoftDeleteContent(ctx context.Context, contentID, version, act
 	return tx.Commit()
 }
 
+// BulkSoftDeleteContents provides an all-or-nothing recycle-bin action for
+// content management. The caller must authorize every locale in each group
+// before invoking this method; optimistic versions prevent stale lists from
+// deleting content that has changed in the meantime.
+func (s *Service) BulkSoftDeleteContents(ctx context.Context, actorUserID int64, input BulkContentDeleteInput) (BulkContentDeleteResult, error) {
+	if len(input.Targets) < 1 || len(input.Targets) > 100 {
+		return BulkContentDeleteResult{}, invalid("批量删除必须选择 1 到 100 个内容组")
+	}
+	targets := make([]BulkContentDeleteTarget, 0, len(input.Targets))
+	seen := make(map[int64]int64, len(input.Targets))
+	for _, target := range input.Targets {
+		if target.ContentID < 1 || target.Version < 1 {
+			return BulkContentDeleteResult{}, invalid("内容 ID 或版本无效")
+		}
+		if existing, ok := seen[target.ContentID]; ok {
+			if existing != target.Version {
+				return BulkContentDeleteResult{}, invalid("同一内容组不能使用不同版本重复删除")
+			}
+			continue
+		}
+		seen[target.ContentID] = target.Version
+		targets = append(targets, target)
+	}
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return BulkContentDeleteResult{}, err
+	}
+	defer tx.Rollback()
+	for _, target := range targets {
+		rows, queryErr := tx.QueryContext(ctx, `SELECT id, site_id, locale, version FROM content_locales WHERE content_id = ?`, target.ContentID)
+		if queryErr != nil {
+			return BulkContentDeleteResult{}, queryErr
+		}
+		type revisionTarget struct {
+			id, siteID, version int64
+			locale              string
+		}
+		locales := make([]revisionTarget, 0)
+		for rows.Next() {
+			var locale revisionTarget
+			if queryErr = rows.Scan(&locale.id, &locale.siteID, &locale.locale, &locale.version); queryErr != nil {
+				rows.Close()
+				return BulkContentDeleteResult{}, queryErr
+			}
+			locales = append(locales, locale)
+		}
+		if queryErr = rows.Close(); queryErr != nil {
+			return BulkContentDeleteResult{}, queryErr
+		}
+		for _, locale := range locales {
+			if queryErr = insertRevision(ctx, tx, locale.id, target.ContentID, locale.siteID, locale.locale, locale.version, "deleted", actorUserID); queryErr != nil {
+				return BulkContentDeleteResult{}, queryErr
+			}
+		}
+		now := nowUTC()
+		result, execErr := tx.ExecContext(ctx, `UPDATE contents SET deleted_at = ?, version = version + 1, updated_at = ? WHERE id = ? AND version = ? AND deleted_at IS NULL`, now, now, target.ContentID, target.Version)
+		if execErr != nil {
+			return BulkContentDeleteResult{}, execErr
+		}
+		if execErr = requireAffected(ctx, tx, result, "contents", target.ContentID); execErr != nil {
+			return BulkContentDeleteResult{}, execErr
+		}
+	}
+	if err = tx.Commit(); err != nil {
+		return BulkContentDeleteResult{}, err
+	}
+	return BulkContentDeleteResult{Deleted: len(targets)}, nil
+}
+
 func (s *Service) ContentVersion(ctx context.Context, contentID int64) (int64, error) {
 	var version int64
 	err := s.db.QueryRowContext(ctx, `SELECT version FROM contents WHERE id = ? AND deleted_at IS NULL`, contentID).Scan(&version)
@@ -1774,6 +1913,23 @@ func (s *Service) ContentScopes(ctx context.Context, contentID int64) ([]struct 
 		return nil, ErrNotFound
 	}
 	return result, rows.Err()
+}
+
+// ContentLocaleScope resolves the authorization boundary for a single page
+// locale. It is intentionally separate from ContentScopes because a page-form
+// binding must be permitted for that exact site and language, not merely for
+// another locale in the same content group.
+func (s *Service) ContentLocaleScope(ctx context.Context, contentLocaleID int64) (int64, string, error) {
+	if contentLocaleID < 1 {
+		return 0, "", ErrNotFound
+	}
+	var siteID int64
+	var locale string
+	err := s.db.QueryRowContext(ctx, `SELECT site_id, locale FROM content_locales WHERE id = ?`, contentLocaleID).Scan(&siteID, &locale)
+	if errors.Is(err, sql.ErrNoRows) {
+		return 0, "", ErrNotFound
+	}
+	return siteID, locale, err
 }
 
 func (s *Service) ListRevisions(ctx context.Context, userID, contentID int64, limit int) ([]ContentRevision, error) {
@@ -1846,6 +2002,8 @@ type contentRevisionSnapshot struct {
 	Category          string          `json:"category"`
 	Tags              []string        `json:"tags"`
 	TemplateKey       string          `json:"template_key"`
+	PageLayout        string          `json:"page_layout"`
+	IndexPolicy       string          `json:"index_policy"`
 	CoverMediaID      *int64          `json:"cover_media_id"`
 	Summary           string          `json:"summary"`
 	BodyHTML          string          `json:"body_html"`
@@ -1892,7 +2050,7 @@ func (s *Service) RestoreContentRevision(ctx context.Context, actorUserID, conte
 	}
 	return s.UpdateContentLocale(ctx, actorUserID, contentID, revision.SiteID, revision.Locale, UpdateContentLocaleInput{
 		ContentType: current.ContentType, Status: "draft", Title: snapshot.Title, Slug: snapshot.Slug,
-		Category: snapshot.Category, Tags: snapshot.Tags, TemplateKey: snapshot.TemplateKey, CoverMediaID: snapshot.CoverMediaID,
+		Category: snapshot.Category, Tags: snapshot.Tags, TemplateKey: snapshot.TemplateKey, PageLayout: snapshot.PageLayout, IndexPolicy: snapshot.IndexPolicy, CoverMediaID: snapshot.CoverMediaID,
 		Summary: snapshot.Summary, BodyHTML: snapshot.BodyHTML, AIState: snapshot.AIState, Version: currentVersion, RevisionAction: "restored",
 		SEO: &SEOInput{H1: snapshot.H1, Title: snapshot.SEOTitle, MetaDescription: snapshot.MetaDescription, PrimaryKeyword: snapshot.PrimaryKeyword,
 			SecondaryKeywords: snapshot.SecondaryKeywords, CanonicalURL: snapshot.CanonicalURL, RobotsIndex: snapshot.RobotsIndex,
@@ -1914,7 +2072,7 @@ func scanContentLocale(row scanner, includeBody bool) (ContentLocale, error) {
 	var coverID sql.NullInt64
 	var coverName string
 	var coverWidth, coverHeight int
-	dest := []any{&item.ID, &item.ContentID, &item.ContentType, &item.SiteID, &item.SiteName, &item.Locale, &item.LanguageName, &item.Status, &item.Title, &item.Slug, &item.Category, &tags, &item.TemplateKey, &scheduled, &coverID, &coverName, &coverWidth, &coverHeight, &item.Summary}
+	dest := []any{&item.ID, &item.ContentID, &item.ContentType, &item.SiteID, &item.SiteName, &item.Locale, &item.LanguageName, &item.Status, &item.Title, &item.Slug, &item.Category, &tags, &item.TemplateKey, &item.PageLayout, &item.IndexPolicy, &scheduled, &coverID, &coverName, &coverWidth, &coverHeight, &item.Summary}
 	if includeBody {
 		dest = append(dest, &item.BodyHTML)
 	}
@@ -1951,7 +2109,7 @@ func scanContentLocale(row scanner, includeBody bool) (ContentLocale, error) {
 func getContentLocaleTx(ctx context.Context, tx *sql.Tx, contentID, siteID int64, locale string) (ContentLocale, error) {
 	row := tx.QueryRowContext(ctx, `
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale, cl.locale,
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.body_html, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1971,6 +2129,7 @@ func insertRevision(ctx context.Context, tx *sql.Tx, localeID, contentID, siteID
 	err := tx.QueryRowContext(ctx, `SELECT json_object(
 		'content_id', content_id, 'site_id', site_id, 'locale', locale, 'status', status, 'title', title,
 		'slug', slug, 'category', category, 'tags', json(tags_json), 'template_key', template_key,
+		'page_layout', page_layout, 'index_policy', index_policy,
 		'scheduled_at', scheduled_at, 'cover_media_id', cover_media_id, 'summary', summary, 'body_html', body_html, 'h1', h1, 'seo_title', seo_title,
 		'meta_description', meta_description, 'primary_keyword', primary_keyword,
 		'secondary_keywords', json(secondary_keywords_json), 'canonical_url', canonical_url,
@@ -2153,6 +2312,8 @@ func normalizeCreateContent(input *CreateContentInput) {
 	input.Tags = normalizeTags(input.Tags)
 	input.Summary = strings.TrimSpace(input.Summary)
 	input.AIState = strings.ToLower(strings.TrimSpace(input.AIState))
+	input.PageLayout = strings.ToLower(strings.TrimSpace(input.PageLayout))
+	input.IndexPolicy = strings.ToLower(strings.TrimSpace(input.IndexPolicy))
 	if input.ContentType == "" {
 		input.ContentType = "article"
 	}
@@ -2175,6 +2336,31 @@ func normalizeUpdateContent(input *UpdateContentLocaleInput) {
 	input.Tags = normalizeTags(input.Tags)
 	input.Summary = strings.TrimSpace(input.Summary)
 	input.AIState = strings.ToLower(strings.TrimSpace(input.AIState))
+	input.PageLayout = strings.ToLower(strings.TrimSpace(input.PageLayout))
+	input.IndexPolicy = strings.ToLower(strings.TrimSpace(input.IndexPolicy))
+}
+
+func applyPageDefaults(contentType, layout, policy *string, slug, title string) {
+	if *contentType != "page" {
+		*layout, *policy = "standard", "index"
+		return
+	}
+	if *layout == "" {
+		*layout = "standard"
+		value := strings.ToLower(slug + " " + title)
+		if strings.Contains(value, "contact") || strings.Contains(value, "联系") {
+			*layout = "contact"
+		}
+		if strings.Contains(value, "campaign") || strings.Contains(value, "专题") || strings.Contains(value, "landing") {
+			*layout = "landing"
+		}
+	}
+	// New pages stay out of search by default. An editor may explicitly opt an
+	// about, service or campaign page into indexing after its SEO information is
+	// reviewed. Contact and legal pages should normally remain noindex.
+	if *policy == "" {
+		*policy = "noindex"
+	}
 }
 
 func validateContent(contentType string, siteID int64, locale, status, title, slug, summary, bodyHTML, aiState string, seo *SEOInput) error {
@@ -2208,6 +2394,19 @@ func validateContent(contentType string, siteID int64, locale, status, title, sl
 	if seo != nil {
 		_, err := normalizeSEO(seo, title)
 		return err
+	}
+	return nil
+}
+
+func validatePageOptions(contentType, layout, policy string) error {
+	if contentType != "page" {
+		return nil
+	}
+	if layout != "standard" && layout != "contact" && layout != "landing" && layout != "custom" {
+		return invalid("单页面布局无效")
+	}
+	if policy != "index" && policy != "noindex" {
+		return invalid("搜索引擎收录策略无效")
 	}
 	return nil
 }
@@ -2341,18 +2540,7 @@ func normalizeSEO(input *SEOInput, fallbackTitle string) (SEOInput, error) {
 }
 
 func normalizeContentSEO(contentType string, input *SEOInput, fallbackTitle string) (SEOInput, error) {
-	seo, err := normalizeSEO(input, fallbackTitle)
-	if err != nil {
-		return SEOInput{}, err
-	}
-	if strings.EqualFold(strings.TrimSpace(contentType), "page") {
-		// Company/about/contact pages are intentionally crawlable for users but
-		// excluded from indexes by the public renderer and sitemap policy.
-		// Persisting false as well prevents an API client from accidentally
-		// re-enabling indexing on this content type.
-		seo.RobotsIndex = false
-	}
-	return seo, nil
+	return normalizeSEO(input, fallbackTitle)
 }
 
 func normalizedStructuredData(input json.RawMessage) json.RawMessage {

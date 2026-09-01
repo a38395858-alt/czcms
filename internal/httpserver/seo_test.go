@@ -129,6 +129,31 @@ func TestOpenAICompatibleSEOAssistantRejectsUnsafeRemoteConfiguration(t *testing
 	}
 }
 
+func TestOpenAICompatibleSEOAssistantShowsSafeUpstreamJSONError(t *testing.T) {
+	provider := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error":{"message":"Model DeepSeek-V4-Flash is not available; bearer sk-abcdef123456"}}`))
+	}))
+	t.Cleanup(provider.Close)
+
+	assistant, err := NewOpenAICompatibleSEOAssistant(OpenAICompatibleSEOConfig{BaseURL: provider.URL, Model: "test-model", Timeout: time.Second})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = assistant.Suggest(context.Background(), SEOSuggestionInput{Title: "Shipping guide", Locale: "en"})
+	if err == nil {
+		t.Fatal("upstream 400 response was accepted")
+	}
+	message := err.Error()
+	if !strings.Contains(message, "AI 服务返回 HTTP 400：Model DeepSeek-V4-Flash is not available") {
+		t.Fatalf("missing safe upstream detail: %q", message)
+	}
+	if strings.Contains(message, "sk-abcdef123456") {
+		t.Fatalf("upstream error leaked a secret: %q", message)
+	}
+}
+
 func TestRemoteMediaRedirectRejectsPrivateDestination(t *testing.T) {
 	client := newRemoteMediaClient()
 	next, _ := http.NewRequest(http.MethodGet, "http://127.0.0.1/private.png", nil)

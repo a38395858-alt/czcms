@@ -512,7 +512,7 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	}
 	t.Cleanup(func() { _ = application.Close() })
 	now := time.Now().UTC().Format(time.RFC3339)
-	insertContent := func(contentType, title, slug string) {
+	insertContent := func(contentType, title, slug, indexPolicy string) {
 		result, insertErr := application.db.Exec(`INSERT INTO contents(content_type, status, version, created_at, updated_at) VALUES (?, 'published', 1, ?, ?)`, contentType, now, now)
 		if insertErr != nil {
 			t.Fatal(insertErr)
@@ -521,16 +521,17 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 		_, insertErr = application.db.Exec(`INSERT INTO content_locales(
 			content_id, site_id, locale, status, title, slug, summary, body_html, h1, seo_title,
 			meta_description, primary_keyword, secondary_keywords_json, canonical_url, robots_index,
-			og_title, og_description, structured_data_json, ai_state, published_at, version, created_at, updated_at
+			og_title, og_description, structured_data_json, ai_state, page_layout, index_policy, published_at, version, created_at, updated_at
 		) SELECT ?, id, 'en', 'published', ?, ?, 'Sitemap validation content.', '<p>Public body</p>', ?, ?,
 			'Sitemap validation description.', 'sitemap validation', '[]', '', 1, ?, 'Sitemap validation description.',
-			'{}', 'manual', ?, 1, ?, ? FROM sites WHERE code = 'global'`, contentID, title, slug, title, title, title, now, now, now)
+			'{}', 'manual', 'standard', ?, ?, 1, ?, ? FROM sites WHERE code = 'global'`, contentID, title, slug, title, title, title, indexPolicy, now, now, now)
 		if insertErr != nil {
 			t.Fatal(insertErr)
 		}
 	}
-	insertContent("article", "Sitemap eligible article", "guides/sitemap-eligible")
-	insertContent("page", "Single page excluded from sitemap", "company/about")
+	insertContent("article", "Sitemap eligible article", "guides/sitemap-eligible", "index")
+	insertContent("page", "Single page excluded from sitemap", "company/about", "noindex")
+	insertContent("page", "Indexed services page", "company/services", "index")
 
 	localHandler := localPreviewHandler(application.Handler(), "global")
 	localSitemapRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/sitemap.xml", nil)
@@ -540,7 +541,7 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	if localSitemapResponse.Code != http.StatusOK || !strings.Contains(localSitemapResponse.Header().Get("Content-Type"), "application/xml") || localSitemapResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" {
 		t.Fatalf("local sitemap status=%d type=%q robots=%q", localSitemapResponse.Code, localSitemapResponse.Header().Get("Content-Type"), localSitemapResponse.Header().Get("X-Robots-Tag"))
 	}
-	for _, expected := range []string{"http://localhost:8081/", "guides/sitemap-eligible"} {
+	for _, expected := range []string{"http://localhost:8081/", "guides/sitemap-eligible", "company/services"} {
 		if !strings.Contains(localSitemap, expected) {
 			t.Fatalf("local sitemap missing %q: %s", expected, localSitemap)
 		}
@@ -562,7 +563,7 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	publicSitemapResponse := httptest.NewRecorder()
 	application.Handler().ServeHTTP(publicSitemapResponse, publicSitemapRequest)
 	publicSitemap := publicSitemapResponse.Body.String()
-	if publicSitemapResponse.Code != http.StatusOK || !strings.Contains(publicSitemap, "http://www.example.com/guides/sitemap-eligible") || strings.Contains(publicSitemap, "company/about") {
+	if publicSitemapResponse.Code != http.StatusOK || !strings.Contains(publicSitemap, "http://www.example.com/guides/sitemap-eligible") || !strings.Contains(publicSitemap, "http://www.example.com/company/services") || strings.Contains(publicSitemap, "company/about") {
 		t.Fatalf("public sitemap status=%d body=%q", publicSitemapResponse.Code, publicSitemap)
 	}
 
@@ -581,6 +582,13 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	application.Handler().ServeHTTP(pageResponse, pageRequest)
 	if pageResponse.Code != http.StatusOK || pageResponse.Header().Get("X-Robots-Tag") != "noindex, follow" || !strings.Contains(pageResponse.Body.String(), `content="noindex,follow"`) {
 		t.Fatalf("single page index policy invalid: status=%d header=%q body=%q", pageResponse.Code, pageResponse.Header().Get("X-Robots-Tag"), pageResponse.Body.String())
+	}
+	indexedPageRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/company/services", nil)
+	indexedPageRequest.Host = "www.example.com"
+	indexedPageResponse := httptest.NewRecorder()
+	application.Handler().ServeHTTP(indexedPageResponse, indexedPageRequest)
+	if indexedPageResponse.Code != http.StatusOK || indexedPageResponse.Header().Get("X-Robots-Tag") != "" || !strings.Contains(indexedPageResponse.Body.String(), `content="index,follow,`) {
+		t.Fatalf("indexed single-page policy invalid: status=%d header=%q body=%q", indexedPageResponse.Code, indexedPageResponse.Header().Get("X-Robots-Tag"), indexedPageResponse.Body.String())
 	}
 }
 

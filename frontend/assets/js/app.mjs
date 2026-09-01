@@ -1,5 +1,5 @@
-import { modules, navigationItems, quickActions } from './data.mjs'
-import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs'
+import { modules, navigationItems, quickActions } from './data.mjs?v=20260831.01'
+import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs?v=20260831.01'
 
 const $ = (selector, scope = document) => scope.querySelector(selector)
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)]
@@ -16,11 +16,13 @@ const aiProviderForm = $('#ai-provider-form')
 const realRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'templates', 'seo', 'urls', 'media', 'publishing', 'localization', 'users', 'audit', 'settings'])
 const apiRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'templates', 'seo', 'urls', 'media', 'publishing', 'localization', 'users', 'audit', 'settings'])
 const siteScopedRoutes = new Set(['content', 'taxonomy', 'urls', 'publishing', 'localization'])
-const moduleState = { route: '', contentSection: '', query: '', filter: '', selected: new Set() }
+const contentBulkSelectionLimit = 100
+const moduleState = { route: '', contentSection: '', contentScope: 'all', query: '', filter: '', selected: new Set() }
 const contentEditorState = { key: '', item: null, newLocale: false, draftTimer: 0, seoTimer: 0, dirty: false, rendering: false, richSelection: null, imageUploading: false }
 const templateEditorState = {
   expandedID: '',
   filesByTheme: new Map(),
+  assetsByTheme: new Map(),
   activeByTheme: new Map(),
   loading: new Set(),
   errors: new Map(),
@@ -110,6 +112,34 @@ function siteScopedAPIPath(path) {
   const siteID = currentSiteID()
   if (!siteID) return path
   return `${path}${path.includes('?') ? '&' : '?'}site_id=${encodeURIComponent(siteID)}`
+}
+
+function isAllSitesContentScope() {
+  return moduleState.contentScope === 'all'
+}
+
+function contentScopeLabel() {
+  return isAllSitesContentScope() ? '所有可访问站点' : `当前站点：${currentSite()?.name || '未选择站点'}`
+}
+
+function renderContentScopePicker() {
+  const allSites = isAllSitesContentScope()
+  const loading = liveState.loading.has('content')
+  return `<label class="content-scope-picker"><span>内容范围</span><select data-content-scope aria-label="选择内容查看范围" ${loading ? 'disabled' : ''}>
+    <option value="current" ${allSites ? '' : 'selected'}>当前站点</option>
+    <option value="all" ${allSites ? 'selected' : ''}>所有可访问站点</option>
+  </select></label>`
+}
+
+function renderContentBulkTrigger(config) {
+  if (!can('content.write')) return ''
+  const selectableRows = filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected('content', row))
+  const selectedCount = moduleState.selected.size
+  const selectableWithinLimit = selectableRows.slice(0, contentBulkSelectionLimit)
+  const allSelected = selectableWithinLimit.length > 0 && selectableWithinLimit.every((row) => moduleState.selected.has(String(row.id)))
+  const label = allSelected ? '取消批量选择' : selectedCount ? `已选 ${selectedCount} 项` : '批量操作'
+  const title = allSelected ? '取消当前筛选结果的选择' : selectableRows.length ? `选择当前筛选结果（最多 ${contentBulkSelectionLimit} 条）后进行批量操作` : '当前筛选结果没有可操作内容'
+  return `<button class="button button-secondary button-compact content-bulk-trigger" type="button" data-content-bulk-select aria-pressed="${selectedCount > 0}" title="${title}" ${selectableRows.length ? '' : 'disabled'}>${icon('clipboard', 'icon icon-sm')}<span>${label}</span></button>`
 }
 
 function viewPermission(route) {
@@ -212,6 +242,10 @@ function rowCanBeSelected(route, row) {
   return true
 }
 
+function selectableRowsForBulk(route, rows) {
+  return route === 'content' ? rows.slice(0, contentBulkSelectionLimit) : rows
+}
+
 function renderSiteRowActions(row, editable) {
   const label = escapeHtml(row.name || '站点')
   const previewURL = sitePreviewURL(row)
@@ -276,7 +310,7 @@ function templateFileIcon(file) {
   return 'file'
 }
 
-function renderTemplateFileTree(themeID, files, activeKey) {
+function renderTemplateFileTree(themeID, files, activeKey, assets = []) {
   const groups = ['layout', 'page', 'system']
   return groups.map((group) => {
     const children = files.filter((file) => file.group === group)
@@ -285,7 +319,7 @@ function renderTemplateFileTree(themeID, files, activeKey) {
       <h4 id="template-group-${escapeHtml(themeID)}-${group}">${escapeHtml(templateGroupLabels[group] || group)}<span>${children.length}</span></h4>
       ${children.map((file) => `<div class="template-file-entry ${file.key === 'page' ? 'is-page' : ''}"><button class="template-file-button ${file.key === activeKey ? 'is-active' : ''} ${file._dirty ? 'is-dirty' : ''}" type="button" data-template-file="${escapeHtml(file.key)}" aria-pressed="${file.key === activeKey}">${icon(templateFileIcon(file), 'icon icon-sm')}<span><strong>${escapeHtml(file.label)}</strong><small>${escapeHtml(file.filename)}</small></span><i aria-label="${file._dirty ? '有未保存修改' : '已保存'}"></i></button>${file.key === 'page' ? `<a class="template-page-manager-link" href="#/admin/content?section=pages" title="管理使用此模板的单页面">管理页面</a><a class="template-page-create-link" href="#/admin/content?section=pages&editor=create&content_type=page" title="新建一个单页面">新建页面</a>` : ''}</div>`).join('')}
     </section>`
-  }).join('')
+  }).join('') + (assets.length ? `<section class="template-file-group" aria-label="模板 CSS 与 JS 资源"><h4>样式与交互<span>${assets.length}</span></h4>${assets.map((asset) => `<div class="template-file-entry"><button class="template-file-button ${asset.key === activeKey ? 'is-active' : ''} ${asset._dirty ? 'is-dirty' : ''}" type="button" data-template-asset="${escapeHtml(asset.key)}" aria-pressed="${asset.key === activeKey}">${icon(asset.type === 'css' ? 'layers' : 'code', 'icon icon-sm')}<span><strong>${escapeHtml(asset.label)}</strong><small>${escapeHtml(asset.filename)}</small></span><i aria-label="${asset._dirty ? '有未保存修改' : '已保存'}"></i></button></div>`).join('')}</section>` : '')
 }
 
 function renderTemplateValidation(file) {
@@ -311,13 +345,14 @@ function renderTemplateWorkspace(row) {
     return `<tr class="template-workspace-row"><td colspan="${modules.templates.columns.length + 2}"><section class="template-workspace template-workspace-error" id="${workspaceID}">${icon('alert')}<span><strong>模板工作区加载失败</strong><small>${escapeHtml(error)}</small></span><button class="button button-secondary button-compact" type="button" data-template-retry>重新加载</button></section></td></tr>`
   }
   const files = templateEditorState.filesByTheme.get(themeID) || []
-  if (!files.length) {
+  const assets = templateEditorState.assetsByTheme.get(themeID) || []
+  if (!files.length && !assets.length) {
     return `<tr class="template-workspace-row"><td colspan="${modules.templates.columns.length + 2}"><section class="template-workspace template-workspace-error" id="${workspaceID}">${icon('file')}<span><strong>模板包没有可编辑文件</strong><small>请在 theme.json 中声明头部、尾部和页面模板文件。</small></span></section></td></tr>`
   }
   let activeKey = templateEditorState.activeByTheme.get(themeID)
-  if (!files.some((file) => file.key === activeKey)) activeKey = files[0].key
+  if (!files.some((file) => file.key === activeKey) && !assets.some((asset) => asset.key === activeKey)) activeKey = files[0]?.key || assets[0]?.key
   templateEditorState.activeByTheme.set(themeID, activeKey)
-  const active = files.find((file) => file.key === activeKey)
+  const active = files.find((file) => file.key === activeKey) || assets.find((asset) => asset.key === activeKey)
   const source = templateDraftValue(active)
   const changed = Boolean(active?._dirty)
   const note = templateEditorState.changeNotes.get(themeID) || ''
@@ -328,15 +363,15 @@ function renderTemplateWorkspace(row) {
         <div class="template-workspace-actions">${previewPath ? `<a class="button button-secondary button-compact" href="${escapeHtml(previewPath)}" target="_blank" rel="noopener">${icon('eye', 'icon icon-sm')}整站预览</a>` : ''}<button class="icon-button compact" type="button" data-template-close aria-label="收起模板编辑器">${icon('close')}</button></div>
       </header>
       <div class="template-editor-layout">
-        <nav class="template-file-tree" aria-label="模板组成文件">${renderTemplateFileTree(themeID, files, activeKey)}</nav>
+        <nav class="template-file-tree" aria-label="模板组成文件">${renderTemplateFileTree(themeID, files, activeKey, assets)}</nav>
         <section class="template-code-panel" aria-labelledby="template-file-title-${escapeHtml(themeID)}">
           <header class="template-code-header">
-            <div><span class="template-code-language">HTML</span><span><strong id="template-file-title-${escapeHtml(themeID)}">${escapeHtml(active.label)}</strong><small>${escapeHtml(active.filename)} · v${escapeHtml(active.version)}</small></span></div>
+            <div><span class="template-code-language">${active._asset ? escapeHtml(active.type.toUpperCase()) : 'HTML'}</span><span><strong id="template-file-title-${escapeHtml(themeID)}">${escapeHtml(active.label)}</strong><small>${escapeHtml(active.filename)} · v${escapeHtml(active.version)}</small></span></div>
             <div class="template-code-actions"><button class="button button-quiet button-compact" type="button" data-template-revert ${changed ? '' : 'disabled'}>撤销未保存</button><button class="button button-secondary button-compact" type="button" data-template-validate>${icon('check', 'icon icon-sm')}校验代码</button><button class="button button-primary button-compact" type="button" data-template-save ${changed ? '' : 'disabled'}>${icon('edit', 'icon icon-sm')}保存修订</button></div>
           </header>
           <div class="template-code-shell">
             <pre class="template-line-numbers" aria-hidden="true">${templateLineNumbers(source)}</pre>
-            <textarea class="template-source" data-template-source spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="编辑 ${escapeHtml(active.label)} HTML">${escapeHtml(source)}</textarea>
+            <textarea class="template-source" data-template-source spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="编辑 ${escapeHtml(active.label)}">${escapeHtml(source)}</textarea>
           </div>
           <footer class="template-code-footer"><span data-template-save-state class="${changed ? 'is-dirty' : ''}"><i></i>${changed ? '有未保存修改' : '全部修改已保存'}</span><span><b data-template-lines>${escapeHtml(String(source.split('\n').length))}</b> 行 · <b data-template-bytes>${escapeHtml(String(new TextEncoder().encode(source).length))}</b> 字节 · Ctrl / ⌘ + S 保存</span></footer>
         </section>
@@ -390,8 +425,8 @@ function renderTaxonomyRowActions(row, editable) {
 
 function renderBulkActions(config) {
   const count = moduleState.selected.size
-  if (!count) return ''
   if (moduleState.route === 'sites' && can('sites.manage')) {
+    if (!count) return ''
     return `<div class="bulk-action-bar" role="region" aria-label="站点批量操作">
       <span><strong>已选择 ${count} 个站点</strong><small>删除将安全停用站点并保留内容与审计数据。</small></span>
       <button class="button button-danger button-compact" type="button" data-bulk-delete-sites>批量删除</button>
@@ -400,14 +435,18 @@ function renderBulkActions(config) {
   if (moduleState.route === 'content' && can('content.write')) {
     const selectedRows = activeModuleConfig('content').rows.filter((row) => moduleState.selected.has(String(row.id)))
     const groupCount = new Set(selectedRows.map((row) => String(row._raw?.content_id || row.id))).size
+    const disabled = count ? '' : 'disabled'
+    const heading = count ? `批量操作 · 已选择 ${count} 个语言版本` : '批量操作'
+    const helper = count ? `涉及 ${groupCount} 个内容组；批量删除会原子地将所有内容组移到回收站。` : `请先勾选内容；可批量修改状态、栏目或删除（每次最多 ${contentBulkSelectionLimit} 个语言版本）。`
     return `<div class="bulk-action-bar" role="region" aria-label="内容批量操作">
-      <span><strong>已选择 ${count} 个语言版本</strong><small>涉及 ${groupCount} 个内容组；删除会将内容组的全部语言版本移到回收站。</small></span>
+      <span><strong>${heading}</strong><small>${helper}</small></span>
       <div class="bulk-action-controls">
-        <label><span class="visually-hidden">批量设置内容状态</span><select data-bulk-content-status><option value="draft">草稿</option><option value="review">待审核</option><option value="published">已发布</option><option value="needs_update">需要更新</option><option value="archived">已归档</option></select></label>
-        <button class="button button-secondary button-compact" type="button" data-bulk-update-status>应用状态</button>
-        <label><span class="visually-hidden">批量设置栏目</span><input type="text" maxlength="100" placeholder="栏目名称；留空可清除" data-bulk-content-category></label>
-        <button class="button button-secondary button-compact" type="button" data-bulk-update-category>修改栏目</button>
-        <button class="button button-danger button-compact" type="button" data-bulk-delete-contents>批量删除</button>
+        <label><span class="visually-hidden">批量设置内容状态</span><select data-bulk-content-status ${disabled}><option value="draft">草稿</option><option value="review">待审核</option><option value="published">已发布</option><option value="needs_update">需要更新</option><option value="archived">已归档</option></select></label>
+        <button class="button button-secondary button-compact" type="button" data-bulk-update-status ${disabled}>应用状态</button>
+        <label><span class="visually-hidden">批量设置栏目</span><input type="text" maxlength="100" placeholder="栏目名称；留空可清除" data-bulk-content-category ${disabled}></label>
+        <button class="button button-secondary button-compact" type="button" data-bulk-update-category ${disabled}>修改栏目</button>
+        <button class="button button-quiet button-compact" type="button" data-clear-selection ${disabled}>取消选择</button>
+        <button class="button button-danger button-compact" type="button" data-bulk-delete-contents ${disabled}>批量删除</button>
       </div>
     </div>`
   }
@@ -429,7 +468,8 @@ function renderModuleTable(config) {
   }
   const rows = filterRows(config.rows, moduleState.query, moduleState.filter)
   const selectableRows = rows.filter((row) => rowCanBeSelected(route, row))
-  const allSelected = selectableRows.length > 0 && selectableRows.every((row) => moduleState.selected.has(String(row.id)))
+  const selectableRowsForCurrentAction = selectableRowsForBulk(route, selectableRows)
+  const allSelected = selectableRowsForCurrentAction.length > 0 && selectableRowsForCurrentAction.every((row) => moduleState.selected.has(String(row.id)))
   const header = config.columns.map((column) => `<th style="${column.width ? `width:${escapeHtml(column.width)}` : ''}">${escapeHtml(column.label)}</th>`).join('')
   const editable = !realRoutes.has(route) || can(editPermission(route))
   const body = rows.length ? rows.map((row) => {
@@ -459,11 +499,12 @@ function renderModuleTable(config) {
     const summary = `<tr data-row-id="${row.id}" ${route === 'templates' ? 'data-template-row' : ''} class="${selected ? 'is-selected ' : ''}${expanded ? 'is-expanded' : ''}"><td><input type="checkbox" aria-label="选择 ${escapeHtml(row.name ?? config.entityName)}" data-select-row value="${row.id}" ${selected ? 'checked' : ''} ${selectable ? '' : 'disabled'}></td>${cells}<td class="${explicitActions ? 'explicit-action-cell' : ''}">${action}</td></tr>`
     return summary + (expanded ? renderTemplateWorkspace(row) : '')
   }).join('') : `<tr><td colspan="${config.columns.length + 2}"><div class="empty-state">${icon('search')}<strong>没有符合条件的结果</strong><p>请调整筛选条件，或创建第一条记录。</p></div></td></tr>`
-  return `<div class="table-scroll"><table class="module-table"><thead><tr><th><input type="checkbox" aria-label="选择当前页全部可操作记录" data-select-all ${allSelected ? 'checked' : ''} ${selectableRows.length ? '' : 'disabled'}></th>${header}<th class="action-column ${explicitActions ? 'explicit-action-column' : ''}">操作</th></tr></thead><tbody>${body}</tbody></table></div>`
+  const selectionLabel = route === 'content' ? `选择当前页最多 ${contentBulkSelectionLimit} 条可操作内容` : '选择当前页全部可操作记录'
+  return `<div class="table-scroll"><table class="module-table"><thead><tr><th><input type="checkbox" aria-label="${selectionLabel}" data-select-all ${allSelected ? 'checked' : ''} ${selectableRowsForCurrentAction.length ? '' : 'disabled'}></th>${header}<th class="action-column ${explicitActions ? 'explicit-action-column' : ''}">操作</th></tr></thead><tbody>${body}</tbody></table></div>`
 }
 
 function renderModuleGuide(route) {
-  if (route === 'content' && contentSection() === 'pages') return `<section class="module-guide" aria-label="单页面管理说明"><div><strong>一个页面，一个路径</strong><span>关于我们、联系我们与专题页都是独立内容实例，不是新建模板文件。</span></div><div><strong>使用当前语言模板</strong><span>页面会按站点 / Locale 绑定的 <code>pages/page.html</code> 渲染，可在模板管理中编辑外观。</span></div><div><strong>默认不收录</strong><span>单页面固定输出 noindex,follow，且自动从 Sitemap 排除，适合企业信息和转化页面。</span></div></section>`
+  if (route === 'content' && contentSection() === 'pages') return `<section class="module-guide" aria-label="单页面管理说明"><div><strong>一个页面，一个路径</strong><span>关于我们、联系我们与专题页都是独立内容实例，不是新建模板文件。</span></div><div><strong>使用当前语言模板</strong><span>页面会按站点 / Locale 绑定的 <code>pages/page.html</code> 渲染，可在模板管理中编辑外观。</span></div><div><strong>布局与收录可控</strong><span>默认规则：新建单页面默认 noindex；联系页建议保持 noindex，企业介绍、服务和专题可在编辑器中启用 index 并进入 Sitemap。</span></div></section>`
   if (route === 'content') return `<section class="module-guide" aria-label="内容发布流程"><div><strong>内容工作流</strong><span>草稿 → 提交审核 → 立即或定时发布</span></div><div><strong>SEO 独立配置</strong><span>每个站点 / Locale 分别保存标题、关键词、Canonical 和 JSON-LD</span></div><div><strong>URL 安全</strong><span>Slug 保存时检查冲突，旧路径请在 URL 与伪静态中建立重定向</span></div></section>`
 	if (route === 'taxonomy') return `<section class="module-guide" aria-label="栏目与标签说明"><div><strong>独立范围</strong><span>栏目和标签按站点与 Locale 隔离，不会误用到其他国家站</span></div><div><strong>层级栏目</strong><span>栏目可设置上级栏目；标签保持扁平，便于合并和筛选</span></div><div><strong>安全停用</strong><span>停用不会删除文章关系，历史页面和审计记录仍可追溯</span></div></section>`
   if (route === 'templates') return `<section class="module-guide" aria-label="模板安装说明"><div><strong>声明式模板包</strong><span>必须包含 theme.json 和 Go HTML 模板</span></div><div><strong>自动安全检查</strong><span>拒绝脚本、活动 SVG、目录穿越、符号链接和压缩炸弹</span></div><div><strong>独立绑定</strong><span>进入站点编辑，为每个 Locale 选择不同的已验证模板</span></div></section>`
@@ -473,7 +514,7 @@ function renderModuleGuide(route) {
 	if (route === 'users') return `<section class="module-guide" aria-label="权限管理说明"><div><strong>RBAC 角色</strong><span>动作权限由角色授予，不直接散落到用户</span></div><div><strong>数据范围</strong><span>可限制到指定站点和 Locale</span></div><div><strong>二次验证</strong><span>创建用户和修改权限必须重新验证密码与 MFA</span></div></section>`
 	if (route === 'audit') return `<section class="module-guide" aria-label="审计日志说明"><div><strong>只追加</strong><span>SQLite 触发器拒绝修改和删除审计记录</span></div><div><strong>敏感值脱敏</strong><span>密码、令牌、Cookie 和密钥不会写入日志</span></div><div><strong>可追溯</strong><span>记录操作人、请求、IP、对象、结果与时间</span></div></section>`
 	if (route === 'settings') return `<section class="module-guide" aria-label="系统维护说明"><div><strong>运行状态</strong><span>展示真实数据库、内存与进程信息</span></div><div><strong>加密快照</strong><span>备份采用 AES-GCM，并在创建后自动解密校验</span></div><div><strong>安全恢复</strong><span>恢复必须离线执行，服务端拒绝覆盖现有文件</span></div></section>`
-	if (route === 'localization') return `<section class="module-guide" aria-label="AI 本土化流程"><div><strong>英语为源</strong><span>只从已发布英语版本发起，确保源事实和品牌含义稳定。</span></div><div><strong>语境重写</strong><span>AI 按目标国家和 Locale 重新组织正文、SEO 与关键词，不做逐句翻译。</span></div><div><strong>人工审核</strong><span>目标版本以待审核状态保存；Slug、模板、SEO 和正文可逐站独立修改后发布。</span></div></section>`
+	if (route === 'localization') return `<section class="module-guide" aria-label="AI 本土化流程"><div><strong>英语为源</strong><span>只从已发布英语版本发起，确保源事实和品牌含义稳定。</span></div><div><strong>语境重写</strong><span>AI 按目标国家和 Locale 重新组织正文、SEO 与关键词，不做逐句翻译。</span></div><div><strong>人工审核</strong><span>目标版本以“草稿 / AI 待审”保存；核对后可提交审核，再按站点独立发布。</span></div></section>`
 	if (route === 'seo' || route === 'jobs') return `<section class="module-guide" aria-label="模块接入状态"><div><strong>当前状态</strong><span>此中心页面尚未接入真实任务数据，不展示演示数字</span></div><div><strong>现在可用</strong><span>${route === 'seo' ? '内容编辑器中的页面 SEO、Canonical、结构化数据和可选 AI 建议' : '发布管理中的真实发布记录和检查结果'}</span></div><div><strong>下一步</strong><span>按开发文档建立持久化任务、审核、重试和回滚闭环</span></div></section>`
   return ''
 }
@@ -576,7 +617,7 @@ function renderAIProviderRows(providers, editable) {
       <td><strong class="ai-model-name">${escapeHtml(provider.default_model)}</strong></td>
       <td><span class="ai-api-host" title="${escapeHtml(provider.base_url)}">${escapeHtml(aiProviderHost(provider.base_url))}</span></td>
       <td><span class="ai-key-state">${icon('lock', 'icon icon-sm')}${keyState}</span></td>
-      <td><span class="ai-status ${state.className}" title="${escapeHtml(provider.last_test_message || state.label)}"><i></i>${state.label}</span></td>
+      <td><div class="ai-status-cell"><span class="ai-status ${state.className}" title="${escapeHtml(provider.last_test_message || state.label)}"><i></i>${state.label}</span>${provider.last_test_status === 'offline' && provider.last_test_message ? `<small class="ai-status-detail" role="status">${escapeHtml(provider.last_test_message)}</small>` : ''}</div></td>
       <td>${editable ? `<label class="switch-control" title="${provider.enabled ? '停用此提供方' : '启用此提供方'}"><input type="checkbox" data-ai-provider-toggle ${provider.enabled ? 'checked' : ''}><span aria-hidden="true"></span><em>${provider.enabled ? '已启用' : '已停用'}</em></label>` : provider.enabled ? '已启用' : '已停用'}</td>
       <td><div class="row-actions ai-provider-actions">${editable ? `<button class="row-action-button row-action-preview" type="button" data-ai-provider-test ${testDisabled ? 'disabled title="请先配置 API Key"' : ''}>${icon('refresh', 'icon icon-sm')}<span>测试</span></button><button class="row-action-button row-action-edit" type="button" data-ai-provider-edit>${icon('edit', 'icon icon-sm')}<span>编辑</span></button><button class="row-action-button row-action-danger" type="button" data-ai-provider-delete>${icon('trash', 'icon icon-sm')}<span>删除</span></button>` : '—'}</div></td>
     </tr>`
@@ -651,14 +692,14 @@ function renderSEOCenter() {
     { label: '接入站点', value: String(summary.site_count ?? sites.length), tone: 'blue', icon: 'globe' },
     { label: '运行中站点', value: String(summary.active_site_count ?? sites.filter((site) => site.status === 'active').length), tone: 'green', icon: 'check' },
     { label: '可收录内容 URL', value: Number(summary.indexable_page_count ?? 0).toLocaleString('zh-CN'), tone: 'cyan', icon: 'search' },
-    { label: section === 'robots' ? '单页面自动 noindex' : '单页面不进地图', value: Number(summary.single_page_excluded_count ?? 0).toLocaleString('zh-CN'), tone: 'gray', icon: 'lock' },
+    { label: section === 'robots' ? '单页面 noindex' : '单页面暂不进地图', value: Number(summary.single_page_excluded_count ?? 0).toLocaleString('zh-CN'), tone: 'gray', icon: 'lock' },
   ]
   if (section === 'robots') {
     const robotsRows = sites.length ? sites.map((site) => {
       const localRobots = site.robots_url || ''
       const publicRobots = site.public_robots_url || ''
       const active = site.status !== 'disabled'
-      return `<tr><td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td><td><a class="seo-machine-url" href="${escapeHtml(localRobots)}" target="_blank" rel="noopener" title="${escapeHtml(localRobots)}">${icon('lock', 'icon icon-sm')}<code>/robots.txt</code></a></td><td><span class="seo-robots-policy ${active ? 'is-active' : 'is-disabled'}"><strong>${active ? '自动生成' : '站点已停用'}</strong><small>${active ? '生产允许抓取，测试端口禁止收录' : '不会提供公开入口'}</small></span></td><td><span class="seo-count-stack"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面 noindex</span></span></td><td><div class="row-actions seo-public-actions">${seoExternalLink(publicRobots, '正式 robots', 'lock')}</div></td></tr>`
+      return `<tr><td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td><td><a class="seo-machine-url" href="${escapeHtml(localRobots)}" target="_blank" rel="noopener" title="${escapeHtml(localRobots)}">${icon('lock', 'icon icon-sm')}<code>/robots.txt</code></a></td><td><span class="seo-robots-policy ${active ? 'is-active' : 'is-disabled'}"><strong>${active ? '自动生成' : '站点已停用'}</strong><small>${active ? '生产允许抓取，测试端口禁止收录' : '不会提供公开入口'}</small></span></td><td><span class="seo-count-stack"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>页面级 noindex</span></span></td><td><div class="row-actions seo-public-actions">${seoExternalLink(publicRobots, '正式 robots', 'lock')}</div></td></tr>`
     }).join('') : `<tr><td colspan="5"><div class="empty-state">${icon('lock')}<strong>当前账号还没有可管理的站点</strong><p>新增站点后会自动生成 robots.txt。</p></div></td></tr>`
     moduleView.innerHTML = `${heading}${renderStats(stats, 'module-stats seo-summary')}<section class="seo-automation-note" aria-labelledby="seo-robots-automation-title"><span class="seo-automation-icon">${icon('lock')}</span><div><h2 id="seo-robots-automation-title">robots 自动化策略</h2><p>正式域名允许公开页面抓取，并屏蔽后台、API、登录、账户和预览路径；localhost 测试端口固定返回 <code>Disallow: /</code>。单页面依靠页面级 <code>noindex,follow</code>，不会写入 robots 禁止规则。</p></div></section><section class="panel seo-sitemap-panel seo-robots-panel" aria-labelledby="seo-robots-title"><header class="panel-header"><div><h2 id="seo-robots-title">站点 robots 入口</h2><p>每个站点一份动态 robots.txt；发布和站点状态变更后自动更新。</p></div><span class="seo-panel-status">${icon('refresh', 'icon icon-sm')}实时查询</span></header><div class="table-scroll"><table class="seo-sitemap-table seo-robots-table"><thead><tr><th>站点</th><th>本地测试入口</th><th>抓取策略</th><th>自动屏蔽</th><th>正式域名入口</th></tr></thead><tbody>${robotsRows}</tbody></table></div></section><section class="seo-operation-note" aria-label="robots 操作说明"><div>${icon('lock')}<span><strong>本地测试保护</strong><small>本地端口的 robots 会禁止全部抓取，避免开发内容被搜索引擎收录。</small></span></div><div>${icon('file')}<span><strong>无需手工编辑</strong><small>robots.txt 由系统按站点状态和环境生成，不建议直接上传覆盖。</small></span></div></section>`
     return
@@ -670,14 +711,14 @@ function renderSEOCenter() {
       <td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td>
       <td><a class="seo-machine-url" href="${escapeHtml(localSitemap)}" target="_blank" rel="noopener" title="${escapeHtml(localSitemap)}">${icon('file', 'icon icon-sm')}<code>/sitemap.xml</code></a></td>
       <td><div class="seo-count-stack"><strong>${Number(site.indexable_page_count || 0).toLocaleString('zh-CN')}</strong><span>可收录内容 · ${Number(site.language_count || 0)} 个可渲染语言</span></div></td>
-      <td><div class="seo-count-stack seo-noindex-count"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面自动排除</span></div></td>
+      <td><div class="seo-count-stack seo-noindex-count"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面 noindex</span></div></td>
       <td><span class="seo-state seo-state-${state.tone}"><i></i><strong>${escapeHtml(state.label)}</strong><small>${escapeHtml(state.detail)}</small></span></td>
       <td><div class="row-actions seo-public-actions">${seoExternalLink(site.public_sitemap_url, '正式 Sitemap')}</div></td>
     </tr>`
   }).join('') : `<tr><td colspan="6"><div class="empty-state">${icon('globe')}<strong>当前账号还没有可管理的上线站点</strong><p>新增站点并绑定语言模板后，系统会自动提供对应 sitemap.xml。</p></div></td></tr>`
   moduleView.innerHTML = `${heading}
     ${renderStats(stats, 'module-stats seo-summary')}
-    <section class="seo-automation-note" aria-labelledby="seo-automation-title"><span class="seo-automation-icon">${icon('check')}</span><div><h2 id="seo-automation-title">自动化收录规则</h2><p>已发布、允许 index 且可被当前模板渲染的内容会自动进入所属站点地图。<strong>单页面</strong>始终输出 <code>noindex,follow</code>，并自动从 Sitemap 排除；不使用 robots.txt 的 Disallow，以确保搜索引擎能够读取 noindex 指令。</p></div></section>
+    <section class="seo-automation-note" aria-labelledby="seo-automation-title"><span class="seo-automation-icon">${icon('check')}</span><div><h2 id="seo-automation-title">自动化收录规则</h2><p>已发布、允许 index 且可被当前模板渲染的内容会自动进入所属站点地图。<strong>单页面</strong>新建默认输出 <code>noindex,follow</code>；企业介绍、服务和专题页经审核后可在编辑器设为 <code>index,follow</code> 并进入 Sitemap。系统不使用 robots.txt 的 Disallow 代替页面 robots 指令。</p></div></section>
     <section class="panel seo-sitemap-panel" aria-labelledby="seo-sitemap-title"><header class="panel-header"><div><h2 id="seo-sitemap-title">站点地图入口</h2><p>每个站点一份动态 sitemap.xml。新增站点、绑定语言模板或发布内容后无需手工生成。</p></div><span class="seo-panel-status">${icon('refresh', 'icon icon-sm')}实时查询</span></header><div class="table-scroll"><table class="seo-sitemap-table"><thead><tr><th>站点</th><th>本地 Sitemap</th><th>收录范围</th><th>自动排除</th><th>生成状态</th><th>正式 Sitemap</th></tr></thead><tbody>${rows}</tbody></table></div></section>
     <section class="seo-operation-note" aria-label="站点地图操作说明"><div>${icon('link')}<span><strong>上线方式</strong><small>在“站点管理”绑定并解析正式域名后，对应域名会自动提供 <code>/sitemap.xml</code>；本地端口仅用于预览。</small></span></div><div>${icon('file')}<span><strong>内容变化</strong><small>发布、定时到点、修改 robots_index、删除内容或切换模板后，下一次访问即得到更新后的地图。</small></span></div></section>`
 }
@@ -705,16 +746,19 @@ function renderModule(route, options = {}) {
   const permission = editPermission(route)
   const showPrimary = !realRoutes.has(route) || can(permission)
   const scopedSite = siteScopedRoutes.has(route) ? currentSite() : null
+  const scopeLabel = route === 'content' ? contentScopeLabel() : scopedSite ? `当前站点：${scopedSite.name}` : ''
   const statusText = liveState.loading.has(route) ? '正在读取…' : liveState.errors.has(route) ? '读取失败' : selectedCount ? `已选择 ${selectedCount} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : `共 ${filterRows(config.rows, moduleState.query, moduleState.filter).length} 条记录`
   moduleView.innerHTML = `
     <div class="page-heading">
-      <div><h1 id="module-title">${escapeHtml(config.title)}</h1><p>${escapeHtml(config.subtitle)}${scopedSite ? `<span class="module-scope">当前站点：${escapeHtml(scopedSite.name)}</span>` : ''}</p></div>
+      <div><h1 id="module-title">${escapeHtml(config.title)}</h1><p>${escapeHtml(config.subtitle)}${scopeLabel ? `<span class="module-scope">${escapeHtml(scopeLabel)}</span>` : ''}</p></div>
       ${showPrimary ? `<button class="button button-primary" type="button" data-module-primary>${icon('plus', 'icon icon-sm')}${escapeHtml(config.primaryAction)}</button>` : ''}
     </div>
     ${route === 'content' ? renderContentTabs(contentSection()) : route === 'settings' ? renderSettingsTabs(settingsSection()) : ''}
     ${renderStats(config.stats, 'module-stats')}
     ${renderModuleGuide(route)}
     <div class="module-toolbar">
+      ${route === 'content' ? renderContentScopePicker() : ''}
+      ${route === 'content' ? renderContentBulkTrigger(config) : ''}
       <div class="filter-group" role="group" aria-label="筛选 ${escapeHtml(config.entityName)}">
         ${config.filters.map((filter) => `<button class="filter-button" type="button" data-filter="${escapeHtml(filter)}" aria-pressed="${filter === moduleState.filter}">${escapeHtml(filter)}</button>`).join('')}
       </div>
@@ -747,7 +791,7 @@ function templateRowByID(themeID) {
 
 function activeTemplateFile(themeID) {
   const key = templateEditorState.activeByTheme.get(String(themeID))
-  return (templateEditorState.filesByTheme.get(String(themeID)) || []).find((file) => file.key === key)
+  return (templateEditorState.filesByTheme.get(String(themeID)) || []).find((file) => file.key === key) || (templateEditorState.assetsByTheme.get(String(themeID)) || []).find((asset) => asset.key === key)
 }
 
 async function loadTemplateWorkspace(themeID, force = false) {
@@ -757,10 +801,12 @@ async function loadTemplateWorkspace(themeID, force = false) {
   templateEditorState.errors.delete(id)
   refreshModuleTable()
   try {
-    const payload = await fetchJSON(`/api/v1/templates/${encodeURIComponent(id)}/files`)
+    const [payload, assetPayload] = await Promise.all([fetchJSON(`/api/v1/templates/${encodeURIComponent(id)}/files`), fetchJSON(`/api/v1/templates/${encodeURIComponent(id)}/assets`)]).catch((error) => { throw error })
     const files = (payload.files || []).map((file) => ({ ...file, _draft: file.content, _dirty: false, _validation: null }))
+    const assets = (assetPayload.assets || []).map((asset) => ({ ...asset, _asset: true, _draft: asset.content, _dirty: false, _validation: null }))
     templateEditorState.filesByTheme.set(id, files)
-    if (!templateEditorState.activeByTheme.has(id) && files[0]) templateEditorState.activeByTheme.set(id, files[0].key)
+    templateEditorState.assetsByTheme.set(id, assets)
+    if (!templateEditorState.activeByTheme.has(id) && (files[0] || assets[0])) templateEditorState.activeByTheme.set(id, (files[0] || assets[0]).key)
   } catch (error) {
     templateEditorState.errors.set(id, error.message || '无法读取模板文件')
   } finally {
@@ -801,7 +847,8 @@ async function validateActiveTemplateFile(themeID, button) {
   const original = button?.innerHTML || ''
   if (button) { button.disabled = true; button.textContent = '正在校验…' }
   try {
-    const result = await fetchJSON(`/api/v1/templates/${encodeURIComponent(id)}/files/${encodeURIComponent(file.key)}/validate`, { method: 'POST', body: { content: templateDraftValue(file) } })
+    const resourceType = file._asset ? 'assets' : 'files'
+    const result = await fetchJSON(`/api/v1/templates/${encodeURIComponent(id)}/${resourceType}/${encodeURIComponent(file.key)}/validate`, { method: 'POST', body: { content: templateDraftValue(file) } })
     file._validation = result
     refreshModuleTable()
     showToast(result.valid ? `${file.label}校验通过` : `${file.label}存在需要修正的问题`)
@@ -823,7 +870,8 @@ async function saveActiveTemplateFile(themeID, button) {
   const original = button?.innerHTML || ''
   if (button) { button.disabled = true; button.textContent = '正在安全保存…' }
   try {
-    const updated = await fetchJSON(`/api/v1/templates/${encodeURIComponent(id)}/files/${encodeURIComponent(file.key)}`, { method: 'PUT', body: { content: source, version: Number(file.version), change_note: note } })
+    const resourceType = file._asset ? 'assets' : 'files'
+    const updated = await fetchJSON(`/api/v1/templates/${encodeURIComponent(id)}/${resourceType}/${encodeURIComponent(file.key)}`, { method: 'PUT', body: { content: source, version: Number(file.version), change_note: note } })
     Object.assign(file, updated, { _draft: updated.content, _dirty: false, _validation: { valid: true, message: '已通过安全校验并保存为新的模板修订' } })
     templateEditorState.changeNotes.set(id, '')
     refreshModuleTable()
@@ -840,7 +888,7 @@ async function saveActiveTemplateFile(themeID, button) {
 function syncModuleSelectionControl(config) {
   const selectAll = $('[data-select-all]', moduleView)
   if (!selectAll) return
-  const selectableRows = filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected(moduleState.route, row))
+  const selectableRows = selectableRowsForBulk(moduleState.route, filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected(moduleState.route, row)))
   const selectedCount = selectableRows.filter((row) => moduleState.selected.has(String(row.id))).length
   selectAll.checked = selectableRows.length > 0 && selectedCount === selectableRows.length
   selectAll.indeterminate = selectedCount > 0 && selectedCount < selectableRows.length
@@ -926,6 +974,10 @@ function formatDateTimeLocal(value) {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
 }
 
+function defaultContentScheduledAt(item, creating = false) {
+  return creating ? formatDateTimeLocal(new Date()) : formatDateTimeLocal(item?.scheduled_at)
+}
+
 function updateSiteData(items) {
   liveState.sites = items
   modules.sites.rows = items.map((item) => ({
@@ -955,7 +1007,7 @@ function updateLanguageData(items) {
 function updateContentData(items, total, counts = {}) {
   modules.content.rows = items.map((item) => ({
     id: item.id, name: item.title, type: contentTypes[item.content_type] ?? item.content_type,
-    language: item.language_name || item.locale, owner: item.owner_name || '未分配', status: contentStatus[isScheduledContent(item) ? 'scheduled' : item.status] ?? item.status,
+    site: item.site_name || `站点 #${item.site_id}`, language: item.language_name || item.locale, owner: item.owner_name || '未分配', status: contentStatus[isScheduledContent(item) ? 'scheduled' : item.status] ?? item.status,
     updatedAt: formatDate(item.updated_at), _raw: item,
   }))
   modules.content.stats[0].value = Number(total).toLocaleString('zh-CN')
@@ -1216,7 +1268,7 @@ async function loadRoute(route, force = false) {
       updateLanguageData(payload.languages ?? [])
     } else if (route === 'content') {
 		const contentPath = contentSection() === 'pages' ? '/api/v1/contents?limit=100&content_type=page' : '/api/v1/contents?limit=100&content_type=non_page'
-		const payload = await fetchJSON(siteScopedAPIPath(contentPath))
+		const payload = await fetchJSON(isAllSitesContentScope() ? contentPath : siteScopedAPIPath(contentPath))
 		updateContentData(payload.contents ?? [], payload.total ?? 0, payload.status_counts ?? {})
 	    } else if (route === 'taxonomy') {
 	      const payload = await fetchJSON(siteScopedAPIPath('/api/v1/taxonomy/terms'))
@@ -1573,7 +1625,7 @@ async function contentFields(item = null, newLocale = false) {
       </div></details>` : ''}
     </div>
     <aside class="content-editor-side" aria-label="内容发布设置">
-      <section class="editor-side-section"><h3>发布设置</h3>${selectField('站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale, help: item && !newLocale ? '现有内容的站点不能直接迁移；请添加新的语言版本。' : '' })}${selectField('语言 / Locale', 'locale', localeChoices, item?.locale ?? localeChoices[0]?.value ?? '', { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}${field('定时发布时间', 'scheduled_at', formatDateTimeLocal(item?.scheduled_at), { type: 'datetime-local', help: '选择未来时间并发布后，前台会在到点时自动开放，最多受 60 秒页面缓存影响。' })}</section>
+      <section class="editor-side-section"><h3>发布设置</h3>${selectField('站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale, help: item && !newLocale ? '现有内容的站点不能直接迁移；请添加新的语言版本。' : '' })}${selectField('语言 / Locale', 'locale', localeChoices, item?.locale ?? localeChoices[0]?.value ?? '', { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}${field('定时发布时间', 'scheduled_at', defaultContentScheduledAt(item, !item || newLocale), { type: 'datetime-local', help: '默认当前时间；改为未来时间并发布后，前台会在到点时自动开放，最多受 60 秒页面缓存影响。' })}</section>
       <section class="editor-side-section"><h3>归档与展示</h3>${field('栏目', 'category', item?.category, { maxlength: 100, placeholder: '物流知识 / 服务指南' })}${field('Tag 标签', 'tags', (item?.tags ?? []).join(', '), { maxlength: 1800, placeholder: '国际物流, 欧洲专线', help: '逗号分隔；自动去重，最多 30 个。' })}${field('模板套装 Key', 'template_key', item?.template_key, { maxlength: 100, placeholder: 'global-commerce/article' })}</section>
       <section class="editor-side-section publish-check-panel"><h3>发布前检查</h3><div class="check-row"><span class="check-dot check-dot-neutral"></span><span>标题和 Slug</span><small>保存时校验</small></div><div class="check-row"><span class="check-dot check-dot-neutral"></span><span>正文安全清洗</span><small>服务端执行</small></div><div class="check-row"><span class="check-dot check-dot-neutral"></span><span>SEO 字段完整</span><small>发布前检查</small></div><p>发布操作会写入审计日志，可在发布管理中追踪。</p></section>
     </aside>
@@ -1603,6 +1655,12 @@ function taxonomyOptionMarkup(terms) {
   return terms.map((term) => `<option value="${escapeHtml(term.name)}">${escapeHtml(term.slug)}</option>`).join('')
 }
 
+function contentTagHelpText(count) {
+  return count
+    ? `可从 ${count} 个现有标签中选择；输入后按回车、逗号，离开输入框或保存时自动创建；最多 30 个，重复项自动合并。`
+    : '当前范围还没有标签；输入后按回车、逗号，离开输入框或保存时自动创建；最多 30 个，重复项自动合并。'
+}
+
 function refreshContentTaxonomySuggestions(form) {
   if (!form) return
   const siteID = Number(contentEditorFormValue(form, 'site_id') || form.dataset.siteId || 0)
@@ -1616,7 +1674,7 @@ function refreshContentTaxonomySuggestions(form) {
   const categoryHelp = form.querySelector('[data-category-suggestion-count]')
   const tagHelp = form.querySelector('[data-tag-suggestion-count]')
   if (categoryHelp) categoryHelp.textContent = categories.length ? `当前范围有 ${categories.length} 个可用栏目；也可输入新名称，保存时自动创建。` : '当前范围还没有栏目；输入名称并保存后会自动创建。'
-  if (tagHelp) tagHelp.textContent = tags.length ? `可从 ${tags.length} 个现有标签中选择；最多 30 个，重复项自动合并。` : '当前范围还没有标签；输入后按回车创建，最多 30 个。'
+  if (tagHelp) tagHelp.textContent = contentTagHelpText(tags.length)
 }
 
 function editorDraftKey(form) {
@@ -1632,13 +1690,43 @@ function requestedContentType() {
 
 function pagePresetMarkup() {
   const presets = [
-    { key: 'about', label: '关于我们', slug: 'about-us', category: '企业信息', hint: '团队、使命与服务能力' },
-    { key: 'contact', label: '联系我们', slug: 'contact-us', category: '企业信息', hint: '咨询入口与联系信息' },
-    { key: 'topic', label: '专题页面', slug: 'campaign/', category: '专题活动', hint: '活动、解决方案或专题聚合' },
-    { key: 'service', label: '服务页面', slug: 'services/', category: '服务介绍', hint: '单项服务与转化信息' },
-    { key: 'custom', label: '自定义页面', slug: '', category: '', hint: '从空白页面开始' },
+    { key: 'about', label: '关于我们', slug: 'about-us', category: '企业信息', layout: 'standard', template: 'page/about', hint: '团队、使命与服务能力' },
+    { key: 'contact', label: '联系我们', slug: 'contact-us', category: '企业信息', layout: 'contact', template: 'page/contact', hint: '联系信息与安全询盘表单' },
+    { key: 'topic', label: '专题页面', slug: 'campaign', category: '专题活动', layout: 'landing', template: 'page/landing', hint: '活动、解决方案或专题聚合' },
+    { key: 'service', label: '服务页面', slug: 'services', category: '服务介绍', layout: 'standard', template: 'page/service', hint: '单项服务与转化信息' },
+    { key: 'custom', label: '自定义页面', slug: '', category: '', layout: 'custom', template: 'page/custom', hint: '从空白页面开始' },
   ]
-  return `<section class="page-preset-panel" aria-labelledby="page-preset-heading"><div><h2 id="page-preset-heading">从页面用途开始</h2><p>预设会填入标题、URL 和栏目；正文、模板和站点语言仍由你独立设置。</p></div><div class="page-preset-list">${presets.map((preset) => `<button type="button" class="page-preset-button" data-page-preset="${preset.key}" data-page-title="${preset.label}" data-page-slug="${preset.slug}" data-page-category="${preset.category}"><strong>${escapeHtml(preset.label)}</strong><small>${escapeHtml(preset.hint)}</small></button>`).join('')}</div></section>`
+  return `<section class="page-preset-panel" aria-labelledby="page-preset-heading"><div><h2 id="page-preset-heading">选择单页面模板</h2><p>模板会决定页面结构、前台资源和默认 SEO 策略；保存后可继续修改正文与 SEO。</p></div><div class="page-preset-list">${presets.map((preset) => `<button type="button" class="page-preset-button" data-page-preset="${preset.key}" data-page-title="${preset.label}" data-page-slug="${preset.slug}" data-page-category="${preset.category}" data-page-layout="${preset.layout}" data-page-template="${preset.template}" data-page-index-policy="noindex"><strong>${escapeHtml(preset.label)}</strong><small>${escapeHtml(preset.hint)}</small><em>${escapeHtml(preset.template)}</em></button>`).join('')}</div></section>`
+}
+
+const contactFormFieldPresets = [
+  { key: 'name', type: 'text', label: '姓名 / 联系人', placeholder: '请输入您的姓名', required: true },
+  { key: 'email', type: 'email', label: '邮箱', placeholder: 'name@example.com', required: true },
+  { key: 'phone', type: 'tel', label: '联系电话', placeholder: '+49 30 123456', required: false },
+  { key: 'country', type: 'country', label: '所在国家 / 地区', placeholder: '例如：Germany', required: false },
+  { key: 'service', type: 'select', label: '咨询服务', placeholder: '', options: ['国际快递', '空运', '海运', '清关服务'], required: false },
+  { key: 'message', type: 'textarea', label: '需求说明', placeholder: '请说明货物、起运地、目的地与预计时效。', required: true },
+  { key: 'consent', type: 'checkbox', label: '我同意使用以上信息处理本次咨询', placeholder: '', required: true },
+]
+
+async function contactPageFormManagerMarkup(item) {
+  if (!item?.id) return `<section class="publish-sidebar-section contact-form-manager is-pending" aria-labelledby="contact-form-heading"><h2 id="contact-form-heading">联系表单</h2><p>选择“联系我们”模板后保存，系统会自动生成并绑定标准安全询盘表单。</p></section>`
+  if (item.page_layout !== 'contact') return `<section class="publish-sidebar-section contact-form-manager" aria-labelledby="contact-form-heading"><h2 id="contact-form-heading">联系表单</h2><p>当前模板不包含询盘表单。选择“联系我们”模板并保存后，系统会自动绑定标准安全表单。</p></section>`
+  try {
+    const bindingPayload = await fetchJSON(`/api/v1/content-locales/${encodeURIComponent(item.id)}/form`)
+    const bound = bindingPayload.form ?? null
+    const summary = bound ? `${bound.fields?.length || 0} 个标准字段 · ${bound.status === 'active' ? '前台已启用' : '已停用'}` : '系统将在保存时自动绑定'
+    return `<section class="publish-sidebar-section contact-form-manager" aria-labelledby="contact-form-heading" data-contact-page-id="${escapeHtml(item.id)}">
+      <header class="sidebar-section-heading"><h2 id="contact-form-heading">默认询盘表单</h2>${bound ? `<button class="text-button" type="button" data-contact-action="submissions" data-contact-form-id="${escapeHtml(bound.id)}">查看询盘</button>` : ''}</header>
+      <div class="contact-form-current ${bound ? 'is-bound' : ''}"><span>${icon(bound ? 'check' : 'alert', 'icon icon-sm')}</span><div><strong>${escapeHtml(bound?.name || '等待保存页面')}</strong><small>${escapeHtml(summary)}</small></div></div>
+      ${bound ? `<div class="contact-form-actions"><button class="button button-secondary button-compact" type="button" data-contact-action="edit" data-contact-form-id="${escapeHtml(bound.id)}">高级字段设置</button><button class="button button-primary button-compact" type="button" data-contact-action="submissions" data-contact-form-id="${escapeHtml(bound.id)}">查看询盘</button></div>` : '<p class="form-help">无需手动新建或绑定；保存此页后自动完成。</p>'}
+    </section>`
+  } catch (error) {
+    if (error?.status === 404) {
+      return `<section class="publish-sidebar-section contact-form-manager is-pending" aria-labelledby="contact-form-heading"><h2 id="contact-form-heading">默认询盘表单</h2><p>这是已有的联系页面，尚未绑定默认表单。保存当前页面后，系统会自动生成并绑定安全询盘表单。</p><button class="button button-primary button-compact" type="button" data-contact-action="ensure">保存页面并自动生成</button></section>`
+    }
+    return `<section class="publish-sidebar-section contact-form-manager is-error" aria-labelledby="contact-form-heading"><h2 id="contact-form-heading">联系表单</h2><p>无法读取表单配置：${escapeHtml(error.message || '请稍后重试')}</p><button class="button button-secondary button-compact" type="button" data-contact-action="refresh">重新读取</button></section>`
+  }
 }
 
 async function contentEditorPageMarkup(item = null, newLocale = false) {
@@ -1656,6 +1744,7 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
   const secondaryKeywords = (item?.secondary_keywords ?? []).join(', ')
   const structured = item?.structured_data ? JSON.stringify(item.structured_data, null, 2) : '{}'
   const mode = item?.content_id && !newLocale ? 'edit' : newLocale ? 'locale-create' : 'create'
+  const scheduledAt = defaultContentScheduledAt(item, mode !== 'edit')
   const contentType = item?.content_type || requestedContentType()
   const isSinglePage = contentType === 'page'
   const templatePlaceholder = isSinglePage ? 'page/company' : 'article/zh-cn'
@@ -1667,11 +1756,12 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
   const coverSelected = Boolean(item?.cover_media_id)
   const coverName = item?.cover_original_name || (coverSelected ? `媒体 #${item.cover_media_id}` : '尚未选择封面素材')
   const coverDetails = coverSelected && item?.cover_width && item?.cover_height ? `${item.cover_width} × ${item.cover_height} · 已安全扫描` : '建议 1200 × 630，仅支持 JPEG / PNG'
-	const livePageURL = item?.status === 'published' && !isScheduledContent(item) ? contentFrontendPreviewURL(selectedSite, item) : ''
+  const livePageURL = item?.status === 'published' && !isScheduledContent(item) ? contentFrontendPreviewURL(selectedSite, item) : ''
   const localePath = Number(selectedSite?.language_count || 0) > 1 ? `/${escapeHtml(selectedLocale)}` : ''
+  const contactFormManager = isSinglePage ? await contactPageFormManagerMarkup(item) : ''
   return `<form id="content-editor-form" class="content-page-form" data-mode="${mode}" data-id="${escapeHtml(item?.id ?? '')}" data-content-id="${escapeHtml(item?.content_id ?? '')}" data-site-id="${escapeHtml(item?.site_id ?? siteID)}" data-locale="${escapeHtml(item?.locale ?? selectedLocale)}" data-ai-state="${escapeHtml(item?.ai_state ?? 'manual')}" data-version="${escapeHtml(item?.version ?? '')}" data-content-version="${escapeHtml(item?.content_version ?? '')}" novalidate>
     <header class="content-page-heading">
-      <div class="content-heading-copy"><nav class="content-breadcrumb" aria-label="面包屑"><a href="${listPath}">${isSinglePage ? '单页面' : '内容管理'}</a><span aria-hidden="true">/</span><span>${heading}</span></nav><div class="content-title-line"><h1>${heading}</h1>${item?.ai_state === 'pending' ? '<span class="badge badge-amber">AI 生成 · 待人工审核</span>' : item?.ai_state === 'reviewed' ? '<span class="badge badge-green">AI 版本 · 已人工审核</span>' : ''}<p>${newLocale ? '为同一内容组创建独立的本地化版本' : isSinglePage ? '每个单页面都有独立 URL，并使用当前站点语言绑定的单页面模板；系统固定 noindex,follow。' : !item ? '默认先完成并发布英语源内容，再由 AI 同步其他国家站' : isEnglishLocaleCode(item.locale) ? '英语源内容可在发布后同步为其他语言的待审核版本' : '目标语言版本可独立审核、修改和发布'}</p></div></div>
+      <div class="content-heading-copy"><nav class="content-breadcrumb" aria-label="面包屑"><a href="${listPath}">${isSinglePage ? '单页面' : '内容管理'}</a><span aria-hidden="true">/</span><span>${heading}</span></nav><div class="content-title-line"><h1>${heading}</h1>${item?.ai_state === 'pending' ? '<span class="badge badge-amber">AI 生成 · 待人工审核</span>' : item?.ai_state === 'reviewed' ? '<span class="badge badge-green">AI 版本 · 已人工审核</span>' : ''}<p>${newLocale ? '为同一内容组创建独立的本地化版本' : isSinglePage ? '页面布局、SEO 收录和表单绑定都由后台单独管理；联系页默认 noindex，企业介绍/服务/专题可主动启用收录。' : !item ? '默认先完成并发布英语源内容，再由 AI 同步其他国家站' : isEnglishLocaleCode(item.locale) ? '英语源内容可在发布后同步为其他语言的待审核版本' : '目标语言版本可独立审核、修改和发布'}</p></div></div>
       <div class="content-heading-actions" aria-label="内容操作">
         ${item?.content_id ? `<button class="button button-secondary" type="button" data-content-action="revisions">${icon('clipboard', 'icon icon-sm')}版本历史</button>` : ''}
         ${livePageURL ? `<a class="button button-secondary" href="${escapeHtml(livePageURL)}" target="_blank" rel="noopener">${icon('eye', 'icon icon-sm')}打开前台</a>` : ''}
@@ -1724,15 +1814,16 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
             ${field('Open Graph 标题', 'og_title', item?.og_title ?? '', { maxlength: 200 })}
             ${field('Open Graph 描述', 'og_description', item?.og_description ?? '', { textarea: true, maxlength: 500 })}
             ${field('JSON-LD 结构化数据', 'structured_data', structured, { textarea: true, code: true })}
-            ${isSinglePage ? `<div class="page-noindex-note" role="note">${icon('lock', 'icon icon-sm')}<span><strong>单页面固定不收录</strong><small>系统会输出 <code>noindex,follow</code>，并从 Sitemap 自动排除；此规则不能在这里关闭。</small></span><input type="checkbox" name="robots_index" hidden></div>` : checkboxField('允许搜索引擎收录（index）', 'robots_index', item?.robots_index ?? true)}
+            ${isSinglePage ? `<div class="page-seo-policy"><label class="form-field"><span>页面布局</span><select name="page_layout"><option value="standard" ${(item?.page_layout ?? 'standard') === 'standard' ? 'selected' : ''}>普通页面（关于我们 / 服务）</option><option value="contact" ${(item?.page_layout ?? '') === 'contact' ? 'selected' : ''}>联系页面（可绑定询盘表单）</option><option value="landing" ${(item?.page_layout ?? '') === 'landing' ? 'selected' : ''}>专题 / 落地页</option><option value="custom" ${(item?.page_layout ?? '') === 'custom' ? 'selected' : ''}>自定义页面</option></select><small>布局控制前台加载的页面和表单资源；正文不能直接放入任意 HTML 表单。</small></label><label class="form-field"><span>搜索引擎收录</span><select name="index_policy"><option value="noindex" ${(item?.index_policy ?? 'noindex') === 'noindex' ? 'selected' : ''}>不收录（noindex, follow）</option><option value="index" ${(item?.index_policy ?? '') === 'index' ? 'selected' : ''}>允许收录并进入 Sitemap</option></select><small>联系表单、隐私和提交成功页建议不收录；企业介绍、服务和专题可以开启。</small></label><input type="checkbox" name="robots_index" checked hidden></div>` : checkboxField('允许搜索引擎收录（index）', 'robots_index', item?.robots_index ?? true)}
           </div></details>
         </section>` : ''}
       </div>
 
       <aside class="content-publish-sidebar" aria-label="发布设置">
-        <section class="publish-sidebar-section"><h2>发布设置</h2><div class="publish-summary-row"><span>状态</span>${selectField('状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}</div><div class="publish-summary-row"><span>发布时间</span>${field('发布时间', 'scheduled_at', formatDateTimeLocal(item?.scheduled_at), { type: 'datetime-local', help: '选择未来时间并发布后，前台会在到点时自动开放，最多受 60 秒页面缓存影响。' })}</div><div class="publish-summary-row publish-owner"><span>作者</span><strong>${escapeHtml(item?.owner_name || '当前管理员')}</strong></div><button class="button button-primary publish-sidebar-button" type="button" data-content-action="publish">立即发布</button></section>
+        <section class="publish-sidebar-section"><h2>发布设置</h2><div class="publish-summary-row"><span>状态</span>${selectField('状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}</div><div class="publish-summary-row"><span>发布时间</span>${field('发布时间', 'scheduled_at', scheduledAt, { type: 'datetime-local', help: '默认当前时间；改为未来时间并发布后，前台会在到点时自动开放，最多受 60 秒页面缓存影响。' })}</div><div class="publish-summary-row publish-owner"><span>作者</span><strong>${escapeHtml(item?.owner_name || '当前管理员')}</strong></div><button class="button button-primary publish-sidebar-button" type="button" data-content-action="publish">立即发布</button></section>
         <section class="publish-sidebar-section"><header class="sidebar-section-heading"><h2>站点与语言</h2><button type="button" class="text-button" data-content-action="localize">AI 同步其他语言</button></header>${selectField('目标站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容语言', 'locale', localeChoices, selectedLocale, { required: true, disabled: Boolean(item) && !newLocale })}<input type="hidden" name="cover_media_id" value="${escapeHtml(item?.cover_media_id ?? '')}"><div class="cover-selector ${coverSelected ? 'is-selected' : ''}" data-cover-selector><span class="cover-placeholder">${icon('image')}</span><span><small>封面图</small><strong data-cover-name>${escapeHtml(coverName)}</strong><em data-cover-details>${escapeHtml(coverDetails)}</em></span><span class="cover-actions"><button class="button button-secondary button-compact" type="button" data-content-action="media">${coverSelected ? '更换' : '上传'}</button><button class="text-button" type="button" data-content-action="cover-remove" ${coverSelected ? '' : 'hidden'}>移除</button></span></div></section>
-        <section class="publish-sidebar-section"><h2>栏目、标签与模板</h2><label class="form-field"><span>栏目</span><input name="category" list="content-category-suggestions" value="${escapeHtml(item?.category ?? '')}" maxlength="100" placeholder="选择或输入栏目"><datalist id="content-category-suggestions">${taxonomyOptionMarkup(categoryTerms)}</datalist><small data-category-suggestion-count>${categoryTerms.length ? `当前范围有 ${categoryTerms.length} 个可用栏目；也可输入新名称，保存时自动创建。` : '当前范围还没有栏目；输入名称并保存后会自动创建。'}</small></label><label class="form-field tag-editor-field"><span>标签</span><input type="hidden" name="tags" value="${escapeHtml(tags)}"><div class="tag-editor" data-tag-editor><div class="tag-chip-list" data-tag-list></div><input type="text" data-tag-entry list="content-tag-suggestions" maxlength="80" placeholder="选择或输入后按回车"></div><datalist id="content-tag-suggestions">${taxonomyOptionMarkup(tagTerms)}</datalist><small data-tag-suggestion-count>${tagTerms.length ? `可从 ${tagTerms.length} 个现有标签中选择；最多 30 个，重复项自动合并。` : '当前范围还没有标签；输入后按回车创建，最多 30 个。'}</small></label>${field('页面模板', 'template_key', item?.template_key ?? '', { maxlength: 100, placeholder: templatePlaceholder })}</section>
+        <section class="publish-sidebar-section"><h2>栏目、标签与模板</h2><label class="form-field"><span>栏目</span><input name="category" list="content-category-suggestions" value="${escapeHtml(item?.category ?? '')}" maxlength="100" placeholder="选择或输入栏目"><datalist id="content-category-suggestions">${taxonomyOptionMarkup(categoryTerms)}</datalist><small data-category-suggestion-count>${categoryTerms.length ? `当前范围有 ${categoryTerms.length} 个可用栏目；也可输入新名称，保存时自动创建。` : '当前范围还没有栏目；输入名称并保存后会自动创建。'}</small></label><label class="form-field tag-editor-field"><span>标签</span><input type="hidden" name="tags" value="${escapeHtml(tags)}"><div class="tag-editor" data-tag-editor><div class="tag-chip-list" data-tag-list></div><input type="text" data-tag-entry list="content-tag-suggestions" maxlength="80" aria-describedby="content-tag-help" placeholder="输入标签后按回车或逗号"></div><datalist id="content-tag-suggestions">${taxonomyOptionMarkup(tagTerms)}</datalist><small id="content-tag-help" data-tag-suggestion-count>${contentTagHelpText(tagTerms.length)}</small></label>${field('页面模板', 'template_key', item?.template_key ?? '', { maxlength: 100, placeholder: templatePlaceholder })}</section>
+        ${contactFormManager}
         <section class="publish-sidebar-section publish-check-panel"><h2>发布前检查</h2><div class="check-row" data-publish-check="title"><span class="check-dot check-dot-neutral"></span><span>标题与 URL</span><small>待填写</small></div><div class="check-row" data-publish-check="body"><span class="check-dot check-dot-neutral"></span><span>正文内容</span><small>待填写</small></div><div class="check-row" data-publish-check="seo"><span class="check-dot check-dot-neutral"></span><span>SEO 字段</span><small>待完善</small></div><div class="check-row" data-publish-check="cover"><span class="check-dot check-dot-warning"></span><span>封面图</span><small>建议上传</small></div><p>发布时服务端会再次执行权限、URL 冲突与富文本安全检查，并写入审计日志。</p></section>
       </aside>
     </div>
@@ -2294,6 +2385,13 @@ function renderContentTags(form) {
   list.innerHTML = tags.map((tag) => `<span class="tag-chip">${escapeHtml(tag)}<button type="button" data-remove-tag="${escapeHtml(tag)}" aria-label="删除标签 ${escapeHtml(tag)}">×</button></span>`).join('')
 }
 
+function commitPendingContentTag(form) {
+  const entry = form?.querySelector('[data-tag-entry]')
+  if (!entry || !entry.value.trim()) return false
+  addContentTag(form, entry.value)
+  return true
+}
+
 function addContentTag(form, value) {
   const hidden = form?.elements?.tags
   const entry = form?.querySelector('[data-tag-entry]')
@@ -2352,6 +2450,7 @@ function initializeContentEditorPage() {
 }
 
 function contentEditorPayload(form, statusOverride = null) {
+  commitPendingContentTag(form)
   const source = form.elements.body_html?.value ?? ''
   let structuredData = {}
   if (form.elements.structured_data) {
@@ -2368,9 +2467,12 @@ function contentEditorPayload(form, statusOverride = null) {
   const payload = {
     content_type: contentEditorFormValue(form, 'content_type') || 'article', site_id: Number(contentEditorFormValue(form, 'site_id') || form.dataset.siteId), locale: contentEditorFormValue(form, 'locale') || form.dataset.locale,
     status: statusOverride || contentEditorFormValue(form, 'status') || 'draft', title: contentEditorFormValue(form, 'title'), slug: contentEditorFormValue(form, 'slug'), summary: contentEditorFormValue(form, 'summary'), body_html: source,
-    ai_state: form.dataset.aiState === 'pending' ? ((statusOverride || contentEditorFormValue(form, 'status')) === 'published' ? 'reviewed' : 'pending') : (form.dataset.aiState || 'manual'), category: contentEditorFormValue(form, 'category'), tags: normalizeTags(contentEditorFormValue(form, 'tags')), template_key: contentEditorFormValue(form, 'template_key'), cover_media_id: contentEditorFormValue(form, 'cover_media_id') ? Number(contentEditorFormValue(form, 'cover_media_id')) : null, scheduled_at: scheduledAt,
+    ai_state: form.dataset.aiState === 'pending' ? ((statusOverride || contentEditorFormValue(form, 'status')) === 'published' ? 'reviewed' : 'pending') : (form.dataset.aiState || 'manual'), category: contentEditorFormValue(form, 'category'), tags: normalizeTags(contentEditorFormValue(form, 'tags')), template_key: contentEditorFormValue(form, 'template_key'), cover_media_id: contentEditorFormValue(form, 'cover_media_id') ? Number(contentEditorFormValue(form, 'cover_media_id')) : null, scheduled_at: scheduledAt, page_layout: contentEditorFormValue(form, 'page_layout'), index_policy: contentEditorFormValue(form, 'index_policy'),
   }
-  if (form.elements.seo_title) payload.seo = { h1: contentEditorFormValue(form, 'seo_h1'), title: contentEditorFormValue(form, 'seo_title'), meta_description: contentEditorFormValue(form, 'meta_description'), primary_keyword: contentEditorFormValue(form, 'primary_keyword'), secondary_keywords: normalizeTags(contentEditorFormValue(form, 'secondary_keywords'), 20), canonical_url: contentEditorFormValue(form, 'canonical_url'), robots_index: payload.content_type === 'page' ? false : Boolean(form.elements.robots_index?.checked), og_title: contentEditorFormValue(form, 'og_title'), og_description: contentEditorFormValue(form, 'og_description'), structured_data: structuredData }
+  // A new single page starts noindex by default; an editor can explicitly
+  // opt an about, service or campaign page into the sitemap via index_policy.
+  const defaultRobotsIndex = payload.content_type === 'page' ? false : Boolean(form.elements.robots_index?.checked)
+  if (form.elements.seo_title) payload.seo = { h1: contentEditorFormValue(form, 'seo_h1'), title: contentEditorFormValue(form, 'seo_title'), meta_description: contentEditorFormValue(form, 'meta_description'), primary_keyword: contentEditorFormValue(form, 'primary_keyword'), secondary_keywords: normalizeTags(contentEditorFormValue(form, 'secondary_keywords'), 20), canonical_url: contentEditorFormValue(form, 'canonical_url'), robots_index: payload.content_type === 'page' ? (payload.index_policy === 'index' || defaultRobotsIndex) : defaultRobotsIndex, og_title: contentEditorFormValue(form, 'og_title'), og_description: contentEditorFormValue(form, 'og_description'), structured_data: structuredData }
   if (mode === 'edit') { payload.version = Number(form.dataset.version || 0); delete payload.site_id; delete payload.locale }
   return payload
 }
@@ -2378,6 +2480,7 @@ function contentEditorPayload(form, statusOverride = null) {
 async function submitContentEditor(statusOverride = null) {
   const form = $('#content-editor-form', contentEditorView)
   if (!form) return
+  commitPendingContentTag(form)
   syncVisualEditor(form, form.querySelector('[data-rich-source]')?.hidden === false ? 'source' : 'visual')
   applyLocalSEODefaults(form)
   if (!form.reportValidity()) return
@@ -2399,6 +2502,11 @@ async function submitContentEditor(statusOverride = null) {
     clearLocalContentDraft(form)
     contentEditorState.dirty = false
     showToast(status === 'published' ? '内容已发布' : status === 'review' ? '内容已提交审核' : '草稿已保存')
+    if (mode === 'create' && payload.content_type === 'page') {
+      showToast(`单页面“${payload.title}”已创建，已显示在单页面列表`)
+      location.hash = '#/admin/content?section=pages'
+      return
+    }
     if (saved?.content_id && saved?.site_id && saved?.locale) {
       const savedType = saved.content_type || payload.content_type
       const targetHash = `#/admin/content?section=${savedType === 'page' ? 'pages' : 'articles'}&editor=edit&content_id=${encodeURIComponent(saved.content_id)}&site_id=${encodeURIComponent(saved.site_id)}&locale=${encodeURIComponent(saved.locale)}`
@@ -2430,7 +2538,7 @@ function localizationTermList(value) {
 }
 
 function localizationResultMarkup(result, contentID) {
-  const statusLabel = result.status === 'created' ? '已创建待审核版本' : result.status === 'skipped' ? '已安全跳过' : '执行失败'
+  const statusLabel = result.status === 'created' ? '已创建 AI 草稿' : result.status === 'skipped' ? '已安全跳过' : '执行失败'
   const editPath = result.status === 'created' && result.site_id && result.locale
     ? `#/admin/content?editor=edit&content_id=${encodeURIComponent(contentID)}&site_id=${encodeURIComponent(result.site_id)}&locale=${encodeURIComponent(result.locale)}` : ''
   return `<article class="localization-result is-${escapeHtml(result.status)}">
@@ -2490,7 +2598,7 @@ async function openContentLocalizationDialog() {
         return `<label class="localization-target ${disabled ? 'is-disabled' : ''}"><input type="checkbox" name="localization_target" value="${escapeHtml(`${target.site_id}|${target.locale}`)}" ${disabled ? 'disabled' : 'checked'}><span class="locale-mark">${escapeHtml(String(target.locale).split('-')[0].toUpperCase())}</span><span><strong>${escapeHtml(target.language_name)} <em>${escapeHtml(target.native_name)}</em></strong><small>${escapeHtml(target.site_name)} · localhost:${escapeHtml(target.local_port)} · ${escapeHtml(target.market_code)}</small></span><span class="target-availability">${escapeHtml(status)}</span>${target.reason ? `<span class="target-reason">${escapeHtml(target.reason)}</span>` : ''}</label>`
       }).join('') : '<div class="localization-empty">没有可用的非英语目标站，请先让分站进入运行状态、启用语言并绑定可渲染模板。</div>'}</div></section>
       <section class="localization-controls"><header><h3>事实与术语保护</h3><p>品牌、产品型号、服务名等可锁定原样；禁用词会在保存前再次检查。</p></header><div class="localization-control-grid"><label class="form-field"><span>必须保留的术语</span><textarea name="locked_terms" maxlength="12000" placeholder="例如：Global Route, DDP\n使用逗号或换行分隔"></textarea></label><label class="form-field"><span>禁止出现的词</span><textarea name="forbidden_terms" maxlength="12000" placeholder="例如：保证到达, 最低价格\n使用逗号或换行分隔"></textarea></label></div></section>
-      <aside class="localization-safety-note">${icon('lock')}<span><strong>发布安全门</strong><small>AI 版本统一保存为“待审核 / AI 待审”，不会覆盖已有版本，也不会自动上线。关键词只标记为 AI 语境建议；没有真实工具数据时不显示搜索量、排名或竞争度。</small></span></aside>`
+      <aside class="localization-safety-note">${icon('lock')}<span><strong>发布安全门</strong><small>AI 版本统一保存为“草稿 / AI 待审”，不会覆盖已有版本，也不会自动上线。人工核对当地语法、关键词和事实后，再提交审核或发布。关键词只标记为 AI 语境建议；没有真实工具数据时不显示搜索量、排名或竞争度。</small></span></aside>`
     startButton.textContent = '同步到已上线分站'
     startButton.disabled = !payload.eligible || selectable.length === 0
     if (!payload.eligible && payload.reason) showLocalizationError(payload.reason)
@@ -2533,7 +2641,7 @@ async function startContentLocalization() {
     button.hidden = true
     liveState.loaded.delete('localization')
     liveState.loaded.delete('content')
-    showToast(`AI 本土化完成：创建 ${created} 个待审核版本`)
+    showToast(`AI 本土化完成：创建 ${created} 个 AI 草稿`)
   } catch (error) {
     button.disabled = false
     button.textContent = '重试 AI 本土化'
@@ -2613,6 +2721,184 @@ async function openTemplateDialog() {
   $('#save-entity-button').hidden = false
   if (!entityDialog.open) entityDialog.showModal()
   window.setTimeout(() => $('#entity-fields input')?.focus(), 0)
+}
+
+function contactFormFieldChoices(selected = [], submitLabel = '提交咨询') {
+  const fields = selected.length ? selected : contactFormFieldPresets.filter((field) => ['name', 'email', 'message', 'consent'].includes(field.key))
+  const typeLabels = { text: '文本框', email: '邮箱框', tel: '电话框', country: '国家 / 地区', select: '下拉框', textarea: '多行文本', checkbox: '复选框' }
+  const items = fields.map((raw, index) => {
+    const field = { key: raw.field_key ?? raw.key ?? `field-${index + 1}`, type: raw.field_type ?? raw.type ?? 'text', label: raw.label ?? '文本框', placeholder: raw.placeholder ?? '', help: raw.help_text ?? raw.help ?? '', options: raw.options ?? [], required: Boolean(raw.required) }
+    const optionText = Array.isArray(field.options) ? field.options.join('\n') : String(field.options || '')
+    return `<article class="contact-builder-item" data-builder-item data-field-key="${escapeHtml(field.key)}">
+      <header class="contact-builder-item-header"><span class="contact-builder-drag" draggable="true" role="img" aria-label="拖动字段调整顺序">${icon('drag', 'icon icon-sm')}</span><div><strong data-builder-summary>${escapeHtml(field.label)}</strong><small>${escapeHtml(typeLabels[field.type] || field.type)}${field.required ? ' · 必填' : ''}</small></div><div class="contact-builder-item-actions"><button class="text-button" type="button" data-builder-move-up aria-label="上移字段">上移</button><button class="text-button" type="button" data-builder-move-down aria-label="下移字段">下移</button><button class="text-button danger-text" type="button" data-builder-remove>删除</button></div></header>
+      <div class="contact-builder-item-fields">
+        <label class="form-field"><span>字段标识</span><input data-builder-prop="key" value="${escapeHtml(field.key)}" maxlength="80" placeholder="例如：company"></label>
+        <label class="form-field"><span>前台显示文字</span><input data-builder-prop="label" value="${escapeHtml(field.label)}" maxlength="100" required placeholder="例如：公司名称"></label>
+        <label class="form-field"><span>字段类型</span><select data-builder-prop="type">${Object.entries(typeLabels).map(([value, label]) => `<option value="${value}" ${field.type === value ? 'selected' : ''}>${label}</option>`).join('')}</select></label>
+        <label class="form-field"><span>占位提示</span><input data-builder-prop="placeholder" value="${escapeHtml(field.placeholder)}" maxlength="180" placeholder="输入框中的提示文字"></label>
+        <label class="form-field form-field-wide"><span>帮助说明</span><input data-builder-prop="help" value="${escapeHtml(field.help)}" maxlength="180" placeholder="字段下方的补充说明（可选）"></label>
+        <label class="form-field form-field-wide builder-options-field" ${field.type === 'select' ? '' : 'hidden'}><span>下拉选项</span><textarea data-builder-prop="options" rows="3" maxlength="1000" placeholder="每行一个选项，仅下拉框使用">${escapeHtml(optionText)}</textarea><small>每行一个选项；字段类型为下拉框时生效。</small></label>
+        <label class="builder-required"><input type="checkbox" data-builder-prop="required" ${field.required ? 'checked' : ''}><span>提交前必须填写</span></label>
+      </div>
+    </article>`
+  }).join('')
+  return `<div class="contact-form-builder" data-contact-builder>
+    <aside class="contact-builder-palette" aria-label="可拖入的字段"><div class="contact-builder-palette-heading"><strong>字段库</strong><small>拖入画布，或点击添加</small></div><div class="contact-builder-palette-list">${contactFormFieldPresets.map((field) => `<button class="contact-builder-palette-item" type="button" draggable="true" data-builder-add="${escapeHtml(field.type)}" data-builder-label="${escapeHtml(field.label)}"><span class="contact-builder-palette-icon">${icon('plus', 'icon icon-sm')}</span><span><strong>${escapeHtml(typeLabels[field.type] || field.label)}</strong><small>${escapeHtml(field.label)}</small></span></button>`).join('')}</div><div class="contact-builder-tip">姓名、邮箱和需求说明建议保留；系统会在保存时检查邮箱字段。</div></aside>
+    <section class="contact-builder-workspace" aria-label="表单画布"><header class="contact-builder-workspace-heading"><div><strong>表单画布</strong><small>拖动字段调整顺序，点击字段后编辑显示文字和提示。</small></div><span class="contact-builder-badge">${fields.length} 个字段</span></header><div class="contact-builder-canvas" data-builder-canvas>${items || '<div class="contact-builder-empty" data-builder-empty>从左侧拖入一个字段，开始搭建联系表单</div>'}<div class="contact-builder-submit" data-builder-submit><span><strong>提交按钮</strong><small>固定放在表单底部，访客完成填写后提交询盘</small></span><button type="button" disabled>${escapeHtml(submitLabel || '提交咨询')}</button></div></div></section>
+  </div>`
+}
+
+async function openContactFormDialog(page = contentEditorState.item, existing = null) {
+  if (!page?.id || page.content_type !== 'page' || page.page_layout !== 'contact') {
+    showToast('请先把页面保存为“联系页面”，再创建询盘表单')
+    return
+  }
+  entityForm.reset()
+  entityForm.dataset.route = 'forms'
+  entityForm.dataset.mode = existing ? 'edit' : 'create'
+  entityForm.dataset.id = existing?.id ?? ''
+  entityForm.dataset.version = existing?.version ?? ''
+  entityForm.dataset.pageId = String(page.id)
+  entityForm.dataset.siteId = String(page.site_id)
+  entityForm.dataset.locale = page.locale
+  entityDialog.classList.remove('dialog-editor', 'dialog-site-editor')
+  entityDialog.classList.add('dialog-wide', 'dialog-form-builder')
+  $('#entity-dialog-title').textContent = existing ? '编辑联系表单' : '新建联系表单'
+  $('#entity-dialog-description').textContent = existing ? `修改后会立即应用到 ${page.site_name || '当前站点'} / ${page.locale} 的已绑定联系页面。` : `将保存到 ${page.site_name || '当前站点'} / ${page.locale}，并在创建后自动绑定到当前联系页面。`
+  $('#entity-dialog-error').hidden = true
+  $('#entity-fields').innerHTML = `<div class="form-grid contact-form-dialog-fields">
+    ${field('表单名称', 'name', existing?.name ?? `${page.title} · 询盘表单`, { required: true, maxlength: 100, wide: true, help: '仅后台识别使用，不直接显示给访客。' })}
+    ${field('表单标识', 'form_key', existing?.form_key ?? `${contentEditorSlug(page.slug || page.title)}-enquiry`, { required: true, maxlength: 80, wide: true, disabled: Boolean(existing), help: existing ? '已创建的表单标识不可修改，避免提交地址失效。' : '用于安全提交地址；只使用小写字母、数字和短横线。' })}
+    ${field('提交按钮文字', 'submit_label', existing?.submit_label ?? '提交咨询', { required: true, maxlength: 60, help: '例如：提交咨询、获取报价、Send request。' })}
+    ${field('提交成功提示', 'success_message', existing?.success_message ?? '感谢您的咨询，我们会尽快回复。', { required: true, textarea: true, maxlength: 300, wide: true, help: '前台访客提交成功后显示。' })}
+    <fieldset class="form-section form-field-wide contact-form-builder-section"><legend>可视化表单搭建</legend><p>从左侧字段库拖入或点击添加；在中间画布中修改文字、提示、必填与下拉选项。请保留邮箱或电话框，便于处理询盘。</p>${contactFormFieldChoices(existing?.fields ?? [], existing?.submit_label ?? '提交咨询')}</fieldset>
+    <div class="form-hint form-field-wide"><strong>安全边界</strong><span>发布时会进行 CSRF、来源校验、蜜罐、限流、重复提交与服务端字段校验；询盘仅可由有当前站点/语言权限的账号查看。</span></div>
+  </div>`
+  $$('[data-builder-item]', entityForm).forEach((item) => { updateContactBuilderSummary(item); updateContactBuilderOptions(item) })
+  updateContactBuilderSubmitLabel()
+  $('#delete-entity-button').hidden = true
+  $('#add-locale-button').hidden = true
+  $('#content-review-button').hidden = true
+  $('#content-publish-button').hidden = true
+  $('#save-entity-button').textContent = existing ? '保存表单' : '创建并绑定'
+  $('#save-entity-button').hidden = false
+  if (!entityDialog.open) entityDialog.showModal()
+  // Put focus on the field palette so the drag affordance is immediately
+  // visible even when the builder contains many expanded field settings.
+  window.setTimeout(() => $('[data-builder-add]', entityForm)?.focus(), 0)
+}
+
+function contactFormPayload() {
+  const items = $$('[data-builder-item]', entityForm)
+  if (!items.length) throw new APIError('请至少拖入一个表单字段', 422)
+  const fields = items.map((item, sortOrder) => {
+    const value = (prop) => item.querySelector(`[data-builder-prop="${prop}"]`)
+    let key = String(value('key')?.value || '').trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80)
+    if (!key) key = `field-${sortOrder + 1}`
+    const type = String(value('type')?.value || 'text').trim().toLowerCase()
+    const options = type === 'select' ? String(value('options')?.value || '').split(/[\n,，]+/).map((entry) => entry.trim()).filter(Boolean).slice(0, 20) : []
+    return { field_key: key, field_type: type, label: String(value('label')?.value || '').trim(), placeholder: String(value('placeholder')?.value || '').trim(), help_text: String(value('help')?.value || '').trim(), options, required: Boolean(value('required')?.checked), sort_order: sortOrder }
+  })
+  if (fields.some((field) => !field.label)) throw new APIError('请为每个字段填写前台显示文字', 422)
+  if (new Set(fields.map((field) => field.field_key)).size !== fields.length) throw new APIError('字段标识不能重复，请修改后再保存', 422)
+  if (fields.some((field) => field.field_type === 'select' && !field.options.length)) throw new APIError('下拉框至少需要填写一个选项', 422)
+  if (!fields.some((field) => field.field_type === 'email' || field.field_type === 'tel')) throw new APIError('联系表单至少需要邮箱框或电话框，便于处理询盘', 422)
+  return { site_id: Number(entityForm.dataset.siteId || 0), locale: entityForm.dataset.locale || '', form_key: formValue(entityForm, 'form_key'), name: formValue(entityForm, 'name'), status: 'active', submit_label: formValue(entityForm, 'submit_label'), success_message: formValue(entityForm, 'success_message'), notify_enabled: true, version: Number(entityForm.dataset.version || 0), fields }
+}
+
+function contactBuilderItemMarkup(type = 'text', label = '') {
+  const labels = { text: '文本框', email: '邮箱', tel: '联系电话', country: '国家 / 地区', select: '下拉框', textarea: '多行文本', checkbox: '同意复选框' }
+  const count = $$('[data-builder-item]', entityForm).length + 1
+  const key = `field-${type}-${count}`
+  const preset = contactFormFieldPresets.find((field) => field.type === type) ?? { label: labels[type] || '文本框', placeholder: '', options: [], required: false }
+  const defaultLabel = label || preset.label || labels[type] || '文本框'
+  const optionText = Array.isArray(preset.options) ? preset.options.join('\n') : ''
+  return `<article class="contact-builder-item" data-builder-item data-field-key="${escapeHtml(key)}">
+    <header class="contact-builder-item-header"><span class="contact-builder-drag" draggable="true" role="img" aria-label="拖动字段调整顺序">${icon('drag', 'icon icon-sm')}</span><div><strong data-builder-summary>${escapeHtml(defaultLabel)}</strong><small>${escapeHtml(labels[type] || type)}${preset.required ? ' · 必填' : ''}</small></div><div class="contact-builder-item-actions"><button class="text-button" type="button" data-builder-move-up aria-label="上移字段">上移</button><button class="text-button" type="button" data-builder-move-down aria-label="下移字段">下移</button><button class="text-button danger-text" type="button" data-builder-remove>删除</button></div></header>
+    <div class="contact-builder-item-fields"><label class="form-field"><span>字段标识</span><input data-builder-prop="key" value="${escapeHtml(key)}" maxlength="80" placeholder="例如：company"></label><label class="form-field"><span>前台显示文字</span><input data-builder-prop="label" value="${escapeHtml(defaultLabel)}" maxlength="100" required placeholder="例如：公司名称"></label><label class="form-field"><span>字段类型</span><select data-builder-prop="type">${Object.entries(labels).map(([value, text]) => `<option value="${value}" ${type === value ? 'selected' : ''}>${text}</option>`).join('')}</select></label><label class="form-field"><span>占位提示</span><input data-builder-prop="placeholder" value="${escapeHtml(preset.placeholder || '')}" maxlength="180" placeholder="输入框中的提示文字"></label><label class="form-field form-field-wide"><span>帮助说明</span><input data-builder-prop="help" maxlength="180" placeholder="字段下方的补充说明（可选）"></label><label class="form-field form-field-wide builder-options-field" ${type === 'select' ? '' : 'hidden'}><span>下拉选项</span><textarea data-builder-prop="options" rows="3" maxlength="1000" placeholder="每行一个选项，仅下拉框使用">${escapeHtml(optionText)}</textarea><small>每行一个选项；字段类型为下拉框时生效。</small></label><label class="builder-required"><input type="checkbox" data-builder-prop="required" ${preset.required ? 'checked' : ''}><span>提交前必须填写</span></label></div>
+  </article>`
+}
+
+function updateContactBuilderEmpty() {
+  const canvas = $('[data-builder-canvas]', entityForm)
+  if (!canvas) return
+  const hasItems = Boolean(canvas.querySelector('[data-builder-item]'))
+  const empty = $('[data-builder-empty]', canvas)
+  if (empty) empty.hidden = hasItems
+  const badge = $('[data-contact-builder] .contact-builder-badge', entityForm)
+  if (badge) badge.textContent = `${canvas.querySelectorAll('[data-builder-item]').length} 个字段`
+}
+
+function addContactBuilderItem(type, before = null, label = '') {
+  const canvas = $('[data-builder-canvas]', entityForm)
+  if (!canvas) return
+  const submit = $('[data-builder-submit]', canvas)
+  const markup = contactBuilderItemMarkup(type, label)
+  if (before) before.insertAdjacentHTML('beforebegin', markup)
+  else if (submit) submit.insertAdjacentHTML('beforebegin', markup)
+  else canvas.insertAdjacentHTML('beforeend', markup)
+  updateContactBuilderEmpty()
+  const added = before?.previousElementSibling?.matches('[data-builder-item]') ? before.previousElementSibling : submit?.previousElementSibling?.matches('[data-builder-item]') ? submit.previousElementSibling : canvas.querySelector('[data-builder-item]:last-of-type')
+  if (added) { updateContactBuilderSummary(added); updateContactBuilderOptions(added) }
+  added?.querySelector('[data-builder-prop="label"]')?.focus()
+}
+
+function updateContactBuilderSummary(item) {
+  const label = item.querySelector('[data-builder-prop="label"]')?.value?.trim() || '未命名字段'
+  const type = item.querySelector('[data-builder-prop="type"]')?.value || 'text'
+  const required = item.querySelector('[data-builder-prop="required"]')?.checked
+  const typeLabels = { text: '文本框', email: '邮箱框', tel: '电话框', country: '国家 / 地区', select: '下拉框', textarea: '多行文本', checkbox: '复选框' }
+  const summary = item.querySelector('[data-builder-summary]')
+  const meta = summary?.nextElementSibling
+  if (summary) summary.textContent = label
+  if (meta) meta.textContent = `${typeLabels[type] || type}${required ? ' · 必填' : ''}`
+}
+
+function updateContactBuilderOptions(item) {
+  const type = item.querySelector('[data-builder-prop="type"]')?.value || 'text'
+  const options = item.querySelector('.builder-options-field')
+  if (options) options.hidden = type !== 'select'
+}
+
+function updateContactBuilderSubmitLabel() {
+  const preview = $('[data-builder-submit] button', entityForm)
+  const label = formValue(entityForm, 'submit_label').trim() || '提交咨询'
+  if (preview) preview.textContent = label
+}
+
+async function bindContactFormToPage(pageID, formID, button = null) {
+  if (!pageID || !formID) throw new APIError('请选择要绑定的表单', 422)
+  const original = button?.innerHTML
+  if (button) { button.disabled = true; button.textContent = '绑定中…' }
+  try {
+    await fetchJSON(`/api/v1/content-locales/${encodeURIComponent(pageID)}/form`, { method: 'PUT', body: { form_id: Number(formID) } })
+    contentEditorState.key = ''
+    await renderContentEditorRoute('edit')
+    showToast('联系表单已绑定到当前页面')
+  } finally {
+    if (button?.isConnected) { button.disabled = false; button.innerHTML = original }
+  }
+}
+
+async function openContactFormSubmissions(page = contentEditorState.item, formID = 0) {
+  if (!page?.site_id || !page?.locale || !formID) { showToast('尚未绑定可查看的联系表单'); return }
+  const payload = await fetchJSON(`/api/v1/forms/submissions?site_id=${encodeURIComponent(page.site_id)}&locale=${encodeURIComponent(page.locale)}&limit=100`)
+  const submissions = (payload.submissions ?? []).filter((item) => Number(item.form_id) === Number(formID))
+  entityForm.reset()
+  entityForm.dataset.route = 'form-submissions'
+  entityDialog.classList.add('dialog-wide')
+  entityDialog.classList.remove('dialog-editor', 'dialog-site-editor')
+  $('#entity-dialog-title').textContent = '联系表单询盘'
+  $('#entity-dialog-description').textContent = `${page.title} · ${submissions.length} 条询盘。状态更新会写入审计日志。`
+  $('#entity-dialog-error').hidden = true
+  $('#entity-fields').innerHTML = submissions.length ? `<div class="table-scroll form-submission-table-wrap"><table class="module-table form-submission-table"><thead><tr><th>提交时间</th><th>访客信息</th><th>需求说明</th><th>状态</th></tr></thead><tbody>${submissions.map((submission) => { const values = submission.values ?? {}; const contact = [values.name, values.email, values.phone, values.country].filter(Boolean).join(' · ') || '—'; return `<tr data-form-submission-id="${escapeHtml(submission.id)}"><td>${escapeHtml(formatDate(submission.created_at))}</td><td>${escapeHtml(contact)}</td><td>${escapeHtml(values.message || values.service || '—')}</td><td><label class="visually-hidden" for="submission-status-${escapeHtml(submission.id)}">更新询盘状态</label><select id="submission-status-${escapeHtml(submission.id)}" data-form-submission-status><option value="new" ${submission.status === 'new' ? 'selected' : ''}>新询盘</option><option value="processing" ${submission.status === 'processing' ? 'selected' : ''}>处理中</option><option value="contacted" ${submission.status === 'contacted' ? 'selected' : ''}>已联系</option><option value="invalid" ${submission.status === 'invalid' ? 'selected' : ''}>无效</option><option value="closed" ${submission.status === 'closed' ? 'selected' : ''}>已关闭</option></select></td></tr>` }).join('')}</tbody></table></div>` : '<div class="empty-state"><strong>暂无询盘</strong><p>访客在已发布的联系页面提交后，内容会加密保存并显示在这里。</p></div>'
+  $('#delete-entity-button').hidden = true
+  $('#add-locale-button').hidden = true
+  $('#content-review-button').hidden = true
+  $('#content-publish-button').hidden = true
+  $('#save-entity-button').hidden = true
+  if (!entityDialog.open) entityDialog.showModal()
+  window.setTimeout(() => $('#entity-fields [data-form-submission-status]')?.focus(), 0)
 }
 
 async function openRedirectDialog(item = null) {
@@ -3051,22 +3337,18 @@ async function deleteContentRows(rows, button) {
     button.disabled = true
     button.textContent = targets.length > 1 ? '正在批量删除…' : '正在删除…'
   }
-  const failures = []
-  let completed = 0
   try {
-    for (const row of targets) {
-      try {
-        await fetchJSON(`/api/v1/contents/${encodeURIComponent(row._raw.content_id)}`, { method: 'DELETE', body: { version: Number(row._raw.content_version || 0) } })
-        completed += 1
-      } catch (error) {
-        failures.push(`${row.name}：${error.message || '操作失败'}`)
-      }
-    }
+    const result = await fetchJSON('/api/v1/contents/bulk-delete', {
+      method: 'POST',
+      body: { targets: targets.map((row) => ({ content_id: Number(row._raw.content_id), version: Number(row._raw.content_version || 0) })) },
+    })
     moduleState.selected.clear()
     liveState.loaded.delete('content')
     await loadRoute('content', true)
-    if (failures.length) showToast(`已删除 ${completed} 个，${failures.length} 个失败：${failures[0]}`, 5200)
-    else showToast(targets.length > 1 ? `已将 ${completed} 个内容组移到回收站` : `内容“${targets[0].name}”已移到回收站`)
+    const deleted = Number(result.deleted || targets.length)
+    showToast(targets.length > 1 ? `已将 ${deleted} 个内容组移到回收站` : `内容“${targets[0].name}”已移到回收站`)
+  } catch (error) {
+    showToast(error.status === 409 ? '有内容已被其他用户修改，本次没有删除任何内容；请刷新后重试' : error.message || '批量删除失败')
   } finally {
     if (button) {
       button.disabled = false
@@ -3358,10 +3640,15 @@ async function submitEntity(statusOverride = null) {
       payload.append('alt_text', formValue(entityForm, 'alt_text'))
       path = '/api/v1/media/upload'
     }
-	} else if (route === 'users') {
+  } else if (route === 'users') {
 		payload = userPayload()
 		path = mode === 'edit' ? `/api/v1/security/users/${id}/access` : '/api/v1/security/users'
-  }
+	} else if (route === 'forms') {
+		payload = contactFormPayload()
+		path = mode === 'edit' ? `/api/v1/forms/${encodeURIComponent(id)}` : '/api/v1/forms'
+	} else if (route === 'form-submissions') {
+		return
+	}
   } catch (error) {
     showEntityError(error.message || '表单内容无效')
     return
@@ -3374,14 +3661,21 @@ async function submitEntity(statusOverride = null) {
   $('#entity-dialog-error').hidden = true
   try {
     const saved = await fetchJSON(path, { method: mode === 'edit' ? 'PUT' : 'POST', body: payload })
-    if (route === 'media' && entityForm.dataset.mediaTarget === 'content-cover') bindContentCover(saved)
+	    if (route === 'media' && entityForm.dataset.mediaTarget === 'content-cover') bindContentCover(saved)
+	    if (route === 'forms' && mode !== 'edit' && entityForm.dataset.pageId) {
+	      await fetchJSON(`/api/v1/content-locales/${encodeURIComponent(entityForm.dataset.pageId)}/form`, { method: 'PUT', body: { form_id: Number(saved.id) } })
+	    }
     entityDialog.close()
     liveState.loaded.delete(route)
     if (route === 'sites' || route === 'languages') liveState.siteLanguages.clear()
     if (route === 'sites') liveState.siteDomains.clear()
     if (route === 'templates') liveState.templates = null
     if (apiRoutes.has(route)) await loadRoute(route, true)
-    showToast(route === 'publishing' ? `发布已创建（#${saved.id}）` : route === 'templates' ? `模板“${saved.name}”已上传并通过验证` : route === 'media' ? (mode === 'edit' ? '媒体 Alt 文本已保存' : `媒体“${saved.original_name ?? saved.storage_name ?? '文件'}”已上传并完成扫描`) : route === 'users' ? (mode === 'edit' ? '用户权限已更新' : `用户“${saved.display_name || saved.username}”已创建`) : `${modules[route].entityName}“${saved.name ?? saved.name_zh ?? saved.title ?? saved.source_path}”已保存`)
+	if (route === 'forms') {
+	  contentEditorState.key = ''
+	  await renderContentEditorRoute('edit')
+	}
+    showToast(route === 'publishing' ? `发布已创建（#${saved.id}）` : route === 'templates' ? `模板“${saved.name}”已上传并通过验证` : route === 'media' ? (mode === 'edit' ? '媒体 Alt 文本已保存' : `媒体“${saved.original_name ?? saved.storage_name ?? '文件'}”已上传并完成扫描`) : route === 'users' ? (mode === 'edit' ? '用户权限已更新' : `用户“${saved.display_name || saved.username}”已创建`) : route === 'forms' ? (mode === 'edit' ? `联系表单“${saved.name}”已更新` : `联系表单“${saved.name}”已创建并绑定`) : `${modules[route].entityName}“${saved.name ?? saved.name_zh ?? saved.title ?? saved.source_path}”已保存`)
   } catch (error) {
     const box = $('#entity-dialog-error')
     box.textContent = error.status === 409 ? '这条记录已被其他用户修改。请关闭窗口、刷新数据后再编辑。' : error.message || '保存失败，请稍后重试'
@@ -3622,7 +3916,7 @@ function showAIProviderError(message) {
 
 const aiProviderPresets = [
   { key: 'openai', label: 'OpenAI', baseURL: 'https://api.openai.com/v1', model: 'gpt-4.1-mini' },
-  { key: 'deepseek', label: 'DeepSeek', baseURL: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
+  { key: 'deepseek', label: 'DeepSeek', baseURL: 'https://api.deepseek.com', model: 'deepseek-v4-flash' },
   { key: 'gemini', label: 'Google Gemini 兼容接口', baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai', model: 'gemini-2.5-flash' },
   { key: 'qwen', label: '阿里云百炼 / Qwen', baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-plus' },
   { key: 'siliconflow', label: 'SiliconFlow', baseURL: 'https://api.siliconflow.cn/v1', model: 'deepseek-ai/DeepSeek-V3' },
@@ -3639,7 +3933,8 @@ const aiProviderPresets = [
 
 function aiProviderPresetFor(provider) {
   if (!provider?.base_url) return 'custom'
-  const match = aiProviderPresets.find((preset) => preset.baseURL && provider.base_url.replace(/\/$/, '') === preset.baseURL)
+  const normalizedURL = provider.base_url.replace(/\/$/, '')
+  const match = aiProviderPresets.find((preset) => preset.baseURL && (normalizedURL === preset.baseURL || (preset.key === 'deepseek' && normalizedURL === `${preset.baseURL}/v1`)))
   return match?.key || 'custom'
 }
 
@@ -3656,7 +3951,7 @@ function aiProviderPresetLabel(provider) {
 function aiModelDatalist() {
   const models = [
     'gpt-4.1', 'gpt-4.1-mini', 'gpt-4o', 'gpt-4o-mini', 'o3', 'o4-mini',
-    'deepseek-chat', 'deepseek-reasoner', 'qwen-plus', 'qwen-max', 'qwen-turbo',
+    'deepseek-v4-flash', 'deepseek-v4-pro', 'deepseek-v4-flash-vision-exp', 'deepseek-chat', 'deepseek-reasoner', 'qwen-plus', 'qwen-max', 'qwen-turbo',
     'deepseek-ai/DeepSeek-V3', 'deepseek-ai/DeepSeek-R1', 'glm-4.5',
     'gemini-2.5-pro', 'gemini-2.5-flash', 'anthropic/claude-sonnet-4',
     'grok-3-mini', 'llama-3.3-70b-versatile', 'llama3.2', 'mistral-small-latest', 'moonshot-v1-8k',
@@ -3677,7 +3972,7 @@ function openAIProviderDialog(provider = null) {
     <label class="form-field form-field-wide"><span>API Key ${editing ? '<em>（留空保持不变）</em>' : '<b aria-hidden="true">*</b>'}</span><input name="api_key" type="password" autocomplete="new-password" maxlength="500" placeholder="${editing ? '留空保持当前密钥' : 'sk-…'}"><small>${editing && provider?.api_key_configured ? `当前密钥已配置，仅显示末四位 ·•••• ${escapeHtml(provider.api_key_last_four || '')}` : '密钥只会在服务端加密保存，永不通过 API 回显。'}</small></label>
     ${editing && provider?.api_key_configured ? '<label class="checkbox-field ai-clear-key"><input type="checkbox" name="clear_api_key"><span>清除当前 API Key（需要重新配置后才能调用远程服务）</span></label>' : ''}
     <label class="form-field"><span>默认模型 <b aria-hidden="true">*</b></span><input name="default_model" list="ai-model-presets" required maxlength="200" value="${escapeHtml(provider?.default_model || '')}" placeholder="例如：gpt-4.1-mini"><small>可从建议列表选择，也可以直接填写服务商提供的模型 ID。</small></label>
-    <label class="form-field"><span>请求超时</span><select name="timeout_seconds">${[10, 20, 30, 60, 120].map((value) => `<option value="${value}" ${Number(provider?.timeout_seconds || 20) === value ? 'selected' : ''}>${value} 秒</option>`).join('')}</select><small>单次请求最长等待时间。</small></label>
+    <label class="form-field"><span>请求超时</span><select name="timeout_seconds">${[10, 20, 30, 60, 120].map((value) => `<option value="${value}" ${Number(provider?.timeout_seconds || 120) === value ? 'selected' : ''}>${value} 秒</option>`).join('')}</select><small>单次请求最长等待时间；长篇本土化建议使用 120 秒。</small></label>
     <label class="checkbox-field ai-enabled-field"><input type="checkbox" name="enabled" ${provider?.id ? (provider.enabled ? 'checked' : '') : 'checked'}><span><strong>启用此提供方</strong><small>停用后不会被后续 AI 功能调用。</small></span></label>
   </div>`
   aiProviderForm.elements.provider_preset?.addEventListener('change', (event) => {
@@ -3699,7 +3994,7 @@ async function saveAIProvider() {
   if (!aiProviderForm.reportValidity()) return
   const button = $('#save-ai-provider-button')
   const body = {
-    name: aiProviderFormValue('name'), provider_type: aiProviderFormValue('provider_type') || 'openai_compatible', base_url: aiProviderFormValue('base_url'), api_key: aiProviderForm.elements.api_key?.value || '', default_model: aiProviderFormValue('default_model'), timeout_seconds: Number(aiProviderFormValue('timeout_seconds') || 20), enabled: Boolean(aiProviderForm.elements.enabled?.checked), version: Number(aiProviderForm.dataset.version || 0), clear_api_key: Boolean(aiProviderForm.elements.clear_api_key?.checked),
+    name: aiProviderFormValue('name'), provider_type: aiProviderFormValue('provider_type') || 'openai_compatible', base_url: aiProviderFormValue('base_url'), api_key: aiProviderForm.elements.api_key?.value || '', default_model: aiProviderFormValue('default_model'), timeout_seconds: Number(aiProviderFormValue('timeout_seconds') || 120), enabled: Boolean(aiProviderForm.elements.enabled?.checked), version: Number(aiProviderForm.dataset.version || 0), clear_api_key: Boolean(aiProviderForm.elements.clear_api_key?.checked),
   }
   const id = aiProviderForm.dataset.id
   button.disabled = true
@@ -3834,6 +4129,7 @@ entityDialog.addEventListener('close', () => {
   const deleteButton = $('#delete-entity-button')
   deleteButton.disabled = false
   deleteButton.textContent = '停用'
+  entityDialog.classList.remove('dialog-form-builder')
 })
 
 localizationDialog?.addEventListener('close', () => {
@@ -3967,6 +4263,16 @@ moduleView.addEventListener('click', (event) => {
     renderModule(moduleState.route)
     return
   }
+  const contentBulkSelect = event.target.closest('[data-content-bulk-select]')
+  if (contentBulkSelect) {
+    const config = activeModuleConfig('content')
+    const rows = selectableRowsForBulk('content', filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected('content', row)))
+    const allSelected = rows.length > 0 && rows.every((row) => moduleState.selected.has(String(row.id)))
+    moduleState.selected.clear()
+    if (!allSelected) rows.forEach((row) => moduleState.selected.add(String(row.id)))
+    renderModule('content')
+    return
+  }
   if (event.target.closest('[data-clear-selection]')) {
     moduleState.selected.clear()
     renderModule(moduleState.route)
@@ -4052,6 +4358,11 @@ moduleView.addEventListener('click', (event) => {
 		refreshModuleTable()
 		window.setTimeout(() => $(`#template-workspace-${CSS.escape(String(templateThemeID))} .template-source`, moduleView)?.focus(), 0)
 		return
+	}
+	const templateAssetButton = event.target.closest('[data-template-asset]')
+	if (templateAssetButton && templateThemeID) {
+		templateEditorState.activeByTheme.set(String(templateThemeID), templateAssetButton.dataset.templateAsset)
+		refreshModuleTable(); return
 	}
 	if (event.target.closest('[data-template-revert]') && templateThemeID) {
 		const file = activeTemplateFile(templateThemeID)
@@ -4185,13 +4496,25 @@ moduleView.addEventListener('scroll', (event) => {
 }, true)
 
 moduleView.addEventListener('change', (event) => {
+  if (event.target.matches('[data-content-scope]')) {
+    moduleState.contentScope = event.target.value === 'all' ? 'all' : 'current'
+    moduleState.selected.clear()
+    liveState.loaded.delete('content')
+    void loadRoute('content', true)
+    return
+  }
   if (event.target.matches('[data-select-row]')) {
+    if (event.target.checked && moduleState.route === 'content' && !moduleState.selected.has(event.target.value) && moduleState.selected.size >= contentBulkSelectionLimit) {
+      event.target.checked = false
+      showToast(`批量操作每次最多选择 ${contentBulkSelectionLimit} 个语言版本`)
+      return
+    }
     event.target.checked ? moduleState.selected.add(event.target.value) : moduleState.selected.delete(event.target.value)
     refreshModuleTable()
   }
   if (event.target.matches('[data-select-all]')) {
     const config = activeModuleConfig()
-    const rows = filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected(moduleState.route, row))
+    const rows = selectableRowsForBulk(moduleState.route, filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected(moduleState.route, row)))
     moduleState.selected.clear()
     if (event.target.checked) rows.forEach((row) => moduleState.selected.add(String(row.id)))
     renderModule(moduleState.route)
@@ -4220,6 +4543,30 @@ moduleView.addEventListener('change', (event) => {
 
 $('#entity-fields').addEventListener('change', async (event) => {
   const route = entityForm.dataset.route
+	if (route === 'forms') {
+		const item = event.target.closest('[data-builder-item]')
+		if (item) {
+			updateContactBuilderSummary(item)
+			if (event.target.matches('[data-builder-prop="type"]')) updateContactBuilderOptions(item)
+		}
+		if (event.target.name === 'submit_label') updateContactBuilderSubmitLabel()
+	}
+	if (route === 'form-submissions' && event.target.matches('[data-form-submission-status]')) {
+		const row = event.target.closest('[data-form-submission-id]')
+		const submissionID = Number(row?.dataset.formSubmissionId || 0)
+		const previous = event.target.dataset.previousStatus || ''
+		if (!submissionID) return
+		event.target.disabled = true
+		try {
+			await fetchJSON(`/api/v1/forms/submissions/${encodeURIComponent(submissionID)}`, { method: 'PUT', body: { status: event.target.value } })
+			event.target.dataset.previousStatus = event.target.value
+			showToast('询盘状态已更新')
+		} catch (error) {
+			if (previous) event.target.value = previous
+			showEntityError(error.message || '询盘状态更新失败')
+		} finally { event.target.disabled = false }
+		return
+	}
   if (route === 'sites' && event.target.matches('[data-site-favicon-input]')) {
     const file = event.target.files?.[0]
     if (file) await uploadSiteFavicon(file)
@@ -4279,6 +4626,11 @@ $('#entity-fields').addEventListener('input', (event) => {
   if (entityForm.dataset.route === 'sites' && (event.target.name === 'seo_title' || event.target.name === 'seo_description')) {
     updateContentPageCount(entityForm, event.target.name, event.target.name === 'seo_description' ? 500 : 200)
   }
+  if (entityForm.dataset.route === 'forms') {
+    const item = event.target.closest('[data-builder-item]')
+    if (item) updateContactBuilderSummary(item)
+    if (event.target.name === 'submit_label') updateContactBuilderSubmitLabel()
+  }
 })
 
 $('#entity-fields').addEventListener('keydown', (event) => {
@@ -4296,6 +4648,14 @@ $('#entity-fields').addEventListener('keydown', (event) => {
 })
 
 $('#entity-fields').addEventListener('click', (event) => {
+  if (entityForm.dataset.route === 'forms') {
+    const add = event.target.closest('[data-builder-add]')
+    if (add) { addContactBuilderItem(add.dataset.builderAdd || 'text', null, add.dataset.builderLabel || ''); return }
+    const item = event.target.closest('[data-builder-item]')
+    if (item && event.target.closest('[data-builder-remove]')) { item.remove(); updateContactBuilderEmpty(); return }
+    if (item && event.target.closest('[data-builder-move-up]')) { const previous = item.previousElementSibling; if (previous?.matches('[data-builder-item]')) previous.before(item); updateContactBuilderEmpty(); return }
+    if (item && event.target.closest('[data-builder-move-down]')) { const next = item.nextElementSibling; if (next?.matches('[data-builder-item]')) next.after(item); updateContactBuilderEmpty(); return }
+  }
   const editorTab = event.target.closest('[data-site-editor-tab]')
   if (editorTab) {
     const key = editorTab.dataset.siteEditorTab
@@ -4359,7 +4719,57 @@ $('#entity-fields').addEventListener('click', (event) => {
   if (remove) void deleteSiteDomain(remove.dataset.deleteDomain, Number(remove.dataset.domainVersion), remove)
 })
 
+$('#entity-fields').addEventListener('dragstart', (event) => {
+  if (entityForm.dataset.route !== 'forms') return
+  const palette = event.target.closest('[data-builder-add]')
+  const dragHandle = event.target.closest('.contact-builder-drag')
+  const item = dragHandle?.closest('[data-builder-item]')
+  if (!palette && !item) return
+  event.dataTransfer?.setData('text/plain', palette?.dataset.builderAdd || item?.dataset.fieldKey || '')
+  if (item) item.classList.add('is-dragging')
+  event.dataTransfer && (event.dataTransfer.effectAllowed = palette ? 'copy' : 'move')
+})
+
+$('#entity-fields').addEventListener('dragover', (event) => {
+  if (entityForm.dataset.route !== 'forms' || !event.target.closest('[data-builder-canvas]')) return
+  event.preventDefault()
+  const item = event.target.closest('[data-builder-item]')
+  $$('[data-builder-item].is-drop-target', entityForm).forEach((node) => node.classList.remove('is-drop-target'))
+  if (item && !item.classList.contains('is-dragging')) item.classList.add('is-drop-target')
+})
+
+$('#entity-fields').addEventListener('drop', (event) => {
+  if (entityForm.dataset.route !== 'forms') return
+  const canvas = event.target.closest('[data-builder-canvas]')
+  if (!canvas) return
+  event.preventDefault()
+  const dragged = $('[data-builder-item].is-dragging', entityForm)
+  const target = event.target.closest('[data-builder-item]')
+  const type = event.dataTransfer?.getData('text/plain') || 'text'
+  if (dragged) {
+    if (target && target !== dragged) (event.clientY < target.getBoundingClientRect().top + target.offsetHeight / 2 ? target.before(dragged) : target.after(dragged))
+  } else addContactBuilderItem(type, target)
+  $$('[data-builder-item].is-dragging, [data-builder-item].is-drop-target', entityForm).forEach((node) => node.classList.remove('is-dragging', 'is-drop-target'))
+  updateContactBuilderEmpty()
+})
+
+$('#entity-fields').addEventListener('dragend', () => {
+  if (entityForm.dataset.route !== 'forms') return
+  $$('[data-builder-item].is-dragging, [data-builder-item].is-drop-target', entityForm).forEach((node) => node.classList.remove('is-dragging', 'is-drop-target'))
+})
+
 contentEditorView.addEventListener('click', (event) => {
+	const contactAction = event.target.closest('[data-contact-action]')
+	if (contactAction) {
+		const command = contactAction.dataset.contactAction
+		if (command === 'ensure') { void submitContentEditor(); return }
+		if (command === 'edit') {
+			void fetchJSON(`/api/v1/forms/${encodeURIComponent(contactAction.dataset.contactFormId || '')}`).then((payload) => openContactFormDialog(contentEditorState.item, payload)).catch((error) => showToast(error.message || '读取表单失败'))
+			return
+		}
+		if (command === 'submissions') { void openContactFormSubmissions(contentEditorState.item, Number(contactAction.dataset.contactFormId || 0)).catch((error) => showToast(error.message || '读取询盘失败')); return }
+		if (command === 'refresh') { contentEditorState.key = ''; void renderContentEditorRoute('edit'); return }
+	}
   const preset = event.target.closest('[data-page-preset]')
   if (preset) {
     const form = $('#content-editor-form', contentEditorView)
@@ -4367,6 +4777,9 @@ contentEditorView.addEventListener('click', (event) => {
     if (form.elements.title) form.elements.title.value = preset.dataset.pageTitle || ''
     if (form.elements.slug && preset.dataset.pageSlug) form.elements.slug.value = preset.dataset.pageSlug
     if (form.elements.category) form.elements.category.value = preset.dataset.pageCategory || ''
+    if (form.elements.page_layout && preset.dataset.pageLayout) form.elements.page_layout.value = preset.dataset.pageLayout
+    if (form.elements.template_key) form.elements.template_key.value = preset.dataset.pageTemplate || ''
+    if (form.elements.index_policy) form.elements.index_policy.value = preset.dataset.pageIndexPolicy || 'noindex'
     updateContentPageCount(form, 'title', 60)
     updateContentPagePreview(form)
     updateContentPageChecks(form)
@@ -4433,7 +4846,7 @@ contentEditorView.addEventListener('keydown', (event) => {
   const entry = event.target.closest('[data-tag-entry]')
   if (entry && (event.key === 'Enter' || event.key === ',' || event.key === '，')) {
     event.preventDefault()
-    addContentTag($('#content-editor-form', contentEditorView), entry.value.replace(/[,，]/g, ''))
+    addContentTag($('#content-editor-form', contentEditorView), entry.value)
   }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
     event.preventDefault()
@@ -4448,6 +4861,10 @@ contentEditorView.addEventListener('change', async (event) => {
     const file = event.target.files?.[0]
     event.target.value = ''
     if (file) void uploadRichImage(form, file, contentEditorState.richSelection)
+    return
+  }
+  if (event.target.matches('[data-tag-entry]')) {
+    commitPendingContentTag(form)
     return
   }
   updateContentPagePreview(form)
@@ -4481,9 +4898,18 @@ contentEditorView.addEventListener('change', async (event) => {
   }
 })
 
+contentEditorView.addEventListener('focusout', (event) => {
+  if (!event.target.matches?.('[data-tag-entry]')) return
+  commitPendingContentTag($('#content-editor-form', contentEditorView))
+})
+
 contentEditorView.addEventListener('input', (event) => {
   const form = $('#content-editor-form', contentEditorView)
   if (!form) return
+  if (event.target.matches('[data-tag-entry]') && !event.isComposing && /[,，]/.test(event.target.value)) {
+    addContentTag(form, event.target.value)
+    return
+  }
   if (event.target.matches('[data-rich-editor]')) syncVisualEditor(form, 'visual')
   if (event.target.matches('[data-rich-source]')) syncVisualEditor(form, 'source')
   if (event.target.name === 'title' && !contentEditorFormValue(form, 'slug')) form.elements.slug.value = contentEditorSlug(event.target.value)

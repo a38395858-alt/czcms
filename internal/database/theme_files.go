@@ -121,3 +121,25 @@ func seedThemeFilesV13(ctx context.Context, tx *sql.Tx) error {
 	}
 	return nil
 }
+
+// seedThemeAssetsV18 provides deliberately small, local-only enhancement
+// files. JavaScript is optional and is constrained again at save-time; this
+// starter only improves progressive enhancement and never handles secrets or
+// submission data.
+func seedThemeAssetsV18(ctx context.Context, tx *sql.Tx) error {
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	assets := []struct{ Key, Type, Label, Filename, Content string }{
+		{"theme_css", "css", "全站样式", "assets/theme.css", `/* 全站公共样式：仅加载本地资源。 */\n.public-site .page-single { padding: 3rem 0 5rem; }`},
+		{"page_css", "css", "单页面样式", "assets/page.css", `/* 单页面公共样式。 */\n.single-page .article-body { max-width: 760px; }`},
+		{"contact_css", "css", "联系表单样式", "assets/contact.css", `/* 联系表单仅在联系页面加载。 */\n.public-form { display:grid; gap:1rem; }\n.public-form label { display:grid; gap:.45rem; font-weight:600; }\n.public-form input,.public-form select,.public-form textarea { width:100%; padding:.75rem; border:1px solid #cbd5e1; border-radius:.5rem; font:inherit; }`},
+		{"theme_js", "js", "全站交互脚本", "assets/theme.js", `document.addEventListener('DOMContentLoaded', () => { document.documentElement.classList.add('js-ready') })`},
+		{"contact_js", "js", "联系表单交互脚本", "assets/contact.js", `document.addEventListener('DOMContentLoaded', () => { document.querySelectorAll('[data-public-form]').forEach((form) => form.addEventListener('submit', () => form.classList.add('is-submitting'), { once: true })) })`},
+	}
+	for _, asset := range assets {
+		if _, err := tx.ExecContext(ctx, `INSERT OR IGNORE INTO theme_assets(theme_package_id, asset_key, asset_type, label, filename, content, version, updated_by, created_at, updated_at)
+			SELECT id, ?, ?, ?, ?, ?, 1, uploaded_by, ?, ? FROM theme_packages`, asset.Key, asset.Type, asset.Label, asset.Filename, asset.Content, now, now); err != nil {
+			return fmt.Errorf("初始化模板资源 %s: %w", asset.Key, err)
+		}
+	}
+	return nil
+}
