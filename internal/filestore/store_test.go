@@ -378,6 +378,80 @@ func TestThemeArchiveSecurity(t *testing.T) {
 	}
 }
 
+func TestCreateStarterThemeCopiesTrustedRuntimeFilesAndAssets(t *testing.T) {
+	ctx := context.Background()
+	root := t.TempDir()
+	db, err := database.Open(ctx, filepath.Join(root, "starter-theme.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = db.Close() })
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	result, err := db.ExecContext(ctx, `INSERT INTO users(username, display_name, password_hash, password_changed_at, created_at, updated_at) VALUES ('starter-owner', 'Starter Owner', 'test-only', ?, ?, ?)`, now, now, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	userID, err := result.LastInsertId()
+	if err != nil {
+		t.Fatal(err)
+	}
+	store, err := New(db, filepath.Join(root, "uploads"), filepath.Join(root, "themes"), 2<<20, 5<<20, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var sourceID, sourceFiles, sourceAssets int64
+	if err = db.QueryRowContext(ctx, `SELECT id FROM theme_packages WHERE render_key = 'global-route' AND kind = 'builtin' AND status = 'validated'`).Scan(&sourceID); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM theme_files WHERE theme_package_id = ?`, sourceID).Scan(&sourceFiles); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM theme_assets WHERE theme_package_id = ?`, sourceID).Scan(&sourceAssets); err != nil {
+		t.Fatal(err)
+	}
+
+	created, err := store.CreateStarterTheme(ctx, CreateStarterThemeInput{Name: "Europe logistics brand", Version: "1.0.0", BaseRenderKey: "global-route"}, userID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if created.ID < 1 || created.SHA256 == "" {
+		t.Fatalf("created=%+v", created)
+	}
+
+	var renderKey, status, storageName string
+	var copiedFiles, copiedAssets int64
+	if err = db.QueryRowContext(ctx, `SELECT render_key, status, storage_name FROM theme_packages WHERE id = ?`, created.ID).Scan(&renderKey, &status, &storageName); err != nil {
+		t.Fatal(err)
+	}
+	if renderKey != "global-route" || status != "validated" {
+		t.Fatalf("template runtime=%q status=%q", renderKey, status)
+	}
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM theme_files WHERE theme_package_id = ?`, created.ID).Scan(&copiedFiles); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM theme_assets WHERE theme_package_id = ?`, created.ID).Scan(&copiedAssets); err != nil {
+		t.Fatal(err)
+	}
+	if copiedFiles != sourceFiles || copiedFiles == 0 || copiedAssets != sourceAssets || copiedAssets == 0 {
+		t.Fatalf("copied files=%d/%d assets=%d/%d", copiedFiles, sourceFiles, copiedAssets, sourceAssets)
+	}
+	archivePath := filepath.Join(root, "themes", storageName)
+	if _, err = os.Stat(archivePath); err != nil {
+		t.Fatalf("starter archive missing: %v", err)
+	}
+	if manifest, err := validateThemeArchive(archivePath); err != nil || manifest.Name != created.Name || manifest.Version != created.Version {
+		t.Fatalf("starter archive manifest=%+v err=%v", manifest, err)
+	}
+
+	if _, err = store.CreateStarterTheme(ctx, CreateStarterThemeInput{Name: created.Name, Version: created.Version, BaseRenderKey: "global-route"}, userID); !errors.Is(err, ErrThemeConflict) {
+		t.Fatalf("duplicate create error=%v, want ErrThemeConflict", err)
+	}
+	if _, err = store.CreateStarterTheme(ctx, CreateStarterThemeInput{Name: "Untrusted starter", Version: "1.0.0", BaseRenderKey: "uploaded-package"}, userID); err == nil {
+		t.Fatal("untrusted renderer accepted")
+	}
+}
+
 func TestThemeEditorValidatesVersionsAndRejectsUnlistedPaths(t *testing.T) {
 	ctx := context.Background()
 	root := t.TempDir()

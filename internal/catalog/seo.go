@@ -18,6 +18,31 @@ type SitemapEntry struct {
 	Kind      string `json:"kind"`
 }
 
+// AIContentSummary is the content-only portion of a site's public machine
+// readable surface. Unlike SitemapSiteStatus.IndexablePageCount it deliberately
+// excludes taxonomy routes: feeds and llms.txt describe editorial/product
+// records, while sitemap.xml remains the complete URL inventory.
+type AIContentSummary struct {
+	ContentCount int64 `json:"content_count"`
+	ArticleCount int64 `json:"article_count"`
+	ProductCount int64 `json:"product_count"`
+	PageCount    int64 `json:"page_count"`
+}
+
+// PublicFeedEntry is a safe, compact representation of an indexable article
+// or product for RSS, Atom and llms.txt. It never includes body HTML, drafts,
+// scheduled content or noindex records.
+type PublicFeedEntry struct {
+	Locale          string `json:"locale"`
+	Slug            string `json:"slug"`
+	ContentType     string `json:"content_type"`
+	Title           string `json:"title"`
+	Summary         string `json:"summary"`
+	MetaDescription string `json:"meta_description"`
+	PublishedAt     string `json:"published_at"`
+	UpdatedAt       string `json:"updated_at"`
+}
+
 // SitemapSiteStatus is the SEO-centre view of one site. Sitemap files are
 // generated dynamically, so no sitemap record has to be created when a site
 // is added: a new site appears here as soon as it has an accessible scope.
@@ -291,6 +316,80 @@ func (s *Service) PublicSitemapEntries(ctx context.Context, siteID int64) ([]Sit
 		return entries[i].Slug < entries[j].Slug
 	})
 	return entries, nil
+}
+
+// PublicAIContentSummary counts only content records eligible for public AI
+// entry points. It shares the sitemap's publish, index and renderability
+// boundary, so an entry that is noindex or unavailable to the front-end can
+// never be reported as feed-ready.
+func (s *Service) PublicAIContentSummary(ctx context.Context, siteID int64) (AIContentSummary, error) {
+	if siteID < 1 {
+		return AIContentSummary{}, ErrNotFound
+	}
+	var summary AIContentSummary
+	err := s.db.QueryRowContext(ctx, `
+		SELECT COUNT(*),
+		       COALESCE(SUM(CASE WHEN c.content_type = 'article' THEN 1 ELSE 0 END), 0),
+		       COALESCE(SUM(CASE WHEN c.content_type = 'product' THEN 1 ELSE 0 END), 0),
+		       COALESCE(SUM(CASE WHEN c.content_type = 'page' THEN 1 ELSE 0 END), 0)
+		FROM content_locales cl
+		JOIN contents c ON c.id = cl.content_id
+		JOIN site_languages sl ON sl.site_id = cl.site_id AND sl.locale = cl.locale
+		JOIN languages l ON l.id = sl.language_id
+		JOIN theme_packages t ON t.id = sl.theme_package_id
+		WHERE cl.site_id = ? AND c.deleted_at IS NULL
+		  AND cl.status = 'published' AND cl.robots_index = 1 AND (c.content_type <> 'page' OR cl.index_policy = 'index')
+		  AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
+		  AND sl.enabled = 1 AND l.enabled = 1
+		  AND t.status = 'validated' AND t.render_key IN ('global-route', 'atlas-commerce')`, siteID, nowUTC()).Scan(
+		&summary.ContentCount, &summary.ArticleCount, &summary.ProductCount, &summary.PageCount,
+	)
+	return summary, err
+}
+
+// ListPublicFeedEntries returns the newest published, indexable articles and
+// products for machine-readable feeds. Pages are available through sitemap and
+// HTML metadata but intentionally stay out of subscription feeds, where their
+// inclusion would turn utility pages into noisy updates.
+func (s *Service) ListPublicFeedEntries(ctx context.Context, siteID int64, limit int) ([]PublicFeedEntry, error) {
+	if siteID < 1 {
+		return nil, ErrNotFound
+	}
+	if limit < 1 {
+		limit = 20
+	}
+	if limit > 100 {
+		limit = 100
+	}
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT cl.locale, cl.slug, c.content_type, cl.title, cl.summary, cl.meta_description,
+		       COALESCE(cl.published_at, ''), COALESCE(cl.updated_at, cl.created_at)
+		FROM content_locales cl
+		JOIN contents c ON c.id = cl.content_id
+		JOIN site_languages sl ON sl.site_id = cl.site_id AND sl.locale = cl.locale
+		JOIN languages l ON l.id = sl.language_id
+		JOIN theme_packages t ON t.id = sl.theme_package_id
+		WHERE cl.site_id = ? AND c.deleted_at IS NULL
+		  AND c.content_type IN ('article', 'product')
+		  AND cl.status = 'published' AND cl.robots_index = 1
+		  AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
+		  AND sl.enabled = 1 AND l.enabled = 1
+		  AND t.status = 'validated' AND t.render_key IN ('global-route', 'atlas-commerce')
+		ORDER BY COALESCE(cl.published_at, cl.updated_at, cl.created_at) DESC, cl.id DESC
+		LIMIT ?`, siteID, nowUTC(), limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := make([]PublicFeedEntry, 0)
+	for rows.Next() {
+		var item PublicFeedEntry
+		if err = rows.Scan(&item.Locale, &item.Slug, &item.ContentType, &item.Title, &item.Summary, &item.MetaDescription, &item.PublishedAt, &item.UpdatedAt); err != nil {
+			return nil, err
+		}
+		items = append(items, item)
+	}
+	return items, rows.Err()
 }
 
 // ListSitemapSites applies the same site scope model as the existing site

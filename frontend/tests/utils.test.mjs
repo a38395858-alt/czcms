@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, normalizeTags, routeFromHash, sitePublicPath, statusClass } from '../assets/js/utils.mjs'
+import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, metafieldSuggestedIdentifiers, normalizeTags, routeFromHash, sitePublicPath, statusClass } from '../assets/js/utils.mjs'
 
 test('routeFromHash parses admin routes safely', () => {
   assert.equal(routeFromHash('#/admin'), 'dashboard')
@@ -39,6 +39,13 @@ test('dialog close and cancel actions bypass required-field validation', () => {
 test('content editor creates safe deterministic slugs', () => {
   assert.equal(contentEditorSlug('  Global_Logistics / SEO Guide  '), 'global-logistics/seo-guide')
   assert.equal(contentEditorSlug('中文标题', new Date('2026-08-27T00:00:00Z')), 'article-20260827')
+})
+
+test('metafield identifiers are generated deterministically from the display name', () => {
+  assert.deepEqual(metafieldSuggestedIdentifiers('包装尺寸', 'product'), { namespace: 'specs', key: 'package_size' })
+  assert.deepEqual(metafieldSuggestedIdentifiers('External SKU', 'product_category'), { namespace: 'product_category', key: 'external_sku' })
+  assert.deepEqual(metafieldSuggestedIdentifiers('自定义字段', 'article'), { namespace: 'article', key: 'field_81ea_5b9a_4e49_5b57_6bb5' })
+  assert.deepEqual(metafieldSuggestedIdentifiers('', 'product'), { namespace: '', key: '' })
 })
 
 test('content editor counts CJK characters and latin words', () => {
@@ -376,6 +383,24 @@ test('template rows expand into a real safe multi-file editor', () => {
   assert.match(server, /\/templates\/\{themeID\}\/files\/\{fileKey\}\/validate/)
 })
 
+test('template management creates an editable copy from a trusted starter', () => {
+  const app = readFileSync(new URL('../assets/js/app.mjs', import.meta.url), 'utf8')
+  const css = readFileSync(new URL('../assets/css/admin.css', import.meta.url), 'utf8')
+  const store = readFileSync(new URL('../../internal/filestore/store.go', import.meta.url), 'utf8')
+  const server = readFileSync(new URL('../../internal/httpserver/server.go', import.meta.url), 'utf8')
+  assert.match(app, /data-template-create/)
+  assert.match(app, /新建模板/)
+  assert.match(app, /创建并进入编辑/)
+  assert.match(app, /\/api\/v1\/templates\/create/)
+  assert.match(app, /toggleTemplateWorkspace\(saved\.id, true\)/)
+  assert.match(css, /\.template-create-note/)
+  assert.match(store, /func \(s \*Store\) CreateStarterTheme/)
+  assert.match(store, /starterRenderKeys/)
+  assert.match(store, /INSERT INTO theme_files/)
+  assert.match(store, /INSERT INTO theme_assets/)
+  assert.match(server, /Post\("\/templates\/create", s\.createStarterTheme\)/)
+})
+
 test('product template files expose separate detail and category contracts', () => {
   const app = readFileSync(new URL('../assets/js/app.mjs', import.meta.url), 'utf8')
   const defaults = readFileSync(new URL('../../internal/database/theme_files.go', import.meta.url), 'utf8')
@@ -589,6 +614,7 @@ test('SEO centre shows one live sitemap and robots entry per accessible site', (
   const css = readFileSync(new URL('../assets/css/admin.css', import.meta.url), 'utf8')
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8')
   assert.match(app, /fetchJSON\('\/api\/v1\/seo\/sitemaps'\)/)
+	assert.match(app, /fetchJSON\('\/api\/v1\/seo\/ai-content'\)/)
   assert.match(app, /function renderSEOCenter/)
   assert.match(app, /function seoSection\(\)/)
   assert.match(app, /function renderSEOTabs\(/)
@@ -617,6 +643,11 @@ test('SEO centre shows one live sitemap and robots entry per accessible site', (
   assert.match(app, /data-seo-refresh/)
   assert.match(app, /site\.sitemap_url/)
   assert.match(app, /site\.robots_url/)
+	assert.match(app, /function renderAIContentEntry/)
+	assert.match(app, /llms\.txt、RSS 与结构化数据/)
+	assert.match(app, /入口可用不等于第三方平台保证抓取/)
+	assert.match(app, /JSON-LD.*canonical.*hreflang/)
+	assert.match(app, /本地预览 · noindex/)
   assert.match(css, /\.seo-sitemap-table/)
   assert.match(css, /\.seo-subnav/)
   assert.match(css, /\.seo-tabs/)
@@ -625,8 +656,11 @@ test('SEO centre shows one live sitemap and robots entry per accessible site', (
   assert.match(css, /\.seo-robots-status/)
   assert.match(css, /\.seo-machine-url/)
   assert.match(css, /\.seo-operation-note/)
+	assert.match(css, /\.seo-ai-table/)
+	assert.match(css, /\.seo-ai-state/)
   assert.match(html, /data-seo-section="sitemap"/)
   assert.match(html, /data-seo-section="robots"/)
+	assert.match(html, /data-seo-section="ai-content"/)
 })
 
 test('spider statistics is a real, filterable SEO report with safe export', () => {

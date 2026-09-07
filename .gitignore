@@ -13,6 +13,7 @@ coverage.out
 
 # Local test runs, downloaded toolchains, generated screenshots and image probes.
 /tmp/
+/.go-test-tmp/
 /starbucks-cake-clean*.jpg
 /tmp_clean*.png
 /tmp_mask*.*

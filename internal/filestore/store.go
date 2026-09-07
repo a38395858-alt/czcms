@@ -32,7 +32,10 @@ import (
 	_ "golang.org/x/image/webp"
 )
 
-var safeOriginalName = regexp.MustCompile(`^[\pL\pN][\pL\pN._ ()-]{0,199}$`)
+var (
+	safeOriginalName = regexp.MustCompile(`^[\pL\pN][\pL\pN._ ()-]{0,199}$`)
+	safeThemeVersion = regexp.MustCompile(`^[0-9]+\.[0-9]+\.[0-9]+(?:-[A-Za-z0-9.-]+)?$`)
+)
 
 const browserAVIFEncoder = "gavif-v0.2.5"
 
@@ -102,6 +105,23 @@ type Theme struct {
 	Version string `json:"version"`
 	SHA256  string `json:"sha256"`
 }
+
+// CreateStarterThemeInput describes a copy created from a built-in, trusted
+// runtime. The source is intentionally a render key rather than an arbitrary
+// theme ID so uncompiled ZIP uploads can never become executable by copying.
+type CreateStarterThemeInput struct {
+	Name          string `json:"name"`
+	Version       string `json:"version"`
+	BaseRenderKey string `json:"base_render_key"`
+}
+
+var (
+	ErrThemeConflict  = errors.New("相同名称和版本的模板已存在")
+	starterRenderKeys = map[string]bool{
+		"global-route":   true,
+		"atlas-commerce": true,
+	}
+)
 
 func New(db *sql.DB, uploadDir, themeDir string, maxUploadBytes, maxThemeBytes int64, antivirusCommand string) (*Store, error) {
 	for _, directory := range []string{uploadDir, themeDir} {
@@ -843,6 +863,159 @@ func (s *Store) SaveTheme(ctx context.Context, source io.Reader, declaredSize in
 	return Theme{ID: id, Name: manifest.Name, Version: manifest.Version, SHA256: checksum}, nil
 }
 
+// CreateStarterTheme makes an independently editable template package from a
+// known-good starter. It copies all editable files and style resources inside
+// one transaction and creates a small, valid archive so full backups and later
+// restores keep a concrete template package alongside the database record.
+func (s *Store) CreateStarterTheme(ctx context.Context, input CreateStarterThemeInput, userID int64) (Theme, error) {
+	input.Name = strings.TrimSpace(input.Name)
+	input.Version = strings.TrimSpace(input.Version)
+	input.BaseRenderKey = strings.TrimSpace(input.BaseRenderKey)
+	if userID < 1 {
+		return Theme{}, errors.New("当前用户无效")
+	}
+	if !safeOriginalName.MatchString(input.Name) {
+		return Theme{}, errors.New("模板名称只能包含文字、数字、空格和 . _ ( ) -，且不能超过 200 个字符")
+	}
+	if !safeThemeVersion.MatchString(input.Version) {
+		return Theme{}, errors.New("初始版本应为 1.0.0 格式")
+	}
+	if !starterRenderKeys[input.BaseRenderKey] {
+		return Theme{}, errors.New("请选择系统提供的基础模板")
+	}
+
+	temporary, err := os.CreateTemp(s.themeDir, ".starter-theme-*.zip")
+	if err != nil {
+		return Theme{}, err
+	}
+	temporaryName := temporary.Name()
+	if err = temporary.Close(); err != nil {
+		_ = os.Remove(temporaryName)
+		return Theme{}, err
+	}
+	defer os.Remove(temporaryName)
+	if err = createStarterThemeArchive(temporaryName, input.Name, input.Version); err != nil {
+		return Theme{}, err
+	}
+	if _, err = validateThemeArchive(temporaryName); err != nil {
+		return Theme{}, fmt.Errorf("创建模板包校验失败: %w", err)
+	}
+	if err = s.scan(ctx, temporaryName); err != nil {
+		return Theme{}, err
+	}
+	checksum, _, err := checksumFile(temporaryName)
+	if err != nil {
+		return Theme{}, err
+	}
+	storageID, err := randomID()
+	if err != nil {
+		return Theme{}, err
+	}
+	storageName := storageID + ".zip"
+	finalPath := filepath.Join(s.themeDir, storageName)
+
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return Theme{}, err
+	}
+	defer tx.Rollback()
+	var exists int
+	if err = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM theme_packages WHERE name = ? AND version = ?)`, input.Name, input.Version).Scan(&exists); err != nil {
+		return Theme{}, err
+	}
+	if exists == 1 {
+		return Theme{}, ErrThemeConflict
+	}
+	var sourceThemeID int64
+	if err = tx.QueryRowContext(ctx, `SELECT id FROM theme_packages
+		WHERE render_key = ? AND status = 'validated'
+		ORDER BY CASE kind WHEN 'builtin' THEN 0 ELSE 1 END, id
+		LIMIT 1`, input.BaseRenderKey).Scan(&sourceThemeID); errors.Is(err, sql.ErrNoRows) {
+		return Theme{}, errors.New("所选基础模板当前不可用")
+	} else if err != nil {
+		return Theme{}, err
+	}
+	if err = os.Rename(temporaryName, finalPath); err != nil {
+		return Theme{}, err
+	}
+	archiveMoved := true
+	defer func() {
+		if archiveMoved {
+			_ = os.Remove(finalPath)
+		}
+	}()
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	result, err := tx.ExecContext(ctx, `INSERT INTO theme_packages(name, version, storage_name, sha256, uploaded_by, status, kind, render_key, created_at)
+		VALUES (?, ?, ?, ?, ?, 'validated', 'archive', ?, ?)`, input.Name, input.Version, storageName, checksum, userID, input.BaseRenderKey, now)
+	if err != nil {
+		if strings.Contains(strings.ToLower(err.Error()), "unique") {
+			return Theme{}, ErrThemeConflict
+		}
+		return Theme{}, err
+	}
+	themeID, err := result.LastInsertId()
+	if err != nil {
+		return Theme{}, err
+	}
+	files, err := tx.ExecContext(ctx, `INSERT INTO theme_files(theme_package_id, file_key, label, filename, page_group, origin, content, version, updated_by, created_at, updated_at)
+		SELECT ?, file_key, label, filename, page_group, 'starter', content, 1, ?, ?, ?
+		FROM theme_files WHERE theme_package_id = ?`, themeID, userID, now, now, sourceThemeID)
+	if err != nil {
+		return Theme{}, err
+	}
+	if copied, _ := files.RowsAffected(); copied == 0 {
+		return Theme{}, errors.New("基础模板缺少可编辑文件，无法创建副本")
+	}
+	if _, err = tx.ExecContext(ctx, `INSERT INTO theme_assets(theme_package_id, asset_key, asset_type, label, filename, content, version, updated_by, created_at, updated_at)
+		SELECT ?, asset_key, asset_type, label, filename, content, 1, ?, ?, ?
+		FROM theme_assets WHERE theme_package_id = ?`, themeID, userID, now, now, sourceThemeID); err != nil {
+		return Theme{}, err
+	}
+	if err = tx.Commit(); err != nil {
+		return Theme{}, err
+	}
+	archiveMoved = false
+	return Theme{ID: themeID, Name: input.Name, Version: input.Version, SHA256: checksum}, nil
+}
+
+func createStarterThemeArchive(filename, name, version string) (err error) {
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if closeErr := file.Close(); err == nil && closeErr != nil {
+			err = closeErr
+		}
+	}()
+	archive := zip.NewWriter(file)
+	defer func() {
+		if closeErr := archive.Close(); err == nil && closeErr != nil {
+			err = closeErr
+		}
+	}()
+	manifest, err := json.Marshal(ThemeManifest{
+		Name: name, Version: version, Engine: "go-html-template-v1", Entrypoint: "pages/home.html",
+		Templates: map[string]string{"home": "pages/home.html"},
+	})
+	if err != nil {
+		return err
+	}
+	manifestWriter, err := archive.Create("theme.json")
+	if err != nil {
+		return err
+	}
+	if _, err = manifestWriter.Write(manifest); err != nil {
+		return err
+	}
+	homeWriter, err := archive.Create("pages/home.html")
+	if err != nil {
+		return err
+	}
+	_, err = io.WriteString(homeWriter, "<!doctype html><main><h1>{{.SiteName}}</h1></main>")
+	return err
+}
+
 func validateThemeArchive(filename string) (ThemeManifest, error) {
 	archive, err := zip.OpenReader(filename)
 	if err != nil {
@@ -919,7 +1092,7 @@ func validateThemeArchive(filename string) (ThemeManifest, error) {
 			return ThemeManifest{}, fmt.Errorf("验证模板文件 %q: %w", cleaned, err)
 		}
 	}
-	if !manifestFound || !safeOriginalName.MatchString(manifest.Name) || !regexp.MustCompile(`^[0-9]+\.[0-9]+\.[0-9]+(?:-[A-Za-z0-9.-]+)?$`).MatchString(manifest.Version) || manifest.Engine != "go-html-template-v1" {
+	if !manifestFound || !safeOriginalName.MatchString(manifest.Name) || !safeThemeVersion.MatchString(manifest.Version) || manifest.Engine != "go-html-template-v1" {
 		return ThemeManifest{}, errors.New("theme.json 缺失或 name、version、engine 不符合规范")
 	}
 	if manifest.Entrypoint == "" || path.Clean(manifest.Entrypoint) != manifest.Entrypoint || !strings.HasSuffix(manifest.Entrypoint, ".html") {

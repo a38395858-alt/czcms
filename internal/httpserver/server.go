@@ -287,6 +287,9 @@ func New(deps Dependencies) http.Handler {
 	// renderer, otherwise sitemap.xml would be treated as a content slug.
 	r.Get("/preview/{siteCode}/sitemap.xml", s.siteSitemapPreview)
 	r.Get("/preview/{siteCode}/robots.txt", s.siteRobotsPreview)
+	r.Get("/preview/{siteCode}/llms.txt", s.siteLLMSPreview)
+	r.Get("/preview/{siteCode}/rss.xml", s.siteRSSPreview)
+	r.Get("/preview/{siteCode}/atom.xml", s.siteAtomPreview)
 	r.Get("/preview/{siteCode}", s.sitePreview)
 	r.Get("/preview/{siteCode}/*", s.sitePreview)
 	r.Post("/preview/{siteCode}/forms/{formKey}/submit", s.submitPublicForm)
@@ -381,6 +384,7 @@ func New(deps Dependencies) http.Handler {
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/content/sanitize", s.sanitizeRichText)
 			api.With(s.requirePermission("content.write"), s.requirePermission("seo.manage"), s.requireCSRF).Post("/content/seo-suggestions", s.suggestContentSEO)
 			api.With(s.requirePermission("seo.manage")).Get("/seo/sitemaps", s.seoSitemaps)
+			api.With(s.requirePermission("seo.manage")).Get("/seo/ai-content", s.seoAIContent)
 			api.With(s.requirePermission("seo.manage")).Get("/seo/robots/{siteID}", s.getSiteRobotsSettings)
 			api.With(s.requirePermission("seo.manage"), s.requireCSRF).Put("/seo/robots/{siteID}", s.updateSiteRobotsSettings)
 			api.With(s.requirePermission("seo.manage")).Get("/localization/jobs", s.listLocalizationJobs)
@@ -390,6 +394,7 @@ func New(deps Dependencies) http.Handler {
 			api.With(s.requirePermission("media.upload"), s.requireCSRF).Post("/media/import", s.mediaImport)
 			api.With(s.requirePermission("media.upload"), s.requireCSRF).Put("/media/{mediaID}", s.mediaUpdate)
 			api.With(s.requirePermission("media.upload"), s.requireCSRF).Delete("/media/{mediaID}", s.mediaDelete)
+			api.With(s.requirePermission("templates.manage"), s.requireCSRF).Post("/templates/create", s.createStarterTheme)
 			api.With(s.requirePermission("templates.manage"), s.requireCSRF).Post("/templates/upload", s.themeUpload)
 			api.With(s.requirePermission("backup.manage")).Get("/system/backups", s.backupList)
 			api.With(s.requirePermission("backup.manage"), s.requireCSRF).Post("/system/backups", s.backupCreate)
@@ -590,7 +595,7 @@ func (s *server) tryPublicSite(w http.ResponseWriter, r *http.Request) bool {
 		http.Redirect(w, r, target, http.StatusPermanentRedirect)
 		return true
 	}
-	// Every host-routed site receives its own sitemap and robots file. These
+	// Every host-routed site receives its own machine-readable SEO files. These
 	// checks run before public HTML routing so neither file can collide with an
 	// editor-created slug.
 	switch r.URL.Path {
@@ -599,6 +604,15 @@ func (s *server) tryPublicSite(w http.ResponseWriter, r *http.Request) bool {
 		return true
 	case "/robots.txt":
 		s.renderSiteRobots(w, r, site, false)
+		return true
+	case "/llms.txt":
+		s.renderSiteLLMS(w, r, site, false)
+		return true
+	case "/rss.xml":
+		s.renderSiteRSS(w, r, site, false)
+		return true
+	case "/atom.xml":
+		s.renderSiteAtom(w, r, site, false)
 		return true
 	}
 	scheme := "https"
@@ -1909,14 +1923,25 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) auditList(w http.ResponseWriter, r *http.Request) {
-	limit, _ := strconv.Atoi(r.URL.Query().Get("limit"))
-	before, _ := strconv.ParseInt(r.URL.Query().Get("before_id"), 10, 64)
-	records, err := s.Audit.List(r.Context(), limit, before)
+	query := r.URL.Query()
+	limit, _ := strconv.Atoi(query.Get("limit"))
+	offset, _ := strconv.Atoi(query.Get("offset"))
+	if offset < 0 {
+		offset = 0
+	}
+	page, err := s.Audit.ListPage(r.Context(), audit.ListOptions{
+		Limit: limit, Offset: offset, FromDate: query.Get("from"), ToDate: query.Get("to"),
+		Status: query.Get("status"), Category: query.Get("category"), Query: query.Get("q"),
+	})
 	if err != nil {
+		if strings.Contains(err.Error(), "invalid audit") || strings.Contains(err.Error(), "audit end date") {
+			writeJSONError(w, http.StatusUnprocessableEntity, err.Error())
+			return
+		}
 		writeJSONError(w, http.StatusInternalServerError, "读取审计日志失败")
 		return
 	}
-	writeJSON(w, http.StatusOK, map[string]any{"records": records})
+	writeJSON(w, http.StatusOK, page)
 }
 
 func (s *server) sanitizeRichText(w http.ResponseWriter, r *http.Request) {
@@ -2247,6 +2272,26 @@ func (s *server) themeUpload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "template.uploaded", TargetType: "theme", TargetID: strconv.FormatInt(theme.ID, 10), Success: true, Metadata: map[string]any{"sha256": theme.SHA256}})
+	writeJSON(w, http.StatusCreated, theme)
+}
+
+func (s *server) createStarterTheme(w http.ResponseWriter, r *http.Request) {
+	var request filestore.CreateStarterThemeInput
+	if err := decodeJSON(w, r, &request, 64<<10); err != nil {
+		return
+	}
+	session := sessionFromContext(r.Context())
+	theme, err := s.Files.CreateStarterTheme(r.Context(), request, session.User.ID)
+	if err != nil {
+		status := http.StatusUnprocessableEntity
+		if errors.Is(err, filestore.ErrThemeConflict) {
+			status = http.StatusConflict
+		}
+		s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "template.create_rejected", TargetType: "theme", TargetID: request.Name, Success: false, Metadata: map[string]any{"base_render_key": request.BaseRenderKey, "reason": err.Error()}})
+		writeJSONError(w, status, err.Error())
+		return
+	}
+	s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "template.created", TargetType: "theme", TargetID: strconv.FormatInt(theme.ID, 10), Success: true, Metadata: map[string]any{"base_render_key": request.BaseRenderKey, "sha256": theme.SHA256}})
 	writeJSON(w, http.StatusCreated, theme)
 }
 

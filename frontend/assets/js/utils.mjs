@@ -57,6 +57,45 @@ export function contentEditorSlug(value, fallbackDate = new Date()) {
   return normalized || `article-${fallbackDate.toISOString().slice(0, 10).replaceAll('-', '')}`
 }
 
+const metafieldOwnerNamespaces = {
+  product: 'product',
+  product_category: 'product_category',
+  article: 'article',
+  page: 'page',
+}
+
+// Common editor-facing labels are mapped to stable, meaningful identifiers.
+// Other CJK labels fall back to their Unicode code points, which keeps the
+// generated key deterministic and valid without relying on a remote service.
+const metafieldSemanticIdentifiers = [
+  { label: '包装尺寸', namespace: 'specs', key: 'package_size' },
+  { label: '产品型号', namespace: 'specs', key: 'model' },
+  { label: '规格参数', namespace: 'specs', key: 'specifications' },
+  { label: '产品规格', namespace: 'specs', key: 'specifications' },
+  { label: '产品尺寸', namespace: 'specs', key: 'product_size' },
+  { label: '产品重量', namespace: 'specs', key: 'product_weight' },
+  { label: '材质', namespace: 'specs', key: 'material' },
+  { label: '颜色', namespace: 'specs', key: 'color' },
+  { label: '认证', namespace: 'specs', key: 'certifications' },
+  { label: '品牌', namespace: 'product', key: 'brand' },
+  { label: '产地', namespace: 'product', key: 'origin' },
+]
+
+export function metafieldSuggestedIdentifiers(name, ownerType = 'product') {
+  const label = String(name ?? '').trim()
+  if (!label) return { namespace: '', key: '' }
+  const semantic = metafieldSemanticIdentifiers.find((item) => item.label === label)
+  if (semantic) return { namespace: semantic.namespace, key: semantic.key }
+
+  const asciiKey = label.normalize('NFKD').toLocaleLowerCase('en-US')
+    .replace(/[^a-z0-9\s_-]/g, ' ').replace(/[\s-]+/g, '_').replace(/_+/g, '_').replace(/^_+|_+$/g, '')
+  const unicodeKey = [...label]
+    .map((character) => character.codePointAt(0).toString(16))
+    .join('_')
+  const key = (asciiKey || `field_${unicodeKey}`).replace(/^[^a-z]+/, 'field_').slice(0, 100).replace(/_+$/g, '')
+  return { namespace: metafieldOwnerNamespaces[ownerType] || 'custom', key: key || 'field' }
+}
+
 export function contentWordCount(value) {
   const text = String(value ?? '').trim()
   if (!text) return 0

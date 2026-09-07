@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>新建元字段 · UI 设计稿</title>
+  <style>
+    :root { --ink:#172033; --muted:#64748b; --line:#e4eaf2; --soft:#f6f8fc; --canvas:#f2f5fa; --surface:#fff; --blue:#2563eb; --blue-soft:#eff6ff; --green:#16a34a; --radius:14px; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:1180px; background:var(--canvas); color:var(--ink); font-family:"PingFang SC","Microsoft YaHei",Inter,system-ui,sans-serif; }
+    .app { min-height:100vh; display:grid; grid-template-columns:238px 1fr; }
+    .sidebar { padding:28px 18px; background:#fff; border-right:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:10px; margin:0 10px 34px; font-size:17px; font-weight:750; letter-spacing:-.02em; }
+    .mark { width:28px; height:28px; border-radius:8px; background:var(--blue); box-shadow:inset 0 -7px 15px rgba(4,45,130,.22); }
+    .nav-label { padding:9px 10px; margin:3px 0; color:var(--muted); font-size:14px; border-radius:9px; }
+    .nav-label.active { background:var(--blue-soft); color:var(--blue); font-weight:700; }
+    .nav-label.sub { margin-left:20px; padding-left:14px; font-size:13px; }
+    .content { padding:34px 48px; }
+    .crumb { color:var(--muted); font-size:13px; }
+    .page-top { display:flex; justify-content:space-between; align-items:center; margin:14px 0 25px; }
+    h1 { margin:0; font-size:26px; letter-spacing:-.03em; }
+    .ghost-btn,.primary-btn { min-height:40px; border-radius:9px; padding:0 16px; font:inherit; font-size:14px; font-weight:650; }
+    .ghost-btn { background:#fff; color:#334155; border:1px solid #cfd8e5; }
+    .primary-btn { border:0; color:#fff; background:var(--blue); box-shadow:0 6px 14px rgba(37,99,235,.2); }
+    .table-shell { background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+    .table-toolbar { height:74px; display:flex; align-items:center; padding:0 22px; border-bottom:1px solid var(--line); }
+    .search { width:270px; height:38px; padding:0 12px; border:1px solid #d7dfeb; border-radius:8px; color:#94a3b8; font-size:13px; }
+    .row { display:grid; grid-template-columns:2fr 1.15fr 1.25fr .8fr; gap:20px; align-items:center; min-height:62px; padding:0 22px; border-bottom:1px solid #eef2f7; font-size:13px; }
+    .row.header { min-height:43px; background:#fafbfd; color:var(--muted); font-size:12px; }
+    .badge { display:inline-flex; width:max-content; padding:4px 8px; border-radius:99px; color:#166534; background:#ecfdf3; font-size:12px; font-weight:650; }
+    .scrim { position:fixed; inset:0; display:grid; place-items:center; background:rgba(23,32,51,.42); padding:42px; }
+    .modal { width:min(1100px,calc(100vw - 80px)); max-height:calc(100vh - 84px); display:grid; grid-template-rows:auto 1fr auto; overflow:hidden; border:1px solid rgba(204,215,230,.9); border-radius:16px; background:var(--surface); box-shadow:0 26px 80px rgba(15,23,42,.28); }
+    .modal-head { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:27px 32px 22px; border-bottom:1px solid var(--line); }
+    .modal-head h2 { margin:0 0 7px; font-size:22px; letter-spacing:-.025em; }
+    .modal-head p { margin:0; color:var(--muted); font-size:14px; }
+    .close { width:36px; height:36px; display:grid; place-items:center; border:0; border-radius:8px; background:transparent; color:#475569; font-size:25px; line-height:1; }
+    .modal-main { display:grid; grid-template-columns:minmax(0,1.62fr) minmax(300px,.92fr); min-height:0; }
+    .form-panel { padding:26px 32px 28px; overflow:auto; }
+    .preview-panel { padding:27px 26px; border-left:1px solid var(--line); background:#fbfcff; }
+    .section-heading { display:flex; align-items:center; justify-content:space-between; margin:0 0 17px; }
+    .section-heading h3 { margin:0; font-size:14px; letter-spacing:.01em; }
+    .step { color:var(--blue); font-size:12px; font-weight:700; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px 16px; }
+    .field { display:grid; gap:7px; min-width:0; }
+    .field.full { grid-column:1/-1; }
+    label { color:#344155; font-size:13px; font-weight:650; }
+    label em { color:#e11d48; font-style:normal; }
+    .hint { color:var(--muted); font-size:12px; font-weight:400; line-height:1.45; }
+    input,select,textarea { width:100%; border:1px solid #cfd8e5; border-radius:8px; outline:none; background:#fff; color:#1e293b; font:inherit; font-size:14px; }
+    input,select { height:44px; padding:0 12px; }
+    textarea { height:76px; padding:11px 12px; resize:none; line-height:1.45; }
+    .focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    .type-select { cursor:pointer; }
+    .advanced { display:flex; align-items:center; justify-content:space-between; margin-top:25px; padding:16px 0 0; border-top:1px solid var(--line); }
+    .advanced strong { display:block; font-size:14px; }
+    .advanced small { display:block; margin-top:4px; color:var(--muted); font-size:12px; }
+    .chevron { color:var(--blue); font-size:16px; }
+    .preview-title { display:flex; align-items:center; gap:10px; margin-bottom:17px; }
+    .preview-icon { width:32px; height:32px; border-radius:9px; background:#e9f1ff; color:var(--blue); display:grid; place-items:center; font-weight:800; }
+    .preview-title strong { display:block; font-size:14px; }
+    .preview-title span { display:block; margin-top:3px; color:var(--muted); font-size:12px; }
+    .preview-card { padding:17px; border:1px solid #dce4ef; border-radius:12px; background:#fff; box-shadow:0 2px 5px rgba(15,23,42,.03); }
+    .preview-card h4 { margin:0 0 18px; font-size:14px; }
+    .preview-field { display:grid; gap:7px; margin-top:15px; }
+    .preview-field:first-of-type { margin-top:0; }
+    .preview-input { min-height:42px; display:flex; align-items:center; padding:0 11px; border:1px solid #cfd8e5; border-radius:8px; color:#64748b; font-size:13px; }
+    .preview-input.rich { min-height:91px; align-items:flex-start; padding-top:11px; line-height:1.55; }
+    .status-line { display:flex; gap:8px; margin-top:15px; padding-top:15px; border-top:1px solid var(--line); color:#475569; font-size:12px; }
+    .dot { width:8px; height:8px; margin-top:4px; border-radius:99px; background:var(--green); }
+    .modal-foot { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:17px 32px; border-top:1px solid var(--line); background:#fff; }
+    .modal-foot small { color:var(--muted); font-size:12px; }
+    .actions { display:flex; gap:10px; }
+    @media (max-height:850px) { .modal { max-height:calc(100vh - 38px); } .form-panel { padding-top:20px; } }
+  </style>
+</head>
+<body>
+  <main class="app" aria-label="元字段设计图背景">
+    <aside class="sidebar"><div class="brand"><i class="mark"></i> CZCMS</div><div class="nav-label">控制台</div><div class="nav-label">站点管理</div><div class="nav-label">内容管理</div><div class="nav-label active">产品信息</div><div class="nav-label sub">产品管理</div><div class="nav-label sub">产品栏目</div><div class="nav-label">元字段</div><div class="nav-label">模板管理</div></aside>
+    <section class="content"><div class="crumb">产品信息 / 元字段</div><div class="page-top"><h1>元字段</h1><button class="primary-btn">新建元字段</button></div><div class="table-shell"><div class="table-toolbar"><div class="search">搜索名称、Key 或 Namespace</div></div><div class="row header"><span>字段</span><span>绑定对象</span><span>类型</span><span>状态</span></div><div class="row"><strong>包装尺寸</strong><span>产品</span><span>单行文本</span><span class="badge">已启用</span></div><div class="row"><strong>规格参数</strong><span>产品</span><span>富文本</span><span class="badge">已启用</span></div></div></section>
+  </main>
+  <div class="scrim">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <header class="modal-head"><div><h2 id="modal-title">新建元字段</h2><p>创建后可在产品、产品栏目和内容编辑器中按需调用。</p></div><button class="close" aria-label="关闭">×</button></header>
+      <div class="modal-main">
+        <div class="form-panel">
+          <div class="section-heading"><h3>基础配置</h3><span class="step">1 / 2</span></div>
+          <div class="grid">
+            <div class="field"><label>字段显示名称 <em>*</em></label><input class="focus" value="包装尺寸"><span class="hint">给编辑人员看的字段名称。</span></div>
+            <div class="field"><label>绑定对象 <em>*</em></label><select><option>产品</option></select><span class="hint">字段会显示在此对象的编辑页面。</span></div>
+            <div class="field"><label>Namespace <em>*</em></label><input value="specs"><span class="hint">仅小写字母、数字、短横线和下划线。</span></div>
+            <div class="field"><label>Key <em>*</em></label><input value="package_size"><span class="hint">同一对象内保持唯一，用于模板与 API。</span></div>
+            <div class="field full"><label for="field-type">字段类型 <em>*</em></label><select id="field-type" class="type-select" aria-describedby="field-type-hint"><option selected>富文本</option><option>单行文本</option><option>多行文本</option><option>数字</option><option>布尔值</option><option>日期</option><option>链接</option><option>文件</option></select><span id="field-type-hint" class="hint">富文本支持段落、列表、链接和图片，适合用于产品规格说明。</span></div>
+            <div class="field full"><label>字段说明</label><textarea>用于记录包装的长、宽、高和体积信息，编辑时会显示在字段下方。</textarea><span class="hint">可选，用于帮助团队统一填写标准。</span></div>
+          </div>
+          <div class="advanced"><div><strong>高级规则</strong><small>默认值、校验规则与字段权限将在这里设置。</small></div><span class="chevron">⌄</span></div>
+        </div>
+        <aside class="preview-panel" aria-label="产品编辑器预览"><div class="preview-title"><div class="preview-icon">⌘</div><div><strong>编辑器内预览</strong><span>字段创建后会这样显示</span></div></div><div class="preview-card"><h4>产品规格</h4><div class="preview-field"><label>包装尺寸</label><div class="preview-input rich">长 48 cm × 宽 32 cm × 高 26 cm<br>单箱体积：0.040 m³</div></div><div class="status-line"><i class="dot"></i><span>将显示在「产品信息 / 产品规格」分组中</span></div></div></aside>
+      </div>
+      <footer class="modal-foot"><small>带 <span style="color:#e11d48">*</span> 的字段为必填项；创建后仍可修改说明和规则。</small><div class="actions"><button class="ghost-btn">取消</button><button class="primary-btn">创建元字段</button></div></footer>
+    </section>
+  </div>
+</body>
+</html>

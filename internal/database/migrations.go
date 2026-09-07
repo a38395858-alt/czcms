@@ -47,6 +47,24 @@ var migrations = []migration{
 	{version: 27, apply: migrateContentGalleryV27},
 	{version: 28, apply: migrateProductTemplateFilesV28},
 	{version: 29, apply: migrateProductTemplateSchemaV29},
+	{version: 30, apply: migrateStarterThemeCopiesV30},
+}
+
+// migrateStarterThemeCopiesV30 permits several independently editable template
+// packages to use the same trusted runtime. The render key selects the runtime
+// implementation; it is not a template package identifier. Keeping it unique
+// prevented administrators from creating a safe copy of a starter template.
+func migrateStarterThemeCopiesV30(ctx context.Context, tx *sql.Tx) error {
+	statements := []string{
+		`DROP INDEX IF EXISTS idx_theme_packages_render_key`,
+		`CREATE INDEX IF NOT EXISTS idx_theme_packages_render_key ON theme_packages(render_key) WHERE render_key <> ''`,
+	}
+	for _, statement := range statements {
+		if _, err := tx.ExecContext(ctx, statement); err != nil {
+			return fmt.Errorf("升级模板副本索引: %w", err)
+		}
+	}
+	return nil
 }
 
 // migrateProductTemplateFilesV28 adds dedicated editable templates for B2B

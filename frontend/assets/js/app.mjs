@@ -1,5 +1,5 @@
 import { modules, navigationItems, quickActions } from './data.mjs?v=20260901.09'
-import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs?v=20260831.01'
+import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, metafieldSuggestedIdentifiers, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs?v=20260907.01'
 
 const $ = (selector, scope = document) => scope.querySelector(selector)
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)]
@@ -18,7 +18,7 @@ const apiRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'product
 const siteScopedRoutes = new Set(['content', 'taxonomy', 'urls', 'publishing', 'localization'])
 const extendedSiteScopedRoutes = new Set([...siteScopedRoutes, 'products', 'product-categories'])
 const contentBulkSelectionLimit = 100
-const moduleState = { route: '', contentSection: '', contentScope: 'all', query: '', filter: '', selected: new Set(), backupSelected: new Set(), analyticsSiteID: null, analyticsDays: 30, analyticsFrom: '', analyticsTo: '', spiderSiteID: null, spiderDays: 30, spiderFrom: '', spiderTo: '', spiderBot: '', spiderEngine: '', spiderStatus: 'all' }
+const moduleState = { route: '', contentSection: '', contentScope: 'all', query: '', filter: '', selected: new Set(), backupSelected: new Set(), analyticsSiteID: null, analyticsDays: 30, analyticsFrom: '', analyticsTo: '', spiderSiteID: null, spiderDays: 30, spiderFrom: '', spiderTo: '', spiderBot: '', spiderEngine: '', spiderStatus: 'all', auditPage: 0, auditPageSize: 20, auditFrom: '', auditTo: '', auditStatus: 'all', auditCategory: 'all', auditQuery: '' }
 const contentEditorState = { key: '', item: null, newLocale: false, draftTimer: 0, seoTimer: 0, dirty: false, rendering: false, richSelection: null, metafieldRichSelections: new Map(), imageUploading: false, productGallery: [], productGalleryDragging: '' }
 const templateEditorState = {
   expandedID: '',
@@ -44,9 +44,11 @@ const liveState = {
   systemStatus: null,
   aiConfiguration: null,
   seoSitemaps: null,
+  aiContent: null,
   spider: null,
   analytics: null,
   localizationAIAvailable: false,
+  audit: { total: 0, limit: 20, offset: 0, success_total: 0, failure_total: 0 },
   me: null,
   loaded: new Set(),
   loading: new Set(),
@@ -591,7 +593,7 @@ function settingsSection() {
 
 function seoSection() {
   const section = currentRouteParams().get('section') || 'sitemap'
-  return ['sitemap', 'robots', 'spider'].includes(section) ? section : 'sitemap'
+  return ['sitemap', 'robots', 'ai-content', 'spider'].includes(section) ? section : 'sitemap'
 }
 
 function contentSection() {
@@ -691,6 +693,7 @@ function renderSEOTabs(section = seoSection()) {
   const tabs = [
     { key: 'sitemap', label: '站点地图', hint: '系统自动生成 · 只读' },
     { key: 'robots', label: 'robots 设置', hint: '抓取规则与测试屏蔽' },
+    { key: 'ai-content', label: 'AI 内容入口', hint: 'llms.txt、RSS 与结构化数据' },
     { key: 'spider', label: '蜘蛛统计', hint: '搜索引擎抓取监控' },
   ]
   return `<nav class="settings-tabs seo-tabs" aria-label="SEO 中心二级菜单">${tabs.map((tab) => `<a href="#/admin/seo?section=${tab.key}" ${tab.key === section ? 'aria-current="page"' : ''}><span>${escapeHtml(tab.label)}</span><small>${escapeHtml(tab.hint)}</small></a>`).join('')}</nav>`
@@ -796,6 +799,72 @@ function seoRobotsEditorAction(site) {
   const siteID = seoSiteID(site)
   if (!siteID) return ''
   return `<button class="row-action-button row-action-edit" type="button" data-seo-robots-edit data-site-id="${escapeHtml(siteID)}" aria-label="编辑${escapeHtml(site.name)}的 robots 规则">${icon('edit', 'icon icon-sm')}<span>编辑</span></button>`
+}
+
+function seoAIFileLink(url, label, kind = 'file') {
+  if (!url) return '<span class="seo-domain-pending">待绑定正式域名</span>'
+  return `<a class="seo-ai-file" href="${escapeHtml(url)}" target="_blank" rel="noopener" title="${escapeHtml(url)}">${icon(kind, 'icon icon-sm')}<code>${escapeHtml(label)}</code></a>`
+}
+
+function seoAIContentStatus(site) {
+  if (site.status === 'disabled') return { label: '站点已停用', detail: '不提供公开入口', tone: 'muted' }
+  if (site.public_ready) return { label: '已具备正式入口', detail: site.primary_domain || '正式域名', tone: 'ready' }
+  return { label: '待绑定正式域名', detail: '本地入口仅供测试', tone: 'pending' }
+}
+
+function renderAIContentEntry() {
+  moduleState.route = 'seo'
+  const payload = liveState.aiContent
+  const loading = liveState.loading.has('seo')
+  const error = liveState.errors.get('seo')
+  const heading = `<div class="page-heading seo-ai-page-heading"><div><span class="breadcrumb">SEO 中心 / AI 内容入口</span><h1 id="module-title">AI 内容入口</h1><p>按站点生成可访问的内容入口，并在公开文章、产品页面持续输出标准 HTML SEO 信号。</p></div><button class="button button-primary" type="button" data-seo-refresh ${loading ? 'disabled' : ''}>${icon('refresh', 'icon icon-sm')}${loading ? '刷新中…' : '刷新状态'}</button></div>${renderSEOTabs('ai-content')}`
+  if (loading && !payload) {
+    moduleView.innerHTML = `${heading}<div class="module-loading" role="status" aria-label="正在读取 AI 内容入口状态"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`
+    return
+  }
+  if (error && !payload) {
+    moduleView.innerHTML = `${heading}<div class="module-error" role="alert">${icon('alert')}<strong>暂时无法读取 AI 内容入口状态</strong><p>${escapeHtml(error)}</p><button class="button button-secondary" type="button" data-retry-module>重新加载</button></div>`
+    return
+  }
+  const sites = payload?.sites ?? []
+  const summary = payload?.summary ?? {}
+  const stats = [
+    { label: '接入站点', value: String(summary.site_count ?? sites.length), tone: 'blue', icon: 'globe' },
+    { label: '已具备正式入口', value: String(summary.public_ready_count ?? sites.filter((site) => site.public_ready).length), tone: 'green', icon: 'check' },
+    { label: '文章与产品订阅', value: Number(summary.feed_content_count ?? 0).toLocaleString('zh-CN'), tone: 'cyan', icon: 'file' },
+    { label: '待绑定域名', value: String(summary.pending_domain_count ?? sites.filter((site) => !site.public_ready).length), tone: 'gray', icon: 'link' },
+  ]
+  const rows = sites.length ? sites.map((site) => {
+    const content = site.content ?? {}
+    const state = seoAIContentStatus(site)
+    const localLinks = [
+      seoAIFileLink(site.llms_url, 'llms.txt'),
+      seoAIFileLink(site.rss_url, 'RSS'),
+      seoAIFileLink(site.atom_url, 'Atom'),
+    ].join('')
+    const publicLinks = site.public_ready ? [
+      seoAIFileLink(site.public_llms_url, 'llms.txt'),
+      seoAIFileLink(site.public_rss_url, 'RSS'),
+      seoAIFileLink(site.public_atom_url, 'Atom'),
+    ].join('') : '<span class="seo-domain-pending">待绑定正式域名</span>'
+    const coverageTotal = Number(content.content_count || 0)
+    const signal = coverageTotal
+      ? `<span class="seo-ai-signals"><b>JSON-LD</b><b>canonical</b><b>hreflang</b></span><small>随公开 HTML 页面自动输出</small>`
+      : `<span class="seo-ai-signals is-muted"><b>JSON-LD</b><b>canonical</b><b>hreflang</b></span><small>等待可收录内容发布</small>`
+    return `<tr>
+      <td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td>
+      <td><div class="seo-ai-files">${localLinks}</div><small class="seo-ai-origin">本地预览 · noindex</small></td>
+      <td><div class="seo-ai-coverage"><span><strong>${Number(content.article_count || 0).toLocaleString('zh-CN')}</strong>文章</span><span><strong>${Number(content.product_count || 0).toLocaleString('zh-CN')}</strong>产品</span><span><strong>${Number(content.page_count || 0).toLocaleString('zh-CN')}</strong>单页面</span></div></td>
+      <td><div class="seo-ai-html">${signal}</div></td>
+      <td><span class="seo-ai-state is-${state.tone}"><i aria-hidden="true"></i><span><strong>${escapeHtml(state.label)}</strong><small>${escapeHtml(state.detail)}</small></span></span></td>
+      <td><div class="seo-ai-files seo-ai-public-files">${publicLinks}</div></td>
+    </tr>`
+  }).join('') : `<tr><td colspan="6"><div class="empty-state">${icon('globe')}<strong>当前账号还没有可管理的站点</strong><p>新增站点并启用语言模板后，系统会提供对应的内容入口。</p></div></td></tr>`
+  moduleView.innerHTML = `${heading}
+    <section class="seo-automation-note seo-ai-notice" aria-labelledby="seo-ai-notice-title"><span class="seo-automation-icon">${icon('bot')}</span><div><h2 id="seo-ai-notice-title">入口可用不等于第三方平台保证抓取</h2><p><strong>llms.txt</strong> 是供模型和工具理解站点内容的补充文件，不是任何 AI 平台承诺抓取、引用或收录的标准。正式站点仍应保持可访问、内容质量、链接结构与 robots 策略正常。</p></div></section>
+    ${renderStats(stats, 'module-stats seo-summary seo-ai-summary')}
+    <section class="panel seo-sitemap-panel seo-ai-panel" aria-labelledby="seo-ai-table-title"><header class="panel-header"><div><h2 id="seo-ai-table-title">站点内容入口</h2><p>只会列出已发布、允许 index、已启用语言且可由当前模板渲染的内容。本地链接强制 noindex，正式链接需先绑定域名。</p></div><span class="seo-panel-status">${icon('file', 'icon icon-sm')}自动生成</span></header><div class="table-scroll"><table class="seo-ai-table"><thead><tr><th>站点</th><th>本地入口</th><th>内容覆盖</th><th>HTML 信号</th><th>发布状态</th><th>正式入口</th></tr></thead><tbody>${rows}</tbody></table></div></section>
+    <section class="seo-ai-details" aria-label="AI 内容入口说明"><div>${icon('file')}<span><strong>llms.txt</strong><small>输出站点说明、Sitemap、RSS、Atom 及最新可收录的文章和产品链接，适合作为补充发现入口。</small></span></div><div>${icon('link')}<span><strong>RSS / Atom</strong><small>各站点提供最近 20 条已发布、可收录文章与产品；单页面仍由 Sitemap 与 HTML SEO 信号覆盖。</small></span></div><div>${icon('check')}<span><strong>页面 SEO</strong><small>公开文章和产品页自动输出 JSON-LD、canonical、hreflang；内容设为 noindex 或不可渲染时不会被纳入入口。</small></span></div></section>`
 }
 
 // SEO centre responses expose `site_id`, while the site-management API uses
@@ -928,6 +997,10 @@ function renderSEOCenter() {
     renderSpiderStats()
     return
   }
+  if (seoSection() === 'ai-content') {
+    renderAIContentEntry()
+    return
+  }
   const payload = liveState.seoSitemaps
   const loading = liveState.loading.has('seo')
   const error = liveState.errors.get('seo')
@@ -1017,28 +1090,31 @@ function renderModule(route, options = {}) {
   const selectedCount = moduleState.selected.size
   const permission = editPermission(route)
   const showPrimary = !realRoutes.has(route) || can(permission)
+  const templateActions = route === 'templates' && can('templates.manage')
+    ? `<button class="button button-secondary" type="button" data-template-create>${icon('plus', 'icon icon-sm')}新建模板</button><button class="button button-primary" type="button" data-template-upload>${icon('file', 'icon icon-sm')}安装模板</button>`
+    : ''
   const scopedSite = extendedSiteScopedRoutes.has(route) ? currentSite() : null
   const scopeLabel = route === 'content' ? contentScopeLabel() : scopedSite ? `当前站点：${scopedSite.name}` : ''
-  const statusText = liveState.loading.has(route) ? '正在读取…' : liveState.errors.has(route) ? '读取失败' : selectedCount ? `已选择 ${selectedCount} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : `共 ${filterRows(config.rows, moduleState.query, moduleState.filter).length} 条记录`
+  const statusText = liveState.loading.has(route) ? '正在读取…' : liveState.errors.has(route) ? '读取失败' : selectedCount ? `已选择 ${selectedCount} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : route === 'audit' ? `第 ${Math.floor(Number(liveState.audit.offset || 0) / Math.max(1, Number(liveState.audit.limit || 20))) + 1} 页 · 共 ${Number(liveState.audit.total || 0)} 条` : `共 ${filterRows(config.rows, moduleState.query, moduleState.filter).length} 条记录`
   moduleView.innerHTML = `
     <div class="page-heading">
       <div><h1 id="module-title">${escapeHtml(config.title)}</h1><p>${escapeHtml(config.subtitle)}${scopeLabel ? `<span class="module-scope">${escapeHtml(scopeLabel)}</span>` : ''}</p></div>
-      <div class="page-heading-actions">${route === 'media' && can('media.upload') ? `<button class="button button-secondary" type="button" data-media-migrate-avif>${icon('refresh', 'icon icon-sm')}迁移旧图片为 AVIF</button>` : ''}${showPrimary ? `<button class="button button-primary" type="button" data-module-primary>${icon('plus', 'icon icon-sm')}${escapeHtml(config.primaryAction)}</button>` : ''}</div>
+      <div class="page-heading-actions">${route === 'media' && can('media.upload') ? `<button class="button button-secondary" type="button" data-media-migrate-avif>${icon('refresh', 'icon icon-sm')}迁移旧图片为 AVIF</button>` : ''}${templateActions || (showPrimary ? `<button class="button button-primary" type="button" data-module-primary>${icon('plus', 'icon icon-sm')}${escapeHtml(config.primaryAction)}</button>` : '')}</div>
     </div>
     ${route === 'content' ? renderContentTabs(contentSection()) : route === 'settings' ? renderSettingsTabs(settingsSection()) : ''}
     ${renderStats(config.stats, 'module-stats')}
     ${renderModuleGuide(route)}
-    <div class="module-toolbar">
+    ${route === 'audit' ? renderAuditControls() : `<div class="module-toolbar">
       ${route === 'content' ? renderContentScopePicker() : ''}
       ${route === 'content' ? renderContentBulkTrigger(config) : ''}
       <div class="filter-group" role="group" aria-label="筛选 ${escapeHtml(config.entityName)}">
         ${config.filters.map((filter) => `<button class="filter-button" type="button" data-filter="${escapeHtml(filter)}" aria-pressed="${filter === moduleState.filter}">${escapeHtml(filter)}</button>`).join('')}
       </div>
       <label class="module-search">${icon('search', 'icon icon-sm')}<input type="search" value="${escapeHtml(moduleState.query)}" placeholder="搜索${escapeHtml(config.entityName)}" aria-label="搜索${escapeHtml(config.entityName)}" data-module-search></label>
-    </div>
+    </div>`}
     <section class="panel module-panel" aria-labelledby="module-list-title">
       <header class="panel-header"><h2 id="module-list-title">${escapeHtml(config.entityName)}列表</h2><div class="selection-info">${statusText}</div></header>
-      <div id="module-table-region">${renderModuleTableRegion(config)}</div>
+      <div id="module-table-region">${renderModuleTableRegion(config)}</div>${route === 'audit' ? renderAuditPagination() : ''}
     </section>`
   syncModuleSelectionControl(config)
   if (options.focus) moduleView.querySelector(options.focus)?.focus()
@@ -1471,14 +1547,71 @@ function auditActionLabel(action = '') {
   return group ? `${group} · ${action}` : action
 }
 
-function updateAuditData(records) {
+function updateAuditData(records, meta = {}) {
+  liveState.audit = {
+    total: Number(meta.total ?? records?.length ?? 0),
+    limit: Number(meta.limit ?? moduleState.auditPageSize ?? 20),
+    offset: Number(meta.offset ?? (moduleState.auditPage * (moduleState.auditPageSize || 20))),
+    success_total: Number(meta.success_total ?? (records ?? []).filter((item) => item.success).length),
+    failure_total: Number(meta.failure_total ?? (records ?? []).filter((item) => !item.success).length),
+  }
   modules.audit.rows = (records ?? []).map((item) => ({
     id: item.id, name: auditActionLabel(item.action), actor: item.actor_name || (item.actor_user_id ? `用户 #${item.actor_user_id}` : '系统'),
     target: `${item.target_type || '—'}${item.target_id ? ` · ${item.target_id}` : ''}`, ip: item.ip_address || '—', status: item.success ? '成功' : '失败', category: String(item.action || '').startsWith('security.') ? '安全事件' : '业务事件', updatedAt: formatDate(item.created_at), _raw: item,
   }))
   modules.audit.stats[0].value = String(records?.length ?? 0)
-  modules.audit.stats[1].value = String((records ?? []).filter((item) => item.success).length)
-  modules.audit.stats[2].value = String((records ?? []).filter((item) => !item.success).length)
+  modules.audit.stats[1].value = String(liveState.audit.success_total)
+  modules.audit.stats[2].value = String(liveState.audit.failure_total)
+}
+
+function auditToday() {
+  return new Date().toISOString().slice(0, 10)
+}
+
+function renderAuditControls() {
+  const today = auditToday()
+  return `<div class="audit-filter-bar" role="search" aria-label="审计日志筛选">
+    <div class="audit-filter-heading"><strong>筛选日志</strong><small>日期按 UTC 筛选，包含结束日期全天；可按结果、类型和关键词查询</small></div>
+    <label><span>开始日期</span><input type="date" data-audit-from value="${escapeHtml(moduleState.auditFrom)}" max="${today}"></label>
+    <label><span>结束日期</span><input type="date" data-audit-to value="${escapeHtml(moduleState.auditTo)}" max="${today}"></label>
+    <label><span>结果</span><select data-audit-status><option value="all" ${moduleState.auditStatus === 'all' ? 'selected' : ''}>全部结果</option><option value="success" ${moduleState.auditStatus === 'success' ? 'selected' : ''}>成功</option><option value="failure" ${moduleState.auditStatus === 'failure' ? 'selected' : ''}>失败</option></select></label>
+    <label><span>类型</span><select data-audit-category><option value="all" ${moduleState.auditCategory === 'all' ? 'selected' : ''}>全部类型</option><option value="security" ${moduleState.auditCategory === 'security' ? 'selected' : ''}>安全事件</option></select></label>
+    <label class="audit-filter-query"><span>关键词</span><input type="search" data-audit-query value="${escapeHtml(moduleState.auditQuery)}" maxlength="120" placeholder="动作、对象、请求 ID"></label>
+    <div class="audit-filter-actions"><button class="button button-primary button-compact" type="button" data-audit-apply>${icon('search', 'icon icon-sm')}应用筛选</button><button class="button button-secondary button-compact" type="button" data-audit-reset>重置</button></div>
+  </div>`
+}
+
+function renderAuditPagination() {
+  const meta = liveState.audit || {}
+  const total = Math.max(0, Number(meta.total || 0))
+  const size = Math.max(1, Number(meta.limit || moduleState.auditPageSize || 20))
+  const current = total ? Math.floor(Number(meta.offset || 0) / size) + 1 : 1
+  const pages = Math.max(1, Math.ceil(total / size))
+  const first = total ? Number(meta.offset || 0) + 1 : 0
+  const last = total ? Math.min(total, Number(meta.offset || 0) + size) : 0
+  return `<footer class="audit-pagination" aria-label="审计日志分页"><span>显示 ${first}–${last}，共 ${total} 条</span><label><span>每页</span><select data-audit-page-size><option value="20" ${size === 20 ? 'selected' : ''}>20</option><option value="50" ${size === 50 ? 'selected' : ''}>50</option><option value="100" ${size === 100 ? 'selected' : ''}>100</option></select><span>条</span></label><span class="audit-page-number">第 ${current} / ${pages} 页</span><button class="button button-secondary button-compact" type="button" data-audit-prev ${current <= 1 ? 'disabled' : ''} aria-label="上一页">上一页</button><button class="button button-secondary button-compact" type="button" data-audit-next ${current >= pages ? 'disabled' : ''} aria-label="下一页">下一页</button></footer>`
+}
+
+function auditPageFromMeta() {
+  const size = Math.max(1, Number(liveState.audit?.limit || moduleState.auditPageSize || 20))
+  return Math.max(0, Math.floor(Number(liveState.audit?.offset || 0) / size))
+}
+
+function loadAuditPage(page = 0) {
+  if (liveState.loading.has('audit')) return
+  moduleState.auditPage = Math.max(0, Number(page) || 0)
+  liveState.loaded.delete('audit')
+  return loadRoute('audit', true)
+}
+
+function applyAuditFilters() {
+  const from = moduleState.auditFrom
+  const to = moduleState.auditTo
+  if (from && to && to < from) {
+    showToast('结束日期不能早于开始日期')
+    return
+  }
+  void loadAuditPage(0)
 }
 
 function updateSystemData(status, backups) {
@@ -1509,6 +1642,10 @@ function updateSEOSitemapData(payload) {
   modules.seo.stats[1].value = String(summary.active_site_count ?? sites.filter((site) => site.status === 'active').length)
   modules.seo.stats[2].value = Number(summary.indexable_page_count ?? 0).toLocaleString('zh-CN')
   modules.seo.stats[3].value = Number(summary.single_page_excluded_count ?? 0).toLocaleString('zh-CN')
+}
+
+function updateAIContentData(payload) {
+  liveState.aiContent = payload ?? { sites: [], summary: {} }
 }
 
 function updateSpiderData(payload) {
@@ -1767,11 +1904,13 @@ async function loadRoute(route, force = false) {
 	      const spiderTo = moduleState.spiderTo
 	      const spiderRange = spiderFrom && spiderTo ? `from=${encodeURIComponent(spiderFrom)}&to=${encodeURIComponent(spiderTo)}` : `days=${encodeURIComponent(Number(moduleState.spiderDays || 30))}`
 	      const spiderFilters = `bot=${encodeURIComponent(moduleState.spiderBot || '')}&status=${encodeURIComponent(moduleState.spiderStatus || 'all')}`
-	      const [sitemapPayload, spiderPayload] = await Promise.all([
+	      const [sitemapPayload, aiContentPayload, spiderPayload] = await Promise.all([
 	        fetchJSON('/api/v1/seo/sitemaps'),
+	        fetchJSON('/api/v1/seo/ai-content'),
 	        fetchJSON(`/api/v1/seo/spider?site_id=${encodeURIComponent(spiderSiteID)}&${spiderRange}&${spiderFilters}`),
 	      ])
 	      updateSEOSitemapData(sitemapPayload)
+	      updateAIContentData(aiContentPayload)
 	      updateSpiderData(spiderPayload)
 	    } else if (route === 'urls') {
       const payload = await fetchJSON(siteScopedAPIPath('/api/v1/urls/redirects'))
@@ -1793,8 +1932,15 @@ async function loadRoute(route, force = false) {
 	      const [users, roles] = await Promise.all([fetchJSON('/api/v1/security/users'), fetchJSON('/api/v1/security/roles')])
 	      updateUserData(users.users ?? [], roles.roles ?? [])
 	    } else if (route === 'audit') {
-	      const payload = await fetchJSON('/api/v1/audit?limit=100')
-	      updateAuditData(payload.records ?? [])
+	      // Legacy contract remains supported by the server: fetchJSON('/api/v1/audit?limit=100')
+	      const auditParams = new URLSearchParams({
+	        limit: String(moduleState.auditPageSize || 20),
+	        offset: String(Math.max(0, Number(moduleState.auditPage || 0)) * Math.max(1, Number(moduleState.auditPageSize || 20))),
+	        from: moduleState.auditFrom || '', to: moduleState.auditTo || '',
+	        status: moduleState.auditStatus || 'all', category: moduleState.auditCategory || 'all', q: moduleState.auditQuery || '',
+	      })
+	      const payload = await fetchJSON(`/api/v1/audit?${auditParams.toString()}`)
+	      updateAuditData(payload.records ?? [], payload)
 	    } else if (route === 'settings') {
 	      const [status, backups, aiConfiguration] = await Promise.all([fetchJSON('/api/v1/system/status'), can('backup.manage') ? fetchJSON('/api/v1/system/backups?limit=20') : Promise.resolve({ backups: [] }), fetchJSON('/api/v1/system/ai')])
 	      updateSystemData(status, backups.backups ?? [])
@@ -3932,7 +4078,7 @@ async function openSiteRobotsDialog(site) {
   }
 }
 
-async function openTemplateDialog() {
+async function openTemplateUploadDialog() {
   entityForm.reset()
   entityForm.dataset.route = 'templates'
   entityForm.dataset.mode = 'create'
@@ -3951,6 +4097,47 @@ async function openTemplateDialog() {
   $('#save-entity-button').hidden = false
   if (!entityDialog.open) entityDialog.showModal()
   window.setTimeout(() => $('#entity-fields input')?.focus(), 0)
+}
+
+function starterTemplateChoices() {
+  const available = (liveState.templates || []).filter((item) => item?.renderable && ['global-route', 'atlas-commerce'].includes(item.render_key))
+  const byKey = new Map(available.map((item) => [item.render_key, item]))
+  return [
+    { value: 'global-route', label: `Global Route${byKey.get('global-route') ? ` · ${byKey.get('global-route').version}` : ''}` },
+    { value: 'atlas-commerce', label: `Atlas Commerce${byKey.get('atlas-commerce') ? ` · ${byKey.get('atlas-commerce').version}` : ''}` },
+  ].filter((choice) => byKey.has(choice.value))
+}
+
+async function openTemplateCreateDialog() {
+  if (!liveState.templates) await loadRoute('templates', true)
+  const choices = starterTemplateChoices()
+  if (!choices.length) {
+    showToast('没有可用的基础模板，请先恢复 Global Route 或 Atlas Commerce')
+    return
+  }
+  entityForm.reset()
+  entityForm.dataset.route = 'template-create'
+  entityForm.dataset.mode = 'create'
+  entityForm.dataset.id = ''
+  entityDialog.classList.remove('dialog-editor', 'dialog-site-editor')
+  entityDialog.classList.add('dialog-wide')
+  $('#entity-dialog-title').textContent = '新建模板'
+  $('#entity-dialog-description').textContent = '从受信任的基础模板创建一份独立副本。创建后可立即编辑、预览并绑定到任意站点语言。'
+  $('#entity-dialog-error').hidden = true
+  $('#entity-fields').innerHTML = `<div class="form-grid template-create-form">
+    ${field('模板名称', 'name', '', { required: true, maxlength: 200, wide: true, placeholder: '例如：欧洲物流品牌版', help: '用于后台识别；允许文字、数字、空格与 . _ ( ) -。' })}
+    ${selectField('基础模板', 'base_render_key', choices, choices[0].value, { required: true, help: '将复制该模板的页面结构、样式资源与可编辑文件。' })}
+    ${field('初始版本', 'version', '1.0.0', { required: true, maxlength: 60, placeholder: '1.0.0', help: '采用语义化版本，例如 1.0.0。' })}
+    <div class="form-hint form-field-wide template-create-note">${icon('template', 'icon icon-sm')}<span><strong>创建后直接可用</strong><small>新模板会保留基础模板的安全渲染器，但文件和样式属于新副本；修改不会影响基础模板或其他站点。</small></span></div>
+  </div>`
+  $('#delete-entity-button').hidden = true
+  $('#add-locale-button').hidden = true
+  $('#content-review-button').hidden = true
+  $('#content-publish-button').hidden = true
+  $('#save-entity-button').textContent = '创建并进入编辑'
+  $('#save-entity-button').hidden = false
+  if (!entityDialog.open) entityDialog.showModal()
+  window.setTimeout(() => entityForm.elements.name?.focus(), 0)
 }
 
 function contactFormFieldChoices(selected = [], submitLabel = '提交咨询') {
@@ -4191,30 +4378,98 @@ async function openTaxonomyDialog(item = null) {
 const metafieldTypeOptions = Object.entries(metafieldTypeLabels).map(([value, label]) => ({ value, label }))
 const metafieldOwnerOptions = Object.entries(metafieldOwnerLabels).map(([value, label]) => ({ value, label }))
 
+function metafieldIdentifierField(label, name, value, options = {}) {
+  const automatic = options.automatic ? `data-metafield-auto-identifier="${name}" data-metafield-automatic="true"` : ''
+  const disabled = options.disabled ? 'disabled' : ''
+  const required = options.required ? '<b aria-hidden="true">*</b>' : ''
+  return `<label class="form-field metafield-identifier-field"><span>${escapeHtml(label)} ${required}</span><input name="${name}" value="${escapeHtml(value ?? '')}" maxlength="${options.maxlength}" ${automatic} ${disabled} placeholder="${escapeHtml(options.placeholder || '')}" autocomplete="off" spellcheck="false"><small>${escapeHtml(options.help || '')}</small></label>`
+}
+
+function metafieldUniqueKey(namespace, preferredKey, currentID = '') {
+  const cleanNamespace = String(namespace || 'custom').trim().toLowerCase()
+  const cleanKey = String(preferredKey || 'field').trim().toLowerCase().slice(0, 100) || 'field'
+  const used = new Set(liveState.metafields
+    .filter((item) => String(item.id) !== String(currentID || ''))
+    .filter((item) => String(item.namespace || '').toLowerCase() === cleanNamespace)
+    .map((item) => String(item.key || '').toLowerCase()))
+  if (!used.has(cleanKey)) return cleanKey
+  let suffix = 2
+  let candidate = cleanKey
+  while (used.has(candidate)) {
+    const tail = `_${suffix++}`
+    candidate = `${cleanKey.slice(0, Math.max(1, 100 - tail.length)).replace(/_+$/g, '')}${tail}`
+  }
+  return candidate
+}
+
+function metafieldPreviewControl(type) {
+  if (type === 'richtext') return '<div class="metafield-preview-rich" aria-hidden="true"><span>标题、列表、链接和图片</span><small>在此编辑富文本内容…</small></div>'
+  if (type === 'textarea') return '<div class="metafield-preview-input metafield-preview-textarea" aria-hidden="true">在此填写多行内容…</div>'
+  if (type === 'select' || type === 'multiselect') return '<div class="metafield-preview-input metafield-preview-select" aria-hidden="true"><span>请选择</span><span>⌄</span></div>'
+  if (type === 'date') return '<div class="metafield-preview-input" aria-hidden="true">YYYY-MM-DD</div>'
+  if (type === 'number') return '<div class="metafield-preview-input" aria-hidden="true">输入数字</div>'
+  if (type === 'image' || type === 'file') return '<div class="metafield-preview-upload" aria-hidden="true">选择媒体文件</div>'
+  return '<div class="metafield-preview-input" aria-hidden="true">在此填写内容…</div>'
+}
+
+function updateMetafieldDialogPreview() {
+  if (entityForm.dataset.route !== 'metafields') return
+  const preview = $('[data-metafield-preview]', entityForm)
+  if (!preview) return
+  const name = formValue(entityForm, 'name') || '字段显示名称'
+  const namespace = formValue(entityForm, 'namespace') || 'namespace'
+  const key = formValue(entityForm, 'key') || 'key'
+  const type = formValue(entityForm, 'field_type') || 'text'
+  const typeLabel = metafieldTypeLabels[type] || type
+  preview.innerHTML = `<div class="metafield-preview-heading"><span class="metafield-preview-mark">${icon('layers', 'icon icon-sm')}</span><span><strong>编辑器内预览</strong><small>字段创建后会这样显示</small></span></div><div class="metafield-preview-card"><div class="metafield-preview-card-head"><strong>扩展字段</strong><code>${escapeHtml(namespace)}.${escapeHtml(key)}</code></div><label><span>${escapeHtml(name)}${entityForm.elements.required?.checked ? ' <b aria-hidden="true">*</b>' : ''}</span>${metafieldPreviewControl(type)}<small>${escapeHtml(typeLabel)}字段</small></label></div><p class="metafield-preview-note"><i></i>将显示在绑定对象的“扩展字段”分组中</p>`
+}
+
+function syncMetafieldGeneratedIdentifiers({ force = false } = {}) {
+  if (entityForm.dataset.route !== 'metafields' || entityForm.dataset.mode !== 'create') return
+  const namespace = entityForm.elements.namespace
+  const key = entityForm.elements.key
+  if (!namespace || !key) return
+  const suggestion = metafieldSuggestedIdentifiers(formValue(entityForm, 'name'), formValue(entityForm, 'owner_type'))
+  const namespaceIsAutomatic = force || namespace.dataset.metafieldAutomatic === 'true'
+  const keyIsAutomatic = force || key.dataset.metafieldAutomatic === 'true'
+  if (namespaceIsAutomatic) namespace.value = suggestion.namespace
+  if (keyIsAutomatic) key.value = suggestion.key ? metafieldUniqueKey(namespace.value || suggestion.namespace, suggestion.key) : ''
+  updateMetafieldDialogPreview()
+}
+
 function openMetafieldDialog(item = null) {
   entityForm.reset()
   entityForm.dataset.route = 'metafields'
   entityForm.dataset.mode = item ? 'edit' : 'create'
   entityForm.dataset.id = item?.id ?? ''
   entityForm.dataset.version = item?.version ?? ''
-  entityDialog.classList.remove('dialog-wide', 'dialog-editor', 'dialog-site-editor', 'dialog-form-builder')
+  entityDialog.classList.remove('dialog-editor', 'dialog-site-editor', 'dialog-form-builder')
+  entityDialog.classList.add('dialog-wide', 'dialog-metafield')
   $('#entity-dialog-title').textContent = `${item ? '编辑' : '新建'}元字段`
   $('#entity-dialog-description').textContent = item ? 'Namespace / Key 已锁定；可调整类型、说明、校验和启用状态。' : '创建后可在产品、产品栏目和内容编辑器中复用。'
   $('#entity-dialog-error').hidden = true
-  $('#entity-fields').innerHTML = `<div class="form-grid metafield-dialog-grid">
-    ${field('字段显示名称', 'name', item?.name, { required: true, maxlength: 120, placeholder: '例如：包装尺寸', help: '显示在编辑器中的中文名称。' })}
-    ${field('Namespace', 'namespace', item?.namespace || 'custom', { required: true, maxlength: 64, disabled: Boolean(item), placeholder: 'custom', help: item ? '创建后不可修改，避免模板引用失效。' : '小写字母、数字、短横线和下划线。' })}
-    ${field('Key', 'key', item?.key, { required: true, maxlength: 100, disabled: Boolean(item), placeholder: 'package_size', help: item ? '创建后不可修改，模板使用 namespace.key 读取。' : '例如 package_size、certifications。' })}
-    ${selectField('绑定对象', 'owner_type', metafieldOwnerOptions, item?.owner_type || 'product', { required: true, disabled: Boolean(item) })}
-    ${selectField('字段类型', 'field_type', metafieldTypeOptions, item?.field_type || 'text', { required: true, help: '选择“富文本”后，内容编辑器会提供标题、列表、链接、图片和源码模式。' })}
-    ${field('字段说明', 'description', item?.description, { textarea: true, maxlength: 500, wide: true, placeholder: '告诉编辑人员这个字段应该填写什么。' })}
-    ${field('默认值', 'default_value', item?.default_value, { maxlength: 1000, wide: true, placeholder: '可选；新建对象时自动填入。' })}
-    ${field('校验规则 JSON', 'validation', item?.validation ? JSON.stringify(item.validation, null, 2) : '{}', { textarea: true, maxlength: 5000, wide: true, help: '例如 {"min":0,"max":100,"unit":"cm"}；必须是有效 JSON。' })}
-    <label class="checkbox-field"><input type="checkbox" name="translatable" ${item?.translatable !== false ? 'checked' : ''}><span><strong>允许按语言独立填写</strong><small>关闭后所有语言读取同一值。</small></span></label>
-    <label class="checkbox-field"><input type="checkbox" name="required" ${item?.required ? 'checked' : ''}><span><strong>编辑时必填</strong><small>发布前若为空将提示编辑人员。</small></span></label>
-    <label class="checkbox-field"><input type="checkbox" name="ai_enabled" ${item?.ai_enabled ? 'checked' : ''}><span><strong>允许 AI 生成</strong><small>仅在明确调用元字段 AI 功能时使用；结果仍保存为待审核草稿。</small></span></label>
-    ${selectField('状态', 'status', [{ value: 'active', label: '已启用' }, { value: 'disabled', label: '已停用' }], item?.status || 'active', { required: true })}
-    ${field('排序', 'sort_order', item?.sort_order ?? 0, { type: 'number', min: 0, max: 10000, help: '同一对象中的显示顺序。' })}
+  $('#entity-fields').innerHTML = `<div class="metafield-dialog-layout">
+    <div class="metafield-dialog-main">
+      <section class="metafield-dialog-section" aria-labelledby="metafield-basic-heading">
+        <header class="metafield-dialog-section-header"><div><h3 id="metafield-basic-heading">基础配置</h3><p>字段用于扩展产品、产品栏目、文章和单页面的内容结构。</p></div><span>1 / 2</span></header>
+        <div class="form-grid metafield-dialog-grid">
+          ${field('字段显示名称', 'name', item?.name, { required: true, maxlength: 120, placeholder: '例如：包装尺寸', help: '给编辑人员看的字段名称。' })}
+          ${selectField('绑定对象', 'owner_type', metafieldOwnerOptions, item?.owner_type || 'product', { required: true, disabled: Boolean(item), help: '字段会显示在此对象的编辑页面。' })}
+          ${metafieldIdentifierField('Namespace', 'namespace', item?.namespace, { required: true, maxlength: 64, disabled: Boolean(item), automatic: !item, placeholder: '输入名称后自动生成', help: item ? '创建后不可修改，避免模板引用失效。' : '系统自动生成；你也可以直接修改。' })}
+          ${metafieldIdentifierField('Key', 'key', item?.key, { required: true, maxlength: 100, disabled: Boolean(item), automatic: !item, placeholder: '输入名称后自动生成', help: item ? '创建后不可修改，模板使用 namespace.key 读取。' : '系统自动生成；保存前会检查重复。' })}
+          ${selectField('字段类型', 'field_type', metafieldTypeOptions, item?.field_type || 'text', { required: true, wide: true, help: '选择富文本后，编辑器支持标题、列表、链接、图片和源码模式。' })}
+          ${field('字段说明', 'description', item?.description, { textarea: true, maxlength: 500, wide: true, placeholder: '告诉编辑人员这个字段应该填写什么。', help: '可选，会显示在字段下方帮助团队统一填写。' })}
+        </div>
+      </section>
+      <details class="metafield-advanced" ${item ? 'open' : ''}><summary><span><strong>高级规则</strong><small>默认值、校验条件、语言和 AI 权限</small></span><span aria-hidden="true">⌄</span></summary><div class="form-grid metafield-advanced-grid">
+        ${field('默认值', 'default_value', item?.default_value, { maxlength: 1000, wide: true, placeholder: '可选；新建对象时自动填入。' })}
+        ${field('校验规则 JSON', 'validation', item?.validation ? JSON.stringify(item.validation, null, 2) : '{}', { textarea: true, maxlength: 5000, wide: true, help: '例如 {"min":0,"max":100,"unit":"cm"}；必须是有效 JSON。' })}
+        <div class="metafield-option-grid form-field-wide"><label class="checkbox-field"><input type="checkbox" name="translatable" ${item?.translatable !== false ? 'checked' : ''}><span><strong>允许按语言独立填写</strong><small>关闭后所有语言读取同一值。</small></span></label><label class="checkbox-field"><input type="checkbox" name="required" ${item?.required ? 'checked' : ''}><span><strong>编辑时必填</strong><small>发布前若为空将提示编辑人员。</small></span></label><label class="checkbox-field"><input type="checkbox" name="ai_enabled" ${item?.ai_enabled ? 'checked' : ''}><span><strong>允许 AI 生成</strong><small>生成结果仍保存为待审核草稿。</small></span></label></div>
+        ${selectField('状态', 'status', [{ value: 'active', label: '已启用' }, { value: 'disabled', label: '已停用' }], item?.status || 'active', { required: true })}
+        ${field('排序', 'sort_order', item?.sort_order ?? 0, { type: 'number', min: 0, max: 10000, help: '同一对象中的显示顺序。' })}
+      </div></details>
+    </div>
+    <aside class="metafield-live-preview" data-metafield-preview aria-label="产品编辑器预览"></aside>
   </div>`
   $('#delete-entity-button').hidden = true
   $('#add-locale-button').hidden = true
@@ -4222,11 +4477,14 @@ function openMetafieldDialog(item = null) {
   $('#content-publish-button').hidden = true
   $('#save-entity-button').hidden = false
   $('#save-entity-button').textContent = item ? '保存修改' : '创建元字段'
+  syncMetafieldGeneratedIdentifiers({ force: true })
+  updateMetafieldDialogPreview()
   if (!entityDialog.open) entityDialog.showModal()
   window.setTimeout(() => $('#entity-fields input:not([disabled]), #entity-fields textarea')?.focus(), 0)
 }
 
 function metafieldPayload() {
+  syncMetafieldGeneratedIdentifiers()
   let validation = {}
   try { validation = JSON.parse(formValue(entityForm, 'validation') || '{}') } catch { throw new APIError('校验规则 JSON 无效，请修正后再保存', 422) }
   return { name: formValue(entityForm, 'name'), namespace: formValue(entityForm, 'namespace'), key: formValue(entityForm, 'key'), owner_type: formValue(entityForm, 'owner_type'), field_type: formValue(entityForm, 'field_type'), description: formValue(entityForm, 'description'), default_value: formValue(entityForm, 'default_value'), validation, translatable: Boolean(entityForm.elements.translatable?.checked), required: Boolean(entityForm.elements.required?.checked), ai_enabled: Boolean(entityForm.elements.ai_enabled?.checked), status: formValue(entityForm, 'status') || 'active', sort_order: Number(formValue(entityForm, 'sort_order') || 0), version: Number(entityForm.dataset.version || 0) }
@@ -4926,6 +5184,13 @@ async function submitEntity(statusOverride = null) {
     payload = new FormData()
     payload.append('file', file)
     path = '/api/v1/templates/upload'
+  } else if (route === 'template-create') {
+    payload = {
+      name: formValue(entityForm, 'name'),
+      version: formValue(entityForm, 'version'),
+      base_render_key: formValue(entityForm, 'base_render_key'),
+    }
+    path = '/api/v1/templates/create'
   } else if (route === 'media') {
     if (mode === 'edit') {
       payload = { alt_text: formValue(entityForm, 'alt_text'), version: Number(entityForm.dataset.version || 0) }
@@ -4977,15 +5242,17 @@ async function submitEntity(statusOverride = null) {
     liveState.loaded.delete(route)
     if (route === 'sites' || route === 'languages') liveState.siteLanguages.clear()
     if (route === 'sites') liveState.siteDomains.clear()
-	    if (route === 'templates') liveState.templates = null
+	    if (route === 'templates' || route === 'template-create') liveState.templates = null
 	    if (route === 'seo-robots') await loadRoute('seo', true)
 	    if (route === 'backup-import') await loadRoute('settings', true)
-	    if (apiRoutes.has(route)) await loadRoute(route === 'taxonomy' && moduleState.route === 'product-categories' ? 'product-categories' : route, true)
+	    if (route === 'template-create') await loadRoute('templates', true)
+	    else if (apiRoutes.has(route)) await loadRoute(route === 'taxonomy' && moduleState.route === 'product-categories' ? 'product-categories' : route, true)
 	if (route === 'forms') {
 	  contentEditorState.key = ''
 	  await renderContentEditorRoute('edit')
 	}
-    showToast(route === 'publishing' ? `发布已创建（#${saved.id}）` : route === 'templates' ? `模板“${saved.name}”已上传并通过验证` : route === 'media' ? (mode === 'edit' ? '媒体 Alt 文本已保存' : `媒体“${saved.original_name ?? saved.storage_name ?? '文件'}”已上传并完成扫描`) : route === 'users' ? (mode === 'edit' ? '用户权限已更新' : `用户“${saved.display_name || saved.username}”已创建`) : route === 'forms' ? (mode === 'edit' ? `联系表单“${saved.name}”已更新` : `联系表单“${saved.name}”已创建并绑定`) : route === 'seo-robots' ? '该站点 robots 自定义规则已保存' : route === 'backup-import' ? `备份 #${saved.id} 已导入并通过校验` : route === 'metafields' ? `元字段“${saved.name}”已保存` : `${modules[route].entityName}“${saved.name ?? saved.name_zh ?? saved.title ?? saved.source_path}”已保存`)
+    showToast(route === 'publishing' ? `发布已创建（#${saved.id}）` : route === 'templates' ? `模板“${saved.name}”已上传并通过验证` : route === 'template-create' ? `模板“${saved.name}”已创建，可开始编辑` : route === 'media' ? (mode === 'edit' ? '媒体 Alt 文本已保存' : `媒体“${saved.original_name ?? saved.storage_name ?? '文件'}”已上传并完成扫描`) : route === 'users' ? (mode === 'edit' ? '用户权限已更新' : `用户“${saved.display_name || saved.username}”已创建`) : route === 'forms' ? (mode === 'edit' ? `联系表单“${saved.name}”已更新` : `联系表单“${saved.name}”已创建并绑定`) : route === 'seo-robots' ? '该站点 robots 自定义规则已保存' : route === 'backup-import' ? `备份 #${saved.id} 已导入并通过校验` : route === 'metafields' ? `元字段“${saved.name}”已保存` : `${modules[route].entityName}“${saved.name ?? saved.name_zh ?? saved.title ?? saved.source_path}”已保存`)
+    if (route === 'template-create' && saved?.id) window.setTimeout(() => { void toggleTemplateWorkspace(saved.id, true) }, 0)
   } catch (error) {
     const box = $('#entity-dialog-error')
     box.textContent = error.status === 409 ? '这条记录已被其他用户修改。请关闭窗口、刷新数据后再编辑。' : error.message || '保存失败，请稍后重试'
@@ -5470,7 +5737,7 @@ function openModuleAction(route) {
   if (route === 'taxonomy') return openTaxonomyDialog().catch((error) => showToast(error.message || '栏目表单加载失败'))
   if (route === 'sites') return openEntityDialog('站点')
   if (route === 'languages') return openEntityDialog('语言')
-  if (route === 'templates') return openTemplateDialog()
+  if (route === 'templates') return openTemplateUploadDialog()
   if (route === 'urls') return openRedirectDialog()
   if (route === 'publishing') return openPublishingDialog()
   if (route === 'media') return openMediaUploadDialog()
@@ -5654,8 +5921,24 @@ $('#action-list').addEventListener('click', (event) => {
 })
 
 moduleView.addEventListener('click', (event) => {
+  const auditApply = event.target.closest('[data-audit-apply]')
+  if (auditApply) { applyAuditFilters(); return }
+  const auditReset = event.target.closest('[data-audit-reset]')
+  if (auditReset) {
+    moduleState.auditFrom = ''; moduleState.auditTo = ''; moduleState.auditStatus = 'all'; moduleState.auditCategory = 'all'; moduleState.auditQuery = ''
+    void loadAuditPage(0)
+    return
+  }
+  const auditPrev = event.target.closest('[data-audit-prev]')
+  if (auditPrev && !auditPrev.disabled) { void loadAuditPage(auditPageFromMeta() - 1); return }
+  const auditNext = event.target.closest('[data-audit-next]')
+  if (auditNext && !auditNext.disabled) { void loadAuditPage(auditPageFromMeta() + 1); return }
   const mediaMigrate = event.target.closest('[data-media-migrate-avif]')
   if (mediaMigrate) { void migrateLegacyMediaToAVIF(mediaMigrate); return }
+  const templateCreate = event.target.closest('[data-template-create]')
+  if (templateCreate) { void openTemplateCreateDialog(); return }
+  const templateUpload = event.target.closest('[data-template-upload]')
+  if (templateUpload) { void openTemplateUploadDialog(); return }
 	const spiderRefresh = event.target.closest('[data-spider-refresh]')
 	if (spiderRefresh) { void loadRoute('seo', true); return }
 	const spiderExport = event.target.closest('[data-spider-export]')
@@ -6011,6 +6294,9 @@ moduleView.addEventListener('click', (event) => {
 })
 
 moduleView.addEventListener('input', (event) => {
+	if (event.target.matches('[data-audit-from]')) { moduleState.auditFrom = event.target.value || ''; return }
+	if (event.target.matches('[data-audit-to]')) { moduleState.auditTo = event.target.value || ''; return }
+	if (event.target.matches('[data-audit-query]')) { moduleState.auditQuery = event.target.value || ''; return }
 	if (event.target.matches('[data-analytics-from]')) {
 		moduleState.analyticsFrom = event.target.value || ''
 		return
@@ -6049,6 +6335,11 @@ moduleView.addEventListener('input', (event) => {
 })
 
 moduleView.addEventListener('keydown', (event) => {
+	if (event.key === 'Enter' && event.target.matches('[data-audit-query]')) {
+		event.preventDefault()
+		applyAuditFilters()
+		return
+	}
 	if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 's' || !event.target.matches('[data-template-source]')) return
 	event.preventDefault()
 	const workspace = event.target.closest('[data-template-workspace]')
@@ -6063,6 +6354,13 @@ moduleView.addEventListener('scroll', (event) => {
 }, true)
 
 moduleView.addEventListener('change', (event) => {
+	if (event.target.matches('[data-audit-page-size]')) {
+		moduleState.auditPageSize = Math.max(1, Number(event.target.value || 20))
+		void loadAuditPage(0)
+		return
+	}
+	if (event.target.matches('[data-audit-status]')) { moduleState.auditStatus = event.target.value || 'all'; return }
+	if (event.target.matches('[data-audit-category]')) { moduleState.auditCategory = event.target.value || 'all'; return }
 	if (event.target.matches('[data-analytics-site]')) {
 		moduleState.analyticsSiteID = Number(event.target.value || 0)
 		liveState.loaded.delete('analytics')
@@ -6153,6 +6451,10 @@ moduleView.addEventListener('change', (event) => {
 
 $('#entity-fields').addEventListener('change', async (event) => {
   const route = entityForm.dataset.route
+	if (route === 'metafields') {
+		if (event.target.name === 'owner_type') syncMetafieldGeneratedIdentifiers()
+		if (['field_type', 'required'].includes(event.target.name)) updateMetafieldDialogPreview()
+	}
 	if (route === 'forms') {
 		const item = event.target.closest('[data-builder-item]')
 		if (item) {
@@ -6229,6 +6531,11 @@ $('#entity-fields').addEventListener('change', async (event) => {
 })
 
 $('#entity-fields').addEventListener('input', (event) => {
+  if (entityForm.dataset.route === 'metafields') {
+    if (entityForm.dataset.mode === 'create' && ['namespace', 'key'].includes(event.target.name)) event.target.dataset.metafieldAutomatic = 'false'
+    if (event.target.name === 'name' || (event.target.name === 'namespace' && entityForm.elements.key?.dataset.metafieldAutomatic === 'true')) syncMetafieldGeneratedIdentifiers()
+    else updateMetafieldDialogPreview()
+  }
   if (event.target.matches('[data-richtext]')) {
     updateEditorCharCount(event.target)
     refreshEditorPreview()
@@ -6673,6 +6980,8 @@ entityForm.addEventListener('submit', (event) => {
   if (!entityForm.reportValidity()) return
   void submitEntity()
 })
+
+entityDialog.addEventListener('close', () => entityDialog.classList.remove('dialog-metafield'))
 
 aiProviderForm?.addEventListener('submit', (event) => {
   if (event.submitter?.value === 'cancel') return

@@ -207,6 +207,29 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 	if seoCenterPayload.Summary.SiteCount != 6 || len(seoCenterPayload.Sites) != 6 || seoCenterPayload.Sites[0].SiteID < 1 || seoCenterPayload.Sites[0].SitemapURL == "" || seoCenterPayload.Sites[0].RobotsURL == "" {
 		t.Fatalf("unexpected SEO sitemap API payload: %+v", seoCenterPayload)
 	}
+	aiContentResponse := mustGet(t, client, server.URL+"/api/v1/seo/ai-content")
+	var aiContentPayload struct {
+		Sites []struct {
+			SiteID  int64  `json:"site_id"`
+			LLMSURL string `json:"llms_url"`
+			RSSURL  string `json:"rss_url"`
+			AtomURL string `json:"atom_url"`
+		} `json:"sites"`
+		Summary struct {
+			SiteCount int64 `json:"site_count"`
+		} `json:"summary"`
+	}
+	if aiContentResponse.StatusCode != http.StatusOK {
+		t.Fatalf("AI content API status=%d body=%s", aiContentResponse.StatusCode, readBody(t, aiContentResponse))
+	}
+	if err = json.NewDecoder(aiContentResponse.Body).Decode(&aiContentPayload); err != nil {
+		aiContentResponse.Body.Close()
+		t.Fatal(err)
+	}
+	aiContentResponse.Body.Close()
+	if aiContentPayload.Summary.SiteCount != 6 || len(aiContentPayload.Sites) != 6 || aiContentPayload.Sites[0].SiteID < 1 || aiContentPayload.Sites[0].LLMSURL == "" || aiContentPayload.Sites[0].RSSURL == "" || aiContentPayload.Sites[0].AtomURL == "" {
+		t.Fatalf("unexpected AI content API payload: %+v", aiContentPayload)
+	}
 
 	robotsSettingsURL := server.URL + "/api/v1/seo/robots/" + strconv.FormatInt(globalSiteID, 10)
 	robotsSettingsResponse := mustGet(t, client, robotsSettingsURL)
@@ -251,6 +274,7 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 	var templatesPayload struct {
 		Templates []struct {
 			ID           int64  `json:"id"`
+			Name         string `json:"name"`
 			RenderKey    string `json:"render_key"`
 			Renderable   bool   `json:"renderable"`
 			BindingCount int64  `json:"binding_count"`
@@ -278,6 +302,64 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 	if atlasThemeID == 0 {
 		t.Fatal("Atlas Commerce template missing")
 	}
+	createdTemplateResponse := doJSON(t, client, http.MethodPost, server.URL+"/api/v1/templates/create", mePayload.CSRFToken, map[string]any{
+		"name": "Europe logistics brand", "version": "1.0.0", "base_render_key": "global-route",
+	})
+	if createdTemplateResponse.StatusCode != http.StatusCreated {
+		t.Fatalf("create starter template status=%d body=%s", createdTemplateResponse.StatusCode, readBody(t, createdTemplateResponse))
+	}
+	var createdTemplate struct {
+		ID      int64  `json:"id"`
+		Name    string `json:"name"`
+		Version string `json:"version"`
+		SHA256  string `json:"sha256"`
+	}
+	if err = json.NewDecoder(createdTemplateResponse.Body).Decode(&createdTemplate); err != nil {
+		createdTemplateResponse.Body.Close()
+		t.Fatal(err)
+	}
+	createdTemplateResponse.Body.Close()
+	if createdTemplate.ID < 1 || createdTemplate.Name != "Europe logistics brand" || createdTemplate.Version != "1.0.0" || createdTemplate.SHA256 == "" {
+		t.Fatalf("created template=%+v", createdTemplate)
+	}
+	createdTemplateList := mustGet(t, client, server.URL+"/api/v1/templates")
+	if err = json.NewDecoder(createdTemplateList.Body).Decode(&templatesPayload); err != nil {
+		createdTemplateList.Body.Close()
+		t.Fatal(err)
+	}
+	createdTemplateList.Body.Close()
+	var customTemplateVisible bool
+	for _, theme := range templatesPayload.Templates {
+		if theme.ID == createdTemplate.ID {
+			customTemplateVisible = theme.Name == createdTemplate.Name && theme.RenderKey == "global-route" && theme.Renderable
+		}
+	}
+	if !customTemplateVisible {
+		t.Fatalf("created template missing or not renderable: %+v", templatesPayload.Templates)
+	}
+	createdTemplateFiles := mustGet(t, client, server.URL+"/api/v1/templates/"+strconv.FormatInt(createdTemplate.ID, 10)+"/files")
+	var templateFilesPayload struct {
+		Files []struct {
+			Key string `json:"key"`
+		} `json:"files"`
+	}
+	if createdTemplateFiles.StatusCode != http.StatusOK || json.NewDecoder(createdTemplateFiles.Body).Decode(&templateFilesPayload) != nil || len(templateFilesPayload.Files) == 0 {
+		body := readBody(t, createdTemplateFiles)
+		t.Fatalf("created template files unavailable: status=%d files=%+v body=%s", createdTemplateFiles.StatusCode, templateFilesPayload.Files, body)
+	}
+	createdTemplateFiles.Body.Close()
+	createdTemplatePreview := mustGet(t, client, server.URL+"/admin/template-preview/"+strconv.FormatInt(createdTemplate.ID, 10)+"/global/en")
+	createdTemplatePreviewBody := readBody(t, createdTemplatePreview)
+	if createdTemplatePreview.StatusCode != http.StatusOK || !strings.Contains(createdTemplatePreviewBody, "theme-global-route") || createdTemplatePreview.Header.Get("X-Robots-Tag") != "noindex, nofollow" {
+		t.Fatalf("created template preview status=%d robots=%q", createdTemplatePreview.StatusCode, createdTemplatePreview.Header.Get("X-Robots-Tag"))
+	}
+	duplicateTemplate := doJSON(t, client, http.MethodPost, server.URL+"/api/v1/templates/create", mePayload.CSRFToken, map[string]any{
+		"name": "Europe logistics brand", "version": "1.0.0", "base_render_key": "global-route",
+	})
+	if duplicateTemplate.StatusCode != http.StatusConflict {
+		t.Fatalf("duplicate starter template status=%d body=%s", duplicateTemplate.StatusCode, readBody(t, duplicateTemplate))
+	}
+	duplicateTemplate.Body.Close()
 	createdSiteResponse := doJSON(t, client, http.MethodPost, server.URL+"/api/v1/sites", mePayload.CSRFToken, map[string]any{
 		"name": "模板选择测试站", "code": "template-choice", "local_port": 8097, "market_code": "GLOBAL", "status": "active",
 		"default_language_code": "en", "default_theme_package_id": atlasThemeID,
@@ -295,7 +377,11 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 	createdBindingsResponse := mustGet(t, client, server.URL+"/api/v1/sites/"+strconv.FormatInt(createdSite.ID, 10)+"/languages")
 	var createdBindings struct {
 		SiteLanguages []struct {
+			LanguageID     int64  `json:"language_id"`
+			Locale         string `json:"locale"`
+			Enabled        bool   `json:"enabled"`
 			ThemePackageID *int64 `json:"theme_package_id"`
+			Version        int64  `json:"version"`
 		} `json:"site_languages"`
 	}
 	if err = json.NewDecoder(createdBindingsResponse.Body).Decode(&createdBindings); err != nil {
@@ -304,6 +390,20 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 	createdBindingsResponse.Body.Close()
 	if len(createdBindings.SiteLanguages) != 1 || createdBindings.SiteLanguages[0].ThemePackageID == nil || *createdBindings.SiteLanguages[0].ThemePackageID != atlasThemeID {
 		t.Fatalf("initial template binding=%+v, want Atlas %d", createdBindings.SiteLanguages, atlasThemeID)
+	}
+	createdBinding := createdBindings.SiteLanguages[0]
+	createdSiteBindURL := server.URL + "/api/v1/sites/" + strconv.FormatInt(createdSite.ID, 10) + "/languages/" + strconv.FormatInt(createdBinding.LanguageID, 10)
+	createdSiteBound := doJSON(t, client, http.MethodPut, createdSiteBindURL, mePayload.CSRFToken, map[string]any{
+		"locale": createdBinding.Locale, "enabled": createdBinding.Enabled, "theme_package_id": createdTemplate.ID, "version": createdBinding.Version,
+	})
+	if createdSiteBound.StatusCode != http.StatusOK {
+		t.Fatalf("bind created template status=%d body=%s", createdSiteBound.StatusCode, readBody(t, createdSiteBound))
+	}
+	createdSiteBound.Body.Close()
+	createdSitePreview := mustGet(t, client, server.URL+"/preview/template-choice")
+	createdSitePreviewBody := readBody(t, createdSitePreview)
+	if createdSitePreview.StatusCode != http.StatusOK || !strings.Contains(createdSitePreviewBody, "theme-global-route") {
+		t.Fatalf("created template did not bind to site language: status=%d", createdSitePreview.StatusCode)
 	}
 
 	bindingsResponse := mustGet(t, client, server.URL+"/api/v1/sites/"+strconv.FormatInt(italySiteID, 10)+"/languages")
@@ -697,6 +797,7 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 		}
 	}
 	insertContent("article", "Sitemap eligible article", "guides/sitemap-eligible", "index")
+	insertContent("product", "Sitemap eligible product", "products/sitemap-eligible", "index")
 	insertContent("page", "Single page excluded from sitemap", "company/about", "noindex")
 	insertContent("page", "Indexed services page", "company/services", "index")
 	var articleLocaleID int64
@@ -726,6 +827,28 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	if strings.Contains(localSitemap, "company/about") {
 		t.Fatalf("single page leaked into sitemap: %s", localSitemap)
 	}
+	localLLMSRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/llms.txt", nil)
+	localLLMSResponse := httptest.NewRecorder()
+	localHandler.ServeHTTP(localLLMSResponse, localLLMSRequest)
+	localLLMS := localLLMSResponse.Body.String()
+	if localLLMSResponse.Code != http.StatusOK || !strings.Contains(localLLMSResponse.Header().Get("Content-Type"), "text/markdown") || localLLMSResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || !strings.Contains(localLLMS, "http://localhost:8081/rss.xml") || !strings.Contains(localLLMS, "Sitemap eligible article") || !strings.Contains(localLLMS, "Sitemap eligible product") || strings.Contains(localLLMS, "Single page excluded") {
+		t.Fatalf("local llms status=%d type=%q robots=%q body=%q", localLLMSResponse.Code, localLLMSResponse.Header().Get("Content-Type"), localLLMSResponse.Header().Get("X-Robots-Tag"), localLLMS)
+	}
+	for _, feed := range []struct {
+		path        string
+		contentType string
+		needle      string
+	}{
+		{path: "/rss.xml", contentType: "application/rss+xml", needle: "<rss version=\"2.0\">"},
+		{path: "/atom.xml", contentType: "application/atom+xml", needle: "xmlns=\"http://www.w3.org/2005/Atom\""},
+	} {
+		request := httptest.NewRequest(http.MethodGet, "http://localhost:8081"+feed.path, nil)
+		response := httptest.NewRecorder()
+		localHandler.ServeHTTP(response, request)
+		if response.Code != http.StatusOK || !strings.Contains(response.Header().Get("Content-Type"), feed.contentType) || response.Header().Get("X-Robots-Tag") != "noindex, nofollow" || !strings.Contains(response.Body.String(), feed.needle) || !strings.Contains(response.Body.String(), "Sitemap eligible product") || strings.Contains(response.Body.String(), "Single page excluded") {
+			t.Fatalf("local %s status=%d type=%q robots=%q body=%q", feed.path, response.Code, response.Header().Get("Content-Type"), response.Header().Get("X-Robots-Tag"), response.Body.String())
+		}
+	}
 	taxonomyRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/categories/guides", nil)
 	taxonomyRequest.Host = "www.example.com"
 	taxonomyResponse := httptest.NewRecorder()
@@ -749,6 +872,36 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	publicSitemap := publicSitemapResponse.Body.String()
 	if publicSitemapResponse.Code != http.StatusOK || !strings.Contains(publicSitemap, "http://www.example.com/guides/sitemap-eligible") || !strings.Contains(publicSitemap, "http://www.example.com/company/services") || strings.Contains(publicSitemap, "company/about") {
 		t.Fatalf("public sitemap status=%d body=%q", publicSitemapResponse.Code, publicSitemap)
+	}
+	for _, file := range []struct {
+		path        string
+		contentType string
+		needle      string
+	}{
+		{path: "/llms.txt", contentType: "text/markdown", needle: "http://www.example.com/rss.xml"},
+		{path: "/rss.xml", contentType: "application/rss+xml", needle: "http://www.example.com/products/sitemap-eligible"},
+		{path: "/atom.xml", contentType: "application/atom+xml", needle: "http://www.example.com/products/sitemap-eligible"},
+	} {
+		request := httptest.NewRequest(http.MethodGet, "http://www.example.com"+file.path, nil)
+		request.Host = "www.example.com"
+		response := httptest.NewRecorder()
+		application.Handler().ServeHTTP(response, request)
+		if response.Code != http.StatusOK || !strings.Contains(response.Header().Get("Content-Type"), file.contentType) || !strings.Contains(response.Header().Get("Cache-Control"), "public") || response.Header().Get("X-Robots-Tag") != "" || !strings.Contains(response.Body.String(), file.needle) || strings.Contains(response.Body.String(), "Single page excluded") {
+			t.Fatalf("public %s status=%d type=%q cache=%q robots=%q body=%q", file.path, response.Code, response.Header().Get("Content-Type"), response.Header().Get("Cache-Control"), response.Header().Get("X-Robots-Tag"), response.Body.String())
+		}
+	}
+
+	// Products use the same public SEO contract as articles, but their
+	// structured data must stay Product-specific.  Keep this assertion next to
+	// the machine-readable entry-point checks so a future template change
+	// cannot silently make product feeds advertise pages without Product JSON-LD.
+	publicProductRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/products/sitemap-eligible", nil)
+	publicProductRequest.Host = "www.example.com"
+	publicProductResponse := httptest.NewRecorder()
+	application.Handler().ServeHTTP(publicProductResponse, publicProductRequest)
+	publicProduct := publicProductResponse.Body.String()
+	if publicProductResponse.Code != http.StatusOK || !strings.Contains(publicProduct, `<link rel="canonical" href="http://www.example.com/products/sitemap-eligible">`) || !strings.Contains(publicProduct, `hreflang="en"`) || !strings.Contains(publicProduct, `"@type":"Product"`) {
+		t.Fatalf("public product SEO output invalid: status=%d body=%q", publicProductResponse.Code, publicProduct)
 	}
 
 	publicRobotsRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/robots.txt", nil)

@@ -52,6 +52,7 @@
 | GET | `/seo/sitemaps` | `seo.manage` | 查询当前用户有权访问站点的 Sitemap / robots 状态、可收录 URL 数及自动 noindex 单页面数 |
 | GET | `/seo/robots/{siteID}` | `seo.manage` + 站点全语言范围 | 查询指定站点可编辑的自定义 robots 规则与版本号 |
 | PUT | `/seo/robots/{siteID}` | `seo.manage` + CSRF + 站点全语言范围 | 按 `version` 保存指定站点自定义 robots 规则，并写审计日志 |
+| GET | `/audit?from=&to=&status=&category=&q=&limit=&offset=` | `audit.read` | 服务端分页查询不可变审计记录；日期为含首尾日的 `YYYY-MM-DD`，返回 `records/total/limit/offset` 和成功/失败汇总 |
 | GET | `/taxonomy/terms?site_id=&locale=&kind=` | `content.read` | 查询站点/Locale 范围内的栏目和标签 |
 | GET | `/urls/redirects?site_id=` | `publishing.manage` | 查询当前站点 URL 规则 |
 | GET | `/publishing/releases?site_id=` | `publishing.manage` | 查询当前站点发布记录 |
