@@ -4,12 +4,21 @@ go 1.26.6
 
 require (
 	github.com/go-chi/chi/v5 v5.3.2
+	github.com/gen2brain/gav1d v0.2.5
+	github.com/KarpelesLab/goavif v0.0.0
+	golang.org/x/image v0.0.0
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/pquerna/otp v1.5.0
 	github.com/redis/go-redis/v9 v9.22.0
 	golang.org/x/crypto v0.44.0
 	modernc.org/sqlite v1.57.0
 )
+
+replace github.com/KarpelesLab/goavif => ./third_party/goavif
+
+replace github.com/gen2brain/gav1d => ./third_party/gav1d
+
+replace golang.org/x/image => ./third_party/ximage
 
 require (
 	github.com/aymerick/douceur v0.2.0 // indirect

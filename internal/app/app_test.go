@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"log/slog"
@@ -113,9 +114,81 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 	if globalSiteID == 0 || italySiteID == 0 {
 		t.Fatalf("independent language sites missing: %+v", sitesPayload.Sites)
 	}
+	// Public rendering feeds the first-party queue, while the protected API
+	// reads the aggregate for just the selected site without needing any client
+	// reporting script.
+	analyticsPageRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/", nil)
+	analyticsPageRequest.Host = "www.example.com"
+	analyticsPageRequest.Header.Set("User-Agent", "Mozilla/5.0 analytics integration test")
+	analyticsPageResponse := httptest.NewRecorder()
+	application.Handler().ServeHTTP(analyticsPageResponse, analyticsPageRequest)
+	if analyticsPageResponse.Code != http.StatusOK {
+		t.Fatalf("public page for analytics status=%d", analyticsPageResponse.Code)
+	}
+	analyticsFlushCtx, analyticsFlushCancel := context.WithTimeout(context.Background(), time.Second)
+	defer analyticsFlushCancel()
+	if err = application.analytics.Flush(analyticsFlushCtx); err != nil {
+		t.Fatalf("flush analytics queue: %v", err)
+	}
+	analyticsResponse := mustGet(t, client, server.URL+"/api/v1/analytics/overview?site_id="+strconv.FormatInt(globalSiteID, 10)+"&days=7")
+	var analyticsPayload struct {
+		SiteID  int64 `json:"site_id"`
+		Summary struct {
+			Pageviews      int64 `json:"pageviews"`
+			UniqueVisitors int64 `json:"unique_visitors"`
+			Sessions       int64 `json:"sessions"`
+		} `json:"summary"`
+		TopPages []struct {
+			Path  string `json:"path"`
+			Views int64  `json:"views"`
+		} `json:"top_pages"`
+		Sites []struct {
+			SiteID         int64 `json:"site_id"`
+			Pageviews      int64 `json:"pageviews"`
+			UniqueVisitors int64 `json:"unique_visitors"`
+			Sessions       int64 `json:"sessions"`
+		} `json:"sites"`
+	}
+	if analyticsResponse.StatusCode != http.StatusOK {
+		t.Fatalf("analytics API status=%d body=%s", analyticsResponse.StatusCode, readBody(t, analyticsResponse))
+	}
+	if err = json.NewDecoder(analyticsResponse.Body).Decode(&analyticsPayload); err != nil {
+		analyticsResponse.Body.Close()
+		t.Fatal(err)
+	}
+	analyticsResponse.Body.Close()
+	if analyticsPayload.SiteID != globalSiteID || analyticsPayload.Summary.Pageviews != 1 || analyticsPayload.Summary.UniqueVisitors != 1 || analyticsPayload.Summary.Sessions != 1 || len(analyticsPayload.TopPages) != 1 || analyticsPayload.TopPages[0].Path != "/" || analyticsPayload.TopPages[0].Views != 1 {
+		t.Fatalf("unexpected per-site analytics payload: %+v", analyticsPayload)
+	}
+	if len(analyticsPayload.Sites) != 1 || analyticsPayload.Sites[0].SiteID != globalSiteID || analyticsPayload.Sites[0].Pageviews != 1 || analyticsPayload.Sites[0].UniqueVisitors != 1 || analyticsPayload.Sites[0].Sessions != 1 {
+		t.Fatalf("unexpected analytics site comparison payload: %+v", analyticsPayload.Sites)
+	}
+	allAnalyticsResponse := mustGet(t, client, server.URL+"/api/v1/analytics/overview?days=7")
+	var allAnalyticsPayload struct {
+		SiteID  int64 `json:"site_id"`
+		Summary struct {
+			Pageviews int64 `json:"pageviews"`
+		} `json:"summary"`
+		Sites []struct {
+			SiteID    int64 `json:"site_id"`
+			Pageviews int64 `json:"pageviews"`
+		} `json:"sites"`
+	}
+	if allAnalyticsResponse.StatusCode != http.StatusOK {
+		t.Fatalf("all-sites analytics API status=%d body=%s", allAnalyticsResponse.StatusCode, readBody(t, allAnalyticsResponse))
+	}
+	if err = json.NewDecoder(allAnalyticsResponse.Body).Decode(&allAnalyticsPayload); err != nil {
+		allAnalyticsResponse.Body.Close()
+		t.Fatal(err)
+	}
+	allAnalyticsResponse.Body.Close()
+	if allAnalyticsPayload.SiteID != 0 || allAnalyticsPayload.Summary.Pageviews != 1 || len(allAnalyticsPayload.Sites) != 6 {
+		t.Fatalf("unexpected all-sites analytics payload: %+v", allAnalyticsPayload)
+	}
 	seoSitemapResponse := mustGet(t, client, server.URL+"/api/v1/seo/sitemaps")
 	var seoCenterPayload struct {
 		Sites []struct {
+			SiteID     int64  `json:"site_id"`
 			Code       string `json:"code"`
 			SitemapURL string `json:"sitemap_url"`
 			RobotsURL  string `json:"robots_url"`
@@ -131,9 +204,48 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 		t.Fatal(err)
 	}
 	seoSitemapResponse.Body.Close()
-	if seoCenterPayload.Summary.SiteCount != 6 || len(seoCenterPayload.Sites) != 6 || seoCenterPayload.Sites[0].SitemapURL == "" || seoCenterPayload.Sites[0].RobotsURL == "" {
+	if seoCenterPayload.Summary.SiteCount != 6 || len(seoCenterPayload.Sites) != 6 || seoCenterPayload.Sites[0].SiteID < 1 || seoCenterPayload.Sites[0].SitemapURL == "" || seoCenterPayload.Sites[0].RobotsURL == "" {
 		t.Fatalf("unexpected SEO sitemap API payload: %+v", seoCenterPayload)
 	}
+
+	robotsSettingsURL := server.URL + "/api/v1/seo/robots/" + strconv.FormatInt(globalSiteID, 10)
+	robotsSettingsResponse := mustGet(t, client, robotsSettingsURL)
+	var robotsSettings struct {
+		SiteID      int64  `json:"site_id"`
+		CustomRules string `json:"custom_rules"`
+		Version     int64  `json:"version"`
+	}
+	if robotsSettingsResponse.StatusCode != http.StatusOK {
+		t.Fatalf("get robots settings status=%d body=%s", robotsSettingsResponse.StatusCode, readBody(t, robotsSettingsResponse))
+	}
+	if err = json.NewDecoder(robotsSettingsResponse.Body).Decode(&robotsSettings); err != nil {
+		t.Fatal(err)
+	}
+	robotsSettingsResponse.Body.Close()
+	if robotsSettings.SiteID != globalSiteID || robotsSettings.Version != 0 || robotsSettings.CustomRules != "" {
+		t.Fatalf("unexpected initial robots settings: %+v", robotsSettings)
+	}
+	csrfRejected := doJSON(t, client, http.MethodPut, robotsSettingsURL, "", map[string]any{"custom_rules": "User-agent: PartnerBot\nDisallow: /partner-only/", "version": 0})
+	if csrfRejected.StatusCode != http.StatusForbidden {
+		t.Fatalf("robots update without CSRF status=%d body=%s", csrfRejected.StatusCode, readBody(t, csrfRejected))
+	}
+	csrfRejected.Body.Close()
+	robotsUpdated := doJSON(t, client, http.MethodPut, robotsSettingsURL, mePayload.CSRFToken, map[string]any{"custom_rules": "User-agent: PartnerBot\nDisallow: /partner-only/", "version": 0})
+	if robotsUpdated.StatusCode != http.StatusOK {
+		t.Fatalf("robots update status=%d body=%s", robotsUpdated.StatusCode, readBody(t, robotsUpdated))
+	}
+	if err = json.NewDecoder(robotsUpdated.Body).Decode(&robotsSettings); err != nil {
+		t.Fatal(err)
+	}
+	robotsUpdated.Body.Close()
+	if robotsSettings.Version != 1 || robotsSettings.CustomRules != "User-agent: PartnerBot\nDisallow: /partner-only/" {
+		t.Fatalf("robots update was not persisted: %+v", robotsSettings)
+	}
+	robotsConflict := doJSON(t, client, http.MethodPut, robotsSettingsURL, mePayload.CSRFToken, map[string]any{"custom_rules": "User-agent: *\nDisallow: /internal/", "version": 0})
+	if robotsConflict.StatusCode != http.StatusConflict {
+		t.Fatalf("stale robots update status=%d body=%s", robotsConflict.StatusCode, readBody(t, robotsConflict))
+	}
+	robotsConflict.Body.Close()
 
 	templatesResponse := mustGet(t, client, server.URL+"/api/v1/templates")
 	var templatesPayload struct {
@@ -425,6 +537,52 @@ func TestSecureSetupLoginAndProtectedEndpoints(t *testing.T) {
 	if status.StatusCode != http.StatusOK {
 		t.Fatalf("protected system status=%d", status.StatusCode)
 	}
+	createBackup := doJSON(t, client, http.MethodPost, server.URL+"/api/v1/system/backups", mePayload.CSRFToken, map[string]any{})
+	var createdBackup struct {
+		ID int64 `json:"id"`
+	}
+	if createBackup.StatusCode != http.StatusCreated {
+		t.Fatalf("create backup status=%d body=%s", createBackup.StatusCode, readBody(t, createBackup))
+	}
+	if err = json.NewDecoder(createBackup.Body).Decode(&createdBackup); err != nil {
+		t.Fatal(err)
+	}
+	createBackup.Body.Close()
+	if createdBackup.ID < 1 {
+		t.Fatalf("created backup ID=%d", createdBackup.ID)
+	}
+	backupDeleteURL := server.URL + "/api/v1/system/backups/" + strconv.FormatInt(createdBackup.ID, 10)
+	backupDeleteRejected := doJSON(t, client, http.MethodDelete, backupDeleteURL, "", map[string]any{})
+	if backupDeleteRejected.StatusCode != http.StatusForbidden {
+		t.Fatalf("backup delete without CSRF status=%d body=%s", backupDeleteRejected.StatusCode, readBody(t, backupDeleteRejected))
+	}
+	backupDeleteRejected.Body.Close()
+	backupDelete := doJSON(t, client, http.MethodDelete, backupDeleteURL, mePayload.CSRFToken, map[string]any{})
+	if backupDelete.StatusCode != http.StatusOK {
+		t.Fatalf("backup delete status=%d body=%s", backupDelete.StatusCode, readBody(t, backupDelete))
+	}
+	backupDelete.Body.Close()
+	var bulkIDs []int64
+	for range 2 {
+		response := doJSON(t, client, http.MethodPost, server.URL+"/api/v1/system/backups", mePayload.CSRFToken, map[string]any{})
+		if response.StatusCode != http.StatusCreated {
+			t.Fatalf("create backup for bulk delete status=%d body=%s", response.StatusCode, readBody(t, response))
+		}
+		var record struct {
+			ID int64 `json:"id"`
+		}
+		if err = json.NewDecoder(response.Body).Decode(&record); err != nil {
+			response.Body.Close()
+			t.Fatal(err)
+		}
+		response.Body.Close()
+		bulkIDs = append(bulkIDs, record.ID)
+	}
+	bulkDelete := doJSON(t, client, http.MethodPost, server.URL+"/api/v1/system/backups/bulk-delete", mePayload.CSRFToken, map[string]any{"backup_ids": bulkIDs})
+	if bulkDelete.StatusCode != http.StatusOK {
+		t.Fatalf("bulk backup delete status=%d body=%s", bulkDelete.StatusCode, readBody(t, bulkDelete))
+	}
+	bulkDelete.Body.Close()
 
 	auditResponse := mustGet(t, client, server.URL+"/api/v1/audit")
 	var auditPayload struct {
@@ -497,6 +655,15 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 	if portResponse.Code != http.StatusOK || !strings.Contains(portResponse.Body.String(), "本地预览") {
 		t.Fatalf("dedicated port status=%d body=%q", portResponse.Code, portResponse.Body.String())
 	}
+	flushCtx, flushCancel := context.WithTimeout(context.Background(), time.Second)
+	defer flushCancel()
+	if err = application.analytics.Flush(flushCtx); err != nil {
+		t.Fatalf("flush local traffic analytics: %v", err)
+	}
+	var rootViews int
+	if err = application.db.QueryRow(`SELECT views FROM analytics_pages WHERE site_id = (SELECT id FROM sites WHERE code = 'global') AND path = '/'`).Scan(&rootViews); err != nil || rootViews != 2 {
+		t.Fatalf("local port traffic not recorded as the public root path: views=%d err=%v", rootViews, err)
+	}
 	adminRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/admin", nil)
 	adminResponse := httptest.NewRecorder()
 	portHandler.ServeHTTP(adminResponse, adminRequest)
@@ -532,6 +699,16 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	insertContent("article", "Sitemap eligible article", "guides/sitemap-eligible", "index")
 	insertContent("page", "Single page excluded from sitemap", "company/about", "noindex")
 	insertContent("page", "Indexed services page", "company/services", "index")
+	var articleLocaleID int64
+	if err = application.db.QueryRow(`SELECT cl.id FROM content_locales cl WHERE cl.slug = 'guides/sitemap-eligible'`).Scan(&articleLocaleID); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = application.db.Exec(`INSERT INTO taxonomy_terms(site_id, locale, kind, name, slug, status, version, created_at, updated_at) SELECT id, 'en', 'category', 'Guides', 'guides', 'active', 1, ?, ? FROM sites WHERE code = 'global'`, now, now); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = application.db.Exec(`INSERT INTO content_taxonomy_terms(content_locale_id, term_id, position) SELECT ?, id, 0 FROM taxonomy_terms WHERE site_id = (SELECT id FROM sites WHERE code = 'global') AND locale = 'en' AND kind = 'category' AND slug = 'guides'`, articleLocaleID); err != nil {
+		t.Fatal(err)
+	}
 
 	localHandler := localPreviewHandler(application.Handler(), "global")
 	localSitemapRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/sitemap.xml", nil)
@@ -541,13 +718,20 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	if localSitemapResponse.Code != http.StatusOK || !strings.Contains(localSitemapResponse.Header().Get("Content-Type"), "application/xml") || localSitemapResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" {
 		t.Fatalf("local sitemap status=%d type=%q robots=%q", localSitemapResponse.Code, localSitemapResponse.Header().Get("Content-Type"), localSitemapResponse.Header().Get("X-Robots-Tag"))
 	}
-	for _, expected := range []string{"http://localhost:8081/", "guides/sitemap-eligible", "company/services"} {
+	for _, expected := range []string{"http://localhost:8081/", "guides/sitemap-eligible", "company/services", "categories/guides"} {
 		if !strings.Contains(localSitemap, expected) {
 			t.Fatalf("local sitemap missing %q: %s", expected, localSitemap)
 		}
 	}
 	if strings.Contains(localSitemap, "company/about") {
 		t.Fatalf("single page leaked into sitemap: %s", localSitemap)
+	}
+	taxonomyRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/categories/guides", nil)
+	taxonomyRequest.Host = "www.example.com"
+	taxonomyResponse := httptest.NewRecorder()
+	application.Handler().ServeHTTP(taxonomyResponse, taxonomyRequest)
+	if taxonomyResponse.Code != http.StatusOK || !strings.Contains(taxonomyResponse.Body.String(), "Sitemap eligible article") || !strings.Contains(taxonomyResponse.Body.String(), "CollectionPage") {
+		t.Fatalf("taxonomy archive status=%d body=%q", taxonomyResponse.Code, taxonomyResponse.Body.String())
 	}
 
 	previewRequest := httptest.NewRequest(http.MethodGet, "http://preview.test:8080/preview/global/sitemap.xml", nil)
@@ -569,10 +753,13 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 
 	publicRobotsRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/robots.txt", nil)
 	publicRobotsRequest.Host = "www.example.com"
+	if _, err = application.db.Exec(`INSERT INTO site_robots(site_id, custom_rules, version, created_at, updated_at) SELECT id, ?, 1, ?, ? FROM sites WHERE code = 'global'`, "User-agent: PartnerBot\nDisallow: /partner-only/", now, now); err != nil {
+		t.Fatal(err)
+	}
 	publicRobotsResponse := httptest.NewRecorder()
 	application.Handler().ServeHTTP(publicRobotsResponse, publicRobotsRequest)
 	publicRobots := publicRobotsResponse.Body.String()
-	if publicRobotsResponse.Code != http.StatusOK || !strings.Contains(publicRobots, "Allow: /\n") || !strings.Contains(publicRobots, "Sitemap: http://www.example.com/sitemap.xml") || strings.Contains(publicRobots, "company/about") {
+	if publicRobotsResponse.Code != http.StatusOK || !strings.Contains(publicRobots, "Allow: /\n") || !strings.Contains(publicRobots, "Disallow: /company/about\n") || !strings.Contains(publicRobots, "Disallow: /media/\n") || !strings.Contains(publicRobots, "Disallow: /*.png$\n") || !strings.Contains(publicRobots, "User-agent: Googlebot-Image\nDisallow: /\n") || !strings.Contains(publicRobots, "User-agent: msnbot-media\nDisallow: /\n") || !strings.Contains(publicRobots, "# Site-specific rules managed in CZCMS SEO centre.\nUser-agent: PartnerBot\nDisallow: /partner-only/\n") || !strings.Contains(publicRobots, "Sitemap: http://www.example.com/sitemap.xml") || strings.Contains(publicRobots, "User-agent: Bingbot\nDisallow: /\n") {
 		t.Fatalf("public robots status=%d body=%q", publicRobotsResponse.Code, publicRobots)
 	}
 

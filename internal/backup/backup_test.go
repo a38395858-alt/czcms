@@ -3,6 +3,7 @@ package backup
 import (
 	"bytes"
 	"context"
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -42,7 +43,7 @@ func TestEncryptedBackupRoundTripAndTamperDetection(t *testing.T) {
 	}
 }
 
-func TestCreateSQLiteBackupRunsIntegrityCheck(t *testing.T) {
+func TestCreateFullBackupIncludesDatabaseUploadsAndThemes(t *testing.T) {
 	ctx := context.Background()
 	root := t.TempDir()
 	db, err := database.Open(ctx, filepath.Join(root, "source.db"))
@@ -58,7 +59,21 @@ func TestCreateSQLiteBackupRunsIntegrityCheck(t *testing.T) {
 	}
 	userID, _ := result.LastInsertId()
 	keys, _ := security.LoadKeyring("", filepath.Join(root, "secrets"), "development")
-	service, err := New(db, filepath.Join(root, "backups"), "", "development", keys)
+	uploads := filepath.Join(root, "uploads")
+	themes := filepath.Join(root, "themes")
+	if err = os.MkdirAll(uploads, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	if err = os.MkdirAll(themes, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(uploads, "hero.jpg"), []byte("image-bytes"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(themes, "freight-theme.zip"), []byte("theme-bytes"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	service, err := New(db, filepath.Join(root, "backups"), uploads, themes, "", "development", keys)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -66,14 +81,45 @@ func TestCreateSQLiteBackupRunsIntegrityCheck(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if record.ByteSize <= 0 || record.SHA256 == "" || record.VerifiedAt == "" {
+	if record.ByteSize <= 0 || record.SHA256 == "" || record.VerifiedAt == "" || record.Scope != "数据库 + 媒体 + 模板" {
 		t.Fatalf("incomplete record: %+v", record)
 	}
-	restoredPath := filepath.Join(root, "offline-restore.db")
-	if err = service.RestoreTo(ctx, record.StorageName, restoredPath); err != nil {
+	restoredRoot := filepath.Join(root, "offline-restore")
+	if err = service.RestoreTo(ctx, record.StorageName, restoredRoot); err != nil {
 		t.Fatal(err)
 	}
-	if err = service.RestoreTo(ctx, record.StorageName, restoredPath); err == nil {
+	if restored, readErr := os.ReadFile(filepath.Join(restoredRoot, "uploads", "hero.jpg")); readErr != nil || string(restored) != "image-bytes" {
+		t.Fatalf("uploaded media was not restored: %q / %v", restored, readErr)
+	}
+	if restored, readErr := os.ReadFile(filepath.Join(restoredRoot, "themes", "freight-theme.zip")); readErr != nil || string(restored) != "theme-bytes" {
+		t.Fatalf("theme archive was not restored: %q / %v", restored, readErr)
+	}
+	if err = service.RestoreTo(ctx, record.StorageName, restoredRoot); err == nil {
 		t.Fatal("restore overwrote an existing file")
+	}
+	exported, exportFile, err := service.Open(ctx, record.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	imported, err := service.Import(ctx, exportFile, exported.ByteSize, userID)
+	_ = exportFile.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if imported.Scope != "数据库 + 媒体 + 模板" || imported.Format != "完整网站备份" {
+		t.Fatalf("import did not preserve the verified full-backup format: %+v", imported)
+	}
+	deleted, err := service.DeleteMany(ctx, []int64{record.ID, imported.ID})
+	if err != nil || deleted != 2 {
+		t.Fatalf("delete many failed: deleted=%d err=%v", deleted, err)
+	}
+	if _, err = service.List(ctx, 20); err != nil {
+		t.Fatal(err)
+	}
+	if _, _, err = service.Open(ctx, record.ID); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("deleted backup remained openable: %v", err)
+	}
+	if _, err = service.DeleteMany(ctx, []int64{record.ID, record.ID}); !errors.Is(err, ErrInvalidIDs) {
+		t.Fatalf("duplicate delete IDs were accepted: %v", err)
 	}
 }

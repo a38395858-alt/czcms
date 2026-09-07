@@ -23,11 +23,13 @@ var (
 	ErrConflict = errors.New("记录已被其他用户修改，请刷新后重试")
 	ErrInvalid  = errors.New("输入数据无效")
 
-	codePattern       = regexp.MustCompile(`^[a-z][a-z0-9-]{1,31}$`)
-	localePattern     = regexp.MustCompile(`^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$`)
-	marketCodePattern = regexp.MustCompile(`^[A-Z][A-Z0-9-]{1,15}$`)
-	domainPattern     = regexp.MustCompile(`^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$`)
-	slugPattern       = regexp.MustCompile(`^[a-z0-9](?:[a-z0-9-]{0,79}[a-z0-9])?(?:/[a-z0-9](?:[a-z0-9-]{0,79}[a-z0-9])?)*$`)
+	codePattern                 = regexp.MustCompile(`^[a-z][a-z0-9-]{1,31}$`)
+	localePattern               = regexp.MustCompile(`^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$`)
+	marketCodePattern           = regexp.MustCompile(`^[A-Z][A-Z0-9-]{1,15}$`)
+	domainPattern               = regexp.MustCompile(`^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$`)
+	slugPattern                 = regexp.MustCompile(`^[a-z0-9](?:[a-z0-9-]{0,79}[a-z0-9])?(?:/[a-z0-9](?:[a-z0-9-]{0,79}[a-z0-9])?)*$`)
+	taxonomySlugPattern         = regexp.MustCompile(`^[a-z0-9](?:[a-z0-9_-]{0,118}[a-z0-9])?(?:/[a-z0-9](?:[a-z0-9_-]{0,118}[a-z0-9])?)*$`)
+	structuredDataScriptPattern = regexp.MustCompile(`(?is)^<script\b[^>]*\btype\s*=\s*["']application/ld\+json["'][^>]*>(.*?)</script>\s*$`)
 )
 
 type Service struct {
@@ -273,44 +275,46 @@ type SEOInput struct {
 }
 
 type CreateContentInput struct {
-	ContentType    string    `json:"content_type"`
-	SiteID         int64     `json:"site_id"`
-	Locale         string    `json:"locale"`
-	Status         string    `json:"status"`
-	Title          string    `json:"title"`
-	Slug           string    `json:"slug"`
-	Category       string    `json:"category"`
-	Tags           []string  `json:"tags"`
-	TemplateKey    string    `json:"template_key"`
-	ScheduledAt    string    `json:"scheduled_at"`
-	CoverMediaID   *int64    `json:"cover_media_id"`
-	Summary        string    `json:"summary"`
-	BodyHTML       string    `json:"body_html"`
-	AIState        string    `json:"ai_state"`
-	SEO            *SEOInput `json:"seo,omitempty"`
-	PageLayout     string    `json:"page_layout,omitempty"`
-	IndexPolicy    string    `json:"index_policy,omitempty"`
-	RevisionAction string    `json:"-"`
+	ContentType     string    `json:"content_type"`
+	SiteID          int64     `json:"site_id"`
+	Locale          string    `json:"locale"`
+	Status          string    `json:"status"`
+	Title           string    `json:"title"`
+	Slug            string    `json:"slug"`
+	Category        string    `json:"category"`
+	Tags            []string  `json:"tags"`
+	TemplateKey     string    `json:"template_key"`
+	ScheduledAt     string    `json:"scheduled_at"`
+	CoverMediaID    *int64    `json:"cover_media_id"`
+	GalleryMediaIDs []int64   `json:"gallery_media_ids"`
+	Summary         string    `json:"summary"`
+	BodyHTML        string    `json:"body_html"`
+	AIState         string    `json:"ai_state"`
+	SEO             *SEOInput `json:"seo,omitempty"`
+	PageLayout      string    `json:"page_layout,omitempty"`
+	IndexPolicy     string    `json:"index_policy,omitempty"`
+	RevisionAction  string    `json:"-"`
 }
 
 type UpdateContentLocaleInput struct {
-	ContentType    string    `json:"content_type"`
-	Status         string    `json:"status"`
-	Title          string    `json:"title"`
-	Slug           string    `json:"slug"`
-	Category       string    `json:"category"`
-	Tags           []string  `json:"tags"`
-	TemplateKey    string    `json:"template_key"`
-	ScheduledAt    string    `json:"scheduled_at"`
-	CoverMediaID   *int64    `json:"cover_media_id"`
-	Summary        string    `json:"summary"`
-	BodyHTML       string    `json:"body_html"`
-	AIState        string    `json:"ai_state"`
-	SEO            *SEOInput `json:"seo,omitempty"`
-	PageLayout     string    `json:"page_layout,omitempty"`
-	IndexPolicy    string    `json:"index_policy,omitempty"`
-	Version        int64     `json:"version"`
-	RevisionAction string    `json:"-"`
+	ContentType     string    `json:"content_type"`
+	Status          string    `json:"status"`
+	Title           string    `json:"title"`
+	Slug            string    `json:"slug"`
+	Category        string    `json:"category"`
+	Tags            []string  `json:"tags"`
+	TemplateKey     string    `json:"template_key"`
+	ScheduledAt     string    `json:"scheduled_at"`
+	CoverMediaID    *int64    `json:"cover_media_id"`
+	GalleryMediaIDs []int64   `json:"gallery_media_ids"`
+	Summary         string    `json:"summary"`
+	BodyHTML        string    `json:"body_html"`
+	AIState         string    `json:"ai_state"`
+	SEO             *SEOInput `json:"seo,omitempty"`
+	PageLayout      string    `json:"page_layout,omitempty"`
+	IndexPolicy     string    `json:"index_policy,omitempty"`
+	Version         int64     `json:"version"`
+	RevisionAction  string    `json:"-"`
 }
 
 type BulkContentTarget struct {
@@ -364,6 +368,9 @@ type ContentLocale struct {
 	CoverOriginalName string          `json:"cover_original_name,omitempty"`
 	CoverWidth        int             `json:"cover_width,omitempty"`
 	CoverHeight       int             `json:"cover_height,omitempty"`
+	CoverURL          string          `json:"cover_url,omitempty"`
+	Gallery           []GalleryMedia  `json:"gallery,omitempty"`
+	GalleryMediaIDs   []int64         `json:"gallery_media_ids"`
 	Summary           string          `json:"summary"`
 	BodyHTML          string          `json:"body_html,omitempty"`
 	H1                string          `json:"h1"`
@@ -386,6 +393,17 @@ type ContentLocale struct {
 	PublishedAt       *string         `json:"published_at,omitempty"`
 	CreatedAt         string          `json:"created_at"`
 	UpdatedAt         string          `json:"updated_at"`
+}
+
+// GalleryMedia is the safe, read-only representation used by the product
+// editor and public product detail pages. Original files are never exposed.
+type GalleryMedia struct {
+	ID           int64  `json:"id"`
+	OriginalName string `json:"original_name"`
+	Width        int    `json:"width"`
+	Height       int    `json:"height"`
+	AltText      string `json:"alt_text"`
+	URL          string `json:"url"`
 }
 
 type ContentQuery struct {
@@ -1159,7 +1177,7 @@ func (s *Service) ListContents(ctx context.Context, userID int64, query ContentQ
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id, cl.gallery_media_ids_json,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1252,7 +1270,7 @@ func (s *Service) GetContentLocale(ctx context.Context, contentID, siteID int64,
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id, cl.gallery_media_ids_json,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.body_html, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1265,7 +1283,37 @@ func (s *Service) GetContentLocale(ctx context.Context, contentID, siteID int64,
 	if errors.Is(err, sql.ErrNoRows) {
 		return ContentLocale{}, ErrNotFound
 	}
-	return item, err
+	if err != nil {
+		return ContentLocale{}, err
+	}
+	return s.attachGalleryMedia(ctx, item)
+}
+
+func (s *Service) attachGalleryMedia(ctx context.Context, item ContentLocale) (ContentLocale, error) {
+	if item.CoverMediaID != nil {
+		var checksum string
+		if err := s.db.QueryRowContext(ctx, `SELECT sha256 FROM media_files WHERE id = ?`, *item.CoverMediaID).Scan(&checksum); err == nil {
+			item.CoverURL = filestore.PublicMediaURL(*item.CoverMediaID, checksum)
+		} else if !errors.Is(err, sql.ErrNoRows) {
+			return item, err
+		}
+	}
+	item.Gallery = make([]GalleryMedia, 0, len(item.GalleryMediaIDs))
+	for _, id := range item.GalleryMediaIDs {
+		var media GalleryMedia
+		var checksum string
+		err := s.db.QueryRowContext(ctx, `SELECT id, original_name, width, height, alt_text, sha256 FROM media_files WHERE id = ?`, id).
+			Scan(&media.ID, &media.OriginalName, &media.Width, &media.Height, &media.AltText, &checksum)
+		if errors.Is(err, sql.ErrNoRows) {
+			continue
+		}
+		if err != nil {
+			return item, err
+		}
+		media.URL = filestore.PublicMediaURL(media.ID, checksum)
+		item.Gallery = append(item.Gallery, media)
+	}
+	return item, nil
 }
 
 // GetPublishedContentByPath is the public read boundary. It is intentionally
@@ -1282,7 +1330,7 @@ func (s *Service) GetPublishedContentByPath(ctx context.Context, siteID int64, l
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id, cl.gallery_media_ids_json,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.body_html, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1299,7 +1347,10 @@ func (s *Service) GetPublishedContentByPath(ctx context.Context, siteID int64, l
 	if errors.Is(err, sql.ErrNoRows) {
 		return ContentLocale{}, ErrNotFound
 	}
-	return item, err
+	if err != nil {
+		return ContentLocale{}, err
+	}
+	return s.attachGalleryMedia(ctx, item)
 }
 
 // ListPublishedContent returns a small, deterministic set for a site's home
@@ -1316,7 +1367,7 @@ func (s *Service) ListPublishedContent(ctx context.Context, siteID int64, locale
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id, cl.gallery_media_ids_json,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -1384,10 +1435,13 @@ func (s *Service) PublishedContentAlternates(ctx context.Context, contentID int6
 func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input CreateContentInput) (ContentLocale, error) {
 	normalizeCreateContent(&input)
 	applyPageDefaults(&input.ContentType, &input.PageLayout, &input.IndexPolicy, input.Slug, input.Title)
+	if input.ContentType == "product" {
+		input.CoverMediaID, input.GalleryMediaIDs = normalizeProductGallery(input.CoverMediaID, input.GalleryMediaIDs)
+	}
 	if err := validatePageOptions(input.ContentType, input.PageLayout, input.IndexPolicy); err != nil {
 		return ContentLocale{}, err
 	}
-	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID); err != nil {
+	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID, input.GalleryMediaIDs); err != nil {
 		return ContentLocale{}, err
 	}
 	if err := validateContent(input.ContentType, input.SiteID, input.Locale, input.Status, input.Title, input.Slug, input.Summary, input.BodyHTML, input.AIState, input.SEO); err != nil {
@@ -1417,6 +1471,9 @@ func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input Cr
 	if err = requireMediaFileTx(ctx, tx, input.CoverMediaID); err != nil {
 		return ContentLocale{}, err
 	}
+	if err = requireGalleryMediaFilesTx(ctx, tx, input.GalleryMediaIDs); err != nil {
+		return ContentLocale{}, err
+	}
 	if err = requireEnabledSiteLocale(ctx, tx, input.SiteID, input.Locale); err != nil {
 		return ContentLocale{}, err
 	}
@@ -1430,11 +1487,11 @@ func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input Cr
 		publishedAt = scheduledPublishTime(input.ScheduledAt, now)
 	}
 	localeResult, err := tx.ExecContext(ctx, `
-		INSERT INTO content_locales(content_id, site_id, locale, status, title, slug, category, tags_json, template_key, scheduled_at, cover_media_id, summary, body_html, h1,
+		INSERT INTO content_locales(content_id, site_id, locale, status, title, slug, category, tags_json, template_key, scheduled_at, cover_media_id, gallery_media_ids_json, summary, body_html, h1,
 		seo_title, meta_description, primary_keyword, secondary_keywords_json, canonical_url, robots_index,
 		og_title, og_description, structured_data_json, ai_state, published_at, page_layout, index_policy, version, created_at, updated_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
-		contentID, input.SiteID, input.Locale, input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, input.Summary, input.BodyHTML,
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
+		contentID, input.SiteID, input.Locale, input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, galleryMediaJSON(input.GalleryMediaIDs), input.Summary, input.BodyHTML,
 		seo.H1, seo.Title, seo.MetaDescription, seo.PrimaryKeyword, string(secondary), seo.CanonicalURL, boolInt(seo.RobotsIndex),
 		seo.OGTitle, seo.OGDescription, string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, now, now)
 	if err != nil {
@@ -1461,10 +1518,13 @@ func (s *Service) CreateContent(ctx context.Context, actorUserID int64, input Cr
 func (s *Service) CreateContentLocale(ctx context.Context, actorUserID, contentID int64, input CreateContentInput) (ContentLocale, error) {
 	normalizeCreateContent(&input)
 	applyPageDefaults(&input.ContentType, &input.PageLayout, &input.IndexPolicy, input.Slug, input.Title)
+	if input.ContentType == "product" {
+		input.CoverMediaID, input.GalleryMediaIDs = normalizeProductGallery(input.CoverMediaID, input.GalleryMediaIDs)
+	}
 	if err := validatePageOptions(input.ContentType, input.PageLayout, input.IndexPolicy); err != nil {
 		return ContentLocale{}, err
 	}
-	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID); err != nil {
+	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID, input.GalleryMediaIDs); err != nil {
 		return ContentLocale{}, err
 	}
 	if contentID < 1 {
@@ -1497,6 +1557,9 @@ func (s *Service) CreateContentLocale(ctx context.Context, actorUserID, contentI
 	if err = requireMediaFileTx(ctx, tx, input.CoverMediaID); err != nil {
 		return ContentLocale{}, err
 	}
+	if err = requireGalleryMediaFilesTx(ctx, tx, input.GalleryMediaIDs); err != nil {
+		return ContentLocale{}, err
+	}
 	var currentType string
 	if err = tx.QueryRowContext(ctx, `SELECT content_type FROM contents WHERE id = ? AND deleted_at IS NULL`, contentID).Scan(&currentType); errors.Is(err, sql.ErrNoRows) {
 		return ContentLocale{}, ErrNotFound
@@ -1514,11 +1577,11 @@ func (s *Service) CreateContentLocale(ctx context.Context, actorUserID, contentI
 		publishedAt = scheduledPublishTime(input.ScheduledAt, now)
 	}
 	localeResult, err := tx.ExecContext(ctx, `
-		INSERT INTO content_locales(content_id, site_id, locale, status, title, slug, category, tags_json, template_key, scheduled_at, cover_media_id, summary, body_html, h1,
+		INSERT INTO content_locales(content_id, site_id, locale, status, title, slug, category, tags_json, template_key, scheduled_at, cover_media_id, gallery_media_ids_json, summary, body_html, h1,
 		seo_title, meta_description, primary_keyword, secondary_keywords_json, canonical_url, robots_index,
 		og_title, og_description, structured_data_json, ai_state, published_at, page_layout, index_policy, version, created_at, updated_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
-		contentID, input.SiteID, input.Locale, input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, input.Summary, input.BodyHTML,
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
+		contentID, input.SiteID, input.Locale, input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, galleryMediaJSON(input.GalleryMediaIDs), input.Summary, input.BodyHTML,
 		seo.H1, seo.Title, seo.MetaDescription, seo.PrimaryKeyword, string(secondary), seo.CanonicalURL, boolInt(seo.RobotsIndex),
 		seo.OGTitle, seo.OGDescription, string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, now, now)
 	if err != nil {
@@ -1552,7 +1615,10 @@ func (s *Service) CreateContentLocale(ctx context.Context, actorUserID, contentI
 func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentID, siteID int64, locale string, input UpdateContentLocaleInput) (ContentLocale, error) {
 	locale = strings.TrimSpace(locale)
 	normalizeUpdateContent(&input)
-	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID); err != nil {
+	if input.ContentType == "product" {
+		input.CoverMediaID, input.GalleryMediaIDs = normalizeProductGallery(input.CoverMediaID, input.GalleryMediaIDs)
+	}
+	if err := validateContentExtras(input.Category, input.Tags, input.TemplateKey, input.ScheduledAt, input.CoverMediaID, input.GalleryMediaIDs); err != nil {
 		return ContentLocale{}, err
 	}
 	if input.Version < 1 {
@@ -1572,6 +1638,9 @@ func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentI
 	}
 	defer tx.Rollback()
 	if err = requireMediaFileTx(ctx, tx, input.CoverMediaID); err != nil {
+		return ContentLocale{}, err
+	}
+	if err = requireGalleryMediaFilesTx(ctx, tx, input.GalleryMediaIDs); err != nil {
 		return ContentLocale{}, err
 	}
 	var current ContentLocale
@@ -1625,12 +1694,12 @@ func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentI
 		publishedAt = nil
 	}
 	result, err := tx.ExecContext(ctx, `
-		UPDATE content_locales SET status = ?, title = ?, slug = ?, category = ?, tags_json = ?, template_key = ?, scheduled_at = ?, cover_media_id = ?, summary = ?, body_html = ?, h1 = ?, seo_title = ?,
+		UPDATE content_locales SET status = ?, title = ?, slug = ?, category = ?, tags_json = ?, template_key = ?, scheduled_at = ?, cover_media_id = ?, gallery_media_ids_json = ?, summary = ?, body_html = ?, h1 = ?, seo_title = ?,
 		meta_description = ?, primary_keyword = ?, secondary_keywords_json = ?, canonical_url = ?, robots_index = ?,
 		og_title = ?, og_description = ?, structured_data_json = ?, ai_state = ?, published_at = ?, page_layout = ?, index_policy = ?,
 		version = version + 1, updated_at = ?
 		WHERE content_id = ? AND site_id = ? AND locale = ? AND version = ?`,
-		input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, input.Summary, input.BodyHTML, seo.H1, seo.Title, seo.MetaDescription,
+		input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, galleryMediaJSON(input.GalleryMediaIDs), input.Summary, input.BodyHTML, seo.H1, seo.Title, seo.MetaDescription,
 		seo.PrimaryKeyword, string(secondary), seo.CanonicalURL, boolInt(seo.RobotsIndex), seo.OGTitle, seo.OGDescription,
 		string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, nowUTC(), contentID, siteID, locale, input.Version)
 	if err != nil {
@@ -2005,6 +2074,7 @@ type contentRevisionSnapshot struct {
 	PageLayout        string          `json:"page_layout"`
 	IndexPolicy       string          `json:"index_policy"`
 	CoverMediaID      *int64          `json:"cover_media_id"`
+	GalleryMediaIDs   []int64         `json:"gallery_media_ids"`
 	Summary           string          `json:"summary"`
 	BodyHTML          string          `json:"body_html"`
 	H1                string          `json:"h1"`
@@ -2050,7 +2120,7 @@ func (s *Service) RestoreContentRevision(ctx context.Context, actorUserID, conte
 	}
 	return s.UpdateContentLocale(ctx, actorUserID, contentID, revision.SiteID, revision.Locale, UpdateContentLocaleInput{
 		ContentType: current.ContentType, Status: "draft", Title: snapshot.Title, Slug: snapshot.Slug,
-		Category: snapshot.Category, Tags: snapshot.Tags, TemplateKey: snapshot.TemplateKey, PageLayout: snapshot.PageLayout, IndexPolicy: snapshot.IndexPolicy, CoverMediaID: snapshot.CoverMediaID,
+		Category: snapshot.Category, Tags: snapshot.Tags, TemplateKey: snapshot.TemplateKey, PageLayout: snapshot.PageLayout, IndexPolicy: snapshot.IndexPolicy, CoverMediaID: snapshot.CoverMediaID, GalleryMediaIDs: snapshot.GalleryMediaIDs,
 		Summary: snapshot.Summary, BodyHTML: snapshot.BodyHTML, AIState: snapshot.AIState, Version: currentVersion, RevisionAction: "restored",
 		SEO: &SEOInput{H1: snapshot.H1, Title: snapshot.SEOTitle, MetaDescription: snapshot.MetaDescription, PrimaryKeyword: snapshot.PrimaryKeyword,
 			SecondaryKeywords: snapshot.SecondaryKeywords, CanonicalURL: snapshot.CanonicalURL, RobotsIndex: snapshot.RobotsIndex,
@@ -2070,9 +2140,10 @@ func scanContentLocale(row scanner, includeBody bool) (ContentLocale, error) {
 	var secondary, structured string
 	var tags, scheduled sql.NullString
 	var coverID sql.NullInt64
+	var galleryJSON string
 	var coverName string
 	var coverWidth, coverHeight int
-	dest := []any{&item.ID, &item.ContentID, &item.ContentType, &item.SiteID, &item.SiteName, &item.Locale, &item.LanguageName, &item.Status, &item.Title, &item.Slug, &item.Category, &tags, &item.TemplateKey, &item.PageLayout, &item.IndexPolicy, &scheduled, &coverID, &coverName, &coverWidth, &coverHeight, &item.Summary}
+	dest := []any{&item.ID, &item.ContentID, &item.ContentType, &item.SiteID, &item.SiteName, &item.Locale, &item.LanguageName, &item.Status, &item.Title, &item.Slug, &item.Category, &tags, &item.TemplateKey, &item.PageLayout, &item.IndexPolicy, &scheduled, &coverID, &galleryJSON, &coverName, &coverWidth, &coverHeight, &item.Summary}
 	if includeBody {
 		dest = append(dest, &item.BodyHTML)
 	}
@@ -2096,6 +2167,8 @@ func scanContentLocale(row scanner, includeBody bool) (ContentLocale, error) {
 		item.CoverWidth = coverWidth
 		item.CoverHeight = coverHeight
 	}
+	item.GalleryMediaIDs = normalizeGalleryMediaIDs(galleryJSON)
+	item.Gallery = []GalleryMedia{}
 	if err := json.Unmarshal([]byte(tags.String), &item.Tags); err != nil {
 		item.Tags = []string{}
 	}
@@ -2109,7 +2182,7 @@ func scanContentLocale(row scanner, includeBody bool) (ContentLocale, error) {
 func getContentLocaleTx(ctx context.Context, tx *sql.Tx, contentID, siteID int64, locale string) (ContentLocale, error) {
 	row := tx.QueryRowContext(ctx, `
 		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale, cl.locale,
-		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id,
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id, cl.gallery_media_ids_json,
 		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.body_html, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
@@ -2130,7 +2203,7 @@ func insertRevision(ctx context.Context, tx *sql.Tx, localeID, contentID, siteID
 		'content_id', content_id, 'site_id', site_id, 'locale', locale, 'status', status, 'title', title,
 		'slug', slug, 'category', category, 'tags', json(tags_json), 'template_key', template_key,
 		'page_layout', page_layout, 'index_policy', index_policy,
-		'scheduled_at', scheduled_at, 'cover_media_id', cover_media_id, 'summary', summary, 'body_html', body_html, 'h1', h1, 'seo_title', seo_title,
+		'scheduled_at', scheduled_at, 'cover_media_id', cover_media_id, 'gallery_media_ids', json(gallery_media_ids_json), 'summary', summary, 'body_html', body_html, 'h1', h1, 'seo_title', seo_title,
 		'meta_description', meta_description, 'primary_keyword', primary_keyword,
 		'secondary_keywords', json(secondary_keywords_json), 'canonical_url', canonical_url,
 		'robots_index', json(CASE WHEN robots_index = 1 THEN 'true' ELSE 'false' END),
@@ -2221,8 +2294,11 @@ func validateSiteFaviconTx(ctx context.Context, tx *sql.Tx, mediaID *int64) erro
 	if err != nil {
 		return err
 	}
-	if (mediaType != "image/png" && mediaType != "image/jpeg") || width < 16 || height < 16 || width > 2048 || height > 2048 || width != height {
-		return invalid("网站 Icon 必须是 16–2048 像素的方形 PNG 或 JPEG 图片")
+	// JPEG/PNG remain accepted only for sites created before the AVIF storage
+	// policy; every new upload is normalized to AVIF by filestore and the media
+	// migration can upgrade existing icons without breaking site edits.
+	if (mediaType != "image/avif" && mediaType != "image/png" && mediaType != "image/jpeg") || width < 16 || height < 16 || width > 2048 || height > 2048 || width != height {
+		return invalid("网站 Icon 必须是 16–2048 像素的方形图片；新上传图片会自动转换为 AVIF")
 	}
 	return nil
 }
@@ -2310,6 +2386,7 @@ func normalizeCreateContent(input *CreateContentInput) {
 	input.TemplateKey = strings.TrimSpace(input.TemplateKey)
 	input.ScheduledAt = strings.TrimSpace(input.ScheduledAt)
 	input.Tags = normalizeTags(input.Tags)
+	input.GalleryMediaIDs = normalizeGalleryMediaIDsFromSlice(input.GalleryMediaIDs)
 	input.Summary = strings.TrimSpace(input.Summary)
 	input.AIState = strings.ToLower(strings.TrimSpace(input.AIState))
 	input.PageLayout = strings.ToLower(strings.TrimSpace(input.PageLayout))
@@ -2334,6 +2411,7 @@ func normalizeUpdateContent(input *UpdateContentLocaleInput) {
 	input.TemplateKey = strings.TrimSpace(input.TemplateKey)
 	input.ScheduledAt = strings.TrimSpace(input.ScheduledAt)
 	input.Tags = normalizeTags(input.Tags)
+	input.GalleryMediaIDs = normalizeGalleryMediaIDsFromSlice(input.GalleryMediaIDs)
 	input.Summary = strings.TrimSpace(input.Summary)
 	input.AIState = strings.ToLower(strings.TrimSpace(input.AIState))
 	input.PageLayout = strings.ToLower(strings.TrimSpace(input.PageLayout))
@@ -2451,7 +2529,7 @@ func scheduledPublishTime(scheduledAt, fallback string) string {
 	return parsed.UTC().Format(time.RFC3339Nano)
 }
 
-func validateContentExtras(category string, tags []string, templateKey, scheduledAt string, coverMediaID *int64) error {
+func validateContentExtras(category string, tags []string, templateKey, scheduledAt string, coverMediaID *int64, galleryMediaIDs []int64) error {
 	if utf8.RuneCountInString(category) > 100 {
 		return invalid("栏目名称不能超过 100 个字符")
 	}
@@ -2468,6 +2546,79 @@ func validateContentExtras(category string, tags []string, templateKey, schedule
 	}
 	if coverMediaID != nil && *coverMediaID < 1 {
 		return invalid("封面媒体 ID 无效")
+	}
+	if len(galleryMediaIDs) > 12 {
+		return invalid("产品图库最多 12 张图片")
+	}
+	for _, id := range galleryMediaIDs {
+		if id < 1 {
+			return invalid("图库媒体 ID 无效")
+		}
+	}
+	return nil
+}
+
+func normalizeGalleryMediaIDsFromSlice(input []int64) []int64 {
+	seen := make(map[int64]bool, len(input))
+	result := make([]int64, 0, min(len(input), 12))
+	for _, id := range input {
+		if id < 1 || seen[id] {
+			continue
+		}
+		seen[id] = true
+		result = append(result, id)
+		if len(result) >= 12 {
+			break
+		}
+	}
+	return result
+}
+
+// normalizeProductGallery keeps the product cover and gallery in sync. The
+// editor supports choosing a cover through the media dialog as well as adding
+// images through the gallery dropzone; either path must produce the same
+// persisted representation so a reopened product never loses its first image.
+func normalizeProductGallery(coverID *int64, galleryIDs []int64) (*int64, []int64) {
+	ids := normalizeGalleryMediaIDsFromSlice(galleryIDs)
+	if coverID != nil && *coverID > 0 {
+		ordered := make([]int64, 0, min(len(ids)+1, 12))
+		ordered = append(ordered, *coverID)
+		ordered = append(ordered, ids...)
+		ids = normalizeGalleryMediaIDsFromSlice(ordered)
+		return coverID, ids
+	}
+	if len(ids) > 0 {
+		first := ids[0]
+		return &first, ids
+	}
+	return nil, ids
+}
+
+func galleryMediaJSON(ids []int64) string {
+	clean := normalizeGalleryMediaIDsFromSlice(ids)
+	b, _ := json.Marshal(clean)
+	return string(b)
+}
+
+func normalizeGalleryMediaIDs(raw string) []int64 {
+	var ids []int64
+	if err := json.Unmarshal([]byte(raw), &ids); err != nil {
+		return []int64{}
+	}
+	return normalizeGalleryMediaIDsFromSlice(ids)
+}
+
+func requireGalleryMediaFilesTx(ctx context.Context, tx *sql.Tx, ids []int64) error {
+	for _, id := range normalizeGalleryMediaIDsFromSlice(ids) {
+		var mediaType string
+		if err := tx.QueryRowContext(ctx, `SELECT media_type FROM media_files WHERE id = ?`, id).Scan(&mediaType); errors.Is(err, sql.ErrNoRows) {
+			return invalid("图库媒体不存在或已被删除")
+		} else if err != nil {
+			return err
+		}
+		if !strings.HasPrefix(strings.ToLower(mediaType), "image/") {
+			return invalid("图库只能引用图片媒体")
+		}
 	}
 	return nil
 }
@@ -2536,6 +2687,9 @@ func normalizeSEO(input *SEOInput, fallbackTitle string) (SEOInput, error) {
 	if err := json.Unmarshal(seo.StructuredData, &object); err != nil || object == nil {
 		return SEOInput{}, invalid("结构化数据必须是 JSON 对象")
 	}
+	if err := validateStructuredDataObject(object); err != nil {
+		return SEOInput{}, err
+	}
 	return seo, nil
 }
 
@@ -2544,10 +2698,180 @@ func normalizeContentSEO(contentType string, input *SEOInput, fallbackTitle stri
 }
 
 func normalizedStructuredData(input json.RawMessage) json.RawMessage {
-	if len(input) == 0 || string(input) == "null" {
+	source := strings.TrimSpace(string(input))
+	if match := structuredDataScriptPattern.FindStringSubmatch(source); len(match) == 2 {
+		source = strings.TrimSpace(match[1])
+	}
+	if source == "" || source == "null" {
 		return json.RawMessage(`{}`)
 	}
-	return input
+	return json.RawMessage(source)
+}
+
+// validateStructuredDataObject keeps the editor contract aligned with the
+// public JSON-LD renderer. Empty objects mean “use the generated schema”. A
+// non-empty document must contain typed Schema.org nodes; otherwise a typo in
+// the textarea would silently produce data that Google cannot interpret.
+func validateStructuredDataObject(object map[string]any) error {
+	if len(object) == 0 {
+		return nil
+	}
+	if context, ok := object["@context"]; ok {
+		if !validStructuredDataContext(context) {
+			return invalid("结构化数据 @context 必须使用 https://schema.org")
+		}
+	}
+	nodes := []map[string]any{object}
+	if graph, ok := object["@graph"].([]any); ok {
+		nodes = make([]map[string]any, 0, len(graph))
+		for _, raw := range graph {
+			node, ok := raw.(map[string]any)
+			if !ok || node == nil {
+				return invalid("结构化数据 @graph 必须只包含 JSON 对象")
+			}
+			nodes = append(nodes, node)
+		}
+		if len(nodes) == 0 {
+			return invalid("结构化数据 @graph 不能为空")
+		}
+	}
+	for _, node := range nodes {
+		if structuredDataTypeValue(node["@type"]) == "" {
+			return invalid("结构化数据每个节点都必须包含 @type")
+		}
+	}
+	if err := validateStructuredDataURLs(object, false); err != nil {
+		return err
+	}
+	return nil
+}
+
+// validStructuredDataContext accepts the two JSON-LD context shapes commonly
+// copied from Google documentation: one Schema.org URL or an array containing
+// that URL. Rejecting other JSON values early prevents a malformed context
+// from being persisted and later presented as if it were valid structured data.
+func validStructuredDataContext(value any) bool {
+	schemaContext := func(raw string) bool {
+		raw = strings.TrimRight(strings.TrimSpace(strings.ToLower(raw)), "/")
+		return raw == "https://schema.org"
+	}
+	switch typed := value.(type) {
+	case string:
+		return schemaContext(typed)
+	case []any:
+		if len(typed) == 0 {
+			return false
+		}
+		hasSchemaContext := false
+		for _, item := range typed {
+			switch item := item.(type) {
+			case string:
+				raw := strings.TrimSpace(item)
+				parsed, err := url.Parse(raw)
+				if err != nil || (parsed.Scheme != "http" && parsed.Scheme != "https") || parsed.Host == "" {
+					return false
+				}
+				if schemaContext(raw) {
+					hasSchemaContext = true
+				}
+			case map[string]any:
+				if vocab, ok := item["@vocab"].(string); ok {
+					parsed, err := url.Parse(strings.TrimSpace(vocab))
+					if err != nil || (parsed.Scheme != "http" && parsed.Scheme != "https") || parsed.Host == "" {
+						return false
+					}
+					if schemaContext(vocab) {
+						hasSchemaContext = true
+					}
+				} else if len(item) == 0 {
+					return false
+				}
+			default:
+				return false
+			}
+		}
+		return hasSchemaContext
+	case map[string]any:
+		vocab, ok := typed["@vocab"].(string)
+		return ok && schemaContext(vocab)
+	default:
+		return false
+	}
+}
+
+// validateStructuredDataURLs rejects URL schemes that are never meaningful to
+// a crawler and can become an injection vector when a custom JSON-LD snippet
+// is copied between editors. Image-like properties additionally require a
+// public absolute HTTP(S) URL so Google can fetch the asset reliably.
+func validateStructuredDataURLs(value any, inheritedAbsolute bool) error {
+	switch typed := value.(type) {
+	case map[string]any:
+		for key, child := range typed {
+			keyLower := strings.ToLower(strings.TrimSpace(key))
+			urlField := keyLower == "url" || keyLower == "@id" || keyLower == "sameas" || keyLower == "image" || keyLower == "logo" || keyLower == "contenturl" || keyLower == "embedurl" || keyLower == "thumbnailurl"
+			if err := validateStructuredDataURLValue(child, inheritedAbsolute || keyLower == "image" || keyLower == "logo" || keyLower == "contenturl" || keyLower == "embedurl" || keyLower == "thumbnailurl", urlField); err != nil {
+				return err
+			}
+		}
+	case []any:
+		for _, child := range typed {
+			if err := validateStructuredDataURLs(child, inheritedAbsolute); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+func validateStructuredDataURLValue(value any, requireAbsolute, isURLField bool) error {
+	switch typed := value.(type) {
+	case string:
+		raw := strings.TrimSpace(typed)
+		if raw == "" {
+			return nil
+		}
+		lower := strings.ToLower(raw)
+		for _, blocked := range []string{"javascript:", "data:", "vbscript:"} {
+			if strings.HasPrefix(lower, blocked) {
+				return invalid("结构化数据 URL 不允许使用 " + blocked + " 地址")
+			}
+		}
+		if !isURLField && !requireAbsolute {
+			return nil
+		}
+		parsed, err := url.Parse(raw)
+		if err != nil || strings.ContainsAny(raw, "\r\n") {
+			return invalid("结构化数据包含无效 URL")
+		}
+		if requireAbsolute && (parsed.Scheme != "http" && parsed.Scheme != "https" || parsed.Host == "") {
+			return invalid("结构化数据图片 URL 必须是 HTTP 或 HTTPS 绝对地址")
+		}
+	case map[string]any:
+		return validateStructuredDataURLs(typed, requireAbsolute)
+	case []any:
+		for _, child := range typed {
+			// Preserve the URL-field context while descending into arrays so
+			// image-like fields continue to require absolute HTTP(S) URLs.
+			if err := validateStructuredDataURLValue(child, requireAbsolute, isURLField); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+func structuredDataTypeValue(value any) string {
+	switch typed := value.(type) {
+	case string:
+		return strings.TrimSpace(typed)
+	case []any:
+		for _, item := range typed {
+			if result := structuredDataTypeValue(item); result != "" {
+				return result
+			}
+		}
+	}
+	return ""
 }
 
 func validContentStatus(status string) bool {

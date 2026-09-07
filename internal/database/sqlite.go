@@ -269,6 +269,7 @@ CREATE TABLE IF NOT EXISTS media_files (
     storage_name TEXT NOT NULL UNIQUE,
     original_name TEXT NOT NULL,
     media_type TEXT NOT NULL,
+    avif_encoder TEXT NOT NULL DEFAULT 'legacy',
     byte_size INTEGER NOT NULL,
     sha256 TEXT NOT NULL,
     width INTEGER NOT NULL DEFAULT 0,
@@ -530,6 +531,7 @@ func seed(ctx context.Context, db *sql.DB) error {
 		{"system.view", "查看系统状态", "查看受保护的系统运行状态"},
 		{"system.manage", "管理系统设置", "管理 AI 提供方和系统级配置"},
 		{"backup.manage", "管理备份", "创建和验证加密备份"},
+		{"analytics.view", "查看流量统计", "查看授权站点的访问趋势、来源和设备数据"},
 	}
 	for _, permission := range permissions {
 		if _, err = tx.ExecContext(ctx, `INSERT OR IGNORE INTO permissions(code, name_zh, description) VALUES (?, ?, ?)`, permission[0], permission[1], permission[2]); err != nil {
@@ -546,7 +548,7 @@ func seed(ctx context.Context, db *sql.DB) error {
 
 	rolePermissions := map[string][]string{
 		"owner":         {"*"},
-		"administrator": {"dashboard.view", "sites.manage", "languages.manage", "content.read", "content.write", "templates.manage", "seo.manage", "media.read", "media.upload", "publishing.manage", "jobs.manage", "users.manage", "audit.read", "system.view", "system.manage", "backup.manage"},
+		"administrator": {"dashboard.view", "sites.manage", "languages.manage", "content.read", "content.write", "templates.manage", "seo.manage", "media.read", "media.upload", "publishing.manage", "jobs.manage", "users.manage", "audit.read", "system.view", "system.manage", "backup.manage", "analytics.view"},
 		"editor":        {"dashboard.view", "content.read", "content.write", "media.read", "media.upload"},
 		"auditor":       {"dashboard.view", "audit.read", "system.view"},
 	}

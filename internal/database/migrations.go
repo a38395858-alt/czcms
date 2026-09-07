@@ -38,6 +38,380 @@ var migrations = []migration{
 	{version: 18, apply: migratePageFormsAndThemeAssetsV18},
 	{version: 19, apply: migrateFormSubmitLabelV19},
 	{version: 20, apply: migrateContactPageDefaultsV20},
+	{version: 21, apply: migrateSiteRobotsV21},
+	{version: 22, apply: migrateReadableTagSlugsV22},
+	{version: 23, apply: migrateTrafficAnalyticsV23},
+	{version: 24, apply: migrateAVIFEncoderV24},
+	{version: 25, apply: migrateSpiderAnalyticsV25},
+	{version: 26, apply: migrateMetafieldsV26},
+	{version: 27, apply: migrateContentGalleryV27},
+	{version: 28, apply: migrateProductTemplateFilesV28},
+	{version: 29, apply: migrateProductTemplateSchemaV29},
+}
+
+// migrateProductTemplateFilesV28 adds dedicated editable templates for B2B
+// product category archives and product detail pages. The seed helper is
+// idempotent, so existing installations and fresh databases receive the same
+// template set without overwriting user revisions.
+func migrateProductTemplateFilesV28(ctx context.Context, tx *sql.Tx) error {
+	return seedThemeFilesV13(ctx, tx)
+}
+
+// migrateProductTemplateSchemaV29 expands the original constrained file-key
+// table. SQLite cannot add values to a CHECK constraint in-place, so the table
+// is rebuilt transactionally before the two new product template files are
+// seeded. Existing sources and revision history remain untouched.
+func migrateProductTemplateSchemaV29(ctx context.Context, tx *sql.Tx) error {
+	statements := []string{
+		`CREATE TABLE theme_files_v29 (
+			theme_package_id INTEGER NOT NULL REFERENCES theme_packages(id) ON DELETE CASCADE,
+			file_key TEXT NOT NULL CHECK (file_key IN ('header', 'footer', 'home', 'category', 'product_category', 'content', 'product_detail', 'page', 'search', 'not_found')),
+			label TEXT NOT NULL,
+			filename TEXT NOT NULL,
+			page_group TEXT NOT NULL CHECK (page_group IN ('layout', 'page', 'product', 'system')),
+			origin TEXT NOT NULL DEFAULT 'starter' CHECK (origin IN ('builtin', 'archive', 'starter')),
+			content TEXT NOT NULL,
+			version INTEGER NOT NULL DEFAULT 1,
+			updated_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+			created_at TEXT NOT NULL,
+			updated_at TEXT NOT NULL,
+			PRIMARY KEY (theme_package_id, file_key),
+			UNIQUE (theme_package_id, filename)
+		)`,
+		`INSERT INTO theme_files_v29(theme_package_id, file_key, label, filename, page_group, origin, content, version, updated_by, created_at, updated_at)
+			SELECT theme_package_id, file_key, label, filename, page_group, origin, content, version, updated_by, created_at, updated_at FROM theme_files`,
+		`DROP TABLE theme_files`,
+		`ALTER TABLE theme_files_v29 RENAME TO theme_files`,
+		`CREATE INDEX IF NOT EXISTS idx_theme_files_package_group ON theme_files(theme_package_id, page_group, file_key)`,
+	}
+	for _, statement := range statements {
+		if _, err := tx.ExecContext(ctx, statement); err != nil {
+			return fmt.Errorf("升级产品模板文件结构: %w", err)
+		}
+	}
+	return seedThemeFilesV13(ctx, tx)
+}
+
+// migrateContentGalleryV27 adds an ordered, per-locale product gallery. The
+// media IDs are kept as JSON so the content row remains portable in backups;
+// every ID is still validated against media_files before it is written.
+func migrateContentGalleryV27(ctx context.Context, tx *sql.Tx) error {
+	columns, err := tableColumns(ctx, tx, "content_locales")
+	if err != nil {
+		return err
+	}
+	if columns["gallery_media_ids_json"] {
+		return nil
+	}
+	if _, err = tx.ExecContext(ctx, `ALTER TABLE content_locales ADD COLUMN gallery_media_ids_json TEXT NOT NULL DEFAULT '[]'`); err != nil {
+		return fmt.Errorf("为 content_locales 添加产品图库字段: %w", err)
+	}
+	return nil
+}
+
+// migrateMetafieldsV26 adds Shopify-style, reusable custom fields. Definitions
+// are global (a field key is stable across sites) while values are isolated by
+// object, site and locale so multilingual sites never leak data into one
+// another. Disabling a definition is soft-delete and keeps existing values.
+func migrateMetafieldsV26(ctx context.Context, tx *sql.Tx) error {
+	statements := []string{
+		`CREATE TABLE IF NOT EXISTS metafield_definitions (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT NOT NULL,
+			namespace TEXT NOT NULL DEFAULT 'custom',
+			field_key TEXT NOT NULL,
+			field_type TEXT NOT NULL CHECK (field_type IN ('text','textarea','richtext','number','date','url','select','multiselect','image','file','product_reference','category_reference')),
+			description TEXT NOT NULL DEFAULT '',
+			owner_type TEXT NOT NULL CHECK (owner_type IN ('product','product_category','article','page')),
+			translatable INTEGER NOT NULL DEFAULT 1 CHECK (translatable IN (0,1)),
+			required INTEGER NOT NULL DEFAULT 0 CHECK (required IN (0,1)),
+			default_value TEXT NOT NULL DEFAULT '',
+			validation_json TEXT NOT NULL DEFAULT '{}',
+			ai_enabled INTEGER NOT NULL DEFAULT 0 CHECK (ai_enabled IN (0,1)),
+			status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active','disabled')),
+			sort_order INTEGER NOT NULL DEFAULT 0,
+			version INTEGER NOT NULL DEFAULT 1,
+			created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+			created_at TEXT NOT NULL,
+			updated_at TEXT NOT NULL,
+			UNIQUE(namespace, field_key)
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_metafield_definitions_owner ON metafield_definitions(owner_type,status,sort_order,id)`,
+		`CREATE TABLE IF NOT EXISTS metafield_values (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			definition_id INTEGER NOT NULL REFERENCES metafield_definitions(id) ON DELETE CASCADE,
+			owner_type TEXT NOT NULL CHECK (owner_type IN ('product','product_category','article','page')),
+			owner_id INTEGER NOT NULL,
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			locale TEXT NOT NULL,
+			value TEXT NOT NULL DEFAULT '',
+			version INTEGER NOT NULL DEFAULT 1,
+			created_at TEXT NOT NULL,
+			updated_at TEXT NOT NULL,
+			UNIQUE(definition_id,owner_type,owner_id,site_id,locale)
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_metafield_values_owner ON metafield_values(owner_type,owner_id,site_id,locale)`,
+	}
+	for _, statement := range statements {
+		if _, err := tx.ExecContext(ctx, statement); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// migrateSpiderAnalyticsV25 adds a crawler-specific reporting store. It keeps
+// daily aggregates and URL-level crawler facts only; raw IP addresses,
+// User-Agent strings and query parameters are deliberately never stored.
+func migrateSpiderAnalyticsV25(ctx context.Context, tx *sql.Tx) error {
+	statements := []string{
+		`CREATE TABLE IF NOT EXISTS spider_daily (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			requests INTEGER NOT NULL DEFAULT 0,
+			crawled_urls INTEGER NOT NULL DEFAULT 0,
+			success INTEGER NOT NULL DEFAULT 0,
+			errors INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day)
+		)`,
+		`CREATE TABLE IF NOT EXISTS spider_bots_daily (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			bot_name TEXT NOT NULL,
+			requests INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day, bot_name)
+		)`,
+		`CREATE TABLE IF NOT EXISTS spider_bot_status_daily (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			bot_name TEXT NOT NULL,
+			status_code INTEGER NOT NULL,
+			requests INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day, bot_name, status_code)
+		)`,
+		`CREATE TABLE IF NOT EXISTS spider_status_daily (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			status_code INTEGER NOT NULL,
+			requests INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day, status_code)
+		)`,
+		`CREATE TABLE IF NOT EXISTS spider_pages (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			path TEXT NOT NULL,
+			bot_name TEXT NOT NULL,
+			locale TEXT NOT NULL DEFAULT '',
+			title TEXT NOT NULL DEFAULT '',
+			content_type TEXT NOT NULL DEFAULT '页面',
+			status_code INTEGER NOT NULL,
+			crawls INTEGER NOT NULL DEFAULT 0,
+			last_crawled_at TEXT NOT NULL,
+			PRIMARY KEY (site_id, day, path, bot_name)
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_spider_bot_status_daily_report ON spider_bot_status_daily(site_id, day, bot_name, status_code)`,
+		`CREATE INDEX IF NOT EXISTS idx_spider_pages_recent ON spider_pages(site_id, day, last_crawled_at DESC)`,
+		`CREATE INDEX IF NOT EXISTS idx_spider_pages_path ON spider_pages(site_id, day, path)`,
+	}
+	for _, statement := range statements {
+		if _, err := tx.ExecContext(ctx, statement); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// migrateAVIFEncoderV24 records which browser-verified encoder produced each
+// normalized image. Rows created before this marker remain eligible for a
+// one-time repair if their old AVIF stream is not accepted by Chromium.
+func migrateAVIFEncoderV24(ctx context.Context, tx *sql.Tx) error {
+	columns, err := tableColumns(ctx, tx, "media_files")
+	if err != nil {
+		return err
+	}
+	if !columns["avif_encoder"] {
+		if _, err = tx.ExecContext(ctx, `ALTER TABLE media_files ADD COLUMN avif_encoder TEXT NOT NULL DEFAULT 'legacy'`); err != nil {
+			return fmt.Errorf("为 media_files 添加 AVIF 编码器标记: %w", err)
+		}
+	}
+	_, err = tx.ExecContext(ctx, `CREATE INDEX IF NOT EXISTS idx_media_avif_encoder ON media_files(media_type, avif_encoder, id)`)
+	return err
+}
+
+func migrateTrafficAnalyticsV23(ctx context.Context, tx *sql.Tx) error {
+	statements := []string{
+		`CREATE TABLE IF NOT EXISTS analytics_daily (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			pageviews INTEGER NOT NULL DEFAULT 0,
+			unique_visitors INTEGER NOT NULL DEFAULT 0,
+			sessions INTEGER NOT NULL DEFAULT 0,
+			bounce_sessions INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day)
+		)`,
+		`CREATE TABLE IF NOT EXISTS analytics_pages (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			path TEXT NOT NULL,
+			locale TEXT NOT NULL DEFAULT '',
+			title TEXT NOT NULL DEFAULT '',
+			views INTEGER NOT NULL DEFAULT 0,
+			unique_visitors INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day, path)
+		)`,
+		`CREATE TABLE IF NOT EXISTS analytics_referrers (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			source TEXT NOT NULL,
+			views INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day, source)
+		)`,
+		`CREATE TABLE IF NOT EXISTS analytics_dimensions (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			dimension TEXT NOT NULL CHECK (dimension IN ('locale', 'device')),
+			value TEXT NOT NULL,
+			views INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (site_id, day, dimension, value)
+		)`,
+		`CREATE TABLE IF NOT EXISTS analytics_visitors (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			visitor_hash TEXT NOT NULL,
+			created_at TEXT NOT NULL,
+			PRIMARY KEY (site_id, day, visitor_hash)
+		)`,
+		`CREATE TABLE IF NOT EXISTS analytics_page_visitors (
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			path TEXT NOT NULL,
+			visitor_hash TEXT NOT NULL,
+			PRIMARY KEY (site_id, day, path, visitor_hash)
+		)`,
+		`CREATE TABLE IF NOT EXISTS analytics_sessions (
+			id TEXT PRIMARY KEY,
+			site_id INTEGER NOT NULL REFERENCES sites(id) ON DELETE CASCADE,
+			day TEXT NOT NULL,
+			visitor_hash TEXT NOT NULL,
+			first_path TEXT NOT NULL,
+			pages INTEGER NOT NULL DEFAULT 1,
+			started_at TEXT NOT NULL,
+			last_seen_at TEXT NOT NULL
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_analytics_daily_day ON analytics_daily(day, site_id)`,
+		`CREATE INDEX IF NOT EXISTS idx_analytics_pages_rank ON analytics_pages(site_id, day, views DESC)`,
+		`CREATE INDEX IF NOT EXISTS idx_analytics_referrers_rank ON analytics_referrers(site_id, day, views DESC)`,
+		`CREATE INDEX IF NOT EXISTS idx_analytics_sessions_cleanup ON analytics_sessions(day, last_seen_at)`,
+	}
+	for _, statement := range statements {
+		if _, err := tx.ExecContext(ctx, statement); err != nil {
+			return err
+		}
+	}
+	if _, err := tx.ExecContext(ctx, `INSERT OR IGNORE INTO permissions(code, name_zh, description) VALUES ('analytics.view', '查看流量统计', '查看授权站点的访问趋势、来源和设备数据')`); err != nil {
+		return err
+	}
+	for _, role := range []string{"owner", "administrator"} {
+		if _, err := tx.ExecContext(ctx, `INSERT OR IGNORE INTO role_permissions(role_id, permission_code) SELECT id, 'analytics.view' FROM roles WHERE code = ?`, role); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func migrateSiteRobotsV21(ctx context.Context, tx *sql.Tx) error {
+	_, err := tx.ExecContext(ctx, `CREATE TABLE IF NOT EXISTS site_robots (
+		site_id INTEGER PRIMARY KEY REFERENCES sites(id) ON DELETE CASCADE,
+		custom_rules TEXT NOT NULL DEFAULT '',
+		version INTEGER NOT NULL DEFAULT 1,
+		updated_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+		created_at TEXT NOT NULL,
+		updated_at TEXT NOT NULL
+	)`)
+	if err != nil {
+		return err
+	}
+	_, err = tx.ExecContext(ctx, `CREATE INDEX IF NOT EXISTS idx_site_robots_updated ON site_robots(updated_at DESC, site_id)`)
+	return err
+}
+
+// migrateReadableTagSlugsV22 upgrades only the old, system-generated tag URLs.
+// Manually configured URLs remain unchanged. If an existing term already uses
+// the readable name URL, the original stable tag-… URL remains the safe fallback.
+func migrateReadableTagSlugsV22(ctx context.Context, tx *sql.Tx) error {
+	type term struct {
+		id, siteID         int64
+		locale, name, slug string
+	}
+	rows, err := tx.QueryContext(ctx, `SELECT id, site_id, locale, name, slug FROM taxonomy_terms WHERE kind = 'tag' ORDER BY id`)
+	if err != nil {
+		return err
+	}
+	items := make([]term, 0)
+	for rows.Next() {
+		var item term
+		if err = rows.Scan(&item.id, &item.siteID, &item.locale, &item.name, &item.slug); err != nil {
+			rows.Close()
+			return err
+		}
+		items = append(items, item)
+	}
+	if err = rows.Err(); err != nil {
+		rows.Close()
+		return err
+	}
+	rows.Close()
+
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	for _, item := range items {
+		if item.slug != legacyGeneratedTaxonomySlugV22(item.siteID, item.locale, "tag", item.name) {
+			continue
+		}
+		candidate := readableTagSlugV22(item.name)
+		if candidate == "" {
+			continue
+		}
+		var occupied int
+		if err = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM taxonomy_terms WHERE site_id = ? AND locale = ? AND kind = 'tag' AND slug = ? AND id <> ?)`, item.siteID, item.locale, candidate, item.id).Scan(&occupied); err != nil {
+			return err
+		}
+		if occupied == 1 {
+			continue
+		}
+		if _, err = tx.ExecContext(ctx, `UPDATE taxonomy_terms SET slug = ?, version = version + 1, updated_at = ? WHERE id = ?`, candidate, now, item.id); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func readableTagSlugV22(name string) string {
+	var slug strings.Builder
+	separator := false
+	for _, char := range strings.ToLower(strings.TrimSpace(name)) {
+		switch {
+		case char >= 'a' && char <= 'z', char >= '0' && char <= '9':
+			if separator && slug.Len() > 0 {
+				slug.WriteByte('_')
+			}
+			slug.WriteRune(char)
+			separator = false
+		case char == '-' || char == '_' || char == ' ' || char == '\t' || char == '&' || char == '+' || char == '/' || char == '.':
+			separator = slug.Len() > 0
+		default:
+			return ""
+		}
+	}
+	value := strings.Trim(slug.String(), "_")
+	if len(value) == 0 || len(value) > 120 {
+		return ""
+	}
+	return value
+}
+
+func legacyGeneratedTaxonomySlugV22(siteID int64, locale, kind, name string) string {
+	digest := sha256.Sum256([]byte(fmt.Sprintf("%d|%s|%s|%s", siteID, locale, kind, strings.ToLower(strings.TrimSpace(name)))))
+	return kind + "-" + fmt.Sprintf("%x", digest[:8])
 }
 
 func runMigrations(ctx context.Context, db *sql.DB) error {

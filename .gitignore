@@ -10,3 +10,11 @@ coverage.out
 .DS_Store
 .env
 /var/secrets/
+
+# Local test runs, downloaded toolchains, generated screenshots and image probes.
+/tmp/
+/starbucks-cake-clean*.jpg
+/tmp_clean*.png
+/tmp_mask*.*
+/tmp_watermark_crop.*
+/enhance_image.py

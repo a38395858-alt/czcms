@@ -97,7 +97,7 @@ func TestRemoteMediaDownloadReencodesAndReturnsPublicURL(t *testing.T) {
 	router.Get("/media/{mediaID}/{token}", s.mediaServe)
 	recorder := httptest.NewRecorder()
 	router.ServeHTTP(recorder, httptest.NewRequest(http.MethodGet, media.URL, nil))
-	if recorder.Code != http.StatusOK || recorder.Header().Get("Content-Type") != "image/png" || !strings.Contains(recorder.Header().Get("Cache-Control"), "immutable") || recorder.Header().Get("X-Content-Type-Options") != "nosniff" {
+	if recorder.Code != http.StatusOK || recorder.Header().Get("Content-Type") != "image/avif" || !strings.Contains(recorder.Header().Get("Cache-Control"), "immutable") || recorder.Header().Get("X-Content-Type-Options") != "nosniff" {
 		t.Fatalf("unsafe media response: code=%d headers=%v", recorder.Code, recorder.Header())
 	}
 	stale := httptest.NewRecorder()

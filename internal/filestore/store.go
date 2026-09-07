@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"html/template"
 	"image"
-	"image/jpeg"
-	"image/png"
+	_ "image/gif"
+	_ "image/jpeg"
+	_ "image/png"
 	"io"
-	"mime"
 	"net/http"
 	"os"
 	"os/exec"
@@ -23,11 +23,18 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
+
+	legacyavif "github.com/KarpelesLab/goavif"
+	gavif "github.com/gen2brain/gav1d/avif"
+	_ "golang.org/x/image/webp"
 )
 
 var safeOriginalName = regexp.MustCompile(`^[\pL\pN][\pL\pN._ ()-]{0,199}$`)
+
+const browserAVIFEncoder = "gavif-v0.2.5"
 
 type Store struct {
 	db               *sql.DB
@@ -36,6 +43,7 @@ type Store struct {
 	maxUploadBytes   int64
 	maxThemeBytes    int64
 	antivirusCommand string
+	migrateMu        sync.Mutex
 }
 
 type Media struct {
@@ -144,19 +152,17 @@ func (s *Store) SaveMedia(ctx context.Context, source io.Reader, originalName st
 	header := make([]byte, 512)
 	read, _ := io.ReadFull(file, header)
 	_, _ = file.Seek(0, io.SeekStart)
-	detected := http.DetectContentType(header[:read])
-	allowed := map[string]string{"image/jpeg": ".jpg", "image/png": ".png"}
-	extension, ok := allowed[detected]
+	detected := DetectImageContentType(header[:read])
+	ok := mediaImageExtension(detected) != ""
 	if !ok {
 		file.Close()
-		return Media{}, fmt.Errorf("不允许的文件类型 %q；当前仅允许 JPEG、PNG", detected)
+		return Media{}, fmt.Errorf("不允许的文件类型 %q；仅支持 JPEG、PNG、GIF、WebP 或 AVIF 图片", detected)
 	}
-	declared := mime.TypeByExtension(strings.ToLower(filepath.Ext(originalName)))
-	if declared != "" && strings.Split(declared, ";")[0] != detected {
+	if declaredImageType(filepath.Ext(originalName)) != "" && declaredImageType(filepath.Ext(originalName)) != detected {
 		file.Close()
 		return Media{}, errors.New("文件扩展名与真实内容类型不一致")
 	}
-	imageConfig, _, err := image.DecodeConfig(file)
+	imageConfig, err := decodedImageConfig(file, detected)
 	if err != nil || imageConfig.Width < 1 || imageConfig.Height < 1 || imageConfig.Width > 16000 || imageConfig.Height > 16000 || int64(imageConfig.Width)*int64(imageConfig.Height) > 40_000_000 {
 		file.Close()
 		return Media{}, errors.New("图片损坏或像素尺寸超过安全限制")
@@ -165,60 +171,223 @@ func (s *Store) SaveMedia(ctx context.Context, source io.Reader, originalName st
 		file.Close()
 		return Media{}, err
 	}
-	decodedImage, _, err := image.Decode(file)
+	decodedImage, err := decodeVerifiedImage(file, detected)
 	file.Close()
 	if err != nil {
 		return Media{}, errors.New("图片无法完整解码")
 	}
-	cleanFile, err := os.CreateTemp(s.uploadDir, ".clean-*")
+	decodedImage = normalizeAVIFImage(decodedImage)
+	imageConfig = imageConfigFor(decodedImage)
+	cleanName, written, checksum, err := s.encodeAVIFImage(ctx, decodedImage)
 	if err != nil {
 		return Media{}, err
-	}
-	cleanName := cleanFile.Name()
-	if detected == "image/jpeg" {
-		err = jpeg.Encode(cleanFile, decodedImage, &jpeg.Options{Quality: 90})
-	} else {
-		err = png.Encode(cleanFile, decodedImage)
-	}
-	closeCleanErr := cleanFile.Close()
-	if err != nil || closeCleanErr != nil {
-		_ = os.Remove(cleanName)
-		if err != nil {
-			return Media{}, err
-		}
-		return Media{}, closeCleanErr
 	}
 	_ = os.Remove(temporaryName)
 	temporaryName = cleanName
-	cleanInfo, err := os.Stat(temporaryName)
-	if err != nil || cleanInfo.Size() > s.maxUploadBytes {
-		return Media{}, errors.New("规范化后的图片超过大小限制")
-	}
-	written = cleanInfo.Size()
-	if err = s.scan(ctx, temporaryName); err != nil {
-		return Media{}, err
-	}
-	checksum, _, err := checksumFile(temporaryName)
-	if err != nil {
-		return Media{}, err
-	}
 	storageID, err := randomID()
 	if err != nil {
 		return Media{}, err
 	}
-	storageName := storageID + extension
+	storageName := storageID + ".avif"
 	finalPath := filepath.Join(s.uploadDir, storageName)
 	if err = os.Rename(temporaryName, finalPath); err != nil {
 		return Media{}, err
 	}
 	now := time.Now().UTC().Format(time.RFC3339Nano)
-	result, err := s.db.ExecContext(ctx, `INSERT INTO media_files(storage_name, original_name, media_type, byte_size, sha256, width, height, uploaded_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, storageName, originalName, detected, written, checksum, imageConfig.Width, imageConfig.Height, userID, now, now)
+	result, err := s.db.ExecContext(ctx, `INSERT INTO media_files(storage_name, original_name, media_type, avif_encoder, byte_size, sha256, width, height, uploaded_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, storageName, originalName, "image/avif", browserAVIFEncoder, written, checksum, imageConfig.Width, imageConfig.Height, userID, now, now)
 	if err != nil {
 		_ = os.Remove(finalPath)
 		return Media{}, err
 	}
 	id, err := result.LastInsertId()
-	return Media{ID: id, OriginalName: originalName, MediaType: detected, ByteSize: written, SHA256: checksum, Width: imageConfig.Width, Height: imageConfig.Height, UploadedBy: userID, Version: 1, CreatedAt: now, UpdatedAt: now, URL: PublicMediaURL(id, checksum)}, err
+	return Media{ID: id, OriginalName: originalName, MediaType: "image/avif", ByteSize: written, SHA256: checksum, Width: imageConfig.Width, Height: imageConfig.Height, UploadedBy: userID, Version: 1, CreatedAt: now, UpdatedAt: now, URL: PublicMediaURL(id, checksum)}, err
+}
+
+func decodedImageConfig(file *os.File, mediaType string) (image.Config, error) {
+	if mediaType == "image/avif" {
+		return gavif.DecodeConfig(file)
+	}
+	config, _, err := image.DecodeConfig(file)
+	return config, err
+}
+
+func decodeVerifiedImage(file *os.File, mediaType string) (image.Image, error) {
+	if mediaType == "image/avif" {
+		return gavif.Decode(file)
+	}
+	decoded, _, err := image.Decode(file)
+	return decoded, err
+}
+
+// AVIF images are stored on a chroma-subsampled grid. Tiny tracking pixels and
+// odd-sized source images are still valid uploads, so pad only the affected
+// edge pixels instead of rejecting them or changing normal images.
+func normalizeAVIFImage(source image.Image) image.Image {
+	if source == nil {
+		return source
+	}
+	bounds := source.Bounds()
+	width, height := bounds.Dx(), bounds.Dy()
+	targetWidth, targetHeight := width, height
+	if targetWidth < 4 {
+		targetWidth = 4
+	}
+	if targetHeight < 4 {
+		targetHeight = 4
+	}
+	if targetWidth%2 != 0 {
+		targetWidth++
+	}
+	if targetHeight%2 != 0 {
+		targetHeight++
+	}
+	if targetWidth == width && targetHeight == height && bounds.Min == (image.Point{}) {
+		return source
+	}
+	canvas := image.NewRGBA(image.Rect(0, 0, targetWidth, targetHeight))
+	for y := 0; y < targetHeight; y++ {
+		sourceY := bounds.Min.Y + minImageCoord(y, height)
+		for x := 0; x < targetWidth; x++ {
+			sourceX := bounds.Min.X + minImageCoord(x, width)
+			canvas.Set(x, y, source.At(sourceX, sourceY))
+		}
+	}
+	return canvas
+}
+
+func minImageCoord(value, size int) int {
+	if size < 1 || value < 0 {
+		return 0
+	}
+	if value >= size {
+		return size - 1
+	}
+	return value
+}
+
+func imageConfigFor(source image.Image) image.Config {
+	if source == nil {
+		return image.Config{}
+	}
+	bounds := source.Bounds()
+	return image.Config{ColorModel: source.ColorModel(), Width: bounds.Dx(), Height: bounds.Dy()}
+}
+
+// encodeAVIFImage is deliberately the only image writer in the media store.
+// It makes the persisted bytes independent from the supplied filename and
+// browser MIME type, strips metadata and keeps the antivirus scan on the
+// final public asset instead of on an untrusted source representation.
+func (s *Store) encodeAVIFImage(ctx context.Context, decoded image.Image) (string, int64, string, error) {
+	cleanFile, err := os.CreateTemp(s.uploadDir, ".clean-*")
+	if err != nil {
+		return "", 0, "", err
+	}
+	cleanName := cleanFile.Name()
+	cleanup := func(err error) (string, int64, string, error) {
+		_ = cleanFile.Close()
+		_ = os.Remove(cleanName)
+		return "", 0, "", err
+	}
+	// gav1d's AVIF writer produces an AV1 bitstream that Chromium and libavif
+	// both render. The former experimental writer could create an AVIF that
+	// passed an internal decode check but appeared as a solid grey image in a
+	// real browser. Quality 88 is visually safe for UI screenshots, text and
+	// photographs while retaining AVIF's material size reduction.
+	if err = gavif.Encode(cleanFile, decoded, gavif.EncodeOptions{
+		Quality: 88,
+		Speed:   6,
+	}); err != nil {
+		return cleanup(err)
+	}
+	if err = cleanFile.Close(); err != nil {
+		_ = os.Remove(cleanName)
+		return "", 0, "", err
+	}
+	info, err := os.Stat(cleanName)
+	if err != nil || info.Size() < 1 || info.Size() > s.maxUploadBytes {
+		_ = os.Remove(cleanName)
+		if err != nil {
+			return "", 0, "", err
+		}
+		return "", 0, "", errors.New("规范化后的 AVIF 图片超过大小限制")
+	}
+	if err = s.scan(ctx, cleanName); err != nil {
+		_ = os.Remove(cleanName)
+		return "", 0, "", err
+	}
+	checksum, _, err := checksumFile(cleanName)
+	if err != nil {
+		_ = os.Remove(cleanName)
+		return "", 0, "", err
+	}
+	return cleanName, info.Size(), checksum, nil
+}
+
+// detectImageContentType performs signature checks instead of trusting the
+// browser supplied MIME header. http.DetectContentType does not recognize
+// AVIF and is deliberately supplemented with the ISO-BMFF AVIF brands.
+func DetectImageContentType(header []byte) string {
+	if len(header) >= 3 && header[0] == 0xff && header[1] == 0xd8 && header[2] == 0xff {
+		return "image/jpeg"
+	}
+	if len(header) >= 8 && string(header[:8]) == "\x89PNG\r\n\x1a\n" {
+		return "image/png"
+	}
+	if len(header) >= 6 && (string(header[:6]) == "GIF87a" || string(header[:6]) == "GIF89a") {
+		return "image/gif"
+	}
+	if len(header) >= 12 && string(header[:4]) == "RIFF" && string(header[8:12]) == "WEBP" {
+		return "image/webp"
+	}
+	if len(header) >= 12 && string(header[4:8]) == "ftyp" {
+		for offset := 8; offset+4 <= len(header); offset += 4 {
+			brand := string(header[offset : offset+4])
+			if brand == "avif" || brand == "avis" {
+				return "image/avif"
+			}
+		}
+	}
+	return http.DetectContentType(header)
+}
+
+// ImageExtension returns a safe generated filename suffix for a verified
+// image MIME type. Callers must still pass the bytes through SaveMedia.
+func ImageExtension(mediaType string) string {
+	return mediaImageExtension(mediaType)
+}
+
+func mediaImageExtension(mediaType string) string {
+	switch mediaType {
+	case "image/jpeg":
+		return ".jpg"
+	case "image/png":
+		return ".png"
+	case "image/gif":
+		return ".gif"
+	case "image/webp":
+		return ".webp"
+	case "image/avif":
+		return ".avif"
+	default:
+		return ""
+	}
+}
+
+func declaredImageType(ext string) string {
+	switch strings.ToLower(strings.TrimSpace(ext)) {
+	case ".jpg", ".jpeg":
+		return "image/jpeg"
+	case ".png":
+		return "image/png"
+	case ".gif":
+		return "image/gif"
+	case ".webp":
+		return "image/webp"
+	case ".avif":
+		return "image/avif"
+	default:
+		return ""
+	}
 }
 
 // ListMedia returns stable, paginated library rows. ReferenceCount covers
@@ -424,6 +593,199 @@ func (s *Store) OpenMedia(ctx context.Context, id int64) (Media, *os.File, os.Fi
 	return media, file, info, nil
 }
 
+// AVIFMigrationResult reports a bounded conversion pass over media uploaded
+// before CZCMS started normalizing every image to AVIF.
+type AVIFMigrationResult struct {
+	Scanned   int `json:"scanned"`
+	Converted int `json:"converted"`
+	Failed    int `json:"failed"`
+	Remaining int `json:"remaining"`
+}
+
+type legacyMedia struct {
+	ID          int64
+	StorageName string
+	SHA256      string
+}
+
+// MigrateExistingMediaToAVIF converts a bounded batch so an old library can
+// be upgraded without holding an admin request open for an unbounded amount
+// of time. It also repairs the malformed AVIF files emitted by the former
+// experimental encoder. The same media IDs are retained: cover and favicon
+// references stay valid, while rich-text image URLs use a new checksum token.
+func (s *Store) MigrateExistingMediaToAVIF(ctx context.Context, batchSize int) (AVIFMigrationResult, error) {
+	if batchSize < 1 || batchSize > 50 {
+		batchSize = 12
+	}
+	s.migrateMu.Lock()
+	defer s.migrateMu.Unlock()
+
+	rows, err := s.db.QueryContext(ctx, `SELECT id, storage_name, sha256 FROM media_files WHERE media_type <> 'image/avif' OR (media_type = 'image/avif' AND avif_encoder <> ?) ORDER BY id LIMIT ?`, browserAVIFEncoder, batchSize)
+	if err != nil {
+		return AVIFMigrationResult{}, err
+	}
+	items := make([]legacyMedia, 0, batchSize)
+	for rows.Next() {
+		var item legacyMedia
+		if err = rows.Scan(&item.ID, &item.StorageName, &item.SHA256); err != nil {
+			rows.Close()
+			return AVIFMigrationResult{}, err
+		}
+		items = append(items, item)
+	}
+	if err = rows.Close(); err != nil {
+		return AVIFMigrationResult{}, err
+	}
+
+	result := AVIFMigrationResult{Scanned: len(items)}
+	for _, item := range items {
+		if err = ctx.Err(); err != nil {
+			return result, err
+		}
+		current, currentErr := s.usesBrowserAVIFEncoder(item)
+		if currentErr != nil {
+			result.Failed++
+			continue
+		}
+		if current {
+			if err = s.markBrowserAVIFEncoder(ctx, item); err != nil {
+				result.Failed++
+			}
+			continue
+		}
+		if err = s.migrateOneMediaToAVIF(ctx, item); err != nil {
+			result.Failed++
+			continue
+		}
+		result.Converted++
+	}
+	if err = s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM media_files WHERE media_type <> 'image/avif' OR (media_type = 'image/avif' AND avif_encoder <> ?)`, browserAVIFEncoder).Scan(&result.Remaining); err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
+// usesBrowserAVIFEncoder checks the actual bytes rather than trusting the
+// database marker. The current codec performs a complete decode, allowing us
+// to identify old browser-incompatible AVIFs while leaving valid files alone.
+func (s *Store) usesBrowserAVIFEncoder(item legacyMedia) (bool, error) {
+	if item.ID < 1 || item.StorageName == "." || item.StorageName == "" || item.StorageName != filepath.Clean(item.StorageName) || filepath.Base(item.StorageName) != item.StorageName || strings.Contains(item.StorageName, `..`) {
+		return false, ErrMediaNotFound
+	}
+	file, err := os.Open(filepath.Join(s.uploadDir, item.StorageName))
+	if err != nil {
+		return false, err
+	}
+	defer file.Close()
+	_, err = gavif.Decode(file)
+	return err == nil, nil
+}
+
+func (s *Store) markBrowserAVIFEncoder(ctx context.Context, item legacyMedia) error {
+	updated, err := s.db.ExecContext(ctx, `UPDATE media_files SET avif_encoder = ?, updated_at = ? WHERE id = ? AND storage_name = ? AND sha256 = ?`, browserAVIFEncoder, time.Now().UTC().Format(time.RFC3339Nano), item.ID, item.StorageName, item.SHA256)
+	if err != nil {
+		return err
+	}
+	if affected, _ := updated.RowsAffected(); affected != 1 {
+		return ErrMediaConflict
+	}
+	return nil
+}
+
+func (s *Store) migrateOneMediaToAVIF(ctx context.Context, item legacyMedia) error {
+	if item.ID < 1 || item.StorageName == "." || item.StorageName == "" || item.StorageName != filepath.Clean(item.StorageName) || filepath.Base(item.StorageName) != item.StorageName || strings.Contains(item.StorageName, `..`) {
+		return ErrMediaNotFound
+	}
+	oldPath := filepath.Join(s.uploadDir, item.StorageName)
+	file, err := os.Open(oldPath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	header := make([]byte, 512)
+	read, _ := io.ReadFull(file, header)
+	detected := DetectImageContentType(header[:read])
+	if mediaImageExtension(detected) == "" {
+		return errors.New("旧媒体不是可转换的受支持图片")
+	}
+	if _, err = file.Seek(0, io.SeekStart); err != nil {
+		return err
+	}
+	decoded, err := decodeVerifiedImage(file, detected)
+	if err != nil && detected == "image/avif" {
+		if _, err = file.Seek(0, io.SeekStart); err != nil {
+			return err
+		}
+		// This fallback is intentionally limited to records already stored by
+		// CZCMS. New uploads never reach it: they must pass the current strict
+		// decoder at ingress, avoiding a second decoder for untrusted input.
+		decoded, err = legacyavif.Decode(file)
+	}
+	if err != nil {
+		return errors.New("旧媒体无法完整解码")
+	}
+	decoded = normalizeAVIFImage(decoded)
+	config := imageConfigFor(decoded)
+	if config.Width < 1 || config.Height < 1 || config.Width > 16000 || config.Height > 16000 || int64(config.Width)*int64(config.Height) > 40_000_000 {
+		return errors.New("旧媒体图片损坏或像素尺寸超过安全限制")
+	}
+	if err = file.Close(); err != nil {
+		return err
+	}
+	newPath, byteSize, checksum, err := s.encodeAVIFImage(ctx, decoded)
+	if err != nil {
+		return err
+	}
+	storageID, err := randomID()
+	if err != nil {
+		_ = os.Remove(newPath)
+		return err
+	}
+	storageName := storageID + ".avif"
+	finalPath := filepath.Join(s.uploadDir, storageName)
+	if err = os.Rename(newPath, finalPath); err != nil {
+		_ = os.Remove(newPath)
+		return err
+	}
+
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		_ = os.Remove(finalPath)
+		return err
+	}
+	defer tx.Rollback()
+	updated, err := tx.ExecContext(ctx, `UPDATE media_files SET storage_name = ?, media_type = 'image/avif', avif_encoder = ?, byte_size = ?, sha256 = ?, width = ?, height = ?, version = version + 1, updated_at = ? WHERE id = ? AND storage_name = ? AND sha256 = ?`, storageName, browserAVIFEncoder, byteSize, checksum, config.Width, config.Height, now, item.ID, item.StorageName, item.SHA256)
+	if err != nil {
+		_ = os.Remove(finalPath)
+		return err
+	}
+	affected, _ := updated.RowsAffected()
+	if affected != 1 {
+		_ = os.Remove(finalPath)
+		return ErrMediaConflict
+	}
+	oldURL := PublicMediaURL(item.ID, item.SHA256)
+	newURL := PublicMediaURL(item.ID, checksum)
+	if _, err = tx.ExecContext(ctx, `UPDATE content_locales SET body_html = REPLACE(body_html, ?, ?), updated_at = ? WHERE instr(body_html, ?) > 0`, oldURL, newURL, now, oldURL); err != nil {
+		_ = os.Remove(finalPath)
+		return err
+	}
+	// Revision snapshots can later be restored into a live body. Keep their
+	// embedded media URLs in sync as well, otherwise restoring an old revision
+	// would resurrect a stale checksum token and create a broken image.
+	if _, err = tx.ExecContext(ctx, `UPDATE content_revisions SET snapshot_json = REPLACE(snapshot_json, ?, ?) WHERE instr(snapshot_json, ?) > 0`, oldURL, newURL, oldURL); err != nil {
+		_ = os.Remove(finalPath)
+		return err
+	}
+	if err = tx.Commit(); err != nil {
+		_ = os.Remove(finalPath)
+		return err
+	}
+	_ = os.Remove(oldPath)
+	return nil
+}
+
 func (s *Store) SaveTheme(ctx context.Context, source io.Reader, declaredSize int64, userID int64) (Theme, error) {
 	if declaredSize > s.maxThemeBytes {
 		return Theme{}, errors.New("模板包超过大小限制")
@@ -492,7 +854,7 @@ func validateThemeArchive(filename string) (ThemeManifest, error) {
 	}
 	// Theme packages are declarative. Executable JavaScript and active SVG are
 	// deliberately excluded because public templates share the CMS origin.
-	allowed := map[string]bool{".html": true, ".css": true, ".json": true, ".png": true, ".jpg": true, ".jpeg": true, ".gif": true, ".webp": true, ".woff2": true, ".txt": true}
+	allowed := map[string]bool{".html": true, ".css": true, ".json": true, ".png": true, ".jpg": true, ".jpeg": true, ".gif": true, ".webp": true, ".avif": true, ".woff2": true, ".txt": true}
 	var total uint64
 	var manifest ThemeManifest
 	manifestFound := false

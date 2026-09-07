@@ -26,7 +26,7 @@ func main() {
 	}
 	if len(os.Args) > 1 && os.Args[1] == "backup-restore" {
 		if len(os.Args) != 4 {
-			logger.Error("用法: czcms backup-restore <备份文件名> <新数据库路径>")
+			logger.Error("用法: czcms backup-restore <备份文件名> <新的恢复目录>（旧版数据库快照使用新的数据库文件路径）")
 			os.Exit(2)
 		}
 		keys, keyErr := security.LoadKeyring(cfg.MasterKey, cfg.SecretsDir, cfg.Environment)
@@ -34,7 +34,7 @@ func main() {
 			logger.Error("加载密钥失败", "error", keyErr)
 			os.Exit(1)
 		}
-		backupService, backupErr := backup.New(nil, cfg.BackupDir, cfg.BackupKey, cfg.Environment, keys)
+		backupService, backupErr := backup.New(nil, cfg.BackupDir, cfg.UploadDir, cfg.ThemeDir, cfg.BackupKey, cfg.Environment, keys)
 		if backupErr != nil {
 			logger.Error("初始化备份恢复失败", "error", backupErr)
 			os.Exit(1)

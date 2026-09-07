@@ -53,6 +53,17 @@ func TestCatalogCRUDScopesSEORevisionsAndOptimisticLock(t *testing.T) {
 	if err != nil || len(languages) < 20 {
 		t.Fatalf("languages=%d err=%v", len(languages), err)
 	}
+	robots, err := service.GetSiteRobotsSettings(ctx, sites[0].ID)
+	if err != nil || robots.Version != 0 || robots.CustomRules != "" {
+		t.Fatalf("initial robots settings=%+v err=%v", robots, err)
+	}
+	robots, err = service.UpdateSiteRobotsSettings(ctx, sites[0].ID, userID, robots.Version, "# Partner crawler\nUser-agent: PartnerBot\nDisallow: /private/")
+	if err != nil || robots.Version != 1 || !strings.Contains(robots.CustomRules, "PartnerBot") {
+		t.Fatalf("robots update=%+v err=%v", robots, err)
+	}
+	if _, err = service.UpdateSiteRobotsSettings(ctx, sites[0].ID, userID, 0, "stale"); !errors.Is(err, ErrConflict) {
+		t.Fatalf("stale robots update error=%v, want conflict", err)
+	}
 
 	created, err := service.CreateContent(ctx, userID, CreateContentInput{
 		ContentType: "article", SiteID: sites[0].ID, Locale: "en", Status: "draft",
@@ -212,6 +223,52 @@ func TestCatalogCRUDScopesSEORevisionsAndOptimisticLock(t *testing.T) {
 	items, total, err := service.ListContents(ctx, otherID, ContentQuery{})
 	if err != nil || total != 0 || len(items) != 0 {
 		t.Fatalf("scope leak: total=%d items=%v err=%v", total, items, err)
+	}
+}
+
+func TestValidateStructuredDataObjectRejectsUnsafeAndUnfetchableImages(t *testing.T) {
+	tests := []struct {
+		name    string
+		input   string
+		wantErr bool
+	}{
+		{name: "empty generated schema", input: `{}`},
+		{name: "typed article", input: `{"@context":"https://schema.org","@type":"Article","headline":"Guide"}`},
+		{name: "absolute image", input: `{"@type":"Article","image":"https://cdn.example.test/guide.avif"}`},
+		{name: "javascript image", input: `{"@type":"Article","image":"javascript:alert(1)"}`, wantErr: true},
+		{name: "relative image", input: `{"@type":"Article","image":"/uploads/guide.avif"}`, wantErr: true},
+		{name: "unsafe sameAs", input: `{"@type":"Organization","sameAs":"data:text/plain,secret"}`, wantErr: true},
+		{name: "unsafe sameAs array", input: `{"@type":"Organization","sameAs":["https://www.example.test/profile","javascript:alert(1)"]}`, wantErr: true},
+		{name: "unsafe image array", input: `{"@type":"Article","image":["https://cdn.example.test/guide.avif","data:image/png;base64,AAAA"]}`, wantErr: true},
+		{name: "schema context array", input: `{"@context":["https://schema.org"],"@type":"Article"}`},
+		{name: "invalid schema context value", input: `{"@context":{"@vocab":"https://example.test/vocab"},"@type":"Article"}`, wantErr: true},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var object map[string]any
+			if err := json.Unmarshal([]byte(test.input), &object); err != nil {
+				t.Fatal(err)
+			}
+			err := validateStructuredDataObject(object)
+			if (err != nil) != test.wantErr {
+				t.Fatalf("validateStructuredDataObject() error=%v, wantErr=%v", err, test.wantErr)
+			}
+		})
+	}
+}
+
+func TestNormalizeProductGalleryKeepsCoverAndGalleryInSync(t *testing.T) {
+	cover := int64(8)
+	gotCover, gotIDs := normalizeProductGallery(&cover, []int64{12, 8, 12})
+	if gotCover == nil || *gotCover != 8 {
+		t.Fatalf("cover=%v, want 8", gotCover)
+	}
+	if fmt.Sprint(gotIDs) != "[8 12]" {
+		t.Fatalf("gallery=%v, want [8 12]", gotIDs)
+	}
+	gotCover, gotIDs = normalizeProductGallery(nil, []int64{21, 21, 22})
+	if gotCover == nil || *gotCover != 21 || fmt.Sprint(gotIDs) != "[21 22]" {
+		t.Fatalf("gallery-only normalization cover=%v gallery=%v", gotCover, gotIDs)
 	}
 }
 

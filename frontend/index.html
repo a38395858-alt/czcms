@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex,nofollow" />
     <meta name="csrf-token" content="{{.CSRFToken}}" />
     <title>控制台 · CZCMS</title>
-    <link rel="stylesheet" href="/assets/css/admin.css?v=20260901.01" />
+    <link rel="stylesheet" href="/assets/css/admin.css?v=20260906.01" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -43,6 +43,8 @@
       <symbol id="i-edit" viewBox="0 0 24 24"><path d="m4 16.5-.8 3.7 3.7-.8L18.5 7.8a2.1 2.1 0 0 0-3-3L4 16.5Z"/><path d="m13.8 6.2 4 4"/></symbol>
       <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"/><circle cx="12" cy="12" r="2.4"/></symbol>
       <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 3h4l1 4H9l1-4ZM6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 3-4 3 2 5-7"/><circle cx="7" cy="15" r="1"/><circle cx="10" cy="11" r="1"/><circle cx="13" cy="13" r="1"/><circle cx="18" cy="6" r="1"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
     </svg>
 
     <header class="topbar">
@@ -105,18 +107,26 @@
         <div class="content-subnav" data-content-subnav aria-label="内容管理二级菜单">
           <a href="#/admin/content?section=articles" data-content-section="articles">文章管理</a>
           <a href="#/admin/content?section=pages" data-content-section="pages">单页面</a>
-          <a href="#/admin/taxonomy" data-content-section="taxonomy">栏目与标签</a>
+        <a href="#/admin/taxonomy" data-content-section="taxonomy">栏目与标签</a>
         </div>
+        <a href="#/admin/products" data-route="products"><svg class="icon"><use href="#i-layers" /></svg><span>产品信息</span></a>
+        <div class="product-subnav" data-product-subnav aria-label="产品信息二级菜单">
+          <a href="#/admin/products" data-product-section="products">产品管理</a>
+          <a href="#/admin/product-categories" data-product-section="categories">产品栏目</a>
+        </div>
+        <a href="#/admin/metafields" data-route="metafields"><svg class="icon"><use href="#i-layers" /></svg><span>元字段</span></a>
         <a href="#/admin/templates" data-route="templates"><svg class="icon"><use href="#i-template" /></svg><span>模板管理</span></a>
         <a href="#/admin/seo" data-route="seo"><svg class="icon"><use href="#i-search" /></svg><span>SEO中心</span></a>
         <div class="seo-subnav" data-seo-subnav aria-label="SEO 中心二级菜单">
-          <a href="#/admin/seo?section=sitemap" data-seo-section="sitemap">站点地图设置</a>
+          <a href="#/admin/seo?section=sitemap" data-seo-section="sitemap">站点地图</a>
           <a href="#/admin/seo?section=robots" data-seo-section="robots">robots 设置</a>
+          <a href="#/admin/seo?section=spider" data-seo-section="spider">蜘蛛统计</a>
         </div>
         <a href="#/admin/localization" data-route="localization"><svg class="icon"><use href="#i-bot" /></svg><span>AI本土化</span></a>
         <a href="#/admin/urls" data-route="urls"><svg class="icon"><use href="#i-link" /></svg><span>URL与伪静态</span><svg class="icon icon-sm nav-chevron"><use href="#i-chevron" /></svg></a>
         <a href="#/admin/media" data-route="media"><svg class="icon"><use href="#i-image" /></svg><span>媒体中心</span><svg class="icon icon-sm nav-chevron"><use href="#i-chevron" /></svg></a>
         <a href="#/admin/publishing" data-route="publishing"><svg class="icon"><use href="#i-send" /></svg><span>发布管理</span></a>
+        <a href="#/admin/analytics" data-route="analytics"><svg class="icon"><use href="#i-chart" /></svg><span>流量统计</span></a>
         <a href="#/admin/jobs" data-route="jobs"><svg class="icon"><use href="#i-clipboard" /></svg><span>任务中心</span></a>
         <a href="#/admin/users" data-route="users"><svg class="icon"><use href="#i-users" /></svg><span>用户与权限</span></a>
         <a href="#/admin/audit" data-route="audit"><svg class="icon"><use href="#i-lock" /></svg><span>审计日志</span></a>
@@ -217,6 +227,6 @@
     </dialog>
 
     <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
-    <script type="module" src="/assets/js/app.mjs?v=20260901.01"></script>
+    <script type="module" src="/assets/js/app.mjs?v=20260906.01"></script>
   </body>
 </html>

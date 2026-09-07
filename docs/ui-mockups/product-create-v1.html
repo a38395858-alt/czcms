@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CZCMS · 新建产品界面设计稿</title>
+  <style>
+    :root { --ink:#10243e; --ink-2:#41566f; --muted:#718298; --line:#d9e2ec; --line-2:#c5d1df; --paper:#fff; --canvas:#f6f8fb; --primary:#0878eb; --primary-ink:#075db9; --primary-wash:#edf5ff; --green:#16845f; --green-wash:#eaf8f1; --amber:#a96b06; --amber-wash:#fff5df; --red:#be4b4b; font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif; color:var(--ink); background:var(--canvas); }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:1180px; background:var(--canvas); }
+    button, input, textarea, select { font:inherit; }
+    button, a { -webkit-tap-highlight-color:transparent; }
+    svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .board { padding:24px 28px 44px; }
+    .board-title { display:flex; align-items:flex-end; justify-content:space-between; max-width:1530px; margin:0 auto 18px; }
+    .board-title h1 { margin:0; font-size:21px; letter-spacing:-.03em; }
+    .board-title p { margin:5px 0 0; color:var(--muted); font-size:12px; }
+    .board-title > span { color:var(--muted); font-size:11px; }
+    .screen { display:grid; grid-template-columns:196px minmax(0,1fr); max-width:1530px; min-height:920px; margin:auto; border:1px solid var(--line); border-radius:9px; background:var(--paper); overflow:hidden; box-shadow:0 10px 32px rgba(25,52,83,.07); }
+    .side { border-right:1px solid var(--line); padding:18px 11px; background:#fff; }
+    .brand { height:37px; padding:0 12px; color:var(--primary); font-size:21px; font-weight:820; letter-spacing:-.06em; }
+    .brand small { margin-left:5px; color:#94a6b8; font-size:8px; letter-spacing:.1em; }
+    .nav { display:grid; gap:2px; margin-top:17px; }
+    .nav a { display:flex; align-items:center; gap:9px; min-height:38px; padding:0 12px; border-radius:6px; color:#45586e; text-decoration:none; font-size:12px; }
+    .nav a.active { background:var(--primary-wash); color:var(--primary); font-weight:700; }
+    .nav a.active svg { color:var(--primary); }
+    .subnav { display:grid; gap:1px; margin:0 0 7px 34px; padding-left:11px; border-left:1px solid #d3deeb; }
+    .subnav a { min-height:30px; padding:0 8px; font-size:11px; }
+    .subnav a.active { background:#f2f7fd; color:var(--primary); }
+    .main { min-width:0; }
+    .topbar { height:62px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; border-bottom:1px solid var(--line); background:#fff; }
+    .scope { display:flex; align-items:center; gap:8px; color:var(--ink); font-size:12px; font-weight:700; }
+    .scope small { color:var(--muted); font-weight:500; }
+    .top-actions { display:flex; align-items:center; gap:16px; }
+    .search { display:flex; align-items:center; gap:7px; width:245px; height:34px; padding:0 10px; border:1px solid var(--line); border-radius:6px; color:#8999ab; font-size:11px; }
+    .search kbd { margin-left:auto; padding:2px 5px; border:1px solid var(--line); border-radius:4px; color:var(--muted); font-size:9px; }
+    .profile { display:flex; align-items:center; gap:7px; color:var(--ink-2); font-size:11px; font-weight:700; }
+    .avatar { display:grid; place-items:center; width:27px; height:27px; border-radius:50%; background:var(--primary); color:#fff; font-size:9px; }
+    .content { padding:27px 30px 36px; background:#fbfcfe; }
+    .heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:19px; }
+    .crumb { margin-bottom:6px; color:var(--muted); font-size:10px; }
+    .heading h2 { margin:0; font-size:22px; letter-spacing:-.035em; }
+    .heading p { margin:6px 0 0; color:var(--muted); font-size:12px; }
+    .actions { display:flex; align-items:center; gap:8px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:38px; padding:0 13px; border:1px solid var(--line-2); border-radius:6px; background:#fff; color:var(--ink-2); font-size:11px; font-weight:700; cursor:pointer; }
+    .btn.primary { border-color:var(--primary); background:var(--primary); color:#fff; }
+    .btn:focus-visible, .input:focus-visible, .textarea:focus-visible, .select:focus-visible { outline:3px solid #cfe3fb; outline-offset:1px; border-color:var(--primary); }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) 295px; gap:17px; align-items:start; }
+    .column, .rail-card { border:1px solid var(--line); border-radius:8px; background:#fff; }
+    .column { overflow:hidden; }
+    .section { padding:17px 18px; border-bottom:1px solid var(--line); }
+    .section:last-child { border-bottom:0; }
+    .section-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:14px; }
+    .section-head h3 { margin:0; font-size:13px; }
+    .section-head p { margin:4px 0 0; color:var(--muted); font-size:10px; line-height:1.5; }
+    .pill { display:inline-flex; align-items:center; min-height:24px; padding:0 8px; border:1px solid #c9dff7; border-radius:999px; background:var(--primary-wash); color:var(--primary-ink); font-size:9px; font-weight:700; white-space:nowrap; }
+    .pill.green { border-color:#bee3d3; background:var(--green-wash); color:var(--green); }
+    .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { display:grid; gap:5px; min-width:0; }
+    .field.wide { grid-column:1/-1; }
+    .field label { color:var(--ink-2); font-size:10px; font-weight:700; }
+    .field label em { color:var(--red); font-style:normal; }
+    .input, .textarea, .select { width:100%; border:1px solid var(--line-2); border-radius:5px; background:#fff; color:var(--ink); font-size:11px; }
+    .input, .select { height:38px; padding:0 10px; }
+    .textarea { min-height:72px; padding:9px 10px; resize:vertical; line-height:1.5; }
+    .select { display:flex; align-items:center; justify-content:space-between; }
+    .select svg { color:var(--muted); width:14px; }
+    .hint { color:var(--muted); font-size:9px; line-height:1.45; }
+    .tagbox { display:flex; align-items:center; flex-wrap:wrap; gap:5px; min-height:38px; padding:5px 8px; border:1px solid var(--line-2); border-radius:5px; }
+    .tag { display:inline-flex; align-items:center; gap:4px; min-height:24px; padding:0 7px; border:1px solid #c9dff7; border-radius:999px; background:var(--primary-wash); color:var(--primary-ink); font-size:9px; }
+    .tag button { display:grid; place-items:center; width:16px; height:16px; padding:0; border:0; background:transparent; color:inherit; cursor:pointer; }
+    .tag button svg { width:11px; height:11px; }
+    .tagbox input { flex:1; min-width:130px; height:26px; border:0; outline:0; color:var(--ink); font-size:11px; }
+    .rich-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:3px; padding:7px 8px; border:1px solid var(--line-2); border-bottom:0; border-radius:5px 5px 0 0; background:#f8fafc; }
+    .tool { display:inline-flex; align-items:center; justify-content:center; min-width:30px; height:28px; padding:0 6px; border:1px solid transparent; border-radius:4px; background:transparent; color:var(--ink-2); font-size:10px; font-weight:700; cursor:pointer; }
+    .tool:hover, .tool.active { border-color:var(--line); background:#fff; color:var(--primary); }
+    .tool-sep { width:1px; height:19px; margin:0 3px; background:var(--line); }
+    .editor { min-height:170px; padding:12px 13px; border:1px solid var(--line-2); border-radius:0 0 5px 5px; color:var(--ink-2); font-size:11px; line-height:1.7; }
+    .editor h4 { margin:0 0 7px; color:var(--ink); font-size:15px; }
+    .editor p { margin:7px 0; }
+    .section:has(.media-drop) { display:none; }
+    .media-drop { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .cover-box, .gallery-box { min-height:186px; border:1px solid var(--line); border-radius:6px; background:#fcfdff; }
+    .cover-box { display:grid; grid-template-columns:136px minmax(0,1fr); gap:13px; align-items:center; padding:12px; }
+    .cover-preview { display:grid; place-items:center; width:136px; height:136px; border:1px solid #c9dff7; border-radius:5px; background:#edf5ff; color:var(--primary); }
+    .cover-preview svg { width:52px; height:52px; stroke-width:1.25; }
+    .media-copy { display:grid; gap:7px; min-width:0; }
+    .media-copy strong { font-size:11px; }
+    .media-copy p { margin:0; color:var(--muted); font-size:9px; line-height:1.5; }
+    .media-copy .btn { justify-self:start; min-height:32px; font-size:10px; }
+    .gallery-box { padding:11px; }
+    .gallery-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:9px; }
+    .gallery-head strong { font-size:11px; }
+    .gallery-head span { color:var(--muted); font-size:9px; }
+    .thumbs { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+    .thumb { position:relative; display:grid; place-items:center; aspect-ratio:1; border:1px solid #c9dff7; border-radius:5px; background:#eef5fb; color:#5d8fbd; }
+    .thumb svg { width:30px; height:30px; stroke-width:1.3; }
+    .thumb .remove { position:absolute; top:3px; right:3px; display:grid; place-items:center; width:19px; height:19px; border:1px solid #f0caca; border-radius:50%; background:#fff; color:var(--red); cursor:pointer; }
+    .thumb .remove svg { width:11px; height:11px; }
+    .thumb.add { border-style:dashed; background:#fff; color:var(--primary); }
+    .media-note { display:flex; align-items:center; gap:6px; margin-top:9px; padding:7px 8px; border:1px solid #d2e3f7; border-radius:5px; background:#f6faff; color:var(--primary-ink); font-size:9px; line-height:1.45; }
+    .media-note svg { flex:none; width:14px; height:14px; }
+    .meta-list { display:grid; gap:9px; }
+    .meta-row { display:grid; grid-template-columns:130px minmax(0,1fr) 70px; gap:10px; align-items:center; padding:9px 10px; border:1px solid var(--line); border-radius:6px; background:#fcfdff; }
+    .meta-name { display:grid; gap:2px; min-width:0; }
+    .meta-name strong { font-size:10px; }
+    .meta-name small { overflow:hidden; color:var(--muted); font:9px ui-monospace,Consolas,monospace; text-overflow:ellipsis; white-space:nowrap; }
+    .meta-row .input { height:34px; }
+    .meta-type { color:var(--muted); font-size:9px; text-align:right; }
+    .meta-footer { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:11px; }
+    .meta-footer a { color:var(--primary); font-size:10px; text-decoration:none; }
+    .meta-footer .btn { min-height:32px; font-size:10px; }
+    .rail { display:grid; gap:14px; }
+    .rail-card { overflow:hidden; }
+    .rail-media-card .rail-body { gap:10px; padding:12px; }
+    .rail-cover-preview { display:grid; place-items:center; aspect-ratio:16/10; border:1px solid #c9dff7; border-radius:5px; background:#edf5ff; color:var(--primary); }
+    .rail-cover-preview svg { width:42px; height:42px; stroke-width:1.25; }
+    .rail-media-actions { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .rail-media-actions strong { font-size:10px; }
+    .rail-media-actions small { display:block; margin-top:2px; color:var(--muted); font-size:9px; }
+    .rail-media-actions .btn { min-height:32px; padding:0 9px; font-size:10px; }
+    .rail-media-thumbs { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+    .rail-media-thumbs .thumb { min-width:0; }
+    .rail-media-card .media-note { margin-top:0; font-size:8.5px; }
+    .rail-head { display:flex; align-items:center; justify-content:space-between; min-height:53px; padding:0 16px; border-bottom:1px solid var(--line); }
+    .rail-head h3 { margin:0; font-size:13px; }
+    .rail-body { display:grid; gap:14px; padding:15px 16px; }
+    .rail-group { display:grid; gap:7px; }
+    .rail-group > label, .rail-group > strong { color:var(--ink-2); font-size:10px; font-weight:700; }
+    .rail-group small { color:var(--muted); font-size:9px; line-height:1.5; }
+    .status-select { display:flex; align-items:center; justify-content:space-between; min-height:38px; padding:0 10px; border:1px solid #bee3d3; border-radius:5px; background:var(--green-wash); color:var(--green); font-size:10px; font-weight:700; }
+    .status-select span { display:flex; align-items:center; gap:6px; }
+    .status-select i { width:7px; height:7px; border-radius:50%; background:currentColor; }
+    .switch-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px; border:1px solid var(--line); border-radius:5px; background:#fcfdff; }
+    .switch-row span { display:grid; gap:2px; }
+    .switch-row strong { font-size:10px; }
+    .switch-row small { font-size:9px; }
+    .switch { width:32px; height:19px; padding:2px; border-radius:99px; background:var(--primary); }
+    .switch i { display:block; width:15px; height:15px; margin-left:13px; border-radius:50%; background:#fff; }
+    .seo-preview { padding:10px; border:1px solid var(--line); border-radius:5px; background:#fcfdff; }
+    .seo-preview strong { display:block; overflow:hidden; color:#1a5eaf; font-size:11px; text-overflow:ellipsis; white-space:nowrap; }
+    .seo-preview code { display:block; margin:4px 0; overflow:hidden; color:var(--green); font:9px ui-monospace,Consolas,monospace; text-overflow:ellipsis; white-space:nowrap; }
+    .seo-preview p { margin:0; color:var(--ink-2); font-size:9px; line-height:1.5; }
+    .language-list { display:grid; gap:7px; }
+    .language { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:34px; padding:0 9px; border:1px solid var(--line); border-radius:5px; font-size:10px; }
+    .language span { display:flex; align-items:center; gap:7px; }
+    .language b { display:grid; place-items:center; width:22px; height:20px; border-radius:4px; background:var(--primary-wash); color:var(--primary); font-size:8px; }
+    .language em { color:var(--green); font-size:9px; font-style:normal; }
+    .language.pending em { color:var(--amber); }
+    .rail-foot { display:flex; gap:7px; padding:12px 16px; border-top:1px solid var(--line); background:#f8fafc; }
+    .rail-foot .btn { flex:1; min-height:36px; font-size:10px; }
+    .tip { display:flex; align-items:flex-start; gap:8px; padding:11px 12px; border:1px solid #d2e3f7; border-radius:6px; background:#f6faff; color:var(--primary-ink); font-size:9px; line-height:1.55; }
+    .tip svg { flex:none; margin-top:1px; color:var(--primary); }
+    @media (max-width:1280px) { body { min-width:1024px; } .board { padding:16px; } .screen { grid-template-columns:184px minmax(0,1fr); } .content { padding:24px 22px 32px; } .layout { grid-template-columns:minmax(0,1fr) 270px; } .media-drop { grid-template-columns:1fr; } }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; transition:none !important; animation:none !important; } }
+  </style>
+</head>
+<body>
+  <div class="board">
+    <div class="board-title"><div><h1>新建产品 · 后台界面设计稿</h1><p>产品信息 / 产品管理 · B 端资料展示、图片本地化与元字段扩展。</p></div><span>V1 · 2026.09</span></div>
+    <section class="screen">
+      <aside class="side">
+        <div class="brand">CZCMS <small>CONTROL</small></div>
+        <nav class="nav" aria-label="主导航">
+          <a href="#"><svg><use href="#home"/></svg>控制台</a>
+          <a href="#"><svg><use href="#globe"/></svg>站点管理</a>
+          <a href="#"><svg><use href="#file"/></svg>内容管理</a>
+          <div class="subnav"><a href="#">文章管理</a><a class="active" href="#">产品管理</a><a href="#">单页面</a></div>
+          <a class="active" href="#"><svg><use href="#layers"/></svg>产品信息</a>
+          <div class="subnav"><a class="active" href="#">产品管理</a><a href="#">产品栏目</a></div>
+          <a href="#"><svg><use href="#template"/></svg>模板管理</a>
+          <a href="#"><svg><use href="#search"/></svg>SEO 中心</a>
+          <a href="#"><svg><use href="#send"/></svg>发布管理</a>
+          <a href="#"><svg><use href="#settings"/></svg>系统设置</a>
+        </nav>
+      </aside>
+      <main class="main">
+        <header class="topbar"><div class="scope">Global Route <small>当前站点 · English</small><span class="pill">源语言</span></div><div class="top-actions"><div class="search"><svg><use href="#search"/></svg>搜索内容、URL 或任务<kbd>⌘ K</kbd></div><div class="profile"><span class="avatar">cz</span>cizchu　⌄</div></div></header>
+        <div class="content">
+          <div class="heading"><div><div class="crumb">产品信息 / 产品管理 / 新建产品</div><h2>新建产品</h2><p>先完成英语源版本；保存后可由 AI 生成其他站点的本土化草稿。</p></div><div class="actions"><button class="btn">取消</button><button class="btn">保存草稿</button><button class="btn primary"><svg><use href="#send"/></svg>发布产品</button></div></div>
+          <div class="layout">
+            <div class="column">
+              <section class="section"><div class="section-head"><div><h3>基础信息</h3><p>产品名称、栏目和 URL 是前台页面的核心识别信息。</p></div><span class="pill">英语源内容</span></div><div class="field-grid">
+                <div class="field wide"><label for="title">产品名称 <em>*</em></label><input class="input" id="title" value="International Express Shipping Service" aria-describedby="title-hint"><span class="hint" id="title-hint">建议使用客户能理解的产品/服务名称，AI 本土化会保留专有名词。</span></div>
+                <div class="field"><label for="slug">URL 别名 <em>*</em></label><input class="input" id="slug" value="international-express-shipping-service"></div>
+                <div class="field"><label>产品栏目 <em>*</em></label><div class="select" tabindex="0">国际快递服务<svg><use href="#chevron"/></svg></div></div>
+                <div class="field wide"><label for="summary">产品摘要</label><textarea class="textarea" id="summary">面向跨境企业的国际快递、清关与门到门配送解决方案。</textarea><span class="hint">用于产品列表、推荐模块和社交分享摘要，建议 80–160 个字符。</span></div>
+                <div class="field wide"><label>标签</label><div class="tagbox"><span class="tag">international shipping <button aria-label="移除标签"><svg><use href="#close"/></svg></button></span><span class="tag">customs clearance <button aria-label="移除标签"><svg><use href="#close"/></svg></button></span><input aria-label="输入标签" placeholder="输入标签后按 Enter 自动创建"></div></div>
+              </div></section>
+              <section class="section"><div class="section-head"><div><h3>产品内容</h3><p>富文本支持 H1–H4、列表、链接和本地图片粘贴；发布前会进行安全清洗。</p></div><span class="pill green">自动保存草稿</span></div><div class="rich-toolbar"><button class="tool active">正文</button><button class="tool">H1</button><button class="tool">H2</button><button class="tool">H3</button><button class="tool">H4</button><i class="tool-sep"></i><button class="tool"><b>B</b></button><button class="tool"><i>I</i></button><button class="tool">链接</button><button class="tool">列表</button><button class="tool">图片</button></div><div class="editor" contenteditable="true" aria-label="产品正文编辑器"><h4>International Express Shipping for Cross-border Business</h4><p>We provide reliable international express shipping services for B2B shipments, with customs coordination and door-to-door delivery.</p><p>Our operations team monitors each shipment from pickup to final delivery and provides proactive status updates for your customers.</p></div></section>
+              <section class="section"><div class="section-head"><div><h3>产品图片</h3><p>支持本地选择、拖拽上传和 Ctrl + V 粘贴；上传后统一生成 AVIF，并保留原图备份。</p></div><span class="pill green">AVIF 自动优化</span></div><div class="media-drop"><div class="cover-box"><div class="cover-preview" role="img" aria-label="产品主图预览"><svg><use href="#image"/></svg></div><div class="media-copy"><strong>产品主图</strong><p>建议 1600 × 1200px，主图用于列表、详情页和社交分享。</p><button class="btn primary"><svg><use href="#upload"/></svg>选择图片</button><p>支持 JPG / PNG / WebP · 最大 10MB</p></div></div><div class="gallery-box"><div class="gallery-head"><strong>产品图库</strong><span>已上传 3 / 12 张</span></div><div class="thumbs"><div class="thumb"><svg><use href="#package"/></svg><button class="remove" aria-label="删除图片"><svg><use href="#close"/></svg></button></div><div class="thumb"><svg><use href="#truck"/></svg><button class="remove" aria-label="删除图片"><svg><use href="#close"/></svg></button></div><div class="thumb"><svg><use href="#document"/></svg><button class="remove" aria-label="删除图片"><svg><use href="#close"/></svg></button></div><button class="thumb add" aria-label="添加产品图片"><svg><use href="#plus"/></svg></button></div><div class="media-note"><svg><use href="#info"/></svg><span>拖拽缩略图可调整顺序；每张图片可单独编辑 Alt 文本。</span></div></div></div></section>
+              <section class="section"><div class="section-head"><div><h3>扩展元字段</h3><p>字段来自元字段中心，适用于产品参数、认证和资料下载等 B 端信息。</p></div><span class="pill">按站点 / 语言保存</span></div><div class="meta-list"><div class="meta-row"><div class="meta-name"><strong>服务类型</strong><small>product.service_type</small></div><input class="input" value="International Express"><span class="meta-type">单行文本</span></div><div class="meta-row"><div class="meta-name"><strong>预计时效</strong><small>shipping.transit_time</small></div><input class="input" value="3–7 business days"><span class="meta-type">单行文本</span></div><div class="meta-row"><div class="meta-name"><strong>支持国家</strong><small>shipping.available_countries</small></div><input class="input" value="EU · US · CA · AU"><span class="meta-type">多选</span></div><div class="meta-row"><div class="meta-name"><strong>产品手册</strong><small>files.manual</small></div><button class="btn" style="justify-self:start;min-height:32px;font-size:10px"><svg><use href="#upload"/></svg>选择文件</button><span class="meta-type">文件</span></div></div><div class="meta-footer"><a href="#">管理元字段定义 →</a><button class="btn">添加字段</button></div></section>
+            </div>
+            <aside class="rail">
+              <section class="rail-card rail-media-card"><div class="rail-head"><h3>产品图片</h3><span class="pill green">AVIF 优化</span></div><div class="rail-body"><div class="rail-cover-preview" role="img" aria-label="产品主图预览"><svg><use href="#image"/></svg></div><div class="rail-media-actions"><div><strong>产品主图</strong><small>建议 1600 × 1200px · 最大 10MB</small></div><button class="btn primary"><svg><use href="#upload"/></svg>上传图片</button></div><div class="rail-media-thumbs"><div class="thumb"><svg><use href="#package"/></svg><button class="remove" aria-label="删除图片"><svg><use href="#close"/></svg></button></div><div class="thumb"><svg><use href="#truck"/></svg><button class="remove" aria-label="删除图片"><svg><use href="#close"/></svg></button></div><div class="thumb"><svg><use href="#document"/></svg><button class="remove" aria-label="删除图片"><svg><use href="#close"/></svg></button></div><button class="thumb add" aria-label="添加产品图片"><svg><use href="#plus"/></svg></button></div><div class="media-note"><svg><use href="#info"/></svg><span>支持 Ctrl + V 粘贴；拖拽缩略图排序，上传后统一生成 AVIF。</span></div></div></section>
+              <section class="rail-card"><div class="rail-head"><h3>发布设置</h3><span class="pill">草稿</span></div><div class="rail-body"><div class="rail-group"><label>发布状态</label><div class="status-select"><span><i></i>保存为草稿</span><svg><use href="#chevron"/></svg></div><small>发布前可随时继续编辑，草稿不会进入前台。</small></div><div class="rail-group"><label>发布时间</label><input class="input" type="datetime-local" value="2026-09-03T14:30"></div><div class="rail-group"><label>发布到站点</label><div class="switch-row"><span><strong>Global Route · English</strong><small>源语言 · 当前站点</small></span><span class="switch"><i></i></span></div><div class="switch-row"><span><strong>同步其他语言</strong><small>发布后创建 AI 本土化草稿</small></span><span class="switch"><i></i></span></div></div></div><div class="rail-foot"><button class="btn">预览</button><button class="btn primary">保存草稿</button></div></section>
+              <section class="rail-card"><div class="rail-head"><h3>SEO 设置</h3><span class="pill green">完整度 86%</span></div><div class="rail-body"><div class="rail-group"><label for="seo-title">SEO Title</label><input class="input" id="seo-title" value="International Express Shipping | Global Route"><small>建议 30–60 个字符 · <b style="color:var(--green)">52 / 60</b></small></div><div class="rail-group"><label for="seo-description">SEO Description</label><textarea class="textarea" id="seo-description" style="min-height:68px">Reliable international express shipping with customs support and door-to-door delivery for global businesses.</textarea><small>建议 120–160 个字符 · <b style="color:var(--amber)">94 / 160</b></small></div><div class="rail-group"><label>收录策略</label><div class="select" tabindex="0">index, follow<svg><use href="#chevron"/></svg></div></div><div class="seo-preview"><strong>International Express Shipping | Global Route</strong><code>globalroute.example/products/international-express-shipping-service</code><p>Reliable international express shipping with customs support and door-to-door delivery for global businesses.</p></div></div></section>
+              <section class="rail-card"><div class="rail-head"><h3>语言与模板</h3><span class="pill">1 / 6 已配置</span></div><div class="rail-body"><div class="language-list"><div class="language"><span><b>EN</b>English · 源版本</span><em>已完成</em></div><div class="language pending"><span><b>DE</b>Deutsch · AI 草稿</span><em>发布后生成</em></div><div class="language pending"><span><b>FR</b>Français · AI 草稿</span><em>发布后生成</em></div></div><small>每个站点使用独立语言模板；AI 只生成草稿，不直接覆盖人工内容。</small></div></section>
+              <div class="tip"><svg><use href="#info"/></svg><span>保存产品后会记录版本历史。图片、元字段、SEO 和语言同步均可单独回滚。</span></div>
+            </aside>
+          </div>
+        </div>
+      </main>
+    </section>
+  </div>
+  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+    <symbol id="home" viewBox="0 0 24 24"><path d="m4 11 8-7 8 7v9H4zM9 20v-6h6v6"/></symbol>
+    <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4a12 12 0 0 1 0 16M12 4a12 12 0 0 0 0 16"/></symbol>
+    <symbol id="file" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="layers" viewBox="0 0 24 24"><path d="m12 4 8 4-8 4-8-4 8-4Z"/><path d="m4 12 8 4 8-4M4 16l8 4 8-4"/></symbol>
+    <symbol id="template" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 9v11"/></symbol>
+    <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="send" viewBox="0 0 24 24"><path d="m4 4 16 8-16 8 3-8-3-8Z"/><path d="M7 12h13"/></symbol>
+    <symbol id="settings" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></symbol>
+    <symbol id="chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="close" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></symbol>
+    <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="upload" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4M5 20h14"/></symbol>
+    <symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></symbol>
+    <symbol id="image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 5-5 3 3 2-2 6 6"/></symbol>
+    <symbol id="package" viewBox="0 0 24 24"><path d="m4 8 8-4 8 4-8 4-8-4Z"/><path d="M4 8v9l8 4 8-4V8M12 12v9"/></symbol>
+    <symbol id="truck" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="document" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 13h6M9 17h5"/></symbol>
+  </defs></svg>
+</body>
+</html>

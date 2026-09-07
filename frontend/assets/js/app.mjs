@@ -1,4 +1,4 @@
-import { modules, navigationItems, quickActions } from './data.mjs?v=20260831.01'
+import { modules, navigationItems, quickActions } from './data.mjs?v=20260901.09'
 import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs?v=20260831.01'
 
 const $ = (selector, scope = document) => scope.querySelector(selector)
@@ -13,12 +13,13 @@ const localizationDialog = $('#localization-dialog')
 const localizationForm = $('#localization-form')
 const aiProviderDialog = $('#ai-provider-dialog')
 const aiProviderForm = $('#ai-provider-form')
-const realRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'templates', 'seo', 'urls', 'media', 'publishing', 'localization', 'users', 'audit', 'settings'])
-const apiRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'templates', 'seo', 'urls', 'media', 'publishing', 'localization', 'users', 'audit', 'settings'])
+const realRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'products', 'product-categories', 'metafields', 'templates', 'seo', 'urls', 'media', 'publishing', 'analytics', 'localization', 'users', 'audit', 'settings'])
+const apiRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'products', 'product-categories', 'metafields', 'templates', 'seo', 'urls', 'media', 'publishing', 'analytics', 'localization', 'users', 'audit', 'settings'])
 const siteScopedRoutes = new Set(['content', 'taxonomy', 'urls', 'publishing', 'localization'])
+const extendedSiteScopedRoutes = new Set([...siteScopedRoutes, 'products', 'product-categories'])
 const contentBulkSelectionLimit = 100
-const moduleState = { route: '', contentSection: '', contentScope: 'all', query: '', filter: '', selected: new Set() }
-const contentEditorState = { key: '', item: null, newLocale: false, draftTimer: 0, seoTimer: 0, dirty: false, rendering: false, richSelection: null, imageUploading: false }
+const moduleState = { route: '', contentSection: '', contentScope: 'all', query: '', filter: '', selected: new Set(), backupSelected: new Set(), analyticsSiteID: null, analyticsDays: 30, analyticsFrom: '', analyticsTo: '', spiderSiteID: null, spiderDays: 30, spiderFrom: '', spiderTo: '', spiderBot: '', spiderEngine: '', spiderStatus: 'all' }
+const contentEditorState = { key: '', item: null, newLocale: false, draftTimer: 0, seoTimer: 0, dirty: false, rendering: false, richSelection: null, metafieldRichSelections: new Map(), imageUploading: false, productGallery: [], productGalleryDragging: '' }
 const templateEditorState = {
   expandedID: '',
   filesByTheme: new Map(),
@@ -37,11 +38,14 @@ const liveState = {
   siteDomains: new Map(),
   templates: null,
   taxonomy: [],
+  metafields: [],
   roles: [],
   backups: [],
   systemStatus: null,
   aiConfiguration: null,
   seoSitemaps: null,
+  spider: null,
+  analytics: null,
   localizationAIAvailable: false,
   me: null,
   loaded: new Set(),
@@ -80,6 +84,28 @@ function showToast(message, timeout = 3200) {
   toast.innerHTML = `${icon('check')}<span>${escapeHtml(message)}</span>`
   $('#toast-region').append(toast)
   window.setTimeout(() => toast.remove(), timeout)
+}
+
+async function copyTextToClipboard(value) {
+  const text = String(value ?? '')
+  if (!text) throw new Error('没有可复制的 JSON-LD 内容')
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+  // Keep a keyboard-friendly fallback for local HTTP previews where the
+  // Clipboard API is unavailable or blocked by the browser permission model.
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  textarea.setAttribute('readonly', '')
+  textarea.style.position = 'fixed'
+  textarea.style.inset = '0 auto auto 0'
+  textarea.style.opacity = '0'
+  document.body.append(textarea)
+  textarea.select()
+  const copied = document.execCommand('copy')
+  textarea.remove()
+  if (!copied) throw new Error('浏览器未允许访问剪贴板，请展开 JSON-LD 后手动复制')
 }
 
 function can(permission) {
@@ -146,12 +172,14 @@ function viewPermission(route) {
   if (['dashboard', 'sites', 'languages'].includes(route)) return 'dashboard.view'
   if (route === 'content') return 'content.read'
   if (route === 'taxonomy') return 'content.read'
+  if (route === 'products' || route === 'product-categories' || route === 'metafields') return 'content.read'
   if (route === 'templates') return 'templates.manage'
   if (route === 'seo' || route === 'localization') return 'seo.manage'
   if (route === 'media') return 'media.read'
   if (route === 'users') return 'users.manage'
   if (route === 'audit') return 'audit.read'
   if (route === 'settings') return 'system.view'
+  if (route === 'analytics') return 'analytics.view'
   if (route === 'jobs') return 'jobs.manage'
   if (['urls', 'publishing'].includes(route)) return 'publishing.manage'
   return 'dashboard.view'
@@ -161,6 +189,8 @@ function applyNavigationPermissions() {
 	$$('.primary-nav [data-route]').forEach((link) => { link.hidden = !can(viewPermission(link.dataset.route)) })
 	const contentSubnav = $('[data-content-subnav]')
 	if (contentSubnav) contentSubnav.hidden = !can('content.read')
+	const productSubnav = $('[data-product-subnav]')
+	if (productSubnav) productSubnav.hidden = !can('content.read')
 	const settingsSubnav = $('[data-settings-subnav]')
 	if (settingsSubnav) settingsSubnav.hidden = !can('system.view')
 	const seoSubnav = $('[data-seo-subnav]')
@@ -172,6 +202,7 @@ function editPermission(route) {
     : route === 'languages' ? 'languages.manage'
       : route === 'content' ? 'content.write'
         : route === 'taxonomy' ? 'content.write'
+        : ['products', 'product-categories', 'metafields'].includes(route) ? 'content.write'
         : route === 'templates' ? 'templates.manage'
           : route === 'media' ? 'media.upload'
                 : route === 'users' ? 'users.manage'
@@ -202,6 +233,13 @@ async function fetchJSON(path, options = {}) {
   return payload
 }
 
+function requestErrorMessage(error) {
+  if (error instanceof TypeError && /fetch|network|failed/i.test(String(error.message || ''))) {
+    return '后台服务未连接，请确认 127.0.0.1:8080 已启动后再重试'
+  }
+  return error?.message || '网络连接失败，请稍后重试'
+}
+
 function closePopovers(except = null) {
   $$('.popover, .search-results').forEach((element) => {
     if (element !== except) element.hidden = true
@@ -226,7 +264,7 @@ function badge(value) {
 
 function renderStats(stats, className = '') {
   return `<section class="stats-grid ${className}" aria-label="关键状态">${stats.map((item) => `
-    <article class="stat-card"><div><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong></div><span class="stat-icon tone-${escapeHtml(item.tone)}">${icon(item.icon)}</span></article>
+    <article class="stat-card"><div><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong>${item.detail || ''}</div><span class="stat-icon tone-${escapeHtml(item.tone)}">${icon(item.icon)}</span></article>
   `).join('')}</section>`
 }
 
@@ -291,7 +329,7 @@ function renderTemplateRowActions(row) {
   </div>`
 }
 
-const templateGroupLabels = { layout: '公共结构', page: '页面模板', system: '系统页面' }
+const templateGroupLabels = { layout: '公共结构', page: '页面模板', product: '产品模板', system: '系统页面' }
 
 function templateDraftValue(file) {
   return file?._draft ?? file?.content ?? ''
@@ -305,19 +343,34 @@ function templateLineNumbers(source) {
 function templateFileIcon(file) {
   if (file?.key === 'home') return 'home'
   if (file?.key === 'header' || file?.key === 'footer') return 'layers'
+  if (file?.key === 'product_detail' || file?.key === 'product_category') return 'clipboard'
   if (file?.key === 'not_found') return 'alert'
   if (file?.key === 'search') return 'search'
   return 'file'
 }
 
+function templateFileManagementLinks(file) {
+  if (file?.key === 'page') return `<a class="template-page-manager-link" href="#/admin/content?section=pages" title="管理使用此模板的单页面">管理页面</a><a class="template-page-create-link" href="#/admin/content?section=pages&editor=create&content_type=page" title="新建一个单页面">新建页面</a>`
+  if (file?.key === 'product_detail') return `<a class="template-page-manager-link" href="#/admin/products" title="管理使用产品详情模板的产品">管理产品</a><a class="template-page-create-link" href="#/admin/content?section=products&editor=create&content_type=product" title="新建产品并测试模板">新建产品</a>`
+  if (file?.key === 'product_category') return `<a class="template-page-manager-link" href="#/admin/product-categories" title="管理产品栏目">管理栏目</a><a class="template-page-create-link" href="#/admin/products" title="为产品分配栏目">分配产品</a>`
+  return ''
+}
+
+function templateDataContract(file) {
+  const shared = `<code>.SiteName</code><code>.HomePath</code><code>.Locale</code><code>.Copy</code>`
+  if (file?.key === 'product_detail') return `<section class="template-data-contract"><h4>产品详情数据</h4><div class="template-variable-list">${shared}<code>.Content.H1</code><code>.Content.Summary</code><code>.Content.Body</code><code>.Content.Gallery</code><code>.Content.Tags</code></div><p>图库按后台排序输出；第一张图片即产品主图。产品的标题、正文、栏目与 SEO 均由产品管理页面维护。</p><a class="template-data-link" href="#/admin/products">打开产品管理测试</a></section>`
+  if (file?.key === 'product_category') return `<section class="template-data-contract"><h4>产品栏目数据</h4><div class="template-variable-list">${shared}<code>.TaxonomyName</code><code>.Published</code><code>.Published.Title</code><code>.Published.Summary</code><code>.Published.Gallery</code></div><p>栏目 URL 对应已发布产品列表；为空时显示明确空状态。栏目名称和层级在产品栏目中维护。</p><a class="template-data-link" href="#/admin/product-categories">打开产品栏目测试</a></section>`
+  return `<section><h4>可用数据</h4><div class="template-variable-list">${shared}<code>.Content</code><code>.Published</code></div><p>字段由服务端白名单提供，模板不能读取数据库、服务器文件或执行命令。</p></section>`
+}
+
 function renderTemplateFileTree(themeID, files, activeKey, assets = []) {
-  const groups = ['layout', 'page', 'system']
+  const groups = ['layout', 'page', 'product', 'system']
   return groups.map((group) => {
     const children = files.filter((file) => file.group === group)
     if (!children.length) return ''
     return `<section class="template-file-group" aria-labelledby="template-group-${escapeHtml(themeID)}-${group}">
       <h4 id="template-group-${escapeHtml(themeID)}-${group}">${escapeHtml(templateGroupLabels[group] || group)}<span>${children.length}</span></h4>
-      ${children.map((file) => `<div class="template-file-entry ${file.key === 'page' ? 'is-page' : ''}"><button class="template-file-button ${file.key === activeKey ? 'is-active' : ''} ${file._dirty ? 'is-dirty' : ''}" type="button" data-template-file="${escapeHtml(file.key)}" aria-pressed="${file.key === activeKey}">${icon(templateFileIcon(file), 'icon icon-sm')}<span><strong>${escapeHtml(file.label)}</strong><small>${escapeHtml(file.filename)}</small></span><i aria-label="${file._dirty ? '有未保存修改' : '已保存'}"></i></button>${file.key === 'page' ? `<a class="template-page-manager-link" href="#/admin/content?section=pages" title="管理使用此模板的单页面">管理页面</a><a class="template-page-create-link" href="#/admin/content?section=pages&editor=create&content_type=page" title="新建一个单页面">新建页面</a>` : ''}</div>`).join('')}
+      ${children.map((file) => `<div class="template-file-entry ${file.key === 'page' ? 'is-page' : ''} ${file.key === 'product_detail' || file.key === 'product_category' ? 'is-product-template' : ''}"><button class="template-file-button ${file.key === activeKey ? 'is-active' : ''} ${file._dirty ? 'is-dirty' : ''}" type="button" data-template-file="${escapeHtml(file.key)}" aria-pressed="${file.key === activeKey}">${icon(templateFileIcon(file), 'icon icon-sm')}<span><strong>${escapeHtml(file.label)}</strong><small>${escapeHtml(file.filename)}</small></span><i aria-label="${file._dirty ? '有未保存修改' : '已保存'}"></i></button>${templateFileManagementLinks(file)}</div>`).join('')}
     </section>`
   }).join('') + (assets.length ? `<section class="template-file-group" aria-label="模板 CSS 与 JS 资源"><h4>样式与交互<span>${assets.length}</span></h4>${assets.map((asset) => `<div class="template-file-entry"><button class="template-file-button ${asset.key === activeKey ? 'is-active' : ''} ${asset._dirty ? 'is-dirty' : ''}" type="button" data-template-asset="${escapeHtml(asset.key)}" aria-pressed="${asset.key === activeKey}">${icon(asset.type === 'css' ? 'layers' : 'code', 'icon icon-sm')}<span><strong>${escapeHtml(asset.label)}</strong><small>${escapeHtml(asset.filename)}</small></span><i aria-label="${asset._dirty ? '有未保存修改' : '已保存'}"></i></button></div>`).join('')}</section>` : '')
 }
@@ -377,7 +430,7 @@ function renderTemplateWorkspace(row) {
         </section>
         <aside class="template-inspector" aria-label="模板文件说明">
           ${renderTemplateValidation(active)}
-          <section><h4>可用数据</h4><div class="template-variable-list"><code>.SiteName</code><code>.HomePath</code><code>.Locale</code><code>.Copy</code><code>.Content</code><code>.Published</code></div><p>字段由服务端白名单提供，模板不能读取数据库、服务器文件或执行命令。</p></section>
+          ${templateDataContract(active)}
           <label class="template-change-note"><span>本次修改说明</span><textarea rows="3" maxlength="200" data-template-change-note placeholder="例如：调整英语站头部导航结构">${escapeHtml(note)}</textarea><small>会与修订版本一起写入审计记录。</small></label>
           <section class="template-revision-summary"><h4>修订记录</h4><p><strong>${escapeHtml(active.change_count || 0)}</strong> 次保存 · 最近由 ${escapeHtml(active.updated_by || 'CZCMS 系统')} 更新</p><small>${escapeHtml(formatDate(active.updated_at))}</small></section>
           <div class="template-draft-note">${icon('lock', 'icon icon-sm')}<span><strong>安全草稿</strong><small>保存只建立模板修订，不会直接替换正在运行的前台模板。</small></span></div>
@@ -423,6 +476,12 @@ function renderTaxonomyRowActions(row, editable) {
 	return `<div class="row-actions" aria-label="${label}操作"><button class="row-action-button row-action-edit" type="button" data-taxonomy-edit aria-label="编辑${label}">${icon('edit', 'icon icon-sm')}<span>编辑</span></button><button class="row-action-button row-action-danger" type="button" data-taxonomy-disable aria-label="停用${label}" ${disabled ? 'disabled title="此条目已经停用"' : ''}>${icon('trash', 'icon icon-sm')}<span>停用</span></button></div>`
 }
 
+function renderMetafieldRowActions(row, editable) {
+  if (!editable) return '—'
+  const label = escapeHtml(row.name || '元字段')
+  return `<div class="row-actions metafield-row-actions" aria-label="${label}操作"><button class="row-action-button row-action-edit" type="button" data-metafield-edit aria-label="编辑${label}">${icon('edit', 'icon icon-sm')}<span>编辑</span></button><button class="row-action-button row-action-danger" type="button" data-metafield-disable ${row._raw?.status === 'disabled' ? 'disabled' : ''} aria-label="停用${label}">${icon('trash', 'icon icon-sm')}<span>停用</span></button></div>`
+}
+
 function renderBulkActions(config) {
   const count = moduleState.selected.size
   if (moduleState.route === 'sites' && can('sites.manage')) {
@@ -459,7 +518,7 @@ function renderModuleTableRegion(config) {
 
 function renderModuleTable(config) {
   const route = moduleState.route
-  const explicitActions = ['sites', 'content', 'taxonomy', 'templates', 'media', 'localization', 'users', 'audit'].includes(route)
+  const explicitActions = ['sites', 'content', 'taxonomy', 'products', 'product-categories', 'metafields', 'templates', 'media', 'localization', 'users', 'audit'].includes(route)
   if (liveState.loading.has(route)) {
     return `<div class="module-loading" role="status" aria-label="正在读取${escapeHtml(config.entityName)}"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`
   }
@@ -485,7 +544,10 @@ function renderModuleTable(config) {
     const actionVerb = ['templates', 'publishing'].includes(route) ? '查看' : '编辑'
     const action = route === 'sites' ? renderSiteRowActions(row, editable)
       : route === 'content' ? renderContentRowActions(row, editable)
-        : route === 'taxonomy' ? renderTaxonomyRowActions(row, editable)
+      : route === 'taxonomy' ? renderTaxonomyRowActions(row, editable)
+        : route === 'products' ? renderContentRowActions(row, editable)
+        : route === 'product-categories' ? renderTaxonomyRowActions(row, editable)
+        : route === 'metafields' ? renderMetafieldRowActions(row, editable)
         : route === 'templates' ? renderTemplateRowActions(row)
           : route === 'media' ? renderMediaRowActions(row, editable)
             : route === 'users' ? renderUserRowActions(row, editable)
@@ -507,6 +569,9 @@ function renderModuleGuide(route) {
   if (route === 'content' && contentSection() === 'pages') return `<section class="module-guide" aria-label="单页面管理说明"><div><strong>一个页面，一个路径</strong><span>关于我们、联系我们与专题页都是独立内容实例，不是新建模板文件。</span></div><div><strong>使用当前语言模板</strong><span>页面会按站点 / Locale 绑定的 <code>pages/page.html</code> 渲染，可在模板管理中编辑外观。</span></div><div><strong>布局与收录可控</strong><span>默认规则：新建单页面默认 noindex；联系页建议保持 noindex，企业介绍、服务和专题可在编辑器中启用 index 并进入 Sitemap。</span></div></section>`
   if (route === 'content') return `<section class="module-guide" aria-label="内容发布流程"><div><strong>内容工作流</strong><span>草稿 → 提交审核 → 立即或定时发布</span></div><div><strong>SEO 独立配置</strong><span>每个站点 / Locale 分别保存标题、关键词、Canonical 和 JSON-LD</span></div><div><strong>URL 安全</strong><span>Slug 保存时检查冲突，旧路径请在 URL 与伪静态中建立重定向</span></div></section>`
 	if (route === 'taxonomy') return `<section class="module-guide" aria-label="栏目与标签说明"><div><strong>独立范围</strong><span>栏目和标签按站点与 Locale 隔离，不会误用到其他国家站</span></div><div><strong>层级栏目</strong><span>栏目可设置上级栏目；标签保持扁平，便于合并和筛选</span></div><div><strong>安全停用</strong><span>停用不会删除文章关系，历史页面和审计记录仍可追溯</span></div></section>`
+	if (route === 'products') return `<section class="module-guide" aria-label="产品管理说明"><div><strong>B 端展示</strong><span>产品只管理资料、参数、案例、下载与询盘，不包含购物车、支付、订单或库存交易。</span></div><div><strong>站点独立</strong><span>每个站点 / Locale 独立管理产品文案、SEO 与 URL，可由英语源内容生成本土化草稿。</span></div><div><strong>模板输出</strong><span>产品详情使用 <code>product/detail</code> 模板；前台图片与资料从媒体中心安全引用。</span></div></section>`
+	if (route === 'product-categories') return `<section class="module-guide" aria-label="产品栏目说明"><div><strong>层级分类</strong><span>栏目可设置父级，URL 自动检查冲突；产品可在编辑时输入或选择栏目。</span></div><div><strong>多语言隔离</strong><span>每个站点 / Locale 独立维护名称、URL、SEO 和模板 Key，避免误同步。</span></div><div><strong>模板匹配</strong><span>栏目默认使用 <code>product/category</code>；可在模板管理中为每种语言站调整展示结构。</span></div></section>`
+	if (route === 'metafields') return `<section class="module-guide" aria-label="元字段说明"><div><strong>稳定 Key</strong><span>Namespace / Key 创建后不可更改，便于在模板和 API 中长期安全引用。</span></div><div><strong>按对象扩展</strong><span>可绑定到产品、产品栏目、文章或单页面；值按站点、Locale 和对象严格隔离。</span></div><div><strong>本土化可控</strong><span>可标记为可翻译或允许 AI 生成；型号、数字、尺寸与认证建议保持人工锁定。</span></div></section>`
   if (route === 'templates') return `<section class="module-guide" aria-label="模板安装说明"><div><strong>声明式模板包</strong><span>必须包含 theme.json 和 Go HTML 模板</span></div><div><strong>自动安全检查</strong><span>拒绝脚本、活动 SVG、目录穿越、符号链接和压缩炸弹</span></div><div><strong>独立绑定</strong><span>进入站点编辑，为每个 Locale 选择不同的已验证模板</span></div></section>`
   if (route === 'urls') return `<section class="module-guide" aria-label="URL 状态码说明"><div><strong>301 / 308</strong><span>永久迁移，适合正式变更 Slug</span></div><div><strong>302 / 307</strong><span>临时跳转，不转移长期规范地址</span></div><div><strong>410 Gone</strong><span>明确告知搜索引擎内容已永久删除</span></div></section>`
   if (route === 'publishing') return `<section class="module-guide" aria-label="发布检查流程"><div><strong>1. 目标检查</strong><span>站点、Locale、模板绑定和权限</span></div><div><strong>2. 生成检查</strong><span>内容状态、SEO 字段和 URL 冲突</span></div><div><strong>3. 原子切换</strong><span>完成后记录页面数、结果和审计轨迹</span></div></section>`
@@ -526,19 +591,26 @@ function settingsSection() {
 
 function seoSection() {
   const section = currentRouteParams().get('section') || 'sitemap'
-  return ['sitemap', 'robots'].includes(section) ? section : 'sitemap'
+  return ['sitemap', 'robots', 'spider'].includes(section) ? section : 'sitemap'
 }
 
 function contentSection() {
   const section = currentRouteParams().get('section') || 'articles'
-  return section === 'pages' ? 'pages' : 'articles'
+  return ['pages', 'products'].includes(section) ? section : 'articles'
 }
 
 function contentModuleConfig() {
   const base = modules.content
-  const rows = base.rows.filter((row) => contentSection() === 'pages' ? row?._raw?.content_type === 'page' : row?._raw?.content_type !== 'page')
+  const section = contentSection()
+  const rows = base.rows.filter((row) => section === 'pages' ? row?._raw?.content_type === 'page' : section === 'products' ? row?._raw?.content_type === 'product' : row?._raw?.content_type !== 'page' && row?._raw?.content_type !== 'product')
   const countBy = (status) => rows.filter((row) => row.status === status).length
-  if (contentSection() !== 'pages') return {
+  if (section === 'products') return {
+    ...base,
+    title: '产品管理', subtitle: '维护 B 端产品信息展示、技术参数、资料下载与询盘入口', primaryAction: '新建产品', entityName: '产品',
+    stats: [{ label: '产品总数', value: String(rows.length), tone: 'blue', icon: 'layers' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '缺少 SEO', value: String(rows.filter((row) => !row._raw?.meta_description && !row._raw?.seo_title).length), tone: 'red', icon: 'search' }],
+    filters: ['全部产品', '草稿', '待审核', '已发布', '需要更新'], rows,
+  }
+  if (section !== 'pages') return {
     ...base,
     stats: [{ label: '内容总数', value: String(rows.length), tone: 'blue', icon: 'file' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '需要更新', value: String(countBy('需要更新')), tone: 'red', icon: 'alert' }],
     rows,
@@ -568,10 +640,58 @@ function renderSettingsTabs(section = settingsSection()) {
   return `<nav class="settings-tabs" aria-label="系统设置二级菜单">${tabs.map((tab) => `<a href="#/admin/settings?section=${tab.key}" ${tab.key === section ? 'aria-current="page"' : ''}>${escapeHtml(tab.label)}</a>`).join('')}</nav>`
 }
 
+function backupScopeLabel(record) {
+  return record?.scope || (record?.format === 'SQLite 数据库快照' ? '数据库' : '数据库 + 媒体 + 模板')
+}
+
+function renderBackupSettings() {
+  moduleState.route = 'settings'
+  const backups = liveState.backups ?? []
+  const loading = liveState.loading.has('settings')
+  const error = liveState.errors.get('settings')
+  const editable = can('backup.manage')
+  const fullCount = backups.filter((item) => backupScopeLabel(item) === '数据库 + 媒体 + 模板').length
+  const latest = backups[0]
+  const heading = `<div class="page-heading backup-page-heading"><div><span class="breadcrumb">系统设置 / 备份与恢复</span><h1 id="module-title">备份与恢复</h1><p>创建、导出和导入单个加密备份包；完整备份包含数据库、上传媒体和上传模板。</p></div>${editable ? `<div class="backup-header-actions"><button class="button button-secondary" type="button" data-backup-import>${icon('file', 'icon icon-sm')}导入备份</button><button class="button button-primary" type="button" data-backup-create ${loading ? 'disabled' : ''}>${icon('plus', 'icon icon-sm')}创建完整备份</button></div>` : ''}</div>${renderSettingsTabs('backups')}`
+  if (loading && !backups.length) {
+    moduleView.innerHTML = `${heading}<div class="module-loading" role="status"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`
+    return
+  }
+  if (error && !backups.length) {
+    moduleView.innerHTML = `${heading}<div class="module-error">${icon('alert')}<strong>暂时无法读取备份记录</strong><p>${escapeHtml(error)}</p><button class="button button-secondary" type="button" data-retry-module>重新加载</button></div>`
+    return
+  }
+  const stats = [
+    { label: '已验证备份', value: String(backups.length), tone: 'blue', icon: 'lock' },
+    { label: '完整网站备份', value: String(fullCount), tone: 'green', icon: 'check' },
+    { label: '最近备份大小', value: latest ? formatBytes(latest.byte_size) : '—', tone: 'cyan', icon: 'layers' },
+    { label: '最近验证', value: latest ? formatDate(latest.verified_at) : '尚无', tone: latest ? 'green' : 'gray', icon: 'clipboard' },
+  ]
+  const selectedCount = backups.filter((record) => moduleState.backupSelected.has(String(record.id))).length
+  const allSelected = backups.length > 0 && selectedCount === backups.length
+  const rows = backups.length ? backups.map((record) => `<tr class="${moduleState.backupSelected.has(String(record.id)) ? 'is-selected' : ''}">
+    <td><label class="backup-row-select"><input type="checkbox" data-backup-select value="${escapeHtml(record.id)}" aria-label="选择备份 ${escapeHtml(record.storage_name)}" ${moduleState.backupSelected.has(String(record.id)) ? 'checked' : ''}><span><strong>${escapeHtml(record.storage_name)}</strong><small>${escapeHtml(record.format || '已验证加密备份')}</small></span></label></td>
+    <td><span class="backup-scope">${icon('check', 'icon icon-sm')}${escapeHtml(backupScopeLabel(record))}</span></td>
+    <td>${formatBytes(record.byte_size)}</td>
+    <td><code class="backup-checksum" title="${escapeHtml(record.sha256 || '')}">${escapeHtml(String(record.sha256 || '').slice(0, 16))}…</code></td>
+    <td><span class="backup-verified">${icon('check', 'icon icon-sm')}已验证</span><small>${escapeHtml(formatDate(record.verified_at))}</small></td>
+    <td>${escapeHtml(record.creator_name || '系统')}</td>
+    <td><div class="row-actions backup-row-actions"><a class="row-action-button row-action-preview" href="/api/v1/system/backups/${encodeURIComponent(record.id)}/download" download>${icon('file', 'icon icon-sm')}<span>导出</span></a><button class="row-action-button row-action-danger" type="button" data-backup-delete data-backup-id="${escapeHtml(record.id)}" aria-label="删除备份 ${escapeHtml(record.storage_name)}">${icon('trash', 'icon icon-sm')}<span>删除</span></button></div></td>
+  </tr>`).join('') : `<tr><td colspan="7"><div class="empty-state">${icon('lock')}<strong>还没有可导出的备份</strong><p>创建后会进行 AES-256-GCM 加密、解密验证和 SQLite 完整性检查。</p></div></td></tr>`
+  const selectionBar = selectedCount ? `<div class="backup-selection-bar" role="region" aria-label="备份批量操作"><span><strong>已选 ${selectedCount} 个备份</strong><small>删除后文件和记录都会永久移除</small></span><div><button class="button button-danger button-compact" type="button" data-backup-bulk-delete>${icon('trash', 'icon icon-sm')}删除选中</button><button class="button button-quiet button-compact" type="button" data-backup-clear-selection>取消选择</button></div></div>` : ''
+  moduleView.innerHTML = `${heading}
+    ${renderStats(stats, 'module-stats backup-summary')}
+    <section class="backup-protected-note" aria-labelledby="backup-scope-title"><span>${icon('lock')}</span><div><h2 id="backup-scope-title">完整备份范围</h2><p><strong>包含：</strong>SQLite 数据库、内容、SEO、用户与审计、模板编辑内容、上传图片，以及上传的模板 ZIP 包。<strong>不包含：</strong>环境变量、主密钥、备份密钥、日志和 Redis 缓存。</p></div></section>
+    <section class="panel backup-records-panel" aria-labelledby="backup-records-title"><header class="panel-header"><div><h2 id="backup-records-title">加密备份文件</h2><p>导入文件必须使用同一套备份密钥；导入后会先解密、认证、检查清单和数据库完整性。</p></div><span class="backup-panel-status">${icon('lock', 'icon icon-sm')}AES-256-GCM</span></header>${selectionBar}<div class="table-scroll"><table class="backup-records-table"><thead><tr><th><label class="backup-select-all"><input type="checkbox" data-backup-select-all aria-label="选择全部备份" ${allSelected ? 'checked' : ''} ${backups.length ? '' : 'disabled'}><span>文件</span></label></th><th>内容范围</th><th>大小</th><th>SHA-256</th><th>校验时间</th><th>记录人</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div></section>
+    <section class="backup-restore-guide" aria-label="安全恢复流程"><div><span>1</span><strong>导出或导入</strong><small>使用本页导出 .czb，或将同密钥生成的 .czb 导入后验证。</small></div><div><span>2</span><strong>离线恢复</strong><small>停止服务后执行 <code>czcms backup-restore &lt;文件名&gt; &lt;新恢复目录&gt;</code>，不会覆盖在线文件。</small></div><div><span>3</span><strong>切换前验证</strong><small>在隔离目录检查数据库、图片与模板，再在维护窗口替换应用数据目录。</small></div></section>
+    ${!editable ? `<div class="backup-readonly-note">${icon('lock')}当前账号只有查看权限；创建、导入和导出备份需要“管理备份”权限。</div>` : ''}`
+}
+
 function renderSEOTabs(section = seoSection()) {
   const tabs = [
-    { key: 'sitemap', label: '站点地图设置', hint: 'Sitemap.xml 与收录范围' },
+    { key: 'sitemap', label: '站点地图', hint: '系统自动生成 · 只读' },
     { key: 'robots', label: 'robots 设置', hint: '抓取规则与测试屏蔽' },
+    { key: 'spider', label: '蜘蛛统计', hint: '搜索引擎抓取监控' },
   ]
   return `<nav class="settings-tabs seo-tabs" aria-label="SEO 中心二级菜单">${tabs.map((tab) => `<a href="#/admin/seo?section=${tab.key}" ${tab.key === section ? 'aria-current="page"' : ''}><span>${escapeHtml(tab.label)}</span><small>${escapeHtml(tab.hint)}</small></a>`).join('')}</nav>`
 }
@@ -579,6 +699,7 @@ function renderSEOTabs(section = seoSection()) {
 function renderContentTabs(section = contentSection()) {
   const tabs = [
     { key: 'articles', label: '文章管理', hint: '资讯、指南与产品内容' },
+    { key: 'products', label: '产品栏目', hint: 'B 端产品资料与技术参数' },
     { key: 'pages', label: '单页面', hint: '关于我们、联系我们与专题页面' },
   ]
   return `<nav class="settings-tabs content-tabs" aria-label="内容管理二级菜单">${tabs.map((tab) => `<a href="#/admin/content?section=${tab.key}" ${tab.key === section ? 'aria-current="page"' : ''}><span>${escapeHtml(tab.label)}</span><small>${escapeHtml(tab.hint)}</small></a>`).join('')}</nav>`
@@ -670,14 +791,150 @@ function seoExternalLink(url, label, iconName = 'eye') {
   return `<a class="row-action-button row-action-preview" href="${escapeHtml(url)}" target="_blank" rel="noopener">${icon(iconName, 'icon icon-sm')}<span>${escapeHtml(label)}</span></a>`
 }
 
+function seoRobotsEditorAction(site) {
+  if (!can('seo.manage')) return ''
+  const siteID = seoSiteID(site)
+  if (!siteID) return ''
+  return `<button class="row-action-button row-action-edit" type="button" data-seo-robots-edit data-site-id="${escapeHtml(siteID)}" aria-label="编辑${escapeHtml(site.name)}的 robots 规则">${icon('edit', 'icon icon-sm')}<span>编辑</span></button>`
+}
+
+// SEO centre responses expose `site_id`, while the site-management API uses
+// `id`. Keeping the compatibility boundary here prevents a missing data
+// attribute from making the robots editor look like an unresponsive button.
+function seoSiteID(site) {
+  const value = Number(site?.site_id ?? site?.id ?? 0)
+  return Number.isSafeInteger(value) && value > 0 ? String(value) : ''
+}
+
+function spiderToday() {
+  return new Date().toISOString().slice(0, 10)
+}
+
+function spiderDelta(current, previous) {
+  const now = Number(current || 0), before = Number(previous || 0)
+  if (!before) return { text: now ? '已有抓取数据' : '暂无对比数据', state: now ? 'positive' : 'neutral' }
+  const value = ((now - before) / before) * 100
+  return { text: `${value >= 0 ? '↑' : '↓'} ${Math.abs(value).toFixed(1)}%`, state: value >= 0 ? 'positive' : 'negative' }
+}
+
+const spiderEngineGroups = [
+  { key: 'Google', label: 'Google', hint: 'Googlebot' },
+  { key: 'Bing', label: 'Bing', hint: 'Bingbot' },
+  { key: 'GPT / OpenAI', label: 'GPT / OpenAI', hint: 'GPTBot、OAI-SearchBot' },
+  { key: 'Gemini', label: 'Gemini', hint: 'Google-Extended、GeminiBot' },
+  { key: '其他 AI', label: '其他 AI', hint: 'Claude、Perplexity' },
+  { key: '其他搜索引擎', label: '其他', hint: '百度、Yandex 等' },
+]
+
+function spiderTrendSVG(trend = []) {
+  const values = trend.map((item) => Math.max(0, Number(item.requests || 0)))
+  const success = trend.map((item) => Math.max(0, Number(item.success || 0)))
+  const errors = trend.map((item) => Math.max(0, Number(item.errors || 0)))
+  const max = Math.max(...values, 1)
+  const width = 820, height = 260, left = 58, right = 22, top = 18, bottom = 44
+  const usableHeight = height - top - bottom
+  const pointsFor = (series) => series.map((value, index) => {
+    const x = series.length <= 1 ? width / 2 : left + (width - left - right) * index / (series.length - 1)
+    const y = height - bottom - usableHeight * value / max
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  })
+  const points = pointsFor(values), successPoints = pointsFor(success), errorPoints = pointsFor(errors)
+  const baseline = height - bottom
+  const area = points.length ? `${left},${baseline} ${points.join(' ')} ${width - right},${baseline}` : ''
+  const grid = [.0, .25, .5, .75, 1].map((level) => {
+    const y = top + usableHeight * (1 - level)
+    return `<path class="spider-gridline" d="M${left} ${y.toFixed(1)}H${width - right}"></path><text class="spider-axis-label" x="${left - 10}" y="${(y + 4).toFixed(1)}" text-anchor="end">${Math.round(max * level).toLocaleString('zh-CN')}</text>`
+  }).join('')
+  const labelIndexes = Array.from(new Set([0, Math.floor((trend.length - 1) / 4), Math.floor((trend.length - 1) / 2), Math.floor((trend.length - 1) * .75), Math.max(0, trend.length - 1)])).filter((index) => trend[index])
+  const labels = labelIndexes.map((index) => {
+    const x = values.length <= 1 ? width / 2 : left + (width - left - right) * index / (values.length - 1)
+    return `<text class="spider-axis-label spider-axis-date" x="${x.toFixed(1)}" y="${height - 14}" text-anchor="middle">${escapeHtml(trend[index].date?.slice(5) || '')}</text>`
+  }).join('')
+  const dots = points.map((point) => `<circle class="spider-point" cx="${point.split(',')[0]}" cy="${point.split(',')[1]}" r="3.2"></circle>`).join('')
+  return `<div class="spider-chart" role="img" aria-label="按日蜘蛛抓取请求趋势"><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">${grid}${area ? `<polygon class="spider-area" points="${area}"></polygon><polyline class="spider-line spider-line-requests" points="${points.join(' ')}"></polyline><polyline class="spider-line spider-line-success" points="${successPoints.join(' ')}"></polyline><polyline class="spider-line spider-line-errors" points="${errorPoints.join(' ')}"></polyline>${dots}` : ''}${labels}</svg></div>`
+}
+
+function spiderBotBars(items = []) {
+  if (!items.length) return '<div class="spider-empty-inline">当前周期暂无蜘蛛请求</div>'
+  const max = Math.max(...items.map((item) => Number(item.requests || 0)), 1)
+  return `<ul class="spider-bot-bars">${items.slice(0, 6).map((item) => {
+    const value = Number(item.requests || 0)
+    const verification = item.verified ? '来源已验证' : 'UA 识别，未验证'
+    return `<li><div class="spider-bot-row"><span class="spider-bot-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</span><strong>${value.toLocaleString('zh-CN')}</strong></div><span class="spider-bar-track" aria-hidden="true"><i style="width:${Math.max(3, Math.round(value / max * 100))}%"></i></span><small>${escapeHtml(item.engine || '其他搜索引擎')} · ${escapeHtml(verification)}</small></li>`
+  }).join('')}</ul>`
+}
+
+function spiderTopPagesPanel(items = []) {
+  const groups = spiderEngineGroups.map((group) => ({ ...group, items: items.filter((item) => item.engine === group.key) }))
+  const chosen = groups.some((group) => group.key === moduleState.spiderEngine) ? moduleState.spiderEngine : ''
+  const active = chosen || groups.find((group) => group.items.length)?.key || 'Google'
+  const activeGroup = groups.find((group) => group.key === active) || groups[0]
+  const tabButtons = groups.map((group, index) => {
+    const selected = group.key === active
+    return `<button class="spider-engine-tab ${selected ? 'is-active' : ''}" type="button" role="tab" id="spider-engine-tab-${index}" aria-controls="spider-engine-panel-${index}" aria-selected="${selected}" tabindex="${selected ? '0' : '-1'}" data-spider-engine="${escapeHtml(group.key)}"><span>${escapeHtml(group.label)}</span><b>${group.items.length}</b></button>`
+  }).join('')
+  const rows = activeGroup.items.length ? activeGroup.items.slice(0, 5).map((item, index) => `<tr><td class="spider-page-rank">${index + 1}</td><td><strong title="${escapeHtml(item.path)}">${escapeHtml(item.path)}</strong><small>${escapeHtml(item.title || item.content_type || '未命名页面')}</small></td><td><span class="spider-bot-label" title="${escapeHtml(item.bot)}">${escapeHtml(item.bot)}</span></td><td class="spider-number">${Number(item.requests || 0).toLocaleString('zh-CN')} 次</td><td class="spider-number">${Number(item.share || 0).toFixed(1)}%</td><td>${escapeHtml(formatDate(item.last_crawled_at))}</td></tr>`).join('') : `<tr><td colspan="6"><div class="spider-empty-inline">本周期暂无 ${escapeHtml(activeGroup.label)} 蜘蛛的抓取记录</div></td></tr>`
+  const activeIndex = Math.max(0, groups.findIndex((group) => group.key === active))
+  return `<section class="panel spider-top-pages-panel"><header class="panel-header"><div><h2>本周期抓取最多的页面</h2><p>按搜索引擎与 AI 蜘蛛分类，最多显示每类前 5 个 URL。</p></div><span class="spider-panel-value">${activeGroup.items.length ? `Top ${Math.min(activeGroup.items.length, 5)}` : '暂无数据'}</span></header><div class="spider-engine-tabs" role="tablist" aria-label="按蜘蛛分类查看热门页面">${tabButtons}</div><div class="table-scroll" id="spider-engine-panel-${activeIndex}" role="tabpanel" aria-labelledby="spider-engine-tab-${activeIndex}" tabindex="0"><table class="module-table spider-table spider-top-pages-table"><thead><tr><th scope="col">排名</th><th scope="col">URL / 页面</th><th scope="col">UA 标识</th><th scope="col">抓取次数</th><th scope="col">分类占比</th><th scope="col">最后抓取</th></tr></thead><tbody>${rows}</tbody></table></div><footer class="spider-top-pages-footer">${escapeHtml(activeGroup.hint)} · 分类和次数均基于 User-Agent 识别，未表示已验证的蜘蛛身份。</footer></section>`
+}
+
+function exportSpiderCSV() {
+  const payload = liveState.spider
+  if (!payload) { showToast('暂无可导出的蜘蛛数据'); return }
+  const rows = [['分区', '分类', '日期/路径', '蜘蛛', '状态', '内容类型', '标题', '请求数']]
+  for (const item of payload.trend || []) rows.push(['每日趋势', '', item.date, '', '', '', '', item.requests])
+  for (const item of payload.bots || []) rows.push(['蜘蛛来源', item.engine, '', item.name, '', '', '', item.requests])
+  for (const item of payload.top_pages || []) rows.push(['热门页面', item.engine, item.path, item.bot, '', item.content_type, item.title, item.requests])
+  for (const item of payload.recent || []) rows.push(['最近抓取', '', item.path, item.bot, item.status, item.content_type, item.title, 1])
+  const cell = (value) => {
+    let text = String(value ?? '')
+    if (/^[=+\-@]/.test(text)) text = `'${text}`
+    return `"${text.replaceAll('"', '""')}"`
+  }
+  const csv = '\ufeff' + rows.map((row) => row.map(cell).join(',')).join('\r\n') + '\r\n'
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
+  const link = document.createElement('a'); link.href = url; link.download = `czcms-spider-${payload.site_id || 'all'}-${payload.from || spiderToday()}_${payload.to || spiderToday()}.csv`; link.click()
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+  showToast('蜘蛛统计 CSV 已开始下载')
+}
+
+function renderSpiderStats() {
+  const payload = liveState.spider
+  const loading = liveState.loading.has('seo')
+  const error = liveState.errors.get('seo')
+  const currentID = moduleState.spiderSiteID === null ? currentSiteID() : moduleState.spiderSiteID
+  const siteOptions = [`<option value="0" ${Number(currentID) === 0 ? 'selected' : ''}>所有可访问站点</option>`, ...liveState.sites.map((site) => `<option value="${escapeHtml(site.id)}" ${Number(currentID) === Number(site.id) ? 'selected' : ''}>${escapeHtml(site.name)}</option>`)].join('')
+  const botOptions = [`<option value="">全部 UA 标识</option>`, ...(payload?.bots || []).map((item) => `<option value="${escapeHtml(item.name)}" ${moduleState.spiderBot === item.name ? 'selected' : ''}>${escapeHtml(item.engine ? `${item.engine} · ${item.name}` : item.name)}</option>`)].join('')
+  const statusOptions = [['all', '全部状态'], ['2xx', '2xx 成功'], ['3xx', '3xx 跳转'], ['4xx', '4xx 异常'], ['5xx', '5xx 异常']].map(([value, label]) => `<option value="${value}" ${moduleState.spiderStatus === value ? 'selected' : ''}>${label}</option>`).join('')
+  const from = moduleState.spiderFrom || '', to = moduleState.spiderTo || '', today = spiderToday()
+  const heading = `<div class="page-heading spider-page-heading"><div><span class="breadcrumb">SEO 中心 / 蜘蛛统计</span><h1 id="module-title">蜘蛛统计</h1><p>按搜索引擎和 AI 的 User-Agent 分类抓取记录，及时发现重要页面的可访问性问题。</p></div><div class="page-heading-actions"><button class="button button-secondary" type="button" data-spider-export ${loading || !payload ? 'disabled' : ''}>${icon('download', 'icon icon-sm')}导出日志</button><button class="button button-primary" type="button" data-spider-refresh ${loading ? 'disabled' : ''}>${icon('refresh', 'icon icon-sm')}${loading ? '刷新中…' : '刷新数据'}</button></div></div>${renderSEOTabs('spider')}`
+  if (loading && !payload) { moduleView.innerHTML = `${heading}<div class="module-loading" role="status"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`; return }
+  if (error && !payload) { moduleView.innerHTML = `${heading}<div class="module-error" role="alert">${icon('alert')}<strong>暂时无法读取蜘蛛统计</strong><p>${escapeHtml(error)}</p><button class="button button-secondary" type="button" data-spider-refresh>重新加载</button></div>`; return }
+  const summary = payload?.summary || {}, previous = payload?.previous || {}
+  const stats = [
+    { label: '抓取请求', value: Number(summary.requests || 0).toLocaleString('zh-CN'), delta: spiderDelta(summary.requests, previous.requests), tone: 'blue', icon: 'bot' },
+    { label: '已抓取 URL', value: Number(summary.crawled_urls || 0).toLocaleString('zh-CN'), delta: spiderDelta(summary.crawled_urls, previous.crawled_urls), tone: 'cyan', icon: 'link' },
+    { label: '成功响应', value: `${Number(summary.success_rate || 0).toFixed(1)}%`, delta: { text: `${Number(summary.success || 0).toLocaleString('zh-CN')} 次 2xx`, state: 'positive' }, tone: 'green', icon: 'check' },
+    { label: '需处理异常', value: Number(summary.errors || 0).toLocaleString('zh-CN'), delta: summary.errors ? { text: '包含 4xx / 5xx URL', state: 'negative' } : { text: '当前周期无异常', state: 'neutral' }, tone: summary.errors ? 'red' : 'gray', icon: summary.errors ? 'alert' : 'lock' },
+  ]
+  const recentRows = payload?.recent?.length ? payload.recent.map((item) => `<tr><td><strong>${escapeHtml(item.path)}</strong><small>${escapeHtml(item.title || '未命名页面')}</small></td><td>${escapeHtml(item.bot)}</td><td><span class="spider-status spider-status-${item.status_code >= 400 ? 'error' : item.status_code >= 300 ? 'redirect' : 'ok'}">${escapeHtml(item.status)}</span></td><td>${escapeHtml(item.content_type || '页面')}</td><td>${escapeHtml(formatDate(item.last_crawled_at))}</td></tr>`).join('') : '<tr><td colspan="5"><div class="spider-empty-inline">当前周期还没有抓取记录</div></td></tr>'
+  const alerts = (payload?.alerts || []).map((item) => `<li class="spider-alert spider-alert-${escapeHtml(item.severity)}"><span class="spider-alert-icon">${icon(item.severity === 'high' ? 'alert' : item.severity === 'low' ? 'check' : 'refresh', 'icon icon-sm')}</span><span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.detail)}</small></span><b>${item.severity === 'high' ? '高' : item.severity === 'medium' ? '中' : '正常'}</b></li>`).join('')
+  moduleView.innerHTML = `${heading}<section class="spider-controls" aria-label="蜘蛛统计筛选"><label><span>统计站点</span><select data-spider-site>${siteOptions}</select></label><label><span>蜘蛛 UA</span><select data-spider-bot>${botOptions}</select></label><label><span>响应状态</span><select data-spider-status>${statusOptions}</select></label><div class="spider-range" role="group" aria-label="统计周期">${[7, 30, 90].map((value) => `<button class="filter-button ${!from && !to && Number(moduleState.spiderDays) === value ? 'is-active' : ''}" type="button" data-spider-days="${value}" aria-pressed="${!from && !to && Number(moduleState.spiderDays) === value}">${value} 天</button>`).join('')}</div><label class="spider-date"><span>开始</span><input type="date" data-spider-from value="${escapeHtml(from)}" max="${today}"></label><span class="spider-to">至</span><label class="spider-date"><span>结束</span><input type="date" data-spider-to value="${escapeHtml(to)}" max="${today}"></label><button class="button button-primary spider-apply" type="button" data-spider-custom-range>应用</button></section>${renderStats(stats.map((item) => ({ label: item.label, value: item.value, tone: item.tone, icon: item.icon, detail: `<span class="spider-stat-delta is-${item.delta.state}">${escapeHtml(item.delta.text)}</span>` })), 'module-stats spider-summary')}<div class="spider-grid"><div class="spider-main-column"><section class="panel spider-trend-panel"><header class="panel-header"><div><h2>每日抓取趋势</h2><p><span class="spider-legend spider-legend-requests"></span>请求 <span class="spider-legend spider-legend-success"></span>成功 <span class="spider-legend spider-legend-errors"></span>异常</p></div><span class="spider-panel-value">${Number(summary.requests || 0).toLocaleString('zh-CN')} 次</span></header>${spiderTrendSVG(payload?.trend)}</section>${spiderTopPagesPanel(payload?.top_pages || [])}<section class="panel spider-recent-panel"><header class="panel-header"><div><h2>最近抓取的内容</h2><p>重要页面的最新搜索引擎访问记录</p></div><span>${payload?.recent?.length || 0} 条</span></header><div class="table-scroll"><table class="module-table spider-table"><thead><tr><th>URL / 页面</th><th>蜘蛛</th><th>状态</th><th>内容类型</th><th>最近抓取</th></tr></thead><tbody>${recentRows}</tbody></table></div></section></div><aside class="spider-side-rail"><section class="panel spider-bots-panel"><header class="panel-header"><div><h2>蜘蛛来源</h2><p>按抓取请求占比</p></div><span class="spider-live-dot">实时采集</span></header>${spiderBotBars(payload?.bots || [])}</section><section class="panel spider-alerts-panel"><header class="panel-header"><div><h2>需要关注</h2><p>自动识别抓取异常</p></div><span>${payload?.alerts?.length || 0} 项</span></header><ul class="spider-alert-list">${alerts || '<li class="spider-empty-inline">暂无异常</li>'}</ul><footer class="spider-alert-footer">${payload?.to ? `统计截止 ${escapeHtml(payload.to)} · ` : ''}系统持续采集</footer></section></aside></div><section class="spider-privacy-note" role="note">${icon('lock', 'icon icon-sm')}仅按公开页面的 User-Agent 识别蜘蛛分类；不保存 IP、完整 User-Agent、Cookie 或查询参数。本地或未验证来源可能被伪造，正式站点应结合反向 DNS 验证。</section>`
+}
+
 function renderSEOCenter() {
   moduleState.route = 'seo'
+  if (seoSection() === 'spider') {
+    renderSpiderStats()
+    return
+  }
   const payload = liveState.seoSitemaps
   const loading = liveState.loading.has('seo')
   const error = liveState.errors.get('seo')
   const section = seoSection()
   const sectionLabel = section === 'robots' ? 'robots' : '站点地图'
-  const heading = `<div class="page-heading seo-page-heading"><div><h1 id="module-title">SEO 中心</h1><p>${section === 'robots' ? '查看每个站点的 robots.txt 抓取策略与本地测试屏蔽状态。' : '查看每个站点的 Sitemap.xml、收录范围和自动排除规则。'}</p></div><button class="button button-primary" type="button" data-seo-refresh ${loading ? 'disabled' : ''}>${icon('refresh', 'icon icon-sm')}${loading ? '刷新中…' : '刷新状态'}</button></div>${renderSEOTabs(section)}`
+  const robotsActions = `<div class="page-heading-actions seo-robots-heading-actions"><button class="button button-secondary" type="button" data-seo-robots-help>${icon('lock', 'icon icon-sm')}规则说明</button>${can('seo.manage') && payload?.sites?.length ? `<button class="button button-primary" type="button" data-seo-robots-create>${icon('edit', 'icon icon-sm')}新建规则</button>` : ''}<button class="button button-secondary" type="button" data-seo-refresh ${loading ? 'disabled' : ''}>${icon('refresh', 'icon icon-sm')}${loading ? '刷新中…' : '刷新状态'}</button></div>`
+  const heading = `<div class="page-heading seo-page-heading ${section === 'robots' ? 'seo-robots-page-heading' : ''}"><div>${section === 'robots' ? '<span class="breadcrumb">SEO 中心 / robots 设置</span><h1 id="module-title">robots 设置</h1><p>每个站点一行，查看规则状态后直接进入对应站点编辑。</p>' : '<h1 id="module-title">SEO 中心</h1><p>查看每个站点的 Sitemap.xml、内容 / 栏目 / 标签归档收录范围和自动排除规则。站点地图由系统自动生成，仅供查看。</p>'}</div>${section === 'robots' ? robotsActions : `<button class="button button-primary" type="button" data-seo-refresh ${loading ? 'disabled' : ''}>${icon('refresh', 'icon icon-sm')}${loading ? '刷新中…' : '刷新状态'}</button>`}</div>${section === 'robots' ? '' : renderSEOTabs(section)}`
   if (!payload && !error) {
     moduleView.innerHTML = `${heading}<div class="module-loading" role="status" aria-label="正在读取${sectionLabel}状态"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`
     return
@@ -691,17 +948,24 @@ function renderSEOCenter() {
   const stats = [
     { label: '接入站点', value: String(summary.site_count ?? sites.length), tone: 'blue', icon: 'globe' },
     { label: '运行中站点', value: String(summary.active_site_count ?? sites.filter((site) => site.status === 'active').length), tone: 'green', icon: 'check' },
-    { label: '可收录内容 URL', value: Number(summary.indexable_page_count ?? 0).toLocaleString('zh-CN'), tone: 'cyan', icon: 'search' },
-    { label: section === 'robots' ? '单页面 noindex' : '单页面暂不进地图', value: Number(summary.single_page_excluded_count ?? 0).toLocaleString('zh-CN'), tone: 'gray', icon: 'lock' },
+    { label: '可收录 URL', value: Number(summary.indexable_page_count ?? 0).toLocaleString('zh-CN'), tone: 'cyan', icon: 'search' },
+    { label: section === 'robots' ? '自动禁止单页' : '单页面暂不进地图', value: Number(summary.single_page_excluded_count ?? 0).toLocaleString('zh-CN'), tone: 'gray', icon: 'lock' },
   ]
   if (section === 'robots') {
     const robotsRows = sites.length ? sites.map((site) => {
       const localRobots = site.robots_url || ''
       const publicRobots = site.public_robots_url || ''
       const active = site.status !== 'disabled'
-      return `<tr><td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td><td><a class="seo-machine-url" href="${escapeHtml(localRobots)}" target="_blank" rel="noopener" title="${escapeHtml(localRobots)}">${icon('lock', 'icon icon-sm')}<code>/robots.txt</code></a></td><td><span class="seo-robots-policy ${active ? 'is-active' : 'is-disabled'}"><strong>${active ? '自动生成' : '站点已停用'}</strong><small>${active ? '生产允许抓取，测试端口禁止收录' : '不会提供公开入口'}</small></span></td><td><span class="seo-count-stack"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>页面级 noindex</span></span></td><td><div class="row-actions seo-public-actions">${seoExternalLink(publicRobots, '正式 robots', 'lock')}</div></td></tr>`
-    }).join('') : `<tr><td colspan="5"><div class="empty-state">${icon('lock')}<strong>当前账号还没有可管理的站点</strong><p>新增站点后会自动生成 robots.txt。</p></div></td></tr>`
-    moduleView.innerHTML = `${heading}${renderStats(stats, 'module-stats seo-summary')}<section class="seo-automation-note" aria-labelledby="seo-robots-automation-title"><span class="seo-automation-icon">${icon('lock')}</span><div><h2 id="seo-robots-automation-title">robots 自动化策略</h2><p>正式域名允许公开页面抓取，并屏蔽后台、API、登录、账户和预览路径；localhost 测试端口固定返回 <code>Disallow: /</code>。单页面依靠页面级 <code>noindex,follow</code>，不会写入 robots 禁止规则。</p></div></section><section class="panel seo-sitemap-panel seo-robots-panel" aria-labelledby="seo-robots-title"><header class="panel-header"><div><h2 id="seo-robots-title">站点 robots 入口</h2><p>每个站点一份动态 robots.txt；发布和站点状态变更后自动更新。</p></div><span class="seo-panel-status">${icon('refresh', 'icon icon-sm')}实时查询</span></header><div class="table-scroll"><table class="seo-sitemap-table seo-robots-table"><thead><tr><th>站点</th><th>本地测试入口</th><th>抓取策略</th><th>自动屏蔽</th><th>正式域名入口</th></tr></thead><tbody>${robotsRows}</tbody></table></div></section><section class="seo-operation-note" aria-label="robots 操作说明"><div>${icon('lock')}<span><strong>本地测试保护</strong><small>本地端口的 robots 会禁止全部抓取，避免开发内容被搜索引擎收录。</small></span></div><div>${icon('file')}<span><strong>无需手工编辑</strong><small>robots.txt 由系统按站点状态和环境生成，不建议直接上传覆盖。</small></span></div></section>`
+      const hasPublicRobots = Boolean(site.primary_domain && publicRobots && publicRobots !== '/robots.txt')
+      const publicationClass = active && hasPublicRobots ? 'is-published' : active ? 'is-pending' : 'is-disabled'
+      const publicationLabel = active && hasPublicRobots ? '已发布' : active ? '待绑定域名' : '站点已停用'
+      const publicationDetail = hasPublicRobots ? escapeHtml(site.primary_domain) : active ? '仅本地测试' : '不提供公开入口'
+      const publication = hasPublicRobots
+        ? `<a class="seo-robots-status ${publicationClass}" href="${escapeHtml(publicRobots)}" target="_blank" rel="noopener" aria-label="打开${escapeHtml(site.name)}的正式 robots"><i aria-hidden="true"></i><span><strong>${publicationLabel}</strong><small>${publicationDetail} · 正式 robots</small></span></a>`
+        : `<span class="seo-robots-status ${publicationClass}"><i aria-hidden="true"></i><span><strong>${publicationLabel}</strong><small>${publicationDetail}</small></span></span>`
+      return `<tr><td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td><td><span class="seo-robots-entry"><a href="${escapeHtml(localRobots)}" target="_blank" rel="noopener" title="${escapeHtml(localRobots)}">${icon('lock', 'icon icon-sm')}<code>/robots.txt</code></a><small>localhost:${escapeHtml(site.local_port)}</small></span></td><td><span class="seo-robots-policy ${active ? 'is-active' : 'is-disabled'}"><i aria-hidden="true"></i><span><strong>${active ? '自动策略' : '抓取已关闭'}</strong><small>${active ? '后台、动态路径与 noindex 页面' : '站点当前不提供公开抓取'}</small></span></span></td><td><span class="seo-count-stack seo-robots-count"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面</span></span></td><td>${publication}</td><td class="seo-robots-action"><div class="row-actions">${seoRobotsEditorAction(site)}</div></td></tr>`
+    }).join('') : `<tr><td colspan="6"><div class="empty-state">${icon('lock')}<strong>当前账号还没有可管理的站点</strong><p>新增站点后会自动生成 robots.txt。</p></div></td></tr>`
+    moduleView.innerHTML = `${heading}<section class="seo-automation-note seo-robots-automation-note" id="seo-robots-policy-info" tabindex="-1" aria-labelledby="seo-robots-automation-title"><span class="seo-automation-icon">${icon('lock')}</span><div><h2 id="seo-robots-automation-title">系统规则会自动合并到每个站点</h2><p>robots 自动化策略默认屏蔽后台、API、登录、媒体图片与动态查询；<code>noindex</code> 单页面会自动加入禁止抓取。自定义规则只影响所属站点，系统安全规则与 Sitemap 规则始终保留。</p></div></section><div class="seo-robots-summary"><div><h2 id="seo-robots-title">站点 robots</h2><p>每个站点一份动态 robots.txt，选择任意站点进行编辑</p></div><span><strong>${sites.length}</strong> 个站点 · 规则按站点独立保存</span></div><section class="panel seo-sitemap-panel seo-robots-panel" aria-labelledby="seo-robots-title"><div class="table-scroll"><table class="seo-sitemap-table seo-robots-table"><thead><tr><th>站点</th><th>robots 入口</th><th>抓取策略</th><th>自动屏蔽</th><th>发布状态</th><th><span class="visually-hidden">操作</span></th></tr></thead><tbody>${robotsRows}</tbody></table></div></section><section class="seo-operation-note" aria-label="robots 操作说明"><div>${icon('lock')}<span><strong>本地测试保护</strong><small>本地端口始终返回 <code>Disallow: /</code>，避免开发内容被搜索引擎抓取。</small></span></div><div>${icon('edit')}<span><strong>站点级编辑</strong><small>点击“编辑”只修改该站点的自定义规则；系统安全规则和 Sitemap 规则会继续保留。</small></span></div></section>`
     return
   }
   const rows = sites.length ? sites.map((site) => {
@@ -710,7 +974,7 @@ function renderSEOCenter() {
     return `<tr>
       <td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td>
       <td><a class="seo-machine-url" href="${escapeHtml(localSitemap)}" target="_blank" rel="noopener" title="${escapeHtml(localSitemap)}">${icon('file', 'icon icon-sm')}<code>/sitemap.xml</code></a></td>
-      <td><div class="seo-count-stack"><strong>${Number(site.indexable_page_count || 0).toLocaleString('zh-CN')}</strong><span>可收录内容 · ${Number(site.language_count || 0)} 个可渲染语言</span></div></td>
+      <td><div class="seo-count-stack"><strong>${Number(site.indexable_page_count || 0).toLocaleString('zh-CN')}</strong><span>内容、栏目与标签归档 · ${Number(site.language_count || 0)} 个可渲染语言</span></div></td>
       <td><div class="seo-count-stack seo-noindex-count"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面 noindex</span></div></td>
       <td><span class="seo-state seo-state-${state.tone}"><i></i><strong>${escapeHtml(state.label)}</strong><small>${escapeHtml(state.detail)}</small></span></td>
       <td><div class="row-actions seo-public-actions">${seoExternalLink(site.public_sitemap_url, '正式 Sitemap')}</div></td>
@@ -718,9 +982,9 @@ function renderSEOCenter() {
   }).join('') : `<tr><td colspan="6"><div class="empty-state">${icon('globe')}<strong>当前账号还没有可管理的上线站点</strong><p>新增站点并绑定语言模板后，系统会自动提供对应 sitemap.xml。</p></div></td></tr>`
   moduleView.innerHTML = `${heading}
     ${renderStats(stats, 'module-stats seo-summary')}
-    <section class="seo-automation-note" aria-labelledby="seo-automation-title"><span class="seo-automation-icon">${icon('check')}</span><div><h2 id="seo-automation-title">自动化收录规则</h2><p>已发布、允许 index 且可被当前模板渲染的内容会自动进入所属站点地图。<strong>单页面</strong>新建默认输出 <code>noindex,follow</code>；企业介绍、服务和专题页经审核后可在编辑器设为 <code>index,follow</code> 并进入 Sitemap。系统不使用 robots.txt 的 Disallow 代替页面 robots 指令。</p></div></section>
-    <section class="panel seo-sitemap-panel" aria-labelledby="seo-sitemap-title"><header class="panel-header"><div><h2 id="seo-sitemap-title">站点地图入口</h2><p>每个站点一份动态 sitemap.xml。新增站点、绑定语言模板或发布内容后无需手工生成。</p></div><span class="seo-panel-status">${icon('refresh', 'icon icon-sm')}实时查询</span></header><div class="table-scroll"><table class="seo-sitemap-table"><thead><tr><th>站点</th><th>本地 Sitemap</th><th>收录范围</th><th>自动排除</th><th>生成状态</th><th>正式 Sitemap</th></tr></thead><tbody>${rows}</tbody></table></div></section>
-    <section class="seo-operation-note" aria-label="站点地图操作说明"><div>${icon('link')}<span><strong>上线方式</strong><small>在“站点管理”绑定并解析正式域名后，对应域名会自动提供 <code>/sitemap.xml</code>；本地端口仅用于预览。</small></span></div><div>${icon('file')}<span><strong>内容变化</strong><small>发布、定时到点、修改 robots_index、删除内容或切换模板后，下一次访问即得到更新后的地图。</small></span></div></section>`
+    <section class="seo-automation-note" aria-labelledby="seo-automation-title"><span class="seo-automation-icon">${icon('check')}</span><div><h2 id="seo-automation-title">自动化收录规则</h2><p>已发布、允许 index 且可被当前模板渲染的内容会自动进入所属站点地图；关联内容存在时，<strong>栏目与标签归档页</strong>也会自动进入。<strong>单页面</strong>新建默认输出 <code>noindex,follow</code> 并自动由 robots 禁止抓取；企业介绍、服务和专题页经审核后可在编辑器设为 <code>index,follow</code>，系统会同步移除禁止规则并纳入 Sitemap。</p></div></section>
+    <section class="panel seo-sitemap-panel" aria-labelledby="seo-sitemap-title"><header class="panel-header"><div><h2 id="seo-sitemap-title">站点地图（自动生成）</h2><p>每个站点一份动态 sitemap.xml；内容、栏目、标签、模板和收录策略变化后自动更新，不提供人工编辑。</p></div><span class="seo-panel-status">${icon('lock', 'icon icon-sm')}系统只读</span></header><div class="table-scroll"><table class="seo-sitemap-table"><thead><tr><th>站点</th><th>本地 Sitemap</th><th>收录范围</th><th>自动排除</th><th>生成状态</th><th>正式 Sitemap</th></tr></thead><tbody>${rows}</tbody></table></div></section>
+    <section class="seo-operation-note" aria-label="站点地图操作说明"><div>${icon('link')}<span><strong>上线方式</strong><small>在“站点管理”绑定并解析正式域名后，对应域名会自动提供 <code>/sitemap.xml</code>；本地端口仅用于预览。</small></span></div><div>${icon('file')}<span><strong>自动更新</strong><small>发布、定时到点、修改 robots_index、删除内容或切换模板后，系统自动更新地图；无需也不能手工编辑。</small></span></div></section>`
 }
 
 function renderModule(route, options = {}) {
@@ -730,8 +994,16 @@ function renderModule(route, options = {}) {
 		renderAISettings()
 		return
 	}
+	if (route === 'settings' && settingsSection() === 'backups') {
+		renderBackupSettings()
+		return
+	}
 	if (route === 'seo') {
 		renderSEOCenter()
+		return
+	}
+	if (route === 'analytics') {
+		renderAnalytics()
 		return
 	}
   const sectionKey = route === 'content' ? contentSection() : ''
@@ -745,13 +1017,13 @@ function renderModule(route, options = {}) {
   const selectedCount = moduleState.selected.size
   const permission = editPermission(route)
   const showPrimary = !realRoutes.has(route) || can(permission)
-  const scopedSite = siteScopedRoutes.has(route) ? currentSite() : null
+  const scopedSite = extendedSiteScopedRoutes.has(route) ? currentSite() : null
   const scopeLabel = route === 'content' ? contentScopeLabel() : scopedSite ? `当前站点：${scopedSite.name}` : ''
   const statusText = liveState.loading.has(route) ? '正在读取…' : liveState.errors.has(route) ? '读取失败' : selectedCount ? `已选择 ${selectedCount} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : `共 ${filterRows(config.rows, moduleState.query, moduleState.filter).length} 条记录`
   moduleView.innerHTML = `
     <div class="page-heading">
       <div><h1 id="module-title">${escapeHtml(config.title)}</h1><p>${escapeHtml(config.subtitle)}${scopeLabel ? `<span class="module-scope">${escapeHtml(scopeLabel)}</span>` : ''}</p></div>
-      ${showPrimary ? `<button class="button button-primary" type="button" data-module-primary>${icon('plus', 'icon icon-sm')}${escapeHtml(config.primaryAction)}</button>` : ''}
+      <div class="page-heading-actions">${route === 'media' && can('media.upload') ? `<button class="button button-secondary" type="button" data-media-migrate-avif>${icon('refresh', 'icon icon-sm')}迁移旧图片为 AVIF</button>` : ''}${showPrimary ? `<button class="button button-primary" type="button" data-module-primary>${icon('plus', 'icon icon-sm')}${escapeHtml(config.primaryAction)}</button>` : ''}</div>
     </div>
     ${route === 'content' ? renderContentTabs(contentSection()) : route === 'settings' ? renderSettingsTabs(settingsSection()) : ''}
     ${renderStats(config.stats, 'module-stats')}
@@ -923,7 +1195,7 @@ function applyRoute() {
     document.body.classList.remove('editor-fullscreen-open')
   }
 	$$('.primary-nav a').forEach((link) => {
-		if (link.dataset.route === route || (route === 'taxonomy' && link.dataset.route === 'content')) link.setAttribute('aria-current', 'page')
+		if (link.dataset.route === route || (route === 'taxonomy' && link.dataset.route === 'content') || (route === 'product-categories' && link.dataset.route === 'products')) link.setAttribute('aria-current', 'page')
 		else link.removeAttribute('aria-current')
 	})
 	$$('[data-settings-section]').forEach((link) => {
@@ -936,6 +1208,11 @@ function applyRoute() {
 	})
 	$$('[data-content-section]').forEach((link) => {
 		const active = (route === 'content' && link.dataset.contentSection === contentSection()) || (route === 'taxonomy' && link.dataset.contentSection === 'taxonomy')
+		if (active) link.setAttribute('aria-current', 'page')
+		else link.removeAttribute('aria-current')
+	})
+	$$('[data-product-section]').forEach((link) => {
+		const active = (route === 'products' && link.dataset.productSection === 'products') || (route === 'product-categories' && link.dataset.productSection === 'categories')
 		if (active) link.setAttribute('aria-current', 'page')
 		else link.removeAttribute('aria-current')
 	})
@@ -1029,6 +1306,43 @@ function updateTaxonomyData(items) {
 	modules.taxonomy.stats[3].value = String(liveState.taxonomy.filter((item) => item.status !== 'active').length)
 }
 
+function updateProductData(items, total = items.length) {
+  modules.products.rows = (items || []).map((item) => ({
+    id: item.id, name: item.title, site: item.site_name || `站点 #${item.site_id}`, category: item.category || '未分类', language: item.language_name || item.locale,
+    status: contentStatus[isScheduledContent(item) ? 'scheduled' : item.status] ?? item.status, updatedAt: formatDate(item.updated_at), _raw: item,
+  }))
+  const rows = modules.products.rows
+  modules.products.stats[0].value = Number(total).toLocaleString('zh-CN')
+  modules.products.stats[1].value = String(rows.filter((row) => row.status === '已发布').length)
+  modules.products.stats[2].value = String(rows.filter((row) => row.status === '待审核').length)
+  modules.products.stats[3].value = String(rows.filter((row) => !row._raw?.meta_description && !row._raw?.seo_title).length)
+}
+
+function updateProductCategoryData(items) {
+  const categories = (items || []).filter((item) => item.kind === 'category')
+  modules['product-categories'].rows = categories.map((item) => ({
+    id: item.id, name: item.name, key: item.slug, scope: `${item.site_name} / ${item.locale}`, parent: item.parent_name || '—', usage: String(item.usage_count || 0), status: item.status === 'active' ? '已启用' : '已停用', updatedAt: formatDate(item.updated_at), _raw: item,
+  }))
+  modules['product-categories'].stats[0].value = String(categories.length)
+  modules['product-categories'].stats[1].value = String(categories.filter((item) => item.status === 'active').length)
+  modules['product-categories'].stats[2].value = String(categories.reduce((sum, item) => sum + Number(item.usage_count || 0), 0))
+  modules['product-categories'].stats[3].value = '—'
+}
+
+const metafieldTypeLabels = { text: '单行文本', textarea: '多行文本', richtext: '富文本', number: '数字', date: '日期', url: 'URL', select: '单选', multiselect: '多选', image: '图片', file: '文件', product_reference: '产品引用', category_reference: '栏目引用' }
+const metafieldOwnerLabels = { product: '产品', product_category: '产品栏目', article: '文章', page: '单页面' }
+function updateMetafieldData(items) {
+  const definitions = items || []
+  liveState.metafields = definitions
+  modules.metafields.rows = definitions.map((item) => ({
+    id: item.id, name: item.name, key: `${item.namespace}.${item.key}`, type: metafieldTypeLabels[item.field_type] || item.field_type, owner: metafieldOwnerLabels[item.owner_type] || item.owner_type, usage: String(item.usage_count || 0), status: item.status === 'active' ? '已启用' : '已停用', updatedAt: formatDate(item.updated_at), _raw: item,
+  }))
+  modules.metafields.stats[0].value = String(definitions.length)
+  modules.metafields.stats[1].value = String(definitions.filter((item) => item.status === 'active').length)
+  modules.metafields.stats[2].value = String(definitions.reduce((sum, item) => sum + Number(item.usage_count || 0), 0))
+  modules.metafields.stats[3].value = String(definitions.filter((item) => item.ai_enabled).length)
+}
+
 function updateTemplateData(items) {
   modules.templates.rows = items.map((item) => ({
     id: item.id,
@@ -1117,7 +1431,7 @@ function formatBytes(value) {
 function updateMediaData(payload) {
   const items = payload.media ?? []
   modules.media.rows = items.map((item) => ({
-    id: item.id, name: item.original_name, type: item.media_type === 'image/png' ? 'PNG 图片' : 'JPEG 图片',
+    id: item.id, name: item.original_name, type: item.media_type === 'image/avif' ? 'AVIF 图片' : 'AVIF 图片（已转换）',
     size: formatBytes(item.byte_size), references: String(item.reference_count ?? 0), status: item.alt_text?.trim() ? 'Alt 已完成' : '缺少 Alt',
     updatedAt: formatDate(item.updated_at || item.created_at), _raw: item,
   }))
@@ -1147,7 +1461,7 @@ function auditActionLabel(action = '') {
     'security.account_unlocked': '安全 · 账户解锁', 'security.permission_denied': '安全 · 权限被拒绝',
     'security.scope_denied': '安全 · 数据范围被拒绝', 'media.uploaded': '媒体 · 上传完成',
     'media.imported': '媒体 · 远程图片本地化', 'media.alt_updated': '媒体 · 更新 Alt', 'media.deleted': '媒体 · 删除',
-    'backup.created': '系统 · 创建加密备份', 'content.created': '内容 · 创建', 'content.updated': '内容 · 更新',
+    'backup.created': '系统 · 创建加密备份', 'backup.deleted': '系统 · 删除备份', 'backup.bulk_deleted': '系统 · 批量删除备份', 'backup.exported': '系统 · 导出备份', 'backup.imported': '系统 · 导入备份', 'backup.import_failed': '系统 · 导入备份失败', 'content.created': '内容 · 创建', 'content.updated': '内容 · 更新',
     'content.ai_localized': '内容 · AI 本土化生成', 'content.ai_localization_completed': '内容 · AI 本土化任务完成',
     'content.deleted': '内容 · 移入回收站', 'site.created': '站点 · 创建', 'site.updated': '站点 · 更新',
   }
@@ -1195,6 +1509,167 @@ function updateSEOSitemapData(payload) {
   modules.seo.stats[1].value = String(summary.active_site_count ?? sites.filter((site) => site.status === 'active').length)
   modules.seo.stats[2].value = Number(summary.indexable_page_count ?? 0).toLocaleString('zh-CN')
   modules.seo.stats[3].value = Number(summary.single_page_excluded_count ?? 0).toLocaleString('zh-CN')
+}
+
+function updateSpiderData(payload) {
+  liveState.spider = payload ?? null
+}
+
+function updateAnalyticsData(payload) {
+  liveState.analytics = payload ?? null
+  const summary = liveState.analytics?.summary ?? {}
+  modules.analytics.stats[0].value = Number(summary.pageviews || 0).toLocaleString('zh-CN')
+  modules.analytics.stats[1].value = Number(summary.unique_visitors || 0).toLocaleString('zh-CN')
+  modules.analytics.stats[2].value = Number(summary.sessions || 0).toLocaleString('zh-CN')
+  modules.analytics.stats[3].value = Number.isFinite(Number(summary.bounce_rate)) && Number(summary.sessions) > 0 ? `${Number(summary.bounce_rate).toFixed(1)}%` : '—'
+}
+
+function analyticsDelta(current, previous) {
+  const now = Number(current || 0), before = Number(previous || 0)
+  if (!before) return { text: now ? '已有新流量数据' : '暂无对比数据', state: now ? 'positive' : 'neutral' }
+  const delta = ((now - before) / before) * 100
+  return { text: `${delta >= 0 ? '↑' : '↓'} ${Math.abs(delta).toFixed(1)}%`, state: delta >= 0 ? 'positive' : 'negative' }
+}
+
+function analyticsSparkline(trend = [], key = 'pageviews') {
+  const values = trend.map((item) => Math.max(0, Number(item?.[key] || 0)))
+  if (!values.some(Boolean)) return '<span class="analytics-sparkline is-empty" aria-hidden="true"></span>'
+  const width = 104, height = 34, padding = 3
+  const max = Math.max(...values, 1)
+  const points = values.map((value, index) => {
+    const x = values.length < 2 ? width / 2 : padding + (width - padding * 2) * index / (values.length - 1)
+    const y = height - padding - (height - padding * 2) * value / max
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  })
+  const area = `${padding},${height - padding} ${points.join(' ')} ${width - padding},${height - padding}`
+  return `<svg class="analytics-sparkline" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true"><polygon points="${area}"></polygon><polyline points="${points.join(' ')}"></polyline></svg>`
+}
+
+function analyticsBar(items, emptyLabel = '暂无数据') {
+  if (!items?.length) return `<div class="analytics-empty-inline">${escapeHtml(emptyLabel)}</div>`
+  const visible = items.slice(0, 5)
+  const total = Math.max(visible.reduce((sum, item) => sum + Math.max(0, Number(item.views || 0)), 0), 1)
+  const max = Math.max(...visible.map((item) => Number(item.views || 0)), 1)
+  return `<ul class="analytics-bars">${visible.map((item) => {
+    const value = Math.max(0, Number(item.views || 0))
+    const percent = value * 100 / total
+    return `<li><span class="analytics-bar-name" title="${escapeHtml(item.value)}">${escapeHtml(item.value || '—')}</span><span class="analytics-bar-track" aria-hidden="true"><i style="width:${Math.max(3, Math.round(value / max * 100))}%"></i></span><strong aria-label="${Number(value).toLocaleString('zh-CN')} 次页面浏览">${percent.toFixed(2)}%</strong></li>`
+  }).join('')}</ul>`
+}
+
+function analyticsTrendSVG(trend = []) {
+  const values = trend.map((item) => Number(item.pageviews || 0))
+  const max = Math.max(...values, 1)
+  const width = 820, height = 250, padLeft = 58, padRight = 22, padTop = 18, padBottom = 44
+  const usableHeight = height - padTop - padBottom
+  const points = values.map((value, index) => {
+    const x = values.length <= 1 ? width / 2 : padLeft + (width - padLeft - padRight) * index / (values.length - 1)
+    const y = height - padBottom - usableHeight * value / max
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  })
+  const baseline = height - padBottom
+  const area = points.length ? `${padLeft},${baseline} ${points.join(' ')} ${width - padRight},${baseline}` : ''
+  const levels = [1, .75, .5, .25, 0]
+  const grid = levels.map((level) => {
+    const y = padTop + usableHeight * (1 - level)
+    return `<path class="analytics-gridline" d="M${padLeft} ${y.toFixed(1)}H${width - padRight}"></path><text class="analytics-axis-label" x="${padLeft - 10}" y="${(y + 4).toFixed(1)}" text-anchor="end">${Math.round(max * level).toLocaleString('zh-CN')}</text>`
+  }).join('')
+  const labelIndexes = Array.from(new Set([0, Math.floor((trend.length - 1) / 4), Math.floor((trend.length - 1) / 2), Math.floor((trend.length - 1) * .75), Math.max(0, trend.length - 1)])).filter((index) => trend[index])
+  const labels = labelIndexes.map((index) => {
+    const x = values.length <= 1 ? width / 2 : padLeft + (width - padLeft - padRight) * index / (values.length - 1)
+    return `<text class="analytics-axis-label analytics-axis-date" x="${x.toFixed(1)}" y="${height - 14}" text-anchor="middle">${escapeHtml(trend[index].date?.slice(5) || '')}</text>`
+  }).join('')
+  const dots = points.map((point) => `<circle class="analytics-point" cx="${point.split(',')[0]}" cy="${point.split(',')[1]}" r="3.5"></circle>`).join('')
+  return `<div class="analytics-chart" role="img" aria-label="${trend.length ? `按日页面浏览趋势，最高 ${Math.max(...values).toLocaleString('zh-CN')} 次` : '尚无趋势数据'}"><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">${grid}${area ? `<polygon class="analytics-area" points="${area}"></polygon><polyline class="analytics-line" points="${points.join(' ')}"></polyline>${dots}` : ''}${labels}</svg></div>`
+}
+
+function analyticsToday() {
+  return new Date().toISOString().slice(0, 10)
+}
+
+function analyticsCSVCell(value) {
+  let text = String(value ?? '')
+  // Titles, paths and referrer host names may originate outside the CMS. Keep
+  // spreadsheet applications from treating a leading formula character as an
+  // executable formula when an operator opens the CSV.
+  if (/^[=+\-@]/.test(text)) text = `'${text}`
+  return `"${text.replaceAll('"', '""')}"`
+}
+
+function exportAnalyticsCSV() {
+  const payload = liveState.analytics
+  if (!payload) { showToast('暂无可导出的流量数据'); return }
+  const rows = [['分区', '日期/名称', '值1', '值2', '值3', '值4']]
+  for (const item of payload.trend ?? []) rows.push(['每日趋势', item.date, item.pageviews, item.unique_visitors, item.sessions, ''])
+  for (const item of payload.top_pages ?? []) rows.push(['热门页面', item.path, item.title, item.locale, item.views, item.unique_visitors])
+  for (const item of payload.referrers ?? []) rows.push(['访问来源', item.value, item.views, '', '', ''])
+  for (const item of payload.locales ?? []) rows.push(['语言分布', item.value, item.views, '', '', ''])
+  for (const item of payload.devices ?? []) rows.push(['设备分布', item.value, item.views, '', '', ''])
+  for (const item of payload.sites ?? []) rows.push(['站点对比', item.site_name, item.pageviews, item.unique_visitors, item.sessions, item.site_id])
+  const csv = '\ufeff' + rows.map((row) => row.map(analyticsCSVCell).join(',')).join('\r\n') + '\r\n'
+  const blobURL = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
+  const link = document.createElement('a')
+  link.href = blobURL
+  link.download = `czcms-analytics-${payload.site_id || 'all'}-${payload.from || analyticsToday()}_${payload.to || analyticsToday()}.csv`
+  link.click()
+  window.setTimeout(() => URL.revokeObjectURL(blobURL), 1000)
+  showToast('流量统计 CSV 已开始下载')
+}
+
+function renderAnalytics() {
+  const payload = liveState.analytics
+  const loading = liveState.loading.has('analytics')
+  const error = liveState.errors.get('analytics')
+  const currentID = moduleState.analyticsSiteID === null ? currentSiteID() : moduleState.analyticsSiteID
+  const siteOptions = [`<option value="0" ${currentID === 0 ? 'selected' : ''}>所有可访问站点</option>`, ...liveState.sites.map((site) => `<option value="${escapeHtml(site.id)}" ${Number(currentID) === Number(site.id) ? 'selected' : ''}>${escapeHtml(site.name)}</option>`)].join('')
+  const days = Number(moduleState.analyticsDays || 30)
+  const customFrom = moduleState.analyticsFrom || ''
+  const customTo = moduleState.analyticsTo || ''
+  const usingCustomRange = Boolean(customFrom && customTo)
+  const today = analyticsToday()
+  const heading = `<div class="page-heading analytics-page-heading"><div><h1 id="module-title">流量统计</h1><p>第一方服务端统计，数据按站点独立隔离</p></div><div class="page-heading-actions"><button class="button button-secondary" type="button" data-analytics-export ${loading || !payload ? 'disabled' : ''}>${icon('download', 'icon icon-sm')}导出 CSV</button><button class="button button-primary" type="button" data-analytics-refresh ${loading ? 'disabled' : ''}>${icon('refresh', 'icon icon-sm')}${loading ? '读取中…' : '刷新数据'}</button></div></div>`
+  const controls = `<section class="analytics-controls" aria-label="流量统计筛选"><label class="analytics-site-field"><span>统计站点</span><select data-analytics-site aria-label="统计站点">${siteOptions}</select></label><div class="analytics-range" role="group" aria-label="快捷统计周期">${[7, 30, 90].map((value) => `<button type="button" class="filter-button ${!usingCustomRange && days === value ? 'is-active' : ''}" data-analytics-days="${value}" aria-pressed="${!usingCustomRange && days === value}">${value} 天</button>`).join('')}</div><label class="analytics-date-field"><span>开始日期</span><input type="date" aria-label="开始日期" data-analytics-from value="${escapeHtml(customFrom)}" max="${today}"></label><span class="analytics-date-separator" aria-hidden="true">至</span><label class="analytics-date-field"><span>结束日期</span><input type="date" aria-label="结束日期" data-analytics-to value="${escapeHtml(customTo)}" max="${today}"></label><button class="button button-primary analytics-custom-range" type="button" data-analytics-custom-range>应用</button></section>`
+  if (loading && !payload) { moduleView.innerHTML = `${heading}${controls}<div class="module-loading" role="status" aria-label="正在读取流量统计"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`; return }
+  if (error && !payload) { moduleView.innerHTML = `${heading}${controls}<div class="module-error">${icon('alert')}<strong>暂时无法读取流量统计</strong><p>${escapeHtml(error)}</p><button class="button button-secondary" type="button" data-analytics-refresh>重新加载</button></div>`; return }
+  const summary = payload?.summary || {}, previous = payload?.previous || {}
+  const stats = [
+    { label: '页面浏览 PV', value: Number(summary.pageviews || 0).toLocaleString('zh-CN'), delta: analyticsDelta(summary.pageviews, previous.pageviews), series: 'pageviews' },
+    { label: '独立访客 UV', value: Number(summary.unique_visitors || 0).toLocaleString('zh-CN'), delta: analyticsDelta(summary.unique_visitors, previous.unique_visitors), series: 'unique_visitors' },
+    { label: '会话', value: Number(summary.sessions || 0).toLocaleString('zh-CN'), delta: analyticsDelta(summary.sessions, previous.sessions), series: 'sessions' },
+    { label: '跳出率', value: Number(summary.sessions) ? `${Number(summary.bounce_rate || 0).toFixed(2)}%` : '—', delta: { text: Number(summary.sessions) ? `每会话 ${Number(summary.pages_per_session || 0).toFixed(1)} 页` : '等待首个会话', state: 'neutral' }, series: 'pageviews' },
+  ]
+  const statHTML = `<section class="stats-grid analytics-stats" aria-label="流量关键指标">${stats.map((item) => `<article class="stat-card analytics-stat-card"><div><span>${item.label}</span><strong>${item.value}</strong><small class="analytics-stat-delta is-${item.delta.state}">${escapeHtml(item.delta.text)}</small></div>${analyticsSparkline(payload?.trend, item.series)}</article>`).join('')}</section>`
+  const empty = !summary.pageviews
+  const topPages = payload?.top_pages || []
+  const topPagesRows = topPages.length ? topPages.map((item, index) => {
+    const views = Number(item.views || 0)
+    const share = Number(summary.pageviews) ? `${(views * 100 / Number(summary.pageviews)).toFixed(2)}%` : '—'
+    return `<tr><td class="analytics-rank">${index + 1}</td><td><strong>${escapeHtml(item.title || item.path || '未命名页面')}</strong><small><code>${escapeHtml(item.path)}</code><span>${escapeHtml(item.locale || '—')}</span></small></td><td>${views.toLocaleString('zh-CN')}</td><td>${share}</td><td>${Number(item.unique_visitors || 0).toLocaleString('zh-CN')}</td></tr>`
+  }).join('') : '<tr><td colspan="5"><div class="analytics-empty-inline">暂无页面数据</div></td></tr>'
+  const sitesRows = (payload?.sites || []).map((item) => `<tr><td><strong>${escapeHtml(item.site_name || `站点 #${item.site_id}`)}</strong></td><td>${Number(item.pageviews || 0).toLocaleString('zh-CN')}</td><td>${Number(item.unique_visitors || 0).toLocaleString('zh-CN')}</td><td>${Number(item.sessions || 0).toLocaleString('zh-CN')}</td></tr>`).join('') || '<tr><td colspan="4"><div class="analytics-empty-inline">暂无站点数据</div></td></tr>'
+  moduleView.innerHTML = `${heading}${controls}${statHTML}${empty ? '<section class="analytics-empty panel"><div class="analytics-empty-icon">'+icon('chart')+'</div><h2>尚未开始收集流量</h2><p>发布站点并产生真实访问后，PV、UV、来源和设备数据会自动出现在这里。预览端口、机器人和 DNT 请求不会计入统计。</p><a class="button button-primary" href="#/admin/sites">查看站点状态</a></section>' : `<div class="analytics-grid"><section class="panel analytics-trend-panel"><header class="panel-header"><div><h2>每日 PV 趋势</h2><p><span class="analytics-legend-dot"></span>PV</p></div><span class="analytics-panel-value">${Number(summary.pageviews || 0).toLocaleString('zh-CN')} PV</span></header>${analyticsTrendSVG(payload?.trend)}</section><section class="panel analytics-distribution analytics-referrers-panel"><header class="panel-header"><h2>访问来源</h2><span>按 PV</span></header>${analyticsBar(payload?.referrers)}</section><section class="panel analytics-distribution analytics-locales-panel"><header class="panel-header"><h2>语言分布</h2><span>按 PV</span></header>${analyticsBar(payload?.locales)}</section><section class="panel analytics-distribution analytics-devices-panel"><header class="panel-header"><h2>设备分布</h2><span>按 PV</span></header>${analyticsBar(payload?.devices)}</section><section class="panel analytics-pages-panel"><header class="panel-header"><h2>热门页面</h2><span>Top ${Math.min(20, topPages.length)}</span></header><div class="table-scroll"><table class="module-table analytics-table"><thead><tr><th>排名</th><th>页面标题</th><th>PV</th><th>占比</th><th>UV</th></tr></thead><tbody>${topPagesRows}</tbody></table></div></section><section class="panel analytics-sites-panel"><header class="panel-header"><h2>站点对比</h2><span>${payload?.sites?.length || 0} 个站点</span></header><div class="table-scroll"><table class="module-table analytics-table"><thead><tr><th>站点</th><th>PV</th><th>UV</th><th>会话</th></tr></thead><tbody>${sitesRows}</tbody></table></div></section></div>`}`
+  if (!empty) {
+    const grid = moduleView.querySelector('.analytics-grid')
+    const trendPanel = grid?.querySelector('.analytics-trend-panel')
+    const pagesPanel = grid?.querySelector('.analytics-pages-panel')
+    const sitesPanel = grid?.querySelector('.analytics-sites-panel')
+    const referrersPanel = grid?.querySelector('.analytics-referrers-panel')
+    const localesPanel = grid?.querySelector('.analytics-locales-panel')
+    const devicesPanel = grid?.querySelector('.analytics-devices-panel')
+    if (grid && trendPanel && pagesPanel && sitesPanel && referrersPanel && localesPanel && devicesPanel) {
+      const main = document.createElement('div')
+      main.className = 'analytics-main-column'
+      const lower = document.createElement('div')
+      lower.className = 'analytics-lower-grid'
+      lower.append(pagesPanel, sitesPanel)
+      main.append(trendPanel, lower)
+      const rail = document.createElement('aside')
+      rail.className = 'analytics-side-rail'
+      rail.setAttribute('aria-label', '流量维度分布')
+      rail.append(referrersPanel, localesPanel, devicesPanel)
+      grid.replaceChildren(main, rail)
+    }
+  }
 }
 
 function renderDashboardData() {
@@ -1248,7 +1723,7 @@ function renderDashboardData() {
 
 async function loadRoute(route, force = false) {
   if (!apiRoutes.has(route) || (liveState.loaded.has(route) && !force)) return
-  if (siteScopedRoutes.has(route) && !liveState.loaded.has('sites')) {
+  if (extendedSiteScopedRoutes.has(route) && !liveState.loaded.has('sites')) {
     await loadRoute('sites')
     if (liveState.errors.has('sites')) {
       liveState.errors.set(route, '无法读取站点范围，请先重新加载站点数据')
@@ -1267,24 +1742,49 @@ async function loadRoute(route, force = false) {
       const payload = await fetchJSON('/api/v1/languages')
       updateLanguageData(payload.languages ?? [])
     } else if (route === 'content') {
-		const contentPath = contentSection() === 'pages' ? '/api/v1/contents?limit=100&content_type=page' : '/api/v1/contents?limit=100&content_type=non_page'
+		const contentPath = contentSection() === 'pages' ? '/api/v1/contents?limit=100&content_type=page' : contentSection() === 'products' ? '/api/v1/contents?limit=100&content_type=product' : '/api/v1/contents?limit=100&content_type=non_page'
 		const payload = await fetchJSON(isAllSitesContentScope() ? contentPath : siteScopedAPIPath(contentPath))
 		updateContentData(payload.contents ?? [], payload.total ?? 0, payload.status_counts ?? {})
 	    } else if (route === 'taxonomy') {
 	      const payload = await fetchJSON(siteScopedAPIPath('/api/v1/taxonomy/terms'))
 	      updateTaxonomyData(payload.terms ?? [])
+	    } else if (route === 'products') {
+      const payload = await fetchJSON(siteScopedAPIPath('/api/v1/contents?limit=100&content_type=product'))
+      updateProductData(payload.contents ?? [], payload.total ?? 0)
+    } else if (route === 'product-categories') {
+      const payload = await fetchJSON(siteScopedAPIPath('/api/v1/taxonomy/terms?kind=category'))
+      updateProductCategoryData(payload.terms ?? [])
+    } else if (route === 'metafields') {
+      const payload = await fetchJSON('/api/v1/metafields')
+      updateMetafieldData(payload.definitions ?? [])
 	    } else if (route === 'templates') {
       const payload = await fetchJSON('/api/v1/templates')
       liveState.templates = payload.templates ?? []
       updateTemplateData(liveState.templates)
 	    } else if (route === 'seo') {
-	      updateSEOSitemapData(await fetchJSON('/api/v1/seo/sitemaps'))
+	      const spiderSiteID = Number((moduleState.spiderSiteID === null ? currentSiteID() : moduleState.spiderSiteID) || 0)
+	      const spiderFrom = moduleState.spiderFrom
+	      const spiderTo = moduleState.spiderTo
+	      const spiderRange = spiderFrom && spiderTo ? `from=${encodeURIComponent(spiderFrom)}&to=${encodeURIComponent(spiderTo)}` : `days=${encodeURIComponent(Number(moduleState.spiderDays || 30))}`
+	      const spiderFilters = `bot=${encodeURIComponent(moduleState.spiderBot || '')}&status=${encodeURIComponent(moduleState.spiderStatus || 'all')}`
+	      const [sitemapPayload, spiderPayload] = await Promise.all([
+	        fetchJSON('/api/v1/seo/sitemaps'),
+	        fetchJSON(`/api/v1/seo/spider?site_id=${encodeURIComponent(spiderSiteID)}&${spiderRange}&${spiderFilters}`),
+	      ])
+	      updateSEOSitemapData(sitemapPayload)
+	      updateSpiderData(spiderPayload)
 	    } else if (route === 'urls') {
       const payload = await fetchJSON(siteScopedAPIPath('/api/v1/urls/redirects'))
       updateURLData(payload.redirects ?? [])
-    } else if (route === 'publishing') {
+	    } else if (route === 'publishing') {
       const payload = await fetchJSON(siteScopedAPIPath('/api/v1/publishing/releases'))
       updatePublishingData(payload.releases ?? [])
+	    } else if (route === 'analytics') {
+      const siteID = Number((moduleState.analyticsSiteID === null ? currentSiteID() : moduleState.analyticsSiteID) || 0)
+      const from = moduleState.analyticsFrom
+      const to = moduleState.analyticsTo
+      const range = from && to ? `from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}` : `days=${encodeURIComponent(Number(moduleState.analyticsDays || 30))}`
+      updateAnalyticsData(await fetchJSON(`/api/v1/analytics/overview?site_id=${encodeURIComponent(siteID)}&${range}`))
 	    } else if (route === 'localization') {
 	      updateLocalizationData(await fetchJSON(siteScopedAPIPath('/api/v1/localization/jobs')))
 	    } else if (route === 'media') {
@@ -1301,9 +1801,9 @@ async function loadRoute(route, force = false) {
 	      updateAIConfiguration(aiConfiguration)
     }
     liveState.loaded.add(route)
-		if (['sites', 'content', 'publishing', 'settings'].includes(route)) renderDashboardData()
+    if (['sites', 'content', 'products', 'publishing', 'settings'].includes(route)) renderDashboardData()
   } catch (error) {
-    if (error.status !== 401) liveState.errors.set(route, error.message || '网络连接失败，请稍后重试')
+    if (error.status !== 401) liveState.errors.set(route, requestErrorMessage(error))
   } finally {
     liveState.loading.delete(route)
     if (currentRoute() === route) renderModule(route)
@@ -1511,7 +2011,7 @@ function siteFields(item = null, domains = [], bindings = [], templates = [], ca
   const siteSEOFields = `<div class="form-grid site-seo-grid">
     <label class="form-field form-field-wide"><span>默认站点 Title</span><input name="seo_title" value="${escapeHtml(seoTitle)}" maxlength="200" placeholder="例如：Global Route | International logistics and express shipping"><small><span>用于首页搜索标题；内容页有独立 SEO 标题时优先使用内容设置。</span><span data-count-for="seo_title">${seoTitle.length} / 200</span></small></label>
     <label class="form-field form-field-wide"><span>默认 Meta Description</span><textarea name="seo_description" maxlength="500" placeholder="概括站点首页服务与价值，供搜索结果和社交分享摘要使用">${escapeHtml(seoDescription)}</textarea><small><span>用于首页搜索摘要和 Open Graph 描述；内容页有独立描述时优先使用内容设置。</span><span data-count-for="seo_description">${seoDescription.length} / 500</span></small></label>
-    <section class="site-favicon-field form-field-wide" aria-labelledby="site-favicon-heading"><div class="site-favicon-heading"><div><h4 id="site-favicon-heading">网站 Icon</h4><p>浏览器标签、书签和搜索结果使用的站点图标。</p></div><span class="badge badge-blue">安全媒体</span></div><input type="hidden" name="favicon_media_id" value="${escapeHtml(faviconMediaID)}"><input type="file" data-site-favicon-input accept=".png,.jpg,.jpeg,image/png,image/jpeg" hidden><div class="site-favicon-selector ${faviconURL ? 'is-selected' : ''}" data-site-favicon-selector><span class="site-favicon-preview"><img data-site-favicon-preview src="${escapeHtml(faviconURL || 'about:blank')}" alt="当前网站 Icon" ${faviconURL ? '' : 'hidden'}><span data-site-favicon-placeholder ${faviconURL ? 'hidden' : ''}>${icon('image', 'icon icon-sm')}</span></span><span><strong data-site-favicon-name>${faviconURL ? '已选择网站 Icon' : '尚未设置网站 Icon'}</strong><small data-site-favicon-details>${faviconURL ? '保存后将在前台所有页面生效' : '建议上传 512 × 512 的方形 PNG'}</small></span><span class="site-favicon-actions">${can('media.upload') ? `<button class="button button-secondary button-compact" type="button" data-site-favicon-upload>上传 Icon</button>` : ''}<button class="text-button" type="button" data-site-favicon-clear ${faviconURL ? '' : 'hidden'}>移除</button></span></div><small class="site-favicon-help">仅接受 JPEG / PNG。服务端会验证真实文件类型、尺寸和方形比例，图标将存入媒体中心，不能使用外部链接。</small></section>
+    <section class="site-favicon-field form-field-wide" aria-labelledby="site-favicon-heading"><div class="site-favicon-heading"><div><h4 id="site-favicon-heading">网站 Icon</h4><p>浏览器标签、书签和搜索结果使用的站点图标。</p></div><span class="badge badge-blue">安全媒体</span></div><input type="hidden" name="favicon_media_id" value="${escapeHtml(faviconMediaID)}"><input type="file" data-site-favicon-input accept=".avif,.webp,.png,.jpg,.jpeg,.gif,image/avif,image/webp,image/png,image/jpeg,image/gif" hidden><div class="site-favicon-selector ${faviconURL ? 'is-selected' : ''}" data-site-favicon-selector><span class="site-favicon-preview"><img data-site-favicon-preview src="${escapeHtml(faviconURL || 'about:blank')}" alt="当前网站 Icon" ${faviconURL ? '' : 'hidden'}><span data-site-favicon-placeholder ${faviconURL ? 'hidden' : ''}>${icon('image', 'icon icon-sm')}</span></span><span><strong data-site-favicon-name>${faviconURL ? '已选择网站 Icon' : '尚未设置网站 Icon'}</strong><small data-site-favicon-details>${faviconURL ? '保存后将在前台所有页面生效' : '建议上传 512 × 512 的方形图片，保存时会转为 AVIF'}</small></span><span class="site-favicon-actions">${can('media.upload') ? `<button class="button button-secondary button-compact" type="button" data-site-favicon-upload>上传 Icon</button>` : ''}<button class="text-button" type="button" data-site-favicon-clear ${faviconURL ? '' : 'hidden'}>移除</button></span></div><small class="site-favicon-help">支持 JPEG、PNG、GIF、WebP、AVIF；服务端会验证真实类型并统一压缩转为 AVIF。请上传 16–2048 像素的方形图片。</small></section>
   </div><div class="site-editor-note">${icon('search', 'icon icon-sm')}<span><strong>前台 SEO 生效规则</strong><small>首页使用此 Title；内容页优先使用内容自身的 SEO 标题。修改 Icon 或 Title 后，点击窗口底部的“保存修改”。</small></span></div>`
   if (!item) return `${identityFields}${siteCreateTemplateFields(templates, can('templates.manage'))}<div class="form-hint form-field-wide"><strong>创建后的访问地址</strong><span>系统会生成固定的 localhost 预览地址；初始模板会立即绑定到所选语言，之后可继续添加语言、切换独立模板并绑定正式域名。</span></div>`
   return `<div class="site-editor-shell"><nav class="site-editor-tabs" role="tablist" aria-label="编辑站点设置">
@@ -1620,7 +2120,8 @@ async function contentFields(item = null, newLocale = false) {
         ${field('Canonical URL', 'canonical_url', seo.canonical_url, { type: 'url', maxlength: 2048, wide: true, placeholder: 'https://example.com/path' })}
         ${field('Open Graph 标题', 'og_title', seo.og_title, { maxlength: 200 })}
         ${field('Open Graph 描述', 'og_description', seo.og_description, { textarea: true, maxlength: 500 })}
-        ${field('JSON-LD 结构化数据', 'structured_data', structured, { textarea: true, code: true, wide: true })}
+        ${field('JSON-LD 结构化数据', 'structured_data', structured, { textarea: true, code: true, wide: true, help: '可留空由系统按页面类型自动生成（文章 Article、产品 Product、单页面 WebPage / ContactPage）；也支持粘贴纯 JSON 或完整 script 标签。仅填写页面真实存在的字段，系统会保留主页面实体并安全合并 Organization、WebSite 等节点。' })}
+        ${structuredDataPreviewMarkup()}
         ${checkboxField('允许搜索引擎收录（index）', 'robots_index', seo.robots_index ?? true)}
       </div></details>` : ''}
     </div>
@@ -1659,6 +2160,246 @@ function contentTagHelpText(count) {
   return count
     ? `可从 ${count} 个现有标签中选择；输入后按回车、逗号，离开输入框或保存时自动创建；最多 30 个，重复项自动合并。`
     : '当前范围还没有标签；输入后按回车、逗号，离开输入框或保存时自动创建；最多 30 个，重复项自动合并。'
+}
+
+function metafieldOwnerTypeForContent(contentType) {
+  if (contentType === 'product') return 'product'
+  if (contentType === 'page') return 'page'
+  return 'article'
+}
+
+function metafieldValidationOptions(definition) {
+  let validation = definition?.validation
+  if (typeof validation === 'string') {
+    try { validation = JSON.parse(validation) } catch { validation = {} }
+  }
+  const options = Array.isArray(validation?.options) ? validation.options : []
+  return options.map((option) => {
+    if (option && typeof option === 'object') return { value: String(option.value ?? option.label ?? ''), label: String(option.label ?? option.value ?? '') }
+    return { value: String(option), label: String(option) }
+  }).filter((option) => option.value)
+}
+
+function metafieldControlMarkup(definition, value = '') {
+  const id = String(definition.id)
+  const name = `metafield_${id}`
+  const label = escapeHtml(definition.name || `${definition.namespace}.${definition.key}`)
+  const help = definition.description ? `<small>${escapeHtml(definition.description)}</small>` : ''
+  const required = definition.required ? ' required' : ''
+  const rawValue = String(value ?? '')
+  if (definition.field_type === 'richtext') {
+    return metafieldRichEditorMarkup(definition, rawValue)
+  }
+  if (definition.field_type === 'textarea') {
+    return `<label class="form-field metafield-control" data-metafield-id="${id}"><span>${label}${definition.required ? ' <b aria-hidden="true">*</b>' : ''}</span><textarea name="${name}" maxlength="200000"${required} placeholder="填写${label}">${escapeHtml(rawValue)}</textarea>${help}</label>`
+  }
+  if (definition.field_type === 'select' || definition.field_type === 'multiselect') {
+    const options = metafieldValidationOptions(definition)
+    let selected = []
+    if (definition.field_type === 'multiselect') { try { selected = JSON.parse(rawValue) } catch { selected = rawValue ? rawValue.split(',').map((item) => item.trim()) : [] } }
+    const choices = options.length ? options : [{ value: '', label: '请先在字段定义中配置 options' }]
+    if (definition.field_type === 'multiselect') {
+      return `<fieldset class="metafield-control metafield-choice-group" data-metafield-id="${id}"><legend>${label}${definition.required ? ' *' : ''}</legend><div class="metafield-choice-options">${choices.map((option) => `<label><input type="checkbox" name="${name}" value="${escapeHtml(option.value)}" ${selected.includes(option.value) ? 'checked' : ''}><span>${escapeHtml(option.label)}</span></label>`).join('')}</div>${help}</fieldset>`
+    }
+    return `<label class="form-field metafield-control" data-metafield-id="${id}"><span>${label}${definition.required ? ' <b aria-hidden="true">*</b>' : ''}</span><select name="${name}"${required}>${choices.map((option) => `<option value="${escapeHtml(option.value)}" ${option.value === rawValue ? 'selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}</select>${help}</label>`
+  }
+  const type = definition.field_type === 'number' ? 'number' : definition.field_type === 'date' ? 'date' : definition.field_type === 'url' ? 'url' : 'text'
+  const placeholder = definition.field_type === 'image' || definition.field_type === 'file' ? '填写已上传媒体 ID' : `填写${label}`
+  return `<label class="form-field metafield-control" data-metafield-id="${id}"><span>${label}${definition.required ? ' <b aria-hidden="true">*</b>' : ''}</span><input type="${type}" name="${name}" value="${escapeHtml(rawValue)}" maxlength="200000"${required} placeholder="${escapeHtml(placeholder)}">${help}</label>`
+}
+
+function metafieldRichEditorMarkup(definition, value = '') {
+  const id = String(definition.id)
+  const name = `metafield_${id}`
+  const label = escapeHtml(definition.name || `${definition.namespace}.${definition.key}`)
+  const help = definition.description ? `<small>${escapeHtml(definition.description)}</small>` : '<small>使用富文本工具栏编辑；内容会按站点和语言独立保存并执行安全清洗。</small>'
+  const required = definition.required ? ' aria-required="true"' : ''
+  return `<div class="form-field form-field-wide metafield-control metafield-richtext-control" data-metafield-id="${id}"${definition.required ? ' data-metafield-required="true"' : ''} data-metafield-rich-editor-root>
+    <span class="metafield-field-label">${label}${definition.required ? ' <b aria-hidden="true">*</b>' : ''}</span>
+    <div class="rich-editor rich-editor-visual metafield-rich-editor" data-metafield-rich-editor>
+      <div class="rich-toolbar" role="toolbar" aria-label="${label}编辑工具">
+        <div class="editor-tool-group" aria-label="历史"><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="undo" aria-label="撤销" title="撤销">↶</button><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="redo" aria-label="重做" title="重做">↷</button></div>
+        <label class="editor-block-select"><span class="visually-hidden">段落格式</span><select data-metafield-rich-block aria-label="${label}段落格式"><option value="p">正文</option><option value="h2">标题 2</option><option value="h3">标题 3</option><option value="h4">标题 4</option><option value="blockquote">引用</option><option value="pre">代码块</option></select></label>
+        <div class="editor-tool-group" aria-label="文字格式"><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="bold" aria-label="加粗" title="加粗"><strong>B</strong></button><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="italic" aria-label="斜体" title="斜体"><em>I</em></button><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="underline" aria-label="下划线" title="下划线"><u>U</u></button></div>
+        <div class="editor-tool-group" aria-label="段落"><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="justifyLeft" aria-label="左对齐" title="左对齐">≡</button><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="insertUnorderedList" aria-label="项目列表" title="项目列表">☷</button><button type="button" class="editor-tool editor-tool-icon" data-metafield-rich-command="insertOrderedList" aria-label="编号列表" title="编号列表">1.</button></div>
+        <div class="editor-tool-group" aria-label="插入"><button type="button" class="editor-tool" data-metafield-rich-command="createLink" aria-label="插入链接">${icon('link', 'icon icon-sm')}<span>链接</span></button><button type="button" class="editor-tool" data-metafield-rich-command="insertImage" aria-label="插入图片">${icon('image', 'icon icon-sm')}<span>图片</span></button></div>
+        <span class="editor-toolbar-spacer"></span>
+        <button type="button" class="editor-tool" data-metafield-rich-command="source" aria-pressed="false">源码</button><button type="button" class="editor-tool" data-metafield-rich-command="fullscreen" aria-pressed="false">全屏</button>
+      </div>
+      <div class="wysiwyg-editor" data-metafield-rich-editor-content contenteditable="true" role="textbox" aria-multiline="true" aria-label="${label}富文本内容"${required} data-placeholder="填写${label}，可使用标题、列表、链接和图片…"></div>
+      <input type="file" data-metafield-rich-image-input accept="image/avif,image/webp,image/gif,image/jpeg,image/png,.avif,.webp,.gif,.jpg,.jpeg,.png" hidden aria-label="选择${label}图片">
+      <textarea name="${name}" class="rich-source metafield-rich-source" data-metafield-rich-source maxlength="200000" aria-label="${label} HTML 源码" hidden>${escapeHtml(value)}</textarea>
+      <footer class="rich-editor-status"><span data-metafield-rich-count>字数 0</span><span class="editor-media-state" data-metafield-rich-state role="status" aria-live="polite" hidden></span><span data-metafield-rich-saved>未修改</span></footer>
+    </div>
+    ${help}
+  </div>`
+}
+
+function metafieldRichEditorKey(control) {
+  return String(control?.dataset?.metafieldId || '')
+}
+
+function rememberMetafieldRichSelection(control) {
+  const visual = control?.querySelector('[data-metafield-rich-editor-content]')
+  const selection = window.getSelection?.()
+  if (!visual || !selection || selection.rangeCount < 1) return
+  const range = selection.getRangeAt(0)
+  if (visual.contains(range.commonAncestorContainer)) contentEditorState.metafieldRichSelections.set(metafieldRichEditorKey(control), range.cloneRange())
+}
+
+function focusMetafieldRichEditor(control) {
+  const visual = control?.querySelector('[data-metafield-rich-editor-content]')
+  if (!visual) return
+  visual.focus()
+  const selection = window.getSelection?.()
+  const range = document.createRange()
+  range.selectNodeContents(visual)
+  range.collapse(false)
+  selection?.removeAllRanges()
+  selection?.addRange(range)
+}
+
+function restoreMetafieldRichSelection(control) {
+  const visual = control?.querySelector('[data-metafield-rich-editor-content]')
+  const selection = window.getSelection?.()
+  const saved = contentEditorState.metafieldRichSelections.get(metafieldRichEditorKey(control))
+  if (!visual || !selection) return false
+  if (saved && visual.contains(saved.commonAncestorContainer)) {
+    selection.removeAllRanges()
+    selection.addRange(saved)
+    return true
+  }
+  focusMetafieldRichEditor(control)
+  return true
+}
+
+function syncMetafieldRichEditor(control, source = 'visual') {
+  const visual = control?.querySelector('[data-metafield-rich-editor-content]')
+  const sourceField = control?.querySelector('[data-metafield-rich-source]')
+  if (!visual || !sourceField) return
+  if (source === 'visual') sourceField.value = visual.innerHTML
+  else visual.innerHTML = sourceField.value
+  const count = control.querySelector('[data-metafield-rich-count]')
+  if (count) count.textContent = `字数 ${contentWordCount(editorPlainText(sourceField.value)).toLocaleString('zh-CN')}`
+  const saved = control.querySelector('[data-metafield-rich-saved]')
+  if (saved) saved.textContent = '已修改'
+}
+
+function initializeMetafieldRichEditors(form) {
+  $$('[data-metafield-rich-editor-root]', form).forEach((control) => syncMetafieldRichEditor(control, 'source'))
+}
+
+function runMetafieldRichCommand(control, command) {
+  const visual = control?.querySelector('[data-metafield-rich-editor-content]')
+  if (!visual) return
+  if (command === 'source') {
+    const source = control.querySelector('[data-metafield-rich-source]')
+    const sourceButton = control.querySelector('[data-metafield-rich-command="source"]')
+    const isSource = source?.hidden === false
+    if (isSource) {
+      source.hidden = true
+      visual.hidden = false
+      syncMetafieldRichEditor(control, 'source')
+    } else {
+      syncMetafieldRichEditor(control, 'visual')
+      source.hidden = false
+      visual.hidden = true
+      source.focus()
+    }
+    sourceButton?.setAttribute('aria-pressed', String(!isSource))
+    return
+  }
+  if (command === 'fullscreen') {
+    const editor = control.querySelector('.metafield-rich-editor')
+    const button = control.querySelector('[data-metafield-rich-command="fullscreen"]')
+    const full = editor?.classList.toggle('is-fullscreen') ?? false
+    button?.setAttribute('aria-pressed', String(full))
+    document.body.classList.toggle('editor-fullscreen-open', full)
+    return
+  }
+  if (command === 'insertImage') {
+    const input = control.querySelector('[data-metafield-rich-image-input]')
+    if (!input) return
+    rememberMetafieldRichSelection(control)
+    input.value = ''
+    input.click()
+    return
+  }
+  restoreMetafieldRichSelection(control)
+  if (command === 'createLink') {
+    const href = window.prompt('输入链接地址（支持 https://、http:// 或站内路径）', 'https://')
+    if (!href) return
+    if (!/^(https?:\/\/|\/)/i.test(href.trim())) { showToast('链接地址需要以 http://、https:// 或 / 开头'); return }
+    document.execCommand('createLink', false, href.trim())
+  } else if (command === 'formatBlock') {
+    const block = control.querySelector('[data-metafield-rich-block]')
+    document.execCommand('formatBlock', false, block?.value || 'p')
+  } else if (['bold', 'italic', 'underline', 'justifyLeft', 'undo', 'redo', 'insertUnorderedList', 'insertOrderedList'].includes(command)) {
+    document.execCommand(command)
+  }
+  syncMetafieldRichEditor(control, 'visual')
+  focusMetafieldRichEditor(control)
+}
+
+async function loadContentMetafieldData(contentType, item, siteID, locale) {
+  if (!can('content.read')) return { definitions: [], values: [] }
+  const ownerType = metafieldOwnerTypeForContent(contentType)
+  const definitionPayload = await fetchJSON(`/api/v1/metafields?owner_type=${encodeURIComponent(ownerType)}&status=active`)
+  const definitions = definitionPayload.definitions ?? []
+  let values = []
+  if (item?.content_id && siteID && locale && definitions.length) {
+    const valuePayload = await fetchJSON(`/api/v1/metafields/values/${encodeURIComponent(item.content_id)}?owner_type=${encodeURIComponent(ownerType)}&site_id=${encodeURIComponent(siteID)}&locale=${encodeURIComponent(locale)}`)
+    values = valuePayload.values ?? []
+  }
+  return { definitions, values }
+}
+
+function contentMetafieldsMarkup(data) {
+  if (!data?.definitions?.length) return ''
+  const values = new Map((data.values || []).map((item) => [String(item.definition_id), item.value]))
+  return `<section class="content-metafields-panel" aria-labelledby="content-metafields-heading"><header class="content-section-heading"><div><h2 id="content-metafields-heading">扩展字段</h2><p>由“元字段”顶级栏目定义；字段值按站点和语言独立保存，保存内容后同步写入。</p></div><a class="text-button" href="#/admin/metafields">管理元字段</a></header><div class="metafield-editor-grid">${data.definitions.map((definition) => metafieldControlMarkup(definition, values.get(String(definition.id)) ?? definition.default_value ?? '')).join('')}</div></section>`
+}
+
+function collectContentMetafieldValues(form) {
+  const values = []
+  $$('.metafield-control[data-metafield-id]', form).forEach((control) => {
+    const definitionID = Number(control.dataset.metafieldId)
+    if (!definitionID) return
+    if (control.matches('[data-metafield-rich-editor-root]')) syncMetafieldRichEditor(control, 'visual')
+    const first = control.querySelector('input:not([type="checkbox"]), textarea, select')
+    if (control.matches('fieldset')) {
+      values.push({ definition_id: definitionID, value: JSON.stringify($$(`input[name="metafield_${definitionID}"]:checked`, control).map((input) => input.value)) })
+    } else values.push({ definition_id: definitionID, value: String(first?.value ?? '') })
+  })
+  return values
+}
+
+function validateContentMetafields(form) {
+  const requiredControl = $$('[data-metafield-required="true"]', form).find((control) => {
+    if (!control.matches('[data-metafield-rich-editor-root]')) return false
+    syncMetafieldRichEditor(control, control.querySelector('[data-metafield-rich-source]')?.hidden === false ? 'source' : 'visual')
+    return !editorPlainText(control.querySelector('[data-metafield-rich-source]')?.value).trim()
+  })
+  if (!requiredControl) return true
+  const visual = requiredControl.querySelector('[data-metafield-rich-editor-content]')
+  const label = requiredControl.querySelector('.metafield-field-label')?.textContent?.replace(/\s*\*\s*$/, '').trim() || '富文本字段'
+  setMetafieldRichState(requiredControl, `请填写“${label}”`, 'error')
+  visual?.focus()
+  showToast(`请填写必填元字段“${label}”`)
+  return false
+}
+
+async function persistContentMetafieldValues(form, saved, payload) {
+  $$('[data-metafield-rich-editor-root]', form).forEach((control) => syncMetafieldRichEditor(control, 'visual'))
+  const values = collectContentMetafieldValues(form)
+  if (!values.length || !saved?.content_id || !saved?.site_id || !saved?.locale) return
+  const ownerType = metafieldOwnerTypeForContent(saved.content_type || payload.content_type)
+  for (const value of values) {
+    await fetchJSON('/api/v1/metafields/values', {
+      method: 'POST',
+      body: { ...value, owner_type: ownerType, owner_id: Number(saved.content_id), site_id: Number(saved.site_id), locale: saved.locale },
+    })
+  }
 }
 
 function refreshContentTaxonomySuggestions(form) {
@@ -1729,6 +2470,20 @@ async function contactPageFormManagerMarkup(item) {
   }
 }
 
+function productGalleryMarkup(item = null) {
+  const gallery = Array.isArray(item?.gallery) ? item.gallery : []
+  const ids = gallery.map((media) => Number(media.id)).filter(Boolean)
+  const coverID = item?.cover_media_id ? Number(item.cover_media_id) : ''
+  const coverName = item?.cover_original_name || (coverID ? `媒体 #${coverID}` : '尚未选择封面素材')
+  const coverDetails = item?.cover_width && item?.cover_height ? `${item.cover_width} × ${item.cover_height} · 已安全扫描 · AVIF` : '建议 1200 × 630；上传后会统一转换为 AVIF'
+  const cards = gallery.map(productGalleryCardMarkup).join('')
+  return `<section class="publish-sidebar-section product-gallery-panel" data-product-gallery><header class="sidebar-section-heading"><div><h2>产品图片</h2><small class="publish-panel-hint">主图 + 产品图库，最多 12 张</small></div><span class="badge badge-blue">AVIF</span></header><input type="hidden" name="cover_media_id" value="${escapeHtml(coverID)}"><input type="hidden" name="gallery_media_ids" value="${escapeHtml(JSON.stringify(ids))}"><div class="product-main-cover ${coverID ? 'is-selected' : ''}" data-cover-selector><span class="product-main-cover-preview">${icon('image')}</span><span><small>主图</small><strong data-cover-name>${escapeHtml(coverName)}</strong><em data-cover-details>${escapeHtml(coverDetails)}</em></span><span class="cover-actions"><button class="button button-secondary button-compact" type="button" data-content-action="media">${coverID ? '更换' : '上传'}</button><button class="text-button" type="button" data-content-action="cover-remove" ${coverID ? '' : 'hidden'}>移除</button></span></div><input type="file" data-gallery-input accept="image/avif,image/webp,image/gif,image/jpeg,image/png,.avif,.webp,.gif,.jpg,.jpeg,.png" multiple hidden><div class="product-gallery-dropzone" data-gallery-dropzone tabindex="0" role="button" aria-label="上传产品图片"><span class="product-gallery-drop-icon">${icon('image')}</span><strong>上传产品图片</strong><small>拖拽、选择文件或 Ctrl+V 粘贴</small><button class="button button-secondary button-compact" type="button" data-gallery-upload>选择图片</button></div><div class="product-gallery-carousel" data-gallery-carousel><button class="product-gallery-nav" type="button" data-gallery-prev aria-label="向左查看产品图片" disabled>${icon('arrow', 'icon icon-sm')}</button><div class="product-gallery-grid" data-gallery-list tabindex="0" role="list" aria-label="产品图片缩略图列表">${cards || '<p class="product-gallery-empty" data-gallery-empty>暂未添加产品图片。第一张图片将作为主图。</p>'}</div><button class="product-gallery-nav product-gallery-nav-next" type="button" data-gallery-next aria-label="向右查看产品图片" disabled>${icon('arrow', 'icon icon-sm')}</button></div><p class="product-gallery-help">缩略图已压缩为正方形预览；图片较多时可横向滚动或使用左右按钮翻页。</p></section>`
+}
+
+function productGalleryCardMarkup(media, index) {
+  return `<article class="product-gallery-item" draggable="true" data-gallery-item data-media-id="${escapeHtml(media.id)}" data-gallery-index="${index}" role="listitem"><img src="${escapeHtml(media.url || editorMediaURL(media))}" alt="${escapeHtml(media.alt_text || media.original_name || `产品图片 ${index + 1}`)}" loading="lazy" decoding="async" width="78" height="78"><div class="product-gallery-item-meta"><span>${index === 0 ? '主图' : `图片 ${index + 1}`}</span><button type="button" class="text-button" data-gallery-remove aria-label="删除第 ${index + 1} 张产品图片">删除</button></div></article>`
+}
+
 async function contentEditorPageMarkup(item = null, newLocale = false) {
   const sourceSite = defaultEnglishSite()
   const siteID = item?.site_id ?? (newLocale ? Number($('#site-switcher')?.dataset.siteId || liveState.sites[0]?.id || 0) : Number(sourceSite?.id || 0))
@@ -1747,21 +2502,24 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
   const scheduledAt = defaultContentScheduledAt(item, mode !== 'edit')
   const contentType = item?.content_type || requestedContentType()
   const isSinglePage = contentType === 'page'
-  const templatePlaceholder = isSinglePage ? 'page/company' : 'article/zh-cn'
-  const listPath = isSinglePage ? '#/admin/content?section=pages' : '#/admin/content?section=articles'
-  const heading = newLocale ? '添加语言版本' : item ? (isSinglePage ? '编辑单页面' : '编辑内容') : isSinglePage ? '新建单页面' : '新增英语内容'
+  const isProduct = contentType === 'product'
+  const templatePlaceholder = isSinglePage ? 'page/company' : isProduct ? 'product/detail' : 'article/zh-cn'
+  const listPath = isSinglePage ? '#/admin/content?section=pages' : isProduct ? '#/admin/content?section=products' : '#/admin/content?section=articles'
+  const heading = newLocale ? '添加语言版本' : item ? (isSinglePage ? '编辑单页面' : isProduct ? '编辑产品' : '编辑内容') : isSinglePage ? '新建单页面' : isProduct ? '新建产品' : '新增英语内容'
   const title = item?.title ?? ''
   const seoTitle = item?.seo_title ?? title
   const metaDescription = item?.meta_description ?? ''
   const coverSelected = Boolean(item?.cover_media_id)
   const coverName = item?.cover_original_name || (coverSelected ? `媒体 #${item.cover_media_id}` : '尚未选择封面素材')
-  const coverDetails = coverSelected && item?.cover_width && item?.cover_height ? `${item.cover_width} × ${item.cover_height} · 已安全扫描` : '建议 1200 × 630，仅支持 JPEG / PNG'
+  const coverDetails = coverSelected && item?.cover_width && item?.cover_height ? `${item.cover_width} × ${item.cover_height} · 已安全扫描 · AVIF` : '建议 1200 × 630；上传后会统一转换为 AVIF'
   const livePageURL = item?.status === 'published' && !isScheduledContent(item) ? contentFrontendPreviewURL(selectedSite, item) : ''
   const localePath = Number(selectedSite?.language_count || 0) > 1 ? `/${escapeHtml(selectedLocale)}` : ''
   const contactFormManager = isSinglePage ? await contactPageFormManagerMarkup(item) : ''
+  let contentMetafieldData = { definitions: [], values: [] }
+  try { contentMetafieldData = await loadContentMetafieldData(contentType, newLocale ? null : item, siteID, selectedLocale) } catch { /* custom fields are optional; the editor remains usable if unavailable */ }
   return `<form id="content-editor-form" class="content-page-form" data-mode="${mode}" data-id="${escapeHtml(item?.id ?? '')}" data-content-id="${escapeHtml(item?.content_id ?? '')}" data-site-id="${escapeHtml(item?.site_id ?? siteID)}" data-locale="${escapeHtml(item?.locale ?? selectedLocale)}" data-ai-state="${escapeHtml(item?.ai_state ?? 'manual')}" data-version="${escapeHtml(item?.version ?? '')}" data-content-version="${escapeHtml(item?.content_version ?? '')}" novalidate>
     <header class="content-page-heading">
-      <div class="content-heading-copy"><nav class="content-breadcrumb" aria-label="面包屑"><a href="${listPath}">${isSinglePage ? '单页面' : '内容管理'}</a><span aria-hidden="true">/</span><span>${heading}</span></nav><div class="content-title-line"><h1>${heading}</h1>${item?.ai_state === 'pending' ? '<span class="badge badge-amber">AI 生成 · 待人工审核</span>' : item?.ai_state === 'reviewed' ? '<span class="badge badge-green">AI 版本 · 已人工审核</span>' : ''}<p>${newLocale ? '为同一内容组创建独立的本地化版本' : isSinglePage ? '页面布局、SEO 收录和表单绑定都由后台单独管理；联系页默认 noindex，企业介绍/服务/专题可主动启用收录。' : !item ? '默认先完成并发布英语源内容，再由 AI 同步其他国家站' : isEnglishLocaleCode(item.locale) ? '英语源内容可在发布后同步为其他语言的待审核版本' : '目标语言版本可独立审核、修改和发布'}</p></div></div>
+      <div class="content-heading-copy"><nav class="content-breadcrumb" aria-label="面包屑"><a href="${listPath}">${isSinglePage ? '单页面' : isProduct ? '产品管理' : '内容管理'}</a><span aria-hidden="true">/</span><span>${heading}</span></nav><div class="content-title-line"><h1>${heading}</h1>${item?.ai_state === 'pending' ? '<span class="badge badge-amber">AI 生成 · 待人工审核</span>' : item?.ai_state === 'reviewed' ? '<span class="badge badge-green">AI 版本 · 已人工审核</span>' : ''}<p>${newLocale ? '为同一内容组创建独立的本地化版本' : isSinglePage ? '页面布局、SEO 收录和表单绑定都由后台单独管理；联系页默认 noindex，企业介绍/服务/专题可主动启用收录。' : isProduct ? 'B 端产品仅用于信息展示，可维护参数、资料下载、询盘和 SEO；不包含交易功能。' : !item ? '默认先完成并发布英语源内容，再由 AI 同步其他国家站' : isEnglishLocaleCode(item.locale) ? '英语源内容可在发布后同步为其他语言的待审核版本' : '目标语言版本可独立审核、修改和发布'}</p></div></div>
       <div class="content-heading-actions" aria-label="内容操作">
         ${item?.content_id ? `<button class="button button-secondary" type="button" data-content-action="revisions">${icon('clipboard', 'icon icon-sm')}版本历史</button>` : ''}
         ${livePageURL ? `<a class="button button-secondary" href="${escapeHtml(livePageURL)}" target="_blank" rel="noopener">${icon('eye', 'icon icon-sm')}打开前台</a>` : ''}
@@ -1791,13 +2549,15 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
               <button type="button" class="editor-tool" data-rich-command="source" aria-pressed="false">源码</button><button type="button" class="editor-tool" data-rich-command="fullscreen" aria-pressed="false">全屏</button>
             </div>
             <div class="wysiwyg-editor" data-rich-editor contenteditable="true" role="textbox" aria-multiline="true" aria-label="正文内容" data-placeholder="开始撰写正文，输入 / 可插入内容块…"></div>
-            <input type="file" data-rich-image-input accept="image/jpeg,image/png,.jpg,.jpeg,.png" hidden aria-label="选择正文图片">
+            <input type="file" data-rich-image-input accept="image/avif,image/webp,image/gif,image/jpeg,image/png,.avif,.webp,.gif,.jpg,.jpeg,.png" hidden aria-label="选择正文图片">
             <textarea name="body_html" class="rich-source" data-rich-source maxlength="200000" aria-label="正文 HTML 源码" hidden>${escapeHtml(item?.body_html ?? '')}</textarea>
             <iframe class="rich-preview rich-page-preview" data-rich-preview title="正文预览" sandbox="allow-same-origin" hidden></iframe>
             <footer class="rich-editor-status"><span data-word-count>字数 0 · 阅读约 1 分钟</span><span class="editor-media-state" data-media-state role="status" aria-live="polite" hidden></span><span class="draft-save-state" data-draft-state><i></i>尚未保存</span></footer>
           </div>
           <label class="form-field content-summary-field"><span>内容摘要</span><textarea name="summary" maxlength="500" placeholder="用于内容列表、分享卡片和搜索摘要；建议控制在 120 字以内">${escapeHtml(item?.summary ?? '')}</textarea><small><span>概括正文价值，不机械重复标题。</span><span data-count-for="summary">${String(item?.summary ?? '').length} / 500</span></small></label>
         </section>
+
+        ${contentMetafieldsMarkup(contentMetafieldData)}
 
         ${can('seo.manage') ? `<section class="content-seo-panel" aria-labelledby="content-seo-heading">
           <header class="content-section-heading"><div><h2 id="content-seo-heading">Google SEO 设置</h2><p>每个站点和 Locale 独立配置；优先使用已配置 AI，未配置时从当前文章生成默认值。</p></div><div class="seo-heading-actions"><button class="button button-secondary button-compact" type="button" data-content-action="seo-extract">${icon('bot', 'icon icon-sm')}<span>AI 自动提取</span></button><span class="seo-score" data-seo-score><i></i>SEO 评分 0</span></div></header>
@@ -1813,15 +2573,17 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
             ${field('页面 H1', 'seo_h1', item?.h1 ?? title, { maxlength: 200 })}
             ${field('Open Graph 标题', 'og_title', item?.og_title ?? '', { maxlength: 200 })}
             ${field('Open Graph 描述', 'og_description', item?.og_description ?? '', { textarea: true, maxlength: 500 })}
-            ${field('JSON-LD 结构化数据', 'structured_data', structured, { textarea: true, code: true })}
+            ${field('JSON-LD 结构化数据', 'structured_data', structured, { textarea: true, code: true, help: '可留空自动生成；文章使用 Article，B 端产品使用 Product，单页面使用 WebPage / ContactPage。支持纯 JSON 或 <script type="application/ld+json">…</script> 包装格式，禁止虚构价格、评分、库存、作者或联系方式。' })}
+            ${structuredDataPreviewMarkup()}
             ${isSinglePage ? `<div class="page-seo-policy"><label class="form-field"><span>页面布局</span><select name="page_layout"><option value="standard" ${(item?.page_layout ?? 'standard') === 'standard' ? 'selected' : ''}>普通页面（关于我们 / 服务）</option><option value="contact" ${(item?.page_layout ?? '') === 'contact' ? 'selected' : ''}>联系页面（可绑定询盘表单）</option><option value="landing" ${(item?.page_layout ?? '') === 'landing' ? 'selected' : ''}>专题 / 落地页</option><option value="custom" ${(item?.page_layout ?? '') === 'custom' ? 'selected' : ''}>自定义页面</option></select><small>布局控制前台加载的页面和表单资源；正文不能直接放入任意 HTML 表单。</small></label><label class="form-field"><span>搜索引擎收录</span><select name="index_policy"><option value="noindex" ${(item?.index_policy ?? 'noindex') === 'noindex' ? 'selected' : ''}>不收录（noindex, follow）</option><option value="index" ${(item?.index_policy ?? '') === 'index' ? 'selected' : ''}>允许收录并进入 Sitemap</option></select><small>联系表单、隐私和提交成功页建议不收录；企业介绍、服务和专题可以开启。</small></label><input type="checkbox" name="robots_index" checked hidden></div>` : checkboxField('允许搜索引擎收录（index）', 'robots_index', item?.robots_index ?? true)}
           </div></details>
         </section>` : ''}
       </div>
 
       <aside class="content-publish-sidebar" aria-label="发布设置">
+        ${isProduct ? productGalleryMarkup(item) : ''}
         <section class="publish-sidebar-section"><h2>发布设置</h2><div class="publish-summary-row"><span>状态</span>${selectField('状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}</div><div class="publish-summary-row"><span>发布时间</span>${field('发布时间', 'scheduled_at', scheduledAt, { type: 'datetime-local', help: '默认当前时间；改为未来时间并发布后，前台会在到点时自动开放，最多受 60 秒页面缓存影响。' })}</div><div class="publish-summary-row publish-owner"><span>作者</span><strong>${escapeHtml(item?.owner_name || '当前管理员')}</strong></div><button class="button button-primary publish-sidebar-button" type="button" data-content-action="publish">立即发布</button></section>
-        <section class="publish-sidebar-section"><header class="sidebar-section-heading"><h2>站点与语言</h2><button type="button" class="text-button" data-content-action="localize">AI 同步其他语言</button></header>${selectField('目标站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容语言', 'locale', localeChoices, selectedLocale, { required: true, disabled: Boolean(item) && !newLocale })}<input type="hidden" name="cover_media_id" value="${escapeHtml(item?.cover_media_id ?? '')}"><div class="cover-selector ${coverSelected ? 'is-selected' : ''}" data-cover-selector><span class="cover-placeholder">${icon('image')}</span><span><small>封面图</small><strong data-cover-name>${escapeHtml(coverName)}</strong><em data-cover-details>${escapeHtml(coverDetails)}</em></span><span class="cover-actions"><button class="button button-secondary button-compact" type="button" data-content-action="media">${coverSelected ? '更换' : '上传'}</button><button class="text-button" type="button" data-content-action="cover-remove" ${coverSelected ? '' : 'hidden'}>移除</button></span></div></section>
+        <section class="publish-sidebar-section"><header class="sidebar-section-heading"><h2>站点与语言</h2><button type="button" class="text-button" data-content-action="localize">AI 同步其他语言</button></header>${selectField('目标站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容语言', 'locale', localeChoices, selectedLocale, { required: true, disabled: Boolean(item) && !newLocale })}${!isProduct ? `<input type="hidden" name="cover_media_id" value="${escapeHtml(item?.cover_media_id ?? '')}"><div class="cover-selector ${coverSelected ? 'is-selected' : ''}" data-cover-selector><span class="cover-placeholder">${icon('image')}</span><span><small>封面图</small><strong data-cover-name>${escapeHtml(coverName)}</strong><em data-cover-details>${escapeHtml(coverDetails)}</em></span><span class="cover-actions"><button class="button button-secondary button-compact" type="button" data-content-action="media">${coverSelected ? '更换' : '上传'}</button><button class="text-button" type="button" data-content-action="cover-remove" ${coverSelected ? '' : 'hidden'}>移除</button></span></div>` : ''}</section>
         <section class="publish-sidebar-section"><h2>栏目、标签与模板</h2><label class="form-field"><span>栏目</span><input name="category" list="content-category-suggestions" value="${escapeHtml(item?.category ?? '')}" maxlength="100" placeholder="选择或输入栏目"><datalist id="content-category-suggestions">${taxonomyOptionMarkup(categoryTerms)}</datalist><small data-category-suggestion-count>${categoryTerms.length ? `当前范围有 ${categoryTerms.length} 个可用栏目；也可输入新名称，保存时自动创建。` : '当前范围还没有栏目；输入名称并保存后会自动创建。'}</small></label><label class="form-field tag-editor-field"><span>标签</span><input type="hidden" name="tags" value="${escapeHtml(tags)}"><div class="tag-editor" data-tag-editor><div class="tag-chip-list" data-tag-list></div><input type="text" data-tag-entry list="content-tag-suggestions" maxlength="80" aria-describedby="content-tag-help" placeholder="输入标签后按回车或逗号"></div><datalist id="content-tag-suggestions">${taxonomyOptionMarkup(tagTerms)}</datalist><small id="content-tag-help" data-tag-suggestion-count>${contentTagHelpText(tagTerms.length)}</small></label>${field('页面模板', 'template_key', item?.template_key ?? '', { maxlength: 100, placeholder: templatePlaceholder })}</section>
         ${contactFormManager}
         <section class="publish-sidebar-section publish-check-panel"><h2>发布前检查</h2><div class="check-row" data-publish-check="title"><span class="check-dot check-dot-neutral"></span><span>标题与 URL</span><small>待填写</small></div><div class="check-row" data-publish-check="body"><span class="check-dot check-dot-neutral"></span><span>正文内容</span><small>待填写</small></div><div class="check-row" data-publish-check="seo"><span class="check-dot check-dot-neutral"></span><span>SEO 字段</span><small>待完善</small></div><div class="check-row" data-publish-check="cover"><span class="check-dot check-dot-warning"></span><span>封面图</span><small>建议上传</small></div><p>发布时服务端会再次执行权限、URL 冲突与富文本安全检查，并写入审计日志。</p></section>
@@ -1882,6 +2644,170 @@ function editorPlainText(html) {
   return template.content.textContent?.replace(/\s+/g, ' ').trim() ?? ''
 }
 
+function parseStructuredDataInput(value) {
+  let source = String(value ?? '').trim()
+  const script = source.match(/^<script\b[^>]*\btype\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>\s*$/i)
+  if (script) source = script[1].trim()
+  return JSON.parse(source || '{}')
+}
+
+function structuredDataPreviewMarkup() {
+  return `<section class="schema-preview" data-schema-preview aria-labelledby="schema-preview-heading">
+    <header class="schema-preview-heading"><div><h3 id="schema-preview-heading">最终结构化数据预览</h3><p>这里展示发布时的页面主实体与合并结果；正式输出仍会由服务端按规范 URL 再校验一次。</p></div><div class="schema-preview-actions"><button class="text-button" type="button" data-content-action="structured-copy">${icon('clipboard', 'icon icon-sm')}复制 JSON-LD</button><button class="text-button" type="button" data-content-action="structured-reset">恢复系统自动生成</button></div></header>
+    <div class="schema-preview-summary" aria-label="结构化数据状态"><span data-schema-type><strong>Article</strong><small>页面主实体</small></span><span data-schema-source><strong>系统自动生成</strong><small>发布时服务端继续补充关系</small></span><span data-schema-nodes><strong>1</strong><small>结构化节点</small></span><span class="schema-preview-status" data-schema-status>自动生成</span></div>
+    <p class="schema-preview-error" data-schema-error role="alert" hidden></p>
+    <details class="schema-preview-code"><summary>查看最终 JSON-LD</summary><pre data-schema-code aria-label="最终 JSON-LD 只读预览"></pre></details>
+  </section>`
+}
+
+function structuredPreviewType(form) {
+  const contentType = contentEditorFormValue(form, 'content_type') || 'article'
+  if (contentType === 'product') return 'Product'
+  if (contentType === 'page' || contentType === 'landing') {
+    return contentEditorFormValue(form, 'page_layout') === 'contact' ? 'ContactPage' : 'WebPage'
+  }
+  return 'Article'
+}
+
+function mergeStructuredPreviewFields(target, source) {
+  if (!target || !source || typeof source !== 'object' || Array.isArray(source)) return
+  Object.entries(source).forEach(([key, value]) => {
+    if (key === '@context' || key === '@graph' || key === '@type' || key === '@id' || key === 'url') return
+    if (target[key] && typeof target[key] === 'object' && !Array.isArray(target[key]) && value && typeof value === 'object' && !Array.isArray(value)) {
+      mergeStructuredPreviewFields(target[key], value)
+      return
+    }
+    target[key] = value
+  })
+}
+
+function structuredPreviewNodes(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return []
+  if (Array.isArray(value['@graph'])) return value['@graph'].filter((node) => node && typeof node === 'object' && !Array.isArray(node))
+  return [value]
+}
+
+function mergeStructuredPreview(document, custom) {
+  const defaultType = structuredPreviewType({ elements: { content_type: { value: document.__contentType }, page_layout: { value: document.__pageLayout } } })
+  structuredPreviewNodes(custom).forEach((node) => {
+    const type = String(node['@type'] || '').trim().toLowerCase()
+    if (!type || type === defaultType.toLowerCase()) {
+      mergeStructuredPreviewFields(document, node)
+      return
+    }
+    if (type === 'organization' && document.publisher && typeof document.publisher === 'object') {
+      mergeStructuredPreviewFields(document.publisher, node)
+      return
+    }
+    if (type === 'website' && document.isPartOf && typeof document.isPartOf === 'object') {
+      mergeStructuredPreviewFields(document.isPartOf, node)
+      return
+    }
+    if (type === 'breadcrumblist' && document.breadcrumb && typeof document.breadcrumb === 'object') {
+      mergeStructuredPreviewFields(document.breadcrumb, node)
+      return
+    }
+    document['@graph'] = [...(Array.isArray(document['@graph']) ? document['@graph'] : []), { ...node, '@context': undefined }]
+    delete document['@graph'][document['@graph'].length - 1]['@context']
+  })
+}
+
+function structuredPreviewDocument(form) {
+  const site = liveState.sites.find((item) => String(item.id) === contentEditorFormValue(form, 'site_id')) ?? liveState.sites[0]
+  const origin = siteBaseURL(site).replace(/\/$/, '')
+  const locale = contentEditorFormValue(form, 'locale') || form.dataset.locale || 'en'
+  const slug = contentEditorFormValue(form, 'slug')
+  const pageURL = `${origin}${sitePublicPath(site, locale, slug)}`
+  const title = contentEditorFormValue(form, 'title') || '未命名页面'
+  const h1 = contentEditorFormValue(form, 'seo_h1') || title
+  const description = contentEditorFormValue(form, 'meta_description') || contentEditorFormValue(form, 'summary') || '待填写页面摘要'
+  const type = structuredPreviewType(form)
+  const organization = { '@type': 'Organization', '@id': `${origin}/#organization`, name: site?.name || 'CZCMS', url: `${origin}/` }
+  const website = { '@type': 'WebSite', '@id': `${origin}/#website`, url: `${origin}/`, name: site?.name || 'CZCMS', inLanguage: locale, publisher: organization }
+  const breadcrumb = { '@type': 'BreadcrumbList', '@id': `${pageURL}#breadcrumb`, itemListElement: [{ '@type': 'ListItem', position: 1, name: site?.name || '首页', item: `${origin}/` }, { '@type': 'ListItem', position: 2, name: h1, item: pageURL }] }
+  const document = { '@context': 'https://schema.org', '@type': type, '@id': `${pageURL}#content`, url: pageURL, name: title, description, inLanguage: locale, isPartOf: website, mainEntityOfPage: { '@type': 'WebPage', '@id': `${pageURL}#webpage` }, breadcrumb }
+  if (type === 'Article') {
+    document.headline = h1
+    document.publisher = organization
+    document.author = organization
+    const category = contentEditorFormValue(form, 'category')
+    const tags = normalizeTags(contentEditorFormValue(form, 'tags'), 20)
+    if (category) document.articleSection = category
+    if (tags.length) document.keywords = category ? [category, ...tags.filter((tag) => tag.toLocaleLowerCase('zh-CN') !== category.toLocaleLowerCase('zh-CN'))] : tags
+  } else if (type === 'Product') {
+    const category = contentEditorFormValue(form, 'category')
+    if (category) document.category = category
+  } else {
+    document.about = organization
+    document.publisher = organization
+  }
+  document.__contentType = contentEditorFormValue(form, 'content_type') || 'article'
+  document.__pageLayout = contentEditorFormValue(form, 'page_layout')
+  return document
+}
+
+function updateStructuredDataPreview(form) {
+  const root = form?.querySelector('[data-schema-preview]')
+  if (!root) return
+  const code = root.querySelector('[data-schema-code]')
+  const status = root.querySelector('[data-schema-status]')
+  const type = root.querySelector('[data-schema-type]')
+  const source = root.querySelector('[data-schema-source]')
+  const nodes = root.querySelector('[data-schema-nodes]')
+  const error = root.querySelector('[data-schema-error]')
+  const document = structuredPreviewDocument(form)
+  let custom = {}
+  let parseError = ''
+  try {
+    custom = parseStructuredDataInput(contentEditorFormValue(form, 'structured_data'))
+    if (!custom || typeof custom !== 'object' || Array.isArray(custom)) parseError = '顶层必须是 JSON 对象'
+    else if (custom['@context'] && typeof custom['@context'] === 'string' && !custom['@context'].toLowerCase().includes('schema.org')) parseError = '@context 必须使用 schema.org'
+    else if (Array.isArray(custom['@graph']) && (!custom['@graph'].length || custom['@graph'].some((node) => !node || typeof node !== 'object' || Array.isArray(node) || !String(node['@type'] || '').trim()))) parseError = '@graph 中每个节点都必须包含 @type'
+    else if (!Array.isArray(custom['@graph']) && Object.keys(custom).length > 0 && !String(custom['@type'] || '').trim()) parseError = '非空 JSON-LD 必须包含 @type'
+  } catch (caught) { parseError = caught?.message || 'JSON 格式无效' }
+  if (!parseError && custom && typeof custom === 'object' && !Array.isArray(custom) && Object.keys(custom).length > 0) mergeStructuredPreview(document, custom)
+  delete document.__contentType
+  delete document.__pageLayout
+  const graphNodes = Array.isArray(document['@graph']) ? document['@graph'].length : 0
+  if (code) code.textContent = JSON.stringify(document, null, 2)
+  if (type) type.innerHTML = `<strong>${escapeHtml(document['@type'])}</strong><small>页面主实体</small>`
+  if (source) source.innerHTML = `<strong>${parseError ? 'JSON 有误' : custom && Object.keys(custom).length ? '系统 + 自定义' : '系统自动生成'}</strong><small>${parseError ? '修正后才会保存' : '发布时服务端继续补充关系'}</small>`
+  if (nodes) nodes.innerHTML = `<strong>${graphNodes + 1}</strong><small>结构化节点</small>`
+  if (status) {
+    status.textContent = parseError ? '需要修正' : custom && Object.keys(custom).length ? '已合并' : '自动生成'
+    status.classList.toggle('is-error', Boolean(parseError))
+    status.classList.toggle('is-custom', !parseError && custom && Object.keys(custom).length > 0)
+  }
+  if (error) {
+    error.hidden = !parseError
+    error.textContent = parseError ? `JSON-LD 暂时无法解析：${parseError}。可粘贴纯 JSON 或完整 script 标签。` : ''
+  }
+}
+
+async function copyStructuredDataPreview(form, button) {
+  const code = form?.querySelector('[data-schema-code]')
+  const value = code?.textContent?.trim()
+  const original = button?.innerHTML || '复制 JSON-LD'
+  if (!button || !value) return
+  button.disabled = true
+  button.setAttribute('aria-busy', 'true')
+  button.textContent = '复制…'
+  try {
+    await copyTextToClipboard(value)
+    button.innerHTML = `${icon('check', 'icon icon-sm')}已复制`
+    showToast('最终 JSON-LD 已复制到剪贴板')
+  } catch (error) {
+    button.innerHTML = original
+    showToast(error.message || '复制失败，请展开预览后手动复制')
+  } finally {
+    button.disabled = false
+    button.removeAttribute('aria-busy')
+    window.setTimeout(() => {
+      if (button.isConnected && !button.disabled && button.textContent?.includes('已复制')) button.innerHTML = original
+    }, 2200)
+  }
+}
+
 function updateContentPageChecks(form) {
   const checks = {
     title: Boolean(contentEditorFormValue(form, 'title') && contentEditorFormValue(form, 'slug')),
@@ -1922,6 +2848,7 @@ function updateContentPagePreview(form) {
   if (urlElement) urlElement.textContent = url
   if (titleElement) titleElement.textContent = `${title} | CZCMS`
   if (descriptionElement) descriptionElement.textContent = description
+  updateStructuredDataPreview(form)
 }
 
 function updateContentPageWordCount(form) {
@@ -2081,15 +3008,15 @@ function insertRichHTML(form, html) {
 }
 
 function safeEditorFileName(file, prefix = 'editor-image') {
-  const extension = file?.type === 'image/png' ? '.png' : '.jpg'
+  const extension = String(file?.name || '').match(/\.(avif|webp|gif|jpe?g|png)$/i)?.[0]?.toLowerCase() || '.png'
   const name = String(file?.name || '').split(/[\\/]/).pop()?.replace(/[^\p{L}\p{N}._ ()-]/gu, '').trim()
-  if (name && /\.(?:jpe?g|png)$/i.test(name)) return name.slice(0, 180)
+  if (name && /\.(?:avif|webp|gif|jpe?g|png)$/i.test(name)) return name.slice(0, 180)
   return `${prefix}-${Date.now()}${extension}`
 }
 
 async function uploadRichImage(form, file, selection = null) {
-  if (!file || (!/^image\/(?:jpeg|png)$/i.test(file.type || '') && !/\.(?:jpe?g|png)$/i.test(file.name || ''))) {
-    showToast('正文图片仅支持 JPEG 或 PNG')
+  if (!file || (!/^image\/(?:jpeg|png|gif|webp|avif)$/i.test(file.type || '') && !/\.(?:jpe?g|png|gif|webp|avif)$/i.test(file.name || ''))) {
+    showToast('正文图片支持 JPEG、PNG、GIF、WebP、AVIF，上传后统一转为 AVIF')
     return
   }
   if (file.size > 12 * 1024 * 1024) {
@@ -2120,6 +3047,154 @@ async function uploadRichImage(form, file, selection = null) {
   }
 }
 
+function setMetafieldRichState(control, message = '', tone = '') {
+  const state = control?.querySelector('[data-metafield-rich-state]')
+  if (!state) return
+  state.hidden = !message
+  state.className = `editor-media-state${tone ? ` is-${tone}` : ''}`
+  state.textContent = message
+}
+
+function insertMetafieldRichHTML(control, html) {
+  const source = control?.querySelector('[data-metafield-rich-source]')
+  const visual = control?.querySelector('[data-metafield-rich-editor-content]')
+  if (!source || !visual) return
+  if (!source.hidden) {
+    const start = source.selectionStart ?? source.value.length
+    const end = source.selectionEnd ?? start
+    source.setRangeText(sanitizePastedHTML(html), start, end, 'end')
+    source.dispatchEvent(new Event('input', { bubbles: true }))
+    return
+  }
+  restoreMetafieldRichSelection(control)
+  const selection = window.getSelection?.()
+  const range = selection?.rangeCount ? selection.getRangeAt(0) : null
+  if (!range || !visual.contains(range.commonAncestorContainer)) {
+    focusMetafieldRichEditor(control)
+    return insertMetafieldRichHTML(control, html)
+  }
+  const template = document.createElement('template')
+  template.innerHTML = sanitizePastedHTML(html)
+  range.deleteContents()
+  const fragment = template.content
+  const last = fragment.lastChild
+  range.insertNode(fragment)
+  range.setStartAfter(last || range.startContainer)
+  range.collapse(true)
+  selection.removeAllRanges()
+  selection.addRange(range)
+  syncMetafieldRichEditor(control, 'visual')
+}
+
+async function uploadMetafieldRichImage(control, file, selection = null) {
+  if (!file || (!/^image\/(?:jpeg|png|gif|webp|avif)$/i.test(file.type || '') && !/\.(?:jpe?g|png|gif|webp|avif)$/i.test(file.name || ''))) {
+    setMetafieldRichState(control, '富文本图片支持 JPEG、PNG、GIF、WebP、AVIF', 'error')
+    return
+  }
+  if (file.size > 12 * 1024 * 1024) {
+    setMetafieldRichState(control, '富文本图片不能超过 12 MB', 'error')
+    return
+  }
+  const form = control?.closest('#content-editor-form')
+  if (selection) contentEditorState.metafieldRichSelections.set(metafieldRichEditorKey(control), selection)
+  else rememberMetafieldRichSelection(control)
+  setMetafieldRichState(control, '正在上传图片…')
+  const body = new FormData()
+  body.append('file', file, safeEditorFileName(file, 'metafield-image'))
+  try {
+    const media = await fetchJSON('/api/v1/media/upload', { method: 'POST', body })
+    const src = editorMediaURL(media)
+    if (!src) throw new APIError('上传成功但未返回可访问的图片地址', 502)
+    const alt = String(file.name || '').replace(/\.[^.]+$/, '').trim().slice(0, 200)
+    insertMetafieldRichHTML(control, `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}"${media.width ? ` width="${Number(media.width)}"` : ''}${media.height ? ` height="${Number(media.height)}"` : ''} loading="lazy">`)
+    if (form) saveLocalContentDraft(form)
+    setMetafieldRichState(control, '图片已上传并插入富文本', 'success')
+    window.setTimeout(() => setMetafieldRichState(control), 2400)
+  } catch (error) {
+    setMetafieldRichState(control, error.message || '图片上传失败', 'error')
+    showToast(error.message || '图片上传失败')
+  }
+}
+
+async function localizeMetafieldPastedImage(control, image, source) {
+  const form = control?.closest('#content-editor-form')
+  const token = `czcms-metafield-image-${Date.now()}-${Math.random().toString(36).slice(2)}`
+  image.dataset.czcmsMetafieldImportToken = token
+  try {
+    let media
+    if (/^data:image\/(?:jpeg|png|gif|webp|avif);base64,/i.test(source)) {
+      const file = dataURLToFile(source, `metafield-image-${Date.now()}.png`)
+      if (!file) throw new APIError('剪贴板图片格式无法读取', 422)
+      const body = new FormData()
+      body.append('file', file, safeEditorFileName(file, 'metafield-image'))
+      media = await fetchJSON('/api/v1/media/upload', { method: 'POST', body })
+    } else {
+      media = await fetchJSON('/api/v1/media/import', { method: 'POST', body: { url: source } })
+    }
+    const localURL = editorMediaURL(media)
+    if (!localURL) throw new APIError('图片导入成功但未返回可访问地址', 502)
+    const current = control.querySelector(`[data-czcms-metafield-import-token="${CSS.escape(token)}"]`)
+    if (current) {
+      current.setAttribute('src', localURL)
+      current.removeAttribute('data-czcms-metafield-import-token')
+      current.setAttribute('loading', 'lazy')
+      if (!current.getAttribute('alt')) current.setAttribute('alt', '本地化图片')
+    }
+    syncMetafieldRichEditor(control, 'visual')
+    if (form) saveLocalContentDraft(form)
+    setMetafieldRichState(control, '复制内容中的图片已本地化', 'success')
+    window.setTimeout(() => setMetafieldRichState(control), 2400)
+  } catch (error) {
+    const current = control.querySelector(`[data-czcms-metafield-import-token="${CSS.escape(token)}"]`)
+    if (current) {
+      current.removeAttribute('data-czcms-metafield-import-token')
+      current.classList.add('editor-image-import-failed')
+      current.setAttribute('alt', '图片本地化失败，请重新上传')
+    }
+    setMetafieldRichState(control, error.message || '图片本地化失败', 'error')
+    showToast(error.message || '图片本地化失败')
+  }
+}
+
+function handleMetafieldRichPaste(event, control) {
+  const clipboard = event.clipboardData
+  if (!clipboard) return
+  const item = [...(clipboard.items || [])].find((entry) => /^image\/(?:jpeg|png|gif|webp|avif)$/i.test(entry.type || ''))
+  if (item) {
+    event.preventDefault()
+    rememberMetafieldRichSelection(control)
+    const file = item.getAsFile?.()
+    if (file) void uploadMetafieldRichImage(control, file, contentEditorState.metafieldRichSelections.get(metafieldRichEditorKey(control)))
+    return
+  }
+  const html = clipboard.getData('text/html')
+  if (!html) return
+  const cleaned = sanitizePastedHTML(html)
+  const template = document.createElement('template')
+  template.innerHTML = cleaned
+  const images = [...template.content.querySelectorAll('img')]
+    .map((image) => ({ image, source: image.getAttribute('src')?.trim() || '' }))
+    .filter(({ source }) => /^(?:https?:\/\/|data:image\/(?:jpeg|png|gif|webp|avif);base64,)/i.test(source))
+  images.forEach(({ image }, index) => {
+    image.dataset.czcmsMetafieldPasteIndex = String(index)
+    image.removeAttribute('src')
+    image.setAttribute('alt', image.getAttribute('alt') || '正在本地化图片…')
+  })
+  event.preventDefault()
+  rememberMetafieldRichSelection(control)
+  insertMetafieldRichHTML(control, template.innerHTML)
+  if (images.length) {
+    images.forEach(({ source }, index) => {
+      const image = control.querySelector(`[data-metafield-rich-editor-content] [data-czcms-metafield-paste-index="${index}"]`)
+      if (image) {
+        image.removeAttribute('data-czcms-metafield-paste-index')
+        void localizeMetafieldPastedImage(control, image, source)
+      }
+    })
+    setMetafieldRichState(control, `正在本地化 ${images.length} 张复制图片…`)
+  }
+}
+
 function sanitizePastedHTML(html) {
   const template = document.createElement('template')
   template.innerHTML = String(html || '')
@@ -2134,21 +3209,21 @@ function sanitizePastedHTML(html) {
   template.content.querySelectorAll('img').forEach((image) => {
     const src = image.getAttribute('src')?.trim() || ''
     if (/^\/\//.test(src)) image.setAttribute('src', `${location.protocol}${src}`)
-    if (src && !/^(?:https?:\/\/|\/|data:image\/(?:jpeg|png);base64,)/i.test(image.getAttribute('src') || '')) image.removeAttribute('src')
+    if (src && !/^(?:https?:\/\/|\/|data:image\/(?:jpeg|png|gif|webp|avif);base64,)/i.test(image.getAttribute('src') || '')) image.removeAttribute('src')
     image.removeAttribute('srcset')
   })
   return template.innerHTML
 }
 
 function dataURLToFile(dataURL, filename = 'pasted-image.png') {
-  const match = String(dataURL).match(/^data:(image\/(?:jpeg|png));base64,([A-Za-z0-9+/=]+)$/i)
+  const match = String(dataURL).match(/^data:(image\/(?:jpeg|png|gif|webp|avif));base64,([A-Za-z0-9+/=]+)$/i)
   if (!match) return null
   try {
     const bytes = atob(match[2])
     const buffer = new Uint8Array(bytes.length)
     for (let index = 0; index < bytes.length; index += 1) buffer[index] = bytes.charCodeAt(index)
-    const extension = match[1].toLowerCase() === 'image/png' ? '.png' : '.jpg'
-    const safeName = String(filename).replace(/\.(?:jpe?g|png)$/i, '') + extension
+    const extension = { 'image/png': '.png', 'image/gif': '.gif', 'image/webp': '.webp', 'image/avif': '.avif' }[match[1].toLowerCase()] || '.jpg'
+    const safeName = String(filename).replace(/\.(?:jpe?g|png|gif|webp|avif)$/i, '') + extension
     return new File([buffer], safeName, { type: match[1].toLowerCase() })
   } catch { return null }
 }
@@ -2158,7 +3233,7 @@ async function localizePastedImage(form, image, source) {
   image.dataset.czcmsImportToken = token
   try {
     let media
-    if (/^data:image\/(?:jpeg|png);base64,/i.test(source)) {
+    if (/^data:image\/(?:jpeg|png|gif|webp|avif);base64,/i.test(source)) {
       const file = dataURLToFile(source, `pasted-image-${Date.now()}.png`)
       if (!file) throw new APIError('剪贴板图片格式无法读取', 422)
       const body = new FormData()
@@ -2195,7 +3270,7 @@ async function localizePastedImage(form, image, source) {
 function handleRichPaste(event, form) {
   const clipboard = event.clipboardData
   if (!clipboard) return
-  const item = [...(clipboard.items || [])].find((entry) => /^image\/(?:jpeg|png)$/i.test(entry.type || ''))
+  const item = [...(clipboard.items || [])].find((entry) => /^image\/(?:jpeg|png|gif|webp|avif)$/i.test(entry.type || ''))
   if (item) {
     event.preventDefault()
     rememberRichSelection(form)
@@ -2210,7 +3285,7 @@ function handleRichPaste(event, form) {
   template.innerHTML = cleaned
   const images = [...template.content.querySelectorAll('img')]
     .map((image) => ({ image, source: image.getAttribute('src')?.trim() || '' }))
-    .filter(({ source }) => /^(?:https?:\/\/|data:image\/(?:jpeg|png);base64,)/i.test(source))
+    .filter(({ source }) => /^(?:https?:\/\/|data:image\/(?:jpeg|png|gif|webp|avif);base64,)/i.test(source))
   images.forEach(({ image }, index) => {
     image.dataset.czcmsPasteIndex = String(index)
     image.removeAttribute('src')
@@ -2260,8 +3335,11 @@ function applyLocalSEODefaults(form, overwrite = false) {
     if (form.elements[name] && (overwrite || !contentEditorFormValue(form, name))) form.elements[name].value = value
   })
   if (form.elements.structured_data && (overwrite || !contentEditorFormValue(form, 'structured_data') || contentEditorFormValue(form, 'structured_data') === '{}')) {
-    const isSinglePage = contentEditorFormValue(form, 'content_type') === 'page'
-    form.elements.structured_data.value = JSON.stringify({ '@context': 'https://schema.org', '@type': isSinglePage ? 'WebPage' : 'Article', ...(isSinglePage ? { name: title } : { headline: title }), description, inLanguage: contentEditorFormValue(form, 'locale') || form.dataset.locale || '' }, null, 2)
+    const contentType = contentEditorFormValue(form, 'content_type')
+    const isSinglePage = contentType === 'page'
+    const isProduct = contentType === 'product'
+    const type = isProduct ? 'Product' : isSinglePage ? ((contentEditorFormValue(form, 'page_layout') || '') === 'contact' ? 'ContactPage' : 'WebPage') : 'Article'
+    form.elements.structured_data.value = JSON.stringify({ '@context': 'https://schema.org', '@type': type, ...(isProduct || isSinglePage ? { name: title } : { name: title, headline: title }), description, inLanguage: contentEditorFormValue(form, 'locale') || form.dataset.locale || '' }, null, 2)
   }
   updateContentPageCount(form, 'seo_title', 60)
   updateContentPageCount(form, 'meta_description', 160)
@@ -2285,8 +3363,9 @@ async function extractContentSEO(form, button, { silent = false } = {}) {
     const result = await fetchJSON('/api/v1/content/seo-suggestions', {
       method: 'POST',
       body: {
-        site_id: Number(contentEditorFormValue(form, 'site_id') || form.dataset.siteId || 0),
-        title: contentEditorFormValue(form, 'title'),
+         site_id: Number(contentEditorFormValue(form, 'site_id') || form.dataset.siteId || 0),
+         content_type: contentEditorFormValue(form, 'content_type') || 'article',
+         title: contentEditorFormValue(form, 'title'),
         summary: contentEditorFormValue(form, 'summary'),
         body_html: form.elements.body_html?.value || '',
         locale: contentEditorFormValue(form, 'locale') || form.dataset.locale || '',
@@ -2409,6 +3488,8 @@ function bindContentCover(media) {
   if (!form?.elements?.cover_media_id || !selector || !media?.id) return
   form.elements.cover_media_id.value = String(media.id)
   selector.classList.add('is-selected')
+  const preview = selector.querySelector('.product-main-cover-preview')
+  if (preview) preview.innerHTML = `<img src="${escapeHtml(editorMediaURL(media))}" alt="${escapeHtml(media.original_name || '产品主图')}" loading="lazy">`
   selector.querySelector('[data-cover-name]').textContent = media.original_name || `媒体 #${media.id}`
   selector.querySelector('[data-cover-details]').textContent = media.width && media.height ? `${media.width} × ${media.height} · 已安全扫描` : '已上传并通过安全扫描'
   selector.querySelector('[data-content-action="media"]').textContent = '更换'
@@ -2423,12 +3504,122 @@ function clearContentCover() {
   if (!form?.elements?.cover_media_id || !selector) return
   form.elements.cover_media_id.value = ''
   selector.classList.remove('is-selected')
+  const preview = selector.querySelector('.product-main-cover-preview')
+  if (preview) preview.innerHTML = icon('image')
   selector.querySelector('[data-cover-name]').textContent = '尚未选择封面素材'
-  selector.querySelector('[data-cover-details]').textContent = '建议 1200 × 630，仅支持 JPEG / PNG'
+  selector.querySelector('[data-cover-details]').textContent = '建议 1200 × 630；上传后会统一转换为 AVIF'
   selector.querySelector('[data-content-action="media"]').textContent = '上传'
   selector.querySelector('[data-content-action="cover-remove"]').hidden = true
   updateContentPageChecks(form)
   saveLocalContentDraft(form)
+}
+
+function productGalleryIDs(form) {
+  const hidden = form?.elements?.namedItem?.('gallery_media_ids') || form?.querySelector?.('input[name="gallery_media_ids"]')
+  if (!hidden) return []
+  try { return JSON.parse(hidden.value || '[]').map(Number).filter(Boolean) } catch { return [] }
+}
+
+function syncProductGalleryHidden(form) {
+  const hidden = form?.elements?.namedItem?.('gallery_media_ids') || form?.querySelector?.('input[name="gallery_media_ids"]')
+  if (hidden) hidden.value = JSON.stringify(contentEditorState.productGallery.map((media) => Number(media.id)))
+}
+
+function updateProductGalleryControls(form) {
+  const panel = form?.querySelector('[data-product-gallery]')
+  const list = panel?.querySelector('[data-gallery-list]')
+  const carousel = panel?.querySelector('[data-gallery-carousel]')
+  if (!panel || !list || !carousel) return
+  const previous = carousel.querySelector('[data-gallery-prev]')
+  const next = carousel.querySelector('[data-gallery-next]')
+  const maxScroll = Math.max(0, list.scrollWidth - list.clientWidth)
+  const hasOverflow = maxScroll > 2
+  if (previous) previous.disabled = !hasOverflow || list.scrollLeft <= 2
+  if (next) next.disabled = !hasOverflow || list.scrollLeft >= maxScroll - 2
+  carousel.classList.toggle('has-gallery-overflow', hasOverflow)
+}
+
+function scrollProductGallery(form, direction) {
+  const list = form?.querySelector('[data-gallery-list]')
+  if (!list) return
+  const distance = Math.max(120, Math.floor(list.clientWidth * 0.82))
+  list.scrollBy({ left: direction * distance, behavior: 'smooth' })
+  window.setTimeout(() => updateProductGalleryControls(form), 260)
+}
+
+function renderProductGallery(form) {
+  const panel = form?.querySelector('[data-product-gallery]')
+  const list = panel?.querySelector('[data-gallery-list]')
+  if (!panel || !list) return
+  syncProductGalleryHidden(form)
+  const gallery = contentEditorState.productGallery
+  list.innerHTML = gallery.length ? gallery.map(productGalleryCardMarkup).join('') : '<p class="product-gallery-empty" data-gallery-empty>暂未添加产品图片。第一张图片将作为主图。</p>'
+  updateProductGalleryControls(form)
+  window.requestAnimationFrame?.(() => updateProductGalleryControls(form))
+  saveLocalContentDraft(form)
+}
+
+async function uploadProductGalleryFiles(form, files) {
+  const incoming = [...(files || [])].filter((file) => /^image\/(?:jpeg|png|gif|webp|avif)$/i.test(file.type || '') || /\.(?:jpe?g|png|gif|webp|avif)$/i.test(file.name || ''))
+  // Cancelling the native picker yields an empty FileList; that is not an
+  // upload error and should not show a misleading format warning.
+  if (!incoming.length) {
+    if ([...(files || [])].length) showToast('产品图库支持 JPEG、PNG、GIF、WebP、AVIF')
+    return
+  }
+  const slots = Math.max(0, 12 - contentEditorState.productGallery.length)
+  if (!slots) { showToast('产品图库最多 12 张'); return }
+  const selected = incoming.slice(0, slots)
+  if (incoming.length > slots) showToast(`最多还能添加 ${slots} 张图片，已忽略多余文件`)
+  const dropzone = form.querySelector('[data-gallery-dropzone]')
+  if (dropzone) dropzone.classList.add('is-uploading')
+  try {
+    for (const file of selected) {
+      if (file.size > 12 * 1024 * 1024) { showToast(`图片“${file.name}”超过 12 MB，已跳过`); continue }
+      const body = new FormData()
+      body.append('file', file, safeEditorFileName(file, 'product-image'))
+      const media = await fetchJSON('/api/v1/media/upload', { method: 'POST', body })
+      if (media?.id) {
+        contentEditorState.productGallery.push(media)
+        if (!contentEditorFormValue(form, 'cover_media_id')) bindContentCover(media)
+      }
+    }
+    renderProductGallery(form)
+    showToast('产品图片已上传并转为 AVIF，请保存草稿')
+  } catch (error) {
+    showToast(error.message || '产品图片上传失败')
+  } finally {
+    if (dropzone) dropzone.classList.remove('is-uploading')
+  }
+}
+
+function initializeProductGallery(form) {
+  if (!form?.querySelector('[data-product-gallery]')) return
+  contentEditorState.productGallery = Array.isArray(contentEditorState.item?.gallery) ? contentEditorState.item.gallery.map((media) => ({ ...media })) : []
+  const known = new Set(contentEditorState.productGallery.map((media) => Number(media.id)))
+  productGalleryIDs(form).forEach((id) => { if (!known.has(id)) contentEditorState.productGallery.push({ id, original_name: `媒体 #${id}`, url: `/media/${id}` }) })
+  syncProductGalleryHidden(form)
+  const input = form.querySelector('[data-gallery-input]')
+  const dropzone = form.querySelector('[data-gallery-dropzone]')
+  const list = form.querySelector('[data-gallery-list]')
+  form.querySelector('[data-gallery-upload]')?.addEventListener('click', () => input?.click())
+  form.querySelector('[data-gallery-prev]')?.addEventListener('click', () => scrollProductGallery(form, -1))
+  form.querySelector('[data-gallery-next]')?.addEventListener('click', () => scrollProductGallery(form, 1))
+  list?.addEventListener('scroll', () => updateProductGalleryControls(form), { passive: true })
+  list?.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); scrollProductGallery(form, -1) }
+    if (event.key === 'ArrowRight') { event.preventDefault(); scrollProductGallery(form, 1) }
+  })
+  dropzone?.addEventListener('click', (event) => { if (!event.target.closest('[data-gallery-upload]')) input?.click() })
+  // Copy the FileList before clearing the input. FileList is a live view in
+  // several browsers, so clearing `input.value` first would make `files`
+  // empty and the selected gallery image would never render.
+  input?.addEventListener('change', () => { const files = Array.from(input.files || []); input.value = ''; void uploadProductGalleryFiles(form, files) })
+  ;['dragenter', 'dragover'].forEach((type) => dropzone?.addEventListener(type, (event) => { event.preventDefault(); dropzone.classList.add('is-dragging') }))
+  ;['dragleave', 'drop'].forEach((type) => dropzone?.addEventListener(type, (event) => { event.preventDefault(); dropzone.classList.remove('is-dragging') }))
+  dropzone?.addEventListener('drop', (event) => void uploadProductGalleryFiles(form, event.dataTransfer?.files))
+  dropzone?.addEventListener('keydown', (event) => { if ((event.key === 'Enter' || event.key === ' ') && event.target === dropzone) { event.preventDefault(); input?.click() } })
+  renderProductGallery(form)
 }
 
 function initializeContentEditorPage() {
@@ -2436,7 +3627,9 @@ function initializeContentEditorPage() {
   if (!form) return
   syncVisualEditor(form, 'source')
   restoreLocalContentDraft(form)
+  initializeMetafieldRichEditors(form)
   renderContentTags(form)
+  initializeProductGallery(form)
   refreshContentTaxonomySuggestions(form)
   contentEditorState.dirty = false
   form.querySelector('[data-rich-block]')?.addEventListener('change', (event) => {
@@ -2454,7 +3647,7 @@ function contentEditorPayload(form, statusOverride = null) {
   const source = form.elements.body_html?.value ?? ''
   let structuredData = {}
   if (form.elements.structured_data) {
-    try { structuredData = JSON.parse(contentEditorFormValue(form, 'structured_data') || '{}') } catch { throw new APIError('JSON-LD 结构化数据不是有效的 JSON', 422) }
+    try { structuredData = parseStructuredDataInput(contentEditorFormValue(form, 'structured_data')) } catch { throw new APIError('JSON-LD 结构化数据不是有效的 JSON；可粘贴纯 JSON 或完整 script 标签', 422) }
   }
   const scheduledValue = contentEditorFormValue(form, 'scheduled_at')
   let scheduledAt = ''
@@ -2467,7 +3660,7 @@ function contentEditorPayload(form, statusOverride = null) {
   const payload = {
     content_type: contentEditorFormValue(form, 'content_type') || 'article', site_id: Number(contentEditorFormValue(form, 'site_id') || form.dataset.siteId), locale: contentEditorFormValue(form, 'locale') || form.dataset.locale,
     status: statusOverride || contentEditorFormValue(form, 'status') || 'draft', title: contentEditorFormValue(form, 'title'), slug: contentEditorFormValue(form, 'slug'), summary: contentEditorFormValue(form, 'summary'), body_html: source,
-    ai_state: form.dataset.aiState === 'pending' ? ((statusOverride || contentEditorFormValue(form, 'status')) === 'published' ? 'reviewed' : 'pending') : (form.dataset.aiState || 'manual'), category: contentEditorFormValue(form, 'category'), tags: normalizeTags(contentEditorFormValue(form, 'tags')), template_key: contentEditorFormValue(form, 'template_key'), cover_media_id: contentEditorFormValue(form, 'cover_media_id') ? Number(contentEditorFormValue(form, 'cover_media_id')) : null, scheduled_at: scheduledAt, page_layout: contentEditorFormValue(form, 'page_layout'), index_policy: contentEditorFormValue(form, 'index_policy'),
+    ai_state: form.dataset.aiState === 'pending' ? ((statusOverride || contentEditorFormValue(form, 'status')) === 'published' ? 'reviewed' : 'pending') : (form.dataset.aiState || 'manual'), category: contentEditorFormValue(form, 'category'), tags: normalizeTags(contentEditorFormValue(form, 'tags')), template_key: contentEditorFormValue(form, 'template_key'), cover_media_id: contentEditorFormValue(form, 'cover_media_id') ? Number(contentEditorFormValue(form, 'cover_media_id')) : null, gallery_media_ids: productGalleryIDs(form), scheduled_at: scheduledAt, page_layout: contentEditorFormValue(form, 'page_layout'), index_policy: contentEditorFormValue(form, 'index_policy'),
   }
   // A new single page starts noindex by default; an editor can explicitly
   // opt an about, service or campaign page into the sitemap via index_policy.
@@ -2483,6 +3676,7 @@ async function submitContentEditor(statusOverride = null) {
   commitPendingContentTag(form)
   syncVisualEditor(form, form.querySelector('[data-rich-source]')?.hidden === false ? 'source' : 'visual')
   applyLocalSEODefaults(form)
+  if (!validateContentMetafields(form)) return
   if (!form.reportValidity()) return
   const status = statusOverride || contentEditorFormValue(form, 'status') || 'draft'
   const body = editorPlainText(form.elements.body_html?.value)
@@ -2499,17 +3693,20 @@ async function submitContentEditor(statusOverride = null) {
     const mode = form.dataset.mode
     const path = mode === 'edit' ? `/api/v1/contents/${form.dataset.contentId}/locales/${encodeURIComponent(form.dataset.locale)}?site_id=${form.dataset.siteId}` : mode === 'locale-create' ? `/api/v1/contents/${form.dataset.contentId}/locales` : '/api/v1/contents'
     const saved = await fetchJSON(path, { method: mode === 'edit' ? 'PUT' : 'POST', body: payload })
+    await persistContentMetafieldValues(form, saved, payload)
     clearLocalContentDraft(form)
     contentEditorState.dirty = false
     showToast(status === 'published' ? '内容已发布' : status === 'review' ? '内容已提交审核' : '草稿已保存')
-    if (mode === 'create' && payload.content_type === 'page') {
-      showToast(`单页面“${payload.title}”已创建，已显示在单页面列表`)
-      location.hash = '#/admin/content?section=pages'
+    if (mode === 'create' && (payload.content_type === 'page' || payload.content_type === 'product')) {
+      if (payload.content_type === 'product') showToast(`产品“${payload.title}”已创建，已显示在产品列表`)
+      else showToast(`单页面“${payload.title}”已创建，已显示在单页面列表`)
+      location.hash = payload.content_type === 'product' ? '#/admin/content?section=products' : '#/admin/content?section=pages'
       return
     }
     if (saved?.content_id && saved?.site_id && saved?.locale) {
       const savedType = saved.content_type || payload.content_type
-      const targetHash = `#/admin/content?section=${savedType === 'page' ? 'pages' : 'articles'}&editor=edit&content_id=${encodeURIComponent(saved.content_id)}&site_id=${encodeURIComponent(saved.site_id)}&locale=${encodeURIComponent(saved.locale)}`
+      const targetSection = savedType === 'page' ? 'pages' : savedType === 'product' ? 'products' : 'articles'
+      const targetHash = `#/admin/content?section=${targetSection}&editor=edit&content_id=${encodeURIComponent(saved.content_id)}&site_id=${encodeURIComponent(saved.site_id)}&locale=${encodeURIComponent(saved.locale)}&content_type=${encodeURIComponent(savedType)}`
       contentEditorState.item = saved
       if (location.hash === targetHash) {
         contentEditorState.key = ''
@@ -2699,6 +3896,39 @@ async function openEntityDialog(entityName = '内容', item = null) {
     window.setTimeout(() => $('#entity-fields input, #entity-fields select, #entity-fields textarea')?.focus(), 0)
   } catch (error) {
     showToast(error.message || '无法打开编辑表单')
+  }
+}
+
+async function openSiteRobotsDialog(site) {
+  const siteID = seoSiteID(site)
+  if (!siteID) {
+    showToast('当前站点信息不完整，请刷新状态后重试')
+    return
+  }
+  try {
+    const settings = await fetchJSON(`/api/v1/seo/robots/${encodeURIComponent(siteID)}`)
+    entityForm.reset()
+    entityForm.dataset.route = 'seo-robots'
+    entityForm.dataset.mode = 'edit'
+    entityForm.dataset.id = siteID
+    entityForm.dataset.version = String(settings.version ?? 0)
+    entityDialog.classList.add('dialog-wide')
+    entityDialog.classList.remove('dialog-editor', 'dialog-site-editor', 'dialog-form-builder')
+    $('#entity-dialog-title').textContent = `编辑 robots · ${site.name}`
+    $('#entity-dialog-description').textContent = '保存后立即合并到该站点正式 robots.txt；系统自动安全规则、Sitemap 和 noindex 单页规则会继续保留。'
+    $('#entity-dialog-error').hidden = true
+    $('#entity-fields').innerHTML = `<section class="robots-editor"><div class="form-hint"><strong>系统自动规则</strong><span>后台、API、图片、动态查询、表单提交，以及默认 noindex 的单页面均由系统维护，不需要手工重复填写。</span></div><label class="form-field form-field-wide"><span>此站点的自定义 robots 规则</span><textarea class="code-field robots-rules-input" name="custom_rules" rows="16" maxlength="24000" spellcheck="false" autocomplete="off" placeholder="# Google 以外的爬虫规则\nUser-agent: ExampleBot\nDisallow: /private/"></textarea><small>支持标准 robots.txt 文本（如 User-agent、Allow、Disallow、Crawl-delay、Sitemap 和注释）。最多 300 行；规则只作用于当前站点。</small></label><div class="form-hint"><strong>保存前检查</strong><span>系统会限制长度和控制字符，并使用版本号防止其他管理员的修改被覆盖。保存记录会写入审计日志。</span></div></section>`
+    entityForm.elements.custom_rules.value = settings.custom_rules || ''
+    $('#delete-entity-button').hidden = true
+    $('#add-locale-button').hidden = true
+    $('#content-review-button').hidden = true
+    $('#content-publish-button').hidden = true
+    $('#save-entity-button').hidden = false
+    $('#save-entity-button').textContent = '保存 robots 规则'
+    if (!entityDialog.open) entityDialog.showModal()
+    window.setTimeout(() => entityForm.elements.custom_rules?.focus(), 0)
+  } catch (error) {
+    showToast(error.message || '读取 robots 设置失败')
   }
 }
 
@@ -2935,6 +4165,7 @@ async function openTaxonomyDialog(item = null) {
 	const bindings = siteID ? await loadSiteLanguages(siteID) : []
 	const locale = item?.locale || bindings.find((binding) => binding.enabled)?.locale || ''
 	const kind = item?.kind || 'category'
+	const slugHelp = kind === 'tag' ? '留空按标签名称自动生成（空格转为下划线）；若 URL 已占用，系统自动使用备用地址。' : '仅允许小写字母、数字、短横线和 /；留空自动生成。'
 	const parents = liveState.taxonomy.filter((term) => term.kind === 'category' && term.status === 'active' && Number(term.site_id) === siteID && term.locale === locale && Number(term.id) !== Number(item?.id))
 	entityForm.reset()
 	entityForm.dataset.route = 'taxonomy'
@@ -2945,7 +4176,7 @@ async function openTaxonomyDialog(item = null) {
 	$('#entity-dialog-title').textContent = `${item ? '编辑' : '新建'}${kind === 'tag' ? '标签' : '栏目'}`
 	$('#entity-dialog-description').textContent = '栏目和标签按站点与 Locale 隔离；重命名会同步已关联内容，停用不会删除历史关系。'
 	$('#entity-dialog-error').hidden = true
-	$('#entity-fields').innerHTML = `<div class="form-grid">${selectField('站点', 'site_id', liveState.sites.map((site) => ({ value: site.id, label: site.name })), siteID, { required: true, disabled: Boolean(item) })}${selectField('语言 / Locale', 'locale', bindings.filter((binding) => binding.enabled || binding.locale === locale).map((binding) => ({ value: binding.locale, label: `${binding.language_name} / ${binding.locale}` })), locale, { required: true, disabled: Boolean(item) })}${selectField('类型', 'kind', [{ value: 'category', label: '栏目' }, { value: 'tag', label: '标签' }], kind, { required: true, disabled: Boolean(item) })}${field('名称', 'name', item?.name, { required: true, maxlength: 100, placeholder: kind === 'tag' ? '国际快递' : '物流指南' })}${field('Slug', 'slug', item?.slug, { maxlength: 120, placeholder: '留空自动生成', help: '仅允许小写字母、数字、短横线和 /；创建后可独立维护。' })}${selectField('上级栏目', 'parent_id', [{ value: '', label: '无上级栏目' }, ...parents.map((term) => ({ value: term.id, label: term.name }))], item?.parent_id ?? '', { disabled: kind === 'tag', help: '标签保持扁平；栏目可以建立层级。' })}${selectField('状态', 'status', [{ value: 'active', label: '可使用' }, { value: 'disabled', label: '已停用' }], item?.status ?? 'active', { required: true })}<div class="form-hint form-field-wide"><strong>当前使用</strong><span>${item ? `${Number(item.usage_count || 0)} 个内容版本正在引用。` : '创建后可在内容编辑器中直接填写或选择。'}</span></div></div>`
+	$('#entity-fields').innerHTML = `<div class="form-grid">${selectField('站点', 'site_id', liveState.sites.map((site) => ({ value: site.id, label: site.name })), siteID, { required: true, disabled: Boolean(item) })}${selectField('语言 / Locale', 'locale', bindings.filter((binding) => binding.enabled || binding.locale === locale).map((binding) => ({ value: binding.locale, label: `${binding.language_name} / ${binding.locale}` })), locale, { required: true, disabled: Boolean(item) })}${selectField('类型', 'kind', [{ value: 'category', label: '栏目' }, { value: 'tag', label: '标签' }], kind, { required: true, disabled: Boolean(item) })}${field('名称', 'name', item?.name, { required: true, maxlength: 100, placeholder: kind === 'tag' ? '国际快递' : '物流指南' })}${field('Slug', 'slug', item?.slug, { maxlength: 120, placeholder: '留空自动生成', help: slugHelp })}${selectField('上级栏目', 'parent_id', [{ value: '', label: '无上级栏目' }, ...parents.map((term) => ({ value: term.id, label: term.name }))], item?.parent_id ?? '', { disabled: kind === 'tag', help: '标签保持扁平；栏目可以建立层级。' })}${selectField('状态', 'status', [{ value: 'active', label: '可使用' }, { value: 'disabled', label: '已停用' }], item?.status ?? 'active', { required: true })}<div class="form-hint form-field-wide"><strong>当前使用</strong><span>${item ? `${Number(item.usage_count || 0)} 个内容版本正在引用。` : '创建后可在内容编辑器中直接填写或选择。'}</span></div></div>`
 	$('#delete-entity-button').hidden = !item || item?.status === 'disabled'
 	$('#delete-entity-button').textContent = '停用'
 	$('#add-locale-button').hidden = true
@@ -2955,6 +4186,57 @@ async function openTaxonomyDialog(item = null) {
 	$('#save-entity-button').hidden = false
 	if (!entityDialog.open) entityDialog.showModal()
 	window.setTimeout(() => entityForm.elements.name?.focus(), 0)
+}
+
+const metafieldTypeOptions = Object.entries(metafieldTypeLabels).map(([value, label]) => ({ value, label }))
+const metafieldOwnerOptions = Object.entries(metafieldOwnerLabels).map(([value, label]) => ({ value, label }))
+
+function openMetafieldDialog(item = null) {
+  entityForm.reset()
+  entityForm.dataset.route = 'metafields'
+  entityForm.dataset.mode = item ? 'edit' : 'create'
+  entityForm.dataset.id = item?.id ?? ''
+  entityForm.dataset.version = item?.version ?? ''
+  entityDialog.classList.remove('dialog-wide', 'dialog-editor', 'dialog-site-editor', 'dialog-form-builder')
+  $('#entity-dialog-title').textContent = `${item ? '编辑' : '新建'}元字段`
+  $('#entity-dialog-description').textContent = item ? 'Namespace / Key 已锁定；可调整类型、说明、校验和启用状态。' : '创建后可在产品、产品栏目和内容编辑器中复用。'
+  $('#entity-dialog-error').hidden = true
+  $('#entity-fields').innerHTML = `<div class="form-grid metafield-dialog-grid">
+    ${field('字段显示名称', 'name', item?.name, { required: true, maxlength: 120, placeholder: '例如：包装尺寸', help: '显示在编辑器中的中文名称。' })}
+    ${field('Namespace', 'namespace', item?.namespace || 'custom', { required: true, maxlength: 64, disabled: Boolean(item), placeholder: 'custom', help: item ? '创建后不可修改，避免模板引用失效。' : '小写字母、数字、短横线和下划线。' })}
+    ${field('Key', 'key', item?.key, { required: true, maxlength: 100, disabled: Boolean(item), placeholder: 'package_size', help: item ? '创建后不可修改，模板使用 namespace.key 读取。' : '例如 package_size、certifications。' })}
+    ${selectField('绑定对象', 'owner_type', metafieldOwnerOptions, item?.owner_type || 'product', { required: true, disabled: Boolean(item) })}
+    ${selectField('字段类型', 'field_type', metafieldTypeOptions, item?.field_type || 'text', { required: true, help: '选择“富文本”后，内容编辑器会提供标题、列表、链接、图片和源码模式。' })}
+    ${field('字段说明', 'description', item?.description, { textarea: true, maxlength: 500, wide: true, placeholder: '告诉编辑人员这个字段应该填写什么。' })}
+    ${field('默认值', 'default_value', item?.default_value, { maxlength: 1000, wide: true, placeholder: '可选；新建对象时自动填入。' })}
+    ${field('校验规则 JSON', 'validation', item?.validation ? JSON.stringify(item.validation, null, 2) : '{}', { textarea: true, maxlength: 5000, wide: true, help: '例如 {"min":0,"max":100,"unit":"cm"}；必须是有效 JSON。' })}
+    <label class="checkbox-field"><input type="checkbox" name="translatable" ${item?.translatable !== false ? 'checked' : ''}><span><strong>允许按语言独立填写</strong><small>关闭后所有语言读取同一值。</small></span></label>
+    <label class="checkbox-field"><input type="checkbox" name="required" ${item?.required ? 'checked' : ''}><span><strong>编辑时必填</strong><small>发布前若为空将提示编辑人员。</small></span></label>
+    <label class="checkbox-field"><input type="checkbox" name="ai_enabled" ${item?.ai_enabled ? 'checked' : ''}><span><strong>允许 AI 生成</strong><small>仅在明确调用元字段 AI 功能时使用；结果仍保存为待审核草稿。</small></span></label>
+    ${selectField('状态', 'status', [{ value: 'active', label: '已启用' }, { value: 'disabled', label: '已停用' }], item?.status || 'active', { required: true })}
+    ${field('排序', 'sort_order', item?.sort_order ?? 0, { type: 'number', min: 0, max: 10000, help: '同一对象中的显示顺序。' })}
+  </div>`
+  $('#delete-entity-button').hidden = true
+  $('#add-locale-button').hidden = true
+  $('#content-review-button').hidden = true
+  $('#content-publish-button').hidden = true
+  $('#save-entity-button').hidden = false
+  $('#save-entity-button').textContent = item ? '保存修改' : '创建元字段'
+  if (!entityDialog.open) entityDialog.showModal()
+  window.setTimeout(() => $('#entity-fields input:not([disabled]), #entity-fields textarea')?.focus(), 0)
+}
+
+function metafieldPayload() {
+  let validation = {}
+  try { validation = JSON.parse(formValue(entityForm, 'validation') || '{}') } catch { throw new APIError('校验规则 JSON 无效，请修正后再保存', 422) }
+  return { name: formValue(entityForm, 'name'), namespace: formValue(entityForm, 'namespace'), key: formValue(entityForm, 'key'), owner_type: formValue(entityForm, 'owner_type'), field_type: formValue(entityForm, 'field_type'), description: formValue(entityForm, 'description'), default_value: formValue(entityForm, 'default_value'), validation, translatable: Boolean(entityForm.elements.translatable?.checked), required: Boolean(entityForm.elements.required?.checked), ai_enabled: Boolean(entityForm.elements.ai_enabled?.checked), status: formValue(entityForm, 'status') || 'active', sort_order: Number(formValue(entityForm, 'sort_order') || 0), version: Number(entityForm.dataset.version || 0) }
+}
+
+async function disableMetafieldRow(row, button) {
+  if (!row?._raw || row._raw.status === 'disabled') return
+  if (!window.confirm(`确认停用元字段“${row.name}”吗？\n\n已有值会保留，模板将不再在新编辑器中显示。`)) return
+  button.disabled = true
+  try { await fetchJSON(`/api/v1/metafields/${encodeURIComponent(row.id)}`, { method: 'PUT', body: { name: row._raw.name, field_type: row._raw.field_type, description: row._raw.description, default_value: row._raw.default_value, validation: row._raw.validation || {}, translatable: row._raw.translatable, required: row._raw.required, ai_enabled: row._raw.ai_enabled, status: 'disabled', sort_order: row._raw.sort_order, version: row._raw.version } }); liveState.loaded.delete('metafields'); await loadRoute('metafields', true); showToast('元字段已停用') } catch (error) { showToast(error.message || '停用元字段失败') } finally { button.disabled = false }
 }
 
 const revisionActionLabels = { created: '创建', locale_created: '创建语言版本', ai_localized: 'AI 生成本土化版本', updated: '编辑', published: '发布', restored: '从历史恢复' }
@@ -3065,7 +4347,7 @@ async function openMediaUploadDialog(target = '') {
   $('#entity-dialog-title').textContent = '上传媒体'
   $('#entity-dialog-description').textContent = '媒体会先经过 MIME、扩展名、大小和病毒扫描；上传后再补充 Alt 文本。'
   $('#entity-dialog-error').hidden = true
-  $('#entity-fields').innerHTML = `<div class="form-grid"><label class="form-field form-field-wide"><span>媒体文件</span><input type="file" name="media_file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" required><small>当前支持 JPEG / PNG；服务端会重新编码并移除附加数据。</small></label>${field('Alt 文本（可后续完善）', 'alt_text', '', { maxlength: 500, wide: true, placeholder: '客观描述图片主体和用途，不堆砌关键词' })}<div class="form-hint form-field-wide"><strong>安全提示</strong><span>禁止上传 HTML、JavaScript、可执行文件和包含脚本的 SVG。服务端会以真实文件类型为准，不信任扩展名。</span></div></div>`
+  $('#entity-fields').innerHTML = `<div class="form-grid"><label class="form-field form-field-wide"><span>媒体文件</span><input type="file" name="media_file" accept=".avif,.webp,.gif,.jpg,.jpeg,.png,image/avif,image/webp,image/gif,image/jpeg,image/png" required><small>支持 JPEG、PNG、GIF、WebP、AVIF；无论原始格式，服务端都会安全压缩并统一保存为 AVIF。</small></label>${field('Alt 文本（可后续完善）', 'alt_text', '', { maxlength: 500, wide: true, placeholder: '客观描述图片主体和用途，不堆砌关键词' })}<div class="form-hint form-field-wide"><strong>安全提示</strong><span>禁止上传 HTML、JavaScript、可执行文件和包含脚本的 SVG。服务端以真实文件类型为准，完整解码后只保存重新生成的 AVIF 文件。</span></div></div>`
   $('#delete-entity-button').hidden = true
   $('#add-locale-button').hidden = true
   $('#content-review-button').hidden = true
@@ -3223,6 +4505,19 @@ async function openLocaleDialog() {
 
 async function editRow(route, row) {
   if (!row?._raw) return
+	if (route === 'products') {
+		const raw = row._raw
+		navigate(`/admin/content?section=products&editor=edit&content_id=${encodeURIComponent(raw.content_id)}&site_id=${encodeURIComponent(raw.site_id)}&locale=${encodeURIComponent(raw.locale)}&content_type=product`)
+		return
+	}
+	if (route === 'product-categories') {
+		await openTaxonomyDialog(row._raw)
+		return
+	}
+	if (route === 'metafields') {
+		openMetafieldDialog(row._raw)
+		return
+	}
 	if (route === 'taxonomy') {
 		await openTaxonomyDialog(row._raw)
 		return
@@ -3426,7 +4721,7 @@ async function disableTaxonomyRow(row, button) {
 	if (button) { button.disabled = true; button.textContent = '停用中…' }
 	try {
 		await fetchJSON(`/api/v1/taxonomy/terms/${encodeURIComponent(item.id)}`, { method: 'DELETE', body: { version: Number(item.version || 0) } })
-		await loadRoute('taxonomy', true)
+		await loadRoute(moduleState.route === 'product-categories' ? 'product-categories' : 'taxonomy', true)
 		showToast(`${item.kind === 'category' ? '栏目' : '标签'}“${item.name}”已停用，内容关系已保留`)
 	} catch (error) {
 		showToast(error.message || '停用失败，请刷新后重试')
@@ -3513,7 +4808,7 @@ function contentPayload() {
   let structuredData = {}
   if (entityForm.elements.structured_data) {
     const source = formValue(entityForm, 'structured_data') || '{}'
-    try { structuredData = JSON.parse(source) } catch { throw new APIError('JSON-LD 结构化数据不是有效的 JSON', 422) }
+    try { structuredData = parseStructuredDataInput(source) } catch { throw new APIError('JSON-LD 结构化数据不是有效的 JSON；可粘贴纯 JSON 或完整 script 标签', 422) }
   }
   const scheduledValue = formValue(entityForm, 'scheduled_at')
   const payload = {
@@ -3613,9 +4908,12 @@ async function submitEntity(statusOverride = null) {
     if (statusOverride) payload.status = statusOverride
     if (payload.status === 'published' && !payload.body_html.trim()) throw new APIError('发布前必须填写正文；如内容尚未完成，请先保存草稿', 422)
     path = mode === 'edit' ? `/api/v1/contents/${entityForm.dataset.contentId}/locales/${encodeURIComponent(entityForm.dataset.locale)}?site_id=${entityForm.dataset.siteId}` : mode === 'locale-create' ? `/api/v1/contents/${entityForm.dataset.contentId}/locales` : '/api/v1/contents'
-  } else if (route === 'taxonomy') {
+	} else if (route === 'taxonomy') {
 		payload = taxonomyPayload()
 		path = mode === 'edit' ? `/api/v1/taxonomy/terms/${id}` : '/api/v1/taxonomy/terms'
+	} else if (route === 'metafields') {
+		payload = metafieldPayload()
+		path = mode === 'edit' ? `/api/v1/metafields/${encodeURIComponent(id)}` : '/api/v1/metafields'
   } else if (route === 'urls') {
     payload = redirectPayload()
     path = mode === 'edit' ? `/api/v1/urls/redirects/${id}` : '/api/v1/urls/redirects'
@@ -3646,6 +4944,16 @@ async function submitEntity(statusOverride = null) {
 	} else if (route === 'forms') {
 		payload = contactFormPayload()
 		path = mode === 'edit' ? `/api/v1/forms/${encodeURIComponent(id)}` : '/api/v1/forms'
+	} else if (route === 'seo-robots') {
+		payload = { custom_rules: formValue(entityForm, 'custom_rules'), version: Number(entityForm.dataset.version || 0) }
+		if (/^\s*user-agent\s*:\s*\*\s*$(?:\r?\n)+\s*disallow\s*:\s*\/\s*$/im.test(payload.custom_rules) && !window.confirm('这条规则会阻止所有搜索引擎抓取当前站点。系统规则仍会保留，但网站页面可能不再出现在搜索结果中。确认继续保存吗？')) return
+		path = `/api/v1/seo/robots/${encodeURIComponent(id)}`
+	} else if (route === 'backup-import') {
+		const file = entityForm.elements.backup_file?.files?.[0]
+		if (!file) throw new APIError('请选择 .czb 加密备份文件', 422)
+		payload = new FormData()
+		payload.append('file', file)
+		path = '/api/v1/system/backups/import'
 	} else if (route === 'form-submissions') {
 		return
 	}
@@ -3669,13 +4977,15 @@ async function submitEntity(statusOverride = null) {
     liveState.loaded.delete(route)
     if (route === 'sites' || route === 'languages') liveState.siteLanguages.clear()
     if (route === 'sites') liveState.siteDomains.clear()
-    if (route === 'templates') liveState.templates = null
-    if (apiRoutes.has(route)) await loadRoute(route, true)
+	    if (route === 'templates') liveState.templates = null
+	    if (route === 'seo-robots') await loadRoute('seo', true)
+	    if (route === 'backup-import') await loadRoute('settings', true)
+	    if (apiRoutes.has(route)) await loadRoute(route === 'taxonomy' && moduleState.route === 'product-categories' ? 'product-categories' : route, true)
 	if (route === 'forms') {
 	  contentEditorState.key = ''
 	  await renderContentEditorRoute('edit')
 	}
-    showToast(route === 'publishing' ? `发布已创建（#${saved.id}）` : route === 'templates' ? `模板“${saved.name}”已上传并通过验证` : route === 'media' ? (mode === 'edit' ? '媒体 Alt 文本已保存' : `媒体“${saved.original_name ?? saved.storage_name ?? '文件'}”已上传并完成扫描`) : route === 'users' ? (mode === 'edit' ? '用户权限已更新' : `用户“${saved.display_name || saved.username}”已创建`) : route === 'forms' ? (mode === 'edit' ? `联系表单“${saved.name}”已更新` : `联系表单“${saved.name}”已创建并绑定`) : `${modules[route].entityName}“${saved.name ?? saved.name_zh ?? saved.title ?? saved.source_path}”已保存`)
+    showToast(route === 'publishing' ? `发布已创建（#${saved.id}）` : route === 'templates' ? `模板“${saved.name}”已上传并通过验证` : route === 'media' ? (mode === 'edit' ? '媒体 Alt 文本已保存' : `媒体“${saved.original_name ?? saved.storage_name ?? '文件'}”已上传并完成扫描`) : route === 'users' ? (mode === 'edit' ? '用户权限已更新' : `用户“${saved.display_name || saved.username}”已创建`) : route === 'forms' ? (mode === 'edit' ? `联系表单“${saved.name}”已更新` : `联系表单“${saved.name}”已创建并绑定`) : route === 'seo-robots' ? '该站点 robots 自定义规则已保存' : route === 'backup-import' ? `备份 #${saved.id} 已导入并通过校验` : route === 'metafields' ? `元字段“${saved.name}”已保存` : `${modules[route].entityName}“${saved.name ?? saved.name_zh ?? saved.title ?? saved.source_path}”已保存`)
   } catch (error) {
     const box = $('#entity-dialog-error')
     box.textContent = error.status === 409 ? '这条记录已被其他用户修改。请关闭窗口、刷新数据后再编辑。' : error.message || '保存失败，请稍后重试'
@@ -3887,19 +5197,127 @@ function runEditorCommand(command) {
 }
 
 async function createEncryptedBackup() {
-  if (!window.confirm('创建新的加密 SQLite 快照？\n\n系统会执行一致性快照、AES-GCM 加密、解密验证和 SQLite 完整性检查；完成后写入审计日志。')) return
-  const button = $('[data-module-primary]', moduleView)
+  if (!window.confirm('创建完整加密备份？\n\n将包含 SQLite 数据库、上传图片和上传模板包；系统会执行一致性快照、AES-GCM 加密、解密验证、清单校验和 SQLite 完整性检查。密钥、环境变量、日志和 Redis 缓存不会包含。')) return
+  const button = $('[data-backup-create]', moduleView) ?? $('[data-module-primary]', moduleView)
   const original = button?.textContent || ''
   if (button) { button.disabled = true; button.textContent = '正在创建并校验…' }
   try {
     const saved = await fetchJSON('/api/v1/system/backups', { method: 'POST', body: {} })
     await loadRoute('settings', true)
-    showToast(`加密备份 #${saved.id} 已创建并验证`)
+    showToast(`完整加密备份 #${saved.id} 已创建并验证`)
   } catch (error) {
     showToast(error.message || '备份创建失败，请检查服务日志')
   } finally {
     if (button) { button.disabled = false; button.textContent = original }
   }
+}
+
+async function migrateLegacyMediaToAVIF(button) {
+  if (!can('media.upload') || !window.confirm('将旧媒体库中尚未使用 AVIF 的图片全部转换？\n\n系统会在浏览器中逐批处理，每批最多 12 张；会保留媒体 ID、更新正文图片地址并删除旧文件。')) return
+  const original = button?.innerHTML || ''
+  if (button) { button.disabled = true; button.textContent = '转换中…' }
+  try {
+    let converted = 0
+    let failed = 0
+    let remaining = 0
+    let batches = 0
+    do {
+      const result = await fetchJSON('/api/v1/media/migrate-avif', { method: 'POST', body: {} })
+      const currentConverted = Number(result.converted || 0)
+      converted += currentConverted
+      failed += Number(result.failed || 0)
+      remaining = Number(result.remaining || 0)
+      batches += 1
+      if (button) button.textContent = `已转换 ${converted} 张…`
+      // A corrupted legacy file remains in the library for manual review.
+      // Stop here instead of retrying the same failed batch indefinitely.
+      if (remaining < 1 || currentConverted < 1 || batches >= 10000) break
+    } while (remaining > 0)
+    await loadRoute('media', true)
+    if (remaining > 0) {
+      showToast(`已转换 ${converted} 张；仍有 ${remaining} 张未完成${failed ? '，请在审计日志中查看失败原因' : ''}`)
+    } else {
+      showToast(`已完成：${converted} 张旧图片均已转换为 AVIF`)
+    }
+  } catch (error) {
+    showToast(error.message || '旧图片转换失败，请查看审计日志')
+  } finally {
+    if (button) { button.disabled = false; button.innerHTML = original }
+  }
+}
+
+function selectedBackupRecords() {
+  const records = liveState.backups ?? []
+  const available = new Set(records.map((record) => String(record.id)))
+  for (const id of moduleState.backupSelected) {
+    if (!available.has(id)) moduleState.backupSelected.delete(id)
+  }
+  return records.filter((record) => moduleState.backupSelected.has(String(record.id)))
+}
+
+async function deleteBackupRecords(records, button) {
+  if (!can('backup.manage') || !records.length) return
+  const names = records.slice(0, 2).map((record) => `“${record.storage_name}”`).join('、')
+  const suffix = records.length > 2 ? `等 ${records.length} 个备份` : ''
+  const subject = records.length === 1 ? names : `${names}${suffix}`
+  if (!window.confirm(`永久删除${subject}？\n\n备份文件及其记录都会移除，之后无法再导出或恢复。本操作会写入审计日志。`)) return
+  const original = button?.innerHTML || ''
+  if (button) {
+    button.disabled = true
+    button.textContent = records.length > 1 ? '正在批量删除…' : '正在删除…'
+  }
+  try {
+    let result
+    if (records.length === 1) {
+      result = await fetchJSON(`/api/v1/system/backups/${encodeURIComponent(records[0].id)}`, { method: 'DELETE' })
+    } else {
+      result = await fetchJSON('/api/v1/system/backups/bulk-delete', { method: 'POST', body: { backup_ids: records.map((record) => Number(record.id)) } })
+    }
+    records.forEach((record) => moduleState.backupSelected.delete(String(record.id)))
+    await loadRoute('settings', true)
+    const deleted = Number(result?.deleted || records.length)
+    showToast(deleted > 1 ? `已永久删除 ${deleted} 个备份文件` : '备份已永久删除')
+  } catch (error) {
+    const message = error.status === 404
+      ? '备份已被其他管理员删除，请刷新列表'
+      : error.message || '删除备份失败，请检查备份目录权限后重试'
+    showToast(message)
+  } finally {
+    if (button) {
+      button.disabled = false
+      button.innerHTML = original
+    }
+  }
+}
+
+async function deleteSingleBackup(recordID, button) {
+  const record = (liveState.backups ?? []).find((item) => String(item.id) === String(recordID))
+  if (record) await deleteBackupRecords([record], button)
+}
+
+async function deleteSelectedBackups(button) {
+  await deleteBackupRecords(selectedBackupRecords(), button)
+}
+
+function openBackupImportDialog() {
+  entityForm.reset()
+  entityForm.dataset.route = 'backup-import'
+  entityForm.dataset.mode = 'create'
+  entityForm.dataset.id = ''
+  entityForm.dataset.version = ''
+  entityDialog.classList.remove('dialog-wide', 'dialog-editor', 'dialog-site-editor', 'dialog-form-builder')
+  $('#entity-dialog-title').textContent = '导入加密备份'
+  $('#entity-dialog-description').textContent = '导入不会覆盖当前网站。系统会先验证备份密钥、加密认证、归档清单和 SQLite 完整性，成功后才加入备份记录。'
+  $('#entity-dialog-error').hidden = true
+  $('#entity-fields').innerHTML = `<div class="form-grid"><label class="form-field form-field-wide"><span>选择 .czb 备份文件</span><input type="file" name="backup_file" accept=".czb,application/octet-stream" required><small>仅支持 CZCMS 加密备份；跨服务器导入需使用相同的 CZCMS_BACKUP_KEY。导入后仍需离线恢复，不能直接覆盖正在运行的网站。</small></label><div class="form-hint form-field-wide"><strong>完整备份会恢复什么？</strong><span>恢复到新目录后将包含 data/czcms.db、uploads 和 themes。密钥、环境变量、日志与 Redis 缓存不会由备份携带。</span></div></div>`
+  $('#delete-entity-button').hidden = true
+  $('#add-locale-button').hidden = true
+  $('#content-review-button').hidden = true
+  $('#content-publish-button').hidden = true
+  $('#save-entity-button').hidden = false
+  $('#save-entity-button').textContent = '导入并校验'
+  if (!entityDialog.open) entityDialog.showModal()
+  window.setTimeout(() => entityForm.elements.backup_file?.focus(), 0)
 }
 
 function aiProviderFormValue(name) {
@@ -4045,7 +5463,10 @@ async function deleteAIProvider(provider, button) {
 }
 
 function openModuleAction(route) {
-  if (route === 'content') return navigate(contentSection() === 'pages' ? '/admin/content?section=pages&editor=create&content_type=page' : '/admin/content?section=articles&editor=create&content_type=article')
+  if (route === 'content') return navigate(contentSection() === 'pages' ? '/admin/content?section=pages&editor=create&content_type=page' : contentSection() === 'products' ? '/admin/content?section=products&editor=create&content_type=product' : '/admin/content?section=articles&editor=create&content_type=article')
+  if (route === 'products') return navigate('/admin/content?section=products&editor=create&content_type=product')
+  if (route === 'product-categories') return openTaxonomyDialog().catch((error) => showToast(error.message || '产品栏目表单加载失败'))
+  if (route === 'metafields') return openMetafieldDialog()
   if (route === 'taxonomy') return openTaxonomyDialog().catch((error) => showToast(error.message || '栏目表单加载失败'))
   if (route === 'sites') return openEntityDialog('站点')
   if (route === 'languages') return openEntityDialog('语言')
@@ -4174,12 +5595,18 @@ $('#site-menu').addEventListener('click', (event) => {
   liveState.taxonomy = []
   contentEditorState.key = ''
   const route = currentRoute()
-  if (route === 'dashboard') {
+  if (route === 'analytics') {
+    moduleState.analyticsSiteID = Number(button.dataset.siteId || 0)
+    void loadRoute('analytics', true)
+	} else if (route === 'seo' && seoSection() === 'spider') {
+		moduleState.spiderSiteID = Number(button.dataset.siteId || 0)
+		void loadRoute('seo', true)
+  } else if (route === 'dashboard') {
     const reloads = []
     if (can('content.read')) reloads.push(loadRoute('content', true))
     if (can('publishing.manage')) reloads.push(loadRoute('publishing', true))
     void Promise.all(reloads).then(() => renderDashboardData())
-  } else if (siteScopedRoutes.has(route)) {
+  } else if (extendedSiteScopedRoutes.has(route)) {
     if (route === 'content' && currentRouteParams().get('editor')) void renderContentEditorRoute(currentRouteParams().get('editor'))
     else void loadRoute(route, true)
   }
@@ -4227,10 +5654,100 @@ $('#action-list').addEventListener('click', (event) => {
 })
 
 moduleView.addEventListener('click', (event) => {
+  const mediaMigrate = event.target.closest('[data-media-migrate-avif]')
+  if (mediaMigrate) { void migrateLegacyMediaToAVIF(mediaMigrate); return }
+	const spiderRefresh = event.target.closest('[data-spider-refresh]')
+	if (spiderRefresh) { void loadRoute('seo', true); return }
+	const spiderExport = event.target.closest('[data-spider-export]')
+	if (spiderExport) { exportSpiderCSV(); return }
+	const spiderDays = event.target.closest('[data-spider-days]')
+	if (spiderDays) {
+		moduleState.spiderDays = Number(spiderDays.dataset.spiderDays || 30)
+		moduleState.spiderFrom = ''
+		moduleState.spiderTo = ''
+		moduleState.spiderEngine = ''
+		liveState.loaded.delete('seo')
+		void loadRoute('seo', true)
+		return
+	}
+	const spiderCustomRange = event.target.closest('[data-spider-custom-range]')
+	if (spiderCustomRange) {
+		const from = moduleState.spiderFrom, to = moduleState.spiderTo
+		if (!from || !to) { showToast('请选择开始日期和结束日期'); return }
+		const start = Date.parse(`${from}T00:00:00Z`), end = Date.parse(`${to}T00:00:00Z`)
+		if (!Number.isFinite(start) || !Number.isFinite(end) || end < start) { showToast('结束日期不能早于开始日期'); return }
+		if ((end - start) / 86400000 > 366) { showToast('统计日期范围最多 367 天'); return }
+		moduleState.spiderDays = 0
+		moduleState.spiderEngine = ''
+		liveState.loaded.delete('seo')
+		void loadRoute('seo', true)
+		return
+	}
+	const spiderEngine = event.target.closest('[data-spider-engine]')
+	if (spiderEngine) {
+		moduleState.spiderEngine = spiderEngine.dataset.spiderEngine || ''
+		renderSpiderStats()
+		return
+	}
+  const analyticsRefresh = event.target.closest('[data-analytics-refresh]')
+  if (analyticsRefresh) { void loadRoute('analytics', true); return }
+  const analyticsExport = event.target.closest('[data-analytics-export]')
+  if (analyticsExport) { exportAnalyticsCSV(); return }
+  const analyticsDays = event.target.closest('[data-analytics-days]')
+  if (analyticsDays) {
+    moduleState.analyticsDays = Number(analyticsDays.dataset.analyticsDays || 30)
+    moduleState.analyticsFrom = ''
+    moduleState.analyticsTo = ''
+    liveState.loaded.delete('analytics')
+    void loadRoute('analytics', true)
+    return
+  }
+  const analyticsCustomRange = event.target.closest('[data-analytics-custom-range]')
+  if (analyticsCustomRange) {
+    const from = moduleState.analyticsFrom
+    const to = moduleState.analyticsTo
+    if (!from || !to) { showToast('请选择开始日期和结束日期'); return }
+    const start = Date.parse(`${from}T00:00:00Z`)
+    const end = Date.parse(`${to}T00:00:00Z`)
+    if (!Number.isFinite(start) || !Number.isFinite(end) || end < start) { showToast('结束日期不能早于开始日期'); return }
+    if ((end - start) / 86400000 > 366) { showToast('统计日期范围最多 367 天'); return }
+    moduleState.analyticsDays = 0
+    liveState.loaded.delete('analytics')
+    void loadRoute('analytics', true)
+    return
+  }
   const retry = event.target.closest('[data-retry-module]')
   if (retry) { void loadRoute(moduleState.route, true); return }
   const seoRefresh = event.target.closest('[data-seo-refresh]')
   if (seoRefresh) { void loadRoute('seo', true); return }
+  const seoRobotsHelp = event.target.closest('[data-seo-robots-help]')
+  if (seoRobotsHelp) {
+    const policy = $('#seo-robots-policy-info')
+    if (policy) {
+      policy.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' })
+      policy.focus({ preventScroll: true })
+    }
+    showToast('系统规则会自动屏蔽后台、API、媒体和动态查询；自定义规则仅作用于当前站点')
+    return
+  }
+  const seoRobotsCreate = event.target.closest('[data-seo-robots-create]')
+  if (seoRobotsCreate) {
+    const sites = liveState.seoSitemaps?.sites ?? []
+    const currentID = String(currentSiteID())
+    const site = sites.find((item) => seoSiteID(item) === currentID) ?? sites[0]
+    if (site) void openSiteRobotsDialog(site)
+    else showToast('请先刷新并确认有可管理的站点')
+    return
+  }
+  const seoRobotsEdit = event.target.closest('[data-seo-robots-edit]')
+  if (seoRobotsEdit) {
+    const siteID = String(seoRobotsEdit.dataset.siteId || '')
+    const site = liveState.seoSitemaps?.sites?.find((item) => seoSiteID(item) === siteID)
+      ?? liveState.sites.find((item) => seoSiteID(item) === siteID)
+    if (site) void openSiteRobotsDialog(site)
+    else showToast('当前 robots 列表已过期，请刷新状态后再编辑')
+    return
+  }
   const aiCreate = event.target.closest('[data-ai-provider-create]')
   if (aiCreate) { openAIProviderDialog(); return }
   const aiRefresh = event.target.closest('[data-ai-refresh]')
@@ -4317,21 +5834,24 @@ moduleView.addEventListener('click', (event) => {
   const contentEdit = event.target.closest('[data-content-edit]')
   if (contentEdit) {
     const rowID = contentEdit.closest('tr')?.dataset.rowId
-    const row = modules.content.rows.find((item) => String(item.id) === String(rowID))
-    void editRow('content', row)
+    const sourceRows = moduleState.route === 'products' ? modules.products.rows : modules.content.rows
+    const row = sourceRows.find((item) => String(item.id) === String(rowID))
+    void editRow(moduleState.route === 'products' ? 'products' : 'content', row)
     return
   }
   const contentView = event.target.closest('[data-content-view]')
   if (contentView) {
     const rowID = contentView.closest('tr')?.dataset.rowId
-    const row = modules.content.rows.find((item) => String(item.id) === String(rowID))
+    const sourceRows = moduleState.route === 'products' ? modules.products.rows : modules.content.rows
+    const row = sourceRows.find((item) => String(item.id) === String(rowID))
     void viewContentRow(row)
     return
   }
 	const contentDelete = event.target.closest('[data-content-delete]')
-  if (contentDelete) {
+	if (contentDelete) {
     const rowID = contentDelete.closest('tr')?.dataset.rowId
-    const row = modules.content.rows.find((item) => String(item.id) === String(rowID))
+    const sourceRows = moduleState.route === 'products' ? modules.products.rows : modules.content.rows
+    const row = sourceRows.find((item) => String(item.id) === String(rowID))
     void deleteContentRow(row, contentDelete)
     return
   }
@@ -4390,14 +5910,28 @@ moduleView.addEventListener('click', (event) => {
 	}
 	const taxonomyEdit = event.target.closest('[data-taxonomy-edit]')
 	if (taxonomyEdit) {
-		const row = modules.taxonomy.rows.find((item) => String(item.id) === String(taxonomyEdit.closest('tr')?.dataset.rowId))
-		if (row?._raw) void editRow('taxonomy', row)
+		const categoryMode = moduleState.route === 'product-categories'
+		const row = (categoryMode ? modules['product-categories'].rows : modules.taxonomy.rows).find((item) => String(item.id) === String(taxonomyEdit.closest('tr')?.dataset.rowId))
+		if (row?._raw) void editRow(categoryMode ? 'product-categories' : 'taxonomy', row)
 		return
 	}
 	const taxonomyDisable = event.target.closest('[data-taxonomy-disable]')
 	if (taxonomyDisable) {
-		const row = modules.taxonomy.rows.find((item) => String(item.id) === String(taxonomyDisable.closest('tr')?.dataset.rowId))
+		const categoryMode = moduleState.route === 'product-categories'
+		const row = (categoryMode ? modules['product-categories'].rows : modules.taxonomy.rows).find((item) => String(item.id) === String(taxonomyDisable.closest('tr')?.dataset.rowId))
 		void disableTaxonomyRow(row, taxonomyDisable)
+		return
+	}
+	const metafieldEdit = event.target.closest('[data-metafield-edit]')
+	if (metafieldEdit) {
+		const row = modules.metafields.rows.find((item) => String(item.id) === String(metafieldEdit.closest('tr')?.dataset.rowId))
+		if (row?._raw) openMetafieldDialog(row._raw)
+		return
+	}
+	const metafieldDisable = event.target.closest('[data-metafield-disable]')
+	if (metafieldDisable) {
+		const row = modules.metafields.rows.find((item) => String(item.id) === String(metafieldDisable.closest('tr')?.dataset.rowId))
+		void disableMetafieldRow(row, metafieldDisable)
 		return
 	}
 	const mediaEdit = event.target.closest('[data-media-edit]')
@@ -4430,6 +5964,31 @@ moduleView.addEventListener('click', (event) => {
 		if (row?._raw) openLocalizationJobDetails(row._raw)
 		return
 	}
+	const backupCreate = event.target.closest('[data-backup-create]')
+	if (backupCreate) {
+		void createEncryptedBackup()
+		return
+	}
+	const backupImport = event.target.closest('[data-backup-import]')
+	if (backupImport) {
+		openBackupImportDialog()
+		return
+	}
+	const backupDelete = event.target.closest('[data-backup-delete]')
+	if (backupDelete) {
+		void deleteSingleBackup(backupDelete.dataset.backupId, backupDelete)
+		return
+	}
+	const backupBulkDelete = event.target.closest('[data-backup-bulk-delete]')
+	if (backupBulkDelete) {
+		void deleteSelectedBackups(backupBulkDelete)
+		return
+	}
+	if (event.target.closest('[data-backup-clear-selection]')) {
+		moduleState.backupSelected.clear()
+		renderModule('settings')
+		return
+	}
 	const templateRow = event.target.closest('tr[data-template-row]')
 	if (templateRow && !event.target.closest('button, a, input, select, textarea, label')) {
 		void toggleTemplateWorkspace(templateRow.dataset.rowId)
@@ -4452,6 +6011,14 @@ moduleView.addEventListener('click', (event) => {
 })
 
 moduleView.addEventListener('input', (event) => {
+	if (event.target.matches('[data-analytics-from]')) {
+		moduleState.analyticsFrom = event.target.value || ''
+		return
+	}
+	if (event.target.matches('[data-analytics-to]')) {
+		moduleState.analyticsTo = event.target.value || ''
+		return
+	}
 	if (event.target.matches('[data-template-source]')) {
 		const workspace = event.target.closest('[data-template-workspace]')
 		const themeID = workspace?.dataset.templateWorkspace
@@ -4496,6 +6063,49 @@ moduleView.addEventListener('scroll', (event) => {
 }, true)
 
 moduleView.addEventListener('change', (event) => {
+	if (event.target.matches('[data-analytics-site]')) {
+		moduleState.analyticsSiteID = Number(event.target.value || 0)
+		liveState.loaded.delete('analytics')
+		void loadRoute('analytics', true)
+		return
+	}
+	if (event.target.matches('[data-spider-site]')) {
+		moduleState.spiderSiteID = Number(event.target.value || 0)
+		moduleState.spiderEngine = ''
+		liveState.loaded.delete('seo')
+		void loadRoute('seo', true)
+		return
+	}
+	if (event.target.matches('[data-spider-bot]')) {
+		moduleState.spiderBot = event.target.value || ''
+		moduleState.spiderEngine = ''
+		liveState.loaded.delete('seo')
+		void loadRoute('seo', true)
+		return
+	}
+	if (event.target.matches('[data-spider-status]')) {
+		moduleState.spiderStatus = event.target.value || 'all'
+		moduleState.spiderEngine = ''
+		liveState.loaded.delete('seo')
+		void loadRoute('seo', true)
+		return
+	}
+	if (event.target.matches('[data-spider-from]')) { moduleState.spiderFrom = event.target.value || ''; return }
+	if (event.target.matches('[data-spider-to]')) { moduleState.spiderTo = event.target.value || ''; return }
+  if (event.target.matches('[data-backup-select]')) {
+    const id = String(event.target.value || '')
+    if (id) {
+      event.target.checked ? moduleState.backupSelected.add(id) : moduleState.backupSelected.delete(id)
+      renderModule('settings')
+    }
+    return
+  }
+  if (event.target.matches('[data-backup-select-all]')) {
+    moduleState.backupSelected.clear()
+    if (event.target.checked) (liveState.backups ?? []).forEach((record) => moduleState.backupSelected.add(String(record.id)))
+    renderModule('settings')
+    return
+  }
   if (event.target.matches('[data-content-scope]')) {
     moduleState.contentScope = event.target.value === 'all' ? 'all' : 'current'
     moduleState.selected.clear()
@@ -4759,6 +6369,15 @@ $('#entity-fields').addEventListener('dragend', () => {
 })
 
 contentEditorView.addEventListener('click', (event) => {
+  const galleryRemove = event.target.closest('[data-gallery-remove]')
+  if (galleryRemove) {
+    const form = $('#content-editor-form', contentEditorView)
+    const id = Number(galleryRemove.closest('[data-gallery-item]')?.dataset.mediaId)
+    contentEditorState.productGallery = contentEditorState.productGallery.filter((media) => Number(media.id) !== id)
+    renderProductGallery(form)
+    showToast('已从产品图库移除，请保存草稿')
+    return
+  }
 	const contactAction = event.target.closest('[data-contact-action]')
 	if (contactAction) {
 		const command = contactAction.dataset.contactAction
@@ -4818,9 +6437,30 @@ contentEditorView.addEventListener('click', (event) => {
     if (command === 'media') { void openMediaUploadDialog('content-cover'); return }
     if (command === 'cover-remove') { clearContentCover(); return }
     if (command === 'seo-extract') { void extractContentSEO($('#content-editor-form', contentEditorView), action); return }
+    if (command === 'structured-copy') {
+      void copyStructuredDataPreview($('#content-editor-form', contentEditorView), action)
+      return
+    }
+    if (command === 'structured-reset') {
+      const form = $('#content-editor-form', contentEditorView)
+      const input = form?.elements?.structured_data
+      if (!input) return
+      if (contentEditorFormValue(form, 'structured_data') && !window.confirm('清除自定义 JSON-LD 并恢复系统自动生成？')) return
+      input.value = '{}'
+      updateStructuredDataPreview(form)
+      saveLocalContentDraft(form)
+      showToast('已恢复系统自动生成的结构化数据')
+      return
+    }
   }
   const richCommand = event.target.closest('[data-rich-command]')
   if (richCommand) { runContentRichCommand($('#content-editor-form', contentEditorView), richCommand.dataset.richCommand); return }
+  const metafieldRichCommand = event.target.closest('[data-metafield-rich-command]')
+  if (metafieldRichCommand) {
+    const control = metafieldRichCommand.closest('[data-metafield-rich-editor-root]')
+    if (control) runMetafieldRichCommand(control, metafieldRichCommand.dataset.metafieldRichCommand)
+    return
+  }
   const removeTag = event.target.closest('[data-remove-tag]')
   if (removeTag) {
     const form = $('#content-editor-form', contentEditorView)
@@ -4832,14 +6472,73 @@ contentEditorView.addEventListener('click', (event) => {
 })
 
 contentEditorView.addEventListener('mousedown', (event) => {
-  if (!event.target.closest('[data-rich-command="insertImage"]')) return
-  rememberRichSelection($('#content-editor-form', contentEditorView))
+  const metafieldToolbar = event.target.closest('[data-metafield-rich-command], [data-metafield-rich-block]')
+  if (metafieldToolbar) {
+    const control = metafieldToolbar.closest('[data-metafield-rich-editor-root]')
+    if (control) rememberMetafieldRichSelection(control)
+    return
+  }
+  if (event.target.closest('[data-rich-command="insertImage"]')) rememberRichSelection($('#content-editor-form', contentEditorView))
 })
 
-contentEditorView.addEventListener('paste', (event) => {
+contentEditorView.addEventListener('dragstart', (event) => {
+  const item = event.target.closest?.('[data-gallery-item]')
+  if (!item) return
+  contentEditorState.productGalleryDragging = item.dataset.mediaId || ''
+  item.classList.add('is-dragging')
+  event.dataTransfer?.setData('text/plain', contentEditorState.productGalleryDragging)
+  if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move'
+})
+
+contentEditorView.addEventListener('dragend', (event) => {
+  event.target.closest?.('[data-gallery-item]')?.classList.remove('is-dragging')
+  contentEditorState.productGalleryDragging = ''
+})
+
+contentEditorView.addEventListener('dragover', (event) => {
+  if (!contentEditorState.productGalleryDragging || !event.target.closest?.('[data-gallery-item]')) return
+  event.preventDefault()
+  if (event.dataTransfer) event.dataTransfer.dropEffect = 'move'
+})
+
+contentEditorView.addEventListener('drop', (event) => {
+  const target = event.target.closest?.('[data-gallery-item]')
+  const draggingID = contentEditorState.productGalleryDragging
+  if (!target || !draggingID) return
+  event.preventDefault()
+  const form = $('#content-editor-form', contentEditorView)
+  const from = contentEditorState.productGallery.findIndex((media) => String(media.id) === String(draggingID))
+  const to = contentEditorState.productGallery.findIndex((media) => String(media.id) === String(target.dataset.mediaId))
+  if (from < 0 || to < 0 || from === to) return
+  const [moved] = contentEditorState.productGallery.splice(from, 1)
+  contentEditorState.productGallery.splice(to, 0, moved)
+  renderProductGallery(form)
+  showToast('产品图片顺序已更新，请保存草稿')
+})
+
+  contentEditorView.addEventListener('paste', (event) => {
+  const galleryPanel = event.target.closest?.('[data-product-gallery]')
+  if (galleryPanel) {
+    const form = $('#content-editor-form', contentEditorView)
+    const clipboard = event.clipboardData
+    const files = [...(clipboard?.files || [])]
+    // Chromium exposes screenshots copied from other apps as clipboard items
+    // rather than `clipboardData.files`; convert those image items to Files so
+    // Ctrl+V works consistently for the product gallery as it does in the
+    // rich-text editor.
+    ;[...(clipboard?.items || [])].filter((item) => /^image\/(?:jpeg|png|gif|webp|avif)$/i.test(item.type || '')).forEach((item) => {
+      const file = item.getAsFile?.()
+      if (file) files.push(file)
+    })
+    if (files.length) { event.preventDefault(); void uploadProductGalleryFiles(form, files); return }
+  }
   const visual = event.target.closest?.('[data-rich-editor]')
-  if (!visual) return
-  handleRichPaste(event, $('#content-editor-form', contentEditorView))
+  if (visual) {
+    handleRichPaste(event, $('#content-editor-form', contentEditorView))
+    return
+  }
+  const metafieldVisual = event.target.closest?.('[data-metafield-rich-editor-content]')
+  if (metafieldVisual) handleMetafieldRichPaste(event, metafieldVisual.closest('[data-metafield-rich-editor-root]'))
 })
 
 contentEditorView.addEventListener('keydown', (event) => {
@@ -4861,6 +6560,23 @@ contentEditorView.addEventListener('change', async (event) => {
     const file = event.target.files?.[0]
     event.target.value = ''
     if (file) void uploadRichImage(form, file, contentEditorState.richSelection)
+    return
+  }
+  if (event.target.matches('[data-metafield-rich-image-input]')) {
+    const control = event.target.closest('[data-metafield-rich-editor-root]')
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (control && file) void uploadMetafieldRichImage(control, file, contentEditorState.metafieldRichSelections.get(metafieldRichEditorKey(control)))
+    return
+  }
+  if (event.target.matches('[data-metafield-rich-block]')) {
+    const control = event.target.closest('[data-metafield-rich-editor-root]')
+    if (!control) return
+    restoreMetafieldRichSelection(control)
+    document.execCommand('formatBlock', false, event.target.value || 'p')
+    syncMetafieldRichEditor(control, 'visual')
+    focusMetafieldRichEditor(control)
+    saveLocalContentDraft(form)
     return
   }
   if (event.target.matches('[data-tag-entry]')) {
@@ -4908,6 +6624,18 @@ contentEditorView.addEventListener('input', (event) => {
   if (!form) return
   if (event.target.matches('[data-tag-entry]') && !event.isComposing && /[,，]/.test(event.target.value)) {
     addContentTag(form, event.target.value)
+    return
+  }
+  if (event.target.matches('[data-metafield-rich-editor-content]')) {
+    const control = event.target.closest('[data-metafield-rich-editor-root]')
+    syncMetafieldRichEditor(control, 'visual')
+    saveLocalContentDraft(form)
+    return
+  }
+  if (event.target.matches('[data-metafield-rich-source]')) {
+    const control = event.target.closest('[data-metafield-rich-editor-root]')
+    syncMetafieldRichEditor(control, 'source')
+    saveLocalContentDraft(form)
     return
   }
   if (event.target.matches('[data-rich-editor]')) syncVisualEditor(form, 'visual')
@@ -4976,6 +6704,7 @@ async function bootstrap() {
 		const initialRoutes = ['languages']
 		if (can('content.read')) initialRoutes.push('content')
 		if (can('publishing.manage')) initialRoutes.push('publishing')
+		if (can('analytics.view')) initialRoutes.push('analytics')
 		if (can('system.view')) initialRoutes.push('settings')
     await Promise.all(initialRoutes.map((route) => loadRoute(route)))
 		renderDashboardData()

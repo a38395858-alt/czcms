@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -58,6 +59,9 @@ func TestTaxonomyLifecycleContentSyncScopesAndCycles(t *testing.T) {
 	}
 	guides := byName["Guides"]
 	express := byName["Express"]
+	if express.Slug != "express" {
+		t.Fatalf("automatic tag slug=%q, want readable name URL", express.Slug)
+	}
 	guides, err = service.UpdateTaxonomyTerm(ctx, guides.ID, TaxonomyInput{Name: "Knowledge", Slug: "knowledge", Status: "active", Version: guides.Version})
 	if err != nil {
 		t.Fatal(err)
@@ -108,6 +112,20 @@ func TestTaxonomyLifecycleContentSyncScopesAndCycles(t *testing.T) {
 	}
 	if _, err = service.CreateTaxonomyTerm(ctx, TaxonomyInput{SiteID: siteID, Locale: locale, Kind: "category", Name: "knowledge", Slug: "knowledge-copy", Status: "active"}); !errors.Is(err, ErrConflict) {
 		t.Fatalf("case-insensitive duplicate error=%v, want conflict", err)
+	}
+	readableTag, err := service.CreateTaxonomyTerm(ctx, TaxonomyInput{SiteID: siteID, Locale: locale, Kind: "tag", Name: "Customs Clearance", Status: "active"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if readableTag.Slug != "customs_clearance" {
+		t.Fatalf("readable tag slug=%q, want customs_clearance", readableTag.Slug)
+	}
+	fallbackTag, err := service.CreateTaxonomyTerm(ctx, TaxonomyInput{SiteID: siteID, Locale: locale, Kind: "tag", Name: "Customs-Clearance", Status: "active"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.HasPrefix(fallbackTag.Slug, "tag-") {
+		t.Fatalf("conflicting tag slug=%q, want stable tag-* fallback", fallbackTag.Slug)
 	}
 
 	root, err := service.CreateTaxonomyTerm(ctx, TaxonomyInput{SiteID: siteID, Locale: locale, Kind: "category", Name: "Root", Slug: "root", Status: "active"})

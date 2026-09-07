@@ -11,6 +11,7 @@ import (
 	"time"
 
 	webassets "czcms/frontend"
+	"czcms/internal/analytics"
 	"czcms/internal/audit"
 	"czcms/internal/auth"
 	"czcms/internal/authorization"
@@ -23,13 +24,16 @@ import (
 	"czcms/internal/filestore"
 	"czcms/internal/httpserver"
 	"czcms/internal/security"
+	"czcms/internal/spider"
 )
 
 type App struct {
-	db       *sql.DB
-	cache    cache.Store
-	http     http.Handler
-	previews *localPreviewManager
+	db        *sql.DB
+	cache     cache.Store
+	http      http.Handler
+	previews  *localPreviewManager
+	analytics *analytics.Service
+	spider    *spider.Service
 }
 
 func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
@@ -59,7 +63,7 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 		return fail(err)
 	}
 	sanitizer := contentsafety.NewSanitizer()
-	backupService, err := backup.New(db, cfg.BackupDir, cfg.BackupKey, cfg.Environment, keys)
+	backupService, err := backup.New(db, cfg.BackupDir, cfg.UploadDir, cfg.ThemeDir, cfg.BackupKey, cfg.Environment, keys)
 	if err != nil {
 		return fail(err)
 	}
@@ -108,12 +112,16 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 	}
 
 	previewManager := newLocalPreviewManager(cfg, db, logger)
+	analyticsService := analytics.New(db, keys, cfg.CookieSecure)
+	spiderService := spider.New(db)
 	handler := httpserver.New(httpserver.Dependencies{
 		DB: db, Cache: layered, Logger: logger, Template: tmpl, Assets: staticFS, Started: time.Now(), Config: cfg,
 		Auth: authService, Authorization: authorization.New(db), Audit: audit.New(db), Keys: keys,
 		Sanitizer: sanitizer, Catalog: catalog.New(db, sanitizer), Files: fileStore, Backups: backupService,
 		SEOAssistant:          seoAssistant,
 		LocalizationAssistant: localizationAssistant,
+		Analytics:             analyticsService,
+		Spider:                spiderService,
 		SyncLocalPreviews:     previewManager.Sync,
 	})
 	previewManager.SetHandler(handler)
@@ -124,7 +132,7 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 		layered.Close()
 		return fail(err)
 	}
-	return &App{db: db, cache: layered, http: handler, previews: previewManager}, nil
+	return &App{db: db, cache: layered, http: handler, previews: previewManager, analytics: analyticsService, spider: spiderService}, nil
 }
 
 func (a *App) Handler() http.Handler { return a.http }

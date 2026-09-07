@@ -79,11 +79,31 @@ var starterThemeFiles = []starterThemeFile{
 </main>`,
 	},
 	{
+		Key: "product_category", Label: "产品栏目页", Filename: "products/category.html", Group: "product",
+		Content: `<main id="main-content" class="product-category-page">
+  <header class="category-heading"><div class="content-shell"><p>{{.SiteName}}</p><h1>{{.TaxonomyName}}</h1><p>{{.Copy.ServicesBody}}</p></div></header>
+  <section class="content-shell product-category-results" aria-labelledby="product-category-results-heading">
+    <h2 id="product-category-results-heading">{{.TaxonomyName}}</h2>
+    <div class="product-grid">{{range .Published}}<article class="product-card"><a href="{{.URL}}">{{with index .Gallery 0}}<img src="{{.URL}}" alt="{{.AltText}}" width="{{.Width}}" height="{{.Height}}" loading="lazy">{{end}}<div><span>{{.Category}}</span><h3>{{.Title}}</h3><p>{{.Summary}}</p></div></a></article>{{else}}<p>{{.Copy.NoGuides}}</p>{{end}}</div>
+  </section>
+</main>`,
+	},
+	{
 		Key: "content", Label: "内容页", Filename: "pages/content.html", Group: "page",
 		Content: `<main id="main-content">
   <article class="article-page">
     <header class="article-masthead"><div class="content-shell"><nav aria-label="Breadcrumb"><a href="{{.HomePath}}">{{.SiteName}}</a><span>{{.Content.Category}}</span></nav><h1>{{.Content.H1}}</h1><p>{{.Content.Summary}}</p></div></header>
     <div class="content-shell article-layout"><div class="article-body">{{.Content.Body}}</div><aside><span>{{.Copy.ArticleUpdated}}</span><time>{{.Content.UpdatedAt}}</time></aside></div>
+  </article>
+</main>`,
+	},
+	{
+		Key: "product_detail", Label: "产品详情页", Filename: "products/detail.html", Group: "product",
+		Content: `<main id="main-content" class="product-detail-page">
+  <article class="content-shell product-detail-layout">
+    <header class="product-detail-heading"><p>{{.Content.Category}}</p><h1>{{.Content.H1}}</h1>{{if .Content.Summary}}<p>{{.Content.Summary}}</p>{{end}}</header>
+    {{if .Content.Gallery}}<section class="product-gallery" aria-label="Product images">{{range .Content.Gallery}}<figure><img src="{{.URL}}" alt="{{.AltText}}" width="{{.Width}}" height="{{.Height}}" loading="lazy"></figure>{{end}}</section>{{end}}
+    <div class="product-detail-body"><div class="article-body">{{.Content.Body}}</div>{{if .Content.Tags}}<footer class="product-tags" aria-label="Topics">{{range .Content.Tags}}<span>{{.}}</span>{{end}}</footer>{{end}}</div>
   </article>
 </main>`,
 	},

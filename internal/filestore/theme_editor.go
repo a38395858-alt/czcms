@@ -21,7 +21,8 @@ var (
 
 var editableThemeKeys = map[string]bool{
 	"header": true, "footer": true, "home": true, "category": true,
-	"content": true, "page": true, "search": true, "not_found": true,
+	"product_category": true, "content": true, "product_detail": true,
+	"page": true, "search": true, "not_found": true,
 }
 
 type ThemeFile struct {
@@ -76,9 +77,10 @@ func (s *Store) ListThemeFiles(ctx context.Context, themeID int64) ([]ThemeFile,
 		(SELECT COUNT(*) FROM theme_file_revisions r WHERE r.theme_package_id = tf.theme_package_id AND r.file_key = tf.file_key)
 		FROM theme_files tf LEFT JOIN users u ON u.id = tf.updated_by
 		WHERE tf.theme_package_id = ?
-		ORDER BY CASE tf.page_group WHEN 'layout' THEN 1 WHEN 'page' THEN 2 ELSE 3 END,
+		ORDER BY CASE tf.page_group WHEN 'layout' THEN 1 WHEN 'page' THEN 2 WHEN 'product' THEN 3 ELSE 4 END,
 		CASE tf.file_key WHEN 'header' THEN 1 WHEN 'footer' THEN 2 WHEN 'home' THEN 3 WHEN 'category' THEN 4
-		WHEN 'content' THEN 5 WHEN 'page' THEN 6 WHEN 'search' THEN 7 ELSE 8 END`, themeID)
+		WHEN 'product_category' THEN 5 WHEN 'content' THEN 6 WHEN 'product_detail' THEN 7 WHEN 'page' THEN 8
+		WHEN 'search' THEN 9 ELSE 10 END`, themeID)
 	if err != nil {
 		return nil, err
 	}
@@ -197,8 +199,12 @@ func normalizeManifestTemplateKey(key string) string {
 		return "home"
 	case "category", "archive", "list", "listing":
 		return "category"
+	case "product_category", "productcategory", "product_archive", "product_list":
+		return "product_category"
 	case "content", "article", "post", "detail":
 		return "content"
+	case "product_detail", "productdetail":
+		return "product_detail"
 	case "page", "single", "single_page":
 		return "page"
 	case "search":

@@ -11,7 +11,7 @@
 - 动态语言：24 种预置、后台新增、编辑、停用；首批仅启用英语、德语、法语、西班牙语、意大利语和荷兰语；
 - 站点语言：为站点绑定 Locale、启停语言，并可保存该 Locale 当前绑定的 `theme_package_id`；
 - 内容组：创建内容、向同一内容组追加其他站点 / Locale 版本、查询、编辑、原子批量更新和软删除；
-- SEO：每个内容 Locale 独立保存 H1、SEO 标题、Meta Description、核心与次要关键词、Canonical、Robots、Open Graph 和 JSON-LD；每个未停用站点动态提供独立 `sitemap.xml`、`robots.txt` 和后台状态概览，不维护重复的 Sitemap 数据表；
+- SEO：每个内容 Locale 独立保存 H1、SEO 标题、Meta Description、核心与次要关键词、Canonical、Robots、Open Graph 和 JSON-LD；公开页自动输出 Organization、WebSite、WebPage / ContactPage、BreadcrumbList、Article、Product 或 CollectionPage，页面级 JSON-LD 以安全合并方式覆盖，不会替换页面主实体；每个未停用站点动态提供独立 `sitemap.xml`、`robots.txt` 和后台状态概览，不维护重复的 Sitemap 数据表；
 - AI 本土化：以已发布英语内容为事实源，动态识别已上线模板分站，生成目标市场语境与 SEO 独立的待审核版本；
 - 版本：所有更新使用乐观锁，旧版本写入返回 `409 Conflict`；
 - 修订：创建、更新、发布、追加 Locale 和删除前均保存 JSON 快照；
@@ -50,6 +50,8 @@
 | GET | `/contents/{contentID}/revisions` | `content.read` | 查询当前用户范围内修订 |
 | POST | `/contents/{contentID}/revisions/{revisionID}/restore` | `content.write` | 把历史快照恢复为新的草稿版本 |
 | GET | `/seo/sitemaps` | `seo.manage` | 查询当前用户有权访问站点的 Sitemap / robots 状态、可收录 URL 数及自动 noindex 单页面数 |
+| GET | `/seo/robots/{siteID}` | `seo.manage` + 站点全语言范围 | 查询指定站点可编辑的自定义 robots 规则与版本号 |
+| PUT | `/seo/robots/{siteID}` | `seo.manage` + CSRF + 站点全语言范围 | 按 `version` 保存指定站点自定义 robots 规则，并写审计日志 |
 | GET | `/taxonomy/terms?site_id=&locale=&kind=` | `content.read` | 查询站点/Locale 范围内的栏目和标签 |
 | GET | `/urls/redirects?site_id=` | `publishing.manage` | 查询当前站点 URL 规则 |
 | GET | `/publishing/releases?site_id=` | `publishing.manage` | 查询当前站点发布记录 |
@@ -63,11 +65,30 @@
 - 后台“SEO 中心”拆为两个可深链接的二级栏目：`#/admin/seo?section=sitemap`（站点地图设置）和 `#/admin/seo?section=robots`（robots 设置）。两页均读取同一份实时站点状态，不维护可被界面覆盖的重复配置。
 - 每个未停用站点自动提供自己的 `/sitemap.xml` 与 `/robots.txt`；创建站点后不需要额外建表或点“生成”，绑定可渲染语言模板后首页和内容会自动进入对应地图。
 - 本地独立端口使用 `http://localhost:{local_port}/sitemap.xml` 与 `http://localhost:{local_port}/robots.txt`，其中 robots 固定 `Disallow: /`，防止测试站被收录。
+
+### 2.3 产品管理、产品栏目与元字段
+
+- 后台主导航将“产品信息”作为顶级栏目，并在其二级菜单提供“产品管理”（产品信息列表）和“产品栏目”（分类树与栏目配置）；“元字段”保持为独立顶级栏目。产品沿用内容组 / Locale / 版本模型，但 `content_type=product` 仅用于 B 端资料展示，不包含购物车、支付、订单或库存交易。两个产品路由均保留独立深链接，便于权限校验、书签和前端跳转。
+- 产品编辑页与文章、单页面共用安全富文本、封面、栏目、Tag、模板 Key 和独立 SEO；产品详情默认使用 `product/detail`，产品栏目默认使用 `product/category`。产品的技术参数、认证、应用行业、包装、交付时效、下载资料和询盘 CTA 使用元字段扩展，不再为每种业务硬编码数据库列。
+- 元字段定义接口：`GET /metafields?owner_type=&status=`、`POST /metafields`、`PUT /metafields/{definitionID}`。定义包含稳定的 `namespace + key`、类型、绑定对象、说明、默认值、校验 JSON、是否可翻译、是否必填、是否允许 AI 和状态。创建后 Namespace、Key、绑定对象不可修改，更新使用 `version` 乐观锁。
+- 元字段值接口：`GET /metafields/values/{ownerID}?owner_type=&site_id=&locale=`、`POST /metafields/values`。值使用 `{definition_id, owner_type, owner_id, site_id, locale, value}`，产品 `owner_id` 为内容组 ID；每个站点 / Locale 独立存储，跨站点和语言不会互相覆盖。产品编辑器会动态加载已启用的产品字段，并在正文保存成功后写入值。
+- 支持类型：`text`、`textarea`、`richtext`、`number`、`date`、`url`、`select`、`multiselect`、`image`、`file`、`product_reference`、`category_reference`。其中 `richtext` 在内容编辑页使用与正文一致的可视化编辑器，支持标题、基础文字格式、列表、链接、图片上传、Ctrl+V 图片本地化、HTML 源码和全屏编辑。单选 / 多选的 `validation` 可使用 `{"options":[...]}`；多选值保存为 JSON 字符串数组。
+- 服务端始终重新校验字段定义、对象类型、对象是否属于目标站点 / Locale、必填值、长度、数字、日期、URL、选项和引用 ID；`richtext` 经过 HTML 白名单清洗，媒体字段只能引用媒体中心已存在的 ID，不接受任意远程 URL。停用定义保留历史值但禁止新写入。
+
+### 完整加密备份
+
+- `POST /api/v1/system/backups`：创建一个 `.czb` 完整网站备份，包含一致 SQLite 快照、`uploads/` 媒体和 `themes/` 模板 ZIP；创建后自动完成 AES-256-GCM 认证、归档清单哈希与 SQLite 完整性验证。
+- `GET /api/v1/system/backups/{backupID}/download`：导出已验证的单个 `.czb` 文件，需要 `backup.manage` 权限。
+- `POST /api/v1/system/backups/import`：以 `multipart/form-data` 上传字段 `file` 导入 `.czb`。文件必须使用当前安装相同的备份密钥，验证通过后才进入备份记录；接口不会直接覆盖在线数据库、媒体或模板。
+- `DELETE /api/v1/system/backups/{backupID}`：永久删除一份备份文件及其记录，需要 `backup.manage` 和 CSRF 校验；操作会写入审计日志。
+- `POST /api/v1/system/backups/bulk-delete`：批量永久删除 1–100 份备份，JSON 字段为 `backup_ids`。所有 ID 会先校验，记录删除以一个数据库事务提交。
+- `.czb` 不包含环境变量、应用主密钥、备份密钥、日志或 Redis 缓存。完整恢复使用离线命令 `czcms backup-restore <备份文件名> <新恢复目录>`，输出目录包含 `data/czcms.db`、`uploads/` 与 `themes/`。
 - 后台兼容预览入口也可访问 `/preview/{siteCode}/sitemap.xml`、`/preview/{siteCode}/robots.txt`，用于排查机器文件；预览响应同样输出 `noindex, nofollow`。
-- 正式绑定域名后，Host 路由自动在对应域名提供两份文件，例如 `https://www.example.com/sitemap.xml`。生产 robots 自动屏蔽后台、API、登录、预览和账户路径，并声明本站 Sitemap。
-- Sitemap 只包含：已发布、到达计划发布时间、`robots_index=true`、未删除、已启用语言且已绑定可渲染模板的内容，以及可渲染语言首页。草稿、审核、归档、未来定时内容、禁用语言或模板不可渲染的内容不会进入。
-- `content_type=page` 为单页面类型，新建时默认输出 `<meta name="robots" content="noindex,follow">` 和 `X-Robots-Tag: noindex, follow`，并从 Sitemap 排除。后台可将企业介绍、服务或专题页的 `index_policy` 显式改为 `index`，此时页面会进入 Sitemap。不要把任何页面写入 `robots.txt Disallow` 来代替 noindex，否则搜索引擎无法抓取并读取页面 robots 指令。
-- robots 规则随站点状态、运行环境和域名绑定动态生成；后台只展示策略、测试入口和正式入口，不提供上传或覆盖 robots.txt 的假编辑器。需要改变策略时，应修改后端规则并经测试后发布。
+- 正式绑定域名后，Host 路由自动在对应域名提供两份文件，例如 `https://www.example.com/sitemap.xml`。生产 robots 自动屏蔽后台、API、登录、预览、账户、表单提交和动态查询路径，并声明本站 Sitemap。
+- Sitemap 只包含：已发布、到达计划发布时间、`robots_index=true`、未删除、已启用语言且已绑定可渲染模板的内容，以及可渲染语言首页；同时包含有可收录内容的栏目与标签归档 URL。草稿、审核、归档、未来定时内容、禁用语言或模板不可渲染的内容不会进入。
+- `content_type=page` 为单页面类型，新建时默认输出 `<meta name="robots" content="noindex,follow">` 和 `X-Robots-Tag: noindex, follow`，并从 Sitemap 排除。生产 robots 会同步列出已发布的 noindex 单页面（例如关于我们、联系我们）的 `Disallow` 路径；后台可将企业介绍、服务或专题页的 `index_policy` 显式改为 `index`，此时页面会移出 Disallow 并进入 Sitemap。这样可避免新建工具页被抓取，同时保留明确允许收录页面的 SEO 能力。
+- 生产 robots 同时禁止 Googlebot-Image、Bingbot 抓取图片，并屏蔽 `/media/` 及常见图片扩展名；本地端口仍固定 `Disallow: /`。robots 不用于保护敏感数据，敏感接口必须继续鉴权。
+- robots 规则随站点状态、运行环境和域名绑定动态生成；每个站点可在 SEO 中心编辑自己的“自定义规则”文本（最大 300 行 / 24000 字符，带乐观锁和审计）。自定义规则会合并到系统规则之后；后台、API、图片、动态路径、Sitemap 和默认 noindex 单页面的自动规则继续保留，不能因手工编辑而丢失。
 
 ### 2.2 单页面管理
 
@@ -111,7 +132,7 @@
 
 - JSON 使用严格字段白名单，未知字段返回 `400`；
 - 新建站点可传 `default_theme_package_id`；服务端只接受 `status=validated` 且渲染入口为 `global-route` 或 `atlas-commerce` 的模板。传 `0` 或省略时绑定已验证的 `global-route`；没有安全默认模板时拒绝创建，避免生成无法渲染的站点。指定非零模板 ID 还需要 `templates.manage` 权限；
-- `seo_title` 为空时首页回退到模板默认标题；`seo_description` 为空时首页回退到模板默认摘要；`favicon_media_id` 必须指向媒体中心中已存在且为方形 PNG/JPEG 的图片，删除被站点 Icon 引用的媒体会被拒绝；
+- `seo_title` 为空时首页回退到模板默认标题；`seo_description` 为空时首页回退到模板默认摘要；`favicon_media_id` 必须指向媒体中心中已存在且为 16–2048 像素方形图片（上传后统一保存为 AVIF；历史 PNG/JPEG 可通过媒体迁移升级），删除被站点 Icon 引用的媒体会被拒绝；
 - 站点代码和语言代码只能使用小写字母、数字及连字符；
 - 本地测试不把 `localhost` 写入域名表；每个站点的 `local_port` 全局唯一，`8080` 保留给管理后台，新建站点从当前最大端口后自动分配；访问 `http://localhost:{local_port}/` 会进入对应站点，内容地址直接为 `http://localhost:{local_port}/{slug}`；
 - 旧的单语言 Locale 前缀地址使用 `308` 跳转到无 Locale 的干净路径，避免重复页面；跨站语言菜单在开发环境跳转到对应端口，在正式环境跳转到目标站主域名；
@@ -119,9 +140,9 @@
 - 正式域名只接受不含协议、端口和路径的 hostname，必须包含域名后缀，拒绝 IP、`localhost` 和 `.localhost`；域名在全系统内唯一；
 - DNS 状态 `resolved` 仅表示已查询到公开 A / AAAA 地址；正式上线仍需运维确认解析目标、反向代理和 HTTPS 证书正确；
 - Locale 必须符合受限 BCP 47 形式；
-- Slug 只允许小写 ASCII 字母、数字、连字符和 `/`，最终 `.html` 等伪静态后缀由路由规则生成；
+- Slug 只允许小写 ASCII 字母、数字、连字符和 `/`，最终 `.html` 等伪静态后缀由路由规则生成；标签在未手工填写 Slug 时按名称生成可读地址（空格转为下划线，如 `customs_clearance`），同站点 / Locale / 类型内发生冲突时自动回退为稳定的 `tag-xxxxxxxxxxxxxxxx` 地址；
 - Canonical 必须是 HTTP / HTTPS 绝对 URL，禁止凭据、脚本协议和相对地址；
-- JSON-LD 必须是 JSON 对象且不超过 64 KiB；
+- JSON-LD 必须是 JSON 对象且不超过 64 KiB；`@context` 使用 `https://schema.org`，节点必须有 `@type`；Organization、WebSite、BreadcrumbList 会合并到自动实体，其他合法节点进入 `@graph`，服务端不会生成虚构价格、评分、库存、作者或联系方式；
 - 次要关键词最多 20 个，禁止空值和重复值；
 - 富文本最多 2 MiB，服务端始终重新执行 HTML 白名单清洗；
 - `version` 与数据库不一致时返回 `409`，前端要求用户刷新后重新编辑，不静默覆盖；

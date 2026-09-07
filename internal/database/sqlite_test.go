@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 )
@@ -70,6 +71,24 @@ func TestOpenEnablesWALForeignKeysAndSeedsLanguages(t *testing.T) {
 	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM schema_migrations WHERE version = 19`).Scan(&formSubmitLabelMigration); err != nil || formSubmitLabelMigration != 1 {
 		t.Fatalf("form submit-label migration record=%d err=%v", formSubmitLabelMigration, err)
 	}
+	var robotsMigration, robotsTable int
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM schema_migrations WHERE version = 21`).Scan(&robotsMigration); err != nil || robotsMigration != 1 {
+		t.Fatalf("robots migration record=%d err=%v", robotsMigration, err)
+	}
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'site_robots'`).Scan(&robotsTable); err != nil || robotsTable != 1 {
+		t.Fatalf("site_robots table=%d err=%v", robotsTable, err)
+	}
+	var readableTagMigration int
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM schema_migrations WHERE version = 22`).Scan(&readableTagMigration); err != nil || readableTagMigration != 1 {
+		t.Fatalf("readable tag migration record=%d err=%v", readableTagMigration, err)
+	}
+	var spiderMigration, spiderPagesTable int
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM schema_migrations WHERE version = 25`).Scan(&spiderMigration); err != nil || spiderMigration != 1 {
+		t.Fatalf("spider analytics migration record=%d err=%v", spiderMigration, err)
+	}
+	if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'spider_pages'`).Scan(&spiderPagesTable); err != nil || spiderPagesTable != 1 {
+		t.Fatalf("spider_pages table=%d err=%v", spiderPagesTable, err)
+	}
 	tx, err := db.BeginTx(ctx, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -84,6 +103,52 @@ func TestOpenEnablesWALForeignKeysAndSeedsLanguages(t *testing.T) {
 		if err = db.QueryRowContext(ctx, `SELECT COUNT(*) FROM sqlite_master WHERE type = 'index' AND name = ?`, index).Scan(&indexCount); err != nil || indexCount != 1 {
 			t.Fatalf("sitemap index %s count=%d err=%v", index, indexCount, err)
 		}
+	}
+}
+
+func TestOpenMigratesLegacyGeneratedTagURLsToReadableNames(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	path := filepath.Join(t.TempDir(), "readable-tag-slugs.db")
+	db, err := Open(ctx, path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	var siteID int64
+	if err = db.QueryRowContext(ctx, `SELECT id FROM sites WHERE code = 'global'`).Scan(&siteID); err != nil {
+		t.Fatal(err)
+	}
+	for _, name := range []string{"Customs Clearance", "Customs-Clearance"} {
+		legacy := legacyGeneratedTaxonomySlugV22(siteID, "en", "tag", name)
+		if _, err = db.ExecContext(ctx, `INSERT INTO taxonomy_terms(site_id, locale, kind, name, slug, status, version, created_at, updated_at) VALUES (?, 'en', 'tag', ?, ?, 'active', 1, ?, ?)`, siteID, name, legacy, now, now); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err = db.ExecContext(ctx, `DELETE FROM schema_migrations WHERE version = 22`); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.Close(); err != nil {
+		t.Fatal(err)
+	}
+
+	db, err = Open(ctx, path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = db.Close() })
+	var readable, fallback string
+	if err = db.QueryRowContext(ctx, `SELECT slug FROM taxonomy_terms WHERE site_id = ? AND locale = 'en' AND kind = 'tag' AND name = 'Customs Clearance'`, siteID).Scan(&readable); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.QueryRowContext(ctx, `SELECT slug FROM taxonomy_terms WHERE site_id = ? AND locale = 'en' AND kind = 'tag' AND name = 'Customs-Clearance'`, siteID).Scan(&fallback); err != nil {
+		t.Fatal(err)
+	}
+	if readable != "customs_clearance" {
+		t.Fatalf("readable migrated tag slug=%q, want customs_clearance", readable)
+	}
+	if !strings.HasPrefix(fallback, "tag-") {
+		t.Fatalf("conflicting legacy tag slug=%q, want tag-* fallback", fallback)
 	}
 }
 

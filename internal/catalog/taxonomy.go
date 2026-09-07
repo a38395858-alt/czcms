@@ -39,6 +39,18 @@ type TaxonomyInput struct {
 	Version  int64  `json:"version"`
 }
 
+// PublicTaxonomyArchive is the public, SEO-safe projection of one category or
+// tag. It never exposes disabled terms, drafts, scheduled content or pages
+// that the editor marked noindex.
+type PublicTaxonomyArchive struct {
+	Kind      string
+	Name      string
+	Slug      string
+	Locale    string
+	UpdatedAt string
+	Contents  []ContentLocale
+}
+
 func (s *Service) ListTaxonomy(ctx context.Context, userID, siteID int64, locale, kind string) ([]TaxonomyTerm, error) {
 	where := []string{`EXISTS(SELECT 1 FROM user_access_scopes uas WHERE uas.user_id = ? AND (uas.site_id = 0 OR uas.site_id = t.site_id) AND (uas.locale = '*' OR uas.locale = t.locale))`}
 	args := []any{userID}
@@ -98,6 +110,89 @@ func (s *Service) GetTaxonomyTerm(ctx context.Context, id int64) (TaxonomyTerm, 
 	return item, err
 }
 
+// GetPublicTaxonomyArchive finds a crawlable taxonomy route and the matching
+// published content. The same public visibility conditions are used by the
+// sitemap so sitemap URLs cannot lead to thin, empty or non-public archives.
+func (s *Service) GetPublicTaxonomyArchive(ctx context.Context, siteID int64, locale, kind, slug string, limit int) (PublicTaxonomyArchive, error) {
+	locale = strings.TrimSpace(locale)
+	kind = strings.ToLower(strings.TrimSpace(kind))
+	slug = strings.ToLower(strings.Trim(strings.TrimSpace(slug), "/"))
+	if siteID < 1 || !localePattern.MatchString(locale) || (kind != "category" && kind != "tag") || !taxonomySlugPattern.MatchString(slug) {
+		return PublicTaxonomyArchive{}, ErrNotFound
+	}
+	if limit < 1 || limit > 48 {
+		limit = 24
+	}
+	archive := PublicTaxonomyArchive{}
+	err := s.db.QueryRowContext(ctx, `
+		SELECT t.kind, t.name, t.slug, t.locale, t.updated_at
+		FROM taxonomy_terms t
+		WHERE t.site_id = ? AND t.locale = ? AND t.kind = ? AND t.slug = ? AND t.status = 'active'
+		  AND EXISTS(
+			SELECT 1
+			FROM content_taxonomy_terms ct
+			JOIN content_locales cl ON cl.id = ct.content_locale_id
+			JOIN contents c ON c.id = cl.content_id
+			JOIN site_languages sl ON sl.site_id = cl.site_id AND sl.locale = cl.locale
+			JOIN languages l ON l.id = sl.language_id
+			JOIN theme_packages th ON th.id = sl.theme_package_id
+			WHERE ct.term_id = t.id AND c.deleted_at IS NULL
+			  AND cl.status = 'published' AND cl.robots_index = 1 AND (c.content_type <> 'page' OR cl.index_policy = 'index')
+			  AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
+			  AND sl.enabled = 1 AND l.enabled = 1
+			  AND th.status = 'validated' AND th.render_key IN ('global-route', 'atlas-commerce')
+		  )`, siteID, locale, kind, slug, nowUTC()).Scan(&archive.Kind, &archive.Name, &archive.Slug, &archive.Locale, &archive.UpdatedAt)
+	if errors.Is(err, sql.ErrNoRows) {
+		return PublicTaxonomyArchive{}, ErrNotFound
+	}
+	if err != nil {
+		return PublicTaxonomyArchive{}, err
+	}
+
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT cl.id, c.id, c.content_type, cl.site_id, s.name, cl.locale,
+		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
+		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
+		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id, cl.gallery_media_ids_json,
+		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.h1, cl.seo_title, cl.meta_description,
+		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
+		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
+		       COALESCE(u.display_name, ''), cl.version, c.version, cl.published_at, cl.created_at, cl.updated_at
+		FROM taxonomy_terms t
+		JOIN content_taxonomy_terms ct ON ct.term_id = t.id
+		JOIN content_locales cl ON cl.id = ct.content_locale_id
+		JOIN contents c ON c.id = cl.content_id
+		JOIN sites s ON s.id = cl.site_id
+		LEFT JOIN media_files m ON m.id = cl.cover_media_id
+		LEFT JOIN users u ON u.id = c.owner_id
+		JOIN site_languages sl ON sl.site_id = cl.site_id AND sl.locale = cl.locale
+		JOIN languages l ON l.id = sl.language_id
+		JOIN theme_packages th ON th.id = sl.theme_package_id
+		WHERE t.site_id = ? AND t.locale = ? AND t.kind = ? AND t.slug = ? AND t.status = 'active'
+		  AND c.deleted_at IS NULL AND cl.status = 'published' AND cl.robots_index = 1
+		  AND (c.content_type <> 'page' OR cl.index_policy = 'index')
+		  AND (cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))
+		  AND sl.enabled = 1 AND l.enabled = 1
+		  AND th.status = 'validated' AND th.render_key IN ('global-route', 'atlas-commerce')
+		ORDER BY COALESCE(cl.published_at, cl.updated_at) DESC, cl.id DESC LIMIT ?`, siteID, locale, kind, slug, nowUTC(), limit)
+	if err != nil {
+		return PublicTaxonomyArchive{}, err
+	}
+	defer rows.Close()
+	archive.Contents = make([]ContentLocale, 0)
+	for rows.Next() {
+		item, scanErr := scanContentLocale(rows, false)
+		if scanErr != nil {
+			return PublicTaxonomyArchive{}, scanErr
+		}
+		archive.Contents = append(archive.Contents, item)
+	}
+	if err = rows.Err(); err != nil {
+		return PublicTaxonomyArchive{}, err
+	}
+	return archive, nil
+}
+
 func (s *Service) CreateTaxonomyTerm(ctx context.Context, input TaxonomyInput) (TaxonomyTerm, error) {
 	normalizeTaxonomyInput(&input)
 	if err := validateTaxonomyInput(input, false); err != nil {
@@ -113,6 +208,11 @@ func (s *Service) CreateTaxonomyTerm(ctx context.Context, input TaxonomyInput) (
 	}
 	if err = validateTaxonomyParent(ctx, tx, 0, input); err != nil {
 		return TaxonomyTerm{}, err
+	}
+	if input.Slug == "" {
+		if input.Slug, err = resolveAutomaticTaxonomySlug(ctx, tx, 0, input); err != nil {
+			return TaxonomyTerm{}, err
+		}
 	}
 	now := nowUTC()
 	result, err := tx.ExecContext(ctx, `INSERT INTO taxonomy_terms(site_id, locale, kind, name, slug, parent_id, status, version, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`, input.SiteID, input.Locale, input.Kind, input.Name, input.Slug, input.ParentID, input.Status, now, now)
@@ -146,6 +246,11 @@ func (s *Service) UpdateTaxonomyTerm(ctx context.Context, id int64, input Taxono
 	defer tx.Rollback()
 	if err = validateTaxonomyParent(ctx, tx, id, input); err != nil {
 		return TaxonomyTerm{}, err
+	}
+	if input.Slug == "" {
+		if input.Slug, err = resolveAutomaticTaxonomySlug(ctx, tx, id, input); err != nil {
+			return TaxonomyTerm{}, err
+		}
 	}
 	result, err := tx.ExecContext(ctx, `UPDATE taxonomy_terms SET name = ?, slug = ?, parent_id = ?, status = ?, version = version + 1, updated_at = ? WHERE id = ? AND version = ?`, input.Name, input.Slug, input.ParentID, input.Status, nowUTC(), id, input.Version)
 	if err != nil {
@@ -189,12 +294,32 @@ func syncContentTaxonomyTx(ctx context.Context, tx *sql.Tx, contentLocaleID, sit
 		}
 	}
 	for position, item := range items {
-		slug := generatedTaxonomySlug(siteID, locale, item.kind, item.name)
-		now := nowUTC()
-		if _, err := tx.ExecContext(ctx, `INSERT OR IGNORE INTO taxonomy_terms(site_id, locale, kind, name, slug, status, version, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'active', 1, ?, ?)`, siteID, locale, item.kind, item.name, slug, now, now); err != nil {
+		var termID int64
+		err := tx.QueryRowContext(ctx, `SELECT id FROM taxonomy_terms WHERE site_id = ? AND locale = ? AND kind = ? AND name = ?`, siteID, locale, item.kind, item.name).Scan(&termID)
+		if err == nil {
+			if _, err = tx.ExecContext(ctx, `INSERT OR IGNORE INTO content_taxonomy_terms(content_locale_id, term_id, position) VALUES (?, ?, ?)`, contentLocaleID, termID, position); err != nil {
+				return err
+			}
+			continue
+		}
+		if !errors.Is(err, sql.ErrNoRows) {
 			return err
 		}
-		if _, err := tx.ExecContext(ctx, `INSERT OR IGNORE INTO content_taxonomy_terms(content_locale_id, term_id, position) SELECT ?, id, ? FROM taxonomy_terms WHERE site_id = ? AND locale = ? AND kind = ? AND name = ?`, contentLocaleID, position, siteID, locale, item.kind, item.name); err != nil {
+
+		slug, err := resolveAutomaticTaxonomySlug(ctx, tx, 0, TaxonomyInput{SiteID: siteID, Locale: locale, Kind: item.kind, Name: item.name})
+		if err != nil {
+			return err
+		}
+		now := nowUTC()
+		result, err := tx.ExecContext(ctx, `INSERT INTO taxonomy_terms(site_id, locale, kind, name, slug, status, version, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'active', 1, ?, ?)`, siteID, locale, item.kind, item.name, slug, now, now)
+		if err != nil {
+			return err
+		}
+		termID, err = result.LastInsertId()
+		if err != nil {
+			return err
+		}
+		if _, err = tx.ExecContext(ctx, `INSERT OR IGNORE INTO content_taxonomy_terms(content_locale_id, term_id, position) VALUES (?, ?, ?)`, contentLocaleID, termID, position); err != nil {
 			return err
 		}
 	}
@@ -251,16 +376,13 @@ func normalizeTaxonomyInput(input *TaxonomyInput) {
 	if input.Status == "" {
 		input.Status = "active"
 	}
-	if input.Slug == "" {
-		input.Slug = generatedTaxonomySlug(input.SiteID, input.Locale, input.Kind, input.Name)
-	}
 }
 
 func validateTaxonomyInput(input TaxonomyInput, updating bool) error {
 	if input.SiteID < 1 || !localePattern.MatchString(input.Locale) || (input.Kind != "category" && input.Kind != "tag") {
 		return invalid("站点、Locale 或类型无效")
 	}
-	if input.Name == "" || utf8.RuneCountInString(input.Name) > 100 || len(input.Slug) > 120 || !slugPattern.MatchString(input.Slug) {
+	if input.Name == "" || utf8.RuneCountInString(input.Name) > 100 || (input.Slug != "" && (len(input.Slug) > 120 || !taxonomySlugPattern.MatchString(input.Slug))) {
 		return invalid("名称或 Slug 格式无效")
 	}
 	if input.Status != "active" && input.Status != "disabled" {
@@ -299,7 +421,57 @@ func validateTaxonomyParent(ctx context.Context, tx *sql.Tx, id int64, input Tax
 	return nil
 }
 
+func resolveAutomaticTaxonomySlug(ctx context.Context, tx *sql.Tx, excludeID int64, input TaxonomyInput) (string, error) {
+	slug := generatedTaxonomySlug(input.SiteID, input.Locale, input.Kind, input.Name)
+	if slug == generatedTaxonomyFallbackSlug(input.SiteID, input.Locale, input.Kind, input.Name) {
+		return slug, nil
+	}
+	var occupied int
+	if err := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM taxonomy_terms WHERE site_id = ? AND locale = ? AND kind = ? AND slug = ? AND id <> ?)`, input.SiteID, input.Locale, input.Kind, slug, excludeID).Scan(&occupied); err != nil {
+		return "", err
+	}
+	if occupied == 1 {
+		return generatedTaxonomyFallbackSlug(input.SiteID, input.Locale, input.Kind, input.Name), nil
+	}
+	return slug, nil
+}
+
 func generatedTaxonomySlug(siteID int64, locale, kind, name string) string {
+	if kind == "tag" {
+		if slug := taxonomyTagNameSlug(name); slug != "" {
+			return slug
+		}
+	}
+	return generatedTaxonomyFallbackSlug(siteID, locale, kind, name)
+}
+
+// taxonomyTagNameSlug keeps tag URLs readable: words in the tag name are
+// separated by underscores, while unsafe names fall back to the stable tag ID.
+func taxonomyTagNameSlug(name string) string {
+	var slug strings.Builder
+	separator := false
+	for _, char := range strings.ToLower(strings.TrimSpace(name)) {
+		switch {
+		case char >= 'a' && char <= 'z', char >= '0' && char <= '9':
+			if separator && slug.Len() > 0 {
+				slug.WriteByte('_')
+			}
+			slug.WriteRune(char)
+			separator = false
+		case char == '-' || char == '_' || char == ' ' || char == '\t' || char == '&' || char == '+' || char == '/' || char == '.':
+			separator = slug.Len() > 0
+		default:
+			return ""
+		}
+	}
+	value := strings.Trim(slug.String(), "_")
+	if !taxonomySlugPattern.MatchString(value) {
+		return ""
+	}
+	return value
+}
+
+func generatedTaxonomyFallbackSlug(siteID int64, locale, kind, name string) string {
 	digest := sha256.Sum256([]byte(fmt.Sprintf("%d|%s|%s|%s", siteID, locale, kind, strings.ToLower(strings.TrimSpace(name)))))
 	return kind + "-" + fmt.Sprintf("%x", digest[:8])
 }

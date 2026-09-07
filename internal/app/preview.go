@@ -126,7 +126,10 @@ func localPreviewHandler(base http.Handler, siteCode string) http.Handler {
 		switch {
 		case r.URL.Path == "/":
 			servePreviewPath(base, w, r, previewPath)
-		case strings.HasPrefix(r.URL.Path, "/assets/") || strings.HasPrefix(r.URL.Path, "/theme-assets/") || r.URL.Path == "/healthz":
+		case strings.HasPrefix(r.URL.Path, "/assets/") || strings.HasPrefix(r.URL.Path, "/theme-assets/") || strings.HasPrefix(r.URL.Path, "/media/") || r.URL.Path == "/healthz":
+			// Public media is stored and validated by the main handler. Forward
+			// immutable /media/{id}/{token} requests so pages rendered on a
+			// dedicated site port can display uploaded product and body images.
 			base.ServeHTTP(w, r)
 		default:
 			// A dedicated preview port behaves like a real site: /en and

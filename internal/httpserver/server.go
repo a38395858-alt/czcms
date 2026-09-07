@@ -19,12 +19,14 @@ import (
 	"net/http"
 	"net/url"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strconv"
 	"strings"
 	"time"
 	"unicode"
 
+	"czcms/internal/analytics"
 	"czcms/internal/audit"
 	"czcms/internal/auth"
 	"czcms/internal/authorization"
@@ -35,6 +37,7 @@ import (
 	"czcms/internal/contentsafety"
 	"czcms/internal/filestore"
 	"czcms/internal/security"
+	"czcms/internal/spider"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -56,6 +59,8 @@ type Dependencies struct {
 	Catalog               *catalog.Service
 	Files                 *filestore.Store
 	Backups               *backup.Service
+	Analytics             *analytics.Service
+	Spider                *spider.Service
 	SEOAssistant          SEOAssistant
 	LocalizationAssistant LocalizationAssistant
 	SyncLocalPreviews     func() error
@@ -161,6 +166,7 @@ type publicHreflang struct {
 type publicContentData struct {
 	ID              int64
 	ContentID       int64
+	ContentType     string
 	Title           string
 	H1              string
 	Summary         string
@@ -172,6 +178,10 @@ type publicContentData struct {
 	MetaDescription string
 	OGTitle         string
 	OGDescription   string
+	OwnerName       string
+	CoverURL        string
+	CoverWidth      int
+	CoverHeight     int
 	URL             string
 	UpdatedAt       string
 	PublishedAt     string
@@ -179,7 +189,13 @@ type publicContentData struct {
 	ReadingMinutes  int
 	PageLayout      string
 	Tags            []string
-	Body            template.HTML
+	// Gallery contains the product media attached to this content. It uses
+	// the catalog's safe public representation (no filesystem paths or
+	// private metadata) so product detail templates can render uploaded
+	// images without exposing storage internals. For non-product content it
+	// remains an empty slice.
+	Gallery []catalog.GalleryMedia
+	Body    template.HTML
 }
 
 type publicFormField struct {
@@ -199,18 +215,31 @@ type publicFormData struct {
 }
 
 type publicSitePageData struct {
-	SiteName        string
-	MarketCode      string
-	SiteCode        string
-	CanonicalURL    string
-	RedirectURL     string
-	Preview         bool
-	Maintenance     bool
-	NotFound        bool
-	IsHome          bool
-	HasContent      bool
-	BasePath        string
-	HomePath        string
+	SiteName     string
+	MarketCode   string
+	SiteCode     string
+	CanonicalURL string
+	RedirectURL  string
+	Preview      bool
+	Maintenance  bool
+	NotFound     bool
+	IsHome       bool
+	IsTaxonomy   bool
+	TaxonomyKind string
+	TaxonomyName string
+	HasContent   bool
+	BasePath     string
+	HomePath     string
+	// CurrentPath is the public route currently being rendered (including the
+	// locale and preview prefixes when applicable). It is separate from
+	// CanonicalURL because previews suppress canonical links while JSON-LD
+	// should still identify the actual page URL.
+	CurrentPath string
+	// PublicOrigin is the request origin used when a route is rendered without
+	// an explicit canonical URL (notably local site ports). It keeps JSON-LD
+	// resource and entity URLs absolute while canonical tags remain suppressed
+	// for noindex previews.
+	PublicOrigin    string
 	Locale          string
 	LanguageCode    string
 	LanguageName    string
@@ -219,6 +248,7 @@ type publicSitePageData struct {
 	MetaDescription string
 	OGTitle         string
 	OGDescription   string
+	SocialImageURL  string
 	RobotsIndex     bool
 	Copy            publicCopy
 	Languages       []publicLanguageData
@@ -306,6 +336,11 @@ func New(deps Dependencies) http.Handler {
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Put("/contents/{contentID}/locales/{locale}", s.updateContentLocale)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Delete("/contents/{contentID}", s.deleteContent)
 			api.With(s.requirePermission("content.read")).Get("/contents/{contentID}/revisions", s.listContentRevisions)
+			api.With(s.requirePermission("content.read")).Get("/metafields", s.listMetafieldDefinitions)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/metafields", s.createMetafieldDefinition)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Put("/metafields/{definitionID}", s.updateMetafieldDefinition)
+			api.With(s.requirePermission("content.read")).Get("/metafields/values/{ownerID}", s.listMetafieldValues)
+			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/metafields/values", s.upsertMetafieldValue)
 			api.With(s.requirePermission("content.read")).Get("/forms", s.listForms)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/forms", s.createForm)
 			api.With(s.requirePermission("content.read")).Get("/forms/submissions", s.listFormSubmissions)
@@ -341,18 +376,27 @@ func New(deps Dependencies) http.Handler {
 			api.With(s.requirePermission("system.manage"), s.requireCSRF).Post("/system/ai/providers/{providerID}/test", s.aiProviderTest)
 			api.With(s.requirePermission("system.manage"), s.requireCSRF).Put("/system/ai/routes/{featureKey}", s.aiFeatureRouteUpdate)
 			api.With(s.requirePermission("audit.read")).Get("/audit", s.auditList)
+			api.With(s.requirePermission("analytics.view")).Get("/analytics/overview", s.analyticsOverview)
+			api.With(s.requirePermission("seo.manage")).Get("/seo/spider", s.spiderOverview)
 			api.With(s.requirePermission("content.write"), s.requireCSRF).Post("/content/sanitize", s.sanitizeRichText)
 			api.With(s.requirePermission("content.write"), s.requirePermission("seo.manage"), s.requireCSRF).Post("/content/seo-suggestions", s.suggestContentSEO)
 			api.With(s.requirePermission("seo.manage")).Get("/seo/sitemaps", s.seoSitemaps)
+			api.With(s.requirePermission("seo.manage")).Get("/seo/robots/{siteID}", s.getSiteRobotsSettings)
+			api.With(s.requirePermission("seo.manage"), s.requireCSRF).Put("/seo/robots/{siteID}", s.updateSiteRobotsSettings)
 			api.With(s.requirePermission("seo.manage")).Get("/localization/jobs", s.listLocalizationJobs)
 			api.With(s.requirePermission("media.read")).Get("/media", s.mediaList)
 			api.With(s.requirePermission("media.upload"), s.requireCSRF).Post("/media/upload", s.mediaUpload)
+			api.With(s.requirePermission("media.upload"), s.requireCSRF).Post("/media/migrate-avif", s.mediaMigrateAVIF)
 			api.With(s.requirePermission("media.upload"), s.requireCSRF).Post("/media/import", s.mediaImport)
 			api.With(s.requirePermission("media.upload"), s.requireCSRF).Put("/media/{mediaID}", s.mediaUpdate)
 			api.With(s.requirePermission("media.upload"), s.requireCSRF).Delete("/media/{mediaID}", s.mediaDelete)
 			api.With(s.requirePermission("templates.manage"), s.requireCSRF).Post("/templates/upload", s.themeUpload)
 			api.With(s.requirePermission("backup.manage")).Get("/system/backups", s.backupList)
 			api.With(s.requirePermission("backup.manage"), s.requireCSRF).Post("/system/backups", s.backupCreate)
+			api.With(s.requirePermission("backup.manage"), s.requireCSRF).Post("/system/backups/import", s.backupImport)
+			api.With(s.requirePermission("backup.manage"), s.requireCSRF).Post("/system/backups/bulk-delete", s.backupBulkDelete)
+			api.With(s.requirePermission("backup.manage")).Get("/system/backups/{backupID}/download", s.backupDownload)
+			api.With(s.requirePermission("backup.manage"), s.requireCSRF).Delete("/system/backups/{backupID}", s.backupDelete)
 			api.With(s.requirePermission("users.manage")).Get("/security/users", s.listUsers)
 			api.With(s.requirePermission("users.manage"), s.requireCSRF).Post("/security/users", s.createUser)
 			api.With(s.requirePermission("users.manage")).Get("/security/roles", s.listRoles)
@@ -608,6 +652,7 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 		if r.URL.RawQuery != "" {
 			target += "?" + r.URL.RawQuery
 		}
+		s.trackSpiderRequest(r, site, preview, routePath, data, "页面跳转", http.StatusPermanentRedirect)
 		http.Redirect(w, r, target, http.StatusPermanentRedirect)
 		return
 	}
@@ -620,6 +665,7 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 		w.Header().Set("X-Robots-Tag", "noindex, follow")
 	}
 	if status != http.StatusOK && !maintenance && !data.NotFound {
+		s.trackSpiderRequest(r, site, preview, routePath, data, "服务错误", status)
 		if status == http.StatusNotFound {
 			http.NotFound(w, r)
 			return
@@ -630,13 +676,92 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 	if status != http.StatusOK {
 		w.WriteHeader(status)
 	}
+	var analyticsVisit *analytics.Visit
+	// A dedicated local site port (for example localhost:8081) is a useful
+	// development stand-in for the site's real domain, so it intentionally
+	// contributes to that site's report. The generic /preview/{site} routes and
+	// authenticated template/content previews remain excluded.
+	trackAnalytics := !preview || r.Header.Get("X-CZCMS-Local-Preview") == "1"
+	if trackAnalytics && status == http.StatusOK && !data.NotFound {
+		analyticsRequest := r
+		if preview {
+			// The local-port adapter forwards internally through /preview/{site}.
+			// Store the public-looking path instead of that internal prefix.
+			cloned := r.Clone(r.Context())
+			clonedURL := *r.URL
+			clonedURL.Path = "/" + strings.Trim(routePath, "/")
+			clonedURL.RawPath = ""
+			clonedURL.RawQuery = ""
+			cloned.URL = &clonedURL
+			analyticsRequest = cloned
+		}
+		analyticsVisit = s.Analytics.PrepareVisit(w, analyticsRequest, site.ID, data.Locale, data.PageTitle)
+	}
 	templateName := "public.html"
 	if data.ThemeKey == "atlas-commerce" {
 		templateName = "public-atlas.html"
 	}
 	if err := s.Template.ExecuteTemplate(w, templateName, data); err != nil {
 		s.Logger.Error("渲染公开站点失败", "error", err, "request_id", middleware.GetReqID(r.Context()))
+		return
 	}
+	s.Analytics.Track(analyticsVisit)
+	s.trackSpiderRequest(r, site, preview, routePath, data, publicPageKind(data), status)
+}
+
+// trackSpiderRequest records only recognised crawler requests. A local site
+// listener forwards to /preview/{site}/ internally, therefore the external
+// routePath is restored before it is stored. Generic preview pages remain
+// excluded so an administrator opening a preview never pollutes crawler data.
+func (s *server) trackSpiderRequest(r *http.Request, site catalog.Site, preview bool, routePath string, data publicSitePageData, kind string, status int) {
+	if s.Spider == nil || r == nil || (preview && r.Header.Get("X-CZCMS-Local-Preview") != "1") {
+		return
+	}
+	// For a failed renderer publicPageData may be intentionally empty, so the
+	// status must remain the authoritative content type in the crawler log.
+	if status == http.StatusNotFound {
+		kind = "404 页面"
+	} else if status >= http.StatusInternalServerError {
+		kind = "服务错误"
+	}
+	spiderRequest := r
+	if preview {
+		cloned := r.Clone(r.Context())
+		clonedURL := *r.URL
+		cleanPath := "/" + strings.Trim(routePath, "/")
+		if cleanPath == "/" {
+			cleanPath = "/"
+		}
+		clonedURL.Path = cleanPath
+		clonedURL.RawPath = ""
+		clonedURL.RawQuery = ""
+		cloned.URL = &clonedURL
+		spiderRequest = cloned
+	}
+	visit := s.Spider.Prepare(spiderRequest, site.ID, data.Locale, data.PageTitle, kind)
+	s.Spider.Track(visit, status)
+}
+
+func publicPageKind(data publicSitePageData) string {
+	if data.NotFound {
+		return "404 页面"
+	}
+	if data.IsHome {
+		return "首页"
+	}
+	if data.IsTaxonomy {
+		if data.TaxonomyKind == "tag" {
+			return "标签归档"
+		}
+		return "栏目归档"
+	}
+	if data.Content.ContentType == "page" {
+		return "单页面"
+	}
+	if data.Content.ContentType == "product" {
+		return "产品"
+	}
+	return "文章"
 }
 
 func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool, canonical, routePath string, themeOverride *catalog.ThemePackage) (publicSitePageData, int) {
@@ -690,11 +815,26 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 	copy := publicCopyFor(locale)
 	defaultDescription := firstNonEmpty(site.SEODescription, copy.HeroBody)
 	includeLocale := len(languages) > 1
+	publicOrigin := publicSchemaOrigin(canonical)
+	if publicOrigin == "" && r != nil && (preview || r.Header.Get("X-CZCMS-Local-Preview") == "1") {
+		// Dedicated local ports are deliberately noindex, but their HTML should
+		// still be useful in browser tooling and schema validators. The adapter
+		// only sets this marker on requests it forwards from a configured port.
+		host := strings.TrimSpace(r.Host)
+		if host != "" && !strings.ContainsAny(host, "\r\n@/") {
+			scheme := "https"
+			if !s.Config.PublicHTTPS {
+				scheme = "http"
+			}
+			publicOrigin = scheme + "://" + host
+		}
+	}
 	data := publicSitePageData{
 		SiteName: site.Name, MarketCode: site.MarketCode, SiteCode: site.Code, CanonicalURL: canonical,
 		Preview: preview, Maintenance: site.Status == "maintenance", IsHome: slug == "", BasePath: basePath,
-		HomePath: publicURL(basePath, localeIf(includeLocale, locale), ""),
-		Locale:   locale, LanguageCode: lang.LanguageCode, LanguageName: lang.NativeName, Direction: lang.Direction, Copy: copy,
+		CurrentPath: publicURL(basePath, localeIf(includeLocale, locale), slug),
+		HomePath:    publicURL(basePath, localeIf(includeLocale, locale), ""), PublicOrigin: publicOrigin,
+		Locale: locale, LanguageCode: lang.LanguageCode, LanguageName: lang.NativeName, Direction: lang.Direction, Copy: copy,
 		PageTitle: firstNonEmpty(site.SEOTitle, copy.HeroTitle), MetaDescription: defaultDescription, OGTitle: firstNonEmpty(site.SEOTitle, copy.HeroTitle), OGDescription: defaultDescription, RobotsIndex: true,
 		ThemeID: themePackage.ID, ThemeName: themePackage.Name, ThemeVersion: themePackage.Version, ThemeKey: themePackage.RenderKey, ThemeColor: publicThemeColor(themePackage.RenderKey),
 		FaviconURL: site.FaviconURL,
@@ -702,6 +842,35 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 	if slug != "" {
 		content, contentErr := s.Catalog.GetPublishedContentByPath(r.Context(), site.ID, locale, slug)
 		if errors.Is(contentErr, catalog.ErrNotFound) {
+			if taxonomyKind, taxonomySlug, taxonomyOK := parsePublicTaxonomyPath(slug); taxonomyOK {
+				archive, archiveErr := s.Catalog.GetPublicTaxonomyArchive(r.Context(), site.ID, locale, taxonomyKind, taxonomySlug, 48)
+				if archiveErr == nil {
+					data.IsTaxonomy = true
+					data.TaxonomyKind = archive.Kind
+					data.TaxonomyName = archive.Name
+					data.HasContent = len(archive.Contents) > 0
+					data.PageTitle = archive.Name + " | " + site.Name
+					data.MetaDescription = archive.Name + " · " + copy.GuidesBody
+					data.OGTitle = data.PageTitle
+					data.OGDescription = data.MetaDescription
+					data.RobotsIndex = true
+					for _, item := range archive.Contents {
+						data.Published = append(data.Published, publicContent(item, publicURL(basePath, localeIf(includeLocale, locale), item.Slug)))
+					}
+					// Taxonomy archives are language-local listing pages. Do not emit
+					// unrelated home-page hreflang links when an equivalent archive is
+					// not available in another locale.
+					data.Hreflangs = []publicHreflang{{Locale: locale, URL: publicURL(basePath, localeIf(includeLocale, locale), slug)}}
+					if preview {
+						data.CanonicalURL = ""
+					}
+					data.StructuredData = template.JS(publicJSONLD(data, site))
+					return data, http.StatusOK
+				}
+				if !errors.Is(archiveErr, catalog.ErrNotFound) {
+					return publicSitePageData{}, http.StatusServiceUnavailable
+				}
+			}
 			data.IsHome = false
 			data.NotFound = true
 			data.RobotsIndex = false
@@ -830,6 +999,7 @@ func (s *server) applyPublicContentPage(r *http.Request, data *publicSitePageDat
 	data.MetaDescription = firstNonEmpty(content.MetaDescription, content.Summary, data.Copy.HeroBody)
 	data.OGTitle = firstNonEmpty(content.OGTitle, data.PageTitle)
 	data.OGDescription = firstNonEmpty(content.OGDescription, data.MetaDescription)
+	data.SocialImageURL = publicSchemaAbsoluteURL(publicSchemaURL(*data), content.CoverURL)
 	// Respect the page-level SEO policy. Contact / legal utility pages default
 	// to noindex, while about, service and campaign pages can be crawlable.
 	data.RobotsIndex = content.RobotsIndex && (content.ContentType != "page" || content.IndexPolicy == "index")
@@ -860,7 +1030,7 @@ func publicThemeColor(renderKey string) string {
 }
 
 func publicContent(item catalog.ContentLocale, contentURL string) publicContentData {
-	return publicContentData{ID: item.ID, ContentID: item.ContentID, Title: item.Title, H1: firstNonEmpty(item.H1, item.Title), Summary: item.Summary, Slug: item.Slug, Category: item.Category, Locale: item.Locale, LanguageName: item.LanguageName, SEOTitle: item.SEOTitle, MetaDescription: item.MetaDescription, OGTitle: item.OGTitle, OGDescription: item.OGDescription, URL: contentURL, UpdatedAt: publicDate(item.UpdatedAt), PublishedAt: publicDate(derefString(item.PublishedAt)), Status: item.Status, ReadingMinutes: estimateReadingMinutes(item.BodyHTML), PageLayout: item.PageLayout, Tags: append([]string(nil), item.Tags...), Body: template.HTML(item.BodyHTML)}
+	return publicContentData{ID: item.ID, ContentID: item.ContentID, ContentType: item.ContentType, Title: item.Title, H1: firstNonEmpty(item.H1, item.Title), Summary: item.Summary, Slug: item.Slug, Category: item.Category, Locale: item.Locale, LanguageName: item.LanguageName, SEOTitle: item.SEOTitle, MetaDescription: item.MetaDescription, OGTitle: item.OGTitle, OGDescription: item.OGDescription, OwnerName: item.OwnerName, CoverURL: item.CoverURL, CoverWidth: item.CoverWidth, CoverHeight: item.CoverHeight, URL: contentURL, UpdatedAt: publicDate(item.UpdatedAt), PublishedAt: publicDate(derefString(item.PublishedAt)), Status: item.Status, ReadingMinutes: estimateReadingMinutes(item.BodyHTML), PageLayout: item.PageLayout, Tags: append([]string(nil), item.Tags...), Gallery: append([]catalog.GalleryMedia(nil), item.Gallery...), Body: template.HTML(item.BodyHTML)}
 }
 
 func estimateReadingMinutes(bodyHTML string) int {
@@ -961,6 +1131,26 @@ func resolvePublicLocale(route string, languages []catalog.SiteLanguage) (string
 	return languages[0].Locale, route, true
 }
 
+func parsePublicTaxonomyPath(slug string) (kind, termSlug string, ok bool) {
+	parts := strings.SplitN(strings.Trim(strings.TrimSpace(slug), "/"), "/", 2)
+	if len(parts) != 2 || strings.TrimSpace(parts[1]) == "" {
+		return "", "", false
+	}
+	switch strings.ToLower(parts[0]) {
+	case "categories", "category":
+		kind = "category"
+	case "tags", "tag":
+		kind = "tag"
+	default:
+		return "", "", false
+	}
+	termSlug = strings.Trim(strings.ToLower(parts[1]), "/")
+	if termSlug == "" || strings.Contains(termSlug, "//") {
+		return "", "", false
+	}
+	return kind, termSlug, true
+}
+
 func trimPublicLocalePrefix(route string, languages []catalog.SiteLanguage) (string, bool) {
 	if len(languages) != 1 {
 		return "", false
@@ -1011,22 +1201,309 @@ func absolutePublicURL(currentCanonical, path string) string {
 	return parsed.Scheme + "://" + parsed.Host + path
 }
 
-func publicJSONLD(data publicSitePageData, site catalog.Site) string {
-	obj := map[string]any{"@context": "https://schema.org", "@type": "Organization", "name": site.Name}
+var structuredDataScriptPatternHTTP = regexp.MustCompile(`(?is)^<script\b[^>]*\btype\s*=\s*["']application/ld\+json["'][^>]*>(.*?)</script>\s*$`)
+
+func publicSchemaURL(data publicSitePageData) string {
+	var candidate string
+	if data.IsTaxonomy || data.NotFound {
+		candidate = firstNonEmpty(data.CanonicalURL, data.CurrentPath, data.HomePath)
+	} else if data.HasContent && !data.IsHome {
+		candidate = firstNonEmpty(data.CanonicalURL, data.Content.URL)
+	} else {
+		candidate = firstNonEmpty(data.CanonicalURL, data.HomePath)
+	}
+	return publicSchemaAbsoluteURL(data.PublicOrigin, candidate)
+}
+
+func publicSchemaEntityID(pageURL, fragment string) string {
+	pageURL = strings.TrimSpace(pageURL)
+	fragment = strings.Trim(strings.TrimSpace(fragment), "#")
+	if pageURL == "" || fragment == "" {
+		return ""
+	}
+	return pageURL + "#" + fragment
+}
+
+func publicSchemaOrigin(pageURL string) string {
+	parsed, err := url.Parse(strings.TrimSpace(pageURL))
+	if err != nil || parsed.Scheme == "" || parsed.Host == "" {
+		return ""
+	}
+	return parsed.Scheme + "://" + parsed.Host
+}
+
+func publicSchemaAbsoluteURL(baseURL, value string) string {
+	value = strings.TrimSpace(value)
+	if value == "" {
+		return ""
+	}
+	parsed, err := url.Parse(value)
+	if err == nil && parsed.Scheme != "" && parsed.Host != "" {
+		return value
+	}
+	origin := publicSchemaOrigin(baseURL)
+	if origin != "" && strings.HasPrefix(value, "/") {
+		return origin + value
+	}
+	return value
+}
+
+func publicSchemaOrganization(site catalog.Site, pageURL string) map[string]any {
+	organization := map[string]any{"@type": "Organization", "@id": publicSchemaOrigin(pageURL) + "/#organization", "name": site.Name}
+	if organization["@id"] == "/#organization" {
+		organization["@id"] = "#organization"
+	}
+	if origin := publicSchemaOrigin(pageURL); origin != "" {
+		organization["url"] = origin + "/"
+	}
+	if description := strings.TrimSpace(site.SEODescription); description != "" {
+		organization["description"] = description
+	}
+	if logo := publicSchemaAbsoluteURL(pageURL, site.FaviconURL); logo != "" {
+		// The site Icon is the only verified, public image currently available
+		// on the Site model. Keep it as an ImageObject so a larger uploaded mark
+		// can be used by Google without inventing a second logo URL.
+		organization["logo"] = map[string]any{"@type": "ImageObject", "url": logo}
+		organization["image"] = logo
+	}
+	return organization
+}
+
+func publicSchemaWebsite(site catalog.Site, pageURL string, organization map[string]any) map[string]any {
+	origin := publicSchemaOrigin(pageURL)
+	websiteURL := firstNonEmpty(origin+"/", pageURL)
+	website := map[string]any{
+		"@type": "WebSite", "@id": strings.TrimRight(websiteURL, "/") + "/#website", "url": websiteURL,
+		"name": site.Name, "inLanguage": "", "publisher": organization,
+	}
+	if description := strings.TrimSpace(site.SEODescription); description != "" {
+		website["description"] = description
+	}
+	return website
+}
+
+func publicSchemaBreadcrumb(site catalog.Site, data publicSitePageData, pageURL string) map[string]any {
+	homeURL := firstNonEmpty(publicSchemaOrigin(pageURL)+"/", data.HomePath)
+	name := data.TaxonomyName
 	if data.HasContent && !data.IsHome {
+		name = firstNonEmpty(data.Content.H1, data.Content.Title)
+	}
+	items := []any{map[string]any{"@type": "ListItem", "position": 1, "name": site.Name, "item": homeURL}}
+	if strings.TrimSpace(name) != "" && pageURL != "" && pageURL != homeURL {
+		items = append(items, map[string]any{"@type": "ListItem", "position": 2, "name": name, "item": pageURL})
+	}
+	breadcrumb := map[string]any{"@type": "BreadcrumbList", "itemListElement": items}
+	if pageURL != "" {
+		breadcrumb["@id"] = pageURL + "#breadcrumb"
+	}
+	return breadcrumb
+}
+
+func publicSchemaImages(data publicSitePageData, pageURL string) []string {
+	images := make([]string, 0, len(data.Content.Gallery)+1)
+	seen := make(map[string]bool)
+	if coverURL := publicSchemaAbsoluteURL(pageURL, data.Content.CoverURL); coverURL != "" {
+		seen[coverURL] = true
+		images = append(images, coverURL)
+	}
+	for _, media := range data.Content.Gallery {
+		imageURL := publicSchemaAbsoluteURL(pageURL, media.URL)
+		if imageURL == "" || seen[imageURL] {
+			continue
+		}
+		seen[imageURL] = true
+		images = append(images, imageURL)
+	}
+	return images
+}
+
+// publicSchemaImageObjects keeps the image URLs in JSON-LD absolute and adds
+// dimensions when the media center knows them. Dimensions help crawlers
+// understand the image without making any claim about its visual content.
+func publicSchemaImageObjects(data publicSitePageData, pageURL string) []any {
+	images := make([]any, 0, len(data.Content.Gallery)+1)
+	seen := make(map[string]bool)
+	appendImage := func(rawURL string, width, height int, caption string) {
+		imageURL := publicSchemaAbsoluteURL(pageURL, rawURL)
+		if imageURL == "" || seen[imageURL] {
+			return
+		}
+		seen[imageURL] = true
+		image := map[string]any{"@type": "ImageObject", "url": imageURL}
+		if width > 0 {
+			image["width"] = width
+		}
+		if height > 0 {
+			image["height"] = height
+		}
+		if caption = strings.TrimSpace(caption); caption != "" {
+			image["caption"] = caption
+		}
+		images = append(images, image)
+	}
+	appendImage(data.Content.CoverURL, data.Content.CoverWidth, data.Content.CoverHeight, "")
+	for _, media := range data.Content.Gallery {
+		appendImage(media.URL, media.Width, media.Height, media.AltText)
+	}
+	return images
+}
+
+func publicSchemaWebPage(site catalog.Site, data publicSitePageData, pageURL string, website, organization map[string]any) map[string]any {
+	page := map[string]any{
+		"@type": "WebPage", "name": firstNonEmpty(data.PageTitle, data.SiteName),
+		"description": data.MetaDescription, "inLanguage": data.Locale,
+		"isPartOf": website, "about": organization, "publisher": organization,
+	}
+	if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
+		page["@id"] = id
+		page["url"] = pageURL
+	}
+	if data.Content.UpdatedAt != "" && data.HasContent && !data.IsHome {
+		page["dateModified"] = data.Content.UpdatedAt
+	}
+	if breadcrumb := publicSchemaBreadcrumb(site, data, pageURL); pageURL != "" && !data.IsHome {
+		page["breadcrumb"] = breadcrumb
+	}
+	if images := publicSchemaImageObjects(data, pageURL); len(images) > 0 {
+		page["primaryImageOfPage"] = images[0]
+	}
+	return page
+}
+
+func publicSchemaKeywords(content publicContentData) []string {
+	keywords := make([]string, 0, len(content.Tags)+1)
+	seen := make(map[string]bool)
+	for _, value := range append([]string{content.Category}, content.Tags...) {
+		value = strings.TrimSpace(value)
+		key := strings.ToLower(value)
+		if value == "" || seen[key] {
+			continue
+		}
+		seen[key] = true
+		keywords = append(keywords, value)
+	}
+	return keywords
+}
+
+func publicJSONLD(data publicSitePageData, site catalog.Site) string {
+	pageURL := publicSchemaURL(data)
+	organization := publicSchemaOrganization(site, pageURL)
+	website := publicSchemaWebsite(site, pageURL, organization)
+	website["inLanguage"] = data.Locale
+	obj := map[string]any{
+		"@context": "https://schema.org", "@type": "WebSite", "@id": website["@id"],
+		"url": website["url"], "name": site.Name, "description": data.MetaDescription, "inLanguage": data.Locale,
+		"publisher": organization, "about": organization,
+	}
+	// A homepage can describe both the site and the page that contains it.
+	// Keeping the WebPage as mainEntity gives crawlers a stable page node while
+	// leaving WebSite as the root entity used by existing integrations.
+	obj["mainEntity"] = publicSchemaWebPage(site, data, pageURL, website, organization)
+	if data.NotFound {
 		obj = map[string]any{
-			"@context": "https://schema.org", "@type": "Article", "headline": data.Content.H1,
-			"description": data.MetaDescription, "inLanguage": data.Locale,
-			"dateModified": data.Content.UpdatedAt, "publisher": map[string]any{"@type": "Organization", "name": site.Name},
+			"@context": "https://schema.org", "@type": "WebPage", "name": data.PageTitle,
+			"description": data.MetaDescription, "inLanguage": data.Locale, "isPartOf": website, "about": organization, "publisher": organization,
 		}
-		if data.Content.PublishedAt != "" {
-			obj["datePublished"] = data.Content.PublishedAt
+		if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
+			obj["@id"] = id
+			obj["url"] = pageURL
 		}
-		if len(data.Content.Tags) > 0 {
-			obj["keywords"] = data.Content.Tags
+	} else if data.IsTaxonomy {
+		obj = map[string]any{
+			"@context": "https://schema.org", "@type": "CollectionPage", "url": pageURL,
+			"name": data.TaxonomyName, "description": data.MetaDescription, "inLanguage": data.Locale,
+			"isPartOf": website, "about": organization, "publisher": organization, "breadcrumb": publicSchemaBreadcrumb(site, data, pageURL),
 		}
-		if pageURL := firstNonEmpty(data.CanonicalURL, data.Content.URL); pageURL != "" {
-			obj["mainEntityOfPage"] = map[string]any{"@type": "WebPage", "@id": pageURL}
+		if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
+			obj["@id"] = id
+		}
+		list := make([]any, 0, len(data.Published))
+		for index, item := range data.Published {
+			entry := map[string]any{"@type": "ListItem", "position": index + 1, "name": firstNonEmpty(item.Title, item.H1)}
+			if item.URL != "" {
+				// ListItem.item is the Schema.org relationship crawlers use to
+				// resolve archive entries. Keep url as a compatibility hint for
+				// consumers that read the older payload shape, but make both values
+				// the same canonical absolute URL.
+				itemURL := publicSchemaAbsoluteURL(pageURL, item.URL)
+				entry["item"] = itemURL
+				entry["url"] = itemURL
+			}
+			list = append(list, entry)
+		}
+		if len(list) > 0 {
+			obj["mainEntity"] = map[string]any{"@type": "ItemList", "numberOfItems": len(list), "itemListElement": list}
+		}
+	} else if data.HasContent && !data.IsHome {
+		content := data.Content
+		description := firstNonEmpty(data.MetaDescription, content.Summary)
+		obj = map[string]any{
+			"@context": "https://schema.org", "@type": "Article", "url": pageURL,
+			"name": firstNonEmpty(content.Title, content.H1), "headline": content.H1, "description": description, "inLanguage": data.Locale,
+			"isPartOf": website, "mainEntityOfPage": map[string]any{"@type": "WebPage", "@id": firstNonEmpty(publicSchemaEntityID(pageURL, "webpage"), pageURL)},
+			"publisher": organization, "author": organization, "breadcrumb": publicSchemaBreadcrumb(site, data, pageURL),
+		}
+		if id := publicSchemaEntityID(pageURL, "content"); id != "" {
+			obj["@id"] = id
+		}
+		if content.ContentType == "product" {
+			obj["@type"] = "Product"
+			obj["name"] = firstNonEmpty(content.Title, content.H1)
+			delete(obj, "headline")
+			// Product pages are informational in this CMS. Do not emit offers,
+			// ratings, inventory, SKU or price unless those facts exist in the
+			// product model; fabricated values can make a page ineligible for
+			// Google's Product features. The page relationship remains useful for
+			// crawlers and is valid for a Product entity.
+			delete(obj, "author")
+			delete(obj, "publisher")
+			delete(obj, "articleSection")
+			delete(obj, "breadcrumb")
+			if description != "" {
+				obj["description"] = description
+			}
+			for _, key := range []string{"datePublished"} {
+				delete(obj, key)
+			}
+			// OwnerName identifies the CMS editor, not necessarily the product
+			// brand. Do not map it to Product.brand: Google expects that field to
+			// describe a real brand and an editor name would be misleading. A
+			// future product-specific brand field can be emitted when the model
+			// contains an explicit, verified value.
+			if content.Category != "" {
+				obj["category"] = content.Category
+			}
+		} else if content.ContentType == "page" || content.ContentType == "landing" {
+			obj["@type"] = "WebPage"
+			obj["name"] = firstNonEmpty(content.Title, content.H1)
+			delete(obj, "headline")
+			delete(obj, "author")
+			delete(obj, "articleSection")
+			delete(obj, "keywords")
+			delete(obj, "datePublished")
+			obj["publisher"] = organization
+			if content.PageLayout == "contact" {
+				obj["@type"] = "ContactPage"
+			}
+		} else {
+			obj["articleSection"] = content.Category
+			if content.OwnerName != "" {
+				obj["author"] = map[string]any{"@type": "Person", "name": content.OwnerName}
+			}
+		}
+		if content.ContentType == "article" && content.UpdatedAt != "" {
+			obj["dateModified"] = content.UpdatedAt
+		}
+		if content.ContentType == "article" && content.PublishedAt != "" {
+			obj["datePublished"] = content.PublishedAt
+		}
+		if content.ContentType != "product" && content.ContentType != "page" && content.ContentType != "landing" {
+			if keywords := publicSchemaKeywords(content); len(keywords) > 0 {
+				obj["keywords"] = keywords
+			}
+		}
+		if images := publicSchemaImageObjects(data, pageURL); len(images) > 0 {
+			obj["image"] = images
 		}
 	}
 	encoded, _ := json.Marshal(obj)
@@ -1035,28 +1512,140 @@ func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 
 // safeStructuredData re-serializes JSON-LD before it enters a script element.
 // json.Marshal escapes '<', '>' and '&', preventing a stored string from
-// closing the script tag. The current article schema is used as a safe
-// fallback when the content has no usable custom schema.
+// closing the script tag. The generated page entity is always retained. A
+// custom Organization/WebSite/BreadcrumbList is merged into the generated
+// entity, while other typed nodes are attached through @graph. This prevents
+// a pasted Organization snippet from accidentally replacing an Article or
+// Product node and keeps the rendered URL, type and language canonical.
 func safeStructuredData(input json.RawMessage, fallback string) string {
 	var defaults map[string]any
 	if err := json.Unmarshal([]byte(fallback), &defaults); err != nil || defaults == nil {
 		defaults = map[string]any{}
 	}
-	var object map[string]any
-	if len(input) == 0 || string(input) == "{}" || string(input) == "null" || json.Unmarshal(input, &object) != nil || object == nil {
-		object = defaults
-	} else {
-		for key, value := range defaults {
-			if _, exists := object[key]; !exists {
-				object[key] = value
-			}
-		}
+	// Accept the format commonly copied from documentation and validators:
+	// <script type="application/ld+json">{...}</script>. The catalog layer
+	// normalizes new values before persistence; this second normalization keeps
+	// older records safe when they are rendered for the first time.
+	input = catalogStructuredDataJSON(input)
+	var custom map[string]any
+	if len(input) > 0 && string(input) != "{}" && string(input) != "null" && json.Unmarshal(input, &custom) == nil && custom != nil {
+		mergeStructuredData(defaults, custom)
 	}
-	encoded, err := json.Marshal(object)
+	encoded, err := json.Marshal(defaults)
 	if err != nil {
 		return `{}`
 	}
 	return string(encoded)
+}
+
+func structuredDataType(value any) string {
+	switch typed := value.(type) {
+	case string:
+		return strings.TrimSpace(typed)
+	case []any:
+		for _, item := range typed {
+			if result := structuredDataType(item); result != "" {
+				return result
+			}
+		}
+	}
+	return ""
+}
+
+func structuredDataNodes(document map[string]any) []map[string]any {
+	if graph, ok := document["@graph"].([]any); ok {
+		nodes := make([]map[string]any, 0, len(graph))
+		for _, value := range graph {
+			if node, ok := value.(map[string]any); ok && node != nil {
+				nodes = append(nodes, node)
+			}
+		}
+		return nodes
+	}
+	return []map[string]any{document}
+}
+
+func mergeStructuredFields(target, source map[string]any) {
+	for key, value := range source {
+		// @context is a document-level keyword. @graph is handled by the
+		// caller, otherwise a user could nest an entire document in a node.
+		if key == "@context" || key == "@graph" {
+			continue
+		}
+		// The page URL and schema type are generated from the route and content
+		// model. Keep them canonical even when a copied snippet contains a
+		// different URL or type.
+		if (key == "@id" || key == "@type" || key == "url") && target[key] != nil {
+			continue
+		}
+		if current, ok := target[key].(map[string]any); ok {
+			if incoming, ok := value.(map[string]any); ok {
+				mergeStructuredFields(current, incoming)
+				continue
+			}
+		}
+		target[key] = value
+	}
+}
+
+func appendStructuredGraphNode(document map[string]any, node map[string]any) {
+	if node == nil {
+		return
+	}
+	delete(node, "@context")
+	graph, _ := document["@graph"].([]any)
+	document["@graph"] = append(graph, node)
+}
+
+func mergeStructuredData(defaults, custom map[string]any) {
+	defaultType := structuredDataType(defaults["@type"])
+	for _, node := range structuredDataNodes(custom) {
+		nodeType := strings.ToLower(structuredDataType(node["@type"]))
+		switch nodeType {
+		case "":
+			// A graph wrapper with an untyped node is not useful as a page
+			// override, but preserving ordinary custom fields keeps backwards
+			// compatibility with older records that omitted @type.
+			if len(node) > 0 {
+				mergeStructuredFields(defaults, node)
+			}
+		case strings.ToLower(defaultType):
+			mergeStructuredFields(defaults, node)
+		case "organization":
+			if publisher, ok := defaults["publisher"].(map[string]any); ok {
+				mergeStructuredFields(publisher, node)
+			} else {
+				appendStructuredGraphNode(defaults, node)
+			}
+		case "website":
+			if website, ok := defaults["isPartOf"].(map[string]any); ok {
+				mergeStructuredFields(website, node)
+			} else if defaultType == "WebSite" {
+				mergeStructuredFields(defaults, node)
+			} else {
+				appendStructuredGraphNode(defaults, node)
+			}
+		case "breadcrumblist":
+			if breadcrumb, ok := defaults["breadcrumb"].(map[string]any); ok {
+				mergeStructuredFields(breadcrumb, node)
+			} else {
+				appendStructuredGraphNode(defaults, node)
+			}
+		default:
+			appendStructuredGraphNode(defaults, node)
+		}
+	}
+}
+
+func catalogStructuredDataJSON(input json.RawMessage) json.RawMessage {
+	source := strings.TrimSpace(string(input))
+	if match := structuredDataScriptPatternHTTP.FindStringSubmatch(source); len(match) == 2 {
+		source = strings.TrimSpace(match[1])
+	}
+	if source == "" || source == "null" {
+		return json.RawMessage(`{}`)
+	}
+	return json.RawMessage(source)
 }
 
 func requestHostname(value string) string {
@@ -1376,6 +1965,21 @@ func (s *server) mediaUpload(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, media)
 }
 
+// mediaMigrateAVIF upgrades the legacy library in small verified batches.
+// New uploads already pass through the same AVIF encoder, so this endpoint is
+// only needed once for images created before the storage policy changed.
+func (s *server) mediaMigrateAVIF(w http.ResponseWriter, r *http.Request) {
+	session := sessionFromContext(r.Context())
+	result, err := s.Files.MigrateExistingMediaToAVIF(r.Context(), 12)
+	if err != nil {
+		s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "media.avif_migration_failed", TargetType: "media_library", TargetID: "legacy", Success: false, Metadata: map[string]any{"reason": err.Error(), "scanned": result.Scanned, "converted": result.Converted}})
+		writeJSONError(w, http.StatusInternalServerError, "历史图片转为 AVIF 时发生错误，请稍后重试")
+		return
+	}
+	s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "media.avif_migrated", TargetType: "media_library", TargetID: "legacy", Success: result.Failed == 0, Metadata: map[string]any{"scanned": result.Scanned, "converted": result.Converted, "failed": result.Failed, "remaining": result.Remaining}})
+	writeJSON(w, http.StatusOK, result)
+}
+
 // mediaServe serves only a database-resolved, normalized media file. The
 // checksum token is checked when present so stale or hand-crafted URLs do not
 // expose another record; the ID remains the canonical lookup key.
@@ -1445,7 +2049,7 @@ func (s *server) downloadRemoteMedia(ctx context.Context, remoteURL *url.URL, us
 	if err != nil {
 		return filestore.Media{}, errors.New("远程图片地址无效")
 	}
-	request.Header.Set("Accept", "image/jpeg,image/png;q=0.9")
+	request.Header.Set("Accept", "image/avif,image/webp,image/jpeg,image/png,image/gif;q=0.9")
 	request.Header.Set("User-Agent", "CZCMS-MediaImporter/1.0")
 	client := s.remoteMediaClient
 	if client == nil {
@@ -1473,12 +2077,11 @@ func (s *server) downloadRemoteMedia(ctx context.Context, remoteURL *url.URL, us
 	if int64(len(data)) == 0 || int64(len(data)) > maxBytes {
 		return filestore.Media{}, errors.New("远程图片为空或超过上传大小限制")
 	}
-	detected := http.DetectContentType(data[:minInt(len(data), 512)])
-	extension := map[string]string{"image/jpeg": ".jpg", "image/png": ".png"}[detected]
-	if extension == "" {
-		return filestore.Media{}, errors.New("远程资源不是受支持的 JPEG 或 PNG 图片")
+	detected := filestore.DetectImageContentType(data[:minInt(len(data), 512)])
+	if filestore.ImageExtension(detected) == "" {
+		return filestore.Media{}, errors.New("远程资源不是受支持的 JPEG、PNG、GIF、WebP 或 AVIF 图片")
 	}
-	return s.Files.SaveMedia(ctx, bytes.NewReader(data), "remote-image"+extension, int64(len(data)), userID)
+	return s.Files.SaveMedia(ctx, bytes.NewReader(data), "remote-image"+filestore.ImageExtension(detected), int64(len(data)), userID)
 }
 
 func newRemoteMediaClient() *http.Client {

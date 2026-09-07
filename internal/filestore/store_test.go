@@ -8,6 +8,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -16,6 +17,8 @@ import (
 
 	"czcms/internal/database"
 	"czcms/internal/security"
+
+	gavif "github.com/gen2brain/gav1d/avif"
 )
 
 func writeZip(t *testing.T, files map[string]string) string {
@@ -74,7 +77,7 @@ func TestMediaUploadReencodesAndRejectsMismatchedExtension(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if media.MediaType != "image/png" || media.Width != 4 || media.Height != 4 {
+	if media.MediaType != "image/avif" || media.Width != 4 || media.Height != 4 {
 		t.Fatalf("media=%+v", media)
 	}
 	var storageName string
@@ -88,8 +91,203 @@ func TestMediaUploadReencodesAndRejectsMismatchedExtension(t *testing.T) {
 	if bytes.Contains(stored, []byte("tail payload")) {
 		t.Fatal("trailing payload survived re-encoding")
 	}
+	if _, err = gavif.Decode(bytes.NewReader(stored)); err != nil {
+		t.Fatalf("stored media is not a decodable AVIF: %v", err)
+	}
+	if !strings.HasSuffix(storageName, ".avif") {
+		t.Fatalf("storage name=%q, want .avif", storageName)
+	}
 	if _, err = store.SaveMedia(ctx, bytes.NewReader(encoded.Bytes()), "wrong.jpg", int64(encoded.Len()), userID); err == nil {
 		t.Fatal("mismatched file extension accepted")
+	}
+}
+
+func TestMediaUploadAVIFKeepsContrastingDetails(t *testing.T) {
+	ctx := context.Background()
+	root := t.TempDir()
+	db, err := database.Open(ctx, filepath.Join(root, "media-quality.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	hash, _ := security.HashPassword("correct horse battery staple")
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	result, err := db.ExecContext(ctx, `INSERT INTO users(username, display_name, password_hash, password_changed_at, created_at, updated_at) VALUES ('quality-owner', 'Quality Owner', ?, ?, ?, ?)`, hash, now, now, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	userID, _ := result.LastInsertId()
+	store, err := New(db, filepath.Join(root, "uploads"), filepath.Join(root, "themes"), 2<<20, 5<<20, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// A UI-like image catches the failure mode that a simple "can decode"
+	// test misses: a light canvas, near-black text lines, saturated controls
+	// and thin borders. With the old AVIF preset the image decoded, but the
+	// controls and text collapsed into a nearly uniform pale rectangle.
+	source := image.NewRGBA(image.Rect(0, 0, 256, 160))
+	for y := 0; y < 160; y++ {
+		for x := 0; x < 256; x++ {
+			source.SetRGBA(x, y, color.RGBA{R: 246, G: 248, B: 252, A: 255})
+		}
+	}
+	for y := 28; y < 34; y++ {
+		for x := 20; x < 180; x++ {
+			source.SetRGBA(x, y, color.RGBA{R: 20, G: 32, B: 52, A: 255})
+		}
+	}
+	for y := 58; y < 112; y++ {
+		for x := 20; x < 236; x++ {
+			if x == 20 || x == 235 || y == 58 || y == 111 {
+				source.SetRGBA(x, y, color.RGBA{R: 41, G: 98, B: 255, A: 255})
+			}
+		}
+	}
+	for y := 74; y < 98; y++ {
+		for x := 178; x < 224; x++ {
+			source.SetRGBA(x, y, color.RGBA{R: 18, G: 132, B: 92, A: 255})
+		}
+	}
+	var input bytes.Buffer
+	if err = png.Encode(&input, source); err != nil {
+		t.Fatal(err)
+	}
+	media, err := store.SaveMedia(ctx, bytes.NewReader(input.Bytes()), "interface-detail.png", int64(input.Len()), userID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var storageName string
+	if err = db.QueryRowContext(ctx, `SELECT storage_name FROM media_files WHERE id = ?`, media.ID).Scan(&storageName); err != nil {
+		t.Fatal(err)
+	}
+	stored, err := os.ReadFile(filepath.Join(root, "uploads", storageName))
+	if err != nil {
+		t.Fatal(err)
+	}
+	decoded, err := gavif.Decode(bytes.NewReader(stored))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if contrastAt(decoded, 25, 30, 2, 2) < 120 {
+		t.Fatal("AVIF upload lost the dark title contrast")
+	}
+	if contrastAt(decoded, 200, 84, 2, 2) < 80 {
+		t.Fatal("AVIF upload lost the saturated action control")
+	}
+	border, _, _, _ := decoded.At(20, 80).RGBA()
+	if int(border>>8) < 35 {
+		t.Fatalf("AVIF upload lost the blue border: red=%d", border>>8)
+	}
+}
+
+func contrastAt(img image.Image, darkX, darkY, lightX, lightY int) int {
+	dr, dg, db, _ := img.At(darkX, darkY).RGBA()
+	lr, lg, lb, _ := img.At(lightX, lightY).RGBA()
+	dark := int((dr + dg + db) / 3 >> 8)
+	light := int((lr + lg + lb) / 3 >> 8)
+	if light < dark {
+		return dark - light
+	}
+	return light - dark
+}
+
+func TestMigrateExistingMediaToAVIFKeepsReferencesWorking(t *testing.T) {
+	ctx := context.Background()
+	root := t.TempDir()
+	db, err := database.Open(ctx, filepath.Join(root, "legacy-media.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	hash, _ := security.HashPassword("correct horse battery staple")
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	result, err := db.ExecContext(ctx, `INSERT INTO users(username, display_name, password_hash, password_changed_at, created_at, updated_at) VALUES ('legacy-owner', 'Legacy Owner', ?, ?, ?, ?)`, hash, now, now, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	userID, _ := result.LastInsertId()
+	uploads := filepath.Join(root, "uploads")
+	store, err := New(db, uploads, filepath.Join(root, "themes"), 2<<20, 5<<20, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// A 1×1 tracking pixel is a valid PNG even though the AVIF encoder needs
+	// a larger coded frame. Migration must pad it rather than leave one legacy
+	// image behind forever.
+	img := image.NewRGBA(image.Rect(0, 0, 1, 1))
+	img.Set(0, 0, color.RGBA{R: 20, G: 120, B: 240, A: 255})
+	var encoded bytes.Buffer
+	if err = png.Encode(&encoded, img); err != nil {
+		t.Fatal(err)
+	}
+	legacyName := "legacy-library-image.png"
+	legacyPath := filepath.Join(uploads, legacyName)
+	if err = os.WriteFile(legacyPath, encoded.Bytes(), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	legacySHA, _, err := checksumFile(legacyPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	mediaResult, err := db.ExecContext(ctx, `INSERT INTO media_files(storage_name, original_name, media_type, byte_size, sha256, width, height, uploaded_by, created_at, updated_at) VALUES (?, 'legacy.png', 'image/png', ?, ?, 1, 1, ?, ?, ?)`, legacyName, encoded.Len(), legacySHA, userID, now, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	mediaID, _ := mediaResult.LastInsertId()
+	contentResult, err := db.ExecContext(ctx, `INSERT INTO contents(content_type, status, owner_id, version, created_at, updated_at) VALUES ('article', 'draft', ?, 1, ?, ?)`, userID, now, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	contentID, _ := contentResult.LastInsertId()
+	var siteID int64
+	if err = db.QueryRowContext(ctx, `SELECT id FROM sites ORDER BY id LIMIT 1`).Scan(&siteID); err != nil {
+		t.Fatal(err)
+	}
+	oldURL := PublicMediaURL(mediaID, legacySHA)
+	if _, err = db.ExecContext(ctx, `INSERT INTO content_locales(content_id, site_id, locale, status, title, slug, body_html, created_at, updated_at) VALUES (?, ?, 'en', 'draft', 'Legacy image', 'legacy-image', ?, ?, ?)`, contentID, siteID, `<p><img src="`+oldURL+`" alt="legacy"></p>`, now, now); err != nil {
+		t.Fatal(err)
+	}
+	var localeID int64
+	if err = db.QueryRowContext(ctx, `SELECT id FROM content_locales WHERE content_id = ? AND site_id = ? AND locale = 'en'`, contentID, siteID).Scan(&localeID); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = db.ExecContext(ctx, `INSERT INTO content_revisions(content_id, content_locale_id, site_id, locale, version, snapshot_json, action, actor_user_id, created_at) VALUES (?, ?, ?, 'en', 1, ?, 'legacy', ?, ?)`, contentID, localeID, siteID, `{"body_html":"<img src=\"`+oldURL+`\">"}`, userID, now); err != nil {
+		t.Fatal(err)
+	}
+
+	migrated, err := store.MigrateExistingMediaToAVIF(ctx, 12)
+	if err != nil || migrated.Converted != 1 || migrated.Failed != 0 || migrated.Remaining != 0 {
+		t.Fatalf("migration=%+v err=%v", migrated, err)
+	}
+	media, file, _, err := store.OpenMedia(ctx, mediaID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	stored, readErr := io.ReadAll(file)
+	file.Close()
+	if readErr != nil || media.MediaType != "image/avif" || media.Width != 4 || media.Height != 4 || !strings.HasSuffix(media.URL, media.SHA256[:16]) {
+		t.Fatalf("media=%+v readErr=%v", media, readErr)
+	}
+	if _, err = gavif.Decode(bytes.NewReader(stored)); err != nil {
+		t.Fatalf("migrated file is not AVIF: %v", err)
+	}
+	if _, err = os.Stat(legacyPath); !errors.Is(err, os.ErrNotExist) {
+		t.Fatalf("legacy source still present: %v", err)
+	}
+	var bodyHTML string
+	if err = db.QueryRowContext(ctx, `SELECT body_html FROM content_locales WHERE content_id = ? AND site_id = ? AND locale = 'en'`, contentID, siteID).Scan(&bodyHTML); err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(bodyHTML, oldURL) || !strings.Contains(bodyHTML, media.URL) {
+		t.Fatalf("rich text URL was not updated: %q", bodyHTML)
+	}
+	var snapshot string
+	if err = db.QueryRowContext(ctx, `SELECT snapshot_json FROM content_revisions WHERE content_id = ?`, contentID).Scan(&snapshot); err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(snapshot, oldURL) || !strings.Contains(snapshot, media.URL) {
+		t.Fatalf("revision URL was not updated: %q", snapshot)
 	}
 }
 
@@ -204,8 +402,8 @@ func TestThemeEditorValidatesVersionsAndRejectsUnlistedPaths(t *testing.T) {
 		t.Fatal(err)
 	}
 	files, err := store.ListThemeFiles(ctx, themeID)
-	if err != nil || len(files) != 8 {
-		t.Fatalf("files=%d err=%v, want 8", len(files), err)
+	if err != nil || len(files) != 10 {
+		t.Fatalf("files=%d err=%v, want 10", len(files), err)
 	}
 	header, err := store.GetThemeFile(ctx, themeID, "header")
 	if err != nil {
@@ -235,23 +433,41 @@ func TestThemeAssetsRejectUnsafeJavaScriptAndKeepRevisions(t *testing.T) {
 	ctx := context.Background()
 	root := t.TempDir()
 	db, err := database.Open(ctx, filepath.Join(root, "theme-assets.db"))
-	if err != nil { t.Fatal(err) }
+	if err != nil {
+		t.Fatal(err)
+	}
 	defer db.Close()
 	now := time.Now().UTC().Format(time.RFC3339Nano)
 	result, err := db.ExecContext(ctx, `INSERT INTO users(username, display_name, password_hash, password_changed_at, created_at, updated_at) VALUES ('asset-editor', 'Asset Editor', 'test', ?, ?, ?)`, now, now, now)
-	if err != nil { t.Fatal(err) }
+	if err != nil {
+		t.Fatal(err)
+	}
 	userID, _ := result.LastInsertId()
 	store, err := New(db, filepath.Join(root, "uploads"), filepath.Join(root, "themes"), 2<<20, 5<<20, "")
-	if err != nil { t.Fatal(err) }
+	if err != nil {
+		t.Fatal(err)
+	}
 	var themeID int64
-	if err = db.QueryRowContext(ctx, `SELECT id FROM theme_packages WHERE render_key = 'global-route'`).Scan(&themeID); err != nil { t.Fatal(err) }
+	if err = db.QueryRowContext(ctx, `SELECT id FROM theme_packages WHERE render_key = 'global-route'`).Scan(&themeID); err != nil {
+		t.Fatal(err)
+	}
 	assets, err := store.ListThemeAssets(ctx, themeID)
-	if err != nil || len(assets) != 5 { t.Fatalf("assets=%d err=%v", len(assets), err) }
+	if err != nil || len(assets) != 5 {
+		t.Fatalf("assets=%d err=%v", len(assets), err)
+	}
 	asset, err := store.GetThemeAsset(ctx, themeID, "theme_js")
-	if err != nil { t.Fatal(err) }
+	if err != nil {
+		t.Fatal(err)
+	}
 	unsafe, err := store.ValidateThemeAsset(ctx, themeID, "theme_js", `eval("alert(1)")`)
-	if err != nil || unsafe.Valid { t.Fatalf("unsafe=%+v err=%v", unsafe, err) }
+	if err != nil || unsafe.Valid {
+		t.Fatalf("unsafe=%+v err=%v", unsafe, err)
+	}
 	updated, err := store.UpdateThemeAsset(ctx, themeID, "theme_js", `document.addEventListener('DOMContentLoaded', () => document.documentElement.classList.add('ready'))`, asset.Version, userID, "增加无障碍状态")
-	if err != nil || updated.Version != asset.Version+1 || updated.ChangeCount != 1 { t.Fatalf("updated=%+v err=%v", updated, err) }
-	if _, err = store.UpdateThemeAsset(ctx, themeID, "theme_js", updated.Content, asset.Version, userID, "过期写入"); !errors.Is(err, ErrThemeFileConflict) { t.Fatalf("conflict=%v", err) }
+	if err != nil || updated.Version != asset.Version+1 || updated.ChangeCount != 1 {
+		t.Fatalf("updated=%+v err=%v", updated, err)
+	}
+	if _, err = store.UpdateThemeAsset(ctx, themeID, "theme_js", updated.Content, asset.Version, userID, "过期写入"); !errors.Is(err, ErrThemeFileConflict) {
+		t.Fatalf("conflict=%v", err)
+	}
 }

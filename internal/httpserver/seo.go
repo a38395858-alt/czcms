@@ -22,14 +22,15 @@ type SEOAssistant interface {
 }
 
 type SEOSuggestionInput struct {
-	SiteID     int64    `json:"site_id"`
-	SiteName   string   `json:"site_name,omitempty"`
-	MarketCode string   `json:"market_code,omitempty"`
-	Title      string   `json:"title"`
-	Summary    string   `json:"summary"`
-	BodyHTML   string   `json:"body_html"`
-	Locale     string   `json:"locale"`
-	Tags       []string `json:"tags"`
+	SiteID      int64    `json:"site_id"`
+	SiteName    string   `json:"site_name,omitempty"`
+	MarketCode  string   `json:"market_code,omitempty"`
+	ContentType string   `json:"content_type,omitempty"`
+	Title       string   `json:"title"`
+	Summary     string   `json:"summary"`
+	BodyHTML    string   `json:"body_html"`
+	Locale      string   `json:"locale"`
+	Tags        []string `json:"tags"`
 }
 
 type SEOSuggestion struct {
@@ -144,13 +145,23 @@ func defaultSEOSuggestion(input SEOSuggestionInput) SEOSuggestion {
 	if len(keywords) > 0 {
 		primary = keywords[0]
 	}
-	structured, _ := json.Marshal(map[string]any{
+	typeName := "Article"
+	if input.ContentType == "product" {
+		typeName = "Product"
+	} else if input.ContentType == "page" {
+		typeName = "WebPage"
+	}
+	structuredFields := map[string]any{
 		"@context":    "https://schema.org",
-		"@type":       "Article",
-		"headline":    title,
+		"@type":       typeName,
+		"name":        title,
 		"description": description,
 		"inLanguage":  input.Locale,
-	})
+	}
+	if typeName == "Article" {
+		structuredFields["headline"] = title
+	}
+	structured, _ := json.Marshal(structuredFields)
 	return SEOSuggestion{H1: title, Title: title, MetaDescription: description, PrimaryKeyword: primary, SecondaryKeywords: keywords, OGTitle: title, OGDescription: description, StructuredData: structured}
 }
 

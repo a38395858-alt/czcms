@@ -381,7 +381,7 @@ func (s *server) localizeContent(w http.ResponseWriter, r *http.Request) {
 			// the normal review workflow after checking the local language and SEO.
 			ContentType: source.ContentType, SiteID: item.config.SiteID, Locale: item.config.Locale, Status: "draft",
 			Title: normalized.Title, Slug: normalized.Slug, Category: normalized.Category, Tags: normalized.Tags,
-			TemplateKey: source.TemplateKey, PageLayout: source.PageLayout, IndexPolicy: source.IndexPolicy, CoverMediaID: source.CoverMediaID, Summary: normalized.Summary, BodyHTML: normalized.BodyHTML,
+			TemplateKey: source.TemplateKey, PageLayout: source.PageLayout, IndexPolicy: source.IndexPolicy, CoverMediaID: source.CoverMediaID, GalleryMediaIDs: source.GalleryMediaIDs, Summary: normalized.Summary, BodyHTML: normalized.BodyHTML,
 			AIState: "pending", RevisionAction: "ai_localized",
 			SEO: &catalog.SEOInput{H1: normalized.H1, Title: normalized.SEOTitle, MetaDescription: normalized.MetaDescription, PrimaryKeyword: normalized.PrimaryKeyword, SecondaryKeywords: normalized.SecondaryKeywords, RobotsIndex: true, OGTitle: normalized.OGTitle, OGDescription: normalized.OGDescription, StructuredData: normalized.StructuredData},
 		}

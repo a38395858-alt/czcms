@@ -11,16 +11,18 @@
     {{if .Preview}}<meta name="robots" content="noindex,nofollow">{{else if .RobotsIndex}}<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">{{else}}<meta name="robots" content="noindex,follow">{{end}}
     {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}">{{end}}
     {{range .Hreflangs}}{{if .URL}}<link rel="alternate" hreflang="{{.Locale}}" href="{{.URL}}">{{end}}{{end}}
-    <meta property="og:type" content="{{if and .HasContent (not .IsHome)}}article{{else}}website{{end}}">
+    <meta property="og:type" content="{{if and .HasContent (not .IsHome) (not .IsTaxonomy)}}article{{else}}website{{end}}">
     <meta property="og:site_name" content="{{.SiteName}}">
     <meta property="og:locale" content="{{.Locale}}">
     <meta property="og:title" content="{{.OGTitle}}">
     <meta property="og:description" content="{{.OGDescription}}">
     {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}">{{end}}
+		{{if .SocialImageURL}}<meta property="og:image" content="{{.SocialImageURL}}"><meta property="og:image:alt" content="{{.Content.H1}}">{{end}}
 		{{if and .HasContent (not .IsHome)}}{{if .Content.PublishedAt}}<meta property="article:published_time" content="{{.Content.PublishedAt}}">{{end}}{{if .Content.UpdatedAt}}<meta property="article:modified_time" content="{{.Content.UpdatedAt}}">{{end}}{{range .Content.Tags}}<meta property="article:tag" content="{{.}}">{{end}}{{end}}
-		<meta name="twitter:card" content="summary">
+		<meta name="twitter:card" content="{{if .SocialImageURL}}summary_large_image{{else}}summary{{end}}">
 		<meta name="twitter:title" content="{{.OGTitle}}">
 		<meta name="twitter:description" content="{{.OGDescription}}">
+		{{if .SocialImageURL}}<meta name="twitter:image" content="{{.SocialImageURL}}"><meta name="twitter:image:alt" content="{{.Content.H1}}">{{end}}
     <script type="application/ld+json">{{.StructuredData}}</script>
     <link rel="stylesheet" href="/assets/css/public.css?v=20260827.3">
 	{{if eq .ThemeKey "atlas-commerce"}}<link rel="stylesheet" href="/assets/css/public-atlas.css?v=20260827.3">{{end}}
@@ -158,6 +160,18 @@
           <div><p>{{.Copy.ContactBody}}</p><a class="button button-dark" href="mailto:logistics@example.com">{{.Copy.ContactButton}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
         </div>
       </section>
+      {{else if .IsTaxonomy}}
+      <section class="taxonomy-page article-page">
+        <header class="article-masthead taxonomy-masthead">
+          <div class="content-shell article-heading-shell">
+            <nav class="article-breadcrumb" aria-label="Breadcrumb"><a href="{{.HomePath}}">{{.SiteName}}</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><span aria-current="page">{{.TaxonomyName}}</span></nav>
+            <div class="article-title-row"><div><div class="article-meta"><span>{{if eq .TaxonomyKind "tag"}}{{.Copy.ArticleTags}}{{else}}{{.Copy.NavGuides}}{{end}}</span><span>{{.Locale}}</span></div><h1>{{.TaxonomyName}}</h1><p>{{.MetaDescription}}</p></div></div>
+          </div>
+        </header>
+        <div class="content-shell taxonomy-content">
+          {{if .HasContent}}<div class="content-grid">{{range .Published}}<article class="content-card"><a class="content-card-link" href="{{.URL}}"><div class="content-art" aria-hidden="true"><span>{{if .Category}}{{.Category}}{{else}}{{$.Copy.NavGuides}}{{end}}</span><svg viewBox="0 0 260 130"><path d="M8 104C55 35 109 19 168 58s73 17 84-35"/><circle cx="8" cy="104" r="5"/><circle cx="252" cy="23" r="5"/></svg></div><div class="content-card-body"><div class="content-meta"><span>{{if .Category}}{{.Category}}{{else}}{{$.Copy.NavGuides}}{{end}}</span><time datetime="{{.UpdatedAt}}">{{.UpdatedAt}}</time></div><h2>{{.Title}}</h2><p>{{.Summary}}</p><strong>{{$.Copy.ReadMore}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></strong></div></a></article>{{end}}</div>{{else}}<div class="empty-guides"><p>{{.Copy.NoGuides}}</p></div>{{end}}
+        </div>
+      </section>
       {{else}}
       <article class="article-page">
         <header class="article-masthead">
@@ -182,6 +196,7 @@
         </header>
         <div class="content-shell article-layout">
           <div class="article-main-column">
+            {{if eq .Content.ContentType "product"}}{{if .Content.Gallery}}<section class="product-public-gallery" aria-label="Product images">{{range .Content.Gallery}}<figure><img src="{{.URL}}" alt="{{.AltText}}" width="{{.Width}}" height="{{.Height}}" loading="lazy"></figure>{{end}}</section>{{end}}{{end}}
             <div class="article-body">{{.Content.Body}}</div>
             {{if .Form}}<section class="public-form-section" aria-labelledby="public-form-heading">
               <h2 id="public-form-heading">{{.Copy.ContactTitle}}</h2>
