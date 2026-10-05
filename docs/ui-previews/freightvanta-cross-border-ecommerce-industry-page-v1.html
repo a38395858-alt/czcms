@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FreightVanta cross-border ecommerce industry solution desktop design preview.">
+  <title>Cross-Border Ecommerce | FreightVanta - Design Preview</title>
+  <style>
+    :root {
+      --navy: #082e5a;
+      --navy-deep: #061f41;
+      --blue: #0d6fc2;
+      --blue-soft: #dcebf6;
+      --paper: #f5f8fb;
+      --ink: #102f57;
+      --muted: #47657e;
+      --line: #adc4d6;
+      --orange: #ef6b35;
+      --mint: #a7e1d0;
+      --shell: min(100% - 80px, 1240px);
+      --sans: Aptos, "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #d7e1e9; }
+    body { min-width: 320px; margin: 0; background: #fff; color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; }
+    h1, h2, h3, p { margin-top: 0; text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .shell { width: var(--shell); margin-inline: auto; }
+    .micro { margin: 0; font-size: 11px; font-weight: 800; letter-spacing: .09em; line-height: 1.35; }
+    .micro::before { width: 27px; height: 2px; display: inline-block; margin: 0 10px 3px 0; background: currentColor; content: ""; vertical-align: middle; }
+    .button { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; padding: 13px 18px; border: 1px solid transparent; font-size: 13px; font-weight: 800; line-height: 1; }
+    .button-primary { background: #fff; color: var(--navy); }
+    .button-ghost { border-color: rgba(255,255,255,.58); color: #fff; }
+    .button-dark { background: var(--navy); color: #fff; }
+
+    .topline { min-height: 34px; display: flex; align-items: center; background: var(--blue-soft); color: #355974; font-size: 11px; font-weight: 700; }
+    .topline .shell { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .topline strong { color: var(--ink); }
+    .header { min-height: 82px; border-bottom: 1px solid #dfe8ef; background: #fff; }
+    .header .shell { min-height: 82px; display: flex; align-items: center; gap: 38px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; flex: 0 0 auto; }
+    .brand-mark { width: 32px; height: 32px; display: grid; gap: 3px; padding: 7px; background: var(--orange); }
+    .brand-mark i { display: block; background: #fff; transform: skewX(-23deg); }
+    .brand-word { display: grid; gap: 1px; line-height: 1; }
+    .brand-word strong { color: var(--navy); font-size: 19px; font-weight: 850; letter-spacing: -.04em; }
+    .brand-word small { color: #5c7690; font-size: 7px; font-weight: 800; letter-spacing: .12em; }
+    nav { display: flex; align-items: center; gap: 28px; margin-left: auto; color: #254868; font-size: 12px; font-weight: 750; }
+    nav a:last-child { color: var(--blue); }
+    .header-cta { min-height: 42px; padding: 12px 15px; background: var(--orange); color: #fff; font-size: 11px; font-weight: 850; }
+
+    .hero { overflow: hidden; background: var(--navy); color: #fff; }
+    .hero-grid { min-height: 620px; display: grid; grid-template-columns: minmax(0, .87fr) minmax(460px, 1.13fr); gap: clamp(48px, 7vw, 110px); align-items: center; padding-block: 82px; }
+    .breadcrumbs { display: flex; gap: 8px; color: #bcd1e1; font-size: 11px; font-weight: 650; }
+    .breadcrumbs span { color: #88a7c0; }
+    .hero .micro { margin-top: 30px; color: var(--mint); }
+    .hero h1 { max-width: 12ch; margin: 16px 0 0; color: #fff; font-size: 64px; font-weight: 830; letter-spacing: -.052em; line-height: .94; }
+    .hero-lead { max-width: 57ch; margin: 25px 0 0; color: #d5e3ee; font-size: 16px; line-height: 1.75; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .hero-visual { position: relative; min-height: 448px; margin: 0; overflow: hidden; background: var(--navy-deep); }
+    .hero-visual::after { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,23,48,.04), rgba(3,23,48,.82)); content: ""; }
+    .visual-label { position: absolute; z-index: 1; top: 18px; left: 18px; padding: 8px 10px; background: rgba(255,255,255,.93); color: var(--navy); font-size: 9px; font-weight: 850; letter-spacing: .1em; }
+    .route-rail { position: absolute; z-index: 2; right: 9%; bottom: 66px; left: 9%; display: grid; grid-template-columns: repeat(5, 1fr); }
+    .route-rail::before { position: absolute; right: 7%; bottom: 23px; left: 7%; height: 2px; background: var(--mint); content: ""; }
+    .route-rail span { position: relative; display: flex; justify-content: center; align-items: flex-end; min-height: 43px; padding: 0 4px; color: #fff; font-size: 8px; font-weight: 850; letter-spacing: .08em; line-height: 1.2; text-align: center; }
+    .route-rail span::before { position: absolute; bottom: 18px; width: 10px; height: 10px; border: 3px solid #fff; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 3px rgba(255,255,255,.18); content: ""; }
+    .route-rail span:last-child::before { background: var(--mint); }
+    .hero-caption { position: absolute; z-index: 2; right: 18px; bottom: 18px; max-width: 255px; padding: 14px 16px; background: rgba(255,255,255,.94); color: #31536f; font-size: 11px; line-height: 1.48; }
+    .hero-caption strong { display: block; margin-bottom: 3px; color: var(--blue); font-size: 9px; letter-spacing: .09em; }
+
+    .decision { padding-block: 112px; background: #fff; }
+    .split-intro { display: grid; grid-template-columns: minmax(260px, .82fr) minmax(450px, 1.18fr); gap: clamp(60px, 10vw, 160px); align-items: end; }
+    .split-intro .micro { color: var(--blue); }
+    h2 { margin: 13px 0 0; color: var(--ink); font-size: 49px; font-weight: 820; letter-spacing: -.045em; line-height: .99; }
+    .intro-copy { max-width: 650px; color: var(--muted); font-size: 16px; line-height: 1.76; }
+    .intro-copy p:last-child { margin-bottom: 0; }
+    .evidence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 42px; margin: 60px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .evidence li { position: relative; padding: 23px 0 23px 18px; border-bottom: 1px solid #c5d4df; color: #31536e; font-size: 13px; font-weight: 680; line-height: 1.55; }
+    .evidence li::before { position: absolute; top: 31px; left: 0; width: 7px; height: 7px; background: var(--orange); content: ""; }
+
+    .workflow { padding-block: 106px; background: var(--blue-soft); }
+    .workflow-heading { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(400px, 1.1fr); gap: clamp(60px, 10vw, 150px); align-items: end; margin-bottom: 52px; }
+    .workflow .micro { color: var(--blue); }
+    .workflow-heading p { max-width: 550px; margin: 0; color: #45637c; font-size: 16px; line-height: 1.72; }
+    .workflow-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--blue); }
+    .workflow-list li { min-height: 218px; display: flex; flex-direction: column; padding: 24px 28px 24px 0; border-right: 1px solid rgba(30,73,108,.26); border-bottom: 1px solid rgba(30,73,108,.26); }
+    .workflow-list li:nth-child(3n + 2), .workflow-list li:nth-child(3n + 3) { padding-left: 28px; }
+    .workflow-list li:nth-child(3n) { border-right: 0; }
+    .workflow-list li:nth-child(n + 4) { border-bottom: 0; padding-top: 27px; }
+    .workflow-list b { color: var(--blue); font-size: 13px; font-weight: 850; }
+    .workflow-list h3 { max-width: 15ch; margin: auto 0 0; color: var(--ink); font-size: 19px; letter-spacing: -.02em; line-height: 1.13; }
+    .workflow-list p { max-width: 31ch; margin: 10px 0 0; color: #486680; font-size: 13px; line-height: 1.62; }
+
+    .channels { padding-block: 112px; background: #fff; }
+    .channel-layout { display: grid; grid-template-columns: minmax(260px, .72fr) minmax(620px, 1.28fr); gap: clamp(60px, 10vw, 160px); }
+    .channel-intro .micro { color: var(--blue); }
+    .channel-intro p { max-width: 33ch; margin: 20px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .channel-rows { border-top: 1px solid #7898b1; }
+    .channel-row { display: grid; grid-template-columns: 116px minmax(190px, .8fr) minmax(290px, 1.2fr); gap: 28px; align-items: start; padding: 27px 0 28px; border-bottom: 1px solid #a6bdcd; }
+    .channel-row b { color: var(--blue); font-size: 10px; letter-spacing: .09em; }
+    .channel-row h3 { margin: 0; color: var(--ink); font-size: 19px; letter-spacing: -.02em; line-height: 1.17; }
+    .channel-row p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    .scope { padding-block: 110px; background: var(--navy); color: #fff; }
+    .scope-head { display: grid; grid-template-columns: minmax(310px, .9fr) minmax(380px, 1.1fr); gap: clamp(60px, 10vw, 160px); align-items: end; }
+    .scope .micro { color: var(--mint); }
+    .scope h2 { color: #fff; }
+    .scope-head > p { max-width: 540px; margin: 0; color: #d2e0ed; font-size: 16px; line-height: 1.75; }
+    .scope-columns { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 130px); margin-top: 60px; }
+    .scope-column > p { margin-bottom: 12px; color: var(--mint); font-size: 10px; font-weight: 850; letter-spacing: .09em; }
+    .scope-column.confirm > p { color: #f6b092; }
+    .scope-item { padding: 20px 0 22px; border-top: 1px solid rgba(219,235,246,.32); }
+    .scope-item:last-child { border-bottom: 1px solid rgba(219,235,246,.32); }
+    .scope-item h3 { margin: 0; color: #fff; font-size: 17px; line-height: 1.2; }
+    .scope-item h3::before { width: 8px; height: 8px; display: inline-block; margin: 0 11px 2px 0; background: var(--mint); content: ""; vertical-align: middle; }
+    .confirm .scope-item h3::before { border: 1px solid #f6b092; background: transparent; }
+    .scope-item p { max-width: 49ch; margin: 8px 0 0 20px; color: #d2e0ed; font-size: 13px; line-height: 1.65; }
+
+    .sku { padding-block: 112px; background: #fff; }
+    .sku-grid { display: grid; grid-template-columns: minmax(380px, .94fr) minmax(420px, 1.06fr); gap: clamp(60px, 10vw, 160px); align-items: center; }
+    .sku .micro { color: var(--blue); }
+    .sku-copy > p:not(.micro) { max-width: 56ch; margin: 20px 0 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .sku-list { margin: 29px 0 0; padding: 0; list-style: none; border-top: 1px solid #7997ae; }
+    .sku-list li { position: relative; padding: 13px 0 13px 20px; border-bottom: 1px solid #b6cadb; color: #294f70; font-size: 13px; font-weight: 680; line-height: 1.55; }
+    .sku-list li::before { position: absolute; top: 22px; left: 0; width: 7px; height: 7px; background: var(--orange); content: ""; }
+    .sku-image { position: relative; min-height: 462px; margin: 0; overflow: hidden; background: var(--navy); }
+    .sku-image::after { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,29,58,.04), rgba(4,29,58,.84)); content: ""; }
+    .sku-image figcaption { position: absolute; z-index: 1; right: 28px; bottom: 25px; left: 28px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.55); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .06em; line-height: 1.5; }
+
+    .request { background: var(--blue-soft); }
+    .request .shell { display: grid; grid-template-columns: minmax(400px, 1.15fr) minmax(240px, .85fr); gap: clamp(50px, 8vw, 130px); align-items: end; padding-block: 92px; }
+    .request .micro { color: var(--blue); }
+    .request p:not(.micro) { max-width: 63ch; margin: 20px 0 0; color: #496880; font-size: 16px; line-height: 1.7; }
+    .request-side { border-top: 1px solid #7898b1; }
+    .request-side p { margin: 0 !important; padding: 15px 0; border-bottom: 1px solid #abc0cf; color: #31536e !important; font-size: 12px !important; font-weight: 720; line-height: 1.45 !important; }
+    .request-side .button { margin-top: 24px; }
+
+    .footer { min-height: 176px; display: flex; align-items: center; background: var(--navy-deep); color: #b8cadb; }
+    .footer .shell { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+    .footer p { max-width: 53ch; margin: 0; font-size: 12px; line-height: 1.65; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 11px 21px; max-width: 410px; color: #fff; font-size: 11px; font-weight: 750; }
+
+    @media (max-width: 900px) {
+      :root { --shell: min(100% - 42px, 720px); }
+      nav { display: none; }
+      .header .shell { gap: 18px; }
+      .header-cta { margin-left: auto; }
+      .hero-grid, .split-intro, .workflow-heading, .channel-layout, .scope-head, .sku-grid, .request .shell { grid-template-columns: 1fr; }
+      .hero-grid { padding-block: 56px; }
+      .hero h1 { font-size: 53px; }
+      .hero-visual { min-height: 440px; }
+      .split-intro, .workflow-heading, .channel-layout, .scope-head, .sku-grid, .request .shell { gap: 32px; }
+      .channel-intro p { max-width: 55ch; }
+      .footer .shell { flex-direction: column; align-items: flex-start; padding-block: 42px; }
+      .footer-links { justify-content: flex-start; }
+    }
+
+    @media (max-width: 620px) {
+      :root { --shell: min(100% - 32px, 520px); }
+      .topline .shell span:last-child { display: none; }
+      .header { min-height: 68px; }
+      .header .shell { min-height: 68px; }
+      .brand-word strong { font-size: 17px; }
+      .header-cta { min-height: 38px; padding: 10px 11px; font-size: 10px; }
+      .hero h1 { font-size: 40px; }
+      .hero-lead, .intro-copy, .workflow-heading p, .scope-head > p, .sku-copy > p:not(.micro), .request p:not(.micro) { font-size: 15px; }
+      .hero-visual { min-height: 410px; }
+      .hero-caption { right: 12px; bottom: 12px; left: 12px; max-width: none; }
+      .route-rail { right: 4%; bottom: 94px; left: 4%; }
+      h2 { font-size: 37px; }
+      .decision, .channels, .sku { padding-block: 76px; }
+      .workflow, .scope { padding-block: 76px; }
+      .evidence, .workflow-list, .scope-columns { grid-template-columns: 1fr; }
+      .evidence { gap: 0; margin-top: 36px; }
+      .workflow-list li, .workflow-list li:nth-child(3n + 2), .workflow-list li:nth-child(3n + 3), .workflow-list li:nth-child(n + 4) { min-height: 185px; padding: 22px 0; border-right: 0; border-bottom: 1px solid rgba(30,73,108,.26); }
+      .workflow-list li:last-child { border-bottom: 0; }
+      .channel-row { grid-template-columns: 1fr; gap: 9px; }
+      .scope-columns { gap: 44px; }
+      .sku-image { min-height: 410px; }
+      .request .shell { padding-block: 70px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"><div class="shell"><span>Freight moving to the U.S.? <strong>Get a shipment plan from a logistics specialist.</strong></span><span>GLOBAL ENGLISH SITE / CONCEPT PREVIEW</span></div></div>
+  <header class="header">
+    <div class="shell">
+      <a class="brand" href="#top" aria-label="FreightVanta home"><span class="brand-mark"><i></i><i></i><i></i></span><span class="brand-word"><strong>FreightVanta</strong><small>GLOBAL OPERATIONS</small></span></a>
+      <nav aria-label="Primary navigation"><a href="#workflow">Services</a><a href="#channels">Industries</a><a href="#scope">How it works</a><a href="#request">Resources</a><a href="#request">Contact</a></nav>
+      <a class="header-cta" href="#request">Request a plan</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <div class="breadcrumbs"><a href="#top">Home</a><span>/</span><a href="#channels">Industries</a><span>/</span><b>Cross-border ecommerce</b></div>
+          <p class="micro">CROSS-BORDER ECOMMERCE / FROM CHINA TO CUSTOMER-READY ORDERS</p>
+          <h1>Keep the ecommerce handoffs connected after you source from China.</h1>
+          <p class="hero-lead">Product details, approved packaging, inbound inventory, and customer-order instructions need to remain connected after the purchase is made. FreightVanta turns those handoffs into one practical operating path.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#request">Request an ecommerce operating plan</a><a class="button button-ghost" href="#workflow">See the connected workflow</a></div>
+        </div>
+        <figure class="hero-visual">
+          <img src="../../frontend/assets/images/freightvanta-service-worldwide-fulfillment-hero-v1.png" alt="Ecommerce fulfillment operations">
+          <span class="visual-label">ORDER / HANDOFF</span>
+          <div class="route-rail" aria-label="Operating path"><span>PRODUCT</span><span>PACKOUT</span><span>INVENTORY</span><span>ORDERS</span><span>HANDOFF</span></div>
+          <figcaption class="hero-caption"><strong>CONNECTED OPERATIONS</strong>Make the next instruction useful before a customer order depends on it.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="decision">
+      <div class="shell">
+        <div class="split-intro">
+          <div><p class="micro">THE OPERATING DECISION</p><h2>A customer order is only as reliable as the decisions made before it exists.</h2></div>
+          <div class="intro-copy"><p>A storefront can make a product look ready long before the operating path is ready. For products sourced from China, that path crosses supplier questions, approved variants, packaging components, inbound expectations, inventory identification, sales-channel rules, and a final customer-order instruction.</p><p>FreightVanta brings those decisions into one working path, so your team can see what is ready, what needs approval, and what should happen next.</p></div>
+        </div>
+        <ul class="evidence"><li>Product version, quantity, and destination remain attached to the next instruction.</li><li>Approved packaging becomes an order-level rule, not a loose folder of files.</li><li>Inbound stock has a purpose and release owner before it is treated as available.</li><li>DTC, marketplace, retail, and replenishment routes remain distinct operational contexts.</li></ul>
+      </div>
+    </section>
+
+    <section class="workflow" id="workflow">
+      <div class="shell">
+        <div class="workflow-heading"><div><p class="micro">CONNECTED WORKFLOW</p><h2>One operating path for the work between supplier and customer.</h2></div><p>Start with the stage that is uncertain today. The later stages remain visible so product, packaging, inventory, and order decisions can be made with the next handoff in view.</p></div>
+        <ol class="workflow-list">
+          <li><b>01</b><h3>Define the product brief</h3><p>Turn a reference, image, or SKU record into details each operating owner can understand.</p></li>
+          <li><b>02</b><h3>Confirm the purchase handoff</h3><p>Keep quantity, variation, supplier questions, target market, and movement visible.</p></li>
+          <li><b>03</b><h3>Make the packout usable</h3><p>Connect packaging, inserts, labels, bundle rules, and language versions to an instruction.</p></li>
+          <li><b>04</b><h3>Prepare inbound inventory</h3><p>Describe expected goods, identifiers, evidence rules, and the owner for a discrepancy.</p></li>
+          <li><b>05</b><h3>Separate stock by purpose</h3><p>Record whether inventory supports orders, replenishment, retail, or a staged launch.</p></li>
+          <li><b>06</b><h3>Release customer-ready orders</h3><p>Prepare the agreed product, packout, channel, destination, and exception information.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="channels" id="channels">
+      <div class="shell channel-layout">
+        <div class="channel-intro"><p class="micro">SALES CHANNELS</p><h2>Set the rule around the way you actually sell.</h2><p>One product can have one source and several routes to market. Make their operating requirements visible before stock or packaging instructions are reused in the wrong context.</p></div>
+        <div class="channel-rows">
+          <article class="channel-row"><b>DTC STOREFRONT</b><h3>Your order experience is part of the brand promise.</h3><p>Product protection, inserts, bundles, customer-facing language, and the active packout version need to stay connected when the customer receives the order.</p></article>
+          <article class="channel-row"><b>MARKETPLACE</b><h3>Channel requirements need their own preparation rule.</h3><p>A listing, replenishment, carton instruction, prep requirement, or destination can differ from a DTC order. Record that context rather than treating all stock as automatically ready.</p></article>
+          <article class="channel-row"><b>WHOLESALE / RETAIL</b><h3>The receiving handoff is not the same as a consumer order.</h3><p>Item identifiers, carton details, delivery instructions, documents, and bundle composition may belong in a retail route but not in a direct-to-customer packout.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="scope" id="scope">
+      <div class="shell">
+        <div class="scope-head"><div><p class="micro">OPERATING CONTROLS</p><h2>Make the useful instruction visible. Confirm the rest before it becomes a promise.</h2></div><p>Cross-border ecommerce includes physical work, commercial decisions, platform data, and legal responsibilities. The plan separates what can be organized as a workflow from what needs specific operational or qualified confirmation.</p></div>
+        <div class="scope-columns">
+          <div class="scope-column"><p>FREIGHTVANTA CAN HELP COORDINATE</p><article class="scope-item"><h3>Product and packaging handoff</h3><p>Keep product details, active variants, approved components, and customer-facing packout rules connected.</p></article><article class="scope-item"><h3>Inbound and release context</h3><p>Prepare expected inventory, identifiers, purpose, evidence rules, and release authorization for the next owner.</p></article><article class="scope-item"><h3>Channel-specific preparation</h3><p>Distinguish DTC, marketplace, retail, replenishment, and freight-release contexts in one working brief.</p></article></div>
+          <div class="scope-column confirm"><p>CONFIRM FOR THE ACTUAL SCOPE</p><article class="scope-item"><h3>Commercial and supplier outcomes</h3><p>Supplier selection, product quality, price, inspection, audit, testing, certification, and compliance need confirmed responsibility.</p></article><article class="scope-item"><h3>Platform and delivery capability</h3><p>Integrations, order sync, data handling, carrier selection, rates, tracking, delivery timing, and coverage require approved scope.</p></article><article class="scope-item"><h3>Legal and handling responsibility</h3><p>Tax, customs, labels, product safety, returns, warehouse capacity, product acceptance, and insurance remain subject to confirmation.</p></article></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sku">
+      <div class="shell sku-grid">
+        <div class="sku-copy"><p class="micro">INVENTORY WITH CONTEXT</p><h2>A SKU is not ready because it has a name and a price.</h2><p>Before a product moves through a cross-border ecommerce operation, the next team needs more than a storefront title. They need an active product version, product reference, packaging context, channel purpose, and an owner for exceptions.</p><ul class="sku-list"><li>Product reference, variation, dimensions, material, and approved version.</li><li>Known supplier or sender, expected quantity, carton context, and ready period.</li><li>Target market, sales channel, and stock purpose.</li><li>Active packout version, component quantities, and language variants.</li><li>Inbound identifier, discrepancy owner, and release authorization.</li></ul></div>
+        <figure class="sku-image"><img src="../../frontend/assets/images/freightvanta-service-inventory-storage-hero-v1.png" alt="Inbound inventory verification"><figcaption>THE NEXT HANDOFF BEGINS WITH AN IDENTIFIABLE PRODUCT, AN ACTIVE RULE, AND AN OWNER FOR EXCEPTIONS.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="request" id="request">
+      <div class="shell">
+        <div><p class="micro">START YOUR PLAN</p><h2>Bring the current product reality. We will identify the next operational questions.</h2><p>Share what is already decided, name the handoff that feels uncertain, and leave unknown information visible. FreightVanta can use that starting point to ask practical scoping questions before the work is confirmed.</p></div>
+        <div><div class="request-side"><p>Product reference, source status, and expected quantity.</p><p>Target market, sales channel, and next destination.</p><p>Packaging, bundle, and brand-material context.</p><p>Current inventory position and approval owner.</p></div><a class="button button-dark" href="mailto:logistics@example.com">Request an ecommerce operating plan</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="shell"><p>FreightVanta connects product sourcing, packaging, bulk orders, inventory preparation, white-label planning, and fulfillment through practical operating briefs and confirmed service scopes.</p><div class="footer-links"><a href="#top">Home</a><a href="#workflow">Services</a><a href="#channels">Industries</a><a href="#scope">How it works</a><a href="#request">Contact</a></div></div></footer>
+</body>
+</html>

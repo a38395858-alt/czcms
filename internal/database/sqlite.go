@@ -405,17 +405,18 @@ func seed(ctx context.Context, db *sql.DB) error {
 
 	defaultSites := []struct {
 		Name, Code, PrimaryDomain, Market, LanguageCode, Locale string
+		SEOTitle, SEODescription                                string
 		Port                                                    int
 	}{
 		{Name: "Global Route English", Code: "global", PrimaryDomain: "www.example.com", Market: "GLOBAL", LanguageCode: "en", Locale: "en", Port: 8081},
-		{Name: "Global Route Deutschland", Code: "germany", Market: "DE", LanguageCode: "de", Locale: "de-DE", Port: 8082},
-		{Name: "Global Route France", Code: "france", Market: "FR", LanguageCode: "fr", Locale: "fr-FR", Port: 8083},
-		{Name: "Global Route España", Code: "spain", Market: "ES", LanguageCode: "es", Locale: "es-ES", Port: 8084},
-		{Name: "Global Route Italia", Code: "italy", Market: "IT", LanguageCode: "it", Locale: "it-IT", Port: 8085},
-		{Name: "Global Route Nederland", Code: "netherlands", Market: "NL", LanguageCode: "nl", Locale: "nl-NL", Port: 8086},
+		{Name: "FreightVanta Deutschland", Code: "germany", Market: "DE", LanguageCode: "de", Locale: "de-DE", SEOTitle: "China-Beschaffung, internationale Fracht & Fulfillment | FreightVanta", SEODescription: "FreightVanta koordiniert Produktbeschaffung in China, See- und Luftfracht, Versandvorbereitung, Lagerung, Fulfillment und die Zustellung nach Deutschland in einem praktikablen Versandplan.", Port: 8082},
+		{Name: "FreightVanta France", Code: "france", Market: "FR", LanguageCode: "fr", Locale: "fr-FR", SEOTitle: "Sourcing en Chine, fret international et logistique e-commerce | FreightVanta", SEODescription: "FreightVanta coordonne le sourcing produit en Chine, le fret maritime et aérien, la préparation des expéditions, l’entreposage, la logistique e-commerce et la livraison en France dans un plan d’expédition concret.", Port: 8083},
+		{Name: "FreightVanta España", Code: "spain", Market: "ES", LanguageCode: "es", Locale: "es-ES", SEOTitle: "Compras en China, transporte internacional y logística e-commerce | FreightVanta", SEODescription: "FreightVanta coordina la búsqueda de proveedores en China, el transporte marítimo y aéreo, la preparación de envíos, el almacenaje, la logística e-commerce y la entrega en España en un plan de envío práctico.", Port: 8084},
+		{Name: "FreightVanta Italia", Code: "italy", Market: "IT", LanguageCode: "it", Locale: "it-IT", SEOTitle: "Acquisti in Cina, trasporto internazionale e logistica e-commerce | FreightVanta", SEODescription: "FreightVanta coordina la ricerca fornitori in Cina, il trasporto marittimo e aereo, la preparazione delle spedizioni, il magazzino, la logistica e-commerce e la consegna in Italia in un unico piano di spedizione concreto.", Port: 8085},
+		{Name: "FreightVanta Nederland", Code: "netherlands", Market: "NL", LanguageCode: "nl", Locale: "nl-NL", SEOTitle: "Sourcing in China, internationaal transport & fulfilment | FreightVanta", SEODescription: "FreightVanta coördineert productsourcing in China, zee- en luchtvracht, voorbereiding van zendingen, opslag, fulfilment en levering in Nederland in één praktisch verzendplan.", Port: 8086},
 	}
 	for _, site := range defaultSites {
-		if _, err = tx.ExecContext(ctx, `INSERT OR IGNORE INTO sites(name, code, primary_domain, local_port, market_code, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'active', ?, ?)`, site.Name, site.Code, site.PrimaryDomain, site.Port, site.Market, now, now); err != nil {
+		if _, err = tx.ExecContext(ctx, `INSERT OR IGNORE INTO sites(name, code, primary_domain, local_port, market_code, status, seo_title, seo_description, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?, ?)`, site.Name, site.Code, site.PrimaryDomain, site.Port, site.Market, site.SEOTitle, site.SEODescription, now, now); err != nil {
 			return fmt.Errorf("初始化默认站点 %s: %w", site.Code, err)
 		}
 	}

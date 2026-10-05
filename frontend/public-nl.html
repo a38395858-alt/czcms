@@ -1,0 +1,72 @@
+{{define "public-nl.html"}}
+<!doctype html>
+<html lang="{{.Locale}}" dir="{{.Direction}}" data-site="nl" data-default-site="nl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{{.PageTitle}}</title>
+    <meta name="description" content="{{.MetaDescription}}">
+    <meta name="theme-color" content="#10333a">
+    {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}"><link rel="apple-touch-icon" href="{{.FaviconURL}}">{{end}}
+    {{if .Preview}}<meta name="robots" content="noindex,nofollow">{{else if .RobotsIndex}}<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">{{else}}<meta name="robots" content="noindex,follow">{{end}}
+    {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}">{{end}}
+    {{range .Hreflangs}}{{if .URL}}<link rel="alternate" hreflang="{{.Locale}}" href="{{.URL}}">{{end}}{{end}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{.SiteName}}">
+    <meta property="og:locale" content="nl_NL">
+    <meta property="og:title" content="{{.OGTitle}}">
+    <meta property="og:description" content="{{.OGDescription}}">
+    {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}">{{end}}
+    {{if .SocialImageURL}}<meta property="og:image" content="{{.SocialImageURL}}"><meta property="og:image:alt" content="{{.Copy.HeroTitle}}">{{end}}
+    <meta name="twitter:card" content="{{if .SocialImageURL}}summary_large_image{{else}}summary{{end}}">
+    <meta name="twitter:title" content="{{.OGTitle}}">
+    <meta name="twitter:description" content="{{.OGDescription}}">
+    {{if .SocialImageURL}}<meta name="twitter:image" content="{{.SocialImageURL}}">{{end}}
+    <script type="application/ld+json">{{.StructuredData}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,600;0,700;1,500&family=Jost:wght@500;600;700&family=Bricolage+Grotesque:wght@500;600;700;800&family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,800;1,6..96,500;1,6..96,600&family=Archivo+Black&display=swap">
+    <link rel="stylesheet" href="/assets/nl-template/assets/app.css?v=20260930.7">
+    <script type="module" src="/assets/nl-template/assets/app.js?v=20260930.7"></script>
+  </head>
+  <body class="fv-nl-react-template">
+    <div id="root">
+      <main id="nl-static-content">
+        <section aria-labelledby="nl-static-title">
+          <p>{{.Copy.HeroKicker}}</p>
+          <h1 id="nl-static-title">{{.Copy.HeroTitle}}</h1>
+          <p>{{.Copy.HeroBody}}</p>
+        </section>
+        <section>
+          <h2>{{.Copy.ServicesTitle}}</h2>
+          <p>{{.Copy.ServicesBody}}</p>
+          {{range .Copy.Services}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.AdvantagesTitle}}</h2>
+          {{range .Copy.Advantages}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.ProcessTitle}}</h2>
+          <p>{{.Copy.ProcessBody}}</p>
+          {{range .Copy.ProcessSteps}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.IndustriesTitle}}</h2>
+          <p>{{.Copy.IndustriesBody}}</p>
+          {{range .Copy.Industries}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.GuidesTitle}}</h2>
+          <p>{{.Copy.GuidesBody}}</p>
+        </section>
+        <section>
+          <h2>{{.Copy.FAQTitle}}</h2>
+          {{range .Copy.FAQs}}<article><h3>{{.Question}}</h3><p>{{.Answer}}</p></article>{{end}}
+        </section>
+      </main>
+    </div>
+    <noscript>Schakel JavaScript in om de volledige FreightVanta Nederland-template te bekijken.</noscript>
+  </body>
+</html>
+{{end}}

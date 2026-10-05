@@ -1,0 +1,314 @@
+/* English product-sourcing page: direct production replica of the approved HTML design. */
+body.page-product-sourcing-replica {
+  --sourcing-navy: #072a58;
+  --sourcing-navy-soft: #0b3565;
+  --sourcing-blue: #0757c7;
+  --sourcing-signal: #58d6b2;
+  --sourcing-ink: #10213f;
+  --sourcing-ink-soft: #3f506d;
+  --sourcing-line: #d9e0ea;
+  --sourcing-line-dark: #b9c6d8;
+  --sourcing-paper: #f4f7fa;
+  --sourcing-white: #fff;
+  --sourcing-shell: min(1200px, calc(100% - 64px));
+  background: var(--sourcing-white);
+  color: var(--sourcing-ink);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body.page-product-sourcing-replica .skip-link { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 10px 14px; background: var(--sourcing-white); color: var(--sourcing-navy); font-weight: 700; transform: translateY(-160%); }
+body.page-product-sourcing-replica .skip-link:focus { transform: translateY(0); outline: 3px solid var(--sourcing-blue); }
+body.page-product-sourcing-replica :focus-visible { outline: 3px solid var(--sourcing-blue); outline-offset: 3px; }
+body.page-product-sourcing-replica .shell { width: var(--sourcing-shell); margin-inline: auto; }
+body.page-product-sourcing-replica .sourcing-replica h1,
+body.page-product-sourcing-replica .sourcing-replica h2,
+body.page-product-sourcing-replica .sourcing-replica h3,
+body.page-product-sourcing-replica .sourcing-replica-page h1,
+body.page-product-sourcing-replica .sourcing-replica-page h2,
+body.page-product-sourcing-replica .sourcing-replica-page h3,
+body.page-product-sourcing-replica .sourcing-replica-page p { text-wrap: pretty; }
+body.page-product-sourcing-replica .sourcing-replica h1,
+body.page-product-sourcing-replica .sourcing-replica h2,
+body.page-product-sourcing-replica .sourcing-replica h3,
+body.page-product-sourcing-replica .sourcing-replica-page h1,
+body.page-product-sourcing-replica .sourcing-replica-page h2,
+body.page-product-sourcing-replica .sourcing-replica-page h3 { text-wrap: balance; }
+
+body.page-product-sourcing-replica .sourcing-replica .announcement { min-height: 38px; display: flex; align-items: center; background: #e9f2ff; border-bottom: 1px solid #c7dcfa; color: #104b97; font-size: .82rem; font-weight: 600; }
+body.page-product-sourcing-replica .sourcing-replica .site-header { position: sticky; top: 0; z-index: 4; border-bottom: 1px solid var(--sourcing-line); background: rgba(255,255,255,.97); color: var(--sourcing-ink); }
+body.page-product-sourcing-replica .sourcing-replica .header-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+body.page-product-sourcing-replica .sourcing-replica .brand { display: inline-flex; align-items: center; gap: 12px; flex: 0 0 auto; color: var(--sourcing-ink); }
+body.page-product-sourcing-replica .sourcing-replica .brand-mark { width: 34px; height: 34px; display: grid; grid-template-columns: repeat(3,1fr); align-items: end; gap: 3px; padding: 7px; background: var(--sourcing-blue); border-radius: 4px; }
+body.page-product-sourcing-replica .sourcing-replica .brand-mark i { display: block; background: var(--sourcing-white); transform: skewY(-29deg); }
+body.page-product-sourcing-replica .sourcing-replica .brand-mark i:nth-child(1) { height: 40%; opacity: .7; }
+body.page-product-sourcing-replica .sourcing-replica .brand-mark i:nth-child(2) { height: 70%; opacity: .86; }
+body.page-product-sourcing-replica .sourcing-replica .brand-mark i:nth-child(3) { height: 100%; }
+body.page-product-sourcing-replica .sourcing-replica .brand-word { display: grid; line-height: 1; }
+body.page-product-sourcing-replica .sourcing-replica .brand-word strong { font-size: 1.05rem; letter-spacing: .01em; }
+body.page-product-sourcing-replica .sourcing-replica .brand-word small { margin-top: 5px; font-size: .59rem; font-weight: 700; letter-spacing: .11em; opacity: .72; }
+body.page-product-sourcing-replica .sourcing-replica .desktop-nav { display: flex; align-items: center; gap: clamp(18px,2.4vw,34px); margin-left: auto; }
+body.page-product-sourcing-replica .sourcing-replica .desktop-nav a { min-height: 44px; display: inline-flex; align-items: center; color: #2d3d58; font-size: .85rem; font-weight: 650; }
+body.page-product-sourcing-replica .sourcing-replica .desktop-nav a:hover { color: var(--sourcing-blue); }
+body.page-product-sourcing-replica .sourcing-replica .header-cta { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; padding: 0 17px; border: 1px solid var(--sourcing-blue); border-radius: 6px; background: var(--sourcing-blue); color: var(--sourcing-white); font-size: .8rem; font-weight: 750; }
+body.page-product-sourcing-replica .sourcing-replica .header-cta:hover { border-color: #073e8e; background: #073e8e; transform: translateY(-1px); }
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu { display: none; position: relative; margin-left: auto; }
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu summary { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--sourcing-line-dark); cursor: pointer; list-style: none; }
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu summary::-webkit-details-marker { display: none; }
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu summary span,
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu summary::before,
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu summary::after { width: 18px; height: 1px; display: block; background: var(--sourcing-ink); content: ""; }
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu summary span { margin: 4px 0; }
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu nav { position: absolute; top: 52px; right: 0; width: 220px; padding: 8px; background: var(--sourcing-white); box-shadow: 0 16px 36px rgba(0,0,0,.24); color: var(--sourcing-navy); }
+body.page-product-sourcing-replica .sourcing-replica .mobile-menu nav a { min-height: 43px; display: flex; align-items: center; padding: 0 10px; font-size: .88rem; font-weight: 700; }
+
+body.page-product-sourcing-replica .sourcing-replica-page { overflow: hidden; }
+body.page-product-sourcing-replica .sourcing-replica-page .hero { overflow: hidden; background: var(--sourcing-navy); color: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-shell { min-height: 680px; display: grid; grid-template-columns: minmax(0,.8fr) minmax(430px,1.2fr); align-items: center; gap: clamp(2rem,5vw,5rem); padding-block: clamp(4.8rem,8vw,7.5rem); }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-content { max-width: 650px; }
+body.page-product-sourcing-replica .sourcing-replica-page .breadcrumb { display: flex; align-items: center; gap: 10px; margin-bottom: 27px; color: rgba(255,255,255,.72); font-size: .77rem; font-weight: 650; }
+body.page-product-sourcing-replica .sourcing-replica-page .breadcrumb a { color: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .breadcrumb span { width: 24px; height: 1px; background: var(--sourcing-signal); }
+body.page-product-sourcing-replica .sourcing-replica-page .service-kicker { display: inline-flex; align-items: center; gap: 10px; margin: 0; color: #dbe9ff; font-size: .76rem; font-weight: 800; letter-spacing: .08em; }
+body.page-product-sourcing-replica .sourcing-replica-page .service-kicker i { width: 8px; height: 8px; background: var(--sourcing-signal); border-radius: 50%; }
+body.page-product-sourcing-replica .sourcing-replica-page .hero h1 { max-width: 12ch; margin: 17px 0 0; font-size: clamp(2.7rem,5.2vw,5.25rem); font-weight: 760; letter-spacing: -.04em; line-height: .99; color: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-copy { max-width: 62ch; margin: 25px 0 0; color: #e1ebf6; font-size: clamp(1rem,1.45vw,1.14rem); line-height: 1.72; }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+body.page-product-sourcing-replica .sourcing-replica-page .button { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 20px; border: 1px solid transparent; font-size: .86rem; font-weight: 760; }
+body.page-product-sourcing-replica .sourcing-replica-page .button:hover { transform: translateY(-2px); }
+body.page-product-sourcing-replica .sourcing-replica-page .button-primary { border-radius: 6px; background: var(--sourcing-white); color: var(--sourcing-navy); }
+body.page-product-sourcing-replica .sourcing-replica-page .button-primary:hover { background: #edf4ff; }
+body.page-product-sourcing-replica .sourcing-replica-page .button-ghost { border-color: rgba(255,255,255,.6); color: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .button-ghost:hover { border-color: var(--sourcing-white); background: rgba(255,255,255,.1); }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-board { position: relative; min-height: 480px; overflow: hidden; border: 1px solid rgba(255,255,255,.28); background: #0a315e; }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .34; mix-blend-mode: screen; filter: saturate(.8) contrast(1.08); animation: sourcing-replica-hero-settle 1.4s cubic-bezier(.16,1,.3,1) both; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot { position: absolute; inset: 0; z-index: 1; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot::before { position: absolute; left: 9%; right: 8%; top: 52%; border-top: 2px dashed rgba(255,255,255,.8); content: ""; transform: rotate(-10deg); transform-origin: left center; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot i { position: absolute; z-index: 1; width: 14px; height: 14px; border: 3px solid var(--sourcing-white); border-radius: 50%; background: var(--sourcing-signal); }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot i:nth-child(1) { left: 8%; top: 50%; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot i:nth-child(2) { left: 34%; top: 44%; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot i:nth-child(3) { left: 61%; top: 38%; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot i:nth-child(4) { right: 8%; top: 32%; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot b { position: absolute; color: var(--sourcing-white); font-size: .58rem; letter-spacing: .1em; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot b:nth-of-type(1) { left: 8%; top: 57%; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot b:nth-of-type(2) { left: 34%; top: 51%; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot b:nth-of-type(3) { left: 61%; top: 45%; }
+body.page-product-sourcing-replica .sourcing-replica-page .route-plot b:nth-of-type(4) { right: 5%; top: 39%; }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-note { position: absolute; right: 0; bottom: 6%; z-index: 2; width: min(350px,72%); padding: 1rem 1.1rem; background: var(--sourcing-white); color: var(--sourcing-ink); box-shadow: 0 18px 45px rgba(1,23,57,.25); font-size: .77rem; line-height: 1.55; }
+body.page-product-sourcing-replica .sourcing-replica-page .hero-note strong { display: block; margin-bottom: 5px; color: var(--sourcing-blue); font-size: .67rem; letter-spacing: .08em; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .proof-strip { border-bottom: 1px solid #b8d4e8; background: #e5f1fb; color: #0b3565; }
+body.page-product-sourcing-replica .sourcing-replica-page .proof-inner { min-height: 82px; display: flex; align-items: center; gap: 2rem; }
+body.page-product-sourcing-replica .sourcing-replica-page .proof-inner > span { flex: 0 0 auto; padding-right: 2rem; border-right: 1px solid #b8d4e8; font-size: .78rem; font-weight: 700; }
+body.page-product-sourcing-replica .sourcing-replica-page .proof-inner ul { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 1rem; margin: 0; padding: 0; list-style: none; color: #38546f; font-size: .79rem; font-weight: 650; }
+body.page-product-sourcing-replica .sourcing-replica-page .proof-inner li { display: flex; align-items: center; gap: .5rem; }
+body.page-product-sourcing-replica .sourcing-replica-page .proof-inner li::before { width: 5px; height: 5px; border: 1px solid var(--sourcing-blue); border-radius: 50%; content: ""; }
+body.page-product-sourcing-replica .sourcing-replica-page .intro-band { border-bottom: 1px solid var(--sourcing-line); background: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .intro-grid { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(36px,8vw,120px); padding: clamp(52px,7vw,94px) 0; }
+body.page-product-sourcing-replica .sourcing-replica-page .intro-grid h2,
+body.page-product-sourcing-replica .sourcing-replica-page .section-heading h2,
+body.page-product-sourcing-replica .sourcing-replica-page .scope-heading h2,
+body.page-product-sourcing-replica .sourcing-replica-page .benefits-title h2,
+body.page-product-sourcing-replica .sourcing-replica-page .faq-heading h2 { margin: 0; font-size: clamp(2rem,3.6vw,3.8rem); letter-spacing: -.03em; line-height: 1.02; color: var(--sourcing-ink); }
+body.page-product-sourcing-replica .sourcing-replica-page .intro-grid p { max-width: 63ch; margin: 0; color: var(--sourcing-ink-soft); font-size: 1.05rem; line-height: 1.8; }
+body.page-product-sourcing-replica .sourcing-replica-page .intro-grid p + p { margin-top: 17px; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .situations { padding: clamp(70px,9vw,132px) 0; background: var(--sourcing-paper); }
+body.page-product-sourcing-replica .sourcing-replica-page .section-heading { display: grid; grid-template-columns: minmax(0,1fr) minmax(280px,.62fr); gap: 42px; align-items: end; margin-bottom: 42px; }
+body.page-product-sourcing-replica .sourcing-replica-page .section-heading p { max-width: 47ch; margin: 0; color: var(--sourcing-ink-soft); }
+body.page-product-sourcing-replica .sourcing-replica-page .situations-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--sourcing-line-dark); }
+body.page-product-sourcing-replica .sourcing-replica-page .situations-list li { display: grid; grid-template-columns: 92px minmax(0,.7fr) minmax(0,1.3fr); gap: 26px; align-items: start; padding: 30px 0; border-bottom: 1px solid var(--sourcing-line-dark); }
+body.page-product-sourcing-replica .sourcing-replica-page .situations-list span { color: var(--sourcing-blue); font-size: .76rem; font-weight: 800; letter-spacing: .08em; }
+body.page-product-sourcing-replica .sourcing-replica-page .situations-list h3 { margin: 0; color: var(--sourcing-ink); font-size: clamp(1.3rem,2vw,1.75rem); line-height: 1.15; }
+body.page-product-sourcing-replica .sourcing-replica-page .situations-list p { max-width: 57ch; margin: 0; color: var(--sourcing-ink-soft); line-height: 1.72; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .workflow { padding: clamp(70px,10vw,120px) 0; background: #dfeefa; color: var(--sourcing-ink); }
+body.page-product-sourcing-replica .sourcing-replica-page .workflow .section-heading h2 { max-width: 14ch; }
+body.page-product-sourcing-replica .sourcing-replica-page .workflow-list { display: grid; grid-template-columns: repeat(5,1fr); }
+body.page-product-sourcing-replica .sourcing-replica-page .workflow-step { min-height: 305px; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.25rem 1.25rem 1.5rem 0; border-top: 3px solid #0d6fc2; }
+body.page-product-sourcing-replica .sourcing-replica-page .workflow-step:hover { background: rgba(255,255,255,.32); }
+body.page-product-sourcing-replica .sourcing-replica-page .workflow-step b { margin-bottom: auto; color: #0d6fc2; font-size: .9rem; font-weight: 800; }
+body.page-product-sourcing-replica .sourcing-replica-page .workflow-step h3 { max-width: 12ch; margin: 0; color: var(--sourcing-ink); font-size: clamp(1.15rem,1.6vw,1.42rem); line-height: 1.1; }
+body.page-product-sourcing-replica .sourcing-replica-page .workflow-step p { margin: 15px 0 0; color: var(--sourcing-ink-soft); font-size: .88rem; line-height: 1.67; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .brief-section { padding: clamp(74px,10vw,144px) 0; background: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-layout { display: grid; grid-template-columns: minmax(0,.82fr) minmax(360px,1.18fr); gap: clamp(36px,8vw,120px); align-items: center; }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-copy h2 { max-width: 13ch; margin: 0; color: var(--sourcing-ink); font-size: clamp(2.25rem,4vw,4.15rem); letter-spacing: -.035em; line-height: 1; }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-copy > p { max-width: 49ch; margin: 22px 0 0; color: var(--sourcing-ink-soft); line-height: 1.75; }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-list { display: grid; gap: 0; margin: 27px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--sourcing-line); }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-list li { min-height: 48px; display: flex; align-items: center; gap: 11px; border-bottom: 1px solid var(--sourcing-line); color: #263d58; font-size: .91rem; font-weight: 650; }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-list li::before { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--sourcing-signal); content: ""; }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-image { min-height: 530px; margin: 0; overflow: hidden; background: var(--sourcing-navy); }
+body.page-product-sourcing-replica .sourcing-replica-page .brief-image img { width: 100%; height: 100%; object-fit: cover; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .scope { background: #edf4fb; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-grid { display: grid; grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr); gap: clamp(42px,9vw,138px); padding: clamp(74px,10vw,136px) 0; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-heading p { max-width: 35ch; margin: 21px 0 0; color: var(--sourcing-ink-soft); line-height: 1.75; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns section { border-top: 3px solid var(--sourcing-navy); padding-top: 18px; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns section:last-child { border-top-color: var(--sourcing-blue); }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns h3 { margin: 0; color: var(--sourcing-ink); font-size: 1.2rem; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns p { margin: 10px 0 18px; color: var(--sourcing-ink-soft); font-size: .85rem; line-height: 1.65; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns ul { margin: 0; padding: 0; list-style: none; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns li { padding: 11px 0; border-top: 1px solid rgba(90,116,143,.28); color: #2b4562; font-size: .88rem; line-height: 1.4; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns li::before { margin-right: 8px; color: var(--sourcing-blue); content: "+"; font-weight: 800; }
+body.page-product-sourcing-replica .sourcing-replica-page .scope-columns section:last-child li::before { content: "?"; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .benefits { padding: clamp(74px,10vw,136px) 0; background: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .benefits-head { display: flex; align-items: end; justify-content: space-between; gap: 34px; margin-bottom: 44px; }
+body.page-product-sourcing-replica .sourcing-replica-page .benefits-title h2 { max-width: 15ch; }
+body.page-product-sourcing-replica .sourcing-replica-page .benefits-head p { max-width: 48ch; margin: 0; color: var(--sourcing-ink-soft); }
+body.page-product-sourcing-replica .sourcing-replica-page .benefits-grid { display: grid; grid-template-columns: 1.18fr .82fr; border: 1px solid var(--sourcing-line); }
+body.page-product-sourcing-replica .sourcing-replica-page .benefit { min-height: 225px; padding: clamp(25px,3.5vw,43px); border-bottom: 1px solid var(--sourcing-line); }
+body.page-product-sourcing-replica .sourcing-replica-page .benefit:nth-child(odd) { border-right: 1px solid var(--sourcing-line); }
+body.page-product-sourcing-replica .sourcing-replica-page .benefit:nth-last-child(-n + 2) { border-bottom: 0; }
+body.page-product-sourcing-replica .sourcing-replica-page .benefit b { color: var(--sourcing-blue); font-size: .72rem; letter-spacing: .08em; }
+body.page-product-sourcing-replica .sourcing-replica-page .benefit h3 { margin: 18px 0 0; color: var(--sourcing-ink); font-size: 1.42rem; line-height: 1.15; }
+body.page-product-sourcing-replica .sourcing-replica-page .benefit p { max-width: 50ch; margin: 12px 0 0; color: var(--sourcing-ink-soft); font-size: .9rem; line-height: 1.7; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .faq { padding: clamp(74px,9vw,132px) 0; background: var(--sourcing-paper); }
+body.page-product-sourcing-replica .sourcing-replica-page .faq-layout { display: grid; grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr); gap: clamp(42px,9vw,138px); }
+body.page-product-sourcing-replica .sourcing-replica-page .faq-heading p { max-width: 36ch; margin: 20px 0 0; color: var(--sourcing-ink-soft); line-height: 1.7; }
+body.page-product-sourcing-replica .sourcing-replica-page .faq-list { border-top: 1px solid var(--sourcing-line-dark); }
+body.page-product-sourcing-replica .sourcing-replica-page .faq details { border-bottom: 1px solid var(--sourcing-line-dark); }
+body.page-product-sourcing-replica .sourcing-replica-page .faq summary { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--sourcing-ink); cursor: pointer; font-size: 1.17rem; font-weight: 700; line-height: 1.25; list-style: none; }
+body.page-product-sourcing-replica .sourcing-replica-page .faq summary::-webkit-details-marker { display: none; }
+body.page-product-sourcing-replica .sourcing-replica-page .faq summary::after { width: 25px; height: 25px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid var(--sourcing-line-dark); color: var(--sourcing-blue); content: "+"; font-size: 1.28rem; font-weight: 400; }
+body.page-product-sourcing-replica .sourcing-replica-page .faq details[open] summary::after { content: "-"; }
+body.page-product-sourcing-replica .sourcing-replica-page .faq details p { max-width: 67ch; margin: 0; padding: 0 42px 22px 0; color: var(--sourcing-ink-soft); font-size: .95rem; line-height: 1.75; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .related { padding: clamp(64px,8vw,108px) 0; background: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .related-top { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 30px; }
+body.page-product-sourcing-replica .sourcing-replica-page .related-top h2 { margin: 0; color: var(--sourcing-ink); font-size: clamp(1.85rem,3vw,3rem); letter-spacing: -.025em; }
+body.page-product-sourcing-replica .sourcing-replica-page .text-link { color: var(--sourcing-blue); font-size: .88rem; font-weight: 760; }
+body.page-product-sourcing-replica .sourcing-replica-page .related-list { border-top: 1px solid var(--sourcing-line-dark); }
+body.page-product-sourcing-replica .sourcing-replica-page .related-item { display: grid; grid-template-columns: 1.05fr 1.3fr auto; gap: 30px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--sourcing-line-dark); }
+body.page-product-sourcing-replica .sourcing-replica-page .related-item:hover { color: var(--sourcing-blue); }
+body.page-product-sourcing-replica .sourcing-replica-page .related-item h3 { margin: 0; font-size: 1.35rem; }
+body.page-product-sourcing-replica .sourcing-replica-page .related-item p { max-width: 54ch; margin: 0; color: var(--sourcing-ink-soft); font-size: .9rem; line-height: 1.65; }
+body.page-product-sourcing-replica .sourcing-replica-page .related-item span { color: var(--sourcing-blue); font-size: 1.35rem; font-weight: 700; }
+body.page-product-sourcing-replica .sourcing-replica-page .enquiry { border-top: 1px solid #c7d7f0; background: #dfeaff; color: var(--sourcing-ink); }
+body.page-product-sourcing-replica .sourcing-replica-page .enquiry-inner { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 42px; align-items: end; padding: clamp(64px,8vw,108px) 0; }
+body.page-product-sourcing-replica .sourcing-replica-page .enquiry h2 { max-width: 15ch; margin: 0; font-size: clamp(2.25rem,4vw,4.25rem); line-height: 1; letter-spacing: -.03em; color: var(--sourcing-ink); }
+body.page-product-sourcing-replica .sourcing-replica-page .enquiry p { max-width: 65ch; margin: 20px 0 0; color: var(--sourcing-ink-soft); line-height: 1.75; }
+body.page-product-sourcing-replica .sourcing-replica-page .button-dark { background: var(--sourcing-navy); color: var(--sourcing-white); white-space: nowrap; }
+body.page-product-sourcing-replica .sourcing-replica-page .button-dark:hover { background: #14385f; }
+
+body.page-product-sourcing-replica .sourcing-replica-page .china-source { padding: clamp(72px,9vw,132px) 0; background: #f4f8fe; border-top: 1px solid #c7d7f0; border-bottom: 1px solid #c7d7f0; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source-layout { display: grid; grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr); gap: clamp(44px,8vw,128px); align-items: start; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source-layout > div > p:first-child { margin: 0 0 16px; color: var(--sourcing-blue); font-size: .7rem; font-weight: 800; letter-spacing: .1em; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source h2 { max-width: 13ch; margin: 0; color: var(--sourcing-ink); font-size: clamp(2rem,3.4vw,3.65rem); line-height: 1.02; letter-spacing: 0; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source h2 + p { max-width: 60ch; margin: 20px 0 0; color: var(--sourcing-ink-soft); line-height: 1.75; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source ul { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid #b7cae5; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source li { position: relative; padding: 16px 0 16px 26px; border-bottom: 1px solid #b7cae5; color: var(--sourcing-ink); font-size: .93rem; line-height: 1.55; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source li::before { position: absolute; top: 24px; left: 0; width: 8px; height: 8px; background: var(--sourcing-blue); content: ""; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source-faq { margin-top: 20px; border: 1px solid #b7cae5; background: #fff; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source-faq summary { padding: 18px 20px; color: var(--sourcing-ink); font-weight: 750; cursor: pointer; }
+body.page-product-sourcing-replica .sourcing-replica-page .china-source-faq p { margin: 0; padding: 0 20px 20px; color: var(--sourcing-ink-soft); font-size: .91rem; line-height: 1.65; }
+
+/* Full English TopicPage handoff modules from the v2 development template. */
+body.page-product-sourcing-replica .sourcing-replica-page .source-comparison,
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoints { padding: clamp(72px,9vw,132px) 0; background: var(--sourcing-white); }
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoints { background: var(--sourcing-paper); }
+body.page-product-sourcing-replica .sourcing-replica-page .source-split-heading { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr); gap: clamp(36px,8vw,120px); align-items: end; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-split-heading h2 { max-width: 14ch; margin: 0; color: var(--sourcing-ink); font-size: clamp(2rem,3.7vw,3.8rem); letter-spacing: -.035em; line-height: 1.02; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-split-heading > p { max-width: 62ch; margin: 0; color: var(--sourcing-ink-soft); line-height: 1.78; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-comparison-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 42px; margin: 46px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--sourcing-blue); }
+body.page-product-sourcing-replica .sourcing-replica-page .source-comparison-list li { display: grid; grid-template-columns: 38px 1fr; gap: 14px; padding: 20px 0; border-bottom: 1px solid var(--sourcing-line-dark); color: #2b4562; font-size: .94rem; font-weight: 650; line-height: 1.6; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-comparison-list b { color: var(--sourcing-blue); font-size: 1rem; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin: 46px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--sourcing-blue); }
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid li { min-height: 180px; padding: 22px 22px 20px 0; border-right: 1px solid var(--sourcing-line-dark); }
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid li + li { padding-left: 22px; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid li:last-child { padding-right: 0; border-right: 0; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid b { color: var(--sourcing-blue); font-size: .72rem; letter-spacing: .1em; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid p { margin: 18px 0 0; color: var(--sourcing-ink-soft); font-size: .9rem; line-height: 1.7; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-scope-table { padding: clamp(72px,9vw,132px) 0; background: #edf4fb; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap { margin-top: 46px; overflow-x: auto; border: 1px solid var(--sourcing-line-dark); background: #fff; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap table { width: 100%; min-width: 760px; border-collapse: collapse; text-align: left; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap th,
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap td { padding: 18px 20px; border-bottom: 1px solid var(--sourcing-line); color: var(--sourcing-ink-soft); font-size: .88rem; line-height: 1.6; vertical-align: top; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap thead th { background: var(--sourcing-navy); color: #fff; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap tbody th { width: 21%; color: var(--sourcing-ink); font-size: .94rem; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap tbody tr:last-child th,
+body.page-product-sourcing-replica .sourcing-replica-page .source-table-wrap tbody tr:last-child td { border-bottom: 0; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-deliverables { padding: clamp(72px,9vw,132px) 0; background: var(--sourcing-navy); color: #fff; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-deliverables-grid { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr); gap: clamp(36px,8vw,120px); align-items: start; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-deliverables h2 { max-width: 13ch; margin: 0; color: #fff; font-size: clamp(2.1rem,3.8vw,4rem); letter-spacing: -.035em; line-height: 1.02; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-deliverables p { max-width: 55ch; margin: 20px 0 0; color: #d6e4f2; line-height: 1.75; }
+body.page-product-sourcing-replica .sourcing-replica-page .source-deliverables .section-kicker { color: var(--sourcing-signal); }
+body.page-product-sourcing-replica .sourcing-replica-page .deliverables-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(255,255,255,.28); }
+body.page-product-sourcing-replica .sourcing-replica-page .deliverables-list li { position: relative; padding: 18px 0 18px 28px; border-bottom: 1px solid rgba(255,255,255,.28); color: #f4f8fc; font-size: .94rem; line-height: 1.55; }
+body.page-product-sourcing-replica .sourcing-replica-page .deliverables-list li::before { position: absolute; top: 25px; left: 1px; width: 8px; height: 8px; background: var(--sourcing-signal); content: ""; }
+
+body.page-product-sourcing-replica .sourcing-replica-footer { background: #051529; color: #a8bad0; }
+body.page-product-sourcing-replica .sourcing-replica-footer .footer-inner { min-height: 104px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+body.page-product-sourcing-replica .sourcing-replica-footer p { margin: 0; max-width: 58ch; font-size: .78rem; line-height: 1.55; }
+body.page-product-sourcing-replica .sourcing-replica-footer nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 16px 24px; color: #d9e5f2; font-size: .78rem; font-weight: 650; }
+
+@keyframes sourcing-replica-hero-settle { from { opacity: .4; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 980px) {
+  body.page-product-sourcing-replica { --sourcing-shell: min(100% - 40px,720px); }
+  body.page-product-sourcing-replica .sourcing-replica .desktop-nav,
+  body.page-product-sourcing-replica .sourcing-replica .header-cta { display: none; }
+  body.page-product-sourcing-replica .sourcing-replica .mobile-menu { display: block; }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero-shell { min-height: auto; grid-template-columns: 1fr; padding-block: 4.5rem 0; }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero-content { padding-bottom: 1rem; }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero-board { min-height: 390px; }
+  body.page-product-sourcing-replica .sourcing-replica-page .workflow-list { grid-template-columns: 1fr; }
+  body.page-product-sourcing-replica .sourcing-replica-page .workflow-step { min-height: 0; display: grid; grid-template-columns: 54px minmax(0,1fr); column-gap: 18px; padding: 27px 0; border-top: 2px solid #0d6fc2; }
+  body.page-product-sourcing-replica .sourcing-replica-page .workflow-step b { margin: 0; grid-row: span 2; }
+  body.page-product-sourcing-replica .sourcing-replica-page .workflow-step h3 { max-width: none; }
+  body.page-product-sourcing-replica .sourcing-replica-page .workflow-step p { margin: 8px 0 0; }
+  body.page-product-sourcing-replica .sourcing-replica-page .brief-layout,
+  body.page-product-sourcing-replica .sourcing-replica-page .scope-grid,
+  body.page-product-sourcing-replica .sourcing-replica-page .faq-layout,
+  body.page-product-sourcing-replica .sourcing-replica-page .china-source-layout,
+  body.page-product-sourcing-replica .sourcing-replica-page .source-split-heading,
+  body.page-product-sourcing-replica .sourcing-replica-page .source-deliverables-grid { grid-template-columns: 1fr; }
+  body.page-product-sourcing-replica .sourcing-replica-page .brief-copy { max-width: 630px; }
+  body.page-product-sourcing-replica .sourcing-replica-page .brief-image { min-height: auto; aspect-ratio: 1.4 / 1; }
+}
+
+@media (max-width: 680px) {
+  body.page-product-sourcing-replica { --sourcing-shell: min(100% - 32px,560px); }
+  body.page-product-sourcing-replica .sourcing-replica .announcement { min-height: 34px; font-size: .74rem; }
+  body.page-product-sourcing-replica .sourcing-replica .header-inner { min-height: 66px; }
+  body.page-product-sourcing-replica .sourcing-replica .brand-mark { width: 30px; height: 30px; padding: 6px; }
+  body.page-product-sourcing-replica .sourcing-replica .brand-word small { display: none; }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero-shell { padding-top: 3.6rem; }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero-board { min-height: 330px; }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero-photo { object-position: 68% center; }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero h1 { font-size: clamp(2.75rem,14vw,4.4rem); }
+  body.page-product-sourcing-replica .sourcing-replica-page .hero-actions { display: grid; grid-template-columns: 1fr; }
+  body.page-product-sourcing-replica .sourcing-replica-page .button { width: 100%; }
+  body.page-product-sourcing-replica .sourcing-replica-page .intro-grid,
+  body.page-product-sourcing-replica .sourcing-replica-page .section-heading,
+  body.page-product-sourcing-replica .sourcing-replica-page .benefits-head,
+  body.page-product-sourcing-replica .sourcing-replica-page .enquiry-inner { grid-template-columns: 1fr; display: grid; gap: 24px; }
+  body.page-product-sourcing-replica .sourcing-replica-page .situations-list li { grid-template-columns: 1fr; gap: 12px; padding: 26px 0; }
+  body.page-product-sourcing-replica .sourcing-replica-page .situations-list span { font-size: .72rem; }
+  body.page-product-sourcing-replica .sourcing-replica-page .scope-columns,
+  body.page-product-sourcing-replica .sourcing-replica-page .benefits-grid,
+  body.page-product-sourcing-replica .sourcing-replica-page .source-comparison-list,
+  body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid { grid-template-columns: 1fr; }
+  body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid li,
+  body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid li + li { min-height: 0; padding: 18px 0; border-right: 0; border-bottom: 1px solid var(--sourcing-line-dark); }
+  body.page-product-sourcing-replica .sourcing-replica-page .source-checkpoint-grid li:last-child { border-bottom: 0; }
+  body.page-product-sourcing-replica .sourcing-replica-page .benefit,
+  body.page-product-sourcing-replica .sourcing-replica-page .benefit:nth-child(odd) { min-height: 0; border-right: 0; border-bottom: 1px solid var(--sourcing-line); }
+  body.page-product-sourcing-replica .sourcing-replica-page .benefit:last-child { border-bottom: 0; }
+  body.page-product-sourcing-replica .sourcing-replica-page .related-top { align-items: start; flex-direction: column; gap: 16px; }
+  body.page-product-sourcing-replica .sourcing-replica-page .related-item { grid-template-columns: 1fr auto; gap: 12px 18px; }
+  body.page-product-sourcing-replica .sourcing-replica-page .related-item p { grid-column: 1 / -1; }
+  body.page-product-sourcing-replica .sourcing-replica-footer .footer-inner { min-height: 150px; align-items: flex-start; flex-direction: column; justify-content: center; }
+  body.page-product-sourcing-replica .sourcing-replica-footer nav { justify-content: flex-start; }
+  body.page-product-sourcing-replica .sourcing-replica-page .proof-inner { min-height: 0; display: block; padding: 1.1rem 0; }
+  body.page-product-sourcing-replica .sourcing-replica-page .proof-inner > span { display: block; padding: 0 0 .65rem; border: 0; }
+  body.page-product-sourcing-replica .sourcing-replica-page .proof-inner ul { display: grid; grid-template-columns: 1fr 1fr; justify-content: start; gap: .45rem 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-product-sourcing-replica .sourcing-replica-page *,
+  body.page-product-sourcing-replica .sourcing-replica-page *::before,
+  body.page-product-sourcing-replica .sourcing-replica-page *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

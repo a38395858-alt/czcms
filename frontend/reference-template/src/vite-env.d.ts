@@ -1,0 +1,64 @@
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_SITE_URL?: string;
+  readonly VITE_ENQUIRY_ENDPOINT?: string;
+  readonly VITE_ANALYTICS_ENDPOINT?: string;
+  readonly VITE_CONTACT_EMAIL?: string;
+  readonly VITE_CONTACT_PHONE?: string;
+  readonly VITE_CONTACT_ADDRESS?: string;
+  readonly VITE_LEGAL_ENTITY?: string;
+  readonly VITE_PRIVACY_URL?: string;
+  readonly VITE_COOKIE_URL?: string;
+  readonly VITE_TERMS_URL?: string;
+  readonly VITE_SOCIAL_PROFILES?: string;
+  readonly VITE_DE_IMPRINT_URL?: string;
+  readonly VITE_DE_PRIVACY_URL?: string;
+  readonly VITE_DE_TERMS_URL?: string;
+  readonly VITE_DE_DPO_CONTACT?: string;
+  readonly VITE_IMPRESSUM_COMPANY?: string;
+  readonly VITE_IMPRESSUM_LEGAL_FORM?: string;
+  readonly VITE_IMPRESSUM_ADDRESS?: string;
+  readonly VITE_IMPRESSUM_REPRESENTATIVES?: string;
+  readonly VITE_IMPRESSUM_REGISTER_COURT?: string;
+  readonly VITE_IMPRESSUM_REGISTER_NUMBER?: string;
+  readonly VITE_IMPRESSUM_VAT_ID?: string;
+  readonly VITE_IMPRESSUM_CONTENT_RESPONSIBLE?: string;
+  readonly VITE_FR_LEGAL_URL?: string;
+  readonly VITE_FR_PRIVACY_URL?: string;
+  readonly VITE_FR_TERMS_URL?: string;
+  readonly VITE_FR_COMPANY?: string;
+  readonly VITE_FR_LEGAL_FORM?: string;
+  readonly VITE_FR_CAPITAL?: string;
+  readonly VITE_FR_ADDRESS?: string;
+  readonly VITE_FR_RCS?: string;
+  readonly VITE_FR_SIRET?: string;
+  readonly VITE_FR_VAT_ID?: string;
+  readonly VITE_FR_PUBLICATION_DIRECTOR?: string;
+  readonly VITE_FR_HOST?: string;
+  readonly VITE_FR_DPO_CONTACT?: string;
+  readonly VITE_ES_LEGAL_URL?: string;
+  readonly VITE_ES_PRIVACY_URL?: string;
+  readonly VITE_ES_TERMS_URL?: string;
+  readonly VITE_ES_COMPANY?: string;
+  readonly VITE_ES_NIF?: string;
+  readonly VITE_ES_ADDRESS?: string;
+  readonly VITE_ES_REGISTRY?: string;
+  readonly VITE_ES_DPO_CONTACT?: string;
+  readonly VITE_IT_LEGAL_URL?: string;
+  readonly VITE_IT_PRIVACY_URL?: string;
+  readonly VITE_IT_TERMS_URL?: string;
+  readonly VITE_IT_COMPANY?: string;
+  readonly VITE_IT_VAT_ID?: string;
+  readonly VITE_IT_TAX_CODE?: string;
+  readonly VITE_IT_ADDRESS?: string;
+  readonly VITE_IT_REGISTRY?: string;
+  readonly VITE_IT_REA?: string;
+  readonly VITE_IT_SHARE_CAPITAL?: string;
+  readonly VITE_IT_PEC?: string;
+  readonly VITE_IT_DPO_CONTACT?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

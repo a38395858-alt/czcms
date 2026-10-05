@@ -1,0 +1,48 @@
+{{define "public-it.html"}}
+<!doctype html>
+<html lang="{{.Locale}}" dir="{{.Direction}}" data-site="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{{.PageTitle}}</title>
+    <meta name="description" content="{{.MetaDescription}}">
+    <meta name="theme-color" content="#1b1c1d">
+    {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}"><link rel="apple-touch-icon" href="{{.FaviconURL}}">{{end}}
+    {{if .Preview}}<meta name="robots" content="noindex,nofollow">{{else if .RobotsIndex}}<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">{{else}}<meta name="robots" content="noindex,follow">{{end}}
+    {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}">{{end}}
+    {{range .Hreflangs}}{{if .URL}}<link rel="alternate" hreflang="{{.Locale}}" href="{{.URL}}">{{end}}{{end}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{.SiteName}}">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:title" content="{{.OGTitle}}">
+    <meta property="og:description" content="{{.OGDescription}}">
+    {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}">{{end}}
+    {{if .SocialImageURL}}<meta property="og:image" content="{{.SocialImageURL}}"><meta property="og:image:alt" content="Porto merci e passaggi logistici dalla Cina all’Italia">{{end}}
+    <meta name="twitter:card" content="{{if .SocialImageURL}}summary_large_image{{else}}summary{{end}}">
+    <meta name="twitter:title" content="{{.OGTitle}}">
+    <meta name="twitter:description" content="{{.OGDescription}}">
+    {{if .SocialImageURL}}<meta name="twitter:image" content="{{.SocialImageURL}}">{{end}}
+    <script type="application/ld+json">{{.StructuredData}}</script>
+    <link rel="stylesheet" href="/assets/it-template/assets/app.css?v=20260929.1">
+    <script type="module" src="/assets/it-template/assets/app.js?v=20260929.1"></script>
+  </head>
+  <body class="fv-it-react-template">
+    <div id="root">
+      <main id="it-static-content">
+        <section aria-labelledby="it-static-title">
+          <p>Acquisti e trasporto dalla Cina, coordinati con chiarezza</p>
+          <h1 id="it-static-title">Dalla Cina alla consegna in Italia, ogni passaggio resta leggibile.</h1>
+          <p>FreightVanta aiuta le aziende in crescita a coordinare ricerca fornitori, preparazione delle spedizioni, trasporto marittimo e aereo, documenti doganali, magazzino, logistica e-commerce e consegna finale in un unico piano operativo concreto.</p>
+        </section>
+        <section><h2>Una visione d’insieme, dal fornitore al cliente.</h2><p>Una spedizione segue di rado un unico passaggio lineare. Colleghiamo ricerca fornitori, preparazione, trasporto, dogana, stoccaggio e consegna in un flusso di lavoro che il suo team può seguire.</p></section>
+        <section><h2>L’affidabilità si costruisce nei dettagli.</h2><p>Un referente dedicato, controlli prima della partenza, preparazione flessibile e passaggi tracciabili mantengono leggibile ogni responsabilità.</p></section>
+        <section><h2>Un metodo concreto per spedizioni complesse.</h2><p>Ci dica che cosa deve viaggiare, esamini il piano, coordiniamo ogni passaggio e mantenga la promessa al cliente.</p></section>
+        <section><h2>Per chi ha molto da perdere in ogni passaggio.</h2><p>E-commerce e retail, beni di consumo, componenti industriali e spedizioni urgenti richiedono controlli, documenti e conversazioni di consegna diversi.</p></section>
+        <section><h2>Criteri solidi per decidere meglio le spedizioni.</h2><p>Guide pratiche su acquisti in Cina, trasporto internazionale, preparazione all’import nell’UE, Incoterms e coordinamento fornitori.</p></section>
+        <section><h2>Dubbi prima di spedire?</h2><p>Parta da quello che sa: uno specialista la aiuta per il resto.</p></section>
+      </main>
+    </div>
+    <noscript>Per visualizzare il template completo FreightVanta è necessario abilitare JavaScript.</noscript>
+  </body>
+</html>
+{{end}}

@@ -82,7 +82,7 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 	}
 	layered := cache.NewLayered(memory, redisStore, cfg.CacheTTL)
 
-	tmpl, err := template.ParseFS(webassets.Files, "index.html", "auth.html", "public.html", "public-atlas.html")
+	tmpl, err := template.ParseFS(webassets.Files, "index.html", "auth.html", "public.html", "public-atlas.html", "public-it.html", "public-reference.html", "public-nl.html")
 	if err != nil {
 		layered.Close()
 		return fail(fmt.Errorf("解析后台模板: %w", err))

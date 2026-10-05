@@ -48,6 +48,176 @@ var migrations = []migration{
 	{version: 28, apply: migrateProductTemplateFilesV28},
 	{version: 29, apply: migrateProductTemplateSchemaV29},
 	{version: 30, apply: migrateStarterThemeCopiesV30},
+	{version: 31, apply: migrateFreightVantaLocalizedSitesV31},
+	{version: 32, apply: migrateFreightVantaGermanHomepageV32},
+	{version: 33, apply: migrateFreightVantaFrenchHomepageV33},
+	{version: 34, apply: migrateFreightVantaSpanishHomepageV34},
+	{version: 35, apply: migrateFreightVantaItalianHomepageV35},
+	{version: 36, apply: migrateFreightVantaDutchHomepageV36},
+}
+
+// migrateFreightVantaDutchHomepageV36 installs the metadata supplied with the
+// Dutch “Deltaraster” reference template. Administrator-written SEO remains
+// authoritative; only blank values and the previous FreightVanta defaults are
+// eligible for replacement.
+func migrateFreightVantaDutchHomepageV36(ctx context.Context, tx *sql.Tx) error {
+	const oldTitle = "FreightVanta Nederland | Internationale vracht en fulfillment"
+	const oldDescription = "FreightVanta coördineert sourcing, zee- en luchtvracht, douanedocumenten, opslag en fulfillment in één duidelijke logistieke route."
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	_, err := tx.ExecContext(ctx, `UPDATE sites
+		SET seo_title = CASE
+				WHEN trim(seo_title) = '' OR seo_title = ?
+				THEN 'Sourcing in China, internationaal transport & fulfilment | FreightVanta'
+				ELSE seo_title
+			END,
+			seo_description = CASE
+				WHEN trim(seo_description) = '' OR seo_description = ?
+				THEN 'FreightVanta coördineert productsourcing in China, zee- en luchtvracht, voorbereiding van zendingen, opslag, fulfilment en levering in Nederland in één praktisch verzendplan.'
+				ELSE seo_description
+			END,
+			version = version + 1,
+			updated_at = ?
+		WHERE code = 'netherlands'
+			AND (trim(seo_title) = '' OR seo_title = ? OR trim(seo_description) = '' OR seo_description = ?)`, oldTitle, oldDescription, now, oldTitle, oldDescription)
+	if err != nil {
+		return fmt.Errorf("升级 FreightVanta 荷兰语首页 SEO: %w", err)
+	}
+	return nil
+}
+
+// migrateFreightVantaItalianHomepageV35 installs the metadata shipped with
+// the Italian “Grafica Italiana” reference template. Custom administrator SEO
+// remains untouched; only blank fields and the previous FreightVanta defaults
+// are eligible for replacement.
+func migrateFreightVantaItalianHomepageV35(ctx context.Context, tx *sql.Tx) error {
+	const oldTitle = "FreightVanta Italia | Sourcing, trasporto e fulfillment internazionale"
+	const oldDescription = "FreightVanta coordina sourcing, trasporto via mare e aereo, dati doganali, magazzino e fulfillment in un unico flusso operativo."
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	_, err := tx.ExecContext(ctx, `UPDATE sites
+		SET seo_title = CASE
+				WHEN trim(seo_title) = '' OR seo_title = ?
+				THEN 'Acquisti in Cina, trasporto internazionale e logistica e-commerce | FreightVanta'
+				ELSE seo_title
+			END,
+			seo_description = CASE
+				WHEN trim(seo_description) = '' OR seo_description = ?
+				THEN 'FreightVanta coordina la ricerca fornitori in Cina, il trasporto marittimo e aereo, la preparazione delle spedizioni, il magazzino, la logistica e-commerce e la consegna in Italia in un unico piano di spedizione concreto.'
+				ELSE seo_description
+			END,
+			version = version + 1,
+			updated_at = ?
+		WHERE code = 'italy'
+			AND (trim(seo_title) = '' OR seo_title = ? OR trim(seo_description) = '' OR seo_description = ?)`, oldTitle, oldDescription, now, oldTitle, oldDescription)
+	if err != nil {
+		return fmt.Errorf("升级 FreightVanta 意大利语首页 SEO: %w", err)
+	}
+	return nil
+}
+
+// migrateFreightVantaSpanishHomepageV34 installs the SEO copy from the
+// Spanish “Mediterráneo” homepage package. Administrator-written metadata
+// remains authoritative; only blank values and the previous default values
+// are replaced.
+func migrateFreightVantaSpanishHomepageV34(ctx context.Context, tx *sql.Tx) error {
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	_, err := tx.ExecContext(ctx, `UPDATE sites
+		SET seo_title = CASE
+				WHEN trim(seo_title) = '' OR seo_title = 'FreightVanta España | Sourcing, transporte y fulfillment internacional'
+				THEN 'Compras en China, transporte internacional y logística e-commerce | FreightVanta'
+				ELSE seo_title
+			END,
+			seo_description = CASE
+				WHEN trim(seo_description) = '' OR seo_description = 'Coordina sourcing, transporte marítimo y aéreo, documentación, almacén y fulfillment con un plan claro para tu cadena logística.'
+				THEN 'FreightVanta coordina la búsqueda de proveedores en China, el transporte marítimo y aéreo, la preparación de envíos, el almacenaje, la logística e-commerce y la entrega en España en un plan de envío práctico.'
+				ELSE seo_description
+			END,
+			version = version + 1,
+			updated_at = ?
+		WHERE code = 'spain'`, now)
+	if err != nil {
+		return fmt.Errorf("升级 FreightVanta 西班牙语首页 SEO: %w", err)
+	}
+	return nil
+}
+
+// migrateFreightVantaFrenchHomepageV33 installs the SEO copy that belongs to
+// the French “Atelier Maritime” homepage package. Administrator-written SEO
+// metadata remains authoritative; only blank values and the previous default
+// FreightVanta France values are replaced.
+func migrateFreightVantaFrenchHomepageV33(ctx context.Context, tx *sql.Tx) error {
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	_, err := tx.ExecContext(ctx, `UPDATE sites
+		SET seo_title = CASE
+				WHEN trim(seo_title) = '' OR seo_title = 'FreightVanta France | Sourcing, transport et fulfilment international'
+				THEN 'Sourcing en Chine, fret international et logistique e-commerce | FreightVanta'
+				ELSE seo_title
+			END,
+			seo_description = CASE
+				WHEN trim(seo_description) = '' OR seo_description = 'FreightVanta relie sourcing, transport maritime et aérien, préparation documentaire, stockage et fulfilment dans un parcours clair.'
+				THEN 'FreightVanta coordonne le sourcing produit en Chine, le fret maritime et aérien, la préparation des expéditions, l’entreposage, la logistique e-commerce et la livraison en France dans un plan d’expédition concret.'
+				ELSE seo_description
+			END,
+			version = version + 1,
+			updated_at = ?
+		WHERE code = 'france'`, now)
+	if err != nil {
+		return fmt.Errorf("升级 FreightVanta 法语首页 SEO: %w", err)
+	}
+	return nil
+}
+
+// migrateFreightVantaGermanHomepageV32 installs the SEO copy that belongs to
+// the German "Speicherstadt Präzision" homepage package. Only blank values or
+// the previous FreightVanta default are replaced; administrator-written SEO
+// metadata remains authoritative.
+func migrateFreightVantaGermanHomepageV32(ctx context.Context, tx *sql.Tx) error {
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	_, err := tx.ExecContext(ctx, `UPDATE sites
+		SET seo_title = CASE
+				WHEN trim(seo_title) = '' OR seo_title = 'FreightVanta Deutschland | Internationale Fracht und Fulfillment'
+				THEN 'China-Beschaffung, internationale Fracht & Fulfillment | FreightVanta'
+				ELSE seo_title
+			END,
+			seo_description = CASE
+				WHEN trim(seo_description) = '' OR seo_description = 'FreightVanta koordiniert Beschaffung, See- und Luftfracht, Zollinformationen, Lager und Fulfillment für klare internationale Lieferketten.'
+				THEN 'FreightVanta koordiniert Produktbeschaffung in China, See- und Luftfracht, Versandvorbereitung, Lagerung, Fulfillment und die Zustellung nach Deutschland in einem praktikablen Versandplan.'
+				ELSE seo_description
+			END,
+			version = version + 1,
+			updated_at = ?
+		WHERE code = 'germany'`, now)
+	if err != nil {
+		return fmt.Errorf("升级 FreightVanta 德语首页 SEO: %w", err)
+	}
+	return nil
+}
+
+// migrateFreightVantaLocalizedSitesV31 replaces only the old default names
+// for the five localized FreightVanta sites. Existing custom names and SEO
+// values stay untouched; blank default SEO fields are populated so homepage
+// metadata, Open Graph, and JSON-LD stay consistent with the public brand.
+func migrateFreightVantaLocalizedSitesV31(ctx context.Context, tx *sql.Tx) error {
+	type siteSEO struct{ code, previousName, name, title, description string }
+	sites := []siteSEO{
+		{"germany", "Global Route Deutschland", "FreightVanta Deutschland", "FreightVanta Deutschland | Internationale Fracht und Fulfillment", "FreightVanta koordiniert Beschaffung, See- und Luftfracht, Zollinformationen, Lager und Fulfillment für klare internationale Lieferketten."},
+		{"france", "Global Route France", "FreightVanta France", "FreightVanta France | Sourcing, transport et fulfilment international", "FreightVanta relie sourcing, transport maritime et aérien, préparation documentaire, stockage et fulfilment dans un parcours clair."},
+		{"spain", "Global Route España", "FreightVanta España", "FreightVanta España | Sourcing, transporte y fulfillment internacional", "Coordina sourcing, transporte marítimo y aéreo, documentación, almacén y fulfillment con un plan claro para tu cadena logística."},
+		{"italy", "Global Route Italia", "FreightVanta Italia", "FreightVanta Italia | Sourcing, trasporto e fulfillment internazionale", "FreightVanta coordina sourcing, trasporto via mare e aereo, dati doganali, magazzino e fulfillment in un unico flusso operativo."},
+		{"netherlands", "Global Route Nederland", "FreightVanta Nederland", "FreightVanta Nederland | Internationale vracht en fulfillment", "FreightVanta coördineert sourcing, zee- en luchtvracht, douanedocumenten, opslag en fulfillment in één duidelijke logistieke route."},
+	}
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	for _, site := range sites {
+		if _, err := tx.ExecContext(ctx, `UPDATE sites
+			SET name = ?,
+				seo_title = CASE WHEN trim(seo_title) = '' THEN ? ELSE seo_title END,
+				seo_description = CASE WHEN trim(seo_description) = '' THEN ? ELSE seo_description END,
+				version = version + 1,
+				updated_at = ?
+			WHERE code = ? AND name = ?`, site.name, site.title, site.description, now, site.code, site.previousName); err != nil {
+			return fmt.Errorf("升级 FreightVanta 本地化站点 %s: %w", site.code, err)
+		}
+	}
+	return nil
 }
 
 // migrateStarterThemeCopiesV30 permits several independently editable template

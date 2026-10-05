@@ -1,0 +1,69 @@
+{{define "public-reference.html"}}
+<!doctype html>
+<html lang="{{.Locale}}" dir="{{.Direction}}" data-site="{{.LanguageCode}}" data-default-site="{{.LanguageCode}}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{{.PageTitle}}</title>
+    <meta name="description" content="{{.MetaDescription}}">
+    <meta name="theme-color" content="{{.ThemeColor}}">
+    {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}"><link rel="apple-touch-icon" href="{{.FaviconURL}}">{{end}}
+    {{if .Preview}}<meta name="robots" content="noindex,nofollow">{{else if .RobotsIndex}}<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">{{else}}<meta name="robots" content="noindex,follow">{{end}}
+    {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}">{{end}}
+    {{range .Hreflangs}}{{if .URL}}<link rel="alternate" hreflang="{{.Locale}}" href="{{.URL}}">{{end}}{{end}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{.SiteName}}">
+    <meta property="og:locale" content="{{.Locale}}">
+    <meta property="og:title" content="{{.OGTitle}}">
+    <meta property="og:description" content="{{.OGDescription}}">
+    {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}">{{end}}
+    {{if .SocialImageURL}}<meta property="og:image" content="{{.SocialImageURL}}"><meta property="og:image:alt" content="{{.Copy.HeroTitle}}">{{end}}
+    <meta name="twitter:card" content="{{if .SocialImageURL}}summary_large_image{{else}}summary{{end}}">
+    <meta name="twitter:title" content="{{.OGTitle}}">
+    <meta name="twitter:description" content="{{.OGDescription}}">
+    {{if .SocialImageURL}}<meta name="twitter:image" content="{{.SocialImageURL}}">{{end}}
+    <script type="application/ld+json">{{.StructuredData}}</script>
+    <link rel="stylesheet" href="/assets/freightvanta-template/assets/app.css?v=20260930.7">
+    <script type="module" src="/assets/freightvanta-template/assets/app.js?v=20260930.7"></script>
+  </head>
+  <body class="fv-reference-template fv-{{.LanguageCode}}-react-template">
+    <div id="root">
+      <main id="{{.LanguageCode}}-static-content">
+        <section aria-labelledby="{{.LanguageCode}}-static-title">
+          <p>{{.Copy.HeroKicker}}</p>
+          <h1 id="{{.LanguageCode}}-static-title">{{.Copy.HeroTitle}}</h1>
+          <p>{{.Copy.HeroBody}}</p>
+        </section>
+        <section>
+          <h2>{{.Copy.ServicesTitle}}</h2>
+          <p>{{.Copy.ServicesBody}}</p>
+          {{range .Copy.Services}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.AdvantagesTitle}}</h2>
+          {{range .Copy.Advantages}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.ProcessTitle}}</h2>
+          <p>{{.Copy.ProcessBody}}</p>
+          {{range .Copy.ProcessSteps}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.IndustriesTitle}}</h2>
+          <p>{{.Copy.IndustriesBody}}</p>
+          {{range .Copy.Industries}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
+        </section>
+        <section>
+          <h2>{{.Copy.GuidesTitle}}</h2>
+          <p>{{.Copy.GuidesBody}}</p>
+        </section>
+        <section>
+          <h2>{{.Copy.FAQTitle}}</h2>
+          {{range .Copy.FAQs}}<article><h3>{{.Question}}</h3><p>{{.Answer}}</p></article>{{end}}
+        </section>
+      </main>
+    </div>
+    <noscript>{{.Copy.MaintenanceBody}}</noscript>
+  </body>
+</html>
+{{end}}

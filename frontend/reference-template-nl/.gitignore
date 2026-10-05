@@ -1,0 +1,14 @@
+# Dependencies & build output (also excluded from Tailwind's automatic source detection)
+node_modules
+dist
+dist-ssr
+*.local
+
+# Logs & editor files
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea

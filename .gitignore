@@ -10,6 +10,11 @@ coverage.out
 .DS_Store
 .env
 /var/secrets/
+/frontend/node_modules/
+/frontend/reference-template/node_modules/
+/frontend/reference-template/dist/
+/frontend/reference-template-nl/node_modules/
+/frontend/reference-template-nl/dist/
 
 # Local test runs, downloaded toolchains, generated screenshots and image probes.
 /tmp/

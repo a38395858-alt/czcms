@@ -105,6 +105,8 @@ type adminPageData struct {
 type publicCopy struct {
 	LanguageName     string
 	NavServices      string
+	NavIndustries    string
+	NavProcess       string
 	NavGuides        string
 	NavAbout         string
 	NavContact       string
@@ -114,8 +116,10 @@ type publicCopy struct {
 	HeroBody         string
 	HeroPrimary      string
 	HeroSecondary    string
+	HeroMicrocopy    string
 	TrustLabel       string
 	TrustValue       string
+	TrustItems       []string
 	ServicesKicker   string
 	ServicesTitle    string
 	ServicesBody     string
@@ -128,6 +132,7 @@ type publicCopy struct {
 	GuidesKicker     string
 	GuidesTitle      string
 	GuidesBody       string
+	GuidesLinks      []string
 	ReadMore         string
 	NoGuides         string
 	ContactKicker    string
@@ -148,6 +153,76 @@ type publicCopy struct {
 	ArticleMinute    string
 	ArticleTags      string
 	ArticleRelated   string
+	Services         []publicServiceItem
+	AdvantagesTitle  string
+	Advantages       []publicAdvantageItem
+	ProcessTitle     string
+	ProcessBody      string
+	ProcessSteps     []publicProcessStep
+	IndustriesTitle  string
+	IndustriesBody   string
+	Industries       []publicIndustryItem
+	FAQTitle         string
+	FAQs             []publicFAQItem
+	// Fixed-page labels keep the service and industry templates fully
+	// localised instead of leaking English shell text into translated routes.
+	PageHome         string
+	PageServices     string
+	PageIndustries   string
+	PageSolutions    string
+	PageWorkflow     string
+	PageScope        string
+	PageGuides       string
+	PageContact      string
+	PageDecision     string
+	PageFits         string
+	PageNeeds        string
+	PageBenefits     string
+	PageIncluded     string
+	PageConfirm      string
+	PageFAQTitle     string
+	PageFAQLead      string
+	PageRelatedBack  string
+	PageBackTop      string
+	PageRelatedTitle string
+	FixedFooter      string
+}
+
+type publicServiceItem struct {
+	Label     string
+	Title     string
+	Body      string
+	LinkLabel string
+}
+
+type publicAdvantageItem struct {
+	Title string
+	Body  string
+}
+
+type publicProcessStep struct {
+	Title  string
+	Body   string
+	Marker string
+}
+
+type publicIndustryItem struct {
+	Title string
+	Body  string
+}
+
+type publicFAQItem struct {
+	Question string
+	Answer   string
+}
+
+func isFreightVantaReferenceLanguage(languageCode string) bool {
+	switch strings.ToLower(strings.TrimSpace(languageCode)) {
+	case "de", "fr", "es", "it":
+		return true
+	default:
+		return false
+	}
 }
 
 type publicLanguageData struct {
@@ -198,6 +273,20 @@ type publicContentData struct {
 	Body    template.HTML
 }
 
+// publicGuideIndexCopy is the localized editorial shell used by the full
+// insights/guide index. It intentionally lives beside the existing home copy
+// so each market can keep its own voice while sharing the same content data.
+type publicGuideIndexCopy struct {
+	Kicker, Title, Body                                          string
+	FeaturedLabel, FeaturedTitle, FeaturedBody                   string
+	LatestLabel, ReadLatest, BrowseTopics                        string
+	ExplainLabel, MoreTitle, MoreBody                            string
+	NewsletterKicker, NewsletterTitle, NewsletterBody, Subscribe string
+	Topics                                                       []string
+	FallbackTitles                                               []string
+	FallbackBodies                                               []string
+}
+
 type publicFormField struct {
 	Key, Type, Label, Placeholder, HelpText string
 	Options                                 []string
@@ -215,21 +304,26 @@ type publicFormData struct {
 }
 
 type publicSitePageData struct {
-	SiteName     string
-	MarketCode   string
-	SiteCode     string
-	CanonicalURL string
-	RedirectURL  string
-	Preview      bool
-	Maintenance  bool
-	NotFound     bool
-	IsHome       bool
-	IsTaxonomy   bool
-	TaxonomyKind string
-	TaxonomyName string
-	HasContent   bool
-	BasePath     string
-	HomePath     string
+	SiteName           string
+	MarketCode         string
+	SiteCode           string
+	CanonicalURL       string
+	RedirectURL        string
+	Preview            bool
+	Maintenance        bool
+	NotFound           bool
+	IsHome             bool
+	IsProductSourcing  bool
+	IsServiceTopic     bool
+	IsIndustrySolution bool
+	IsGuideIndex       bool
+	IsTaxonomy         bool
+	TaxonomyKind       string
+	TaxonomyName       string
+	HasContent         bool
+	BasePath           string
+	HomePath           string
+	GuideIndexPath     string
 	// CurrentPath is the public route currently being rendered (including the
 	// locale and preview prefixes when applicable). It is separate from
 	// CanonicalURL because previews suppress canonical links while JSON-LD
@@ -239,31 +333,35 @@ type publicSitePageData struct {
 	// an explicit canonical URL (notably local site ports). It keeps JSON-LD
 	// resource and entity URLs absolute while canonical tags remain suppressed
 	// for noindex previews.
-	PublicOrigin    string
-	Locale          string
-	LanguageCode    string
-	LanguageName    string
-	Direction       string
-	PageTitle       string
-	MetaDescription string
-	OGTitle         string
-	OGDescription   string
-	SocialImageURL  string
-	RobotsIndex     bool
-	Copy            publicCopy
-	Languages       []publicLanguageData
-	Hreflangs       []publicHreflang
-	Published       []publicContentData
-	Related         []publicContentData
-	Content         publicContentData
-	StructuredData  template.JS
-	ThemeID         int64
-	ThemeName       string
-	ThemeVersion    string
-	ThemeKey        string
-	ThemeColor      string
-	FaviconURL      string
-	Form            *publicFormData
+	PublicOrigin     string
+	Locale           string
+	LanguageCode     string
+	LanguageName     string
+	Direction        string
+	PageTitle        string
+	MetaDescription  string
+	OGTitle          string
+	OGDescription    string
+	SocialImageURL   string
+	RobotsIndex      bool
+	Copy             publicCopy
+	ProductSourcing  publicProductSourcingCopy
+	Languages        []publicLanguageData
+	Hreflangs        []publicHreflang
+	Published        []publicContentData
+	Related          []publicContentData
+	Content          publicContentData
+	ServiceTopic     publicServiceTopicCopy
+	IndustrySolution publicIndustrySolutionCopy
+	GuideIndex       publicGuideIndexCopy
+	StructuredData   template.JS
+	ThemeID          int64
+	ThemeName        string
+	ThemeVersion     string
+	ThemeKey         string
+	ThemeColor       string
+	FaviconURL       string
+	Form             *publicFormData
 }
 
 func New(deps Dependencies) http.Handler {
@@ -569,6 +667,12 @@ func (s *server) contentPreview(w http.ResponseWriter, r *http.Request) {
 	if data.ThemeKey == "atlas-commerce" {
 		templateName = "public-atlas.html"
 	}
+	if data.IsHome && data.ThemeKey != "atlas-commerce" && isFreightVantaReferenceLanguage(data.LanguageCode) {
+		templateName = "public-reference.html"
+	}
+	if data.ThemeKey != "atlas-commerce" && strings.EqualFold(data.LanguageCode, "nl") && (data.IsHome || data.IsServiceTopic || data.IsIndustrySolution) {
+		templateName = "public-nl.html"
+	}
 	if err = s.Template.ExecuteTemplate(w, templateName, data); err != nil {
 		s.Logger.Error("渲染内容前台预览失败", "error", err, "content_id", contentID, "site_id", siteID, "locale", locale)
 	}
@@ -715,6 +819,12 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 	if data.ThemeKey == "atlas-commerce" {
 		templateName = "public-atlas.html"
 	}
+	if data.IsHome && data.ThemeKey != "atlas-commerce" && isFreightVantaReferenceLanguage(data.LanguageCode) {
+		templateName = "public-reference.html"
+	}
+	if data.ThemeKey != "atlas-commerce" && strings.EqualFold(data.LanguageCode, "nl") && (data.IsHome || data.IsServiceTopic || data.IsIndustrySolution) {
+		templateName = "public-nl.html"
+	}
 	if err := s.Template.ExecuteTemplate(w, templateName, data); err != nil {
 		s.Logger.Error("渲染公开站点失败", "error", err, "request_id", middleware.GetReqID(r.Context()))
 		return
@@ -759,6 +869,18 @@ func (s *server) trackSpiderRequest(r *http.Request, site catalog.Site, preview 
 func publicPageKind(data publicSitePageData) string {
 	if data.NotFound {
 		return "404 页面"
+	}
+	if data.IsProductSourcing {
+		return "产品采购专题页"
+	}
+	if data.IsServiceTopic {
+		return "国际物流服务专题页"
+	}
+	if data.IsIndustrySolution {
+		return "跨境电商行业方案页"
+	}
+	if data.IsGuideIndex {
+		return "文章栏目页"
 	}
 	if data.IsHome {
 		return "首页"
@@ -846,14 +968,53 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 	data := publicSitePageData{
 		SiteName: site.Name, MarketCode: site.MarketCode, SiteCode: site.Code, CanonicalURL: canonical,
 		Preview: preview, Maintenance: site.Status == "maintenance", IsHome: slug == "", BasePath: basePath,
-		CurrentPath: publicURL(basePath, localeIf(includeLocale, locale), slug),
-		HomePath:    publicURL(basePath, localeIf(includeLocale, locale), ""), PublicOrigin: publicOrigin,
-		Locale: locale, LanguageCode: lang.LanguageCode, LanguageName: lang.NativeName, Direction: lang.Direction, Copy: copy,
+		CurrentPath:    publicURL(basePath, localeIf(includeLocale, locale), slug),
+		HomePath:       publicURL(basePath, localeIf(includeLocale, locale), ""),
+		GuideIndexPath: publicURL(basePath, localeIf(includeLocale, locale), "guides"),
+		PublicOrigin:   publicOrigin,
+		Locale:         locale, LanguageCode: lang.LanguageCode, LanguageName: lang.NativeName, Direction: lang.Direction, Copy: copy,
 		PageTitle: firstNonEmpty(site.SEOTitle, copy.HeroTitle), MetaDescription: defaultDescription, OGTitle: firstNonEmpty(site.SEOTitle, copy.HeroTitle), OGDescription: defaultDescription, RobotsIndex: true,
 		ThemeID: themePackage.ID, ThemeName: themePackage.Name, ThemeVersion: themePackage.Version, ThemeKey: themePackage.RenderKey, ThemeColor: publicThemeColor(themePackage.RenderKey),
 		FaviconURL: site.FaviconURL,
 	}
 	if slug != "" {
+		if slug == productSourcingSlug || strings.EqualFold(strings.Trim(slug, "/"), "ProductService/Sourcing") {
+			s.configureProductSourcingPage(r, &data, site, preview, network)
+			return data, http.StatusOK
+		}
+		if strings.EqualFold(strings.Trim(slug, "/"), "guides") || strings.EqualFold(strings.Trim(slug, "/"), "articles") || strings.EqualFold(strings.Trim(slug, "/"), "insights") {
+			items, listErr := s.Catalog.ListPublishedContent(r.Context(), site.ID, locale, 48)
+			if listErr != nil && !errors.Is(listErr, catalog.ErrNotFound) {
+				return publicSitePageData{}, http.StatusServiceUnavailable
+			}
+			data.IsHome = false
+			data.IsGuideIndex = true
+			data.GuideIndex = guideIndexCopyFor(locale)
+			data.PageTitle = data.GuideIndex.Title + " | " + site.Name
+			data.MetaDescription = data.GuideIndex.Body
+			data.OGTitle = data.PageTitle
+			data.OGDescription = data.MetaDescription
+			data.HasContent = len(items) > 0
+			data.Published = data.Published[:0]
+			for _, item := range items {
+				data.Published = append(data.Published, publicContent(item, publicURL(basePath, localeIf(includeLocale, locale), item.Slug)))
+			}
+			s.populatePublicNetworkForFixedPath(r, &data, site, preview, network, "guides")
+			if preview {
+				data.CanonicalURL = ""
+			}
+			data.StructuredData = template.JS(publicJSONLD(data, site))
+			return data, http.StatusOK
+		}
+		if industrySolution, ok := industrySolutionCopyForSlug(slug); ok {
+			s.configureIndustrySolutionPage(&data, site, preview, industrySolution)
+			s.populatePublicNetworkForFixedPath(r, &data, site, preview, network, industrySolution.Slug)
+			return data, http.StatusOK
+		}
+		if copy, ok := serviceTopicCopyForSlug(slug); ok {
+			s.configureServiceTopicPage(r, &data, site, preview, network, copy)
+			return data, http.StatusOK
+		}
 		content, contentErr := s.Catalog.GetPublishedContentByPath(r.Context(), site.ID, locale, slug)
 		if errors.Is(contentErr, catalog.ErrNotFound) {
 			if taxonomyKind, taxonomySlug, taxonomyOK := parsePublicTaxonomyPath(slug); taxonomyOK {
@@ -1221,6 +1382,8 @@ func publicSchemaURL(data publicSitePageData) string {
 	var candidate string
 	if data.IsTaxonomy || data.NotFound {
 		candidate = firstNonEmpty(data.CanonicalURL, data.CurrentPath, data.HomePath)
+	} else if data.IsProductSourcing || data.IsServiceTopic || data.IsIndustrySolution {
+		candidate = firstNonEmpty(data.CanonicalURL, data.CurrentPath, data.HomePath)
 	} else if data.HasContent && !data.IsHome {
 		candidate = firstNonEmpty(data.CanonicalURL, data.Content.URL)
 	} else {
@@ -1299,7 +1462,13 @@ func publicSchemaWebsite(site catalog.Site, pageURL string, organization map[str
 func publicSchemaBreadcrumb(site catalog.Site, data publicSitePageData, pageURL string) map[string]any {
 	homeURL := firstNonEmpty(publicSchemaOrigin(pageURL)+"/", data.HomePath)
 	name := data.TaxonomyName
-	if data.HasContent && !data.IsHome {
+	if data.IsProductSourcing {
+		name = data.ProductSourcing.HeroTitle
+	} else if data.IsServiceTopic {
+		name = data.ServiceTopic.HeroTitle
+	} else if data.IsIndustrySolution {
+		name = data.IndustrySolution.HeroTitle
+	} else if data.HasContent && !data.IsHome {
 		name = firstNonEmpty(data.Content.H1, data.Content.Title)
 	}
 	items := []any{map[string]any{"@type": "ListItem", "position": 1, "name": site.Name, "item": homeURL}}
@@ -1399,6 +1568,136 @@ func publicSchemaKeywords(content publicContentData) []string {
 	return keywords
 }
 
+func publicProductSourcingServiceSchema(data publicSitePageData, pageURL string, organization map[string]any) map[string]any {
+	copy := data.ProductSourcing
+	service := map[string]any{
+		"@type":       "Service",
+		"name":        copy.HeroTitle,
+		"description": copy.SEODescription,
+		"serviceType": copy.HeroKicker,
+		"inLanguage":  data.Locale,
+		"provider":    organization,
+	}
+	if id := publicSchemaEntityID(pageURL, "service"); id != "" {
+		service["@id"] = id
+	}
+	if pageURL != "" {
+		service["url"] = pageURL
+		service["mainEntityOfPage"] = map[string]any{"@id": firstNonEmpty(publicSchemaEntityID(pageURL, "webpage"), pageURL)}
+	}
+	if len(copy.SEOKeywords) > 0 {
+		service["keywords"] = copy.SEOKeywords
+	}
+	return service
+}
+
+func publicProductSourcingFAQSchema(data publicSitePageData, pageURL string) map[string]any {
+	questions := make([]any, 0, len(data.ProductSourcing.FAQs))
+	for _, item := range data.ProductSourcing.FAQs {
+		if strings.TrimSpace(item.Question) == "" || strings.TrimSpace(item.Answer) == "" {
+			continue
+		}
+		questions = append(questions, map[string]any{
+			"@type": "Question",
+			"name":  item.Question,
+			"acceptedAnswer": map[string]any{
+				"@type": "Answer",
+				"text":  item.Answer,
+			},
+		})
+	}
+	if len(questions) == 0 {
+		return nil
+	}
+	faq := map[string]any{"@type": "FAQPage", "mainEntity": questions, "inLanguage": data.Locale}
+	if id := publicSchemaEntityID(pageURL, "faq"); id != "" {
+		faq["@id"] = id
+	}
+	if pageURL != "" {
+		faq["url"] = pageURL + "#faq"
+	}
+	return faq
+}
+
+func publicServiceTopicServiceSchema(data publicSitePageData, pageURL string, organization map[string]any) map[string]any {
+	copy := data.ServiceTopic
+	service := map[string]any{
+		"@type":       "Service",
+		"name":        copy.HeroTitle,
+		"description": copy.SEODescription,
+		"serviceType": copy.HeroKicker,
+		"inLanguage":  data.Locale,
+		"provider":    organization,
+	}
+	if id := publicSchemaEntityID(pageURL, "service"); id != "" {
+		service["@id"] = id
+	}
+	if pageURL != "" {
+		service["url"] = pageURL
+		service["mainEntityOfPage"] = map[string]any{"@id": firstNonEmpty(publicSchemaEntityID(pageURL, "webpage"), pageURL)}
+	}
+	if len(copy.SEOKeywords) > 0 {
+		service["keywords"] = copy.SEOKeywords
+	}
+	return service
+}
+
+func publicServiceTopicFAQSchema(data publicSitePageData, pageURL string) map[string]any {
+	questions := make([]any, 0, len(data.ServiceTopic.FAQs))
+	for _, item := range data.ServiceTopic.FAQs {
+		if strings.TrimSpace(item.Question) == "" || strings.TrimSpace(item.Answer) == "" {
+			continue
+		}
+		questions = append(questions, map[string]any{
+			"@type": "Question",
+			"name":  item.Question,
+			"acceptedAnswer": map[string]any{
+				"@type": "Answer",
+				"text":  item.Answer,
+			},
+		})
+	}
+	if len(questions) == 0 {
+		return nil
+	}
+	faq := map[string]any{"@type": "FAQPage", "mainEntity": questions, "inLanguage": data.Locale}
+	if id := publicSchemaEntityID(pageURL, "faq"); id != "" {
+		faq["@id"] = id
+	}
+	if pageURL != "" {
+		faq["url"] = pageURL + "#faq"
+	}
+	return faq
+}
+
+func publicIndustrySolutionFAQSchema(data publicSitePageData, pageURL string) map[string]any {
+	questions := make([]any, 0, len(data.IndustrySolution.FAQs))
+	for _, item := range data.IndustrySolution.FAQs {
+		if strings.TrimSpace(item.Question) == "" || strings.TrimSpace(item.Answer) == "" {
+			continue
+		}
+		questions = append(questions, map[string]any{
+			"@type": "Question",
+			"name":  item.Question,
+			"acceptedAnswer": map[string]any{
+				"@type": "Answer",
+				"text":  item.Answer,
+			},
+		})
+	}
+	if len(questions) == 0 {
+		return nil
+	}
+	faq := map[string]any{"@type": "FAQPage", "mainEntity": questions, "inLanguage": data.Locale}
+	if id := publicSchemaEntityID(pageURL, "faq"); id != "" {
+		faq["@id"] = id
+	}
+	if pageURL != "" {
+		faq["url"] = pageURL + "#faq"
+	}
+	return faq
+}
+
 func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 	pageURL := publicSchemaURL(data)
 	organization := publicSchemaOrganization(site, pageURL)
@@ -1421,6 +1720,27 @@ func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 		if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
 			obj["@id"] = id
 			obj["url"] = pageURL
+		}
+	} else if data.IsGuideIndex {
+		obj = map[string]any{
+			"@context": "https://schema.org", "@type": "CollectionPage", "url": pageURL,
+			"name": data.PageTitle, "description": data.MetaDescription, "inLanguage": data.Locale,
+			"isPartOf": website, "about": organization, "publisher": organization, "breadcrumb": publicSchemaBreadcrumb(site, data, pageURL),
+		}
+		if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
+			obj["@id"] = id
+		}
+		list := make([]any, 0, len(data.Published))
+		for index, item := range data.Published {
+			entry := map[string]any{"@type": "ListItem", "position": index + 1, "name": firstNonEmpty(item.Title, item.H1)}
+			if item.URL != "" {
+				itemURL := publicSchemaAbsoluteURL(pageURL, item.URL)
+				entry["item"], entry["url"] = itemURL, itemURL
+			}
+			list = append(list, entry)
+		}
+		if len(list) > 0 {
+			obj["mainEntity"] = map[string]any{"@type": "ItemList", "numberOfItems": len(list), "itemListElement": list}
 		}
 	} else if data.IsTaxonomy {
 		obj = map[string]any{
@@ -1447,6 +1767,64 @@ func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 		}
 		if len(list) > 0 {
 			obj["mainEntity"] = map[string]any{"@type": "ItemList", "numberOfItems": len(list), "itemListElement": list}
+		}
+	} else if data.IsProductSourcing {
+		obj = map[string]any{
+			"@context": "https://schema.org", "@type": "WebPage", "url": pageURL,
+			"name": data.PageTitle, "description": data.MetaDescription, "inLanguage": data.Locale,
+			"isPartOf": website, "about": organization, "publisher": organization, "breadcrumb": publicSchemaBreadcrumb(site, data, pageURL),
+		}
+		if len(data.ProductSourcing.SEOKeywords) > 0 {
+			obj["keywords"] = data.ProductSourcing.SEOKeywords
+		}
+		obj["mainEntity"] = publicProductSourcingServiceSchema(data, pageURL, organization)
+		if faq := publicProductSourcingFAQSchema(data, pageURL); faq != nil {
+			obj["hasPart"] = faq
+		}
+		if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
+			obj["@id"] = id
+		}
+		if images := publicSchemaImageObjects(data, pageURL); len(images) > 0 {
+			obj["primaryImageOfPage"] = images[0]
+		} else if heroImage := publicSchemaAbsoluteURL(pageURL, "/assets/images/freightvanta-service-product-sourcing-hero-v1.png"); heroImage != "" {
+			obj["primaryImageOfPage"] = map[string]any{"@type": "ImageObject", "url": heroImage}
+		}
+	} else if data.IsServiceTopic {
+		obj = map[string]any{
+			"@context": "https://schema.org", "@type": "WebPage", "url": pageURL,
+			"name": data.PageTitle, "description": data.MetaDescription, "inLanguage": data.Locale,
+			"isPartOf": website, "about": organization, "publisher": organization, "breadcrumb": publicSchemaBreadcrumb(site, data, pageURL),
+		}
+		if len(data.ServiceTopic.SEOKeywords) > 0 {
+			obj["keywords"] = data.ServiceTopic.SEOKeywords
+		}
+		obj["mainEntity"] = publicServiceTopicServiceSchema(data, pageURL, organization)
+		if faq := publicServiceTopicFAQSchema(data, pageURL); faq != nil {
+			obj["hasPart"] = faq
+		}
+		if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
+			obj["@id"] = id
+		}
+		if heroImage := publicSchemaAbsoluteURL(pageURL, "/assets/images/"+data.ServiceTopic.HeroImage); heroImage != "" {
+			obj["primaryImageOfPage"] = map[string]any{"@type": "ImageObject", "url": heroImage}
+		}
+	} else if data.IsIndustrySolution {
+		obj = map[string]any{
+			"@context": "https://schema.org", "@type": "WebPage", "url": pageURL,
+			"name": data.PageTitle, "description": data.MetaDescription, "inLanguage": data.Locale,
+			"isPartOf": website, "about": organization, "publisher": organization, "breadcrumb": publicSchemaBreadcrumb(site, data, pageURL),
+		}
+		if len(data.IndustrySolution.SEOKeywords) > 0 {
+			obj["keywords"] = data.IndustrySolution.SEOKeywords
+		}
+		if faq := publicIndustrySolutionFAQSchema(data, pageURL); faq != nil {
+			obj["hasPart"] = faq
+		}
+		if id := publicSchemaEntityID(pageURL, "webpage"); id != "" {
+			obj["@id"] = id
+		}
+		if heroImage := publicSchemaAbsoluteURL(pageURL, "/assets/images/"+data.IndustrySolution.HeroImage); heroImage != "" {
+			obj["primaryImageOfPage"] = map[string]any{"@type": "ImageObject", "url": heroImage}
 		}
 	} else if data.HasContent && !data.IsHome {
 		content := data.Content
@@ -2617,7 +2995,7 @@ func (s *server) securityHeaders(next http.Handler) http.Handler {
 		if previewFrame {
 			frameAncestors = "'self'"
 		}
-		w.Header().Set("Content-Security-Policy", "default-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors "+frameAncestors+"; base-uri 'none'; form-action 'self'; object-src 'none'")
+		w.Header().Set("Content-Security-Policy", "default-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' data: https://fonts.gstatic.com; script-src 'self'; img-src 'self' data: https://images.pexels.com; connect-src 'self'; frame-ancestors "+frameAncestors+"; base-uri 'none'; form-action 'self'; object-src 'none'")
 		if r.TLS != nil || s.Config.PublicHTTPS {
 			w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
 		}
@@ -2633,6 +3011,11 @@ func (s *server) staticAssets() http.Handler {
 			return
 		}
 		w.Header().Set("Cache-Control", "public, max-age=3600")
+		// Go's platform MIME registry can report the obsolete image/svg type on
+		// Windows. Browsers enforce the registered SVG type when nosniff is set.
+		if strings.HasSuffix(strings.ToLower(r.URL.Path), ".svg") {
+			w.Header().Set("Content-Type", "image/svg+xml")
+		}
 		files.ServeHTTP(w, r)
 	})
 }

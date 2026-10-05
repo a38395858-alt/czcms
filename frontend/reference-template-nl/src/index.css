@@ -1,0 +1,531 @@
+/* Scan only application source — never the previous build output in /dist. */
+@import "tailwindcss" source("../src");
+
+/* ------------------------------------------------------------------
+   FreightVanta — English Global · "Pacific Operations" design tokens
+   Deep navy carries structure, signal blue marks links/focus/selection,
+   safety orange is reserved for decisive CTAs and route nodes.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Barlow Semi Condensed", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  /* German template headlines — editorial serif, clearly distinct from the EN condensed display face. */
+  --font-serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  /* French template headlines — geometric poster face (Futura spirit). */
+  --font-poster: "Jost", "Futura", "Century Gothic", ui-sans-serif, sans-serif;
+  /* Spanish template headlines — chunky, warm grotesque. */
+  --font-bricolage: "Bricolage Grotesque", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Italian template headlines — high-contrast Didone in the Bodoni tradition. */
+  --font-bodoni: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif;
+  /* Dutch template headlines — heavy grotesque in the Rotterdam-signage spirit. */
+  --font-archivo: "Archivo Black", "Arial Black", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-navy-950: #050f1f;
+  --color-navy-900: #0a1b33;
+  --color-navy-850: #0e2240;
+  --color-navy-800: #12294a;
+  --color-navy-700: #1b375e;
+  --color-navy-600: #2a4a76;
+  --color-navy-500: #3d5f8f;
+  --color-navy-400: #5a7396;
+  --color-navy-300: #9db0c9;
+  --color-navy-200: #c3d0e0;
+  --color-navy-100: #dfe7f1;
+
+  --color-signal-800: #0f4499;
+  --color-signal-700: #1552b8;
+  --color-signal-600: #1a64d6;
+  --color-signal-500: #2f7df6;
+  --color-signal-300: #7fb2ff;
+  --color-signal-200: #b3d1ff;
+
+  --color-safety-600: #f06a0a;
+  --color-safety-500: #ff7a1a;
+  --color-safety-400: #ff9142;
+
+  --color-mist-50: #f5f8fc;
+  --color-mist-100: #eaf1f9;
+  --color-mist-150: #e4edf8;
+  --color-mist-200: #d7e3f1;
+  --color-mist-300: #bccfe5;
+
+  /* German site · "Speicherstadt Präzision": paper + graphite + brick red + petrol. */
+  --color-paper-25: #fbfaf7;
+  --color-paper-50: #f6f4ee;
+  --color-paper-100: #eeebe1;
+  --color-line-200: #e2ded2;
+  --color-line-300: #cfcaba;
+  --color-graphite-900: #16181c;
+  --color-graphite-800: #23262c;
+  --color-graphite-700: #31353d;
+  --color-graphite-500: #5a606a;
+  --color-graphite-400: #767d88;
+  --color-graphite-200: #c6cad1;
+  --color-brick-700: #8f2814;
+  --color-brick-600: #a83019;
+  --color-brick-500: #bd3c1f;
+  --color-petrol-800: #0b4d54;
+  --color-petrol-700: #0e5f66;
+  --color-petrol-300: #7fc2c6;
+
+  /* French site · « Affiche Atlantique »: crème + encre + bleu de France + safran. */
+  --color-creme-25: #fdfbf6;
+  --color-creme-50: #f9f5eb;
+  --color-creme-100: #f2ecdc;
+  --color-sable-200: #e6ddc7;
+  --color-sable-300: #d3c7a7;
+  --color-encre-900: #131f38;
+  --color-encre-800: #1b2b4d;
+  --color-encre-700: #263a66;
+  --color-encre-500: #536080;
+  --color-encre-400: #6f7c9c;
+  --color-encre-200: #c4cbdd;
+  --color-bleufr-700: #1d4ec0;
+  --color-bleufr-600: #2660e4;
+  --color-bleufr-500: #3d75f0;
+  --color-bleufr-100: #dbe6fb;
+  --color-safran-600: #c9860a;
+  --color-safran-500: #e39d14;
+  --color-safran-300: #f2c968;
+
+  /* Spanish site · « Mediterráneo Azulejo »: arena + carbón cálido + azulejo, sol, terracota, olivo. */
+  --color-arena-50: #fbf5e6;
+  --color-arena-100: #f5ebd3;
+  --color-arena-200: #ebdcbb;
+  --color-arena-300: #d8c496;
+  --color-carbon-900: #231a14;
+  --color-carbon-800: #372a21;
+  --color-carbon-600: #5a4a3d;
+  --color-azul-800: #123483;
+  --color-azul-700: #1b46a8;
+  --color-azul-600: #2b5cc9;
+  --color-sol-500: #f5ac00;
+  --color-sol-400: #ffc21a;
+  --color-sol-300: #ffd561;
+  --color-terra-700: #983718;
+  --color-terra-600: #b8451f;
+  --color-olivo-700: #4a5a23;
+  --color-granada-700: #8e2a4a;
+  --color-cielo-200: #cfe0f7;
+
+  /* Italian site · « Piazza Italiana »: avorio + verde bottiglia + rosso pompeiano + oro. */
+  --color-avorio-50: #faf7f0;
+  --color-avorio-100: #f3ecdd;
+  --color-avorio-200: #e8dcc3;
+  --color-avorio-300: #d6c6a1;
+  --color-verde-950: #0f231b;
+  --color-verde-900: #143327;
+  --color-verde-800: #1e3d2f;
+  --color-verde-700: #2a5340;
+  --color-rosso-700: #8c1f26;
+  --color-rosso-600: #a3262a;
+  --color-oro-500: #c9a227;
+  --color-oro-300: #e3c878;
+  --color-fumo-600: #5c5a54;
+
+  /* Dutch site · « Deltaraster »: getij + dijk + Delfts blauw, poldergroen, oranje. */
+  --color-getij-50: #f2f5f8;
+  --color-getij-100: #e7edf3;
+  --color-getij-200: #d4dee9;
+  --color-getij-300: #b4c3d3;
+  --color-dijk-950: #0b2428;
+  --color-dijk-900: #10333a;
+  --color-dijk-800: #17444d;
+  --color-lei-600: #4d5a66;
+  --color-delfts-800: #163d82;
+  --color-delfts-700: #1e4fa1;
+  --color-delfts-600: #2b63c4;
+  --color-polder-800: #0a5a3e;
+  --color-polder-700: #0d6f4c;
+  --color-oranje-600: #c2510a;
+  --color-oranje-500: #e85d04;
+  --color-oranje-300: #ffab6b;
+
+  --animate-route-flow: route-flow 3.4s linear infinite;
+  --animate-panel-in: panel-in 0.28s ease-out both;
+
+  @keyframes route-flow {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(400%);
+    }
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0.001;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-navy-800);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-signal-200);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-signal-500);
+    outline-offset: 3px;
+  }
+
+  /* Anchor targets stay visible below the sticky header. */
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  .shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 80rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 80rem) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: "";
+    flex: none;
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.75;
+  }
+
+  .h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.05rem, 1.35rem + 2.3vw, 3.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 3px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--color-safety-500);
+    color: var(--color-navy-950);
+    box-shadow: inset 0 -2px 0 rgb(5 15 31 / 0.16);
+  }
+  .btn-primary:hover {
+    background: var(--color-safety-400);
+  }
+  .btn-dark {
+    background: var(--color-navy-900);
+    color: #ffffff;
+  }
+  .btn-dark:hover {
+    background: var(--color-navy-700);
+  }
+  .btn-outline {
+    border: 1px solid var(--color-navy-300);
+    background: #ffffff;
+    color: var(--color-navy-900);
+  }
+  .btn-outline:hover {
+    border-color: var(--color-navy-900);
+  }
+  .btn-ghost-light {
+    border: 1px solid rgb(255 255 255 / 0.35);
+    color: #ffffff;
+  }
+  .btn-ghost-light:hover {
+    border-color: #ffffff;
+    background: rgb(255 255 255 / 0.06);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-signal-700);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(21 82 184 / 0.35);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .text-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Structured grid lines for navy operational surfaces. */
+  .bg-route-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    -webkit-mask-image: radial-gradient(ellipse at 70% 20%, #000 15%, transparent 72%);
+    mask-image: radial-gradient(ellipse at 70% 20%, #000 15%, transparent 72%);
+  }
+
+  .tab-strip {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-mist-300) transparent;
+  }
+
+  /* German template: fine technical-drawing grid on paper. */
+  .bg-din-grid {
+    background-image:
+      linear-gradient(to right, rgb(22 24 28 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(22 24 28 / 0.045) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Spanish kicker: petal-shaped tile marker + label. */
+  .es-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-bricolage);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .es-kicker::before {
+    content: "";
+    flex: none;
+    width: 0.7rem;
+    height: 0.7rem;
+    background: currentColor;
+    border-radius: 60% 0 60% 0;
+  }
+
+  /* Azulejo band: a repeating row of glazed tiles used as a section divider. */
+  .azulejo-strip {
+    height: 20px;
+    background-color: #f5ebd3;
+    background-repeat: repeat-x;
+    background-size: 20px 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Crect width='20' height='20' fill='%23f5ebd3'/%3E%3Cpath d='M10 1.5 18.5 10 10 18.5 1.5 10Z' fill='%231b46a8'/%3E%3Cpath d='M10 5.5 14.5 10 10 14.5 5.5 10Z' fill='%23f5ebd3'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%23f5ac00'/%3E%3Ccircle cx='0' cy='0' r='2.2' fill='%23b8451f'/%3E%3Ccircle cx='20' cy='0' r='2.2' fill='%23b8451f'/%3E%3Ccircle cx='0' cy='20' r='2.2' fill='%23b8451f'/%3E%3Ccircle cx='20' cy='20' r='2.2' fill='%23b8451f'/%3E%3C/svg%3E");
+  }
+
+  /* Dutch kicker: heavy grotesque caps with an orange grid marker. */
+  .nl-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-archivo);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .nl-kicker::before {
+    content: "";
+    flex: none;
+    width: 0.65rem;
+    height: 0.65rem;
+    background: var(--color-oranje-500);
+  }
+
+  /* Dutch corner ticks: container-casting brackets on two opposite corners. */
+  .nl-ticks {
+    position: relative;
+  }
+  .nl-ticks::before,
+  .nl-ticks::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .nl-ticks::before {
+    top: -3px;
+    left: -3px;
+    border-top: 4px solid var(--color-oranje-500);
+    border-left: 4px solid var(--color-oranje-500);
+  }
+  .nl-ticks::after {
+    bottom: -3px;
+    right: -3px;
+    border-bottom: 4px solid var(--color-oranje-500);
+    border-right: 4px solid var(--color-oranje-500);
+  }
+
+  /* Dutch primary buttons: a container-seal stripe on the leading edge. */
+  .nl-btn-seal {
+    position: relative;
+    overflow: hidden;
+    padding-left: 1.9rem;
+  }
+  .nl-btn-seal::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--color-oranje-500);
+  }
+
+  /* Dutch modular grid: wide Crouwel-style cells in a cool tint. */
+  .bg-haven-grid {
+    background-image:
+      linear-gradient(to right, rgb(16 51 58 / 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(16 51 58 / 0.07) 1px, transparent 1px);
+    background-size: 88px 88px;
+  }
+
+  /* Italian kicker: letterspaced Didone caps with a gold rule. */
+  .it-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-bodoni);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .it-kicker::before {
+    content: "";
+    flex: none;
+    width: 2rem;
+    height: 2px;
+    background: var(--color-oro-500);
+  }
+
+  /* Italian divider: a gold double rule. */
+  .it-rule-gold {
+    height: 7px;
+    border-top: 2px solid var(--color-oro-500);
+    border-bottom: 1px solid var(--color-oro-500);
+  }
+
+  /* French kicker: centered label between two dotted rules — poster masthead. */
+  .fr-kicker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-poster);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .fr-kicker::before,
+  .fr-kicker::after {
+    content: "";
+    flex: 1;
+    height: 0;
+    border-top: 2px dotted currentColor;
+    opacity: 0.35;
+  }
+  .fr-kicker--left::before {
+    display: none;
+  }
+
+  /* German eyebrow: index number + rule, engineered look. */
+  .de-kicker {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .de-kicker::after {
+    content: "";
+    flex: 1;
+    align-self: center;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.25;
+  }
+
+  .prose-guide h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.85rem;
+    line-height: 1.15;
+    color: var(--color-navy-900);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,1020 @@
+/* Scan only application source — never the previous build output in /dist. */
+@import "tailwindcss" source("../src");
+
+/* ------------------------------------------------------------------
+   FreightVanta — English Global · "Pacific Operations" design tokens
+   Deep navy carries structure, signal blue marks links/focus/selection,
+   safety orange is reserved for decisive CTAs and route nodes.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Barlow Semi Condensed", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-navy-950: #050f1f;
+  --color-navy-900: #0a1b33;
+  --color-navy-850: #0e2240;
+  --color-navy-800: #12294a;
+  --color-navy-700: #1b375e;
+  --color-navy-600: #2a4a76;
+  --color-navy-500: #3d5f8f;
+  --color-navy-400: #5a7396;
+  --color-navy-300: #9db0c9;
+  --color-navy-200: #c3d0e0;
+  --color-navy-100: #dfe7f1;
+
+  --color-signal-800: #0f4499;
+  --color-signal-700: #1552b8;
+  --color-signal-600: #1a64d6;
+  --color-signal-500: #2f7df6;
+  --color-signal-300: #7fb2ff;
+  --color-signal-200: #b3d1ff;
+
+  --color-safety-600: #f06a0a;
+  --color-safety-500: #ff7a1a;
+  --color-safety-400: #ff9142;
+
+  --color-mist-50: #f5f8fc;
+  --color-mist-100: #eaf1f9;
+  --color-mist-150: #e4edf8;
+  --color-mist-200: #d7e3f1;
+  --color-mist-300: #bccfe5;
+
+  /* ------------------------------------------------------------
+     Deutsch · "Hanse Präzision" — warm paper surfaces, anthracite
+     structure, Enzianblau for links/focus/selection, Ziegelrot
+     (Speicherstadt brick) reserved for decisive CTAs and route nodes.
+  ------------------------------------------------------------ */
+  --font-de-sans: "Fira Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-de-display: "Fira Sans Condensed", "Fira Sans", "Arial Narrow", Arial, sans-serif;
+  --font-de-mono: "Fira Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-anthrazit-950: #14171a;
+  --color-anthrazit-900: #1d2124;
+  --color-anthrazit-800: #272c30;
+  --color-anthrazit-700: #363c41;
+  --color-anthrazit-600: #4a5259;
+  --color-anthrazit-500: #626b73;
+  --color-anthrazit-400: #7f8890;
+  --color-anthrazit-300: #a6adb3;
+  --color-anthrazit-200: #cbd0d4;
+  --color-anthrazit-100: #e4e7e9;
+
+  --color-papier: #f8f6f1;
+  --color-kiesel-50: #f3f0ea;
+  --color-kiesel-100: #ebe7df;
+  --color-kiesel-200: #ddd8cd;
+  --color-kiesel-300: #c8c1b3;
+
+  --color-enzian-800: #083f73;
+  --color-enzian-700: #0b4f8a;
+  --color-enzian-600: #0f5fa6;
+  --color-enzian-500: #1b74c4;
+  --color-enzian-300: #7fb3e6;
+  --color-enzian-200: #b9d4f0;
+  --color-enzian-100: #e2eef9;
+
+  --color-ziegel-700: #8f3822;
+  --color-ziegel-600: #a8432c;
+  --color-ziegel-500: #bf5238;
+  --color-ziegel-100: #f6e6e1;
+
+  /* ------------------------------------------------------------
+     Français · "Atelier Maritime" — ivory paper, ink typography with
+     a serif voice, bleu outremer for links/focus/selection, and
+     a single warm terre-de-Sienne accent for decisive actions.
+  ------------------------------------------------------------ */
+  --font-fr-sans: "Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-fr-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --color-ivoire: #f9f6ef;
+  --color-lin-50: #f3eee3;
+  --color-lin-100: #ebe4d5;
+  --color-lin-200: #ddd3bf;
+  --color-lin-300: #c6b99f;
+
+  --color-encre-950: #14161c;
+  --color-encre-900: #1c1f27;
+  --color-encre-800: #272b35;
+  --color-encre-700: #3a3f4c;
+  --color-encre-600: #4e5464;
+  --color-encre-500: #666d7d;
+  --color-encre-400: #858c9b;
+  --color-encre-300: #aab0bc;
+  --color-encre-200: #cfd3db;
+
+  --color-outremer-900: #0d1f5c;
+  --color-outremer-800: #122a7a;
+  --color-outremer-700: #17369a;
+  --color-outremer-600: #1f45bd;
+  --color-outremer-500: #3560d9;
+  --color-outremer-300: #8ea6ec;
+  --color-outremer-200: #bfcdf5;
+  --color-outremer-100: #e4eafb;
+
+  --color-sienne-700: #9a4a1c;
+  --color-sienne-600: #b45a24;
+  --color-sienne-500: #c96a30;
+  --color-sienne-100: #f7e8dc;
+
+  /* ------------------------------------------------------------
+     Español · "Mediterráneo" — whitewash and sand surfaces, deep pine
+     green for structure, azul mar for links/focus/selection, almagre
+     (red ochre) reserved for decisive actions and route nodes, albero
+     (bullring sand yellow) for highlights and colour-block accents.
+  ------------------------------------------------------------ */
+  --font-es: "Archivo", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --color-cal: #fffdf9;
+  --color-arena-50: #fbf7ef;
+  --color-arena-100: #f5ecdc;
+  --color-arena-200: #eadcc2;
+  --color-arena-300: #dcc7a0;
+
+  --color-albero-300: #efc976;
+  --color-albero-400: #e5b24a;
+  --color-albero-500: #d49a2a;
+
+  --color-pino-950: #06231c;
+  --color-pino-900: #0b3027;
+  --color-pino-800: #113c31;
+  --color-pino-700: #184d3f;
+  --color-pino-600: #226150;
+  --color-pino-300: #8fb5a8;
+  --color-pino-200: #bdd5cc;
+  --color-pino-100: #e1ede8;
+
+  --color-almagre-700: #8a3016;
+  --color-almagre-600: #a33a1b;
+  --color-almagre-500: #bb4a26;
+  --color-almagre-100: #f8e3da;
+
+  --color-mar-800: #07506a;
+  --color-mar-700: #0a6480;
+  --color-mar-600: #0c7596;
+  --color-mar-300: #7cc3d9;
+  --color-mar-200: #b4dfeb;
+  --color-mar-100: #e0f2f7;
+
+  --color-carbon-900: #1c2320;
+  --color-carbon-800: #28302c;
+  --color-carbon-700: #3a443f;
+  --color-carbon-600: #4f5a54;
+  --color-carbon-500: #67726c;
+  --color-carbon-400: #86908a;
+  --color-carbon-300: #aab2ad;
+  --color-carbon-200: #cfd5d1;
+
+  /* ------------------------------------------------------------
+     Italiano · "Grafica Italiana" — high-contrast Bodoni headlines on
+     white and warm fog grey, graphite hairline rules, ottanio (petrol
+     teal) for links/focus/selection and rosso segnale for decisive
+     actions. A printed-editorial grid, not a coloured-surface layout.
+  ------------------------------------------------------------ */
+  --font-it-display: "Bodoni Moda", "Didot", Georgia, "Times New Roman", serif;
+  --font-it: "Manrope", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --color-grafite-950: #121213;
+  --color-grafite-900: #1b1c1d;
+  --color-grafite-800: #26282a;
+  --color-grafite-700: #383b3e;
+  --color-grafite-600: #4d5155;
+  --color-grafite-500: #676c71;
+  --color-grafite-400: #878d93;
+  --color-grafite-300: #adb3b8;
+  --color-grafite-200: #d0d4d7;
+
+  --color-nebbia-50: #f8f8f7;
+  --color-nebbia-100: #f1f1ef;
+  --color-nebbia-200: #e5e5e1;
+  --color-nebbia-300: #d2d2cc;
+
+  --color-ottanio-900: #06343c;
+  --color-ottanio-800: #084550;
+  --color-ottanio-700: #0a5866;
+  --color-ottanio-600: #0d6c7d;
+  --color-ottanio-300: #7fbccb;
+  --color-ottanio-200: #b6d9e2;
+  --color-ottanio-100: #e2f0f4;
+
+  --color-rosso-700: #a51f1a;
+  --color-rosso-600: #c02620;
+  --color-rosso-500: #d63a33;
+  --color-rosso-100: #fae5e3;
+
+  --animate-route-flow: route-flow 3.4s linear infinite;
+  --animate-panel-in: panel-in 0.28s ease-out both;
+
+  @keyframes route-flow {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(400%);
+    }
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0.001;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Self-hosted fonts for the German template (Fira, Erik Spiekermann /
+   Carrois, OFL). WOFF2 latin subsets only; inlined by the build so no
+   request leaves the first party.
+------------------------------------------------------------------- */
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/fira-sans/files/fira-sans-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/fira-sans/files/fira-sans-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fira Sans Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-latin-700-normal.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Fira Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/fira-mono/files/fira-mono-latin-500-normal.woff2") format("woff2");
+}
+
+/* French template — Source Serif 4 / Source Sans 3 (Adobe, OFL), self-hosted. */
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/source-sans-3/files/source-sans-3-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/source-sans-3/files/source-sans-3-latin-600-normal.woff2") format("woff2");
+}
+
+/* Italian template — Bodoni Moda (a Didone after Giambattista Bodoni) + Manrope, OFL, self-hosted. */
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/bodoni-moda/files/bodoni-moda-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/manrope/files/manrope-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/manrope/files/manrope-latin-600-normal.woff2") format("woff2");
+}
+
+/* Spanish template — Archivo (Omnibus-Type, Buenos Aires; OFL), self-hosted. */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/archivo/files/archivo-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/archivo/files/archivo-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../node_modules/@fontsource/archivo/files/archivo-latin-800-normal.woff2") format("woff2");
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  html[data-site="de"] :focus-visible {
+    outline-color: var(--color-enzian-500);
+  }
+  html[data-site="de"] ::selection {
+    background: var(--color-enzian-200);
+    color: var(--color-anthrazit-900);
+  }
+  html[data-site="fr"] :focus-visible {
+    outline-color: var(--color-outremer-500);
+  }
+  html[data-site="fr"] ::selection {
+    background: var(--color-outremer-200);
+    color: var(--color-encre-900);
+  }
+  html[data-site="es"] :focus-visible {
+    outline-color: var(--color-mar-600);
+  }
+  html[data-site="es"] ::selection {
+    background: var(--color-albero-300);
+    color: var(--color-carbon-900);
+  }
+  html[data-site="it"] :focus-visible {
+    outline-color: var(--color-ottanio-600);
+  }
+  html[data-site="it"] ::selection {
+    background: var(--color-ottanio-200);
+    color: var(--color-grafite-900);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-navy-800);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-signal-200);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-signal-500);
+    outline-offset: 3px;
+  }
+
+  /* Anchor targets stay visible below the sticky header. */
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  .shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 80rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 80rem) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: "";
+    flex: none;
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.75;
+  }
+
+  .h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.05rem, 1.35rem + 2.3vw, 3.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 3px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--color-safety-500);
+    color: var(--color-navy-950);
+    box-shadow: inset 0 -2px 0 rgb(5 15 31 / 0.16);
+  }
+  .btn-primary:hover {
+    background: var(--color-safety-400);
+  }
+  .btn-dark {
+    background: var(--color-navy-900);
+    color: #ffffff;
+  }
+  .btn-dark:hover {
+    background: var(--color-navy-700);
+  }
+  .btn-outline {
+    border: 1px solid var(--color-navy-300);
+    background: #ffffff;
+    color: var(--color-navy-900);
+  }
+  .btn-outline:hover {
+    border-color: var(--color-navy-900);
+  }
+  .btn-ghost-light {
+    border: 1px solid rgb(255 255 255 / 0.35);
+    color: #ffffff;
+  }
+  .btn-ghost-light:hover {
+    border-color: #ffffff;
+    background: rgb(255 255 255 / 0.06);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-signal-700);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(21 82 184 / 0.35);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .text-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Structured grid lines for navy operational surfaces. */
+  .bg-route-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    -webkit-mask-image: radial-gradient(ellipse at 70% 20%, #000 15%, transparent 72%);
+    mask-image: radial-gradient(ellipse at 70% 20%, #000 15%, transparent 72%);
+  }
+
+  .tab-strip {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-mist-300) transparent;
+  }
+
+  .prose-guide h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.85rem;
+    line-height: 1.15;
+    color: var(--color-navy-900);
+  }
+
+  /* ---------------- Deutsch · Hanse Präzision ---------------- */
+  .de-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-de-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .de-eyebrow::before {
+    content: "";
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: currentColor;
+  }
+
+  .de-h2 {
+    font-family: var(--font-de-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 1.3rem + 2.2vw, 3.1rem);
+    line-height: 1.06;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  .de-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 0;
+    font-family: var(--font-de-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .de-btn-primary {
+    background: var(--color-ziegel-600);
+    color: #ffffff;
+  }
+  .de-btn-primary:hover {
+    background: var(--color-ziegel-700);
+  }
+  .de-btn-dark {
+    background: var(--color-anthrazit-900);
+    color: #ffffff;
+  }
+  .de-btn-dark:hover {
+    background: var(--color-anthrazit-700);
+  }
+  .de-btn-outline {
+    border: 1px solid var(--color-anthrazit-900);
+    background: transparent;
+    color: var(--color-anthrazit-900);
+  }
+  .de-btn-outline:hover {
+    background: var(--color-anthrazit-900);
+    color: #ffffff;
+  }
+  .de-btn-ghost-light {
+    border: 1px solid rgb(255 255 255 / 0.4);
+    color: #ffffff;
+  }
+  .de-btn-ghost-light:hover {
+    border-color: #ffffff;
+    background: rgb(255 255 255 / 0.08);
+  }
+
+  .de-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-enzian-700);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(11 79 138 / 0.35);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .de-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Technical drawing grid on paper — the German hero and page headers. */
+  .de-grid-bg {
+    background-image:
+      linear-gradient(to right, rgb(29 33 36 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(29 33 36 / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+  }
+
+  .de-prose h2 {
+    font-family: var(--font-de-display);
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 1.15;
+    color: var(--color-anthrazit-900);
+  }
+
+  /* ---------------- Français · Atelier Maritime ---------------- */
+  .fr-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-fr-sans);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .fr-eyebrow::after {
+    content: "";
+    flex: none;
+    width: 2.25rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+  }
+
+  .fr-h2 {
+    font-family: var(--font-fr-serif);
+    font-weight: 600;
+    font-size: clamp(2rem, 1.3rem + 2.1vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .fr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-family: var(--font-fr-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .fr-btn-primary {
+    background: var(--color-sienne-600);
+    color: #ffffff;
+  }
+  .fr-btn-primary:hover {
+    background: var(--color-sienne-700);
+  }
+  .fr-btn-dark {
+    background: var(--color-encre-900);
+    color: #ffffff;
+  }
+  .fr-btn-dark:hover {
+    background: var(--color-encre-700);
+  }
+  .fr-btn-outline {
+    border: 1px solid var(--color-encre-900);
+    background: transparent;
+    color: var(--color-encre-900);
+  }
+  .fr-btn-outline:hover {
+    background: var(--color-encre-900);
+    color: #ffffff;
+  }
+  .fr-btn-ghost-light {
+    border: 1px solid rgb(255 255 255 / 0.45);
+    color: #ffffff;
+  }
+  .fr-btn-ghost-light:hover {
+    border-color: #ffffff;
+    background: rgb(255 255 255 / 0.08);
+  }
+
+  .fr-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-outremer-700);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(23 54 154 / 0.35);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .fr-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Nautical-chart contour lines on ivory — the French hero and page headers. */
+  .fr-chart-bg {
+    background-image: repeating-radial-gradient(
+      circle at 82% 18%,
+      transparent 0,
+      transparent 54px,
+      rgb(28 31 39 / 0.055) 55px,
+      rgb(28 31 39 / 0.055) 56px
+    );
+    -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  }
+
+  .fr-prose h2 {
+    font-family: var(--font-fr-serif);
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 1.15;
+    color: var(--color-encre-900);
+  }
+
+  /* ---------------- Español · Mediterráneo ---------------- */
+  .es-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-es);
+    font-size: 0.78rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  /* "Rombo" marker in albero. */
+  .es-eyebrow::before {
+    content: "";
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--color-albero-400);
+    transform: rotate(45deg);
+  }
+
+  .es-h2 {
+    font-family: var(--font-es);
+    font-weight: 800;
+    font-size: clamp(2rem, 1.25rem + 2.3vw, 3.2rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .es-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-es);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .es-btn-primary {
+    background: var(--color-almagre-600);
+    color: #ffffff;
+    box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.18);
+  }
+  .es-btn-primary:hover {
+    background: var(--color-almagre-700);
+  }
+  .es-btn-dark {
+    background: var(--color-pino-900);
+    color: #ffffff;
+  }
+  .es-btn-dark:hover {
+    background: var(--color-pino-700);
+  }
+  .es-btn-outline {
+    border: 2px solid var(--color-pino-900);
+    background: transparent;
+    color: var(--color-pino-900);
+  }
+  .es-btn-outline:hover {
+    background: var(--color-pino-900);
+    color: #ffffff;
+  }
+  .es-btn-ghost-light {
+    border: 2px solid rgb(255 255 255 / 0.55);
+    color: #ffffff;
+  }
+  .es-btn-ghost-light:hover {
+    border-color: #ffffff;
+    background: rgb(255 255 255 / 0.08);
+  }
+
+  .es-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-mar-700);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(10 100 128 / 0.35);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .es-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Albero highlighter behind a key phrase — Spanish editorial style. */
+  .es-marker {
+    background-image: linear-gradient(transparent 58%, var(--color-albero-300) 58%, var(--color-albero-300) 94%, transparent 94%);
+    padding-inline: 0.06em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  /* Azulejo-inspired tile pattern: interlocking rings on a 56px grid, very low contrast. */
+  .es-azulejo {
+    background-image:
+      radial-gradient(circle at 0 0, transparent 17px, rgb(11 48 39 / 0.08) 18px, rgb(11 48 39 / 0.08) 19px, transparent 20px),
+      radial-gradient(circle at 100% 0, transparent 17px, rgb(11 48 39 / 0.08) 18px, rgb(11 48 39 / 0.08) 19px, transparent 20px),
+      radial-gradient(circle at 0 100%, transparent 17px, rgb(11 48 39 / 0.08) 18px, rgb(11 48 39 / 0.08) 19px, transparent 20px),
+      radial-gradient(circle at 100% 100%, transparent 17px, rgb(11 48 39 / 0.08) 18px, rgb(11 48 39 / 0.08) 19px, transparent 20px),
+      radial-gradient(circle at 50% 50%, rgb(11 48 39 / 0.1) 3px, transparent 4px);
+    background-size: 56px 56px;
+  }
+
+  /* Solid albero offset block behind an image — a printed colour-block collage. */
+  .es-block-shadow {
+    box-shadow: 14px 14px 0 0 var(--color-albero-300);
+  }
+
+  .es-prose h2 {
+    font-family: var(--font-es);
+    font-weight: 800;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-carbon-900);
+  }
+
+  /* ---------------- Italiano · Grafica Italiana ---------------- */
+  .it-eyebrow {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-family: var(--font-it);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Editorial folio number: "01 —" before a label. */
+  .it-folio {
+    font-family: var(--font-it-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-rosso-600);
+  }
+
+  .it-h2 {
+    font-family: var(--font-it-display);
+    font-weight: 600;
+    font-size: clamp(2.05rem, 1.3rem + 2.4vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .it-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0;
+    font-family: var(--font-it);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    text-align: center;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .it-btn-primary {
+    background: var(--color-rosso-600);
+    color: #ffffff;
+  }
+  .it-btn-primary:hover {
+    background: var(--color-rosso-700);
+  }
+  .it-btn-dark {
+    background: var(--color-grafite-900);
+    color: #ffffff;
+  }
+  .it-btn-dark:hover {
+    background: var(--color-grafite-700);
+  }
+  .it-btn-outline {
+    border: 1px solid var(--color-grafite-900);
+    background: transparent;
+    color: var(--color-grafite-900);
+  }
+  .it-btn-outline:hover {
+    background: var(--color-grafite-900);
+    color: #ffffff;
+  }
+  .it-btn-ghost-light {
+    border: 1px solid rgb(255 255 255 / 0.5);
+    color: #ffffff;
+  }
+  .it-btn-ghost-light:hover {
+    border-color: #ffffff;
+    background: rgb(255 255 255 / 0.08);
+  }
+
+  .it-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-ottanio-700);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(10 88 102 / 0.35);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .it-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Hairline column rules — the printed-grid signature of this template. */
+  .it-rule-grid {
+    background-image: linear-gradient(to right, rgb(27 28 29 / 0.12) 1px, transparent 1px);
+    background-size: calc(100% / 6) 100%;
+  }
+
+  .it-prose h2 {
+    font-family: var(--font-it-display);
+    font-weight: 600;
+    font-size: 1.9rem;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--color-grafite-900);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
