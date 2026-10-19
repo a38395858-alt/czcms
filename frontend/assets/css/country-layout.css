@@ -150,3 +150,16 @@
 .public-site .site-header .desktop-nav { gap: 13px; }
 .public-site .site-header .desktop-nav > ul { gap: 13px; }
 .public-site .site-header .desktop-nav :is(a, button, summary) { font-size: 15px; }
+
+/* One weight for header nav (2026-10-19)
+   Menu buttons and plain links in the same row were rendering at 400/#10213f
+   and 600/#2d3d58 respectively. Give every top-level control one voice; the
+   current page keeps its own colour. */
+.public-site .site-header .desktop-nav :is(a, button, summary) {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.public-site .site-header .desktop-nav :is(a, button, summary):not([aria-current="page"]):not([aria-current="true"]) {
+  color: #2d3d58;
+}
