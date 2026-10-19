@@ -133,3 +133,20 @@
    Headings keep `anywhere` only as an emergency fallback so a soft hyphen is
    chosen first; body copy keeps `anywhere` so long tokens cannot overflow. */
 :is(body.fv-reference-template, body.fv-nl-react-template) main :is(h1, h2, h3) { overflow-wrap: break-word; }
+
+/* Header nav must not break labels (2026-10-19)
+   Guide/article pages set overflow-wrap:anywhere on every anchor, which split
+   nav labels mid-word inside the flex header. Nav controls keep one line. */
+.public-site .site-header nav :is(a, button, summary) {
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: nowrap;
+}
+
+/* Header row fits its track (2026-10-19)
+   The guide/article header carries six nav items plus language and CTA. Once
+   labels stop wrapping the row needs ~100px less, so tighten the rhythm. */
+.public-site .site-header .header-shell { gap: 20px; }
+.public-site .site-header .desktop-nav { gap: 13px; }
+.public-site .site-header .desktop-nav > ul { gap: 13px; }
+.public-site .site-header .desktop-nav :is(a, button, summary) { font-size: 15px; }
