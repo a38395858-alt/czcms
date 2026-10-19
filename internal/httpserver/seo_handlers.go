@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -86,6 +87,43 @@ func (s *server) renderSiteSitemap(w http.ResponseWriter, r *http.Request, site 
 	}
 	for _, entry := range entries {
 		urls = append(urls, sitemapURL{Loc: origin + publicURL("", localeIf(len(locales) > 1, entry.Locale), entry.Slug), LastMod: sitemapLastMod(entry.UpdatedAt)})
+	}
+	// Imported topics and native directories are real public routes even when
+	// they do not have a CMS content row. Include the same available bundle as
+	// the renderer, while preserving editor-owned page indexing decisions.
+	if site.Code == "global" || site.Code == "germany" || site.Code == "france" || site.Code == "spain" || site.Code == "italy" || site.Code == "netherlands" {
+		s.loadImportedTopics()
+		seen := map[string]bool{}
+		for _, item := range urls {
+			seen[item.Loc] = true
+		}
+		for _, locale := range locales {
+			code := strings.ToLower(strings.Split(locale, "-")[0])
+			appendRoute := func(slug string) {
+				loc := origin + publicURL("", localeIf(len(locales) > 1, locale), slug)
+				if !seen[loc] {
+					urls = append(urls, sitemapURL{Loc: loc})
+					seen[loc] = true
+				}
+			}
+			var topicRoutes []string
+			for key := range s.importedTopics.pages {
+				if strings.HasPrefix(key, code+"/") {
+					topicRoutes = append(topicRoutes, strings.TrimPrefix(key, code+"/"))
+				}
+			}
+			sort.Strings(topicRoutes)
+			for _, route := range topicRoutes {
+				appendRoute(route)
+			}
+			links := siteLinks(&publicSitePageData{HomePath: "/", LanguageCode: code})
+			for _, path := range []string{links.Services, links.Industries, links.About, links.Contact, "/guides"} {
+				slug := strings.Trim(path, "/")
+				if _, contentErr := s.Catalog.GetPublishedContentByPath(r.Context(), site.ID, locale, slug); errors.Is(contentErr, catalog.ErrNotFound) {
+					appendRoute(slug)
+				}
+			}
+		}
 	}
 	document, err := xml.MarshalIndent(sitemapXML{XMLNS: "http://www.sitemaps.org/schemas/sitemap/0.9", URLs: urls}, "", "  ")
 	if err != nil {

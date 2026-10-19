@@ -73,6 +73,7 @@ type server struct {
 	mediaImportLimiter *security.Limiter
 	remoteMediaClient  *http.Client
 	trustedProxies     []*net.IPNet
+	importedTopics     importedTopicBundle
 }
 
 type sessionContextKey struct{}
@@ -361,7 +362,17 @@ type publicSitePageData struct {
 	ThemeKey         string
 	ThemeColor       string
 	FaviconURL       string
+	HomeMarkup       template.HTML
+	HomeContext      template.JS
+	EnquiryContext   template.JS
+	HomeFonts        []string
+	HomePreloads     []string
+	HomeScript       string
 	Form             *publicFormData
+	Reading          *publicReadingData
+	Editorial        *publicEditorialData
+	Support          *publicSupportData
+	Links            publicSiteLinks
 }
 
 func New(deps Dependencies) http.Handler {
@@ -391,11 +402,16 @@ func New(deps Dependencies) http.Handler {
 	r.Get("/preview/{siteCode}", s.sitePreview)
 	r.Get("/preview/{siteCode}/*", s.sitePreview)
 	r.Post("/preview/{siteCode}/forms/{formKey}/submit", s.submitPublicForm)
+	r.Post("/preview/{siteCode}/topic-enquiry", s.submitTopicEnquiry)
+	r.Post("/preview/{siteCode}/home-enquiry", s.submitHomeEnquiry)
+	r.Post("/preview/{siteCode}/newsletter", s.submitNewsletter)
 	r.Get("/setup", s.setupPage)
 	r.Post("/setup", s.setupSubmit)
 	r.Get("/login", s.loginPage)
 	r.Post("/login", s.loginSubmit)
-	r.Handle("/assets/*", s.staticAssets())
+	// Compress public text assets only; token-bearing HTML and authenticated
+	// responses keep their existing handling.
+	r.With(middleware.Compress(5, "text/css", "text/javascript", "application/javascript", "application/json", "image/svg+xml")).Handle("/assets/*", s.staticAssets())
 	r.Get("/healthz", s.health)
 
 	r.Group(func(protected chi.Router) {
@@ -513,6 +529,9 @@ func New(deps Dependencies) http.Handler {
 	r.Head("/media/{mediaID}/{token}", s.mediaServe)
 	r.Get("/theme-assets/{themeID}/{assetKey}", s.serveThemeAsset)
 	r.Post("/forms/{formKey}/submit", s.submitPublicForm)
+	r.Post("/topic-enquiry", s.submitTopicEnquiry)
+	r.Post("/home-enquiry", s.submitHomeEnquiry)
+	r.Post("/newsletter", s.submitNewsletter)
 	// Host-routed public pages (for example https://example.com/en/guides/..)
 	// are handled last. Reserved application paths are rejected by
 	// publicCatchAll even if a future router change makes this wildcard win.
@@ -782,6 +801,9 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 		// non-HTML consumers and makes the single-page noindex policy explicit.
 		w.Header().Set("X-Robots-Tag", "noindex, follow")
 	}
+	if data.EnquiryContext != "" || data.Form != nil {
+		w.Header().Set("Cache-Control", "no-store")
+	}
 	if status != http.StatusOK && !maintenance && !data.NotFound {
 		s.trackSpiderRequest(r, site, preview, routePath, data, "服务错误", status)
 		if status == http.StatusNotFound {
@@ -815,8 +837,18 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 		}
 		analyticsVisit = s.Analytics.PrepareVisit(w, analyticsRequest, site.ID, data.Locale, data.PageTitle)
 	}
+	// The supplied English and German topics are prerendered from the same
+	// React source that hydrates them. Public hosts and local previews share
+	// one composition, with CMS-owned URLs, robots and language alternates.
+	if s.serveImportedTopicTemplate(w, r, site, data, routePath) {
+		s.Analytics.Track(analyticsVisit)
+		s.trackSpiderRequest(r, site, preview, routePath, data, publicPageKind(data), status)
+		return
+	}
 	templateName := "public.html"
-	if data.ThemeKey == "atlas-commerce" {
+	if data.Support != nil {
+		templateName = "support.html"
+	} else if data.ThemeKey == "atlas-commerce" {
 		templateName = "public-atlas.html"
 	}
 	if data.IsHome && data.ThemeKey != "atlas-commerce" && isFreightVantaReferenceLanguage(data.LanguageCode) {
@@ -977,16 +1009,17 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 		ThemeID: themePackage.ID, ThemeName: themePackage.Name, ThemeVersion: themePackage.Version, ThemeKey: themePackage.RenderKey, ThemeColor: publicThemeColor(themePackage.RenderKey),
 		FaviconURL: site.FaviconURL,
 	}
+	data.Links = siteLinks(&data)
+	if data.IsHome || strings.EqualFold(slug, "guides") || strings.EqualFold(slug, "articles") || strings.EqualFold(slug, "insights") {
+		context, _ := json.Marshal(map[string]any{"locale": data.LanguageCode, "siteId": site.ID, "basePath": data.BasePath, "formToken": publicFormToken(s, 0, site.ID)})
+		data.EnquiryContext = template.JS(context)
+	}
 	if slug != "" {
 		if slug == productSourcingSlug || strings.EqualFold(strings.Trim(slug, "/"), "ProductService/Sourcing") {
 			s.configureProductSourcingPage(r, &data, site, preview, network)
 			return data, http.StatusOK
 		}
 		if strings.EqualFold(strings.Trim(slug, "/"), "guides") || strings.EqualFold(strings.Trim(slug, "/"), "articles") || strings.EqualFold(strings.Trim(slug, "/"), "insights") {
-			items, listErr := s.Catalog.ListPublishedContent(r.Context(), site.ID, locale, 48)
-			if listErr != nil && !errors.Is(listErr, catalog.ErrNotFound) {
-				return publicSitePageData{}, http.StatusServiceUnavailable
-			}
 			data.IsHome = false
 			data.IsGuideIndex = true
 			data.GuideIndex = guideIndexCopyFor(locale)
@@ -994,10 +1027,8 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 			data.MetaDescription = data.GuideIndex.Body
 			data.OGTitle = data.PageTitle
 			data.OGDescription = data.MetaDescription
-			data.HasContent = len(items) > 0
-			data.Published = data.Published[:0]
-			for _, item := range items {
-				data.Published = append(data.Published, publicContent(item, publicURL(basePath, localeIf(includeLocale, locale), item.Slug)))
+			if err := s.configureEditorialIndex(r, &data, site, locale, includeLocale); err != nil {
+				return publicSitePageData{}, http.StatusServiceUnavailable
 			}
 			s.populatePublicNetworkForFixedPath(r, &data, site, preview, network, "guides")
 			if preview {
@@ -1017,12 +1048,16 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 		}
 		content, contentErr := s.Catalog.GetPublishedContentByPath(r.Context(), site.ID, locale, slug)
 		if errors.Is(contentErr, catalog.ErrNotFound) {
+			if s.configureSupportPage(r, &data, site, preview, network, slug) {
+				return data, http.StatusOK
+			}
 			if taxonomyKind, taxonomySlug, taxonomyOK := parsePublicTaxonomyPath(slug); taxonomyOK {
 				archive, archiveErr := s.Catalog.GetPublicTaxonomyArchive(r.Context(), site.ID, locale, taxonomyKind, taxonomySlug, 48)
 				if archiveErr == nil {
 					data.IsTaxonomy = true
 					data.TaxonomyKind = archive.Kind
 					data.TaxonomyName = archive.Name
+					data.GuideIndex = guideIndexCopyFor(locale)
 					data.HasContent = len(archive.Contents) > 0
 					data.PageTitle = archive.Name + " | " + site.Name
 					data.MetaDescription = archive.Name + " · " + copy.GuidesBody
@@ -1032,6 +1067,7 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 					for _, item := range archive.Contents {
 						data.Published = append(data.Published, publicContent(item, publicURL(basePath, localeIf(includeLocale, locale), item.Slug)))
 					}
+					s.prepareEditorialPage(r, &data, nil, len(data.Published), 1, "")
 					// Taxonomy archives are language-local listing pages. Do not emit
 					// unrelated home-page hreflang links when an equivalent archive is
 					// not available in another locale.
@@ -1096,6 +1132,7 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 	if data.StructuredData == "" {
 		data.StructuredData = template.JS(publicJSONLD(data, site))
 	}
+	s.prepareReferenceHome(&data)
 	return data, http.StatusOK
 }
 
@@ -1170,6 +1207,7 @@ func (s *server) applyPublicContentPage(r *http.Request, data *publicSitePageDat
 	data.NotFound = false
 	data.HasContent = true
 	data.Content = publicContent(content, publicURL(data.BasePath, localeIf(site.LanguageCount > 1, content.Locale), content.Slug))
+	s.prepareReadingPage(r, data, site, content)
 	data.PageTitle = firstNonEmpty(content.SEOTitle, content.Title, site.SEOTitle, data.Copy.HeroTitle)
 	data.MetaDescription = firstNonEmpty(content.MetaDescription, content.Summary, data.Copy.HeroBody)
 	data.OGTitle = firstNonEmpty(content.OGTitle, data.PageTitle)
@@ -1786,7 +1824,7 @@ func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 		}
 		if images := publicSchemaImageObjects(data, pageURL); len(images) > 0 {
 			obj["primaryImageOfPage"] = images[0]
-		} else if heroImage := publicSchemaAbsoluteURL(pageURL, "/assets/images/freightvanta-service-product-sourcing-hero-v1.png"); heroImage != "" {
+		} else if heroImage := publicSchemaAbsoluteURL(pageURL, "/assets/images/product-sourcing-hero-brief-v1.png"); heroImage != "" {
 			obj["primaryImageOfPage"] = map[string]any{"@type": "ImageObject", "url": heroImage}
 		}
 	} else if data.IsServiceTopic {

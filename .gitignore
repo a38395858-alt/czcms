@@ -15,6 +15,10 @@ coverage.out
 /frontend/reference-template/dist/
 /frontend/reference-template-nl/node_modules/
 /frontend/reference-template-nl/dist/
+/frontend/topic-template/node_modules/
+/frontend/topic-template/dist/
+/frontend/topic-template/.ssr/
+/frontend/topic-template/test-results/
 
 # Local test runs, downloaded toolchains, generated screenshots and image probes.
 /tmp/
@@ -24,3 +28,16 @@ coverage.out
 /tmp_mask*.*
 /tmp_watermark_crop.*
 /enhance_image.py
+
+# Scratch workspaces, design-review artifacts and audit tooling.
+/.tmp/
+/.impeccable/
+/.tmp-bulk-service-mobile.png
+/tmp-english-template-13/
+/output/
+/frontend/topic-template/.audit/
+
+/docs/ui-previews/
+/frontend/reference-template/.ssr/
+/frontend/reference-template-nl/.ssr/
+**/.vite/

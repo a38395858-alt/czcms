@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   base: "/assets/freightvanta-template/",
   plugins: [react(), tailwindcss()],
   resolve: {
@@ -17,15 +17,16 @@ export default defineConfig({
     },
   },
   build: {
+    manifest: true,
     outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        entryFileNames: "assets/app.js",
+        entryFileNames: isSsrBuild ? "assets/app.js" : "assets/app-[hash].js",
         chunkFileNames: "assets/[name]-[hash].js",
         assetFileNames: (assetInfo) =>
           assetInfo.name?.endsWith(".css") ? "assets/app.css" : "assets/[name]-[hash][extname]",
       },
     },
   },
-});
+}));

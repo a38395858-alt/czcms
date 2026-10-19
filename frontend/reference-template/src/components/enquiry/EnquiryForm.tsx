@@ -406,7 +406,7 @@ export function EnquiryForm({
     });
 
     if (result.ok) {
-      setReference(siteConfig.enquiryEndpoint ? result.reference : null);
+      setReference(result.reference);
       setStatus('success');
       requestAnimationFrame(() => successRef.current?.focus());
       return;

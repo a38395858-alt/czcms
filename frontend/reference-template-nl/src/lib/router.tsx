@@ -1,3 +1,4 @@
+import { homeContext } from './home-context';
 import { createContext, useContext, useEffect, useState, type AnchorHTMLAttributes, type MouseEvent, type ReactNode } from 'react';
 
 /**
@@ -150,6 +151,14 @@ export function routeKey(route: Route): string {
 
 export function toHref(to: string): string {
   if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(to)) return to;
+  const context = homeContext();
+  if (context && to.startsWith('/')) {
+    const path = to.replace(/^\/nl\//, '/').slice(1);
+    if (/^(?:privacy|cookies|juridisch|contact|over-ons|voorwaarden|guides)$/.test(path)) {
+      const base = (context.languages.nl ?? '/').replace(/\/$/, '');
+      return `${base}/${path === 'juridisch' ? 'bedrijfsgegevens' : path}`;
+    }
+  }
   if (to.startsWith('/')) return `#${to}`;
   return to;
 }

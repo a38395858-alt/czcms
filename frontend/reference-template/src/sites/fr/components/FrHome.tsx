@@ -216,7 +216,7 @@ export function FrServicePaths({ section }: { section: ServicePathsSection }) {
                         : 'border-lin-300 text-encre-600 hover:border-encre-900 hover:text-encre-900 lg:hover:bg-lin-50/70',
                     )}
                   >
-                    <span className={cn('hidden font-fr-serif text-[15px] lg:inline', selected ? 'text-sienne-600' : 'text-encre-400')}>
+                    <span className={cn('hidden font-fr-serif text-[15px] lg:inline', selected ? 'text-sienne-600' : 'text-encre-500')}>
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <span className={cn('lg:flex-1', selected && 'lg:underline lg:decoration-outremer-600 lg:decoration-2 lg:underline-offset-[6px]')}>{item.label}</span>
@@ -305,7 +305,7 @@ export function FrOperation({ section }: { section: OperationSection }) {
         <ol className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
           {section.items.map((item, index) => (
             <li key={item.title} className="border-t border-white/20 pt-6">
-              <span className="font-fr-serif text-[15px] font-semibold text-sienne-500">{String(index + 1).padStart(2, '0')}</span>
+              <span className="font-fr-serif text-[15px] font-semibold text-sienne-300">{String(index + 1).padStart(2, '0')}</span>
               <h3 className="mt-3 font-fr-serif text-2xl font-semibold leading-tight text-white">{item.title}</h3>
               <p className="mt-3 text-[16px] leading-relaxed text-lin-200">{item.copy}</p>
             </li>

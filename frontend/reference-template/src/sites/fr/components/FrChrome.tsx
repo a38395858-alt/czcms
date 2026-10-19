@@ -5,8 +5,7 @@ import { Logo } from '../../../components/ui/Logo';
 import { SiteSwitch } from '../../../components/ui/SiteSwitch';
 import { LOCALIZED_HOMEPAGES, localizedUrl, siteConfig } from '../../../config/site';
 import { FR_ANCHORS, announcementFr, footerFr, heroFr } from '../../../content/fr/home';
-import { INDUSTRIES_FR } from '../../../content/fr/industries';
-import { SERVICES_FR } from '../../../content/fr/services';
+import { FR_TOPIC_SERVICES, FR_TOPIC_INDUSTRIES, frTopicHref } from '../../../content/fr/topic-nav';
 import type { FooterColumn } from '../../../content/types';
 import { openConsentSettings, setConsent, useConsent } from '../../../lib/analytics';
 import { Link, type Route } from '../../../lib/router';
@@ -191,12 +190,12 @@ function SolutionsMenu({ open, route }: { open: boolean; route: Route }) {
         <div className="col-span-8">
           <p className="fr-eyebrow text-encre-500">Solutions</p>
           <ul className="mt-4 grid grid-cols-2 gap-x-8">
-            {SERVICES_FR.map((service) => {
+            {FR_TOPIC_SERVICES.map((service) => {
               const current = route.name === 'service' && route.slug === service.slug;
               return (
                 <li key={service.slug} className="border-b border-encre-900/10">
-                  <Link
-                    to={`/fr/solutions/${service.slug}`}
+                  <a
+                    href={frTopicHref(service.route)}
                     aria-current={current ? 'page' : undefined}
                     className="group flex items-start justify-between gap-4 py-3.5 transition-colors hover:text-outremer-700 aria-[current=page]:text-outremer-700"
                   >
@@ -205,7 +204,7 @@ function SolutionsMenu({ open, route }: { open: boolean; route: Route }) {
                       <span className="mt-0.5 block text-sm text-encre-500">{service.menuLine}</span>
                     </span>
                     <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-outremer-600 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" />
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -237,18 +236,18 @@ function SecteursMenu({ open, route }: { open: boolean; route: Route }) {
       className="absolute left-0 top-full mt-3 w-[27rem] rounded-[10px] border border-encre-900/10 bg-white p-3 shadow-[0_24px_48px_-20px_rgba(28,31,39,0.35)]"
     >
       <ul>
-        {INDUSTRIES_FR.map((industry) => {
+        {FR_TOPIC_INDUSTRIES.map((industry) => {
           const current = route.name === 'industry' && route.slug === industry.slug;
           return (
             <li key={industry.slug}>
-              <Link
-                to={`/fr/secteurs/${industry.slug}`}
+              <a
+                href={frTopicHref(industry.route)}
                 aria-current={current ? 'page' : undefined}
                 className="block rounded-[6px] px-3 py-3 transition-colors hover:bg-lin-50 aria-[current=page]:bg-lin-100"
               >
                 <span className="block font-semibold">{industry.navLabel}</span>
                 <span className="mt-0.5 block text-sm text-encre-500">{industry.menuLine}</span>
-              </Link>
+              </a>
             </li>
           );
         })}
@@ -354,9 +353,9 @@ function FrMobileMenu({ route, onClose, onNavigate }: { route: Route; onClose: (
           <ul className="space-y-0.5 border-l border-encre-900/20 pl-4">
             {links.map((link) => (
               <li key={link.to}>
-                <Link to={link.to} onClick={onNavigate} className="block py-2.5 text-[16px] text-encre-700 hover:text-encre-900">
+                <a href={link.to} onClick={onNavigate} className="block py-2.5 text-[16px] text-encre-700 hover:text-encre-900">
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -388,13 +387,13 @@ function FrMobileMenu({ route, onClose, onNavigate }: { route: Route; onClose: (
             {group(
               'solutions',
               'Solutions',
-              SERVICES_FR.map((service) => ({ to: `/fr/solutions/${service.slug}`, label: service.navLabel })),
+              FR_TOPIC_SERVICES.map((service) => ({ to: frTopicHref(service.route), label: service.navLabel })),
               { to: FR_ANCHORS.services, label: 'Comparer les parcours de prestations' },
             )}
             {group(
               'secteurs',
               'Secteurs',
-              INDUSTRIES_FR.map((industry) => ({ to: `/fr/secteurs/${industry.slug}`, label: industry.navLabel })),
+              FR_TOPIC_INDUSTRIES.map((industry) => ({ to: frTopicHref(industry.route), label: industry.navLabel })),
               { to: '/fr/secteurs', label: 'Toutes les solutions par secteur' },
             )}
             {NAV_LINKS.map((link) => (
@@ -438,7 +437,7 @@ function FrMobileMenu({ route, onClose, onNavigate }: { route: Route; onClose: (
 }
 
 /* ------------------------------------------------------------------ Pied de page */
-const footerHeading = 'fr-eyebrow text-encre-500';
+const footerHeading = 'fr-eyebrow text-encre-600';
 const footerLink = 'inline-flex py-1 text-[15px] text-encre-700 transition-colors hover:text-encre-900 hover:underline underline-offset-4';
 
 export function FrFooter() {
@@ -475,11 +474,11 @@ export function FrFooter() {
               {titles.solutions}
             </h2>
             <ul className="mt-5 space-y-1">
-              {SERVICES_FR.map((service) => (
+              {FR_TOPIC_SERVICES.map((service) => (
                 <li key={service.slug}>
-                  <Link to={`/fr/solutions/${service.slug}`} className={footerLink}>
+                  <a href={frTopicHref(service.route)} className={footerLink}>
                     {service.navLabel}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -490,11 +489,11 @@ export function FrFooter() {
               {titles.industries}
             </h2>
             <ul className="mt-5 space-y-1">
-              {INDUSTRIES_FR.map((industry) => (
+              {FR_TOPIC_INDUSTRIES.map((industry) => (
                 <li key={industry.slug}>
-                  <Link to={`/fr/secteurs/${industry.slug}`} className={footerLink}>
+                  <a href={frTopicHref(industry.route)} className={footerLink}>
                     {industry.navLabel}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li className="pt-2">

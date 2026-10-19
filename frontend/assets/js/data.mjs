@@ -1,6 +1,7 @@
 const stat = (label, value, tone, icon) => ({ label, value, tone, icon })
 
 export const navigationItems = [
+  { key: 'form-inbox', label: '表单收件箱', description: '各站点询盘、订阅与客户跟进', path: '/admin/form-inbox', icon: 'clipboard', keywords: '表单 询盘 收件箱 客户 跟进 forms' },
   { key: 'dashboard', label: '控制台', description: '站点、内容与发布状态概览', path: '/admin', icon: 'home', keywords: '仪表盘 概览 dashboard' },
   { key: 'sites', label: '站点管理', description: '域名、国家市场和运行环境', path: '/admin/sites', icon: 'globe', keywords: '域名 国家 市场 site domain' },
   { key: 'languages', label: '语言管理', description: 'Locale、回退语言和站点启用状态', path: '/admin/languages', icon: 'languages', keywords: '多语言 locale 本土化' },

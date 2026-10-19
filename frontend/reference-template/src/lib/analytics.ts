@@ -27,6 +27,7 @@ interface ConsentSnapshot {
   promptOpen: boolean;
   reopened: boolean;
 }
+const serverSnapshot: ConsentSnapshot = { consent: 'unset', promptOpen: true, reopened: false };
 let snapshot: ConsentSnapshot = { consent, promptOpen: consent === 'unset', reopened: false };
 
 function emit() {
@@ -57,7 +58,7 @@ export function useConsent(): ConsentSnapshot {
       return () => listeners.delete(listener);
     },
     () => snapshot,
-    () => snapshot,
+    () => serverSnapshot,
   );
 }
 

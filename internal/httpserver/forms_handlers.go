@@ -2,7 +2,6 @@ package httpserver
 
 import (
 	"crypto/subtle"
-	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -125,84 +124,6 @@ func (s *server) updateForm(w http.ResponseWriter, r *http.Request) {
 	}
 	s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "form.updated", TargetType: "form", TargetID: strconv.FormatInt(item.ID, 10), Success: true})
 	writeJSON(w, http.StatusOK, item)
-}
-
-func (s *server) listFormSubmissions(w http.ResponseWriter, r *http.Request) {
-	session := sessionFromContext(r.Context())
-	siteID := queryInt64(r, "site_id")
-	locale := strings.TrimSpace(r.URL.Query().Get("locale"))
-	limit := queryInt(r, "limit")
-	if limit < 1 || limit > 100 {
-		limit = 50
-	}
-	rows, err := s.DB.QueryContext(r.Context(), `SELECT id, form_id, site_id, locale, source_path, values_encrypted, status, created_at, updated_at FROM form_submissions WHERE (? = 0 OR site_id = ?) AND (? = '' OR locale = ?) AND EXISTS(SELECT 1 FROM user_access_scopes uas WHERE uas.user_id = ? AND (uas.site_id = 0 OR uas.site_id = form_submissions.site_id) AND (uas.locale = '*' OR uas.locale = form_submissions.locale)) ORDER BY created_at DESC, id DESC LIMIT ?`, siteID, siteID, locale, locale, session.User.ID, limit)
-	if err != nil {
-		writeJSONError(w, http.StatusInternalServerError, "读取询盘失败")
-		return
-	}
-	defer rows.Close()
-	items := make([]catalog.FormSubmission, 0)
-	for rows.Next() {
-		var item catalog.FormSubmission
-		var encrypted []byte
-		if err = rows.Scan(&item.ID, &item.FormID, &item.SiteID, &item.Locale, &item.SourcePath, &encrypted, &item.Status, &item.CreatedAt, &item.UpdatedAt); err != nil {
-			writeJSONError(w, http.StatusInternalServerError, "读取询盘失败")
-			return
-		}
-		if plain, decErr := s.Keys.Decrypt("form-submission", encrypted); decErr == nil {
-			_ = json.Unmarshal(plain, &item.Values)
-		}
-		items = append(items, item)
-	}
-	if err = rows.Err(); err != nil {
-		writeJSONError(w, http.StatusInternalServerError, "读取询盘失败")
-		return
-	}
-	writeJSON(w, http.StatusOK, map[string]any{"submissions": items})
-}
-
-func (s *server) updateFormSubmissionStatus(w http.ResponseWriter, r *http.Request) {
-	id, ok := pathID(w, r, "submissionID", "询盘")
-	if !ok {
-		return
-	}
-	var input struct {
-		Status string `json:"status"`
-	}
-	if err := decodeJSON(w, r, &input, 4<<10); err != nil {
-		return
-	}
-	input.Status = strings.ToLower(strings.TrimSpace(input.Status))
-	allowed := map[string]bool{"new": true, "processing": true, "contacted": true, "invalid": true, "closed": true}
-	if !allowed[input.Status] {
-		writeJSONError(w, http.StatusBadRequest, "询盘状态无效")
-		return
-	}
-	session := sessionFromContext(r.Context())
-	var siteID int64
-	var locale string
-	if err := s.DB.QueryRowContext(r.Context(), `SELECT site_id, locale FROM form_submissions WHERE id = ?`, id).Scan(&siteID, &locale); errors.Is(err, sql.ErrNoRows) {
-		writeJSONError(w, http.StatusNotFound, "询盘不存在")
-		return
-	} else if err != nil {
-		writeJSONError(w, http.StatusInternalServerError, "读取询盘失败")
-		return
-	}
-	if !s.canAccess(w, r, session.User.ID, "content.read", siteID, locale) {
-		return
-	}
-	result, err := s.DB.ExecContext(r.Context(), `UPDATE form_submissions SET status = ?, updated_at = ? WHERE id = ?`, input.Status, time.Now().UTC().Format(time.RFC3339Nano), id)
-	if err != nil {
-		writeJSONError(w, http.StatusInternalServerError, "更新询盘状态失败")
-		return
-	}
-	affected, _ := result.RowsAffected()
-	if affected != 1 {
-		writeJSONError(w, http.StatusNotFound, "询盘不存在")
-		return
-	}
-	s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "form_submission.status_updated", TargetType: "form_submission", TargetID: strconv.FormatInt(id, 10), Success: true, Metadata: map[string]any{"status": input.Status}})
-	writeJSON(w, http.StatusOK, map[string]any{"updated": true, "status": input.Status})
 }
 
 func (s *server) bindPageForm(w http.ResponseWriter, r *http.Request) {

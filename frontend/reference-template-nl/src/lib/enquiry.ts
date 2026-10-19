@@ -1,4 +1,5 @@
 import { siteConfig } from '../config/site';
+import { homeContext } from './home-context';
 import type { StartingPointValue } from '../content/types';
 
 /* ------------------------------------------------------------------
@@ -212,8 +213,9 @@ function toPayload(values: EnquiryValues, meta: SubmitMeta) {
     website: meta.honeypot, // honeypot — must stay empty
     form_started_at: meta.startedAt,
     placement: meta.placement,
-    site_id: siteConfig.siteId,
-    locale: siteConfig.locale,
+    site_id: homeContext()?.enquiry?.siteId ?? siteConfig.siteId,
+    form_token: homeContext()?.enquiry?.formToken,
+    locale: homeContext()?.enquiry?.locale ?? siteConfig.locale,
   };
 }
 
@@ -229,28 +231,16 @@ function mapServerErrors(raw: unknown): FieldErrors {
   return errors;
 }
 
-const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
-
-/** Demo adapter used when no endpoint is configured — mirrors server behaviour. */
-async function submitToDemoAdapter(
-  values: EnquiryValues,
-  meta: SubmitMeta,
-  messages: ValidationMessages,
-): Promise<SubmitResult> {
-  await wait(1100);
-  if (meta.honeypot) return { ok: true, reference: null }; // silently discard automated submissions
-  const errors = validateEnquiry(values, messages);
-  if (Object.keys(errors).length > 0) return { ok: false, reason: 'validation', errors };
-  return { ok: true, reference: null };
-}
-
 export async function submitEnquiry(
   values: EnquiryValues,
   meta: SubmitMeta,
   messages: ValidationMessages = EN_MESSAGES,
 ): Promise<SubmitResult> {
-  const endpoint = siteConfig.enquiryEndpoint;
-  if (!endpoint) return submitToDemoAdapter(values, meta, messages);
+  const errors = validateEnquiry(values, messages);
+  if (Object.keys(errors).length) return { ok: false, reason: 'validation', errors };
+  const cms = homeContext()?.enquiry;
+  const endpoint = cms ? `${cms.basePath}/home-enquiry` : siteConfig.enquiryEndpoint;
+  if (!endpoint) return { ok: false, reason: 'server' };
 
   let response: Response;
   try {
@@ -270,7 +260,7 @@ export async function submitEnquiry(
   }
 
   const data = (await response.json().catch(() => ({}))) as Record<string, unknown>;
-  if (response.ok) return { ok: true, reference: typeof data.reference === 'string' ? data.reference : null };
+  if (response.status === 201 && data.submitted === true) return { ok: true, reference: typeof data.reference === 'string' ? data.reference : null };
   if (response.status === 400 || response.status === 422) {
     const errors = mapServerErrors(data.errors);
     return Object.keys(errors).length > 0 ? { ok: false, reason: 'validation', errors } : { ok: false, reason: 'server' };

@@ -25,6 +25,8 @@
     <script type="application/ld+json">{{.StructuredData}}</script>
     <link rel="stylesheet" href="/assets/it-template/assets/app.css?v=20260929.1">
     <script type="module" src="/assets/it-template/assets/app.js?v=20260929.1"></script>
+    <link rel="stylesheet" href="/assets/css/country-layout.css?v=20261019.1">
+  {{if .EnquiryContext}}<script id="freightvanta-enquiry-context" type="application/json">{{.EnquiryContext}}</script><script src="/assets/js/public-enquiry.js?v=20261015.2" defer></script>{{end}}
   </head>
   <body class="fv-it-react-template">
     <div id="root">

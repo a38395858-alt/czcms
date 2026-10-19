@@ -1,5 +1,12 @@
 /* Scan only application source — never the previous build output in /dist. */
 @import "tailwindcss" source("../src");
+@import "@fontsource/archivo-black/latin-400.css";
+@import "@fontsource/ibm-plex-sans/latin-400.css";
+@import "@fontsource/ibm-plex-sans/latin-500.css";
+@import "@fontsource/ibm-plex-sans/latin-600.css";
+@import "@fontsource/ibm-plex-sans/latin-700.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-500.css";
 
 /* ------------------------------------------------------------------
    FreightVanta — English Global · "Pacific Operations" design tokens
@@ -528,4 +535,22 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Native topic destinations share the CMS homepage context. */
+.nl-home-topic-menu > summary { display:flex; align-items:center; gap:8px; min-height:44px; padding:8px 14px; cursor:pointer; font-size:15px; font-weight:600; color:#17444d; }
+.nl-home-topic-menu > summary::-webkit-details-marker { display:none; }
+.nl-home-topic-menu[open] > summary { background:#e7edf3; color:#1e4fa1; }
+.nl-home-topic-panel { position:absolute; left:0; right:0; top:100%; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:32px; padding:16px 28px; background:#f2f5f8; border-bottom:3px solid #e85d04; box-shadow:0 20px 35px -24px #0b242860; }
+.nl-home-topic-panel a { display:flex; align-items:flex-start; gap:20px; padding:18px 12px; min-height:44px; border-bottom:1px solid #d4dee9; color:#0b2428; }
+.nl-home-topic-panel strong { display:block; font-size:16px; font-weight:600; line-height:1.5; }
+.nl-home-topic-panel small { display:block; margin-top:6px; font-size:14px; line-height:1.6; color:#4d5a66; }
+.nl-home-topic-panel svg { margin-top:4px; margin-left:auto; flex-shrink:0; color:#1e4fa1; }
+.nl-home-topic-panel a:hover { background:#e7edf3; }
+.nl-home-topic-menu:not([open]) > .nl-home-topic-panel { display:none; }
+@media(max-width:1023px) {
+ #nl-mobile-nav { max-height:calc(100dvh - 64px); overflow-y:auto; }
+ #nl-mobile-nav .nl-home-topic-menu > summary { padding:12px 0; font-size:17px; }
+ #nl-mobile-nav .nl-home-topic-panel { position:static; grid-template-columns:minmax(0,1fr); padding:0; border:0; box-shadow:none; }
+ #nl-mobile-nav .nl-home-topic-panel a { padding-inline:12px; }
 }

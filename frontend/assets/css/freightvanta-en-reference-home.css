@@ -116,3 +116,139 @@ body.fv-reference-home .en-site-footer { background:var(--fv-navy-950); color:va
 @media (prefers-reduced-motion: reduce) {
   body.fv-reference-home *, body.fv-reference-home *::before, body.fv-reference-home *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; }
 }
+
+/* ==========================================================================
+   Drawn icon system and legibility pass
+   Icons are authored SVG (24x24 grid, 1.6 stroke, round joins) and inherit
+   their colour, so every stop, tab, principle and step keeps one stroke
+   weight while the palette decides emphasis.
+   ========================================================================== */
+
+body.fv-reference-home .fv-icon {
+  display: block;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+}
+
+/* --- coverage strip: drawn capability marks replace the decorative dots --- */
+body.fv-reference-home .fv-ref-coverage a { gap: 10px; min-height: 44px; }
+body.fv-reference-home .fv-ref-coverage a .fv-icon { width: 17px; height: 17px; color: var(--fv-signal-600); transition: color .16s ease; }
+body.fv-reference-home .fv-ref-coverage a:hover .fv-icon,
+body.fv-reference-home .fv-ref-coverage a:focus-visible .fv-icon { color: var(--fv-signal-700); }
+
+/* --- service tabs --- */
+body.fv-reference-home .fv-ref-service-tabs button { display: flex; align-items: center; gap: 11px; }
+body.fv-reference-home .fv-ref-service-tabs button .fv-icon { width: 17px; height: 17px; color: var(--fv-navy-500); transition: color .16s ease; }
+body.fv-reference-home .fv-ref-service-tabs button[aria-selected="true"] .fv-icon { color: var(--fv-orange); }
+body.fv-reference-home .fv-ref-service-tabs button:hover .fv-icon { color: var(--fv-signal-700); }
+
+/* --- operation principles: the ring now holds a drawn mark --- */
+body.fv-reference-home .fv-ref-operation-list::before { top: 14px; left: 12px; }
+body.fv-reference-home .fv-ref-operation-list li { padding-left: 56px; }
+body.fv-reference-home .fv-ref-operation-list i.fv-ref-ol-icon {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(127, 178, 255, .52);
+  border-radius: 50%;
+  background: var(--fv-navy-950);
+}
+body.fv-reference-home .fv-ref-operation-list i.fv-ref-ol-icon .fv-icon { width: 14px; height: 14px; color: var(--fv-signal-300); }
+body.fv-reference-home .fv-ref-operation-list h3 { margin-top: 0; }
+
+/* --- process steps: an icon chip replaces the bare orange dot --- */
+body.fv-reference-home .fv-ref-process-steps li::before { display: none; }
+body.fv-reference-home .fv-ref-process-steps li { padding-top: 58px; }
+body.fv-reference-home .fv-ref-process-steps i.fv-ref-step-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--fv-mist-300);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 5px var(--fv-mist-50);
+}
+body.fv-reference-home .fv-ref-process-steps i.fv-ref-step-icon .fv-icon { width: 18px; height: 18px; color: var(--fv-signal-700); }
+body.fv-reference-home .fv-ref-process-steps li:not(:last-child)::after { top: 18px; }
+
+/* --- industry rows: icon column, text column --- */
+body.fv-reference-home .fv-ref-industry-list a {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  column-gap: 16px;
+  align-items: start;
+}
+body.fv-reference-home .fv-ref-industry-list a > .fv-icon {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: 22px;
+  height: 22px;
+  margin-top: 3px;
+  color: var(--fv-signal-600);
+  transition: color .18s ease;
+}
+body.fv-reference-home .fv-ref-industry-list a:hover > .fv-icon { color: var(--fv-signal-700); }
+body.fv-reference-home .fv-ref-industry-list a > h3,
+body.fv-reference-home .fv-ref-industry-list a > p,
+body.fv-reference-home .fv-ref-industry-list a > span { grid-column: 2; }
+
+/* --- typography: nothing below 10px, brand lockup readable --- */
+body.fv-reference-home .fv-ref-brand-copy small { font-size: 10px; letter-spacing: .1em; }
+body.fv-reference-home .fv-ref-announcement { font-size: 12px; }
+body.fv-reference-home .fv-ref-coverage a { font-size: 12px; }
+body.fv-reference-home .fv-ref-route-stop { font-size: 11px; }
+body.fv-reference-home .fv-ref-language-menu a { font-size: 12px; }
+body.fv-reference-home .fv-ref-language-menu small { font-size: 11px; }
+body.fv-reference-home .fv-ref-instry-legend,
+body.fv-reference-home .fv-ref-industry-figure figcaption { font-size: 11px; }
+body.fv-reference-home .fv-ref-story-copy small { font-size: 11px; }
+body.fv-reference-home .fv-ref-panel-label { font-size: 12px; }
+
+/* --- tap targets: 24px minimum on secondary links --- */
+body.fv-reference-home .fv-ref-text-link,
+body.fv-reference-home .fv-ref-operation-link { min-height: 32px; padding-block: 5px; }
+/* The English footer is .en-site-footer (the shared site footer), not the
+   .fv-ref-* scope, so it needs its own min-height to satisfy target size. */
+body.fv-reference-home .en-site-footer nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding-block: 3px;
+}
+
+@media (max-width: 1060px) {
+  body.fv-reference-home .fv-ref-coverage a { font-size: 11px; }
+  body.fv-reference-home .fv-ref-service-tabs button { gap: 9px; }
+}
+
+@media (max-width: 840px) {
+  body.fv-reference-home .fv-ref-service-tabs button .fv-icon { width: 16px; height: 16px; }
+  /* The process head keeps its two-column ratio at every width unless this
+     class-qualified rule collapses it; without it the heading is squeezed to
+     its min-content width and overruns the summary paragraph on phones. */
+  body.fv-reference-home .fv-ref-process .fv-ref-section-head { grid-template-columns: 1fr; gap: 18px; }
+}
+
+@media (max-width: 560px) {
+  body.fv-reference-home .fv-ref-announcement { font-size: 11px; }
+  body.fv-reference-home .fv-ref-coverage a { font-size: 11px; min-height: 44px; }
+  body.fv-reference-home .fv-ref-route-stop { font-size: 9.5px; }
+  body.fv-reference-home .fv-ref-process-steps li { padding: 0 0 40px 54px; }
+  body.fv-reference-home .fv-ref-process-steps i.fv-ref-step-icon { width: 34px; height: 34px; }
+  body.fv-reference-home .fv-ref-process-steps i.fv-ref-step-icon .fv-icon { width: 17px; height: 17px; }
+  body.fv-reference-home .fv-ref-process-steps li:not(:last-child)::after { top: 17px; left: 16px; }
+  body.fv-reference-home .fv-ref-operation-list li { padding-left: 46px; }
+  body.fv-reference-home .fv-ref-operation-list::before { left: 12px; }
+  body.fv-reference-home .fv-ref-industry-list a { grid-template-columns: 22px minmax(0, 1fr); column-gap: 13px; }
+  body.fv-reference-home .fv-ref-industry-list a > .fv-icon { width: 19px; height: 19px; }
+}

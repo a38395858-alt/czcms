@@ -1,0 +1,2623 @@
+// Generated from docs/freightvanta-fr-topic-copy-source.md by import-fr-copy.py.
+import type { TopicPageContent } from '../en-global/topics/types';
+export const FR_TOPICS: Record<string, TopicPageContent> = {
+  "product-sourcing": {
+    "id": "fr-product-sourcing",
+    "kind": "service",
+    "route": "/fr/product-sourcing",
+    "pageLabel": "Sourcing en Chine",
+    "breadcrumbParent": {
+      "label": "Solutions",
+      "href": "/fr/solutions"
+    },
+    "serviceName": "Sourcing en Chine",
+    "startingPoint": "product-sourcing",
+    "meta": {
+      "title": "Sourcing en Chine pour entreprises | FreightVanta",
+      "description": "Coordonnez votre sourcing en Chine avec un brief fournisseur, des réponses comparables, des points d'échantillonnage et une remise préparée pour le marché français.",
+      "keywords": [
+        "sourcing en Chine",
+        "acheter en Chine pour entreprise",
+        "trouver un fournisseur en Chine",
+        "approvisionnement Chine",
+        "sourcing produits Chine"
+      ]
+    },
+    "formButton": "Demander un plan de sourcing",
+    "hero": {
+      "kicker": "SOURCING PRODUIT EN CHINE",
+      "title": "Sourcing en Chine : un brief clair avant la prochaine décision d'achat.",
+      "body": "Un lien, une image de référence, une spécification ou une quantité cible suffit pour ouvrir une conversation structurée. FreightVanta organise le sourcing produits en Chine : produit attendu, questions à poser au fournisseur chinois, échantillons utiles, réponses comparables et relais opérationnel vers votre marché français.",
+      "primaryCta": "Demander un plan de sourcing",
+      "secondaryCta": "Voir le déroulé",
+      "mediaId": "service-product-sourcing",
+      "mediaAlt": "Échantillons de produit et outils de mesure sur une table de travail.",
+      "rail": [
+        {
+          "label": "RÉFÉRENCE CHINE",
+          "note": "Un point de départ concret"
+        },
+        {
+          "label": "BRIEF",
+          "note": "Une demande lisible"
+        },
+        {
+          "label": "COMPARAISON",
+          "note": "Des réponses dans le même cadre"
+        },
+        {
+          "label": "RELAIS",
+          "note": "Des détails prêts à transmettre"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "Conserver la référence, le fournisseur chinois et l'approbation dans le même brief.",
+          "paragraphs": [
+            "Acheter en Chine pour une entreprise devient plus lisible lorsque la référence produit, les questions fournisseur, le marché visé et les décisions restent liés. Cette coordination ne promet pas le fournisseur, le prix, la qualité, la conformité ou le délai : ces éléments exigent une vérification ou un périmètre explicitement confirmé."
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Le sourcing en Chine devient utile quand l'exigence produit reste à clarifier.",
+          "intro": "Le service convient lorsqu'une opportunité est identifiable, mais que les informations produit, packaging, fournisseur chinois ou marché de destination restent dispersées, incomplètes ou difficiles à comparer.",
+          "cards": [
+            {
+              "tag": "RÉFÉRENCE CHINE",
+              "title": "Une référence ou un fournisseur chinois existe, sans brief exploitable.",
+              "copy": "Un lien produit, une photo, une page fabricant, une annonce de marketplace ou une première spécification devient une série de questions sur les matières, les dimensions, les finitions, les quantités, le packaging et le marché français."
+            },
+            {
+              "tag": "COMPARAISON",
+              "title": "Plusieurs réponses de fournisseurs en Chine doivent être comparées avant de s'engager.",
+              "copy": "Les réponses sont regroupées selon les mêmes critères afin que les écarts, les preuves d'échantillon et les informations manquantes restent visibles lors de la décision."
+            },
+            {
+              "tag": "RELAIS",
+              "title": "Les étapes suivantes dépendent d'un détail produit stable depuis la Chine.",
+              "copy": "Échantillonnage, packaging, contrôle, fret, stockage et fulfillment demandent un produit clairement défini avant de pouvoir être préparés."
+            }
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Un parcours de sourcing en Chine où chaque décision reste attachée au produit.",
+          "intro": "Les questions ouvertes restent apparentes jusqu'à réponse. La validation reste entre les mains de l'équipe qui porte la décision d'achat.",
+          "steps": [
+            {
+              "step": "01",
+              "title": "Partager la référence Chine",
+              "copy": "Liens produits, images, spécifications, fournisseur ou fabricant chinois connu, quantité, marché de destination et résultat attendu sont réunis."
+            },
+            {
+              "step": "02",
+              "title": "Construire le brief fournisseur",
+              "copy": "Attributs, variantes, packaging, marché français, calendrier et critères de décision deviennent une demande lisible pour un fournisseur en Chine."
+            },
+            {
+              "step": "03",
+              "title": "Rendre les réponses comparables",
+              "copy": "Chaque réponse est reliée à la question qu'elle traite afin de ne pas masquer les écarts dans les échanges fournisseur."
+            },
+            {
+              "step": "04",
+              "title": "Examiner les preuves ou échantillons",
+              "copy": "Photos, vidéos, échantillons physiques et déclarations fournisseur alimentent la validation de votre équipe ; les critères d'acceptation demandent un périmètre confirmé."
+            },
+            {
+              "step": "05",
+              "title": "Préparer le relais suivant",
+              "copy": "Les détails approuvés, les quantités, le packaging et les informations d'origine sont documentés pour l'opération confirmée ensuite."
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Produit, fournisseur et décision dans le même brief.",
+          "items": [
+            "Référence Chine : lien produit, page fabricant, annonce marketplace ou contact fournisseur déjà identifié",
+            "Contexte produit et commercial : matières, variantes, quantité cible, packaging, marché de destination et contraintes",
+            "Échanges comparables : questions, réponses, preuves d'échantillon et décisions ouvertes dans un même cadre",
+            "Relais depuis la Chine : détails approuvés prêts pour l'achat, le fret, le stockage ou le fulfillment que votre équipe confirme"
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Une référence Chine utile et l'objectif visé suffisent pour ouvrir le travail.",
+          "body": "Il n'est pas nécessaire de connaître toutes les réponses dès le premier échange. Ces informations aident à transformer une première demande de sourcing en Chine en brief utilisable.",
+          "items": [
+            "Lien produit, image, plan ou spécification",
+            "Fournisseur, fabricant ou annonce marketplace en Chine, si déjà identifié",
+            "Quantité visée et rythme de réassort",
+            "Marché de destination et canal de vente",
+            "Matière, finition, couleur, dimensions, variantes et attentes packaging",
+            "Date cible et contraintes non négociables"
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions à éclaircir tôt.",
+          "guide": "Le sourcing en Chine coordonne informations et validations. Les engagements de qualité, prix, usine, conformité ou contrôle doivent être confirmés séparément.",
+          "items": [
+            {
+              "id": "fr-sourcing-0",
+              "question": "FreightVanta peut-il aider au sourcing de produits en Chine ?",
+              "answer": "Oui. FreightVanta peut structurer le brief produit, les questions aux fournisseurs en Chine, les réponses comparables et le relais approuvé. Le choix du fournisseur, le contrôle qualité, les prix, la conformité et les critères d'acceptation nécessitent un périmètre séparément confirmé."
+            },
+            {
+              "id": "fr-sourcing-1",
+              "question": "Peut-on commencer avec un simple lien produit ?",
+              "answer": "Oui. Un lien, une image ou une courte description permet de démarrer. Les informations manquantes pour le sourcing en Chine deviennent des questions pratiques."
+            },
+            {
+              "id": "fr-sourcing-2",
+              "question": "La qualité ou le fournisseur chinois sont-ils garantis ?",
+              "answer": "Non. Le contrôle qualité, les audits, les prix, la conformité et les critères d'acceptation doivent faire partie d'un périmètre explicitement validé."
+            },
+            {
+              "id": "fr-sourcing-3",
+              "question": "Le sourcing en Chine peut-il continuer vers le fulfillment ?",
+              "answer": "Oui. Une fois le produit, le packaging, la quantité, l'origine et la destination validés, le relais peut être préparé pour le stockage, le fret et le fulfillment."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "OUVRIR LA DEMANDE",
+      "heading": "Partez du produit, du sourcing en Chine et du résultat attendu.",
+      "body": "Partagez le produit, la quantité, le fournisseur chinois connu, la destination, le calendrier et le point de blocage actuel. FreightVanta répondra d'abord avec les questions opérationnelles qui définissent le périmètre.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "services/bulk-procurement": {
+    "id": "fr-services-bulk-procurement",
+    "kind": "service",
+    "route": "/fr/services/bulk-procurement",
+    "pageLabel": "Achat en volume depuis la Chine",
+    "breadcrumbParent": {
+      "label": "Solutions",
+      "href": "/fr/solutions"
+    },
+    "serviceName": "Achat en volume depuis la Chine",
+    "startingPoint": "product-sourcing",
+    "meta": {
+      "title": "Planifier un achat en volume depuis la Chine | FreightVanta",
+      "description": "Préparez un achat en volume depuis la Chine avec des quantités claires, des questions fournisseurs, des décisions de stock, des exigences d'emballage et des instructions de réception.",
+      "keywords": [
+        "achat en volume depuis la Chine",
+        "commande en gros Chine",
+        "approvisionnement en volume Chine",
+        "planification d'achat Chine",
+        "libération de stock par étapes"
+      ]
+    },
+    "formButton": "Planifier l'achat en volume",
+    "hero": {
+      "kicker": "ACHAT EN VOLUME DEPUIS LA CHINE",
+      "title": "Planifiez l'achat en volume depuis la Chine avant que la quantité ne crée des points ouverts coûteux.",
+      "body": "Une commande plus importante n'est pas une petite commande avec plus de pièces. Elle modifie les questions de production, les exigences d'emballage, les échanges sur le paiement, la réception, la finalité du stock et le plan de libération. FreightVanta aide à réunir ces décisions liées dans un brief d'approvisionnement exploitable avant que l'achat en volume ne passe à l'étape suivante. Le choix des fournisseurs, les conditions commerciales et la validation finale restent à votre équipe.",
+      "primaryCta": "Planifier l'achat en volume",
+      "secondaryCta": "Voir les étapes",
+      "mediaId": "service-warehousing",
+      "mediaAlt": "Cartons préparés près des rayonnages de stockage.",
+      "rail": [
+        {
+          "label": "RÉFÉRENCE"
+        },
+        {
+          "label": "BRIEF"
+        },
+        {
+          "label": "VALIDATION"
+        },
+        {
+          "label": "RELAIS"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "Un achat en volume a besoin d'un plan de destination, pas seulement d'une quantité confirmée.",
+          "paragraphs": [
+            "Avant le prochain cycle de production, l'acheteur doit pouvoir répondre : quelle version produit est validée ? La quantité concerne-t-elle un envoi unique ou un réassort par étapes ? Quels emballages et étiquettes accompagnent la marchandise ? Comment le stock est-il identifié ? Et qui valide un changement ? La page organise ces questions ; elle ne promet ni prix, ni date de production, ni résultat de contrôle, ni résultat d'expédition."
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Utilisez la planification d'achat en volume quand la prochaine commande touche plus d'un relais.",
+          "cards": [
+            {
+              "title": "DE LA COMMANDE TEST À LA PLANIFICATION",
+              "copy": "Un volume plus important fait apparaître version produit, conditionnement unitaire, marquage des cartons, emplacement de stock et date de libération, encore masqués sur une petite commande."
+            },
+            {
+              "title": "LANCEMENT, RÉASSORT OU FENÊTRE SAISONNIÈRE",
+              "copy": "Une date cible exige des responsables pour le produit, la quantité, l'emballage, la réception et la destination ; elle ne constitue pas en soi une promesse de livraison."
+            },
+            {
+              "title": "UN ACHAT, PLUSIEURS DESTINATIONS",
+              "copy": "Notez si le stock est destiné au stockage, à une libération fret, à la distribution ou aux commandes clients, pour que l'équipe suivante ne reconstruise pas le contexte."
+            }
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Garder la décision élargie cohérente.",
+          "steps": [
+            {
+              "copy": "Confirmer l'objectif d'achat et la référence produit validée."
+            },
+            {
+              "copy": "Créer un jeu de questions fournisseur sur le produit, l'emballage, les cartons et les conditions de livraison."
+            },
+            {
+              "copy": "Désigner les responsables de validation pour les preuves, les fichiers créatifs, les jalons commerciaux et les instructions de libération."
+            },
+            {
+              "copy": "Planifier le relais de stock : identifiant, quantité, informations carton et palette, destination de réception."
+            },
+            {
+              "copy": "Préparer les instructions d'emballage et de libération pour les étiquettes, notices, lots et le traitement des éléments fournisseur."
+            },
+            {
+              "copy": "Coordonner le mouvement suivant confirmé vers le stockage, le fret, la distribution ou la préparation de commandes."
+            }
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Ce que le plan d'achat en volume peut organiser.",
+          "groups": [
+            {
+              "label": "Inclus",
+              "items": [
+                "brief produit et quantité",
+                "questions fournisseurs",
+                "préparation du stock",
+                "relais emballage",
+                "responsabilité de libération."
+              ]
+            },
+            {
+              "label": "À confirmer d'abord",
+              "items": [
+                "négociation de prix ou économies",
+                "contrats",
+                "paiement et financement commercial",
+                "audit d'usine",
+                "contrôle et tests",
+                "certification",
+                "capacité",
+                "taux de fret et délai."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Apportez le contexte d'achat, pas seulement la quantité.",
+          "items": [
+            "Lien produit ou échantillon validé",
+            "quantité cible et rythme de réassort",
+            "fournisseur connu",
+            "marché et destination",
+            "variante, matière, finition, dimensions et emballage",
+            "date de mise à disposition souhaitée",
+            "prochain relais."
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Un achat plus important reste plus facile à expliquer après validation.",
+          "items": [
+            "un brief accompagne la décision",
+            "les points de validation sont visibles avant de devenir des retards",
+            "le stock a une finalité nommée",
+            "les changements ont un lieu"
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-services-bulk-procurement-0",
+              "question": "FreightVanta garantit-il un prix plus bas pour un achat en volume depuis la Chine ?",
+              "answer": "Non. Aucun rabais ni économie n'est promis sans périmètre commercial écrit."
+            },
+            {
+              "id": "fr-services-bulk-procurement-1",
+              "question": "Un achat en volume peut-il être libéré par étapes ?",
+              "answer": "Oui, si la réception, le stockage, l'emballage, le fret et les instructions de libération sont confirmés au préalable."
+            },
+            {
+              "id": "fr-services-bulk-procurement-2",
+              "question": "Pouvons-nous démarrer avec un fournisseur existant ?",
+              "answer": "Oui, avec la version produit, la quantité, l'emballage, la destination et le circuit de validation."
+            },
+            {
+              "id": "fr-services-bulk-procurement-3",
+              "question": "L'achat en volume inclut-il un contrôle qualité ?",
+              "answer": "Pas automatiquement ; critères d'acceptation, audit, tests et conformité doivent être confirmés."
+            },
+            {
+              "id": "fr-services-bulk-procurement-4",
+              "question": "L'achat en volume peut-il s'enchaîner sur la préparation de commandes ?",
+              "answer": "Oui, dès que l'identifiant de stock, l'emballage et les règles de préparation sont stables."
+            },
+            {
+              "id": "fr-services-bulk-procurement-5",
+              "question": "Que faire si la quantité est encore à l'étude ?",
+              "answer": "Gardez une fourchette et le responsable de décision visibles plutôt que de présenter un chiffre non validé comme définitif."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par le produit, la quantité prévue et la prochaine destination de la marchandise.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": [],
+      "body": "Partagez la référence produit, la quantité, le fournisseur connu, le marché cible, la date de mise à disposition souhaitée, l'exigence d'emballage et le relais prévu vers stockage, fret, distribution ou préparation de commandes."
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "services/packaging-branding": {
+    "id": "fr-services-packaging-branding",
+    "kind": "service",
+    "route": "/fr/services/packaging-branding",
+    "pageLabel": "Emballage et image de marque",
+    "breadcrumbParent": {
+      "label": "Solutions",
+      "href": "/fr/solutions"
+    },
+    "serviceName": "Emballage et image de marque",
+    "startingPoint": "packaging-branding",
+    "meta": {
+      "title": "Emballage et image de marque pour les produits de Chine | FreightVanta",
+      "description": "Transformez un emballage validé, des étiquettes, des notices et des éléments de marque en une instruction de conditionnement exploitable pour votre préparation de commandes.",
+      "keywords": [
+        "emballage personnalisé produits de Chine",
+        "emballage et image de marque",
+        "notices et étiquettes",
+        "instruction de conditionnement",
+        "emballage de marque depuis la Chine"
+      ]
+    },
+    "formButton": "Demander un plan emballage et marque",
+    "hero": {
+      "kicker": "EMBALLAGE ET IMAGE DE MARQUE",
+      "title": "Faites arriver les produits de Chine dans un emballage qui prolonge votre marque.",
+      "body": "Un produit fini n'est pas encore une expérience client finie. Le carton, le sachet, la notice, l'étiquette, la règle de protection, le lot et le traitement des éléments fournisseur doivent parvenir à l'équipe de conditionnement comme une instruction utilisable. FreightVanta aide à transformer des éléments d'emballage et de marque validés en un brief de conditionnement coordonné pour les produits sourcés en Chine. La marque, les fichiers créatifs, la promesse client et la validation finale restent à votre équipe.",
+      "primaryCta": "Demander un plan emballage et marque",
+      "secondaryCta": "Voir le déroulé de conditionnement",
+      "mediaId": "service-packaging",
+      "mediaAlt": "Cartons et éléments d'emballage sur une table de travail.",
+      "rail": [
+        {
+          "label": "RÉFÉRENCE"
+        },
+        {
+          "label": "BRIEF"
+        },
+        {
+          "label": "VALIDATION"
+        },
+        {
+          "label": "RELAIS"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "L'emballage devient opérationnel quand chaque composant a un objectif et une version.",
+          "paragraphs": [
+            "Un fichier de logo seul n'indique pas à une équipe ce qu'il faut placer dans une commande. Le brief opérationnel doit identifier la variante produit, le nombre de notices, la langue active, la méthode de protection, le traitement des éléments fournisseur et le moment où l'ancien emballage cesse d'être utilisé."
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Utilisez la coordination emballage et marque quand des fichiers deviennent des commandes physiques.",
+          "cards": [
+            {
+              "title": "LE PRODUIT EST PRÊT, LE CONDITIONNEMENT NON",
+              "copy": "Relier carton, sachet, étiquette, notice, élément cadeau et règles d'éléments fournisseur."
+            },
+            {
+              "title": "UNE RÉVISION DE MARQUE APPROCHE",
+              "copy": "Version, date d'effet et décision sur le stock résiduel évitent de mélanger anciens et nouveaux éléments."
+            },
+            {
+              "title": "PLUSIEURS ÉQUIPES TOUCHENT LA COMMANDE",
+              "copy": "Sourcing, stock, conditionnement, préparation de commandes et service client reçoivent une instruction à jour."
+            },
+            {
+              "title": "LE PRODUIT VIENT DE CHINE",
+              "copy": "Transmettre les exigences d'emballage validées du relais fournisseur à la réception et à la préparation des commandes."
+            }
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Du choix de marque validé à un conditionnement répétable.",
+          "steps": [
+            {
+              "copy": "Confirmer le produit et la version, ainsi que l'objectif client."
+            },
+            {
+              "copy": "Rassembler fichiers créatifs, étiquettes, notices, composants d'emballage et versions linguistiques."
+            },
+            {
+              "copy": "Définir quantité, ordre, protection, lots et règles d'exclusion."
+            },
+            {
+              "copy": "Enregistrer les informations fournisseur et composant, la date d'effet et le responsable des changements."
+            },
+            {
+              "copy": "Vérifier un échantillon ou une preuve lorsque le périmètre le prévoit."
+            },
+            {
+              "copy": "Publier l'instruction de conditionnement active pour le stockage ou la préparation de commandes."
+            }
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Périmètre",
+          "groups": [
+            {
+              "label": "Inclus",
+              "items": [
+                "brief d'emballage",
+                "version active",
+                "ordre des notices et étiquettes",
+                "liste des composants",
+                "notes de relais."
+              ]
+            },
+            {
+              "label": "À confirmer d'abord",
+              "items": [
+                "design graphique",
+                "impression et fabrication",
+                "marque",
+                "propriété intellectuelle et revue juridique",
+                "étiquettes de sécurité produit",
+                "formulations réglementaires",
+                "tests matière et validation créative finale."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Préparation",
+          "items": [
+            "Référence produit et variantes",
+            "fichiers créatifs et formulations actuelles",
+            "orientation d'emballage",
+            "notices, étiquettes et langues",
+            "source fournisseur ou composant connue",
+            "responsables de validation",
+            "nom de version et date d'effet",
+            "relais prévu vers stockage, fret ou préparation de commandes."
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "La décision de marque reste visible après validation du fichier.",
+          "items": [
+            "L'expérience client dispose d'un enregistrement opérationnel.",
+            "Les changements risquent moins d'être mélangés.",
+            "Les validations ont lieu avant un travail irréversible.",
+            "Les décisions de marque peuvent rejoindre la logistique."
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-services-packaging-branding-0",
+              "question": "Pouvez-vous créer notre logo ou notre marque ?",
+              "answer": "La page coordonne des éléments validés ; le droit, la propriété intellectuelle et la création relèvent d'un périmètre distinct."
+            },
+            {
+              "id": "fr-services-packaging-branding-1",
+              "question": "Les produits en marque blanche peuvent-ils utiliser des notices ou un emballage personnalisés ?",
+              "answer": "Possible lorsque produit, matières, quantités et conditionnement sont validés."
+            },
+            {
+              "id": "fr-services-packaging-branding-2",
+              "question": "Comment éviter de mélanger anciens et nouveaux emballages ?",
+              "answer": "Avec une version active, une date d'effet, une règle sur le stock résiduel et une instruction à jour."
+            },
+            {
+              "id": "fr-services-packaging-branding-3",
+              "question": "La coordination d'emballage garantit-elle la conformité réglementaire ?",
+              "answer": "Non ; les exigences de marché, de sécurité et de certification nécessitent une revue qualifiée."
+            },
+            {
+              "id": "fr-services-packaging-branding-4",
+              "question": "L'emballage peut-il rejoindre la marque propre et la préparation de commandes ?",
+              "answer": "Oui, dès que produit, version et règles de conditionnement sont stables."
+            },
+            {
+              "id": "fr-services-packaging-branding-5",
+              "question": "Et si le fichier créatif n'est pas finalisé ?",
+              "answer": "Gardez le statut brouillon et nommez le valideur ; ne le publiez pas comme règle active."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par le produit, la décision de marque validée et le changement que vous devez maîtriser.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "services/inventory-storage": {
+    "id": "fr-services-inventory-storage",
+    "kind": "service",
+    "route": "/fr/services/inventory-storage",
+    "pageLabel": "Stockage et libération des stocks",
+    "breadcrumbParent": {
+      "label": "Solutions",
+      "href": "/fr/solutions"
+    },
+    "serviceName": "Stockage et libération des stocks",
+    "startingPoint": "warehousing-fulfillment",
+    "meta": {
+      "title": "Stockage des marchandises en provenance de Chine | FreightVanta",
+      "description": "Organisez la réception, l'identification, le stockage, les instructions de libération et les décisions d'exception pour des marchandises importées avant leur départ vers le fret, la distribution ou les commandes clients.",
+      "keywords": [
+        "stockage de marchandises en provenance de Chine",
+        "gestion de stock de marchandises importées",
+        "réception et libération",
+        "stockage de produits sourcés en Chine"
+      ]
+    },
+    "formButton": "Demander un plan de stockage",
+    "hero": {
+      "kicker": "STOCKAGE",
+      "title": "Donnez au stock importé un plan clair de réception, de stockage et de libération.",
+      "body": "Quand la marchandise arrive de Chine, la question suivante n'est pas seulement de savoir où elle se trouve. L'équipe doit savoir ce qui est arrivé, à quelle version produit cela correspond, comment c'est identifié, quelle preuve est enregistrée, ce qui peut être libéré et qui décide lorsqu'un comptage, un carton, une étiquette ou une destination ne correspond pas. FreightVanta aide à structurer cet enregistrement opérationnel avant confirmation du stockage et de la libération.",
+      "primaryCta": "Demander un plan de stockage",
+      "secondaryCta": "Voir le déroulé réception-libération",
+      "mediaId": "service-warehousing",
+      "mediaAlt": "Marchandises organisées dans une zone de stockage.",
+      "rail": [
+        {
+          "label": "RÉFÉRENCE"
+        },
+        {
+          "label": "BRIEF"
+        },
+        {
+          "label": "VALIDATION"
+        },
+        {
+          "label": "RELAIS"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "Le stockage est utile lorsque la prochaine décision de libération est visible.",
+          "paragraphs": [
+            "Une adresse d'entrepôt ou un comptage de stock seul n'indique pas à l'équipe suivante si la marchandise est vendable, réservée, en attente de preuve, destinée à la distribution ou conservée pour une commande ultérieure. Un enregistrement de la réception à la libération relie identité produit, quantité, emballage, destination et responsable de libération."
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Quand cela convient",
+          "cards": [
+            {
+              "title": "LA MARCHANDISE ARRIVE AVANT LA LIBÉRATION FINALE",
+              "copy": "Enregistrer les cartons attendus, l'identité produit et la règle de retenue ou de libération."
+            },
+            {
+              "title": "UNE RÉCEPTION ALIMENTE PLUSIEURS DESTINATIONS",
+              "copy": "Séparer distribution, fret, réassort et préparation de commandes."
+            },
+            {
+              "title": "LES INFORMATIONS DE STOCK SONT DISPERSÉES",
+              "copy": "Réunir SKU, référence, comptage, images, notes de dommage et décisions ouvertes."
+            },
+            {
+              "title": "L'EMBALLAGE OU LES ÉLÉMENTS DE MARQUE SONT STOCKÉS AVEC LE PRODUIT",
+              "copy": "Garder les versions de composant et de conditionnement visibles."
+            }
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Déroulé réception-libération",
+          "steps": [
+            {
+              "copy": "Préparer l'avis de réception attendu et le contexte documentaire."
+            },
+            {
+              "copy": "Réceptionner et identifier cartons, palettes, produits et version active."
+            },
+            {
+              "copy": "Enregistrer comptage, état visible et preuve requise dans le périmètre confirmé."
+            },
+            {
+              "copy": "Attribuer finalité de stock, statut de retenue, instruction de stockage et responsable de libération."
+            },
+            {
+              "copy": "Relier la règle d'emballage, d'étiquette, de lot ou de destination."
+            },
+            {
+              "copy": "Libérer vers un fret, une distribution, une préparation de commandes ou un relais confirmé."
+            },
+            {
+              "copy": "Escalader écart, dommage, document manquant ou différence de quantité vers une décision."
+            }
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Périmètre",
+          "groups": [
+            {
+              "label": "Inclus",
+              "items": [
+                "brief de réception",
+                "identifiants de stock",
+                "règle de comptage et de libération",
+                "circuit d'exception",
+                "enregistrement de relais."
+              ]
+            },
+            {
+              "label": "À confirmer d'abord",
+              "items": [
+                "emplacement d'entrepôt",
+                "capacité",
+                "frais de stockage",
+                "assurance",
+                "traitement à température ou spécial",
+                "standard de contrôle",
+                "intégration au système de stock et couverture pays réelle."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Préparation",
+          "items": [
+            "Date ou période de réception attendue",
+            "cartons et palettes",
+            "liste produit et SKU",
+            "fournisseur et origine",
+            "emballage et version actifs",
+            "destination ou finalité de stock",
+            "exigence de comptage et de preuve",
+            "responsable de libération",
+            "traitement spécial ou restriction."
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Le statut de stock et le statut de commande restent séparés.",
+          "body": "Réceptionné, identifié, retenu, disponible, réservé, libéré et exception ne doivent pas se fondre dans un « en stock » flou. L'enregistrement indique à l'opérateur suivant ce qui s'est passé et qui doit encore décider."
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-services-inventory-storage-0",
+              "question": "Pouvez-vous stocker des produits importés de Chine ?",
+              "answer": "Partagez origine, produit, quantité, calendrier et destination ; lieu, capacité et manutention doivent être confirmés."
+            },
+            {
+              "id": "fr-services-inventory-storage-1",
+              "question": "Le stock peut-il être libéré par étapes ?",
+              "answer": "Oui, si finalité de stock, identification et responsable de libération sont définis."
+            },
+            {
+              "id": "fr-services-inventory-storage-2",
+              "question": "Garantissez-vous un comptage ou un résultat de contrôle ?",
+              "answer": "Non ; preuves, contrôles et critères d'acceptation nécessitent un périmètre explicite."
+            },
+            {
+              "id": "fr-services-inventory-storage-3",
+              "question": "L'emballage et les notices peuvent-ils rester avec le stock ?",
+              "answer": "Ils peuvent être intégrés à une règle de composant et de libération validée."
+            },
+            {
+              "id": "fr-services-inventory-storage-4",
+              "question": "Le stockage peut-il rejoindre la préparation de commandes ?",
+              "answer": "Oui, dès que l'identité vendable, la règle de conditionnement et le relais de commande sont prêts."
+            },
+            {
+              "id": "fr-services-inventory-storage-5",
+              "question": "Que faire si les cartons ne correspondent pas à l'avis ?",
+              "answer": "Enregistrer l'écart et le transmettre au responsable de décision nommé avant toute libération."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par ce qui arrive, à quoi cela sert et qui peut le libérer.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "services/private-white-label": {
+    "id": "fr-services-private-white-label",
+    "kind": "service",
+    "route": "/fr/services/private-white-label",
+    "pageLabel": "Marque propre et marque blanche",
+    "breadcrumbParent": {
+      "label": "Solutions",
+      "href": "/fr/solutions"
+    },
+    "serviceName": "Marque propre et marque blanche",
+    "startingPoint": "product-sourcing",
+    "meta": {
+      "title": "Marque propre et marque blanche depuis la Chine | FreightVanta",
+      "description": "Coordonnez produit, éléments de marque, versions d'emballage, points de validation et relais vers la préparation de commandes pour vos programmes de marque propre et de marque blanche depuis la Chine.",
+      "keywords": [
+        "marque propre depuis la Chine",
+        "marque blanche Chine",
+        "sourcing marque propre",
+        "contrôle de version produit de marque",
+        "coordination emballage marque propre"
+      ]
+    },
+    "formButton": "Demander un plan marque propre",
+    "hero": {
+      "kicker": "MARQUE PROPRE / MARQUE BLANCHE",
+      "title": "Gardez produit, emballage et validation de marque alignés de la Chine jusqu'au prochain relais.",
+      "body": "Un programme de marque propre ne se limite pas à apposer un logo sur un produit existant. Version produit, caractéristiques validées, fichiers de marque, étiquettes, emballage, notices, questions fournisseurs et instruction de préparation de commandes doivent renvoyer à la même décision. FreightVanta aide à structurer cet enregistrement et à préparer le prochain relais confirmé. Marque, propriété intellectuelle, étiquetage légal, allégations produit et conformité restent soumis à une revue qualifiée et à un périmètre écrit.",
+      "primaryCta": "Demander un plan marque propre",
+      "secondaryCta": "Voir le déroulé de validation",
+      "mediaId": "service-private-label",
+      "mediaAlt": "Échantillons de produit et éléments de marque non imprimés.",
+      "rail": [
+        {
+          "label": "RÉFÉRENCE"
+        },
+        {
+          "label": "BRIEF"
+        },
+        {
+          "label": "VALIDATION"
+        },
+        {
+          "label": "RELAIS"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "Un produit de marque a besoin d'un contrôle de version avant d'avoir besoin de plus de volume.",
+          "paragraphs": [
+            "Le même produit peut avoir plusieurs noms, fichiers créatifs, notices, étiquettes, lots et versions de marché. La question opérationnelle est : quelle version est active, qui l'a validée, quand prend-elle effet, que faire du stock existant et comment le conditionnement passe-t-il à l'équipe suivante."
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Quand cela convient",
+          "cards": [
+            {
+              "title": "UN PRODUIT DE BASE EN MARQUE BLANCHE A BESOIN DE VOTRE VERSION CLIENT",
+              "copy": "Relier référence produit, éléments de marque et règle de conditionnement."
+            },
+            {
+              "title": "UN PROGRAMME DE MARQUE PROPRE PASSE DE L'ÉCHANTILLON À L'ACHAT",
+              "copy": "Garder validation d'échantillon, spécification, quantité et fichiers créatifs dans un même enregistrement."
+            },
+            {
+              "title": "UNE RÉVISION D'EMBALLAGE OU DE LANGUE APPROCHE",
+              "copy": "Définir date d'effet et traitement du stock ancien."
+            },
+            {
+              "title": "LE PRODUIT DOIT REJOINDRE LE STOCKAGE OU LA PRÉPARATION DE COMMANDES",
+              "copy": "Transmettre SKU, étiquette, lot et règles d'exception."
+            }
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Déroulé de validation et de relais",
+          "steps": [
+            {
+              "copy": "Établir la référence produit, le marché cible et la promesse client."
+            },
+            {
+              "copy": "Rassembler éléments de marque, fichiers créatifs, formulations, étiquettes, notices et orientation d'emballage."
+            },
+            {
+              "copy": "Enregistrer version fournisseur et produit, contexte d'échantillon et questions commerciales ouvertes."
+            },
+            {
+              "copy": "Nommer les responsables de validation pour produit, création, emballage et opérations."
+            },
+            {
+              "copy": "Fixer version active, date d'effet et décision sur le stock résiduel."
+            },
+            {
+              "copy": "Après validation, préparer le relais vers emballage, stock, fret ou préparation de commandes."
+            }
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Périmètre",
+          "groups": [
+            {
+              "label": "Inclus",
+              "items": [
+                "enregistrement de version",
+                "liste d'éléments",
+                "circuit de validation",
+                "relais de conditionnement",
+                "journal des changements."
+              ]
+            },
+            {
+              "label": "À confirmer d'abord",
+              "items": [
+                "conseil marque",
+                "propriété intellectuelle et juridique",
+                "conception et fabrication produit",
+                "tests et certification",
+                "conformité de marché",
+                "allégations et acceptation produit."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Préparation",
+          "items": [
+            "Référence produit et échantillon",
+            "marché cible",
+            "éléments de marque et formulations validées",
+            "fichiers emballage, étiquettes et notices",
+            "fournisseur connu",
+            "noms de version",
+            "dates d'effet",
+            "responsables de validation",
+            "destination stock et préparation de commandes."
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "La décision de marque reste visible après validation du fichier.",
+          "items": [
+            "L'expérience client dispose d'un enregistrement opérationnel.",
+            "Les changements risquent moins d'être mélangés.",
+            "Les validations ont lieu avant un travail irréversible.",
+            "Le programme peut rejoindre une logistique concrète."
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-services-private-white-label-0",
+              "question": "Proposez-vous un conseil en marque ou propriété intellectuelle ?",
+              "answer": "Non ; utilisez un conseil juridique qualifié et un périmètre confirmé."
+            },
+            {
+              "id": "fr-services-private-white-label-1",
+              "question": "Les produits en marque blanche peuvent-ils utiliser un emballage personnalisé ?",
+              "answer": "Possible lorsque produit, matières, quantités et conditionnement sont validés."
+            },
+            {
+              "id": "fr-services-private-white-label-2",
+              "question": "Comment séparer anciennes et nouvelles étiquettes ?",
+              "answer": "Avec version active, date d'effet, règle sur le stock résiduel et instruction claire."
+            },
+            {
+              "id": "fr-services-private-white-label-3",
+              "question": "La coordination de marque propre garantit-elle la conformité de marché ?",
+              "answer": "Non ; sécurité, certification, étiquetage légal et allégations doivent être vérifiés."
+            },
+            {
+              "id": "fr-services-private-white-label-4",
+              "question": "Un programme de marque propre peut-il rejoindre le sourcing et la préparation de commandes ?",
+              "answer": "Oui, une fois les décisions produit et marque stables."
+            },
+            {
+              "id": "fr-services-private-white-label-5",
+              "question": "Et si le fichier créatif est encore en revue ?",
+              "answer": "Le garder en brouillon, nommer un valideur et ne pas l'utiliser comme règle de conditionnement active."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par le produit, la décision de marque validée et le changement que vous devez maîtriser.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "services/worldwide-fulfillment": {
+    "id": "fr-services-worldwide-fulfillment",
+    "kind": "service",
+    "route": "/fr/services/worldwide-fulfillment",
+    "pageLabel": "Préparation de commandes",
+    "breadcrumbParent": {
+      "label": "Solutions",
+      "href": "/fr/solutions"
+    },
+    "serviceName": "Préparation de commandes",
+    "startingPoint": "warehousing-fulfillment",
+    "meta": {
+      "title": "Préparation de commandes pour produits sourcés en Chine | FreightVanta",
+      "description": "Préparez un stock issu de Chine pour les commandes clients avec des instructions claires de prélèvement, conditionnement, étiquette, remise au transport et gestion des exceptions.",
+      "keywords": [
+        "préparation de commandes pour produits sourcés en Chine",
+        "préparation de commandes internationale",
+        "e-fulfillment depuis la Chine",
+        "relais pick and pack",
+        "circuit d'exception commande"
+      ]
+    },
+    "formButton": "Demander un plan de préparation",
+    "hero": {
+      "kicker": "PRÉPARATION DE COMMANDES",
+      "title": "Transformez un stock issu de Chine en commandes prêtes pour le client avec un plan de préparation clair.",
+      "body": "La préparation de commandes est la couche opérationnelle entre un stock prêt et la promesse client. FreightVanta aide à coordonner l'identification des produits sourcés en Chine, le prélèvement, le conditionnement, l'étiquetage, la remise à un service de transport et le traitement lorsqu'une commande exige une décision. La bonne configuration dépend du produit, du profil de commande, de la destination, des éléments de marque, de la source de commande et de l'exigence de livraison. Cette page ne promet ni emplacements d'entrepôt, ni couverture transporteur, ni automatisation, ni heures limites, ni comportement de suivi, ni livraison mondiale avant vérification.",
+      "primaryCta": "Demander un plan de préparation",
+      "secondaryCta": "Voir le cycle de commande",
+      "mediaId": "industry-ecommerce",
+      "mediaAlt": "Rayonnages et marchandises dans un entrepôt.",
+      "rail": [
+        {
+          "label": "RÉFÉRENCE"
+        },
+        {
+          "label": "BRIEF"
+        },
+        {
+          "label": "VALIDATION"
+        },
+        {
+          "label": "RELAIS"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "Une commande client ne doit pas être le moment où l'équipe découvre la règle de conditionnement.",
+          "paragraphs": [
+            "Chaque produit vendable a besoin d'un identifiant, d'une règle d'emballage ou de lot active, d'une instruction de destination et d'un circuit d'exception. Un article manquant, une adresse modifiée, un composant endommagé, un écart de stock ou une étiquette floue doivent créer une demande de décision visible plutôt qu'un résultat client improvisé."
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Quand cela convient",
+          "cards": [
+            {
+              "title": "PLUSIEURS DESTINATIONS OU TYPES DE COMMANDE",
+              "copy": "Produits, étiquettes, documents et règles de conditionnement différents nécessitent un cycle de commande unique."
+            },
+            {
+              "title": "COMPOSANTS DE MARQUE OU LOTS",
+              "copy": "Notices, cadeaux, combinaisons multi-SKU et exclusion d'éléments fournisseur nécessitent des règles actives."
+            },
+            {
+              "title": "PLUSIEURS ÉQUIPES TOUCHENT LA COMMANDE",
+              "copy": "Garder les statuts séparés : réceptionné, vendable, prélevé, conditionné, expédié et exception."
+            }
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Cycle de commande",
+          "steps": [
+            {
+              "copy": "Réceptionner et identifier le stock."
+            },
+            {
+              "copy": "Préparer le produit vendable, le SKU et la règle de conditionnement active."
+            },
+            {
+              "copy": "Créer la règle de prélèvement pour les éléments inclus, exclus et les substitutions validées."
+            },
+            {
+              "copy": "Appliquer la règle d'emballage et de marque."
+            },
+            {
+              "copy": "Préparer les étiquettes et la remise au transport confirmée."
+            },
+            {
+              "copy": "Relier une référence de suivi lorsque le service retenu la fournit."
+            },
+            {
+              "copy": "Traiter stock, adresse, dommage, annulation, retard ou question de retour comme une demande d'exception."
+            }
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Périmètre",
+          "groups": [
+            {
+              "label": "Inclus",
+              "items": [
+                "déroulé de préparation de commande",
+                "composants de lot et de marque",
+                "circuit d'exception",
+                "relais de suivi lorsque pris en charge."
+              ]
+            },
+            {
+              "label": "À confirmer d'abord",
+              "items": [
+                "emplacement d'entrepôt",
+                "couverture pays",
+                "disponibilité transporteur",
+                "marchandises interdites",
+                "délai de traitement",
+                "heure limite",
+                "tarif",
+                "API boutique",
+                "retours et douane."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Préparation",
+          "items": [
+            "Liste produit et SKU",
+            "contexte de stock",
+            "volume de commandes attendu et saisonnalité",
+            "source de commande et champs de données",
+            "marchés cibles",
+            "éléments de marque",
+            "règle de lot, substitution et exclusion",
+            "approche service client pour les exceptions."
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "La préparation des commandes devient visible avant qu'un client attende une réponse.",
+          "items": [
+            "Statut de stock et statut de commande restent séparés.",
+            "Les règles de marque et de lot accompagnent la commande.",
+            "Les exceptions ont un circuit responsable.",
+            "Le déroulé grandit avec la complexité validée."
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-services-worldwide-fulfillment-0",
+              "question": "Pouvez-vous préparer des commandes clients dans le monde entier ?",
+              "answer": "Partagez les marchés visés ; lieux réels, transporteurs, restrictions produit et disponibilité destination doivent être vérifiés."
+            },
+            {
+              "id": "fr-services-worldwide-fulfillment-1",
+              "question": "Les éléments fournisseur peuvent-ils être retirés ou les produits regroupés en lot ?",
+              "answer": "Possible dans le cadre d'une instruction de conditionnement validée."
+            },
+            {
+              "id": "fr-services-worldwide-fulfillment-2",
+              "question": "Notre boutique peut-elle se connecter automatiquement ?",
+              "answer": "Aucune promesse d'intégration avant confirmation de la plateforme et du support technique."
+            },
+            {
+              "id": "fr-services-worldwide-fulfillment-3",
+              "question": "Comment le suivi est-il géré ?",
+              "answer": "Selon le service de transport retenu et l'intégration disponible."
+            },
+            {
+              "id": "fr-services-worldwide-fulfillment-4",
+              "question": "La préparation de commandes peut-elle démarrer avec un stock déjà sourcé en Chine ?",
+              "answer": "Oui, dès que l'identité produit, la quantité et la règle de conditionnement sont utilisables."
+            },
+            {
+              "id": "fr-services-worldwide-fulfillment-5",
+              "question": "Comment traiter retours ou changements d'adresse ?",
+              "answer": "Définir le responsable d'exception et le circuit de réponse avant la libération."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par les produits, les commandes et la règle client qui doit rester cohérente.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "industries/cross-border-ecommerce": {
+    "id": "fr-industries-cross-border-ecommerce",
+    "kind": "industry",
+    "route": "/fr/industries/cross-border-ecommerce",
+    "pageLabel": "E-commerce transfrontalier",
+    "breadcrumbParent": {
+      "label": "Secteurs",
+      "href": "/fr/secteurs"
+    },
+    "serviceName": null,
+    "startingPoint": null,
+    "meta": {
+      "title": "Logistique e-commerce transfrontalier depuis la Chine | FreightVanta",
+      "description": "Planifiez un parcours opérationnel de l'approvisionnement en Chine au contrôle produit, au conditionnement, à la réception du stock, à la libération et aux commandes prêtes pour le client.",
+      "keywords": [
+        "logistique e-commerce transfrontalier depuis la Chine",
+        "coordination de chaîne e-commerce Chine",
+        "sourcing et préparation de commandes depuis la Chine",
+        "stock e-commerce prêt pour la distribution"
+      ]
+    },
+    "formButton": "Planifier votre relais e-commerce",
+    "hero": {
+      "kicker": "E-COMMERCE TRANSFRONTALIER",
+      "title": "Reliez la décision de sourcing en Chine à la commande que votre client doit recevoir.",
+      "body": "L'e-commerce transfrontalier est une chaîne de décisions liées : référence produit, questions fournisseurs, spécification, emballage, réception du stock, règle de libération et commande client. FreightVanta aide à rendre cette chaîne visible pour que l'équipe suivante travaille avec le même contexte produit et conditionnement. Couverture transporteur, délai de livraison, douane, intégration de plateforme et disponibilité de service restent liés à la destination et au périmètre confirmés.",
+      "primaryCta": "Planifier votre relais e-commerce",
+      "secondaryCta": "Voir le parcours opérationnel",
+      "mediaId": "industry-ecommerce",
+      "mediaAlt": "Marchandises e-commerce organisées sur des rayonnages.",
+      "rail": [
+        {
+          "label": "PRODUIT"
+        },
+        {
+          "label": "CONTRÔLES"
+        },
+        {
+          "label": "CONDITIONNEMENT"
+        },
+        {
+          "label": "RÉCEPTION"
+        },
+        {
+          "label": "LIBÉRATION"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "L'e-commerce est une suite d'engagements, pas une simple étiquette de transport.",
+          "paragraphs": [
+            "Le produit que voit un client doit correspondre au produit sourcé, à la version conditionnée, au stock réceptionné et à la commande libérée. Si un maillon est flou, l'équipe suivante repose la même question ou prend une hypothèse qui modifie l'expérience client."
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Du sourcing en Chine aux commandes prêtes pour le client.",
+          "steps": [
+            {
+              "title": "RÉFÉRENCE PRODUIT",
+              "copy": "Lien produit, spécification, version et contexte de marché."
+            },
+            {
+              "title": "RELAIS SOURCING CHINE",
+              "copy": "Jeu de questions fournisseur, comparaison des réponses et décisions ouvertes."
+            },
+            {
+              "title": "RÈGLE DE CONDITIONNEMENT",
+              "copy": "Emballage, notice, étiquette, lot et éléments fournisseur."
+            },
+            {
+              "title": "CONTEXTE DE RÉCEPTION",
+              "copy": "SKU, quantité, preuve de réception et finalité de stock."
+            },
+            {
+              "title": "LIBÉRATION DE COMMANDE",
+              "copy": "Prélèvement, conditionnement, étiquette, remise au transport et responsable d'exception."
+            }
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Un produit, plusieurs contextes opérationnels.",
+          "cards": [
+            {
+              "title": "DTC / ABONNEMENT",
+              "copy": "Source de commande, lot, notice, réassort et règle client."
+            },
+            {
+              "title": "DISTRIBUTION / GROS",
+              "copy": "Carton, étiquette, quantité par pack et consigne distributeur à confirmer."
+            },
+            {
+              "title": "SAISON / CAMPAGNE",
+              "copy": "Date active, finalité du stock, fenêtre de lancement et responsable d'escalade."
+            }
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Ce qui doit être clair avant que le stock ne bouge.",
+          "paragraphs": [],
+          "items": [
+            "Le produit peut-il être identifié par un SKU ou une version active ?",
+            "La règle de conditionnement est-elle liée au produit actuel ?",
+            "Qui peut libérer ou retenir le stock ?",
+            "Quelle preuve est attendue à la réception ?",
+            "Que se passe-t-il si quantité, adresse, étiquette ou produit diffèrent ?"
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Commencez par les faits opérationnels que vous avez déjà.",
+          "items": [
+            "Liste produit et SKU",
+            "fournisseur ou référence produit en Chine",
+            "marchés et canaux cibles",
+            "profil de commande",
+            "emballage et éléments de marque",
+            "réception attendue",
+            "promesse client",
+            "blocage actuel",
+            "responsable de décision."
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-industries-cross-border-ecommerce-0",
+              "question": "Pouvez-vous gérer toute notre chaîne e-commerce transfrontalière ?",
+              "answer": "La page relie des relais de service confirmés ; les services et pays réels nécessitent une revue de périmètre."
+            },
+            {
+              "id": "fr-industries-cross-border-ecommerce-1",
+              "question": "Pouvez-vous garantir des dates de livraison ?",
+              "answer": "Non ; itinéraire, transporteur, douane et conditions de destination doivent être confirmés."
+            },
+            {
+              "id": "fr-industries-cross-border-ecommerce-2",
+              "question": "Pouvez-vous prendre en charge Shopify ou une autre boutique ?",
+              "answer": "Aucune promesse d'intégration avant vérification de la plateforme et des données."
+            },
+            {
+              "id": "fr-industries-cross-border-ecommerce-3",
+              "question": "Sourcing, emballage, stockage et préparation de commandes peuvent-ils être reliés ?",
+              "answer": "Oui, lorsque chaque relais dispose d'un enregistrement validé."
+            },
+            {
+              "id": "fr-industries-cross-border-ecommerce-4",
+              "question": "Le stock saisonnier peut-il être libéré par étapes ?",
+              "answer": "Oui, avec finalité de stock, responsable de libération et destination confirmée."
+            },
+            {
+              "id": "fr-industries-cross-border-ecommerce-5",
+              "question": "Que doit envoyer d'abord une marque e-commerce ?",
+              "answer": "Produit et SKU, marchés, source de commande, emballage, calendrier et décision opérationnelle en cours."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Rendez le prochain relais e-commerce plus facile à valider.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": [],
+      "body": "Partagez votre produit, vos canaux, vos marchés cibles, votre position de stock et le blocage actuel. Nous structurons les questions concrètes avant confirmation d'un périmètre de service."
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "industries/consumer-goods": {
+    "id": "fr-industries-consumer-goods",
+    "kind": "industry",
+    "route": "/fr/industries/consumer-goods",
+    "pageLabel": "Biens de consommation",
+    "breadcrumbParent": {
+      "label": "Secteurs",
+      "href": "/fr/secteurs"
+    },
+    "serviceName": null,
+    "startingPoint": null,
+    "meta": {
+      "title": "Logistique des biens de consommation depuis la Chine | FreightVanta",
+      "description": "Coordonnez des biens de consommation sourcés en Chine, de la référence produit et de l'emballage à la réception du stock, à la libération par canal et au relais prêt pour la distribution ou le client.",
+      "keywords": [
+        "logistique biens de consommation depuis la Chine",
+        "sourcing et emballage biens de consommation Chine",
+        "coordination de chaîne biens de consommation Chine",
+        "relais prêt pour la distribution"
+      ]
+    },
+    "formButton": "Demander un plan",
+    "hero": {
+      "kicker": "BIENS DE CONSOMMATION",
+      "title": "Faites passer un bien de consommation de la référence produit en Chine à un relais prêt pour la distribution ou le client.",
+      "body": "Un produit de consommation est plus que l'article dans le carton. Version produit, présentation, emballage, preuve de réception, canal et responsable de libération façonnent la prochaine décision. FreightVanta aide à organiser ces relais pour des contextes DTC, abonnement, distribution, gros, saisonnier et réassort, sans présumer qualité produit, conformité, capacité de stockage ni couverture de livraison.",
+      "primaryCta": "Demander un plan",
+      "secondaryCta": "Voir le déroulé",
+      "mediaId": "industry-consumer-goods",
+      "mediaAlt": "Préparation d’un produit avec du papier de protection.",
+      "rail": [
+        {
+          "label": "PRODUIT"
+        },
+        {
+          "label": "SOURCING"
+        },
+        {
+          "label": "PRÉSENTATION"
+        },
+        {
+          "label": "RÉCEPTION"
+        },
+        {
+          "label": "LIBÉRATION"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "L'expérience produit commence avant que le client n'ouvre le carton.",
+          "paragraphs": [
+            "Produit actif, emballage, notice, étiquette, lot et règle de réception doivent décrire la même version client. Un changement de fichier créatif, de composant ou de variante produit a besoin d'un responsable et d'une date d'effet avant toute libération de stock."
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Six étapes",
+          "steps": [
+            {
+              "copy": "Référence produit validée."
+            },
+            {
+              "copy": "Relais de sourcing ou d'achat en Chine."
+            },
+            {
+              "copy": "Règle d'emballage et de présentation."
+            },
+            {
+              "copy": "Réception : comptage et contexte de preuve."
+            },
+            {
+              "copy": "Règle de libération propre au canal."
+            },
+            {
+              "copy": "Relais client ou distributeur et circuit d'exception."
+            }
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Contextes de libération",
+          "cards": [
+            {
+              "title": "DTC / ABONNEMENT",
+              "copy": "Cycle de réassort, lot, notice et règle de commande client."
+            },
+            {
+              "title": "DISTRIBUTION / GROS",
+              "copy": "Quantité par pack, carton et étiquette, consigne distributeur à confirmer."
+            },
+            {
+              "title": "SAISON / CAMPAGNE",
+              "copy": "Date active, stock de lancement, destination et responsable d'escalade."
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Liste de contexte produit",
+          "items": [
+            "Version produit",
+            "matière et variante",
+            "emballage et présentation",
+            "canal de destination",
+            "preuve de réception",
+            "finalité de stock",
+            "responsable de libération",
+            "décision d'exception."
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Contrôles opérationnels",
+          "paragraphs": [
+            "La coordination peut organiser produit et version, emballage, preuves et questions de libération. Qualité, contrôle, conformité produit, allégations, réglementations, stockage, tarifs, retours et capacité de livraison restent à confirmer."
+          ],
+          "items": []
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Brief de planification",
+          "body": "Envoyez la référence produit, le marché et le canal cibles, la quantité prévue, l'orientation d'emballage, le calendrier de réception, l'exigence client ou distributeur et le blocage actuel. L'inconnu reste une question ouverte."
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-industries-consumer-goods-0",
+              "question": "Pouvez-vous garantir qu'un bien de consommation respecte les réglementations locales ?",
+              "answer": "Non ; une revue de conformité qualifiée est nécessaire."
+            },
+            {
+              "id": "fr-industries-consumer-goods-1",
+              "question": "Pouvez-vous préparer un emballage prêt pour la distribution ?",
+              "answer": "Emballage et conditionnement sont planifiables lorsque fichiers, composants et instructions sont validés."
+            },
+            {
+              "id": "fr-industries-consumer-goods-2",
+              "question": "Pouvez-vous gérer un stock de lancement saisonnier ?",
+              "answer": "Le parcours de stock est planifiable ; dates et capacité doivent être confirmées."
+            },
+            {
+              "id": "fr-industries-consumer-goods-3",
+              "question": "Les produits peuvent-ils être sourcés en Chine puis préparés en commande ?",
+              "answer": "Oui, via des relais de service confirmés."
+            },
+            {
+              "id": "fr-industries-consumer-goods-4",
+              "question": "Proposez-vous des tests produit ?",
+              "answer": "Uniquement lorsque la méthode et le périmètre sont explicitement confirmés."
+            },
+            {
+              "id": "fr-industries-consumer-goods-5",
+              "question": "Que doit envoyer d'abord une marque ?",
+              "answer": "Version produit, canal, emballage, quantité, destination et relais souhaité."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par le produit que verront les clients, le canal à atteindre et la prochaine décision de libération.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "industries/industrial-components": {
+    "id": "fr-industries-industrial-components",
+    "kind": "industry",
+    "route": "/fr/industries/industrial-components",
+    "pageLabel": "Composants industriels",
+    "breadcrumbParent": {
+      "label": "Secteurs",
+      "href": "/fr/secteurs"
+    },
+    "serviceName": null,
+    "startingPoint": null,
+    "meta": {
+      "title": "Logistique des composants industriels depuis la Chine | FreightVanta",
+      "description": "Coordonnez des pièces industrielles pilotées par spécification depuis la Chine avec contrôle de version, emballage de protection, documents, identification à la réception et relais de réception confirmé.",
+      "keywords": [
+        "logistique composants industriels depuis la Chine",
+        "sourcing et expédition de pièces industrielles Chine",
+        "chaîne composants industriels Chine",
+        "emballage de protection pièces industrielles",
+        "coordination fret pilotée par spécification"
+      ]
+    },
+    "formButton": "Demander un plan",
+    "hero": {
+      "kicker": "COMPOSANTS INDUSTRIELS",
+      "title": "Faites suivre la spécification active d'un composant de la Chine jusqu'à un relais de réception maîtrisé.",
+      "body": "Pour des pièces industrielles, une décision de livraison exploitable commence par la bonne référence, la version, la quantité, la méthode de protection, les documents, l'identification à la réception et le responsable de réception. FreightVanta aide à structurer ces informations pour l'approvisionnement de production, la maintenance et les pièces de rechange, les projets et la livraison sur site. Validation technique, tests, travail réglementaire, capacité transporteur et accès au site restent des points de confirmation distincts.",
+      "primaryCta": "Demander un plan",
+      "secondaryCta": "Voir le déroulé",
+      "mediaId": "industry-industrial",
+      "mediaAlt": "Composants industriels et références de pièces.",
+      "rail": [
+        {
+          "label": "RÉFÉRENCE"
+        },
+        {
+          "label": "EMBALLAGE"
+        },
+        {
+          "label": "DOCUMENTS"
+        },
+        {
+          "label": "RÉCEPTION"
+        },
+        {
+          "label": "LIBÉRATION"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "Une pièce correcte a tout de même besoin d'une décision de réception exploitable.",
+          "paragraphs": [
+            "L'équipe suivante doit voir quelle version est active, quelle protection est requise, quel document correspond à la pièce, où elle va et qui peut la libérer. L'enregistrement logistique ne remplace pas la validation technique ; il évite à l'équipe de réception de deviner quel contexte produit est actuel."
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Six étapes",
+          "steps": [
+            {
+              "copy": "Établir le numéro de pièce, le plan et la version actifs."
+            },
+            {
+              "copy": "Préparer le relais d'achat ou fournisseur en Chine."
+            },
+            {
+              "copy": "Confirmer l'emballage de protection et les questions de manutention."
+            },
+            {
+              "copy": "Relier documents commerciaux, produit et transport lorsqu'ils sont fournis."
+            },
+            {
+              "copy": "Identifier pièce, quantité, caisse ou carton et destination à la réception."
+            },
+            {
+              "copy": "Libérer vers production, maintenance, projet ou site, ou vers un responsable confirmé."
+            }
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Contextes de composant",
+          "cards": [
+            {
+              "title": "ALIMENTATION PRODUCTION",
+              "copy": "Version, lot ou quantité, règle de protection et responsable production."
+            },
+            {
+              "title": "MAINTENANCE / PIÈCES DE RECHANGE",
+              "copy": "Référence de remplacement, urgence, question de compatibilité et responsable de réception."
+            },
+            {
+              "title": "PROJET / LIVRAISON SUR SITE",
+              "copy": "Site, jalon, accès, emballage et exigences documentaires à confirmer."
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Liste de contexte de réception",
+          "items": [
+            "Version active",
+            "quantité",
+            "méthode de protection",
+            "preuves et documents",
+            "identifiant de réception",
+            "destination ou site",
+            "jalon temporel",
+            "responsable de réception",
+            "circuit d'exception."
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Périmètre",
+          "groups": [
+            {
+              "label": "Inclus",
+              "items": [
+                "organisation de la référence et du relais",
+                "questions d'emballage de protection",
+                "parcours documentaire",
+                "identification à la réception."
+              ]
+            },
+            {
+              "label": "À confirmer d'abord",
+              "items": [
+                "acceptation technique",
+                "tests",
+                "certification",
+                "marchandises dangereuses et manutention spéciale",
+                "transporteur",
+                "assurance",
+                "douane",
+                "accès au site et rendez-vous de livraison."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-industries-industrial-components-0",
+              "question": "Validez-vous la spécification technique ?",
+              "answer": "Non ; la page organise la référence active, la validation technique reste à l'équipe responsable."
+            },
+            {
+              "id": "fr-industries-industrial-components-1",
+              "question": "Pouvez-vous organiser un emballage de protection ?",
+              "answer": "L'exigence peut être coordonnée ; matière et périmètre de manutention doivent être confirmés."
+            },
+            {
+              "id": "fr-industries-industrial-components-2",
+              "question": "Pouvez-vous garantir une livraison sur site à un jalon ?",
+              "answer": "Non ; itinéraire, transporteur, douane et conditions de site doivent être confirmés."
+            },
+            {
+              "id": "fr-industries-industrial-components-3",
+              "question": "Les pièces industrielles peuvent-elles être stockées avant libération ?",
+              "answer": "Stockage et identification sont planifiables dans un périmètre confirmé."
+            },
+            {
+              "id": "fr-industries-industrial-components-4",
+              "question": "Des pièces de rechange urgentes peuvent-elles emprunter la voie du fret urgent ?",
+              "answer": "Renvoyer vers Fret urgent dès que conséquence, date de mise à disposition et décision d'itinéraire sont définies."
+            },
+            {
+              "id": "fr-industries-industrial-components-5",
+              "question": "Que joindre d'abord ?",
+              "answer": "Numéro de pièce et version, plan ou photo, quantité, destination, emballage et calendrier."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par la référence active, le contexte de réception et la décision qui ne doit pas être laissée à l'hypothèse.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Fret urgent",
+          "href": "/fr/industries/time-critical-cargo",
+          "note": "Disponibilité, itinéraire et responsable d’escalade."
+        }
+      ]
+    }
+  },
+  "industries/time-critical-cargo": {
+    "id": "fr-industries-time-critical-cargo",
+    "kind": "industry",
+    "route": "/fr/industries/time-critical-cargo",
+    "pageLabel": "Fret urgent",
+    "breadcrumbParent": {
+      "label": "Secteurs",
+      "href": "/fr/secteurs"
+    },
+    "serviceName": null,
+    "startingPoint": "air-freight",
+    "meta": {
+      "title": "Logistique de fret urgent depuis la Chine | FreightVanta",
+      "description": "Planifiez un fret urgent depuis la Chine avec date de mise à disposition, documents, options d'itinéraire, circuit d'escalade et prochain relais confirmé visibles.",
+      "keywords": [
+        "logistique fret urgent depuis la Chine",
+        "expédition urgente depuis la Chine",
+        "fret aérien urgent Chine",
+        "chaîne logistique sensible au temps",
+        "logistique de réassort d'urgence"
+      ]
+    },
+    "formButton": "Demander un plan de fret urgent",
+    "hero": {
+      "kicker": "FRET URGENT",
+      "title": "Rendez le prochain mouvement réalisable visible avant que l'horloge ne prenne le dessus.",
+      "body": "Une décision de fret urgent demande plus que le mot express. FreightVanta aide à rassembler conséquence métier, préparation de la marchandise, date de mise à disposition, documents, question d'itinéraire, fenêtre de réception et responsable d'escalade afin qu'un mouvement urgent soit examiné comme un ensemble de décisions. Capacité transporteur, délai de transit, dédouanement, tarifs, manutention spéciale et livraison finale ne sont confirmés que pour la marchandise et l'itinéraire réels.",
+      "primaryCta": "Demander un plan de fret urgent",
+      "secondaryCta": "Voir le déroulé d'urgence",
+      "mediaId": "industry-time-critical",
+      "mediaAlt": "Marchandises et opérations de fret près d’un avion.",
+      "rail": [
+        {
+          "label": "DEMANDE"
+        },
+        {
+          "label": "PRÊT"
+        },
+        {
+          "label": "DOCUMENTS"
+        },
+        {
+          "label": "ITINÉRAIRE"
+        },
+        {
+          "label": "RÉCEPTION"
+        }
+      ]
+    },
+    "sections": [
+      {
+        "type": "decision",
+        "tone": "white",
+        "content": {
+          "heading": "L'urgence est un ensemble de faits liés, pas une promesse de transporteur.",
+          "paragraphs": [
+            "Conséquence métier, date de mise à disposition, colis, documents, options d'itinéraire, condition de destination et responsable d'escalade doivent être visibles ensemble. Une étiquette rapide ne résout ni une marchandise non prête, ni des documents flous, ni une fenêtre de réception indisponible."
+          ]
+        }
+      },
+      {
+        "type": "workflow",
+        "tone": "white",
+        "content": {
+          "heading": "Déroulé d'urgence",
+          "steps": [
+            {
+              "copy": "Définir l'échéance et la conséquence métier."
+            },
+            {
+              "copy": "Confirmer préparation de la marchandise, dimensions, poids, quantité et contexte d'emballage."
+            },
+            {
+              "copy": "Rassembler les documents commerciaux, produit et transport disponibles à l'origine."
+            },
+            {
+              "copy": "Comparer les options d'itinéraire et les contraintes non résolues."
+            },
+            {
+              "copy": "Attribuer un responsable d'escalade pour transporteur, douane, destination ou réception."
+            },
+            {
+              "copy": "Confirmer le prochain relais uniquement après examen du périmètre d'itinéraire réel."
+            }
+          ]
+        }
+      },
+      {
+        "type": "scenarios",
+        "tone": "white",
+        "content": {
+          "heading": "Contextes urgents",
+          "cards": [
+            {
+              "title": "PRODUCTION / RÉASSORT",
+              "copy": "Conséquence d'un arrêt de ligne ou d'une rupture, date de mise à disposition, quantité de remplacement."
+            },
+            {
+              "title": "CLIENT / REMPLACEMENT",
+              "copy": "Engagement client, identité produit, destination et responsable d'exception."
+            },
+            {
+              "title": "PROJET / JALON DE SITE",
+              "copy": "Fenêtre de site, accès, document et exigence de réception."
+            }
+          ]
+        }
+      },
+      {
+        "type": "checklist",
+        "tone": "white",
+        "content": {
+          "heading": "Liste de contexte marchandise",
+          "items": [
+            "Conséquence métier",
+            "fenêtre d'arrivée ou de réception requise",
+            "description de la marchandise",
+            "colis, dimensions et poids",
+            "date de mise à disposition",
+            "origine",
+            "destination",
+            "documents",
+            "problème d'itinéraire",
+            "responsable de décision."
+          ]
+        }
+      },
+      {
+        "type": "controls",
+        "tone": "white",
+        "content": {
+          "heading": "Périmètre",
+          "groups": [
+            {
+              "label": "Peut organiser",
+              "items": [
+                "brief d'échéance",
+                "faits marchandise",
+                "liste de documents",
+                "questions d'itinéraire",
+                "circuit d'escalade."
+              ]
+            },
+            {
+              "label": "À confirmer d'abord",
+              "items": [
+                "capacité transporteur",
+                "délai fixe",
+                "dédouanement",
+                "assurance",
+                "marchandises dangereuses",
+                "traitement à température ou spécial",
+                "accès au site",
+                "tarif et date de livraison."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "tone": "white",
+        "content": {
+          "heading": "Questions fréquentes",
+          "items": [
+            {
+              "id": "fr-industries-time-critical-cargo-0",
+              "question": "Pouvez-vous garantir une heure d'arrivée ?",
+              "answer": "Non ; transporteur, itinéraire, douane et conditions de réception réels doivent être confirmés."
+            },
+            {
+              "id": "fr-industries-time-critical-cargo-1",
+              "question": "Un fret urgent peut-il démarrer avec des informations partielles ?",
+              "answer": "Le premier examen peut révéler les faits manquants, mais un itinéraire ne peut être confirmé sans les informations requises."
+            },
+            {
+              "id": "fr-industries-time-critical-cargo-2",
+              "question": "Pouvez-vous comparer le fret aérien et d'autres options depuis la Chine ?",
+              "answer": "Les questions d'itinéraire peuvent être organisées ; disponibilité, tarif et délai exigent une confirmation réelle."
+            },
+            {
+              "id": "fr-industries-time-critical-cargo-3",
+              "question": "Et si l'itinéraire initial échoue ?",
+              "answer": "Le circuit d'escalade indique qui examine les alternatives et quelle décision est ensuite nécessaire."
+            },
+            {
+              "id": "fr-industries-time-critical-cargo-4",
+              "question": "Pouvez-vous prendre en charge des marchandises spéciales ou réglementées ?",
+              "answer": "Uniquement après confirmation explicite de produit, documents, manutention et exigences légales."
+            },
+            {
+              "id": "fr-industries-time-critical-cargo-5",
+              "question": "Que devons-nous envoyer d'abord ?",
+              "answer": "Date de mise à disposition, conséquence, faits marchandise et colis, origine, destination, documents et fenêtre de réception."
+            }
+          ]
+        }
+      }
+    ],
+    "enquiry": {
+      "kicker": "Demande",
+      "heading": "Commencez par la date de mise à disposition, la conséquence métier et le relais qui ne doit pas manquer sa décision.",
+      "reassurance": [],
+      "contextTitle": "Contexte de votre demande",
+      "contextFields": []
+    },
+    "related": {
+      "heading": "Services liés",
+      "links": [
+        {
+          "label": "Sourcing en Chine",
+          "href": "/fr/product-sourcing",
+          "note": "Référence, questions fournisseur et prochaine décision."
+        },
+        {
+          "label": "Achat en volume depuis la Chine",
+          "href": "/fr/services/bulk-procurement",
+          "note": "Quantité, finalité du stock et prochaine destination."
+        },
+        {
+          "label": "Emballage et image de marque",
+          "href": "/fr/services/packaging-branding",
+          "note": "Éléments validés et instruction de conditionnement."
+        },
+        {
+          "label": "Stockage et libération des stocks",
+          "href": "/fr/services/inventory-storage",
+          "note": "Réception, identification et libération."
+        },
+        {
+          "label": "Marque propre et marque blanche",
+          "href": "/fr/services/private-white-label",
+          "note": "Version produit, marque et validation."
+        },
+        {
+          "label": "Préparation de commandes",
+          "href": "/fr/services/worldwide-fulfillment",
+          "note": "Picking, conditionnement et circuit d’exception."
+        }
+      ]
+    },
+    "relatedIndustries": {
+      "heading": "Secteurs liés",
+      "links": [
+        {
+          "label": "E-commerce transfrontalier",
+          "href": "/fr/industries/cross-border-ecommerce",
+          "note": "Du produit sourcé à la commande client."
+        },
+        {
+          "label": "Biens de consommation",
+          "href": "/fr/industries/consumer-goods",
+          "note": "Présentation, canal et décision de libération."
+        },
+        {
+          "label": "Composants industriels",
+          "href": "/fr/industries/industrial-components",
+          "note": "Spécification, documents et réception."
+        }
+      ]
+    }
+  }
+};

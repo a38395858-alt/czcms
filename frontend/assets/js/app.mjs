@@ -1,4 +1,5 @@
-import { modules, navigationItems, quickActions } from './data.mjs?v=20260901.09'
+import { modules, navigationItems, quickActions } from './data.mjs?v=20261015.1'
+import { mountFormInbox } from './form-inbox.mjs?v=20261015.2'
 import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, metafieldSuggestedIdentifiers, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs?v=20260907.01'
 
 const $ = (selector, scope = document) => scope.querySelector(selector)
@@ -172,7 +173,7 @@ function renderContentBulkTrigger(config) {
 
 function viewPermission(route) {
   if (['dashboard', 'sites', 'languages'].includes(route)) return 'dashboard.view'
-  if (route === 'content') return 'content.read'
+  if (route === 'content' || route === 'form-inbox') return 'content.read'
   if (route === 'taxonomy') return 'content.read'
   if (route === 'products' || route === 'product-categories' || route === 'metafields') return 'content.read'
   if (route === 'templates') return 'templates.manage'
@@ -1294,6 +1295,8 @@ function applyRoute() {
 	})
   if (isContentEditor) {
     void renderContentEditorRoute(editorMode)
+  } else if (route === 'form-inbox') {
+    mountFormInbox(moduleView, { fetchJSON, can, sites: liveState.sites, escapeHtml, formatDate })
   } else if (!isDashboard) {
     const contentSectionChanged = route === 'content' && moduleState.contentSection !== contentSection()
     renderModule(route)

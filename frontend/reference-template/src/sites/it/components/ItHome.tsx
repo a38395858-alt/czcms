@@ -205,7 +205,7 @@ export function ItServicePaths({ section }: { section: ServicePathsSection }) {
                       selected ? 'border-grafite-900 bg-grafite-900 text-white lg:bg-transparent lg:text-grafite-900' : 'border-grafite-200 text-grafite-600 hover:border-grafite-900 hover:text-grafite-900',
                     )}
                   >
-                    <span aria-hidden="true" className={cn('hidden lg:inline', selected ? 'it-folio' : 'font-it-display text-[0.95rem] text-grafite-400')}>
+                    <span aria-hidden="true" className={cn('hidden lg:inline', selected ? 'it-folio' : 'font-it-display text-[0.95rem] text-grafite-500')}>
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <span className={cn('lg:flex-1', selected && 'lg:underline lg:decoration-rosso-600 lg:decoration-2 lg:underline-offset-[6px]')}>{item.label}</span>
@@ -294,7 +294,7 @@ export function ItOperation({ section }: { section: OperationSection }) {
         <ol className="grid sm:grid-cols-2 lg:grid-cols-4">
           {section.items.map((item, index) => (
             <li key={item.title} className={cn('border-b border-white/15 py-8 lg:border-b-0 lg:border-l lg:px-6 lg:py-10', index === 0 && 'lg:border-l-0 lg:pl-0')}>
-              <span className="font-it-display text-[0.95rem] font-semibold text-rosso-500">{String(index + 1).padStart(2, '0')}</span>
+              <span className="font-it-display text-[0.95rem] font-semibold text-rosso-300">{String(index + 1).padStart(2, '0')}</span>
               <h3 className="mt-4 font-it-display text-2xl font-semibold leading-tight">{item.title}</h3>
               <p className="mt-3 text-[16px] leading-relaxed text-grafite-300">{item.copy}</p>
             </li>

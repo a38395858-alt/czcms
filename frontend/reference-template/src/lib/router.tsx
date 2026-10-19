@@ -1,3 +1,4 @@
+import { homeContext } from './home-context';
 import { createContext, useContext, useEffect, useState, type AnchorHTMLAttributes, type MouseEvent, type ReactNode } from 'react';
 
 /**
@@ -85,7 +86,7 @@ export const SITE_SEGMENTS: Record<SiteId, SiteSegments> = {
 };
 
 function defaultSite(): SiteId {
-  if (typeof document === 'undefined') return 'en';
+  if (typeof document === 'undefined') return (homeContext()?.locale ?? 'en') as SiteId;
   const site = document.documentElement.dataset.defaultSite;
   return site === 'de' || site === 'fr' || site === 'es' || site === 'it' || site === 'en' ? site : 'en';
 }
@@ -110,7 +111,7 @@ export function parseHash(hash: string): Route {
   // root URL, while the original hash routes remain available unchanged.
   if (raw === '') return { site: defaultSite(), name: 'home', anchor };
   // Legacy English anchors: "#enquiry"
-  if (!raw.startsWith('/')) return { site: 'en', name: 'home', anchor: raw };
+  if (!raw.startsWith('/')) return { site: defaultSite(), name: 'home', anchor: raw };
 
   let segments = raw.split('/').filter(Boolean);
   let site: SiteId = 'en';
@@ -151,6 +152,18 @@ export function routeKey(route: Route): string {
 
 export function toHref(to: string): string {
   if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(to)) return to;
+  const context = homeContext();
+  if (context && to.startsWith('/')) {
+    const parts = to.split('/').filter(Boolean);
+    const locale = ['en','de','fr','es','it','nl'].includes(parts[0]) ? parts.shift()! : context.locale;
+    const path = parts.join('/');
+    const nativePages = /^(?:guides|insights|ratgeber|guias|guide|about|ueber-uns|a-propos|quienes-somos|chi-siamo|contact|contact-us|kontakt|contacto|contatti|privacy|datenschutz|confidentialite|privacidad|cookies|cookie|politica-de-cookies|terms|agb|cgv|condiciones|condizioni|impressum|mentions-legales|aviso-legal|note-legali)$/;
+    if (nativePages.test(path)) {
+      const base = (context.languages[locale] ?? context.languages[context.locale] ?? '/').replace(/\/$/, '');
+      const destination = /^(?:insights|ratgeber|guias|guide)$/.test(path) ? 'guides' : path;
+      return `${base}/${destination}`;
+    }
+  }
   if (to.startsWith('/')) return `#${to}`;
   return to;
 }

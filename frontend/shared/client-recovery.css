@@ -1,0 +1,5 @@
+.fv-client-recovery { background:#fff; color:#17212f; border-bottom:1px solid #cbd5e1; padding:16px max(16px,calc((100% - 1200px)/2)); font:16px/1.6 sans-serif; }
+.fv-client-recovery p { margin:0 0 12px; }
+.fv-client-recovery button { min-height:44px; padding:8px 20px; border:1px solid currentColor; border-radius:4px; background:#fff; color:inherit; font:inherit; cursor:pointer; }
+.fv-client-recovery button:hover { background:#f1f5f9; }
+.fv-client-recovery button:focus-visible { outline:2px solid currentColor; outline-offset:3px; }

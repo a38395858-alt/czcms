@@ -1,0 +1,54 @@
+/* Extends the CMS table and panel vocabulary. */
+.form-inbox { min-width:0; }
+.inbox-heading { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:24px; }
+.inbox-heading > div { min-width:0; flex:1; width:100%; }
+.inbox-heading p { max-width:none; }
+.inbox-heading h1 { margin:0 0 8px; font-size:24px; }
+.inbox-heading p,.inbox-detail header p { color:var(--ink-secondary); margin:0; }
+.inbox-filters { display:flex; align-items:end; gap:14px; padding:18px; background:var(--surface-muted); border-radius:var(--radius-md); }
+.inbox-filters label { display:grid; gap:7px; font-size:12px; font-weight:600; min-width:150px; }
+.inbox-search-field { flex:1; }
+.form-inbox input,.form-inbox select,.form-inbox textarea { min-width:0; width:100%; border:1px solid var(--line-strong); border-radius:6px; color:var(--ink); background:var(--canvas); padding:10px 12px; font:inherit; caret-color:var(--primary); }
+.form-inbox textarea { resize:vertical; }
+.form-inbox input::placeholder,.form-inbox textarea::placeholder { color:var(--ink-secondary); opacity:1; }
+.form-inbox :focus-visible { outline:2px solid var(--primary); outline-offset:3px; }
+.form-inbox ::selection { background:var(--primary); color:white; }
+.inbox-statuses { display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 16px; border-bottom:1px solid var(--line); padding-bottom:12px; }
+.inbox-statuses button { display:flex; gap:8px; align-items:center; border:1px solid transparent; border-radius:6px; background:transparent; color:var(--ink-secondary); padding:8px 12px; cursor:pointer; }
+.inbox-statuses button:hover { background:var(--surface-muted); color:var(--ink); }
+.inbox-statuses button[aria-pressed="true"] { background:var(--primary-soft); color:var(--primary); border-color:var(--primary); font-weight:600; }
+.inbox-statuses button span { font-variant-numeric:tabular-nums; }
+.inbox-workspace { display:grid; gap:20px; align-items:start; }
+.inbox-workspace.has-detail { grid-template-columns:minmax(0,1fr) minmax(320px,400px); }
+.inbox-list,.inbox-detail { min-width:0; overflow:hidden; }
+.inbox-table { width:100%; min-width:740px; }
+.inbox-table th,.inbox-table td { position:relative; }
+.inbox-table td { vertical-align:top; padding-block:18px; font-variant-numeric:tabular-nums; }
+.inbox-table td>strong,.inbox-table td>span:not(.inbox-state) { display:block; overflow-wrap:anywhere; max-width:300px; }
+.inbox-table td>span:not(.inbox-state) { margin-top:5px; color:var(--ink-secondary); font-size:12px; }
+.inbox-table small { color:var(--ink-secondary); font-weight:400; }
+.inbox-table tr.is-selected { background:var(--primary-soft); }
+.inbox-state { display:inline-block; padding:4px 8px; border-radius:4px; background:var(--surface-muted); color:var(--ink-secondary); white-space:nowrap; font-size:12px; }
+.inbox-state-new { background:#eaf0ff; color:#244cb3; }
+.inbox-state-processing { background:#fff1d6; color:#7b4b0b; }
+.inbox-state-contacted,.inbox-state-closed { background:#e5f4ec; color:#216044; }
+.inbox-pagination { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:16px 20px; border-top:1px solid var(--line); color:var(--ink-secondary); font-size:12px; font-variant-numeric:tabular-nums; }
+.inbox-pagination>div { display:flex; gap:8px; }
+.inbox-empty { text-align:center; padding:64px 24px; }
+.inbox-empty h2 { margin:0 0 12px; font-size:18px; }
+.inbox-empty p { color:var(--ink-secondary); }
+.inbox-error { padding:14px; color:#9b2e2e; background:#fff0f0; border-radius:6px; }
+.inbox-error[hidden] { display:none; }
+.inbox-detail .panel-header { display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.inbox-detail header h2 { font-size:18px; margin:0 0 6px; }
+.inbox-detail header p { font-size:12px; }
+.inbox-detail-body { padding:20px; }
+.inbox-fields { display:grid; gap:16px; margin:0; }
+.inbox-fields dt { color:var(--ink-secondary); font-size:12px; margin-bottom:5px; }
+.inbox-fields dd { margin:0; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.65; }
+.inbox-detail form { margin-top:28px; padding-top:20px; border-top:1px solid var(--line); }
+.inbox-detail h3 { font-size:15px; margin:0 0 16px; }
+.inbox-detail label { display:block; font-size:12px; font-weight:600; margin:16px 0 7px; }
+.inbox-save-message { font-size:13px; color:var(--ink-secondary); overflow-wrap:anywhere; }
+@media (max-width:1250px) { .inbox-workspace.has-detail { grid-template-columns:minmax(0,1fr); } .inbox-detail { grid-row:1; } .inbox-fields { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:700px) { .inbox-heading { align-items:start; flex-direction:column; } .inbox-filters { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); padding:14px; gap:12px; } .inbox-filters label { min-width:0; } .inbox-search-field { grid-column:1 / -1; } .inbox-filters>.button { grid-column:1 / -1; } .inbox-statuses { gap:4px; } .inbox-statuses button { padding:8px; } .inbox-fields { grid-template-columns:minmax(0,1fr); } .inbox-detail-body { padding:16px; } .inbox-pagination { padding:14px; } }

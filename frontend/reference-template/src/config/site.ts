@@ -1,3 +1,4 @@
+import { homeContext } from '../lib/home-context';
 /**
  * Site-level configuration shared by the English Global and German templates.
  *
@@ -171,6 +172,9 @@ const LOCAL_SITE_PORTS: Record<string, number> = {
  * second-level hash route. Production keeps the configured site URL/path.
  */
 export const localizedUrl = (path: string, locale?: string) => {
+  const code = locale ?? path.match(/^\/(de|fr|es|it|nl)(?:\/|$)/)?.[1] ?? 'en';
+  const url = homeContext()?.languages[code];
+  if (url !== undefined) return url;
   if (typeof window !== 'undefined' && /^(?:localhost|127\.0\.0\.1)$/.test(window.location.hostname)) {
     const port = locale ? LOCAL_SITE_PORTS[locale.toLowerCase()] : undefined;
     if (port) return `${window.location.protocol}//${window.location.hostname}:${port}/`;

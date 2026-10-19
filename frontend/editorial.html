@@ -1,0 +1,40 @@
+{{define "editorial-entry"}}
+<article class="editorial-entry{{if not .ImageURL}} editorial-entry-text{{end}}">
+  {{if .ImageURL}}<a class="editorial-entry-image" href="{{.Content.URL}}" tabindex="-1" aria-hidden="true"><img src="{{.ImageURL}}" alt="" loading="lazy" width="720" height="450"></a>{{end}}
+  <div class="editorial-entry-copy">
+    <h3><a href="{{.Content.URL}}">{{.Content.Title}}</a></h3>
+    <div class="editorial-meta">{{if .Content.Category}}<span>{{.Content.Category}}</span>{{end}}{{if .Content.PublishedAt}}<time datetime="{{.Content.PublishedAt}}">{{.Content.PublishedAt}}</time>{{end}}<span>{{.Content.ReadingMinutes}} {{.Minute}}</span></div>
+    {{if .Content.Summary}}<p>{{.Content.Summary}}</p>{{end}}
+    <a class="editorial-read" href="{{.Content.URL}}">{{.ReadMore}}<span class="sr-only">: {{.Content.Title}}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
+  </div>
+</article>
+{{end}}
+
+{{define "editorial-index"}}
+<section class="editorial-index" aria-labelledby="guide-index-title">
+  <header class="editorial-masthead" id="top">
+    <div class="content-shell">
+      <nav class="editorial-breadcrumb" aria-label="{{.Editorial.Copy.Breadcrumb}}"><a href="{{.HomePath}}">{{.Copy.PageHome}}</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>{{if .IsTaxonomy}}<a href="{{.GuideIndexPath}}">{{.Copy.NavGuides}}</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><span aria-current="page">{{.TaxonomyName}}</span>{{else}}<span aria-current="page">{{.Copy.NavGuides}}</span>{{end}}</nav>
+      <div class="editorial-intro"><h1 id="guide-index-title">{{.Editorial.Title}}</h1><div><p>{{.Editorial.Body}}</p><a class="editorial-read" href="#guide-topics">{{.GuideIndex.BrowseTopics}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-5-5 5 5 5-5"/></svg></a></div></div>
+    </div>
+  </header>
+  <div class="content-shell editorial-library" id="guide-featured">
+    <nav class="editorial-topics" id="guide-topics" aria-label="{{.GuideIndex.BrowseTopics}}">{{range .Editorial.Topics}}<a href="{{.URL}}"{{if .Active}} aria-current="page"{{end}}>{{.Label}}</a>{{end}}</nav>
+    {{with .Editorial.Featured}}
+    <article class="editorial-feature{{if not .ImageURL}} editorial-feature-text{{end}}">
+      {{if .ImageURL}}<a class="editorial-feature-image" href="{{.Content.URL}}" tabindex="-1" aria-hidden="true"><img src="{{.ImageURL}}" alt="" width="1000" height="650" fetchpriority="high"></a>{{end}}
+      <div class="editorial-feature-copy"><h2><a href="{{.Content.URL}}">{{.Content.Title}}</a></h2><div class="editorial-meta"><span>{{$.Editorial.Copy.Latest}}</span>{{if .Content.PublishedAt}}<time datetime="{{.Content.PublishedAt}}">{{.Content.PublishedAt}}</time>{{end}}<span>{{.Content.ReadingMinutes}} {{.Minute}}</span></div>{{if .Content.Summary}}<p>{{.Content.Summary}}</p>{{end}}<a class="editorial-read" href="{{.Content.URL}}">{{.ReadMore}}<span class="sr-only">: {{.Content.Title}}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+    </article>
+    {{end}}
+    <section class="editorial-results" id="guide-list" aria-labelledby="editorial-results-title">
+      {{if or .Editorial.Entries (not .HasContent)}}<header class="editorial-results-heading"><h2 id="editorial-results-title">{{.Editorial.Copy.Library}}</h2><span>{{.Editorial.Total}} {{.Editorial.Copy.Results}}</span></header>{{else}}<h2 class="sr-only" id="editorial-results-title">{{.Editorial.Copy.Library}}</h2>{{end}}
+      {{if .HasContent}}
+        {{if .Editorial.Entries}}<div class="editorial-entries">{{range .Editorial.Entries}}{{template "editorial-entry" .}}{{end}}</div>{{end}}
+      {{else}}<div class="editorial-empty"><h3>{{.Editorial.Copy.EmptyTitle}}</h3><p>{{.Editorial.Copy.EmptyBody}}</p><a class="editorial-read" href="{{.GuideIndexPath}}">{{.Editorial.Copy.Reset}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>{{end}}
+      {{if or .Editorial.PreviousURL .Editorial.NextURL}}<nav class="editorial-pagination" aria-label="{{.Editorial.Copy.Page}}">{{if .Editorial.PreviousURL}}<a href="{{.Editorial.PreviousURL}}" rel="prev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m5 5-5-5 5-5"/></svg>{{.Editorial.Copy.Previous}}</a>{{end}}<span>{{.Editorial.Copy.Page}} {{.Editorial.Page}} {{.Editorial.Copy.Of}} {{.Editorial.Pages}}</span>{{if .Editorial.NextURL}}<a href="{{.Editorial.NextURL}}" rel="next">{{.Editorial.Copy.Next}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>{{end}}</nav>{{end}}
+    </section>
+    {{if .IsGuideIndex}}<section class="editorial-subscribe" aria-labelledby="editorial-subscribe-title"><div><h2 id="editorial-subscribe-title">{{.GuideIndex.NewsletterTitle}}</h2><p>{{.GuideIndex.NewsletterBody}}</p></div><form data-newsletter-form><label for="guide-email">{{.Editorial.EmailLabel}}</label><div><input id="guide-email" name="email" type="email" required maxlength="254" autocomplete="email"><button type="submit">{{.GuideIndex.Subscribe}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button></div></form></section>{{end}}
+  </div>
+  <section class="reading-enquiry" id="guide-contact" aria-labelledby="editorial-enquiry-title"><div class="content-shell reading-enquiry-layout"><div><h2 id="editorial-enquiry-title">{{.Editorial.ReadingCopy.CTATitle}}</h2><p>{{.Editorial.ReadingCopy.CTABody}}</p><a class="reading-primary" href="{{.Editorial.ContactURL}}">{{.Copy.ContactButton}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div><div class="reading-prepare"><h3>{{.Editorial.ReadingCopy.Prepare}}</h3><ul>{{range .Editorial.ReadingCopy.Checklist}}<li>{{.}}</li>{{end}}</ul></div></div></section>
+</section>
+{{end}}

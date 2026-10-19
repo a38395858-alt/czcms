@@ -1,10 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { localizedUrl, siteConfig } from '../../config/site';
-import { nlAnnouncement, nlFooter, nlNav, nlServices } from '../../content/nl/home';
+import { nlAnnouncement, nlFooter, nlNav } from '../../content/nl/home';
+import { NL_TOPIC_SERVICES, NL_TOPIC_INDUSTRIES, nlTopicHref } from '../../content/nl/topic-nav';
 import { openConsentSettings } from '../../lib/analytics';
 import { Link, useRoute } from '../../lib/router';
 import { cn } from '../../utils/cn';
-import { ArrowRight, CloseIcon, MailIcon, MenuIcon, PhoneIcon, PinIcon } from '../ui/Icons';
+import { ArrowRight, ChevronDown, CloseIcon, MailIcon, MenuIcon, PhoneIcon, PinIcon } from '../ui/Icons';
+
+function NlTopicMenu({ industry = false }: { industry?: boolean }) {
+  const topics = industry ? NL_TOPIC_INDUSTRIES : NL_TOPIC_SERVICES;
+  return <details data-public-menu className="nl-home-topic-menu">
+    <summary>{industry ? 'Sectoren' : 'Oplossingen'} <ChevronDown className="h-4 w-4" /></summary>
+    <div className="nl-home-topic-panel">{topics.map(topic => <a key={topic.route} href={nlTopicHref(topic.route)}>
+      <span><strong>{topic.navLabel}</strong><small>{topic.menuLine}</small></span><ArrowRight className="h-4 w-4" />
+    </a>)}</div>
+  </details>;
+}
 
 /** Dutch wordmark: a chamfered Delft-blue tile with a white route and an orange node. */
 function NlLogo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
@@ -23,7 +34,7 @@ function NlLogo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
         <circle cx="8" cy="22" r="2.1" fill="#f2f5f8" />
         <circle cx="24" cy="10" r="3" fill="#e85d04" stroke="#f2f5f8" strokeWidth="1" />
       </svg>
-      <span className="font-archivo text-[1.25rem] leading-none tracking-tight">
+      <span className="font-archivo text-[1rem] min-[380px]:text-[1.25rem] leading-none tracking-tight">
         Freight<span className="opacity-80">Vanta</span>
       </span>
     </span>
@@ -43,7 +54,7 @@ export function NlHeader() {
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && !event.defaultPrevented) {
         setOpen(false);
         buttonRef.current?.focus();
       }
@@ -67,7 +78,7 @@ export function NlHeader() {
       </div>
 
       <header className="sticky top-0 z-50 border-b-[3px] border-oranje-500 bg-getij-50/95 backdrop-blur-sm">
-        <div className="shell flex h-16 items-center justify-between gap-4 lg:h-[72px]">
+        <div className="shell relative flex h-16 items-center justify-between gap-2 sm:gap-4 lg:h-[72px]">
           <Link to="/nl" aria-label="FreightVanta – Nederlandse homepage" className="shrink-0 rounded-[2px]">
             <NlLogo />
           </Link>
@@ -76,27 +87,28 @@ export function NlHeader() {
             <ul className="flex items-center gap-1">
               {nlNav.map((item) => (
                 <li key={item.href}>
+                  {item.href === '/nl/diensten' ? <NlTopicMenu /> : item.href === '/nl/sectoren' ? <NlTopicMenu industry /> :
                   <Link
                     to={item.href}
                     className="inline-flex items-center rounded-[3px] px-3.5 py-2 text-[15px] font-semibold text-dijk-800 transition-colors hover:bg-dijk-900/[0.07] hover:text-dijk-950"
                   >
                     {item.label}
                   </Link>
+                  }
                 </li>
               ))}
             </ul>
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
-              href={localizedUrl('/', 'en')}
-              hrefLang="en"
-              lang="en"
-              className="hidden items-center gap-1.5 rounded-[3px] px-3 py-2 text-sm font-semibold text-lei-600 hover:text-dijk-950 sm:inline-flex"
-            >
-              EN
-              <span className="sr-only">— naar de Engelstalige site</span>
-            </a>
+            <details data-public-menu className="relative">
+              <summary className="flex min-h-11 cursor-pointer items-center px-2 text-sm font-semibold text-lei-600" aria-label="Taal wijzigen">NL</summary>
+              <div className="absolute right-0 top-full z-50 mt-2 w-56 border border-getij-200 bg-getij-50 p-2 shadow-[0_16px_32px_-12px_rgba(22,24,28,0.25)]">
+                {([['en','English (Global)'],['de','Deutsch'],['fr','Français'],['es','Español'],['it','Italiano'],['nl','Nederlands']] as const).map(([code,label]) => (
+                  <a key={code} href={localizedUrl(code === 'en' ? '/' : `/${code}/`, code)} hrefLang={code} lang={code} aria-current={code === 'nl' ? 'page' : undefined} className="flex min-h-11 items-center px-3 text-sm text-dijk-950 hover:bg-getij-200 aria-[current=page]:font-bold">{label}</a>
+                ))}
+              </div>
+            </details>
             <Link to={nlAnnouncement.cta_url} className={cn(ctaSmall, 'nl-btn-seal')}>
               {nlAnnouncement.cta_label}
             </Link>
@@ -118,10 +130,12 @@ export function NlHeader() {
           <ul className="shell divide-y divide-getij-200 py-2">
             {nlNav.map((item) => (
               <li key={item.href}>
+                {item.href === '/nl/diensten' ? <NlTopicMenu /> : item.href === '/nl/sectoren' ? <NlTopicMenu industry /> :
                 <Link to={item.href} className="flex min-h-12 items-center justify-between py-2 text-[17px] font-semibold text-dijk-950">
                   {item.label}
                   <ArrowRight className="h-4 w-4 text-lei-600" />
                 </Link>
+                }
               </li>
             ))}
             <li>
@@ -180,11 +194,11 @@ export function NlFooter() {
               {nlFooter.columns.services}
             </h2>
             <ul className="mt-5 space-y-1">
-              {nlServices.map((service) => (
-                <li key={service.id}>
-                  <Link to="/nl/diensten" className={linkClass}>
-                    {service.label}
-                  </Link>
+              {NL_TOPIC_SERVICES.map((service) => (
+                <li key={service.route}>
+                  <a href={nlTopicHref(service.route)} className={linkClass}>
+                    {service.navLabel}
+                  </a>
                 </li>
               ))}
             </ul>

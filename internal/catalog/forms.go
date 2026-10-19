@@ -146,6 +146,10 @@ type FormSubmission struct {
 	Locale     string            `json:"locale"`
 	SourcePath string            `json:"source_path"`
 	Status     string            `json:"status"`
+	FormName   string            `json:"form_name"`
+	SiteName   string            `json:"site_name"`
+	Notes      string            `json:"notes"`
+	Version    int64             `json:"version"`
 	Values     map[string]string `json:"values,omitempty"`
 	CreatedAt  string            `json:"created_at"`
 	UpdatedAt  string            `json:"updated_at"`
@@ -503,7 +507,11 @@ func (s *Service) SaveFormSubmission(ctx context.Context, formID, contentLocaleI
 		}
 	}
 	now := nowUTC()
-	result, err := s.db.ExecContext(ctx, `INSERT INTO form_submissions(form_id, content_locale_id, site_id, locale, source_path, values_encrypted, dedupe_hash, ip_hash, user_agent_hash, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?)`, formID, contentLocaleID, siteID, locale, sourcePath, encrypted, dedupeHash, ipHash, uaHash, now, now)
+	var pageID any
+	if contentLocaleID > 0 {
+		pageID = contentLocaleID
+	}
+	result, err := s.db.ExecContext(ctx, `INSERT INTO form_submissions(form_id, content_locale_id, site_id, locale, source_path, values_encrypted, dedupe_hash, ip_hash, user_agent_hash, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?)`, formID, pageID, siteID, locale, sourcePath, encrypted, dedupeHash, ipHash, uaHash, now, now)
 	if err != nil {
 		return 0, err
 	}

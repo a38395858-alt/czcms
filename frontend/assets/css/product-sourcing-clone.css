@@ -1,0 +1,83 @@
+/* Approved Product Sourcing design: final cascade layer for the Go template. */
+@media (min-width: 1021px) {
+  body.layout-v3-product-sourcing { --english-topic-shell: min(100% - 192px, 1248px); }
+  body.layout-v3-product-sourcing .sourcing-replica .shell,
+  body.layout-v3-product-sourcing .sourcing-replica-page > .hero > .shell,
+  body.layout-v3-product-sourcing .sourcing-replica-page > .proof-strip > .shell { width: min(100% - 192px, 1248px); }
+  body.layout-v3-product-sourcing .sourcing-replica .announcement { min-height: 40px; display: flex; justify-content: center; background: #050f1f; border: 0; color: #fff; }
+  body.layout-v3-product-sourcing .sourcing-replica .announcement .shell { display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 500; }
+  body.layout-v3-product-sourcing .sourcing-replica .announcement .shell::after { margin-left: 18px; color: #b3d1ff; content: "→"; font-size: 1.2rem; line-height: 1; }
+  body.layout-v3-product-sourcing .sourcing-replica .site-header { position: relative; }
+  body.layout-v3-product-sourcing .sourcing-replica .header-inner { min-height: 82px; display: grid; grid-template-columns: 352px 1fr auto auto; column-gap: 22px; }
+  body.layout-v3-product-sourcing .sourcing-replica .desktop-nav { justify-self: start; margin: 0; gap: 28px; }
+  body.layout-v3-product-sourcing .sourcing-replica .desktop-nav > a { min-height: 82px; color: #fff; font-size: .87rem; font-weight: 600; }
+  body.layout-v3-product-sourcing .sourcing-replica .desktop-nav > a:first-child { box-shadow: inset 0 -2px 0 #b3d1ff; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand { gap: 11px; min-width: 0; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand-mark { width: 34px; height: 34px; display: grid; place-items: center; flex: 0 0 34px; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand-mark svg { width: 34px; height: 34px; overflow: visible; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand-mark rect { fill: #33435a; stroke: rgba(255,255,255,.18); }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand-mark path { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand-mark circle { fill: #ff7a1a; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand .brand-word strong { color: #fff; font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-size: 1.78rem; font-weight: 600; letter-spacing: -.035em; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand .brand-word strong span { color: #f2f6fb; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-brand .brand-word small { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language { position: relative; align-self: center; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language summary { display: flex; align-items: center; gap: 5px; min-height: 44px; color: #fff; cursor: pointer; font-size: .82rem; font-weight: 600; list-style: none; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language summary::-webkit-details-marker { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language summary span { font-size: .86rem; transform: translateY(-1px); }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language > div { position: absolute; z-index: 50; top: calc(100% + 12px); right: 0; width: 220px; display: none; padding: 15px; border: 1px solid #304866; background: #07172c; box-shadow: 0 20px 36px rgba(2,10,24,.28); }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language[open] > div { display: grid; gap: 8px; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language > div b { color: #b3d1ff; font-size: .67rem; letter-spacing: .09em; text-transform: uppercase; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language > div a { display: flex; align-items: baseline; justify-content: space-between; padding: 7px 0; border-top: 1px solid rgba(179,209,255,.13); color: #fff; font-size: .82rem; }
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language > div a small { color: #aac0d8; font-size: .65rem; letter-spacing: .08em; }
+  body.layout-v3-product-sourcing .sourcing-replica .header-cta { justify-self: end; min-width: 167px; min-height: 44px; margin: 0; border: 0; border-radius: 3px; background: #ff7a1a; color: #050f1f; font-size: .82rem; font-weight: 700; }
+
+  body.layout-v3-product-sourcing .sourcing-replica-page > .hero { background: #f5f8fc; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-shell { min-height: 718px; grid-template-columns: minmax(0, 1.07fr) minmax(480px, .93fr); align-items: start; gap: clamp(54px, 6vw, 88px); padding-block: 30px 54px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-content { max-width: 650px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb { margin-bottom: 51px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb a { color: #1552b8; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb span { background: #c3d0e0; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .service-kicker { position: relative; padding-left: 34px; color: #1552b8; font-size: .78rem; letter-spacing: .12em; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .service-kicker i { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .service-kicker::before { position: absolute; top: 50%; left: 0; width: 23px; height: 2px; background: #ff7a1a; content: ""; transform: translateY(-50%); }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero h1 { max-width: 650px; margin-top: 28px; color: #12294a; font-size: clamp(3.25rem, 3.9vw, 3.65rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.08; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-copy { max-width: 630px; margin-top: 26px; color: #355473; font-size: 1.04rem; line-height: 1.7; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions { gap: 22px; margin-top: 30px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions .button-primary { min-width: 245px; min-height: 52px; padding-inline: 25px; border-radius: 3px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions .button-ghost { min-height: 52px; padding-inline: 0; border: 0; color: #1552b8; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board { min-height: 570px; height: 570px; margin-top: 62px; overflow: hidden; background: #0a1b33; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-photo { object-position: 58% center; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board::before { display: none; content: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board::after { display: block; content: ""; inset: 42% 0 0; background: linear-gradient(transparent, rgba(5,15,31,.94)); }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board-label { top: auto; right: auto; bottom: 28px; left: 30px; z-index: 4; display: grid; gap: 10px; width: auto; height: auto; max-width: 315px; padding: 0; border: 0; background: transparent; box-shadow: none; transform: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board-label > span { color: #dfe7f1; font-size: .76rem; font-weight: 600; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board-label > strong { color: #fff; font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.02; }
+
+  body.layout-v3-product-sourcing .sourcing-replica-page > .proof-strip { order: 2; background: #f5f8fc; border-top: 1px solid #c3d0e0; color: #12294a; }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .intro-band { order: 3; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner { min-height: 160px; display: block; padding-block: 31px 29px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner > span { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; margin: 0; padding: 0; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li { display: grid; gap: 10px; padding: 0; color: #355473; font-size: .86rem; line-height: 1.42; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li::before,
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li::after { display: none; content: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li b { display: flex; align-items: center; gap: 12px; color: #12294a; font-size: .68rem; font-weight: 800; letter-spacing: .08em; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li b::before { width: 7px; height: 7px; border-radius: 50%; background: #1552b8; content: ""; }
+}
+
+@media (max-width: 1020px) {
+  body.layout-v3-product-sourcing .sourcing-replica .product-sourcing-language { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica .announcement { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .proof-strip { order: 2; background: #f5f8fc; color: #12294a; }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .intro-band { order: 3; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner { min-height: 0; padding-block: 28px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner > span { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner ul { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px 28px; margin: 0; padding: 0; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li { display: grid; gap: 7px; color: #355473; font-size: .88rem; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li b { color: #12294a; font-size: .69rem; letter-spacing: .07em; }
+}
+
+@media (max-width: 620px) {
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner ul { grid-template-columns: 1fr; gap: 17px; }
+}

@@ -2,43 +2,51 @@
    decision depth found in the researched service pages while keeping the
    global site's editorial navy, blue, and safety-orange language. */
 body.page-service-topic-replica {
-  --topic-navy: #082e5a;
-  --topic-navy-deep: #061f41;
-  --topic-blue: #0d6fc2;
-  --topic-blue-soft: #dcebf6;
-  --topic-paper: #f5f8fb;
-  --topic-ink: #102f57;
-  --topic-muted: #47657e;
-  --topic-line: #b6cadb;
-  --topic-orange: #ef6b35;
-  --topic-mint: #a7e1d0;
-  --topic-shell: min(100% - 64px, 1220px);
+  /* Keep every English topic page on the same visual system as the
+     reference English homepage: deep navy surfaces, signal blue links,
+     orange actions, and cool mist section backgrounds. */
+  --topic-navy: #0a1b33;
+  --topic-navy-deep: #050f1f;
+  --topic-blue: #1a64d6;
+  --topic-blue-soft: #e4edf8;
+  --topic-paper: #f5f8fc;
+  --topic-ink: #0e2240;
+  --topic-muted: #2a4a76;
+  --topic-line: #bccfe5;
+  --topic-orange: #ff7a1a;
+  --topic-mint: #7fb2ff;
+  --topic-shell: min(100% - 40px, 1280px);
   background: #fff;
   color: var(--topic-ink);
+  font-family: "IBM Plex Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body.page-service-topic-replica .skip-link:focus { outline-color: var(--topic-orange); }
 body.page-service-topic-replica .sourcing-replica { color: var(--topic-ink); }
-body.page-service-topic-replica .sourcing-replica .announcement { min-height: 2.25rem; display: flex; align-items: center; background: var(--topic-blue-soft); color: #274c6c; font-size: .75rem; font-weight: 650; }
+body.page-service-topic-replica .sourcing-replica .announcement { min-height: 2.25rem; display: flex; align-items: center; background: var(--topic-navy-deep); border-bottom: 1px solid rgba(255,255,255,.1); color: #c3d0e0; font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .69rem; font-weight: 600; letter-spacing: .03em; }
 body.page-service-topic-replica .sourcing-replica .shell { width: var(--topic-shell); margin-inline: auto; }
-body.page-service-topic-replica .sourcing-replica .site-header { position: sticky; z-index: 10; top: 0; border-bottom: 1px solid #e3e9ef; background: rgba(255,255,255,.98); color: var(--topic-ink); }
+body.page-service-topic-replica .sourcing-replica .site-header { position: sticky; z-index: 10; top: 0; border-bottom: 0; background: var(--topic-navy); box-shadow: 0 1px 0 rgba(255,255,255,.07); color: #fff; }
 body.page-service-topic-replica .sourcing-replica .header-inner { width: var(--topic-shell); min-height: 5.25rem; display: flex; align-items: center; gap: 1.15rem; margin-inline: auto; }
-body.page-service-topic-replica .sourcing-replica .brand { display: inline-flex; align-items: center; gap: .7rem; flex: 0 0 auto; color: var(--topic-ink); text-decoration: none; }
-body.page-service-topic-replica .sourcing-replica .brand-mark { width: 2rem; height: 2rem; display: grid; gap: .18rem; padding: .42rem; background: var(--topic-orange); }
-body.page-service-topic-replica .sourcing-replica .brand-mark i { display: block; background: #fff; transform: skewX(-23deg); }
+body.page-service-topic-replica .sourcing-replica .brand { display: inline-flex; align-items: center; gap: .7rem; flex: 0 0 auto; color: #fff; text-decoration: none; }
+body.page-service-topic-replica .sourcing-replica .brand-mark { position: relative; width: 1.9rem; height: 1.75rem; display: inline-flex; align-items: flex-end; gap: .2rem; padding: 0; background: transparent; transform: skewX(-17deg); }
+body.page-service-topic-replica .sourcing-replica .brand-mark i { display: block; width: .42rem; background: var(--topic-blue); transform: none; }
+body.page-service-topic-replica .sourcing-replica .brand-mark i:nth-child(1) { height: .7rem; opacity: .72; }
+body.page-service-topic-replica .sourcing-replica .brand-mark i:nth-child(2) { height: 1.1rem; }
+body.page-service-topic-replica .sourcing-replica .brand-mark i:nth-child(3) { height: 1.55rem; background: var(--topic-orange); }
 body.page-service-topic-replica .sourcing-replica .brand-word { display: grid; gap: .1rem; }
-body.page-service-topic-replica .sourcing-replica .brand-word strong { color: var(--topic-navy); font-size: 1.34rem; font-weight: 850; letter-spacing: -.045em; }
-body.page-service-topic-replica .sourcing-replica .brand-word small { color: #55718a; font-size: .51rem; font-weight: 780; letter-spacing: .11em; }
+body.page-service-topic-replica .sourcing-replica .brand-word strong { color: #fff; font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-size: 1.45rem; font-weight: 700; letter-spacing: -.025em; line-height: 1; }
+body.page-service-topic-replica .sourcing-replica .brand-word strong span { color: var(--topic-mint); }
+body.page-service-topic-replica .sourcing-replica .brand-word small { color: #9db0c9; font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .5rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 body.page-service-topic-replica .sourcing-replica .desktop-nav { display: flex; align-items: center; gap: clamp(.8rem,1.65vw,1.5rem); margin-left: auto; }
-body.page-service-topic-replica .sourcing-replica .desktop-nav a { min-height: 2.75rem; display: inline-flex; align-items: center; color: var(--topic-ink); font-size: .8rem; font-weight: 720; text-decoration: none; transition: color 180ms ease; }
-body.page-service-topic-replica .sourcing-replica .desktop-nav a:hover { color: var(--topic-blue); }
-body.page-service-topic-replica .sourcing-replica .service-menu > summary { color: var(--topic-ink); font-size: .8rem; font-weight: 720; }
-body.page-service-topic-replica .sourcing-replica .service-menu[open] > summary { color: var(--topic-blue); }
-body.page-service-topic-replica .sourcing-replica .service-menu > nav { border-color: #b6cadb; box-shadow: 0 14px 28px rgba(8,46,90,.14); }
+body.page-service-topic-replica .sourcing-replica .desktop-nav a { min-height: 2.75rem; display: inline-flex; align-items: center; color: #dfe7f1; font-size: .82rem; font-weight: 600; text-decoration: none; transition: color 160ms ease; }
+body.page-service-topic-replica .sourcing-replica .desktop-nav a:hover { color: #fff; }
+body.page-service-topic-replica .sourcing-replica .service-menu > summary { color: #dfe7f1; font-size: .82rem; font-weight: 600; }
+body.page-service-topic-replica .sourcing-replica .service-menu[open] > summary { color: #fff; }
+body.page-service-topic-replica .sourcing-replica .service-menu > nav { border-color: #bccfe5; box-shadow: 0 28px 56px -24px rgba(5,15,31,.55); }
 body.page-service-topic-replica .sourcing-replica .desktop-nav .service-menu > nav a { min-height: 2.35rem; color: var(--topic-ink); font-size: .76rem; }
-body.page-service-topic-replica .sourcing-replica .desktop-nav .service-menu > nav a:hover, body.page-service-topic-replica .sourcing-replica .desktop-nav .service-menu > nav a:focus-visible { background: #edf4f8; color: var(--topic-blue); }
-body.page-service-topic-replica .sourcing-replica .header-cta { min-height: 2.85rem; display: inline-flex; align-items: center; justify-content: center; padding: .65rem 1rem; background: var(--topic-orange); color: #fff; font-size: .75rem; font-weight: 800; line-height: 1.2; text-decoration: none; transition: background-color 180ms ease, transform 180ms ease; }
-body.page-service-topic-replica .sourcing-replica .header-cta:hover { background: #d9531d; transform: translateY(-1px); }
+body.page-service-topic-replica .sourcing-replica .desktop-nav .service-menu > nav a:hover, body.page-service-topic-replica .sourcing-replica .desktop-nav .service-menu > nav a:focus-visible { background: var(--topic-paper); color: var(--topic-blue); }
+body.page-service-topic-replica .sourcing-replica .header-cta { min-height: 2.875rem; display: inline-flex; align-items: center; justify-content: center; padding: .7rem 1.1rem; border-radius: 3px; background: var(--topic-orange); color: var(--topic-navy-deep); font-size: .8rem; font-weight: 700; line-height: 1.1; text-decoration: none; transition: background-color 160ms ease, transform 160ms ease; }
+body.page-service-topic-replica .sourcing-replica .header-cta:hover { background: #ff9142; transform: translateY(-1px); }
 body.page-service-topic-replica .sourcing-replica .mobile-menu { display: none; }
 
 .service-topic-page { overflow: clip; }
@@ -56,7 +64,7 @@ body.page-service-topic-replica .sourcing-replica .mobile-menu { display: none; 
 .topic-hero h1 { max-width: 12.6ch; margin: 1rem 0 0; color: #fff; font-size: clamp(3rem,5vw,5.45rem); font-weight: 800; letter-spacing: -.04em; line-height: .96; overflow-wrap: anywhere; text-wrap: balance; }
 .topic-hero-lead { max-width: 58ch; margin: 1.65rem 0 0; color: #d8e4ee; font-size: 1rem; line-height: 1.75; text-wrap: pretty; }
 .topic-hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
-.topic-button { min-height: 3.25rem; display: inline-flex; align-items: center; justify-content: center; gap: .62rem; padding: .7rem 1rem; border: 1px solid transparent; border-radius: 0; font: inherit; font-size: .81rem; font-weight: 800; line-height: 1.2; text-decoration: none; transition: transform 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease; }
+.topic-button { min-height: 3.25rem; display: inline-flex; align-items: center; justify-content: center; gap: .62rem; padding: .7rem 1rem; border: 1px solid transparent; border-radius: 3px; font: inherit; font-size: .81rem; font-weight: 700; line-height: 1.2; text-decoration: none; transition: transform 160ms ease, background-color 160ms ease, color 160ms ease, border-color 160ms ease; }
 .topic-button:hover { transform: translateY(-1px); }
 .topic-button-light { background: #fff; color: var(--topic-navy); }
 .topic-button-light:hover { background: #dcebf6; }
@@ -174,10 +182,10 @@ body.page-service-topic-replica .sourcing-replica .mobile-menu { display: none; 
 .topic-button-dark { min-width: 13rem; background: var(--topic-navy); color: #fff; }
 .topic-button-dark:hover { background: #0d3a6d; }
 
-body.page-service-topic-replica .sourcing-replica-footer { background: #061f41; color: #b8cadb; }
+body.page-service-topic-replica .sourcing-replica-footer { background: var(--topic-navy-deep); color: #c3d0e0; }
 body.page-service-topic-replica .sourcing-replica-footer .footer-inner { min-height: 9.4rem; display: flex; align-items: center; justify-content: space-between; gap: 2.5rem; }
 body.page-service-topic-replica .sourcing-replica-footer p { max-width: 51ch; margin: 0; font-size: .78rem; line-height: 1.65; }
-body.page-service-topic-replica .sourcing-replica-footer nav { display: flex; max-width: 36rem; flex-wrap: wrap; justify-content: flex-end; gap: .65rem 1.15rem; color: #fff; font-size: .72rem; font-weight: 750; }
+body.page-service-topic-replica .sourcing-replica-footer nav { display: flex; max-width: 36rem; flex-wrap: wrap; justify-content: flex-end; gap: .65rem 1.15rem; color: #dfe7f1; font-size: .72rem; font-weight: 650; }
 body.page-service-topic-replica .sourcing-replica-footer a:hover { color: var(--topic-mint); }
 
 body.page-service-topic-replica .sourcing-replica .header-cta:focus-visible,
@@ -189,15 +197,15 @@ body.page-service-topic-replica .sourcing-replica .header-cta:focus-visible,
   body.page-service-topic-replica .sourcing-replica .desktop-nav { display: none; }
   body.page-service-topic-replica .sourcing-replica .header-cta { margin-left: auto; }
   body.page-service-topic-replica .sourcing-replica .mobile-menu { display: block; position: relative; }
-  body.page-service-topic-replica .sourcing-replica .mobile-menu summary { width: 2.8rem; height: 2.8rem; display: grid; place-items: center; list-style: none; border: 1px solid #b6cadb; cursor: pointer; }
+  body.page-service-topic-replica .sourcing-replica .mobile-menu summary { width: 2.8rem; height: 2.8rem; display: grid; place-items: center; list-style: none; border: 1px solid rgba(255,255,255,.34); color: #fff; cursor: pointer; }
   body.page-service-topic-replica .sourcing-replica .mobile-menu summary::-webkit-details-marker { display: none; }
-  body.page-service-topic-replica .sourcing-replica .mobile-menu summary span, body.page-service-topic-replica .sourcing-replica .mobile-menu summary::before, body.page-service-topic-replica .sourcing-replica .mobile-menu summary::after { width: 1rem; height: 1px; display: block; background: var(--topic-navy); content: ""; }
+  body.page-service-topic-replica .sourcing-replica .mobile-menu summary span, body.page-service-topic-replica .sourcing-replica .mobile-menu summary::before, body.page-service-topic-replica .sourcing-replica .mobile-menu summary::after { width: 1rem; height: 1px; display: block; background: #fff; content: ""; }
   body.page-service-topic-replica .sourcing-replica .mobile-menu summary::before { transform: translateY(.3rem); }
   body.page-service-topic-replica .sourcing-replica .mobile-menu summary::after { transform: translateY(-.3rem); }
-  body.page-service-topic-replica .sourcing-replica .mobile-menu > nav { position: absolute; z-index: 11; top: calc(100% + .5rem); right: 0; width: min(17rem,calc(100vw - 2rem)); display: grid; padding: .45rem; border: 1px solid #b6cadb; background: #fff; box-shadow: 0 14px 28px rgba(8,46,90,.14); }
+  body.page-service-topic-replica .sourcing-replica .mobile-menu > nav { position: absolute; z-index: 11; top: calc(100% + .5rem); right: 0; width: min(17rem,calc(100vw - 2rem)); display: grid; padding: .45rem; border: 1px solid var(--topic-line); background: #fff; box-shadow: 0 28px 56px -24px rgba(5,15,31,.55); }
   body.page-service-topic-replica .sourcing-replica .mobile-menu:not([open]) > nav { display: none; }
   body.page-service-topic-replica .sourcing-replica .mobile-menu > nav a { padding: .8rem; color: var(--topic-ink); font-size: .84rem; font-weight: 720; text-decoration: none; }
-  body.page-service-topic-replica .sourcing-replica .mobile-menu .mobile-service-menu { margin: .35rem .8rem; border-color: #b6cadb; }
+  body.page-service-topic-replica .sourcing-replica .mobile-menu .mobile-service-menu { margin: .35rem .8rem; border-color: var(--topic-line); }
   body.page-service-topic-replica .sourcing-replica .mobile-menu .mobile-service-menu > summary { width: auto; height: auto; display: flex; align-items: center; justify-content: space-between; padding: .45rem 0; border: 0; color: var(--topic-ink); background: transparent; font-size: .75rem; font-weight: 800; }
   body.page-service-topic-replica .sourcing-replica .mobile-menu .mobile-service-menu > summary::before { display: none; }
   body.page-service-topic-replica .sourcing-replica .mobile-menu .mobile-service-menu > summary::after { width: auto; height: auto; display: block; background: transparent; color: var(--topic-blue); content: "+"; font-size: 1.2rem; transform: none; }

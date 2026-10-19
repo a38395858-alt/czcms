@@ -15,6 +15,8 @@ type publicProductSourcingCopy struct {
 	HeroKicker, HeroTitle, HeroBody                         string
 	HeroPrimary, HeroSecondary                              string
 	HeroStages                                              []publicProductSourcingStage
+	DecisionTitle                                           string
+	DecisionBody                                            []string
 	FitKicker, FitTitle, FitBody                            string
 	Situations                                              []publicProductSourcingSituation
 	ProcessKicker, ProcessTitle, ProcessBody                string
@@ -24,7 +26,7 @@ type publicProductSourcingCopy struct {
 	RequirementsKicker, RequirementsTitle, RequirementsBody string
 	Requirements                                            []string
 	ComparisonTitle, ComparisonBody                         string
-	ComparisonRows                                          []string
+	ComparisonRows                                          []publicProductSourcingComparisonRow
 	CheckpointsTitle, CheckpointsBody                       string
 	Checkpoints                                             []publicProductSourcingCheckpoint
 	ScopeRows                                               []publicProductSourcingScopeRow
@@ -63,6 +65,18 @@ type publicProductSourcingScopeRow struct {
 	Confirm  string
 }
 
+// publicProductSourcingComparisonRow keeps the comparison example aligned
+// with the design reference: each row is a like-for-like review frame rather
+// than a loose list of supplier attributes.
+type publicProductSourcingComparisonRow struct {
+	ProductReference string
+	MaterialFinish   string
+	QuantityPackout  string
+	Evidence         string
+	Destination      string
+	OpenDecision     string
+}
+
 var productSourcingCopies = map[string]publicProductSourcingCopy{
 	"en": {
 		SEOTitle:        "Product Sourcing from China for Businesses | FreightVanta",
@@ -71,41 +85,54 @@ var productSourcingCopies = map[string]publicProductSourcingCopy{
 		SEOKeywordsText: "product sourcing from China, China sourcing agent, source products from China, supplier sourcing in China, China product sourcing service",
 		HeroKicker:      "PRODUCT SOURCING FROM CHINA",
 		HeroTitle:       "Product sourcing from China, organized for your next business decision.",
-		HeroBody:        "Start with a product link, reference image, specification, or target quantity. FreightVanta helps structure sourcing from China into a supplier-ready brief: what the product needs to be, what a China supplier needs to confirm, which samples or comparison points matter, and how approved details move to the next operational handoff.",
+		HeroBody:        "Start with a product link, reference image, specification, or target quantity. FreightVanta helps structure sourcing from China into a supplier-ready brief: what the product needs to be, what a China supplier needs to confirm, which samples or comparison points matter, and how approved details move to the next operational handoff. You keep the purchasing decision; we help make the questions, evidence, and next owner visible.",
 		HeroPrimary:     "Request a sourcing plan",
-		HeroSecondary:   "See the workflow",
-		HeroStages:      []publicProductSourcingStage{{"01 / CHINA REFERENCE", "A concrete sourcing starting point"}, {"02 / BRIEF", "A readable supplier request"}, {"03 / COMPARE", "Responses in the same frame"}, {"04 / HANDOFF", "Approved details ready to move"}},
-		FitKicker:       "WHEN IT FITS",
-		FitTitle:        "Source products from China with a requirement that can be checked.",
-		FitBody:         "Use this service when the product opportunity is visible, but China supplier, packaging, destination-market, or specification information still needs a practical structure before a purchasing decision.",
+		HeroSecondary:   "See the sourcing workflow",
+		HeroStages:      []publicProductSourcingStage{{"CHINA REFERENCE", "Start with the product you can identify"}, {"BRIEF", "Turn the reference into supplier questions"}, {"COMPARE", "Keep responses in the same frame"}, {"REVIEW", "Connect samples, specifications, and open decisions"}, {"HANDOFF", "Carry approved details to the next operation"}},
+		DecisionTitle:   "A product link is a starting point. A usable sourcing brief is the next decision.",
+		DecisionBody: []string{
+			"A marketplace link or supplier message rarely includes the material, dimensions, variants, quantity, packaging, destination, and sample questions needed for approval. A structured China sourcing brief keeps those details together and asks each supplier the same core questions.",
+			"This is a decision record, not a promise about supplier, price, quality, compliance, or delivery. It shows what is known, what needs an answer, what evidence exists, and who owns the next step.",
+		},
+		FitKicker: "WHEN IT FITS",
+		FitTitle:  "Source products from China when the opportunity is clear but the next approval is not.",
+		FitBody:   "Use it when a product direction exists but the next approval or operational handoff is still unclear.",
 		Situations: []publicProductSourcingSituation{
-			{"CHINA REFERENCE", "You have a China product or supplier reference, but not a supplier-ready brief.", "A marketplace link, manufacturer page, product image, competitor reference, or early specification becomes concrete questions about material, size, finish, quantity, packaging, and destination."},
-			{"COMPARE", "You want to compare China supplier responses before committing.", "Supplier feedback is read against the same questions, so differences, missing information, and sample requirements remain visible to the buyer."},
-			{"HANDOFF", "The next operation depends on stable product details from China.", "Sampling, packaging, inspection, storage, freight, and fulfillment are easier to plan once the approved product state is clearly recorded."},
+			{"YOU HAVE A CHINA REFERENCE", "A product link, factory page, image, competitor sample, drawing, or early specification can be turned into concrete questions.", "Material, size, finish, variants, quantity, packaging, and destination become visible supplier questions instead of assumptions."},
+			{"YOU NEED A COMPARABLE SUPPLIER CONVERSATION", "Responses from China suppliers are read against the same question set.", "Differences, missing information, sample requirements, and open commercial decisions remain visible to the buyer."},
+			{"YOU ARE MOVING TOWARD A PURCHASE", "The product, quantity, packaging, destination, and approval owner are becoming clearer.", "The team can decide what is ready for a purchase or what must remain open."},
+			{"THE NEXT TEAM NEEDS CONTEXT", "Sampling, packaging, inspection, storage, freight, and fulfillment will follow the decision.", "The approved product state is recorded so the next team does not have to rebuild context from separate messages."},
 		},
 		ProcessKicker: "THE WORKFLOW",
 		ProcessTitle:  "Move a China sourcing decision forward without losing its context.",
-		ProcessBody:   "Each stage keeps confirmed information, open questions, and ownership in the same working thread. Purchasing approval remains with your team.",
+		ProcessBody:   "Each stage separates facts, open questions, evidence, and ownership. Purchasing approval remains with your team.",
 		ProcessSteps: []publicProductSourcingStep{
-			{"01", "Share the China sourcing reference", "Bring together product links, China supplier or factory details where available, images, specifications, quantity, destination, and the result you need."},
-			{"02", "Build the supplier brief", "Turn attributes, variants, packaging, target market, timing, and decision criteria into a workable request for a supplier in China."},
-			{"03", "Compare the answers", "Connect each China supplier response to the question it actually answers, rather than relying on scattered messages."},
-			{"04", "Review samples or evidence", "Use photos, videos, samples, and supplier statements as inputs for your team’s approval; acceptance standards need a separately confirmed scope."},
-			{"05", "Prepare the handoff", "Document approved product details, quantities, packaging needs, origin information, and next-owner instructions for the purchasing, freight, storage, or fulfillment scope you confirm."},
+			{"01", "Share the China sourcing reference", "Bring together product links, supplier or factory details where available, images, specifications, quantity, destination, and the result you need."},
+			{"02", "Build the supplier-ready brief", "Turn attributes, variants, packaging, target market, timing, and decision criteria into a clear request for a supplier in China."},
+			{"03", "Create a comparable question set", "Ask each China supplier for the same core information, while recording supplier-specific questions separately so the comparison remains readable."},
+			{"04", "Review responses and missing evidence", "Connect every response to the question it answers. Mark unknowns, conflicting details, and items that need a sample, photo, video, drawing, or written confirmation."},
+			{"05", "Coordinate samples and specification review", "Organize sample checkpoints, measurements, finish, variant, packout, and approval notes. Sampling or inspection standards are published only when separately confirmed."},
+			{"06", "Prepare purchasing approval", "Record the selected or shortlisted product state, quantity assumptions, packaging requirement, destination context, open risk and approval owner. This is a decision record, not a price or quality guarantee."},
+			{"07", "Prepare the next operational handoff", "Carry approved product details, quantities, packaging, origin information, and owner instructions into confirmed bulk procurement, packaging, storage, freight or fulfillment work."},
 		},
 		ChinaKicker:        "SOURCE PRODUCTS FROM CHINA",
 		ChinaTitle:         "Give China supplier sourcing one shared brief.",
-		ChinaBody:          "A sourcing conversation is more useful when the product reference, supplier questions, intended market, and approval record stay connected. The goal is a decision-ready brief, not an implied promise about supplier, price, quality, compliance, or delivery.",
+		ChinaBody:          "Keep the product reference, supplier questions, target market, and approval record connected. The goal is a decision-ready brief—not a promise about supplier, price, quality, compliance, or delivery.",
 		ChinaPoints:        []string{"China supplier reference: a product link, manufacturer page, marketplace listing, or factory contact when available", "Product and commercial context: materials, variants, target quantity, packaging, destination market, and non-negotiable constraints", "Comparable communication: questions, replies, sample evidence, and open decisions in one working comparison", "A planned China handoff: approved details ready for the purchasing, freight, storage, or fulfillment scope your team confirms"},
 		RequirementsKicker: "WHAT TO SHARE",
 		RequirementsTitle:  "A useful China sourcing reference and an intended outcome are enough to begin.",
-		RequirementsBody:   "You do not need every answer in the first message. These details turn an early conversation about sourcing products from China into a brief another owner can use.",
-		Requirements:       []string{"Product link, image, drawing, or specification", "China supplier, factory, or marketplace link if you already have one", "Target quantity and expected reorder pattern", "Destination market and intended sales channel", "Material, finish, color, dimensions, variants, and packaging expectations", "Target date and non-negotiable constraints"},
-		ComparisonTitle:    "Compare what each supplier answered, not just the number on a quotation.",
-		ComparisonBody:     "A useful comparison keeps product version, quantity basis, packaging assumption, sample status, commercial term, and unresolved question in the same view. That helps a buyer see whether two responses are genuinely comparable or whether a lower-looking figure is based on a different product, quantity, packout, or delivery assumption.",
-		ComparisonRows:     []string{"Product reference and active revision", "Material, dimensions, finish, color, and variant details", "Quantity basis, carton or unit packing, and expected reorder context", "Sample, image, drawing, or written evidence available", "Packaging, labels, inserts, and supplier-material treatment", "Destination-market question and next handoff", "Open decision, responsible owner, and approval status"},
-		CheckpointsTitle:   "Use samples and evidence to make the next question specific.",
-		CheckpointsBody:    "Samples, photos, videos, measurements, and supplier statements can support an internal review, but they only answer the questions they actually evidence. A sample does not by itself guarantee a production run, regulatory result, or future batch. The sourcing record should show what was reviewed, what was accepted, what remains open, and whether a separate inspection or testing scope is required.",
+		RequirementsBody:   "You do not need every answer to start. These inputs turn an early China sourcing conversation into a brief another owner can use.",
+		Requirements:       []string{"Product link, image, drawing, existing sample or competitor reference", "Product name, intended use, materials, finish, dimensions, variants and non-negotiable attributes", "Target quantity, expected reorder pattern and whether the quantity is fixed or exploratory", "Known China supplier, factory, marketplace or manufacturer contact, if available", "Destination market, sales channel and any customer-facing packaging expectation", "Target ready period, launch or replenishment context and known constraints", "The next handoff: sampling, purchasing approval, packaging, storage, freight or fulfillment"},
+		ComparisonTitle:    "Compare the answer behind the quote, not just the number.",
+		ComparisonBody:     "Keep product version, quantity basis, packout, evidence, destination, and the open decision in one frame. The rows below show the review format; confirmed supplier replies replace the examples during the agreed sourcing scope.",
+		ComparisonRows: []publicProductSourcingComparisonRow{
+			{ProductReference: "Insulated water bottle", MaterialFinish: "Stainless steel, 7.5 × 2.8 in, matte", QuantityPackout: "10,000 / 24 pcs", Evidence: "Sample received, spec review", Destination: "US", OpenDecision: "Review pricing"},
+			{ProductReference: "Wireless earbuds case", MaterialFinish: "ABS, 2.4 × 1.8 in, white", QuantityPackout: "5,000 / 50 pcs", Evidence: "Sample in transit", Destination: "EU", OpenDecision: "Confirm lead time"},
+			{ProductReference: "Laptop backpack", MaterialFinish: "Polyester, 18 × 12 × 6 in, black", QuantityPackout: "3,000 / 20 pcs", Evidence: "Photos + supplier docs", Destination: "US", OpenDecision: "Compare second supplier"},
+			{ProductReference: "Travel mug", MaterialFinish: "Stainless steel, 6.5 × 3.2 in, powder coat", QuantityPackout: "8,000 / 24 pcs", Evidence: "Sample checkpoint complete", Destination: "CA", OpenDecision: "Finalize price"},
+		},
+		CheckpointsTitle: "Use samples and evidence to make the next question specific.",
+		CheckpointsBody:  "Samples, photos, videos, measurements, and supplier statements only answer the questions they evidence. Record what was reviewed, accepted, and left open; separate inspection or testing must be confirmed.",
 		Checkpoints: []publicProductSourcingCheckpoint{
 			{Tag: "SPECIFICATION", Body: "Compare the approved attributes, dimensions, materials, finish, and variants."},
 			{Tag: "EVIDENCE", Body: "Link photos, videos, sample notes, drawings, or supplier statements to the relevant question."},
@@ -122,20 +149,24 @@ var productSourcingCopies = map[string]publicProductSourcingCopy{
 			{Topic: "Handoff", Organize: "Prepare approved information for confirmed packaging, storage, freight, or fulfillment.", Confirm: "Warehouse, carrier, delivery time, and coverage."},
 		},
 		DeliverablesTitle: "The deliverable is a decision-ready sourcing record.",
-		DeliverablesBody:  "The useful result is not a long list of unfiltered supplier links. It is a working record another person can understand and use: the product reference, current brief, supplier questions and replies, sample or evidence notes, unresolved issues, approval owner, packaging context, quantity assumptions, and the next confirmed handoff.",
+		DeliverablesBody:  "The result is a working record another owner can use: product reference, current brief, supplier replies, evidence notes, open issues, approval owner, packaging context, quantity assumptions, and the next confirmed handoff.",
 		Deliverables:      []string{"Supplier-ready product brief", "Comparable question and response matrix", "Sample and evidence review notes when included in the confirmed scope", "Open-question and decision log", "Approved product, variant, and packaging snapshot", "Handoff notes for bulk procurement, packaging, storage, freight, or fulfillment"},
 		FAQKicker:         "BEFORE THE FIRST CHINA SUPPLIER CONVERSATION",
 		FAQTitle:          "Questions worth answering early.",
-		FAQBody:           "Sourcing coordinates information, comparisons, and approvals. Quality, price, factory, and compliance commitments need an explicitly confirmed scope.",
+		FAQBody:           "Sourcing coordinates information, comparisons, and approvals. Quality, price, factory, and compliance commitments need a confirmed scope.",
 		FAQs: []publicFAQItem{
-			{"Can you help us source products from China?", "Yes. FreightVanta can structure the product brief, coordinate questions for suppliers in China, organize comparable responses, and prepare the approved handoff. Supplier selection, quality control, price, compliance, and acceptance standards require a separately confirmed scope."},
-			{"Can we start with only a product link?", "Yes. A link, image, or short description is enough to open the first conversation. Missing China sourcing information is captured as an open question."},
-			{"Is a China supplier or product quality guaranteed?", "No. Quality control, factory audits, price, compliance, and product acceptance must be included in a separately confirmed service scope."},
-			{"Can China sourcing continue into fulfillment?", "Yes. Once product, packaging, quantity, origin, and destination are approved, the handoff can be prepared for storage, freight, and fulfillment planning."},
+			{"Can you help us source products from China if we only have a link?", "Yes. A link, image or short description can open the first conversation. Missing product, supplier, packaging and destination information is captured as an open question rather than assumed."},
+			{"Do you act as a China sourcing agent?", "The page describes sourcing coordination, question management, comparison and handoff. Any agency, purchasing authority, importer-of-record or legal representation must be defined in a separate confirmed scope."},
+			{"Can you compare several China suppliers?", "Yes, when supplier references or responses are available. They are compared against a shared question set, with differences and missing evidence kept visible."},
+			{"Is the supplier, price or quality guaranteed?", "No. Supplier selection, price, quality control, factory audit, testing, compliance and acceptance criteria require explicit confirmation."},
+			{"Can you arrange samples or inspection?", "Sample coordination and inspection can be discussed as separate scope items. The page must not imply a test method, pass result or inspection guarantee before it is agreed."},
+			{"Can sourcing continue into packaging, storage and fulfillment?", "Yes. Once product, quantity, packaging, origin and destination details are approved, the record can be handed to confirmed downstream services."},
+			{"Can you source private-label products from China?", "The product and brand program can be discussed, but artwork, trademark, IP, legal labels, product claims and manufacturing responsibilities require their own review and approval."},
+			{"What should we send first?", "Send the product reference, target quantity, market, timing, known supplier and the decision that is currently blocked. The first response will focus on the questions needed to define scope."},
 		},
 		ContactKicker: "START THE CONVERSATION",
 		ContactTitle:  "Begin with the product, the China sourcing handoff, and the outcome you need.",
-		ContactBody:   "Share the product, quantity, China supplier reference if known, destination, timing, and the point where your process needs support. We will begin with the practical questions that define the scope.",
+		ContactBody:   "Share the product, quantity, China supplier reference if known, destination, timing, and the point that needs support. We will start with the questions that define scope.",
 		ContactButton: "Request a sourcing plan",
 	},
 	"de": {
@@ -413,7 +444,7 @@ func (s *server) configureProductSourcingPage(r *http.Request, data *publicSiteP
 	data.MetaDescription = copy.SEODescription
 	data.OGTitle = copy.SEOTitle
 	data.OGDescription = copy.SEODescription
-	data.SocialImageURL = publicSchemaAbsoluteURL(publicSchemaURL(*data), "/assets/images/freightvanta-service-product-sourcing-hero-v1.png")
+	data.SocialImageURL = publicSchemaAbsoluteURL(publicSchemaURL(*data), "/assets/images/product-sourcing-hero-brief-v1.png")
 	data.RobotsIndex = true
 	s.populatePublicNetworkForFixedPath(r, data, site, preview, network, productSourcingSlug)
 	if preview {

@@ -749,7 +749,7 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 	publicRequest.Host = "www.example.com"
 	publicResponse := httptest.NewRecorder()
 	application.Handler().ServeHTTP(publicResponse, publicRequest)
-	if publicResponse.Code != http.StatusOK || !strings.Contains(publicResponse.Header().Get("Cache-Control"), "public") || !strings.Contains(publicResponse.Body.String(), "Global Route English已可以访问") {
+	if publicResponse.Code != http.StatusOK || publicResponse.Header().Get("Cache-Control") != "no-store" || !strings.Contains(publicResponse.Body.String(), "Global Route English is available") {
 		t.Fatalf("public status=%d cache=%q body=%q", publicResponse.Code, publicResponse.Header().Get("Cache-Control"), publicResponse.Body.String())
 	}
 	if !strings.Contains(publicResponse.Body.String(), `<link rel="canonical" href="http://www.example.com/">`) {
@@ -763,103 +763,11 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 	if portResponse.Code != http.StatusOK || !strings.Contains(portResponse.Body.String(), "Freight moving to the U.S.?") {
 		t.Fatalf("dedicated port status=%d body=%q", portResponse.Code, portResponse.Body.String())
 	}
-	sourcingRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/product-sourcing", nil)
-	sourcingResponse := httptest.NewRecorder()
-	portHandler.ServeHTTP(sourcingResponse, sourcingRequest)
-	if sourcingResponse.Code != http.StatusOK || sourcingResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || !strings.Contains(sourcingResponse.Body.String(), "Product sourcing from China, organized for your next business decision.") || !strings.Contains(sourcingResponse.Body.String(), `<title>Product Sourcing from China for Businesses | FreightVanta</title>`) || !strings.Contains(sourcingResponse.Body.String(), `name="keywords" content="product sourcing from China`) || !strings.Contains(sourcingResponse.Body.String(), `"keywords":["product sourcing from China"`) || !strings.Contains(sourcingResponse.Body.String(), `"@type":"Service"`) || !strings.Contains(sourcingResponse.Body.String(), `"@type":"FAQPage"`) || !strings.Contains(sourcingResponse.Body.String(), "/assets/css/product-sourcing-replica.css") || !strings.Contains(sourcingResponse.Body.String(), "page-product-sourcing-replica") || !strings.Contains(sourcingResponse.Body.String(), "Can you help us source products from China?") || !strings.Contains(sourcingResponse.Body.String(), "Continue with the handoff you need next.") {
-		t.Fatalf("local sourcing status=%d robots=%q body=%q", sourcingResponse.Code, sourcingResponse.Header().Get("X-Robots-Tag"), sourcingResponse.Body.String())
-	}
-	industryRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/industries/cross-border-ecommerce", nil)
-	industryResponse := httptest.NewRecorder()
-	portHandler.ServeHTTP(industryResponse, industryRequest)
-	industryBody := industryResponse.Body.String()
-	for _, expected := range []string{
-		`<title>Cross-Border Ecommerce Logistics From China | FreightVanta</title>`,
-		`name="keywords" content="cross-border ecommerce logistics from China`,
-		"Keep the ecommerce handoffs connected after you source from China.",
-		"industry-solution-page",
-		"/assets/css/industry-solutions.css",
-		"/assets/images/freightvanta-service-worldwide-fulfillment-hero-v1.png",
-		"/assets/images/freightvanta-service-inventory-storage-hero-v1.png",
-		`"@type":"WebPage"`,
-		`"@type":"BreadcrumbList"`,
-		`"@type":"FAQPage"`,
-	} {
-		if !strings.Contains(industryBody, expected) {
-			t.Fatalf("local industry page missing %q: %q", expected, industryBody)
-		}
-	}
-	if industryResponse.Code != http.StatusOK || industryResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || strings.Contains(industryBody, `rel="canonical"`) {
-		t.Fatalf("local industry status=%d robots=%q body=%q", industryResponse.Code, industryResponse.Header().Get("X-Robots-Tag"), industryBody)
-	}
-	consumerGoodsIndustryRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/industries/consumer-goods", nil)
-	consumerGoodsIndustryResponse := httptest.NewRecorder()
-	portHandler.ServeHTTP(consumerGoodsIndustryResponse, consumerGoodsIndustryRequest)
-	consumerGoodsIndustryBody := consumerGoodsIndustryResponse.Body.String()
-	for _, expected := range []string{
-		`<title>Consumer Goods Logistics From China | FreightVanta</title>`,
-		`name="keywords" content="consumer goods logistics from China`,
-		"Keep consumer-goods decisions intact from China sourcing to the next shelf or customer handoff.",
-		"industry-solution-page",
-		"/assets/css/industry-solutions.css",
-		"/assets/images/italy-industries-consumer-goods-v1.png",
-		"/assets/images/freightvanta-service-packaging-branding-hero-v1.png",
-		`"@type":"WebPage"`,
-		`"@type":"BreadcrumbList"`,
-		`"@type":"FAQPage"`,
-	} {
-		if !strings.Contains(consumerGoodsIndustryBody, expected) {
-			t.Fatalf("local consumer-goods industry page missing %q: %q", expected, consumerGoodsIndustryBody)
-		}
-	}
-	if consumerGoodsIndustryResponse.Code != http.StatusOK || consumerGoodsIndustryResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || strings.Contains(consumerGoodsIndustryBody, `rel="canonical"`) {
-		t.Fatalf("local consumer-goods industry status=%d robots=%q body=%q", consumerGoodsIndustryResponse.Code, consumerGoodsIndustryResponse.Header().Get("X-Robots-Tag"), consumerGoodsIndustryBody)
-	}
-	industrialComponentsIndustryRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/industries/industrial-components", nil)
-	industrialComponentsIndustryResponse := httptest.NewRecorder()
-	portHandler.ServeHTTP(industrialComponentsIndustryResponse, industrialComponentsIndustryRequest)
-	industrialComponentsIndustryBody := industrialComponentsIndustryResponse.Body.String()
-	for _, expected := range []string{
-		`<title>Industrial Components Logistics From China | FreightVanta</title>`,
-		`name="keywords" content="industrial components logistics from China`,
-		"Keep the specification attached to every industrial component handoff.",
-		"industry-solution-page",
-		"/assets/css/industry-solutions.css",
-		"/assets/images/germany-industries-manufacturing-v1.png",
-		"/assets/images/freightvanta-service-bulk-procurement-hero-v1.png",
-		`"@type":"WebPage"`,
-		`"@type":"BreadcrumbList"`,
-		`"@type":"FAQPage"`,
-	} {
-		if !strings.Contains(industrialComponentsIndustryBody, expected) {
-			t.Fatalf("local industrial-components industry page missing %q: %q", expected, industrialComponentsIndustryBody)
-		}
-	}
-	if industrialComponentsIndustryResponse.Code != http.StatusOK || industrialComponentsIndustryResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || strings.Contains(industrialComponentsIndustryBody, `rel="canonical"`) {
-		t.Fatalf("local industrial-components industry status=%d robots=%q body=%q", industrialComponentsIndustryResponse.Code, industrialComponentsIndustryResponse.Header().Get("X-Robots-Tag"), industrialComponentsIndustryBody)
-	}
-	timeCriticalCargoIndustryRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/industries/time-critical-cargo", nil)
-	timeCriticalCargoIndustryResponse := httptest.NewRecorder()
-	portHandler.ServeHTTP(timeCriticalCargoIndustryResponse, timeCriticalCargoIndustryRequest)
-	timeCriticalCargoIndustryBody := timeCriticalCargoIndustryResponse.Body.String()
-	for _, expected := range []string{
-		`<title>Time-Critical Cargo Logistics From China | FreightVanta</title>`,
-		`name="keywords" content="time-critical cargo logistics from China`,
-		"Make the next feasible movement visible before the clock takes over.",
-		"industry-solution-page",
-		"/assets/css/industry-solutions.css",
-		"/assets/images/guide-express-freight-v1.png",
-		"/assets/images/global-us-freight-hero-v1.png",
-		`"@type":"WebPage"`,
-		`"@type":"BreadcrumbList"`,
-		`"@type":"FAQPage"`,
-	} {
-		if !strings.Contains(timeCriticalCargoIndustryBody, expected) {
-			t.Fatalf("local time-critical cargo page missing %q: %q", expected, timeCriticalCargoIndustryBody)
-		}
-	}
-	if timeCriticalCargoIndustryResponse.Code != http.StatusOK || timeCriticalCargoIndustryResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || strings.Contains(timeCriticalCargoIndustryBody, `rel="canonical"`) {
-		t.Fatalf("local time-critical cargo industry status=%d robots=%q body=%q", timeCriticalCargoIndustryResponse.Code, timeCriticalCargoIndustryResponse.Header().Get("X-Robots-Tag"), timeCriticalCargoIndustryBody)
+	for _, route := range []string{"product-sourcing", "industries/cross-border-ecommerce", "industries/consumer-goods", "industries/industrial-components", "industries/time-critical-cargo"} {
+		request := httptest.NewRequest(http.MethodGet, "http://localhost:8081/"+route, nil)
+		response := httptest.NewRecorder()
+		portHandler.ServeHTTP(response, request)
+		assertImportedTopic(t, response, true)
 	}
 	for _, locale := range []struct {
 		siteCode string
@@ -872,13 +780,20 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 		{siteCode: "france", seoTitle: "Sourcing en Chine pour entreprises | FreightVanta", keyword: "sourcing en Chine", chinaFAQ: "FreightVanta peut-il aider au sourcing de produits en Chine ?", market: "market-fr"},
 		{siteCode: "spain", seoTitle: "Sourcing de productos en China | FreightVanta", keyword: "sourcing de productos en China", chinaFAQ: "¿Puede FreightVanta ayudar con el sourcing de productos en China?", market: "market-es"},
 		{siteCode: "italy", seoTitle: "Sourcing prodotti dalla Cina per aziende | FreightVanta", keyword: "sourcing prodotti dalla Cina", chinaFAQ: "FreightVanta può aiutare con il sourcing di prodotti dalla Cina?", market: "market-it"},
-		{siteCode: "netherlands", seoTitle: "Producten inkopen in China voor bedrijven | FreightVanta", keyword: "producten inkopen in China", chinaFAQ: "Kan FreightVanta helpen met producten inkopen in China?", market: "market-nl"},
+		{siteCode: "netherlands", seoTitle: "Producten inkopen in China | FreightVanta", keyword: "producten inkopen in China", chinaFAQ: "Kan FreightVanta helpen met producten inkopen in China?", market: "market-nl"},
 	} {
 		localeHandler := localPreviewHandler(application.Handler(), locale.siteCode)
 		localeRequest := httptest.NewRequest(http.MethodGet, "http://localhost/product-sourcing", nil)
 		localeResponse := httptest.NewRecorder()
 		localeHandler.ServeHTTP(localeResponse, localeRequest)
 		localeBody := localeResponse.Body.String()
+		if locale.siteCode == "germany" || locale.siteCode == "spain" || locale.siteCode == "france" || locale.siteCode == "italy" || locale.siteCode == "netherlands" {
+			assertImportedTopic(t, localeResponse, true)
+			if locale.siteCode == "netherlands" && (!strings.Contains(localeBody, `<title>`+locale.seoTitle+`</title>`) || !strings.Contains(localeBody, locale.chinaFAQ)) {
+				t.Fatal("Dutch sourcing lost the supplied title or existing FAQ")
+			}
+			continue
+		}
 		if localeResponse.Code != http.StatusOK || localeResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || !strings.Contains(localeBody, `<title>`+locale.seoTitle+`</title>`) || !strings.Contains(localeBody, `name="keywords" content="`+locale.keyword) || !strings.Contains(localeBody, locale.chinaFAQ) || !strings.Contains(localeBody, `"keywords":["`+locale.keyword+`"`) || !strings.Contains(localeBody, `"@type":"Service"`) || !strings.Contains(localeBody, `"@type":"FAQPage"`) || !strings.Contains(localeBody, "/assets/css/product-sourcing-locales-replica.css") || !strings.Contains(localeBody, "page-product-sourcing-locales-replica") || !strings.Contains(localeBody, locale.market) || !strings.Contains(localeBody, "data-sourcing-motion-board") {
 			t.Fatalf("%s locale sourcing status=%d robots=%q body=%q", locale.siteCode, localeResponse.Code, localeResponse.Header().Get("X-Robots-Tag"), localeBody)
 		}
@@ -938,10 +853,7 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 		topicRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/services/"+topic.slug, nil)
 		topicResponse := httptest.NewRecorder()
 		portHandler.ServeHTTP(topicResponse, topicRequest)
-		topicBody := topicResponse.Body.String()
-		if topicResponse.Code != http.StatusOK || topicResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" || !strings.Contains(topicBody, `<title>`+topic.seoTitle+`</title>`) || !strings.Contains(topicBody, `name="keywords" content="`+topic.keyword) || !strings.Contains(topicBody, topic.faq) || !strings.Contains(topicBody, `"@type":"Service"`) || !strings.Contains(topicBody, `"@type":"FAQPage"`) || !strings.Contains(topicBody, "/assets/css/service-topics.css") || !strings.Contains(topicBody, "page-service-topic-replica") || !strings.Contains(topicBody, "topic-workflow-list") {
-			t.Fatalf("service topic %s status=%d robots=%q body=%q", topic.slug, topicResponse.Code, topicResponse.Header().Get("X-Robots-Tag"), topicBody)
-		}
+		assertImportedTopic(t, topicResponse, true)
 	}
 	for _, localized := range []struct {
 		siteCode string
@@ -951,16 +863,20 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 		phrase   string
 	}{
 		{siteCode: "germany", port: "8082", path: "services/bulk-procurement", title: "Bulk-Beschaffung aus China planen | FreightVanta", phrase: "Planen Sie größere Einkäufe aus China"},
-		{siteCode: "france", port: "8083", path: "services/packaging-branding", title: "Emballage et marque pour produits de Chine | FreightVanta", phrase: "Faites arriver les produits de Chine"},
-		{siteCode: "spain", port: "8084", path: "industries/cross-border-ecommerce", title: "Comercio electrónico transfronterizo desde China | FreightVanta", phrase: "Conecta las transferencias del comercio electrónico"},
-		{siteCode: "italy", port: "8085", path: "industries/time-critical-cargo", title: "Merce urgente dalla Cina | FreightVanta", phrase: "Struttura la merce urgente"},
-		{siteCode: "netherlands", port: "8086", path: "services/worldwide-fulfillment", title: "Internationale fulfillment voor producten uit China | FreightVanta", phrase: "Maak voorraad uit China klantklaar"},
+		{siteCode: "france", port: "8083", path: "services/packaging-branding", title: "Emballage et image de marque pour les produits de Chine | FreightVanta", phrase: "Faites arriver les produits de Chine"},
+		{siteCode: "spain", port: "8084", path: "industries/cross-border-ecommerce", title: "Logística de comercio electrónico transfronterizo desde China | FreightVanta", phrase: "Conecta la decisión de sourcing en China con el pedido que tu cliente va a recibir."},
+		{siteCode: "italy", port: "8085", path: "industries/time-critical-cargo", title: "Logistica spedizioni urgenti dalla Cina | FreightVanta", phrase: "Rendi visibile il prossimo movimento praticabile"},
+		{siteCode: "netherlands", port: "8086", path: "services/worldwide-fulfillment", title: "Orderverwerking voor producten uit China | FreightVanta", phrase: "Maak van voorraad uit China klantklare orders met een helder verwerkingsplan."},
 	} {
 		localizedRequest := httptest.NewRequest(http.MethodGet, "http://localhost:"+localized.port+"/"+localized.path, nil)
 		localizedRecorder := httptest.NewRecorder()
 		localPreviewHandler(application.Handler(), localized.siteCode).ServeHTTP(localizedRecorder, localizedRequest)
 		localizedResponse := localizedRecorder
 		localizedBody := localizedResponse.Body.String()
+		if localized.siteCode == "germany" {
+			assertImportedTopic(t, localizedResponse, true)
+			continue
+		}
 		if localizedResponse.Code != http.StatusOK || !strings.Contains(localizedBody, "<title>"+localized.title+"</title>") || !strings.Contains(localizedBody, localized.phrase) || strings.Contains(localizedBody, "Keep the ecommerce handoffs connected after you source from China.") {
 			t.Fatalf("localized fixed page %s/%s status=%d body=%q", localized.siteCode, localized.path, localizedResponse.Code, localizedBody)
 		}
@@ -976,10 +892,7 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 		legacyRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/"+legacy.path, nil)
 		legacyResponse := httptest.NewRecorder()
 		portHandler.ServeHTTP(legacyResponse, legacyRequest)
-		legacyBody := legacyResponse.Body.String()
-		if legacyResponse.Code != http.StatusOK || !strings.Contains(legacyBody, `<title>`+legacy.title+`</title>`) || !strings.Contains(legacyBody, legacy.css) || !strings.Contains(legacyBody, "Pro Services") {
-			t.Fatalf("legacy service path %s status=%d body=%q", legacy.path, legacyResponse.Code, legacyBody)
-		}
+		assertImportedTopic(t, legacyResponse, true)
 	}
 	boundTopicRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/services/bulk-procurement", nil)
 	boundTopicRequest.Host = "www.example.com"
@@ -1226,7 +1139,7 @@ func TestPublishedMultilingualContentRoutesAndDraftIsolation(t *testing.T) {
 	if deepResponse.Code != http.StatusOK || deepResponse.Header().Get("X-Robots-Tag") != "noindex, nofollow" {
 		t.Fatalf("published preview status=%d robots=%q", deepResponse.Code, deepResponse.Header().Get("X-Robots-Tag"))
 	}
-	for _, expected := range []string{`<html lang="en"`, "International Express Shipping Guide 2026", "Published content from the CMS.", `class="article-page"`} {
+	for _, expected := range []string{`<html lang="en"`, "International Express Shipping Guide 2026", "Published content from the CMS.", `class="article-page reading-page"`, `id="fv-reading-section-1"`, `href="#fv-reading-section-1"`, `id="article-enquiry"`, `aria-label="Article navigation"`} {
 		if !strings.Contains(body, expected) {
 			t.Fatalf("published preview missing %q", expected)
 		}
@@ -1263,7 +1176,7 @@ func TestPublishedMultilingualContentRoutesAndDraftIsolation(t *testing.T) {
 		"Eine Lieferkette. Ein nachvollziehbarer Arbeitsstand.",
 		"Fragen vor dem Versand?",
 		`/assets/freightvanta-template/assets/app.css`,
-		`/assets/freightvanta-template/assets/app.js`,
+		`/assets/freightvanta-template/assets/app-`,
 		`lang="de-DE"`,
 	} {
 		if !strings.Contains(germanBody, expected) {
@@ -1309,7 +1222,7 @@ func TestFrenchAtelierMaritimeHomepage(t *testing.T) {
 		`fv-fr-react-template`,
 		`data-default-site="fr"`,
 		`/assets/freightvanta-template/assets/app.css`,
-		`/assets/freightvanta-template/assets/app.js`,
+		`/assets/freightvanta-template/assets/app-`,
 		`Une logistique qui vous suit, sans vous ralentir.`,
 		`Des savoir-faire qui se complètent.`,
 		`Des questions avant d’expédier ?`,
@@ -1340,13 +1253,13 @@ func TestSpanishMediterraneoHomepage(t *testing.T) {
 		`fv-es-react-template`,
 		`data-default-site="es"`,
 		`/assets/freightvanta-template/assets/app.css`,
-		`/assets/freightvanta-template/assets/app.js`,
+		`/assets/freightvanta-template/assets/app-`,
 		`De origen a destino, sin perder el control.`,
 		`Una cadena coordinada para que tu negocio no se detenga.`,
 		`¿Dudas antes de enviar?`,
 		`Compras en China, transporte internacional y logística e-commerce | FreightVanta`,
 	} {
-		if !strings.Contains(body, expected) {
+		if !strings.Contains(body, expected) && !strings.Contains(regexp.MustCompile(`<[^>]*>`).ReplaceAllString(body, ""), expected) {
 			t.Fatalf("Spanish homepage missing %q", expected)
 		}
 	}
@@ -1371,7 +1284,7 @@ func TestItalianGraficaHomepage(t *testing.T) {
 		`fv-it-react-template`,
 		`data-default-site="it"`,
 		`/assets/freightvanta-template/assets/app.css`,
-		`/assets/freightvanta-template/assets/app.js`,
+		`/assets/freightvanta-template/assets/app-`,
 		`Una filiera che lavora bene, dall’origine alla consegna.`,
 		`Una catena pensata con cura.`,
 		`Dubbi prima di spedire?`,
@@ -1409,7 +1322,7 @@ func TestDutchDeltarasterHomepage(t *testing.T) {
 		`class="fv-nl-react-template"`,
 		`data-default-site="nl"`,
 		`/assets/nl-template/assets/app.css`,
-		`/assets/nl-template/assets/app.js`,
+		`/assets/nl-template/assets/app-`,
 		`Vracht, helder geregeld.`,
 		`Duidelijkheid bij elk knooppunt.`,
 		`Welke vragen spelen vóór de eerste overdracht?`,

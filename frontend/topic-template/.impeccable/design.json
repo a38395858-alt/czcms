@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-13T02:00:00Z",
+  "title": "Design System: FreightVanta imported EN and DE topics",
+  "extensions": {
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "0.15s ease",
+        "purpose": "Original button state changes"
+      }
+    ],
+    "shadows": [
+      {
+        "name": "en-action-edge",
+        "value": "inset 0 -2px 0 rgb(5 15 31 / 0.16)",
+        "purpose": "Original primary button lower edge"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "English primary action",
+      "kind": "button",
+      "refersTo": "button-primary-en",
+      "html": "<button class=\"ds-control ds-en\">Get a shipment plan</button>",
+      "css": ".ds-control{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:14px 20px;font-family:\"IBM Plex Sans\",sans-serif;font-size:15px;font-weight:600;line-height:1.2;border:0;cursor:pointer;transition:background-color .15s ease}.ds-control:focus-visible{outline:3px solid #2f7df6;outline-offset:3px}.ds-en{background:#ff7a1a;color:#050f1f;border-radius:3px;box-shadow:inset 0 -2px 0 rgb(5 15 31 / .16)}.ds-en:hover{background:#ff9142}"
+    },
+    {
+      "name": "German primary action",
+      "kind": "button",
+      "refersTo": "button-primary-de",
+      "html": "<button class=\"ds-control ds-de\">Versandplan anfordern</button>",
+      "css": ".ds-control{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:14px 20px;font-family:\"IBM Plex Sans\",sans-serif;font-size:15px;font-weight:600;line-height:1.2;border:0;cursor:pointer;transition:background-color .15s ease}.ds-control:focus-visible{outline:3px solid #2f7df6;outline-offset:3px}.ds-de{background:#a83019;color:#fff;border-radius:2px;box-shadow:inset 0 -2px 0 rgb(0 0 0 / .18)}.ds-de:hover{background:#bd3c1f}"
+    },
+    {
+      "name": "English outline action",
+      "kind": "button",
+      "html": "<button class=\"ds-control ds-outline\">View the process</button>",
+      "css": ".ds-control{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:14px 20px;font-family:\"IBM Plex Sans\",sans-serif;font-size:15px;font-weight:600;line-height:1.2;border:0;cursor:pointer;transition:background-color .15s ease}.ds-control:focus-visible{outline:3px solid #2f7df6;outline-offset:3px}.ds-outline{border:1px solid #9db0c9;background:white;color:#0a1b33;border-radius:3px}.ds-outline:hover{border-color:#0a1b33}"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "html": "<label class=\"ds-label\">Company<input class=\"ds-input\" placeholder=\"Company name\"></label>",
+      "css": ".ds-label{font:500 15px \"IBM Plex Sans\",sans-serif;color:#12294a}.ds-input{display:block;width:100%;min-height:48px;border:1px solid #bccfe5;border-radius:3px;background:white;padding:12px 14px;color:#12294a;font:400 16px \"IBM Plex Sans\",sans-serif}.ds-input:focus-visible{outline:3px solid #2f7df6;outline-offset:3px}.ds-input:disabled{opacity:.6}"
+    },
+    {
+      "name": "German navigation",
+      "kind": "nav",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Leistungen</a><a href=\"#\">Ablauf</a><a href=\"#\">Branchen</a></nav>",
+      "css": ".ds-nav{display:flex;gap:4px;background:#fbfaf7;padding:12px;font:500 15px \"IBM Plex Sans\",sans-serif}.ds-nav a{padding:12px;color:#31353d;text-decoration:none;border-radius:2px}.ds-nav a:hover{color:#16181c;background:#eeebe1}.ds-nav a:focus-visible{outline:3px solid #2f7df6;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Pacific Operations / Speicherstadt Präzision",
+    "overview": "This document records the actual supplied source templates. English uses condensed display typography, navy fields and orange actions. German uses serif headings, paper fields and brick actions.",
+    "keyCharacteristics": [
+      "Distinct English and German display faces.",
+      "Source photography, grids, section order and topic-specific compositions.",
+      "Responsive tables, timelines, comparison sections and native FAQ disclosure.",
+      "Local fonts and server-rendered content with hydrated controls."
+    ],
+    "rules": [],
+    "dos": [
+      "Do retain the language-specific families and source token values.",
+      "Do preserve source photos, copy and per-topic responsive variants.",
+      "Do use the CMS context for URLs, metadata and enquiry storage."
+    ],
+    "donts": [
+      "Do not replace this public-topic system with the separate admin design.",
+      "Do not add unsupported languages, commercial claims or demo-success submissions."
+    ]
+  }
+}

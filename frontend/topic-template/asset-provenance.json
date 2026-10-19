@@ -1,0 +1,48 @@
+{
+  "source": "User-supplied freightvanta-english-homepage-development (18).zip",
+  "rasterAssets": [
+    {
+      "file": "public/images/global-us-freight-hero-v1.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/guide-china-sourcing-brief.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/industry-receiving.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/service-air-freight.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/service-final-mile.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/service-ocean-freight.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/service-packaging.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/service-private-label.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/service-product-sourcing.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    },
+    {
+      "file": "public/images/service-warehousing.jpg",
+      "origin": "Supplied ZIP; unchanged imported file; original production method unverified"
+    }
+  ],
+  "remoteAssets": "Pexels photo IDs and URLs retained in src/content/media.ts; not downloaded",
+  "fonts": "Fontsource IBM Plex Sans/Serif/Mono and Barlow Semi Condensed; licenses in public/font-licenses",
+  "vectorFavicons": "Source logo geometry from original Logo.tsx and GermanChrome.tsx, restated as SVG"
+}

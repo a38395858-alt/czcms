@@ -5,8 +5,7 @@ import { Logo } from '../../../components/ui/Logo';
 import { SiteSwitch } from '../../../components/ui/SiteSwitch';
 import { LOCALIZED_HOMEPAGES, localizedUrl, siteConfig } from '../../../config/site';
 import { IT_ANCHORS, announcementIt, footerIt, heroIt } from '../../../content/it/home';
-import { INDUSTRIES_IT } from '../../../content/it/industries';
-import { SERVICES_IT } from '../../../content/it/services';
+import { IT_TOPIC_SERVICES, IT_TOPIC_INDUSTRIES, itTopicHref } from '../../../content/it/topic-nav';
 import type { FooterColumn } from '../../../content/types';
 import { openConsentSettings, setConsent, useConsent } from '../../../lib/analytics';
 import { Link, type Route } from '../../../lib/router';
@@ -187,22 +186,20 @@ function ServiziMenu({ open, route }: { open: boolean; route: Route }) {
         <div className="col-span-8">
           <p className="it-eyebrow text-grafite-500">Servizi</p>
           <ul className="mt-4 grid grid-cols-2 gap-x-10">
-            {SERVICES_IT.map((service, index) => {
+            {IT_TOPIC_SERVICES.map((service) => {
               const current = route.name === 'service' && route.slug === service.slug;
               return (
                 <li key={service.slug} className="border-b border-grafite-200">
-                  <Link
-                    to={`/it/servizi/${service.slug}`}
+                  <a href={itTopicHref(service.route)}
                     aria-current={current ? 'page' : undefined}
                     className="group flex items-start gap-4 py-3.5 transition-colors hover:text-ottanio-700 aria-[current=page]:text-ottanio-700"
                   >
-                    <span className="it-folio pt-0.5">{String(index + 1).padStart(2, '0')}</span>
                     <span className="flex-1">
                       <span className="block font-it-display text-[1.1rem] font-semibold">{service.navLabel}</span>
                       <span className="mt-0.5 block text-sm text-grafite-500">{service.menuLine}</span>
                     </span>
                     <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-ottanio-700 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" />
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -230,18 +227,17 @@ function SettoriMenu({ open, route }: { open: boolean; route: Route }) {
   return (
     <div id="it-menu-settori" hidden={!open} className="absolute left-0 top-full mt-3 w-[27rem] border border-grafite-900 bg-white p-3 shadow-[0_24px_48px_-20px_rgba(18,18,19,0.4)]">
       <ul>
-        {INDUSTRIES_IT.map((industry) => {
+        {IT_TOPIC_INDUSTRIES.map((industry) => {
           const current = route.name === 'industry' && route.slug === industry.slug;
           return (
             <li key={industry.slug}>
-              <Link
-                to={`/it/settori/${industry.slug}`}
+              <a href={itTopicHref(industry.route)}
                 aria-current={current ? 'page' : undefined}
                 className="block px-3 py-3 transition-colors hover:bg-nebbia-100 aria-[current=page]:bg-nebbia-100"
               >
                 <span className="block font-it-display text-[1.05rem] font-semibold">{industry.navLabel}</span>
                 <span className="mt-0.5 block text-sm text-grafite-500">{industry.menuLine}</span>
-              </Link>
+              </a>
             </li>
           );
         })}
@@ -350,9 +346,9 @@ function ItMobileMenu({ route, onClose, onNavigate }: { route: Route; onClose: (
           <ul className="space-y-0.5 border-l border-grafite-900 pl-4">
             {links.map((link) => (
               <li key={link.to}>
-                <Link to={link.to} onClick={onNavigate} className="block py-2.5 text-[16px] text-grafite-700 hover:text-grafite-900">
+                <a href={link.to} onClick={onNavigate} className="block py-2.5 text-[16px] text-grafite-700 hover:text-grafite-900">
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -384,13 +380,13 @@ function ItMobileMenu({ route, onClose, onNavigate }: { route: Route; onClose: (
             {group(
               'servizi',
               'Servizi',
-              SERVICES_IT.map((service) => ({ to: `/it/servizi/${service.slug}`, label: service.navLabel })),
+              IT_TOPIC_SERVICES.map((service) => ({ to: itTopicHref(service.route), label: service.navLabel })),
               { to: IT_ANCHORS.services, label: 'Confronta i percorsi di servizio' },
             )}
             {group(
               'settori',
               'Settori',
-              INDUSTRIES_IT.map((industry) => ({ to: `/it/settori/${industry.slug}`, label: industry.navLabel })),
+              IT_TOPIC_INDUSTRIES.map((industry) => ({ to: itTopicHref(industry.route), label: industry.navLabel })),
               { to: '/it/settori', label: 'Tutte le soluzioni per settore' },
             )}
             {NAV_LINKS.map((link) => (
@@ -482,11 +478,11 @@ export function ItFooter() {
               {titles.solutions}
             </h2>
             <ul className="mt-5 space-y-1">
-              {SERVICES_IT.map((service) => (
+              {IT_TOPIC_SERVICES.map((service) => (
                 <li key={service.slug}>
-                  <Link to={`/it/servizi/${service.slug}`} className={footerLink}>
+                  <a href={itTopicHref(service.route)} className={footerLink}>
                     {service.navLabel}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -497,11 +493,11 @@ export function ItFooter() {
               {titles.industries}
             </h2>
             <ul className="mt-5 space-y-1">
-              {INDUSTRIES_IT.map((industry) => (
+              {IT_TOPIC_INDUSTRIES.map((industry) => (
                 <li key={industry.slug}>
-                  <Link to={`/it/settori/${industry.slug}`} className={footerLink}>
+                  <a href={itTopicHref(industry.route)} className={footerLink}>
                     {industry.navLabel}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li className="pt-2">

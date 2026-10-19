@@ -1,0 +1,37 @@
+{
+  "created": 1791195786,
+  "data": [
+    {
+      "revised_prompt": "Wide editorial product sourcing visual for a premium global logistics website, 3:2 composition. White supplier-ready brief sheet with blank ruled rows and a stainless steel bottle sample, small carton, material swatches, ruler, pale blue paper sheets, deep navy studio background, cobalt blue accents and small warm orange tab, crisp softbox lighting, subject weighted right, negative space left, no readable text, no logos, no watermark, no people.",
+      "url": "https://pub-13fd1d3607a441b4a9d232b3a223f5f6.r2.dev/images/2026/10/05/1791195786371334475-d7f20d207cc567e8.png"
+    }
+  ],
+  "usage": {
+    "completion_tokens": 1584,
+    "completion_tokens_details": {
+      "image_tokens": 1584,
+      "reasoning_tokens": 0,
+      "text_tokens": 0
+    },
+    "estimated": true,
+    "input_tokens": 112,
+    "input_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 0,
+      "text_tokens": 112
+    },
+    "output_tokens": 1584,
+    "output_tokens_details": {
+      "image_tokens": 1584,
+      "reasoning_tokens": 0,
+      "text_tokens": 0
+    },
+    "prompt_tokens": 112,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 0,
+      "text_tokens": 112
+    },
+    "total_tokens": 1696
+  }
+}

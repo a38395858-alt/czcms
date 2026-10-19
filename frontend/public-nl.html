@@ -7,7 +7,7 @@
     <title>{{.PageTitle}}</title>
     <meta name="description" content="{{.MetaDescription}}">
     <meta name="theme-color" content="#10333a">
-    {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}"><link rel="apple-touch-icon" href="{{.FaviconURL}}">{{end}}
+    {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}"><link rel="apple-touch-icon" href="{{.FaviconURL}}">{{else}}<link rel="icon" href="/assets/freightvanta-topic-v18/favicon-en.svg">{{end}}
     {{if .Preview}}<meta name="robots" content="noindex,nofollow">{{else if .RobotsIndex}}<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">{{else}}<meta name="robots" content="noindex,follow">{{end}}
     {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}">{{end}}
     {{range .Hreflangs}}{{if .URL}}<link rel="alternate" hreflang="{{.Locale}}" href="{{.URL}}">{{end}}{{end}}
@@ -22,14 +22,19 @@
     <meta name="twitter:title" content="{{.OGTitle}}">
     <meta name="twitter:description" content="{{.OGDescription}}">
     {{if .SocialImageURL}}<meta name="twitter:image" content="{{.SocialImageURL}}">{{end}}
+    {{range .HomeFonts}}<link rel="preload" as="font" type="font/woff2" href="{{.}}" crossorigin>{{end}}
+    {{if .HomeContext}}<script id="freightvanta-home-context" type="application/json">{{.HomeContext}}</script>{{end}}
     <script type="application/ld+json">{{.StructuredData}}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,600;0,700;1,500&family=Jost:wght@500;600;700&family=Bricolage+Grotesque:wght@500;600;700;800&family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,800;1,6..96,500;1,6..96,600&family=Archivo+Black&display=swap">
-    <link rel="stylesheet" href="/assets/nl-template/assets/app.css?v=20260930.7">
-    <script type="module" src="/assets/nl-template/assets/app.js?v=20260930.7"></script>
+    <link rel="stylesheet" href="/assets/nl-template/assets/app.css?v=20261019.1">
+    {{range .HomePreloads}}<link rel="modulepreload" href="{{.}}">{{end}}
+    <script type="module" src="{{if .HomeScript}}{{.HomeScript}}{{else}}/assets/nl-template/assets/app.js?v=20261016.3{{end}}"></script>
+  <link rel="stylesheet" href="/assets/css/public-navigation.css?v=20261013.5">
+    <script src="/assets/js/public-navigation.js?v=20261016.1" defer></script>
+    <link rel="stylesheet" href="/assets/css/country-layout.css?v=20261019.1">
+  {{if .EnquiryContext}}<script id="freightvanta-enquiry-context" type="application/json">{{.EnquiryContext}}</script><script src="/assets/js/public-enquiry.js?v=20261015.2" defer></script>{{end}}
   </head>
   <body class="fv-nl-react-template">
+    {{if .HomeMarkup}}<div id="root" data-prerendered="true">{{.HomeMarkup}}</div>{{else}}
     <div id="root">
       <main id="nl-static-content">
         <section aria-labelledby="nl-static-title">
@@ -66,7 +71,8 @@
         </section>
       </main>
     </div>
-    <noscript>Schakel JavaScript in om de volledige FreightVanta Nederland-template te bekijken.</noscript>
+    {{end}}
+    <noscript>Schakel JavaScript in om interactieve formulieren te gebruiken.</noscript>
   </body>
 </html>
 {{end}}

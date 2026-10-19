@@ -1,0 +1,37 @@
+{
+  "created": 1791195844,
+  "data": [
+    {
+      "revised_prompt": "Wide editorial tabletop visual for a premium B2B product sourcing website, 3:2 composition. Three clean product samples arranged in a comparison line: insulated stainless steel bottle, compact wireless earbuds case, and matte travel mug, each beside a small plain carton and neutral material swatch. Beside them a blank supplier comparison sheet with pale blue rows, simple check marks and measurement lines but absolutely no readable words. Bright cool white and pale blue desk surface, deep navy edge shadows, cobalt blue and restrained warm orange accents, photographed from a slight top angle, precise commercial art direction, generous clean negative space, no people, no logos, no watermark.",
+      "url": "https://pub-13fd1d3607a441b4a9d232b3a223f5f6.r2.dev/images/2026/10/05/1791195843876961916-0947a5468bc1888b.png"
+    }
+  ],
+  "usage": {
+    "completion_tokens": 1584,
+    "completion_tokens_details": {
+      "image_tokens": 1584,
+      "reasoning_tokens": 0,
+      "text_tokens": 0
+    },
+    "estimated": true,
+    "input_tokens": 174,
+    "input_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 0,
+      "text_tokens": 174
+    },
+    "output_tokens": 1584,
+    "output_tokens_details": {
+      "image_tokens": 1584,
+      "reasoning_tokens": 0,
+      "text_tokens": 0
+    },
+    "prompt_tokens": 174,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 0,
+      "text_tokens": 174
+    },
+    "total_tokens": 1758
+  }
+}

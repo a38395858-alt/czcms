@@ -115,6 +115,7 @@
   --color-sienne-700: #9a4a1c;
   --color-sienne-600: #b45a24;
   --color-sienne-500: #c96a30;
+  --color-sienne-300: #e08a52;
   --color-sienne-100: #f7e8dc;
 
   /* ------------------------------------------------------------
@@ -200,6 +201,7 @@
   --color-rosso-700: #a51f1a;
   --color-rosso-600: #c02620;
   --color-rosso-500: #d63a33;
+  --color-rosso-300: #ea8079;
   --color-rosso-100: #fae5e3;
 
   --animate-route-flow: route-flow 3.4s linear infinite;

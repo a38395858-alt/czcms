@@ -7,6 +7,7 @@ import { LOCALIZED_HOMEPAGES, localizedUrl, siteConfig } from '../../../config/s
 import { ES_ANCHORS, announcementEs, footerEs, heroEs } from '../../../content/es/home';
 import { INDUSTRIES_ES } from '../../../content/es/industries';
 import { SERVICES_ES } from '../../../content/es/services';
+import { ES_TOPIC_SERVICES, ES_TOPIC_INDUSTRIES, esTopicHref } from '../../../content/es/topic-nav';
 import type { FooterColumn } from '../../../content/types';
 import { openConsentSettings, setConsent, useConsent } from '../../../lib/analytics';
 import { Link, type Route } from '../../../lib/router';
@@ -187,12 +188,12 @@ function SolucionesMenu({ open, route }: { open: boolean; route: Route }) {
         <div className="col-span-8">
           <p className="es-eyebrow text-mar-700">Soluciones</p>
           <ul className="mt-4 grid grid-cols-2 gap-x-8">
-            {SERVICES_ES.map((service) => {
+            {ES_TOPIC_SERVICES.map((service) => {
               const current = route.name === 'service' && route.slug === service.slug;
               return (
                 <li key={service.slug} className="border-b border-carbon-900/10">
-                  <Link
-                    to={`/es/soluciones/${service.slug}`}
+                  <a
+                    href={esTopicHref(service.route)}
                     aria-current={current ? 'page' : undefined}
                     className="group flex items-start justify-between gap-4 py-3.5 transition-colors hover:text-mar-700 aria-[current=page]:text-mar-700"
                   >
@@ -201,7 +202,7 @@ function SolucionesMenu({ open, route }: { open: boolean; route: Route }) {
                       <span className="mt-0.5 block text-sm text-carbon-600">{service.menuLine}</span>
                     </span>
                     <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-mar-700 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" />
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -229,18 +230,18 @@ function SectoresMenu({ open, route }: { open: boolean; route: Route }) {
   return (
     <div id="es-menu-sectores" hidden={!open} className="absolute left-0 top-full mt-3 w-[27rem] rounded-lg border border-carbon-900/10 bg-white p-3 shadow-[0_24px_48px_-20px_rgba(11,48,39,0.4)]">
       <ul>
-        {INDUSTRIES_ES.map((industry) => {
+        {ES_TOPIC_INDUSTRIES.map((industry) => {
           const current = route.name === 'industry' && route.slug === industry.slug;
           return (
             <li key={industry.slug}>
-              <Link
-                to={`/es/sectores/${industry.slug}`}
+              <a
+                href={esTopicHref(industry.route)}
                 aria-current={current ? 'page' : undefined}
                 className="block rounded-md px-3 py-3 transition-colors hover:bg-arena-50 aria-[current=page]:bg-arena-100"
               >
                 <span className="block font-extrabold tracking-[-0.01em]">{industry.navLabel}</span>
                 <span className="mt-0.5 block text-sm text-carbon-600">{industry.menuLine}</span>
-              </Link>
+              </a>
             </li>
           );
         })}
@@ -349,9 +350,9 @@ function EsMobileMenu({ route, onClose, onNavigate }: { route: Route; onClose: (
           <ul className="space-y-0.5 border-l-[3px] border-albero-400 pl-4">
             {links.map((link) => (
               <li key={link.to}>
-                <Link to={link.to} onClick={onNavigate} className="block py-2.5 text-[16px] text-carbon-700 hover:text-pino-900">
+                <a href={link.to} onClick={onNavigate} className="block py-2.5 text-[16px] text-carbon-700 hover:text-pino-900">
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -383,13 +384,13 @@ function EsMobileMenu({ route, onClose, onNavigate }: { route: Route; onClose: (
             {group(
               'soluciones',
               'Soluciones',
-              SERVICES_ES.map((service) => ({ to: `/es/soluciones/${service.slug}`, label: service.navLabel })),
+              ES_TOPIC_SERVICES.map((service) => ({ to: esTopicHref(service.route), label: service.navLabel })),
               { to: ES_ANCHORS.services, label: 'Comparar recorridos de servicio' },
             )}
             {group(
               'sectores',
               'Sectores',
-              INDUSTRIES_ES.map((industry) => ({ to: `/es/sectores/${industry.slug}`, label: industry.navLabel })),
+              ES_TOPIC_INDUSTRIES.map((industry) => ({ to: esTopicHref(industry.route), label: industry.navLabel })),
               { to: '/es/sectores', label: 'Todas las soluciones por sector' },
             )}
             {NAV_LINKS.map((link) => (

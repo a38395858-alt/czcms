@@ -54,6 +54,7 @@ var migrations = []migration{
 	{version: 34, apply: migrateFreightVantaSpanishHomepageV34},
 	{version: 35, apply: migrateFreightVantaItalianHomepageV35},
 	{version: 36, apply: migrateFreightVantaDutchHomepageV36},
+	{version: 37, apply: migrateFormInboxV37},
 }
 
 // migrateFreightVantaDutchHomepageV36 installs the metadata supplied with the

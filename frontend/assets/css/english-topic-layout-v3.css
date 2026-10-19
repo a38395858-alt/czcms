@@ -1,0 +1,843 @@
+/* English topic pages v3. The five routes keep one brand palette but each has
+   a different composition, matching the approved independent design images. */
+body.layout-v3-product-sourcing,
+body.layout-v3-packaging-branding,
+body.layout-v3-consumer-goods,
+body.layout-v3-industrial-components,
+body.layout-v3-time-critical-cargo {
+  --v3-navy: #0a1b33;
+  --v3-deep: #050f1f;
+  --v3-ink: #12294a;
+  --v3-body: #355473;
+  --v3-blue: #1552b8;
+  --v3-sky: #b3d1ff;
+  --v3-orange: #ff7a1a;
+  --v3-mist: #f5f8fc;
+  --v3-pale: #eaf1f9;
+  --v3-line: #c3d0e0;
+  --v3-display: "Barlow Semi Condensed", "Arial Narrow", sans-serif;
+  --v3-sans: "IBM Plex Sans", Arial, sans-serif;
+  color: var(--v3-ink);
+  font-family: var(--v3-sans);
+  background: #fff;
+}
+
+/* Product Sourcing desktop clone: this layer intentionally follows the
+   approved full-page design rather than the older generic topic treatment. */
+@media (min-width: 1021px) {
+  body.layout-v3-product-sourcing { --english-topic-shell: min(100% - 192px, 1248px); }
+  body.layout-v3-product-sourcing .sourcing-replica .announcement {
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    background: var(--v3-deep);
+    border: 0;
+    color: #fff;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica .announcement .shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .78rem;
+    font-weight: 500;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica .announcement .shell::after {
+    margin-left: 18px;
+    color: var(--v3-sky);
+    content: "→";
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica .site-header { position: relative; }
+  body.layout-v3-product-sourcing .sourcing-replica .header-inner { min-height: 82px; }
+  body.layout-v3-product-sourcing .sourcing-replica .desktop-nav { gap: clamp(23px, 2.25vw, 34px); }
+  body.layout-v3-product-sourcing .sourcing-replica .desktop-nav > a {
+    min-height: 82px;
+    color: #fff;
+    font-size: .87rem;
+    font-weight: 600;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica .desktop-nav > a:first-child {
+    box-shadow: inset 0 -2px 0 var(--v3-sky);
+  }
+  body.layout-v3-product-sourcing .sourcing-replica .header-cta {
+    min-width: 167px;
+    min-height: 44px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--v3-orange);
+    color: var(--v3-deep);
+    font-size: .82rem;
+    font-weight: 700;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .hero { background: var(--v3-mist); }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-shell {
+    min-height: 718px;
+    grid-template-columns: minmax(0, 1.07fr) minmax(480px, .93fr);
+    align-items: start;
+    gap: clamp(54px, 6vw, 88px);
+    padding-block: 30px 54px;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-content { max-width: 640px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb { margin-bottom: 51px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb a { color: var(--v3-blue); }
+  body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb span { background: var(--v3-line); }
+  body.layout-v3-product-sourcing .sourcing-replica-page .service-kicker {
+    position: relative;
+    padding-left: 34px;
+    color: var(--v3-blue);
+    font-size: .78rem;
+    letter-spacing: .12em;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .service-kicker i { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .service-kicker::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 23px;
+    height: 2px;
+    background: var(--v3-orange);
+    content: "";
+    transform: translateY(-50%);
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero h1 {
+    max-width: 10.9ch;
+    margin-top: 28px;
+    color: var(--v3-ink);
+    font-size: clamp(3.5rem, 4.35vw, 4.35rem);
+    font-weight: 700;
+    letter-spacing: -.035em;
+    line-height: .92;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-copy {
+    max-width: 58ch;
+    margin-top: 27px;
+    color: var(--v3-body);
+    font-size: 1rem;
+    line-height: 1.74;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions { gap: 26px; margin-top: 30px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions .button-primary {
+    min-height: 52px;
+    padding-inline: 25px;
+    border-radius: 3px;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions .button-ghost {
+    min-height: 52px;
+    padding-inline: 0;
+    border: 0;
+    color: var(--v3-blue);
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board {
+    min-height: 570px;
+    height: 570px;
+    margin-top: 62px;
+    overflow: hidden;
+    background: var(--v3-navy);
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-photo { object-position: 58% center; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board::before { display: none; content: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board::after {
+    display: block;
+    content: "";
+    inset: 42% 0 0;
+    background: linear-gradient(transparent, rgba(5,15,31,.94));
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board-label {
+    right: auto;
+    bottom: 28px;
+    left: 30px;
+    display: grid;
+    gap: 10px;
+    max-width: 315px;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board-label > span {
+    color: #dfe7f1;
+    font-size: .76rem;
+    font-weight: 600;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board-label > strong {
+    color: #fff;
+    font-family: var(--v3-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.02;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .proof-strip {
+    order: 2;
+    background: var(--v3-mist);
+    border-top: 1px solid var(--v3-line);
+    color: var(--v3-ink);
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .intro-band { order: 3; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner {
+    min-height: 160px;
+    display: block;
+    padding-block: 31px 29px;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner > span { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner ul {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li {
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    color: var(--v3-body);
+    font-size: .86rem;
+    line-height: 1.42;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li b {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--v3-ink);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li b::before {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--v3-blue);
+    content: "";
+  }
+}
+
+@media (max-width: 1020px) {
+  body.layout-v3-product-sourcing .sourcing-replica .announcement { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .proof-strip { order: 2; background: var(--v3-mist); color: var(--v3-ink); }
+  body.layout-v3-product-sourcing .sourcing-replica-page > .intro-band { order: 3; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner { min-height: 0; padding-block: 28px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner > span { display: none; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner ul { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px 28px; margin: 0; padding: 0; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li { display: grid; gap: 7px; color: var(--v3-body); font-size: .88rem; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner li b { color: var(--v3-ink); font-size: .69rem; letter-spacing: .07em; }
+}
+
+@media (max-width: 620px) {
+  body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner ul { grid-template-columns: 1fr; gap: 17px; }
+}
+body.layout-v3-product-sourcing *,
+body.layout-v3-packaging-branding *,
+body.layout-v3-consumer-goods *,
+body.layout-v3-industrial-components *,
+body.layout-v3-time-critical-cargo * { box-sizing: border-box; }
+body.layout-v3-product-sourcing h1,
+body.layout-v3-product-sourcing h2,
+body.layout-v3-product-sourcing h3,
+body.layout-v3-packaging-branding h1,
+body.layout-v3-packaging-branding h2,
+body.layout-v3-packaging-branding h3,
+body.layout-v3-consumer-goods h1,
+body.layout-v3-consumer-goods h2,
+body.layout-v3-consumer-goods h3,
+body.layout-v3-industrial-components h1,
+body.layout-v3-industrial-components h2,
+body.layout-v3-industrial-components h3,
+body.layout-v3-time-critical-cargo h1,
+body.layout-v3-time-critical-cargo h2,
+body.layout-v3-time-critical-cargo h3 { font-family: var(--v3-display); text-wrap: balance; }
+body.layout-v3-product-sourcing p,
+body.layout-v3-packaging-branding p,
+body.layout-v3-consumer-goods p,
+body.layout-v3-industrial-components p,
+body.layout-v3-time-critical-cargo p { text-wrap: pretty; }
+body.layout-v3-product-sourcing .sourcing-replica-page,
+body.layout-v3-packaging-branding .service-topic-page,
+body.layout-v3-consumer-goods .industry-solution-page,
+body.layout-v3-industrial-components .industry-solution-page,
+body.layout-v3-time-critical-cargo .industry-solution-page { overflow: clip; }
+
+/* Shared chrome remains the homepage's navy / orange system. */
+body.layout-v3-product-sourcing .sourcing-replica .announcement,
+body.layout-v3-packaging-branding .sourcing-replica .announcement,
+body.layout-v3-consumer-goods .sourcing-replica .announcement,
+body.layout-v3-industrial-components .sourcing-replica .announcement,
+body.layout-v3-time-critical-cargo .sourcing-replica .announcement { background: var(--v3-deep); color: #dfe7f1; }
+body.layout-v3-product-sourcing .sourcing-replica .site-header,
+body.layout-v3-packaging-branding .sourcing-replica .site-header,
+body.layout-v3-consumer-goods .sourcing-replica .site-header,
+body.layout-v3-industrial-components .sourcing-replica .site-header,
+body.layout-v3-time-critical-cargo .sourcing-replica .site-header { background: var(--v3-navy); color: #fff; }
+
+/* Product sourcing: brief → evidence → comparison. */
+body.layout-v3-product-sourcing .sourcing-replica-page { display: flex; flex-direction: column; background: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page > .hero { order: 1; background: var(--v3-mist); color: var(--v3-ink); }
+body.layout-v3-product-sourcing .sourcing-replica-page > .intro-band { order: 2; background: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page > .proof-strip { order: 3; background: var(--v3-navy); color: #fff; border: 0; }
+body.layout-v3-product-sourcing .sourcing-replica-page > .situations { order: 4; background: var(--v3-pale); }
+body.layout-v3-product-sourcing .sourcing-replica-page > .brief-section { order: 5; background: var(--v3-navy); color: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page > .source-comparison { order: 6; background: var(--v3-mist); }
+body.layout-v3-product-sourcing .sourcing-replica-page > .workflow { order: 7; background: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page > .china-source { order: 8; background: var(--v3-pale); }
+body.layout-v3-product-sourcing .sourcing-replica-page > .source-checkpoints { order: 9; background: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page > .source-scope-table { order: 10; background: var(--v3-mist); }
+body.layout-v3-product-sourcing .sourcing-replica-page > .source-deliverables { order: 11; background: var(--v3-pale); }
+body.layout-v3-product-sourcing .sourcing-replica-page > .faq { order: 12; background: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page > .related { order: 13; background: var(--v3-mist); }
+body.layout-v3-product-sourcing .sourcing-replica-page > .enquiry { order: 14; background: var(--v3-blue); color: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-shell { grid-template-columns: 1.12fr 1fr; gap: 64px; min-height: 0; padding-block: 44px 56px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-content { max-width: 700px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero h1 { max-width: 20ch; margin-top: 22px; font-size: clamp(3rem,4.3vw,4.2rem); color: var(--v3-ink); }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-copy { color: var(--v3-body); font-size: 1rem; }
+body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb { color: var(--v3-body); }
+body.layout-v3-product-sourcing .sourcing-replica-page .breadcrumb a { color: var(--v3-blue); }
+body.layout-v3-product-sourcing .sourcing-replica-page .service-kicker { color: var(--v3-blue); }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions .button-primary { background: var(--v3-orange); color: var(--v3-deep); }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-actions .button-ghost { border-color: var(--v3-blue); color: var(--v3-blue); }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-board { min-height: 570px; border: 0; background: var(--v3-navy); }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-photo { opacity: 1; mix-blend-mode: normal; filter: none; }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-board::after { content: ""; position: absolute; inset: 50% 0 0; background: linear-gradient(transparent,rgba(5,15,31,.88)); }
+body.layout-v3-product-sourcing .sourcing-replica-page .hero-board-label { z-index: 2; }
+body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner { min-height: 84px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .proof-inner > span { color: var(--v3-sky); }
+body.layout-v3-product-sourcing .sourcing-replica-page .intro-grid { grid-template-columns: .9fr 1.3fr; gap: 88px; padding-block: 82px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .intro-grid h2,
+body.layout-v3-product-sourcing .sourcing-replica-page .section-heading h2,
+body.layout-v3-product-sourcing .sourcing-replica-page .source-split-heading h2,
+body.layout-v3-product-sourcing .sourcing-replica-page .source-deliverables h2,
+body.layout-v3-product-sourcing .sourcing-replica-page .faq-heading h2 { font-size: clamp(2.25rem,3.4vw,3.15rem); color: var(--v3-ink); }
+body.layout-v3-product-sourcing .sourcing-replica-page .intro-grid p,
+body.layout-v3-product-sourcing .sourcing-replica-page .section-heading > p,
+body.layout-v3-product-sourcing .sourcing-replica-page .source-split-heading > p { color: var(--v3-body); }
+body.layout-v3-product-sourcing .sourcing-replica-page .brief-layout { grid-template-columns: 1.3fr 1fr; gap: 78px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .brief-layout h2,
+body.layout-v3-product-sourcing .sourcing-replica-page .brief-layout p { color: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page .brief-list li { border-color: #355473; color: #dfe7f1; }
+body.layout-v3-product-sourcing .sourcing-replica-page .brief-image { height: 340px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .brief-image img { height: 100%; object-fit: cover; }
+body.layout-v3-product-sourcing .sourcing-replica-page .situations-list { grid-template-columns: 1fr 1fr; gap: 0 56px; border: 0; }
+body.layout-v3-product-sourcing .sourcing-replica-page .situations-list li { display: block; padding-block: 26px; border-top: 1px solid #afc2d9; border-bottom: 0; }
+body.layout-v3-product-sourcing .sourcing-replica-page .situations-list li span { display: block; color: var(--v3-blue); }
+body.layout-v3-product-sourcing .sourcing-replica-page .situations-list li h3 { margin-top: 12px; font-size: 1.8rem; }
+/* The legacy reference used full-height blue chevrons for this list.  On the
+   server-rendered V3 page that treatment overwhelms the copy and makes the
+   centre gutter look like a broken white seam.  Keep the ordered workflow,
+   but render it as a calm, scan-friendly operating checklist. */
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow {
+  padding-block: clamp(72px, 8vw, 112px);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow .section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(320px, .72fr);
+  gap: 44px 88px;
+  align-items: end;
+  margin-bottom: clamp(38px, 5vw, 64px);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow .section-heading h2 {
+  max-width: 17ch;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow .section-heading > p {
+  max-width: 57ch;
+  margin: 0;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(42px, 6vw, 88px);
+  border-top: 1px solid var(--v3-line);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step,
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step:first-child {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 20px;
+  min-height: 0;
+  margin: 0;
+  padding: 30px 0 32px;
+  clip-path: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--v3-line);
+  color: var(--v3-ink);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step::before,
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step::after {
+  display: none;
+  content: none;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step:hover {
+  z-index: auto;
+  background: transparent;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step b {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  place-items: center;
+  align-self: start;
+  background: var(--v3-blue);
+  color: #fff;
+  font-family: var(--v3-sans);
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step:first-child b {
+  background: var(--v3-orange);
+  color: var(--v3-deep);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step h3 {
+  max-width: 25ch;
+  margin: 1px 0 0;
+  color: var(--v3-ink);
+  font-family: var(--v3-display);
+  font-size: clamp(1.25rem, 1.55vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .workflow-step p {
+  max-width: 54ch;
+  margin: 10px 0 0;
+  color: var(--v3-body);
+  font-size: .96rem;
+  line-height: 1.58;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .china-source-layout { grid-template-columns: .85fr 1.25fr; gap: 80px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .china-source-layout h2 { color: var(--v3-ink); }
+body.layout-v3-product-sourcing .sourcing-replica-page .china-source-layout p { color: var(--v3-body); }
+body.layout-v3-product-sourcing .sourcing-replica-page .source-comparison-table-wrap { overflow-x: auto; }
+body.layout-v3-product-sourcing .sourcing-replica-page .source-comparison-table,
+body.layout-v3-product-sourcing .sourcing-replica-page .source-table-wrap table { min-width: 880px; }
+/* Evidence review: turn the inherited vertical timeline into a compact
+   two-by-two review matrix. The four items are not a sequence, so a shared
+   rule and clear row/column rhythm make them much easier to scan. */
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoints {
+  padding-block: clamp(72px, 8vw, 108px);
+  background: #fff;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoints .source-split-heading {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(320px, 1.18fr);
+  gap: 36px clamp(48px, 7vw, 112px);
+  align-items: end;
+  margin: 0 0 clamp(38px, 5vw, 60px);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoints .source-split-heading h2 {
+  max-width: 19ch;
+  margin: 0;
+  color: var(--v3-ink);
+  font-size: clamp(2.25rem, 3vw, 3.05rem);
+  line-height: 1.04;
+  letter-spacing: -.028em;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoints .source-split-heading > p {
+  max-width: 61ch;
+  margin: 0;
+  color: var(--v3-body);
+  font-size: 1rem;
+  line-height: 1.68;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  max-width: none;
+  margin: 0;
+  border-top: 1px solid var(--v3-line);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid::before {
+  display: none;
+  content: none;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li,
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li + li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 10px 16px;
+  min-height: 0;
+  margin: 0;
+  padding: 30px 0 32px;
+  border: 0;
+  border-bottom: 1px solid var(--v3-line);
+  color: var(--v3-ink);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li:nth-child(odd) {
+  padding-right: clamp(28px, 4vw, 64px);
+  border-right: 1px solid var(--v3-line);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li:nth-child(even) {
+  padding-left: clamp(28px, 4vw, 64px);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li::before {
+  position: static;
+  top: auto;
+  left: auto;
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 4px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--v3-blue);
+  box-shadow: none;
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li:first-child::before {
+  background: var(--v3-orange);
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid b {
+  grid-column: 2;
+  margin: 0;
+  color: var(--v3-ink);
+  font-family: var(--v3-sans);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+  line-height: 1.25;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid p {
+  grid-column: 2;
+  max-width: 45ch;
+  margin: 0;
+  color: var(--v3-body);
+  font-size: .98rem;
+  line-height: 1.58;
+}
+body.layout-v3-product-sourcing .sourcing-replica-page .source-scope-table .source-table-wrap { overflow-x: auto; }
+body.layout-v3-product-sourcing .sourcing-replica-page .source-deliverables-grid { grid-template-columns: 1fr 1fr; gap: 56px; background: var(--v3-navy); padding: 42px; }
+body.layout-v3-product-sourcing .sourcing-replica-page .source-deliverables h2,
+body.layout-v3-product-sourcing .sourcing-replica-page .source-deliverables p { color: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page .deliverables-list li { color: #dfe7f1; border-color: #355473; }
+body.layout-v3-product-sourcing .sourcing-replica-page .enquiry-inner { color: #fff; }
+body.layout-v3-product-sourcing .sourcing-replica-page .enquiry h2,
+body.layout-v3-product-sourcing .sourcing-replica-page .enquiry p { color: #fff; }
+
+/* Packaging: image-led studio wall followed by a physical packout story. */
+body.layout-v3-packaging-branding .service-topic-page { background: #fff; }
+body.layout-v3-packaging-branding .topic-hero { background: #fff; color: var(--v3-ink); }
+body.layout-v3-packaging-branding .topic-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px; padding-block: 28px 46px; }
+body.layout-v3-packaging-branding .topic-hero-copy { display: grid; grid-template-columns: 1.12fr 1fr; grid-column: 1/-1; gap: 20px 88px; order: 2; }
+body.layout-v3-packaging-branding .topic-hero-copy .topic-breadcrumb,
+body.layout-v3-packaging-branding .topic-hero-copy .topic-kicker { grid-column: 1/-1; }
+body.layout-v3-packaging-branding .topic-hero-visual { grid-column: 1/-1; order: 1; height: 460px; min-height: 0; }
+body.layout-v3-packaging-branding .topic-hero-visual img { height: 100%; object-fit: cover; }
+body.layout-v3-packaging-branding .topic-hero-copy h1 { margin: 0; font-size: clamp(3rem,4.4vw,4rem); color: var(--v3-ink); }
+body.layout-v3-packaging-branding .topic-hero-copy .topic-hero-lead { color: var(--v3-body); }
+body.layout-v3-packaging-branding .topic-kicker,
+body.layout-v3-packaging-branding .topic-breadcrumb a { color: var(--v3-blue); }
+body.layout-v3-packaging-branding .topic-hero-actions .topic-button-light { background: var(--v3-orange); color: var(--v3-deep); }
+body.layout-v3-packaging-branding .topic-hero-actions .topic-button-outline { border-color: var(--v3-blue); color: var(--v3-blue); }
+body.layout-v3-packaging-branding .topic-hero .topic-stage-rail { background: var(--v3-navy); color: #fff; }
+body.layout-v3-packaging-branding .topic-decision { background: #fff; text-align: center; padding-block: 78px 42px; }
+body.layout-v3-packaging-branding .topic-decision-header { display: block; }
+body.layout-v3-packaging-branding .topic-decision-header h2 { max-width: 25ch; margin-inline: auto; font-size: clamp(2.4rem,4vw,3.5rem); }
+body.layout-v3-packaging-branding .topic-decision-header .topic-prose { max-width: 75ch; margin: 28px auto 0; text-align: center; }
+body.layout-v3-packaging-branding .topic-fit-layout { grid-template-columns: 1.08fr 1fr; gap: 48px; margin-top: 52px; text-align: left; }
+body.layout-v3-packaging-branding .topic-fit-image { min-height: 510px; }
+body.layout-v3-packaging-branding .topic-fit-image img { height: 100%; object-fit: cover; }
+body.layout-v3-packaging-branding .topic-situations { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+body.layout-v3-packaging-branding .topic-situations li { padding-block: 22px; border-top-color: var(--v3-line); }
+body.layout-v3-packaging-branding .topic-situations h3 { font-size: 1.7rem; }
+body.layout-v3-packaging-branding .topic-workflow { background: var(--v3-pale); }
+body.layout-v3-packaging-branding .topic-workflow .topic-split-heading { align-items: end; }
+body.layout-v3-packaging-branding .topic-workflow-list { grid-template-columns: 1fr 1fr; gap: 0 60px; }
+body.layout-v3-packaging-branding .topic-workflow-list li { display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding-block: 24px; border-top-color: var(--v3-line); }
+body.layout-v3-packaging-branding .topic-workflow-list li::before { display: none; }
+body.layout-v3-packaging-branding .topic-workflow-list li b { background: var(--v3-blue); }
+body.layout-v3-packaging-branding .topic-workflow-list li:first-child b { background: var(--v3-orange); color: var(--v3-deep); }
+body.layout-v3-packaging-branding .topic-scope { background: #fff; }
+body.layout-v3-packaging-branding .topic-scope { color: var(--v3-ink); }
+body.layout-v3-packaging-branding .topic-scope .topic-section-label,
+body.layout-v3-packaging-branding .topic-scope-lanes > section > p { color: var(--v3-blue); }
+body.layout-v3-packaging-branding .topic-scope-heading h2,
+body.layout-v3-packaging-branding .topic-scope-lanes h3 { color: var(--v3-ink); }
+body.layout-v3-packaging-branding .topic-scope-heading > p,
+body.layout-v3-packaging-branding .topic-scope-lanes article p { color: var(--v3-body); }
+body.layout-v3-packaging-branding .topic-scope-lanes > section + section > p { color: var(--v3-orange); }
+body.layout-v3-packaging-branding .topic-scope-lanes h3::before { background: var(--v3-blue); }
+body.layout-v3-packaging-branding .topic-scope-lanes section + section h3::before { border-color: var(--v3-orange); background: transparent; }
+body.layout-v3-packaging-branding .topic-scope-lanes { grid-template-columns: 1fr 1.3fr; gap: 64px; }
+body.layout-v3-packaging-branding .topic-scope-lanes > section { border-top-color: var(--v3-line); }
+body.layout-v3-packaging-branding .topic-scope-lanes article { border-bottom-color: var(--v3-line); }
+body.layout-v3-packaging-branding .topic-start { background: var(--v3-navy); color: #fff; }
+body.layout-v3-packaging-branding .topic-start h2,
+body.layout-v3-packaging-branding .topic-start p,
+body.layout-v3-packaging-branding .topic-start li { color: #fff; }
+body.layout-v3-packaging-branding .topic-benefits { background: #fff; }
+body.layout-v3-packaging-branding .topic-benefit-list { grid-template-columns: repeat(4,1fr); gap: 28px; }
+body.layout-v3-packaging-branding .topic-benefit-list li { border-top-color: var(--v3-line); }
+body.layout-v3-packaging-branding .topic-faq { background: var(--v3-mist); }
+body.layout-v3-packaging-branding .topic-related { background: var(--v3-mist); }
+body.layout-v3-packaging-branding .topic-enquiry { background: var(--v3-blue); color: #fff; }
+body.layout-v3-packaging-branding .topic-enquiry h2,
+body.layout-v3-packaging-branding .topic-enquiry p { color: #fff; }
+
+/* Consumer goods: a product-to-channel story with alternating image rows. */
+body.layout-v3-consumer-goods .industry-hero { background: var(--v3-pale); color: var(--v3-ink); }
+body.layout-v3-consumer-goods .industry-hero-grid { display: grid; grid-template-columns: .85fr 1.2fr; gap: 24px 64px; padding-block: 40px; }
+body.layout-v3-consumer-goods .industry-hero-copy { display: contents; }
+body.layout-v3-consumer-goods .industry-hero-copy .industry-breadcrumb,
+body.layout-v3-consumer-goods .industry-hero-copy .industry-kicker,
+body.layout-v3-consumer-goods .industry-hero-copy h1 { grid-column: 1/-1; }
+body.layout-v3-consumer-goods .industry-kicker { color: var(--v3-blue); }
+body.layout-v3-consumer-goods .industry-breadcrumb { color: var(--v3-body); }
+body.layout-v3-consumer-goods .industry-breadcrumb a { color: var(--v3-blue); }
+body.layout-v3-consumer-goods .industry-breadcrumb span { color: var(--v3-blue); }
+body.layout-v3-consumer-goods .industry-breadcrumb b { color: var(--v3-ink); }
+body.layout-v3-consumer-goods .industry-hero h1 { margin: 0; max-width: 30ch; font-size: clamp(3.1rem,4.8vw,4.4rem); color: var(--v3-ink); }
+body.layout-v3-consumer-goods .industry-hero-lead { color: var(--v3-body); font-size: 1.1rem; }
+body.layout-v3-consumer-goods .industry-hero-visual { grid-column: 2; grid-row: 3; height: 420px; }
+body.layout-v3-consumer-goods .industry-hero-visual img { height: 100%; object-fit: cover; }
+body.layout-v3-consumer-goods .industry-hero-actions { grid-column: 1; grid-row: 4; align-self: center; }
+body.layout-v3-consumer-goods .industry-button-light { background: var(--v3-orange); color: var(--v3-deep); }
+body.layout-v3-consumer-goods .industry-button-outline { border-color: var(--v3-blue); color: var(--v3-blue); }
+body.layout-v3-consumer-goods .industry-stage-rail { color: var(--v3-ink); }
+body.layout-v3-consumer-goods .industry-decision { background: var(--v3-navy); color: #fff; }
+body.layout-v3-consumer-goods .industry-decision h2,
+body.layout-v3-consumer-goods .industry-decision p { color: #fff; }
+body.layout-v3-consumer-goods .industry-evidence { border-color: #355473; }
+body.layout-v3-consumer-goods .industry-workflow { background: var(--v3-pale); }
+body.layout-v3-consumer-goods .industry-workflow-list { grid-template-columns: repeat(3,1fr); gap: 28px 48px; }
+body.layout-v3-consumer-goods .industry-workflow-list li { display: grid; grid-template-columns: 36px 1fr; gap: 16px; border-top-color: var(--v3-line); }
+body.layout-v3-consumer-goods .industry-workflow-list li b { background: var(--v3-blue); }
+body.layout-v3-consumer-goods .industry-workflow-list li:first-child b { background: var(--v3-orange); color: var(--v3-deep); }
+body.layout-v3-consumer-goods .industry-channels { background: #fff; }
+body.layout-v3-consumer-goods .industry-channel-layout { display: block; }
+body.layout-v3-consumer-goods .industry-channel-rows { display: block; }
+body.layout-v3-consumer-goods .industry-channel-rows article { display: grid; grid-template-columns: 1.12fr 1fr; gap: 80px; align-items: center; padding-block: 36px; border-bottom-color: var(--v3-line); }
+body.layout-v3-consumer-goods .industry-channel-rows article:nth-child(even) { direction: rtl; }
+body.layout-v3-consumer-goods .industry-channel-rows article:nth-child(even) > * { direction: ltr; }
+body.layout-v3-consumer-goods .industry-channel-rows article h3 { font-size: 2.5rem; }
+body.layout-v3-consumer-goods .industry-scope { background: var(--v3-pale); }
+body.layout-v3-consumer-goods .industry-scope,
+body.layout-v3-industrial-components .industry-scope,
+body.layout-v3-time-critical-cargo .industry-scope { color: var(--v3-ink); }
+body.layout-v3-consumer-goods .industry-scope .industry-section-label,
+body.layout-v3-industrial-components .industry-scope .industry-section-label,
+body.layout-v3-time-critical-cargo .industry-scope .industry-section-label,
+body.layout-v3-consumer-goods .industry-scope-lanes > section > p,
+body.layout-v3-industrial-components .industry-scope-lanes > section > p,
+body.layout-v3-time-critical-cargo .industry-scope-lanes > section > p { color: var(--v3-blue); }
+body.layout-v3-consumer-goods .industry-scope .industry-split-heading h2,
+body.layout-v3-industrial-components .industry-scope .industry-split-heading h2,
+body.layout-v3-time-critical-cargo .industry-scope .industry-split-heading h2,
+body.layout-v3-consumer-goods .industry-scope-lanes h3,
+body.layout-v3-industrial-components .industry-scope-lanes h3,
+body.layout-v3-time-critical-cargo .industry-scope-lanes h3 { color: var(--v3-ink); }
+body.layout-v3-consumer-goods .industry-scope .industry-split-heading > p,
+body.layout-v3-industrial-components .industry-scope .industry-split-heading > p,
+body.layout-v3-time-critical-cargo .industry-scope .industry-split-heading > p,
+body.layout-v3-consumer-goods .industry-scope-lanes article p,
+body.layout-v3-industrial-components .industry-scope-lanes article p,
+body.layout-v3-time-critical-cargo .industry-scope-lanes article p { color: var(--v3-body); }
+body.layout-v3-consumer-goods .industry-scope-lanes > section + section > p,
+body.layout-v3-industrial-components .industry-scope-lanes > section + section > p,
+body.layout-v3-time-critical-cargo .industry-scope-lanes > section + section > p { color: var(--v3-orange); }
+body.layout-v3-consumer-goods .industry-scope-lanes article,
+body.layout-v3-industrial-components .industry-scope-lanes article,
+body.layout-v3-time-critical-cargo .industry-scope-lanes article { border-top-color: var(--v3-line); }
+body.layout-v3-consumer-goods .industry-scope-lanes h3::before,
+body.layout-v3-industrial-components .industry-scope-lanes h3::before,
+body.layout-v3-time-critical-cargo .industry-scope-lanes h3::before { background: var(--v3-blue); }
+body.layout-v3-consumer-goods .industry-scope-lanes section + section h3::before,
+body.layout-v3-industrial-components .industry-scope-lanes section + section h3::before,
+body.layout-v3-time-critical-cargo .industry-scope-lanes section + section h3::before { border-color: var(--v3-orange); background: transparent; }
+body.layout-v3-consumer-goods .industry-inventory { background: #fff; }
+body.layout-v3-consumer-goods .industry-inventory-grid { grid-template-columns: 1fr 1fr; gap: 60px; }
+body.layout-v3-consumer-goods .industry-checklist li { border-bottom-color: var(--v3-line); }
+body.layout-v3-consumer-goods .industry-inventory figure img { height: 410px; object-fit: cover; }
+body.layout-v3-consumer-goods .industry-request { background: var(--v3-navy); color: #fff; }
+body.layout-v3-consumer-goods .industry-request h2,
+body.layout-v3-consumer-goods .industry-request p { color: #fff; }
+body.layout-v3-consumer-goods .industry-faq { background: #fff; }
+body.layout-v3-consumer-goods .industry-final { background: var(--v3-blue); color: #fff; }
+body.layout-v3-consumer-goods .industry-final h2,
+body.layout-v3-consumer-goods .industry-final p { color: #fff; }
+
+/* Industrial components: technical register, then receiving context. */
+body.layout-v3-industrial-components .industry-hero { background: var(--v3-navy); color: #fff; }
+body.layout-v3-industrial-components .industry-hero-grid { grid-template-columns: 1.1fr 1fr; gap: 64px; }
+body.layout-v3-industrial-components .industry-hero-copy { order: 2; }
+body.layout-v3-industrial-components .industry-hero-visual { order: 1; min-height: 650px; }
+body.layout-v3-industrial-components .industry-hero h1 { max-width: 18ch; font-size: clamp(3rem,3.9vw,3.55rem); color: #fff; }
+body.layout-v3-industrial-components .industry-hero-lead { color: #dfe7f1; }
+body.layout-v3-industrial-components .industry-hero-visual img { height: 100%; object-fit: cover; }
+body.layout-v3-industrial-components .industry-hero-actions { flex-direction: column; align-items: flex-start; }
+body.layout-v3-industrial-components .industry-stage-rail { background: #142e50; }
+body.layout-v3-industrial-components .industry-decision { background: var(--v3-mist); }
+body.layout-v3-industrial-components .industry-workflow { background: #fff; }
+body.layout-v3-industrial-components .industry-workflow-list { display: block; }
+body.layout-v3-industrial-components .industry-workflow-list li { display: grid; grid-template-columns: 40px .7fr 1.4fr; gap: 28px 42px; border-top-color: var(--v3-line); align-items: center; }
+body.layout-v3-industrial-components .industry-workflow-list li b { border-radius: 0; background: var(--v3-pale); color: var(--v3-ink); }
+body.layout-v3-industrial-components .industry-workflow-list li:first-child b { background: var(--v3-orange); color: var(--v3-deep); }
+body.layout-v3-industrial-components .industry-channels { background: var(--v3-navy); color: #fff; }
+body.layout-v3-industrial-components .industry-channels h2,
+body.layout-v3-industrial-components .industry-channels p,
+body.layout-v3-industrial-components .industry-channels h3 { color: #fff; }
+body.layout-v3-industrial-components .industry-channel-rows { grid-template-columns: repeat(3,1fr); gap: 48px; }
+body.layout-v3-industrial-components .industry-channel-rows article { border-top-color: #46617e; }
+body.layout-v3-industrial-components .industry-scope { background: var(--v3-pale); }
+body.layout-v3-industrial-components .industry-scope-lanes { grid-template-columns: .85fr 1.3fr; gap: 0; border: 1px solid var(--v3-line); }
+body.layout-v3-industrial-components .industry-scope-lanes > section { padding: 34px 40px; }
+body.layout-v3-industrial-components .industry-scope-lanes > section:first-child { background: var(--v3-navy); color: #fff; }
+body.layout-v3-industrial-components .industry-scope-lanes > section:first-child h3,
+body.layout-v3-industrial-components .industry-scope-lanes > section:first-child p { color: #fff; }
+body.layout-v3-industrial-components .industry-scope-lanes > section:first-child > p { color: var(--v3-sky); }
+body.layout-v3-industrial-components .industry-scope-lanes > section:first-child h3::before { background: var(--v3-orange); }
+body.layout-v3-industrial-components .industry-inventory { background: #fff; }
+body.layout-v3-industrial-components .industry-inventory-grid { background: var(--v3-pale); padding: 40px; gap: 56px; }
+body.layout-v3-industrial-components .industry-inventory figure img { height: 370px; object-fit: cover; }
+body.layout-v3-industrial-components .industry-request { background: #fff; }
+body.layout-v3-industrial-components .industry-faq { background: #fff; }
+body.layout-v3-industrial-components .industry-faq-layout { grid-template-columns: .75fr 1.5fr; gap: 88px; }
+body.layout-v3-industrial-components .industry-related { background: var(--v3-mist); }
+body.layout-v3-industrial-components .industry-related > .industry-shell > div { display: block; }
+body.layout-v3-industrial-components .industry-related a { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; border-top-color: var(--v3-line); }
+body.layout-v3-industrial-components .industry-final { background: var(--v3-blue); color: #fff; }
+body.layout-v3-industrial-components .industry-final h2,
+body.layout-v3-industrial-components .industry-final p { color: #fff; }
+
+/* Time-critical cargo: readiness facts first, then the route decision. */
+body.layout-v3-time-critical-cargo .industry-hero { background: var(--v3-navy); color: #fff; }
+body.layout-v3-time-critical-cargo .industry-hero-grid { position: relative; display: block; min-height: 685px; padding-block: 54px 64px; }
+body.layout-v3-time-critical-cargo .industry-hero-copy { position: relative; z-index: 2; width: 57%; }
+body.layout-v3-time-critical-cargo .industry-hero h1 { max-width: 20ch; font-size: clamp(3.1rem,4.7vw,4.3rem); color: #fff; }
+body.layout-v3-time-critical-cargo .industry-hero-lead { color: #dfe7f1; }
+body.layout-v3-time-critical-cargo .industry-hero-visual { position: absolute; inset: 0 -48px 0 auto; width: 86%; min-height: 0; height: 100%; }
+body.layout-v3-time-critical-cargo .industry-hero-visual img { height: 100%; object-fit: cover; }
+body.layout-v3-time-critical-cargo .industry-hero-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(10,27,51,.99) 0%,rgba(10,27,51,.92) 38%,rgba(10,27,51,.35) 73%,rgba(10,27,51,.08) 100%); }
+body.layout-v3-time-critical-cargo .industry-stage-rail,
+body.layout-v3-time-critical-cargo .industry-visual-label,
+body.layout-v3-time-critical-cargo .industry-hero-visual figcaption { position: relative; z-index: 2; }
+body.layout-v3-time-critical-cargo .industry-decision { background: var(--v3-pale); }
+body.layout-v3-time-critical-cargo .industry-workflow { background: var(--v3-navy); color: #fff; }
+body.layout-v3-time-critical-cargo .industry-workflow h2,
+body.layout-v3-time-critical-cargo .industry-workflow h3,
+body.layout-v3-time-critical-cargo .industry-workflow p { color: #fff; }
+body.layout-v3-time-critical-cargo .industry-workflow-list { grid-template-columns: repeat(3,1fr); gap: 28px 48px; }
+body.layout-v3-time-critical-cargo .industry-workflow-list li { border-top-color: #46617e; }
+body.layout-v3-time-critical-cargo .industry-workflow-list li b { background: #264f83; }
+body.layout-v3-time-critical-cargo .industry-workflow-list li:first-child b { background: var(--v3-orange); color: var(--v3-deep); }
+body.layout-v3-time-critical-cargo .industry-channels { background: #fff; }
+body.layout-v3-time-critical-cargo .industry-channel-rows { display: block; }
+body.layout-v3-time-critical-cargo .industry-channel-rows article { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; padding-block: 28px; border-bottom-color: var(--v3-line); }
+body.layout-v3-time-critical-cargo .industry-scope { background: var(--v3-pale); }
+body.layout-v3-time-critical-cargo .industry-inventory { background: var(--v3-navy); color: #fff; }
+body.layout-v3-time-critical-cargo .industry-inventory h2,
+body.layout-v3-time-critical-cargo .industry-inventory p,
+body.layout-v3-time-critical-cargo .industry-inventory li { color: #fff; }
+body.layout-v3-time-critical-cargo .industry-inventory-grid { grid-template-columns: 1fr 1fr; gap: 88px; }
+body.layout-v3-time-critical-cargo .industry-inventory figure img { height: 390px; object-fit: cover; }
+body.layout-v3-time-critical-cargo .industry-request { background: #fff; }
+body.layout-v3-time-critical-cargo .industry-faq { background: #fff; }
+body.layout-v3-time-critical-cargo .industry-faq-layout { display: block; }
+body.layout-v3-time-critical-cargo .industry-faq-layout > header { text-align: center; }
+body.layout-v3-time-critical-cargo .industry-faq-layout > header h2 { max-width: 28ch; margin-inline: auto; }
+body.layout-v3-time-critical-cargo .industry-final { background: var(--v3-blue); color: #fff; text-align: center; }
+body.layout-v3-time-critical-cargo .industry-final h2,
+body.layout-v3-time-critical-cargo .industry-final p { color: #fff; }
+
+@media (max-width: 900px) {
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-shell,
+  body.layout-v3-product-sourcing .sourcing-replica-page .intro-grid,
+  body.layout-v3-product-sourcing .sourcing-replica-page .brief-layout,
+  body.layout-v3-product-sourcing .sourcing-replica-page .china-source-layout,
+  body.layout-v3-product-sourcing .sourcing-replica-page .source-deliverables-grid { grid-template-columns: 1fr; gap: 34px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board { min-height: 420px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .situations-list,
+  body.layout-v3-product-sourcing .sourcing-replica-page .workflow-list,
+  body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid { grid-template-columns: 1fr; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoints .source-split-heading {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li:nth-child(odd),
+  body.layout-v3-product-sourcing .sourcing-replica-page .source-checkpoint-grid li:nth-child(even) {
+    padding-right: 0;
+    padding-left: 0;
+    border-right: 0;
+  }
+  body.layout-v3-product-sourcing .sourcing-replica-page .workflow .section-heading { grid-template-columns: 1fr; gap: 18px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .source-deliverables-grid { padding: 28px; }
+  body.layout-v3-packaging-branding .topic-hero-copy { grid-template-columns: 1fr; gap: 24px; }
+  body.layout-v3-packaging-branding .topic-hero-visual { height: 360px; }
+  body.layout-v3-packaging-branding .topic-fit-layout,
+  body.layout-v3-packaging-branding .topic-scope-lanes { grid-template-columns: 1fr; gap: 30px; }
+  body.layout-v3-packaging-branding .topic-situations,
+  body.layout-v3-packaging-branding .topic-workflow-list,
+  body.layout-v3-packaging-branding .topic-benefit-list { grid-template-columns: 1fr 1fr; }
+  body.layout-v3-consumer-goods .industry-hero-grid { grid-template-columns: 1fr; }
+  body.layout-v3-consumer-goods .industry-hero-copy h1,
+  body.layout-v3-consumer-goods .industry-hero-copy .industry-kicker,
+  body.layout-v3-consumer-goods .industry-hero-copy .industry-breadcrumb { grid-column: 1; }
+  body.layout-v3-consumer-goods .industry-hero-visual,
+  body.layout-v3-consumer-goods .industry-hero-actions { grid-column: 1; grid-row: auto; }
+  body.layout-v3-consumer-goods .industry-channel-rows article,
+  body.layout-v3-time-critical-cargo .industry-channel-rows article { grid-template-columns: 1fr; gap: 18px; }
+  body.layout-v3-consumer-goods .industry-workflow-list,
+  body.layout-v3-industrial-components .industry-channel-rows,
+  body.layout-v3-time-critical-cargo .industry-workflow-list { grid-template-columns: 1fr 1fr; }
+  body.layout-v3-industrial-components .industry-hero-grid { grid-template-columns: 1fr; }
+  body.layout-v3-industrial-components .industry-hero-copy { order: 1; }
+  body.layout-v3-industrial-components .industry-hero-visual { order: 2; min-height: 400px; }
+  body.layout-v3-industrial-components .industry-workflow-list li { grid-template-columns: 40px 1fr; }
+  body.layout-v3-industrial-components .industry-workflow-list li p { grid-column: 2; }
+  body.layout-v3-industrial-components .industry-scope-lanes,
+  body.layout-v3-industrial-components .industry-inventory-grid,
+  body.layout-v3-industrial-components .industry-faq-layout { grid-template-columns: 1fr; gap: 34px; }
+  body.layout-v3-time-critical-cargo .industry-hero-grid { min-height: 0; }
+  body.layout-v3-time-critical-cargo .industry-hero-copy { width: 72%; }
+  body.layout-v3-time-critical-cargo .industry-hero-visual { inset: 0 -24px 0 auto; width: 92%; }
+  body.layout-v3-time-critical-cargo .industry-inventory-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+}
+@media (max-width: 620px) {
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-shell { padding-block: 30px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero h1,
+  body.layout-v3-packaging-branding .topic-hero-copy h1,
+  body.layout-v3-consumer-goods .industry-hero h1,
+  body.layout-v3-industrial-components .industry-hero h1,
+  body.layout-v3-time-critical-cargo .industry-hero h1 { font-size: clamp(2.35rem,9vw,3.2rem); max-width: 23ch; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .hero-board,
+  body.layout-v3-packaging-branding .topic-hero-visual,
+  body.layout-v3-consumer-goods .industry-hero-visual { min-height: 320px; height: 320px; }
+  body.layout-v3-product-sourcing .sourcing-replica-page .intro-grid,
+  body.layout-v3-product-sourcing .sourcing-replica-page .brief-layout,
+  body.layout-v3-product-sourcing .sourcing-replica-page .source-deliverables-grid { padding-block: 54px; }
+  body.layout-v3-packaging-branding .topic-hero-grid { display: flex; flex-direction: column; padding-block: 24px 38px; }
+  body.layout-v3-packaging-branding .topic-hero-visual { order: 1; }
+  body.layout-v3-packaging-branding .topic-hero-copy { order: 2; display: block; }
+  body.layout-v3-packaging-branding .topic-situations,
+  body.layout-v3-packaging-branding .topic-workflow-list,
+  body.layout-v3-packaging-branding .topic-benefit-list,
+  body.layout-v3-consumer-goods .industry-workflow-list,
+  body.layout-v3-industrial-components .industry-channel-rows,
+  body.layout-v3-time-critical-cargo .industry-workflow-list { grid-template-columns: 1fr; }
+  body.layout-v3-consumer-goods .industry-hero-grid { display: flex; flex-direction: column; padding-block: 30px; }
+  body.layout-v3-consumer-goods .industry-hero-copy { display: contents; }
+  body.layout-v3-consumer-goods .industry-hero-visual { order: 3; }
+  body.layout-v3-consumer-goods .industry-hero-actions { order: 2; }
+  body.layout-v3-consumer-goods .industry-hero-lead { order: 1; }
+  body.layout-v3-consumer-goods .industry-channel-rows article,
+  body.layout-v3-time-critical-cargo .industry-channel-rows article { display: block; padding-block: 25px; }
+  body.layout-v3-consumer-goods .industry-channel-rows article:nth-child(even) { direction: ltr; }
+  body.layout-v3-industrial-components .industry-hero-grid { display: flex; flex-direction: column; padding-block: 30px; }
+  body.layout-v3-industrial-components .industry-hero-copy { order: 1; }
+  body.layout-v3-industrial-components .industry-hero-visual { order: 0; min-height: 320px; height: 320px; }
+  body.layout-v3-industrial-components .industry-workflow-list li { grid-template-columns: 34px 1fr; gap: 18px; }
+  body.layout-v3-industrial-components .industry-workflow-list li p { grid-column: 2; }
+  body.layout-v3-industrial-components .industry-inventory-grid { padding: 24px; }
+  body.layout-v3-time-critical-cargo .industry-hero-grid { padding-block: 30px; }
+  body.layout-v3-time-critical-cargo .industry-hero-copy { width: 100%; }
+  body.layout-v3-time-critical-cargo .industry-hero-visual { position: relative; inset: auto; width: 100%; height: 320px; margin-top: 25px; }
+  body.layout-v3-time-critical-cargo .industry-hero-visual::after { background: linear-gradient(transparent,rgba(5,15,31,.9)); }
+  body.layout-v3-time-critical-cargo .industry-inventory-grid { grid-template-columns: 1fr; gap: 28px; }
+  body.layout-v3-time-critical-cargo .industry-inventory figure { order: -1; }
+  body.layout-v3-time-critical-cargo .industry-inventory figure img { height: 270px; }
+  body.layout-v3-time-critical-cargo .industry-faq-layout > header { text-align: left; }
+}

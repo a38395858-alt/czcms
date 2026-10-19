@@ -1,0 +1,3230 @@
+{
+  "en/product-sourcing": {
+    "file": "en-product-sourcing.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Product Sourcing from China for Businesses | FreightVanta",
+    "description": "Coordinate product sourcing from China with a supplier-ready brief, comparable responses, sample checkpoints, and an approved handoff for your destination market.",
+    "keywords": [
+      "product sourcing from China",
+      "China sourcing agent",
+      "source products from China",
+      "supplier sourcing in China",
+      "China product sourcing service",
+      "China supplier comparison",
+      "product sample coordination",
+      "can I source a product from China with only a product link",
+      "how to compare suppliers in China",
+      "how to prepare a China sourcing brief",
+      "China sourcing packaging and fulfillment"
+    ],
+    "heading": "Product sourcing from China, organized for your next business decision.",
+    "body": "Start with a product link, reference image, specification, or target quantity. FreightVanta helps structure sourcing from China into a supplier-ready brief: what the product needs to be, what a China supplier needs to confirm, which samples or comparison points matter, and how approved details move to the next operational handoff. You keep the purchasing decision; we help make the questions, evidence, and next owner visible.",
+    "serviceName": "Product Sourcing from China",
+    "image": "/assets/freightvanta-topic-v18/images/service-product-sourcing.jpg",
+    "faqs": [
+      {
+        "id": "ps-link",
+        "question": "Can you help us source products from China if we only have a link?",
+        "answer": "Yes. A link, image or short description can open the first conversation. Missing product, supplier, packaging and destination information is captured as an open question rather than assumed."
+      },
+      {
+        "id": "ps-agent",
+        "question": "Do you act as a China sourcing agent?",
+        "answer": "The page describes sourcing coordination, question management, comparison and handoff. Any agency, purchasing authority, importer-of-record or legal representation must be defined in a separate confirmed scope."
+      },
+      {
+        "id": "ps-compare",
+        "question": "Can you compare several China suppliers?",
+        "answer": "Yes, when supplier references or responses are available. They are compared against a shared question set, with differences and missing evidence kept visible."
+      },
+      {
+        "id": "ps-guarantee",
+        "question": "Is the supplier, price or quality guaranteed?",
+        "answer": "No. Supplier selection, price, quality control, factory audit, testing, compliance and acceptance criteria require explicit confirmation."
+      },
+      {
+        "id": "ps-samples",
+        "question": "Can you arrange samples or inspection?",
+        "answer": "Sample coordination and inspection can be discussed as separate scope items. The page must not imply a test method, pass result or inspection guarantee before it is agreed."
+      },
+      {
+        "id": "ps-downstream",
+        "question": "Can sourcing continue into packaging, storage and fulfillment?",
+        "answer": "Yes. Once product, quantity, packaging, origin and destination details are approved, the record can be handed to confirmed downstream services."
+      },
+      {
+        "id": "ps-private-label",
+        "question": "Can you source private-label products from China?",
+        "answer": "The product and brand program can be discussed, but artwork, trademark, IP, legal labels, product claims and manufacturing responsibilities require their own review and approval."
+      },
+      {
+        "id": "ps-first",
+        "question": "What should we send first?",
+        "answer": "Send the product reference, target quantity, market, timing, known supplier and the decision that is currently blocked. The first response will focus on the questions needed to define scope."
+      }
+    ]
+  },
+  "en/services/bulk-procurement": {
+    "file": "en-services-bulk-procurement.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Bulk Procurement From China: Plan the Next Purchase | FreightVanta",
+    "description": "Prepare a bulk purchase from China with clearer quantities, supplier questions, inventory decisions, packaging requirements, and receiving instructions.",
+    "keywords": [
+      "bulk procurement from China",
+      "bulk order from China",
+      "China bulk purchasing",
+      "bulk procurement planning",
+      "staged inventory release"
+    ],
+    "heading": "Plan a bulk purchase from China before quantity creates expensive loose ends.",
+    "body": "A larger purchase is not simply a smaller order with more units. It can change the production questions, packaging requirement, payment discussion, receiving method, inventory purpose and release plan. FreightVanta helps turn those connected decisions into one working procurement brief before a bulk purchase from China moves to the next stage. Your team remains responsible for supplier selection, commercial terms and final approval.",
+    "serviceName": "Bulk Procurement from China",
+    "image": "/assets/freightvanta-topic-v18/images/industry-receiving.jpg",
+    "faqs": [
+      {
+        "id": "bulk-pricing",
+        "question": "Does FreightVanta guarantee lower pricing for a bulk order from China?",
+        "answer": "No savings or discount is promised without a written commercial scope."
+      },
+      {
+        "id": "bulk-stages",
+        "question": "Can a bulk purchase be released in stages?",
+        "answer": "It can be planned when receiving, storage, packaging, freight and approval instructions are confirmed."
+      },
+      {
+        "id": "bulk-existing-supplier",
+        "question": "Can we start from an existing supplier?",
+        "answer": "Yes, if product version, quantity, packaging, destination and approval path are provided."
+      },
+      {
+        "id": "bulk-inspection",
+        "question": "Does bulk procurement include quality inspection?",
+        "answer": "Not automatically; acceptance standards, audit, testing and compliance require confirmation."
+      },
+      {
+        "id": "bulk-fulfillment",
+        "question": "Can bulk procurement connect to fulfillment?",
+        "answer": "Yes, once stock identification, packaging and order-preparation rules are stable."
+      },
+      {
+        "id": "bulk-range",
+        "question": "What happens when quantity is still under review?",
+        "answer": "Keep a range and the decision owner visible rather than presenting an unapproved figure as final."
+      }
+    ]
+  },
+  "en/services/packaging-branding": {
+    "file": "en-services-packaging-branding.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Packaging and Branding for Products From China | FreightVanta",
+    "description": "Turn approved packaging, labels, inserts, and brand materials for products from China into a practical packout and fulfillment instruction.",
+    "keywords": [
+      "custom packaging for products from China",
+      "packaging and branding fulfillment",
+      "product inserts and labels",
+      "packout instruction",
+      "branded packaging from China"
+    ],
+    "heading": "Make products from China arrive in packaging that carries your brand forward.",
+    "body": "A finished product is not yet a finished customer experience. The box, bag, insert, label, protection rule, bundle, and excluded supplier material all need to reach the packing team as a usable instruction. FreightVanta helps turn approved packaging and branding materials into a coordinated packout brief for products sourced from China. Your team retains ownership of the brand, artwork, customer promise and final approval.",
+    "serviceName": "Packaging and Branding for Products From China",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "pack-design",
+        "question": "Can you design our logo or trademark?",
+        "answer": "The page coordinates approved materials; legal/IP and creative ownership need separate scope."
+      },
+      {
+        "id": "pack-whitelabel",
+        "question": "Can white-label products use custom inserts or packaging?",
+        "answer": "Possible when product, materials, quantities and packout are approved."
+      },
+      {
+        "id": "pack-mixing",
+        "question": "How do we avoid mixing old and new packaging?",
+        "answer": "Use active version, effective date, remaining-stock rule and a current instruction."
+      },
+      {
+        "id": "pack-compliance",
+        "question": "Does packaging coordination guarantee regulatory compliance?",
+        "answer": "No; market labels, safety and certification require qualified review."
+      },
+      {
+        "id": "pack-connect",
+        "question": "Can packaging connect to private label and fulfillment?",
+        "answer": "Yes, once product/version and packout rules are stable."
+      },
+      {
+        "id": "pack-draft",
+        "question": "What if artwork is not final?",
+        "answer": "Keep the status as draft and record the approver; do not publish it as active."
+      }
+    ]
+  },
+  "en/services/inventory-storage": {
+    "file": "en-services-inventory-storage.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Inventory Storage for Goods From China | FreightVanta",
+    "description": "Organize imported inventory receiving, identification, storage, release instructions, and exception decisions before goods move to freight, retail, or customer orders.",
+    "keywords": [
+      "inventory storage for goods from China",
+      "imported goods inventory management",
+      "inventory receiving and release",
+      "storage for China-sourced products"
+    ],
+    "heading": "Give imported inventory a clear receiving, storage, and release plan.",
+    "body": "When goods arrive from China, the next question is not only where they sit. The team needs to know what arrived, which product version it belongs to, how it is identified, what evidence is recorded, what may be released, and who decides when a count, carton, label or destination does not match. FreightVanta helps organize that operating record before storage and release scope is confirmed.",
+    "serviceName": "Inventory Storage for Goods From China",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "store-can",
+        "question": "Can you store products imported from China?",
+        "answer": "Share origin, product, quantity, timing and destination; actual location, capacity and handling must be confirmed."
+      },
+      {
+        "id": "store-stages",
+        "question": "Can inventory be released in stages?",
+        "answer": "Yes, when stock purpose, identification and approval owner are defined."
+      },
+      {
+        "id": "store-count",
+        "question": "Do you guarantee a count or inspection result?",
+        "answer": "No; evidence, inspection and acceptance standards require explicit scope."
+      },
+      {
+        "id": "store-components",
+        "question": "Can packaging and inserts remain with the inventory?",
+        "answer": "They can be included in an approved component and release rule."
+      },
+      {
+        "id": "store-fulfillment",
+        "question": "Can storage connect to fulfillment?",
+        "answer": "Yes, once sellable identity, packing rule and order handoff are ready."
+      },
+      {
+        "id": "store-mismatch",
+        "question": "What happens if cartons do not match the notice?",
+        "answer": "Record the discrepancy and route it to the named decision owner before release."
+      }
+    ]
+  },
+  "en/services/private-white-label": {
+    "file": "en-services-private-white-label.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Private Label Products From China | FreightVanta",
+    "description": "Coordinate product, brand assets, packaging versions, approval checkpoints, and fulfillment handoff for private-label and white-label programs from China.",
+    "keywords": [
+      "private label products from China",
+      "white label from China",
+      "private label sourcing",
+      "branded product version control",
+      "private label packaging coordination"
+    ],
+    "heading": "Keep your private-label product, packaging, and approval record aligned from China to the next handoff.",
+    "body": "A private-label program is more than putting a logo on an existing product. The product version, approved attributes, brand files, labels, packaging, inserts, supplier questions and fulfillment instruction need to refer to the same decision. FreightVanta helps organize that record and prepare the next confirmed handoff. Trademark, IP, legal labeling, product claims, compliance and manufacturing responsibility remain subject to qualified review and written scope.",
+    "serviceName": "Private Label and White Label Products From China",
+    "image": "/assets/freightvanta-topic-v18/images/service-private-label.jpg",
+    "faqs": [
+      {
+        "id": "pl-ip",
+        "question": "Do you provide trademark or IP advice?",
+        "answer": "No; use qualified legal advice and a confirmed scope."
+      },
+      {
+        "id": "pl-packaging",
+        "question": "Can white-label products use custom packaging?",
+        "answer": "Possible when product, materials, quantities and packout are approved."
+      },
+      {
+        "id": "pl-versions",
+        "question": "How are old and new labels separated?",
+        "answer": "Use active version, effective date, remaining-stock rule and clear instruction."
+      },
+      {
+        "id": "pl-compliance",
+        "question": "Does private-label coordination guarantee market compliance?",
+        "answer": "No; safety, certification, legal label and claims need verification."
+      },
+      {
+        "id": "pl-connect",
+        "question": "Can a private-label program connect to sourcing and fulfillment?",
+        "answer": "Yes, after product and brand decisions are stable."
+      },
+      {
+        "id": "pl-draft",
+        "question": "What if the artwork is still under review?",
+        "answer": "Keep it draft, assign an approver and do not use it as an active packing rule."
+      }
+    ]
+  },
+  "en/services/worldwide-fulfillment": {
+    "file": "en-services-worldwide-fulfillment.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Fulfillment for China-Sourced Products | FreightVanta",
+    "description": "Prepare China-sourced inventory for customer orders with clear picking, packing, label, shipping-handoff, and exception instructions.",
+    "keywords": [
+      "fulfillment for China-sourced products",
+      "worldwide fulfillment for imported products",
+      "ecommerce fulfillment from China",
+      "pick and pack handoff",
+      "order exception workflow"
+    ],
+    "heading": "Turn China-sourced inventory into customer-ready orders with a clear fulfillment plan.",
+    "body": "Fulfillment is the operating layer between ready inventory and the customer promise. FreightVanta helps coordinate how China-sourced products are identified, picked, packed, labeled, handed to a shipping service, and managed when an order needs a decision. The right setup depends on product, order profile, destination, brand materials, order source and delivery requirement. This page does not promise warehouse locations, carrier coverage, automation, cut-off times, tracking behavior or worldwide delivery until those details are verified.",
+    "serviceName": "Worldwide Fulfillment for China-Sourced Products",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "ff-worldwide",
+        "question": "Can you fulfill customer orders worldwide?",
+        "answer": "Share intended markets; actual locations, carriers, product restrictions and destination availability must be verified."
+      },
+      {
+        "id": "ff-bundle",
+        "question": "Can supplier material be removed or products bundled?",
+        "answer": "Possible under an approved packing instruction."
+      },
+      {
+        "id": "ff-store",
+        "question": "Can our ecommerce store connect automatically?",
+        "answer": "No integration promise before platform and technical support are confirmed."
+      },
+      {
+        "id": "ff-tracking",
+        "question": "How are tracking updates handled?",
+        "answer": "Depends on selected shipping service and available integration."
+      },
+      {
+        "id": "ff-existing",
+        "question": "Can fulfillment start with inventory already sourced from China?",
+        "answer": "Yes, after product identity, quantity and packout rule are usable."
+      },
+      {
+        "id": "ff-returns",
+        "question": "How are returns or address changes handled?",
+        "answer": "Define the exception owner and response path before release."
+      }
+    ]
+  },
+  "en/industries/cross-border-ecommerce": {
+    "file": "en-industries-cross-border-ecommerce.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Cross-Border Ecommerce Logistics From China | FreightVanta",
+    "description": "Plan a cross-border ecommerce operating path from China sourcing to product checks, packout, inbound inventory, release and customer-ready orders.",
+    "keywords": [
+      "cross-border ecommerce logistics from China",
+      "China ecommerce supply chain coordination",
+      "ecommerce sourcing and fulfillment from China",
+      "retail-ready ecommerce inventory"
+    ],
+    "heading": "Connect the China sourcing decision to the order your customer is ready to receive.",
+    "body": "Cross-border ecommerce is a chain of connected decisions: product reference, supplier questions, specification, packaging, inbound inventory, release rule and customer order. FreightVanta helps make that chain visible so the next team can act on the same product and packout context. Carrier coverage, delivery timing, customs, platform integration and service availability remain subject to the confirmed destination and scope.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "ec-manage",
+        "question": "Can you manage our entire cross-border ecommerce supply chain?",
+        "answer": "The page connects confirmed service handoffs; actual services and countries require scope review."
+      },
+      {
+        "id": "ec-dates",
+        "question": "Can you guarantee delivery dates?",
+        "answer": "No; route, carrier, customs and destination conditions must be confirmed."
+      },
+      {
+        "id": "ec-store",
+        "question": "Can you support Shopify or another store?",
+        "answer": "Do not promise an integration before platform/data support is verified."
+      },
+      {
+        "id": "ec-connect",
+        "question": "Can sourcing, packaging, storage and fulfillment be connected?",
+        "answer": "Yes, when each handoff has an approved record."
+      },
+      {
+        "id": "ec-seasonal",
+        "question": "Can seasonal inventory be released in stages?",
+        "answer": "It can be planned with stock purpose, release owner and confirmed destination."
+      },
+      {
+        "id": "ec-first",
+        "question": "What should an ecommerce brand send first?",
+        "answer": "Product/SKU, markets, order source, packaging, timing and the current operational decision."
+      }
+    ]
+  },
+  "en/industries/consumer-goods": {
+    "file": "en-industries-consumer-goods.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Consumer Goods Logistics From China | FreightVanta",
+    "description": "Coordinate China-sourced consumer goods from product reference and packaging through inbound inventory, channel release and customer-ready handoff.",
+    "keywords": [
+      "consumer goods logistics from China",
+      "consumer goods sourcing and packaging from China",
+      "China consumer goods supply chain coordination",
+      "retail-ready consumer goods handoff"
+    ],
+    "heading": "Move consumer goods from a China product reference to a retail-ready or customer-ready handoff.",
+    "body": "A consumer product is more than the item inside the carton. Product version, presentation, packaging, inbound evidence, channel and release owner all shape the next decision. FreightVanta helps organize those handoffs for DTC, subscription, retail, wholesale, seasonal and replenishment contexts without assuming product quality, compliance, storage capacity or delivery coverage.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "cg-regulations",
+        "question": "Can you guarantee a consumer product meets local regulations?",
+        "answer": "No; qualified compliance review is required."
+      },
+      {
+        "id": "cg-retail",
+        "question": "Can you prepare retail-ready packaging?",
+        "answer": "Packaging/packout can be planned when files, components and instructions are approved."
+      },
+      {
+        "id": "cg-seasonal",
+        "question": "Can you handle seasonal launch stock?",
+        "answer": "The stock path can be planned; dates and capacity require confirmation."
+      },
+      {
+        "id": "cg-fulfilled",
+        "question": "Can products be sourced from China and then fulfilled?",
+        "answer": "Yes, through confirmed service handoffs."
+      },
+      {
+        "id": "cg-testing",
+        "question": "Do you provide product testing?",
+        "answer": "Only when testing method and scope are explicitly confirmed."
+      },
+      {
+        "id": "cg-first",
+        "question": "What should a brand send first?",
+        "answer": "Product version, channel, packaging, quantity, destination and desired handoff."
+      }
+    ]
+  },
+  "en/industries/industrial-components": {
+    "file": "en-industries-industrial-components.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Industrial Components Logistics From China | FreightVanta",
+    "description": "Coordinate specification-led industrial parts from China with revision control, protective packaging, documents, inbound identification and a confirmed receiving handoff.",
+    "keywords": [
+      "industrial components logistics from China",
+      "industrial parts sourcing and shipping from China",
+      "China industrial component supply chain",
+      "protective packaging for industrial parts",
+      "specification-led freight coordination"
+    ],
+    "heading": "Carry the active component specification from China to a controlled receiving handoff.",
+    "body": "For industrial parts, a usable delivery decision starts with the correct reference, revision, quantity, protective method, documents, inbound identification and receiving owner. FreightVanta helps organize that information for production input, maintenance/spares, project and site-delivery contexts. Engineering approval, testing, regulatory work, carrier capability and site access remain separate confirmation points.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/industry-receiving.jpg",
+    "faqs": [
+      {
+        "id": "ic-engineering",
+        "question": "Do you approve the engineering specification?",
+        "answer": "No; the page organizes the active reference, while engineering approval remains with the responsible team."
+      },
+      {
+        "id": "ic-packaging",
+        "question": "Can you arrange protective packaging?",
+        "answer": "The requirement can be coordinated; material and handling scope need confirmation."
+      },
+      {
+        "id": "ic-milestone",
+        "question": "Can you guarantee site delivery by a milestone?",
+        "answer": "No; route, carrier, customs and site conditions must be confirmed."
+      },
+      {
+        "id": "ic-storage",
+        "question": "Can industrial parts be stored before release?",
+        "answer": "Storage and identification can be planned under a confirmed scope."
+      },
+      {
+        "id": "ic-urgent",
+        "question": "Can urgent replacement parts use the time-critical route?",
+        "answer": "Link to Time-critical Cargo when the consequence, ready date and route decision are defined."
+      },
+      {
+        "id": "ic-first",
+        "question": "What should be attached first?",
+        "answer": "Part number/revision, drawing or photo, quantity, destination, packaging and timing."
+      }
+    ]
+  },
+  "en/industries/time-critical-cargo": {
+    "file": "en-industries-time-critical-cargo.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+    ],
+    "title": "Time-Critical Cargo Logistics From China | FreightVanta",
+    "description": "Plan time-critical cargo from China with a visible ready date, documents, routing options, escalation path, and confirmed next handoff.",
+    "keywords": [
+      "time-critical cargo logistics from China",
+      "urgent freight shipping from China",
+      "China air freight for urgent cargo",
+      "time-sensitive supply chain coordination",
+      "emergency replenishment logistics"
+    ],
+    "heading": "Make the next feasible movement visible before the clock takes over.",
+    "body": "Urgent cargo decisions need more than the word “express.” FreightVanta helps collect the business consequence, cargo readiness, ready date, documents, routing question, receiving window and escalation owner so a time-critical movement can be reviewed as a decision set. Carrier capacity, transit time, customs release, rates, special handling and final delivery are confirmed only for the actual cargo and route.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-air-freight.jpg",
+    "faqs": [
+      {
+        "id": "tc-arrival",
+        "question": "Can you guarantee an arrival time?",
+        "answer": "No; actual carrier, route, customs and receiving conditions must be confirmed."
+      },
+      {
+        "id": "tc-partial",
+        "question": "Can urgent cargo start with partial information?",
+        "answer": "The first review can identify missing facts, but a route cannot be confirmed without the information required for the shipment."
+      },
+      {
+        "id": "tc-routes",
+        "question": "Can you compare air and other route options from China?",
+        "answer": "Route questions can be organized; availability, rate and transit require actual confirmation."
+      },
+      {
+        "id": "tc-fallback",
+        "question": "What if the original route fails?",
+        "answer": "The escalation path records who reviews alternatives and what decision is needed next."
+      },
+      {
+        "id": "tc-regulated",
+        "question": "Can you handle special or regulated cargo?",
+        "answer": "Only after product, documents, handling and legal requirements are explicitly confirmed."
+      },
+      {
+        "id": "tc-first",
+        "question": "What should we send first?",
+        "answer": "Ready date, consequence, cargo/package facts, origin, destination, documents and receiving window."
+      }
+    ]
+  },
+  "de/product-sourcing": {
+    "file": "de-product-sourcing.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Produkte aus China beschaffen | FreightVanta",
+    "description": "Produkte aus China beschaffen: Lieferantenanfragen, vergleichbare Antworten, Musterpunkte und die Übergabe für Ihren Zielmarkt klar koordinieren.",
+    "keywords": [
+      "Beschaffung aus China",
+      "China-Sourcing",
+      "Produkte aus China beschaffen",
+      "Lieferantenvergleich China",
+      "Musterkoordination"
+    ],
+    "heading": "Produkte aus China beschaffen – mit einem klaren Brief für den nächsten Einkauf.",
+    "body": "Beginnen Sie mit einem Produktlink, einem Referenzbild, einer Spezifikation oder einer Zielmenge. FreightVanta hilft, die Beschaffung aus China in einem lieferantenfähigen Brief zu strukturieren: was das Produkt sein muss, was ein Lieferant in China bestätigen muss, welche Muster oder Vergleichspunkte zählen und wie freigegebene Details an die nächste operative Übergabe weitergehen. Die Einkaufsentscheidung bleibt bei Ihnen; wir machen Fragen, Nachweise und den nächsten Verantwortlichen sichtbar.",
+    "serviceName": "Beschaffung aus China",
+    "image": "/assets/freightvanta-topic-v18/images/service-product-sourcing.jpg",
+    "faqs": [
+      {
+        "id": "de-ps-link",
+        "question": "Können Sie uns bei der Beschaffung aus China helfen, wenn wir nur einen Link haben?",
+        "answer": "Ja. Ein Link, ein Bild oder eine kurze Beschreibung kann das erste Gespräch eröffnen. Fehlende Angaben zu Produkt, Lieferant, Verpackung und Ziel werden als offene Frage erfasst statt angenommen."
+      },
+      {
+        "id": "de-ps-agent",
+        "question": "Treten Sie als China-Sourcing-Agent auf?",
+        "answer": "Die Seite beschreibt Beschaffungskoordination, Fragenmanagement, Vergleich und Übergabe. Eine Vertretung, Einkaufsvollmacht, Einfuhrverantwortung oder rechtliche Vertretung muss in einem gesondert bestätigten Umfang definiert werden."
+      },
+      {
+        "id": "de-ps-compare",
+        "question": "Können Sie mehrere Lieferanten in China vergleichen?",
+        "answer": "Ja, wenn Lieferantenreferenzen oder Antworten vorliegen. Sie werden an einem gemeinsamen Fragenkatalog verglichen; Unterschiede und fehlende Nachweise bleiben sichtbar."
+      },
+      {
+        "id": "de-ps-guarantee",
+        "question": "Sind Lieferant, Preis oder Qualität garantiert?",
+        "answer": "Nein. Lieferantenauswahl, Preis, Qualitätskontrolle, Werksaudit, Testing, Konformität und Annahmekriterien brauchen eine ausdrückliche Bestätigung."
+      },
+      {
+        "id": "de-ps-samples",
+        "question": "Können Sie Muster oder Prüfungen arrangieren?",
+        "answer": "Musterkoordination und Prüfung lassen sich als gesonderte Umfangspunkte besprechen. Vor einer Vereinbarung darf die Seite keine Prüfmethode, kein Bestehen und keine Prüfzusage andeuten."
+      },
+      {
+        "id": "de-ps-downstream",
+        "question": "Kann die Beschaffung in Verpackung, Lagerung und Fulfillment weitergehen?",
+        "answer": "Ja. Sobald Produkt, Menge, Verpackung, Ursprung und Ziel freigegeben sind, kann die Aufzeichnung an bestätigte nachgelagerte Leistungen übergeben werden."
+      },
+      {
+        "id": "de-ps-private-label",
+        "question": "Können Sie Eigenmarken-Produkte aus China beschaffen?",
+        "answer": "Produkt- und Markenprogramm lassen sich besprechen; Artwork, Marke, IP, rechtliche Etiketten, Produktaussagen und Herstellungsverantwortung brauchen jedoch eine eigene Prüfung und Freigabe."
+      },
+      {
+        "id": "de-ps-first",
+        "question": "Was sollten wir zuerst senden?",
+        "answer": "Senden Sie Produktreferenz, Zielmenge, Markt, Timing, bekannten Lieferanten und die Entscheidung, die aktuell blockiert ist. Die erste Antwort konzentriert sich auf die Fragen, die den Umfang definieren."
+      }
+    ]
+  },
+  "de/services/bulk-procurement": {
+    "file": "de-services-bulk-procurement.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Großeinkauf aus China planen | FreightVanta",
+    "description": "Planen Sie einen Großeinkauf aus China mit klaren Mengen, Lieferantenfragen, Bestandsentscheidungen, Verpackungsvorgaben und Wareneingangshinweisen.",
+    "keywords": [
+      "Großeinkauf aus China",
+      "Sammelbestellung China",
+      "Einkauf großer Mengen aus China",
+      "Beschaffungsplanung China",
+      "gestaffelte Bestandsfreigabe"
+    ],
+    "heading": "Planen Sie den Großeinkauf aus China, bevor aus der Menge teure offene Punkte werden.",
+    "body": "Eine größere Bestellung ist nicht nur eine kleinere Bestellung mit mehr Stück. Sie verändert Produktionsfragen, Verpackungsvorgaben, Zahlungsgespräche, Wareneingang, Bestandszweck und Freigabeplan. FreightVanta hilft, diese zusammenhängenden Entscheidungen in einem arbeitsfähigen Beschaffungsbrief zu bündeln, bevor der Großeinkauf aus China in die nächste Phase geht. Lieferantenauswahl, Handelsbedingungen und finale Freigabe bleiben bei Ihrem Team.",
+    "serviceName": "Großeinkauf aus China",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "de-bulk-preis",
+        "question": "Garantiert FreightVanta niedrigere Preise für einen Großeinkauf aus China?",
+        "answer": "Nein. Ohne schriftlichen Handelsumfang wird kein Rabatt und keine Einsparung zugesagt."
+      },
+      {
+        "id": "de-bulk-staffel",
+        "question": "Kann ein Großeinkauf gestaffelt freigegeben werden?",
+        "answer": "Ja, wenn Wareneingang, Lagerung, Verpackung, Versand und Freigabeanweisungen vorher bestätigt sind."
+      },
+      {
+        "id": "de-bulk-lieferant",
+        "question": "Können wir mit einem bestehenden Lieferanten starten?",
+        "answer": "Ja, wenn Produktversion, Menge, Verpackung, Ziel und Freigabeweg vorliegen."
+      },
+      {
+        "id": "de-bulk-qualitaet",
+        "question": "Enthält der Großeinkauf eine Qualitätsprüfung?",
+        "answer": "Nicht automatisch; Annahmestandards, Audit, Testing und Konformität müssen bestätigt werden."
+      },
+      {
+        "id": "de-bulk-fulfillment",
+        "question": "Kann der Großeinkauf an Fulfillment anbinden?",
+        "answer": "Ja, sobald Bestandskennung, Verpackung und Kommissionierregeln stabil sind."
+      },
+      {
+        "id": "de-bulk-menge",
+        "question": "Was passiert, wenn die Menge noch unklar ist?",
+        "answer": "Halten Sie eine Bandbreite und den Entscheidungsverantwortlichen sichtbar, statt eine unbestätigte Zahl als endgültig darzustellen."
+      }
+    ]
+  },
+  "de/services/packaging-branding": {
+    "file": "de-services-packaging-branding.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Verpackung und Branding für Produkte aus China | FreightVanta",
+    "description": "Verwandeln Sie freigegebene Verpackung, Etiketten, Beilagen und Branding-Materialien aus China in eine praktische Packanweisung für Ihr Fulfillment.",
+    "keywords": [
+      "Verpackung für Produkte aus China",
+      "Verpackung und Branding Fulfillment",
+      "Beilagen und Etiketten",
+      "Packanweisung",
+      "gebrandete Verpackung aus China"
+    ],
+    "heading": "Produkte aus China sollen in Verpackung ankommen, die Ihre Marke weiterträgt.",
+    "body": "Ein fertiges Produkt ist noch kein fertiges Kundenerlebnis. Karton, Beutel, Beilage, Etikett, Schutzregel, Bündel und der Umgang mit Lieferantenmaterial müssen beim Packteam als nutzbare Anweisung ankommen. FreightVanta hilft, freigegebene Verpackungs- und Branding-Materialien in einen abgestimmten Packbrief für Produkte aus China zu überführen. Marke, Artwork, Kundenversprechen und finale Freigabe bleiben bei Ihrem Team.",
+    "serviceName": "Verpackung & Branding für Produkte aus China",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "de-pack-logo",
+        "question": "Können Sie unser Logo oder unsere Marke gestalten?",
+        "answer": "Die Seite koordiniert freigegebene Materialien; Recht, IP und kreative Verantwortung brauchen einen gesonderten Umfang."
+      },
+      {
+        "id": "de-pack-whitelabel",
+        "question": "Können White-Label-Produkte eigene Beilagen oder Verpackung nutzen?",
+        "answer": "Möglich, wenn Produkt, Material, Menge und Packvorgabe freigegeben sind."
+      },
+      {
+        "id": "de-pack-mischung",
+        "question": "Wie vermeiden wir die Mischung alter und neuer Verpackung?",
+        "answer": "Über aktive Version, Stichtag, Restbestandsregel und eine aktuelle Anweisung."
+      },
+      {
+        "id": "de-pack-konformitaet",
+        "question": "Garantiert die Verpackungskoordination regulatorische Konformität?",
+        "answer": "Nein; Markt-, Sicherheits- und Zertifizierungsanforderungen brauchen eine geprüfte Stelle."
+      },
+      {
+        "id": "de-pack-anbindung",
+        "question": "Kann Verpackung an Eigenmarke und Fulfillment anbinden?",
+        "answer": "Ja, sobald Produkt, Version und Packregeln stabil sind."
+      },
+      {
+        "id": "de-pack-entwurf",
+        "question": "Was, wenn das Artwork noch nicht final ist?",
+        "answer": "Status als Entwurf belassen und den Freigebenden festhalten; nicht als aktive Regel veröffentlichen."
+      }
+    ]
+  },
+  "de/services/inventory-storage": {
+    "file": "de-services-inventory-storage.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Lagerhaltung für Waren aus China | FreightVanta",
+    "description": "Organisieren Sie Wareneingang, Identifikation, Lagerung, Freigabeanweisungen und Ausnahmeentscheidungen für importierte Ware, bevor sie zu Versand, Handel oder Kundenaufträgen weitergeht.",
+    "keywords": [
+      "Lagerhaltung für Waren aus China",
+      "Bestandsverwaltung importierter Ware",
+      "Wareneingang und Freigabe",
+      "Lagerung für Produkte aus China"
+    ],
+    "heading": "Geben Sie importiertem Bestand einen klaren Wareneingangs-, Lager- und Freigabeplan.",
+    "body": "Wenn Ware aus China eintrifft, lautet die nächste Frage nicht nur, wo sie liegt. Das Team muss wissen, was angekommen ist, zu welcher Produktversion es gehört, wie es identifiziert wird, welcher Nachweis erfasst ist, was freigegeben werden darf und wer entscheidet, wenn Anzahl, Karton, Etikett oder Ziel nicht passen. FreightVanta hilft, diese operative Aufzeichnung zu ordnen, bevor Lagerung und Freigabe bestätigt werden.",
+    "serviceName": "Lagerhaltung für Waren aus China",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "de-lager-kann",
+        "question": "Können Sie aus China importierte Produkte lagern?",
+        "answer": "Teilen Sie Ursprung, Produkt, Menge, Zeitpunkt und Ziel; Ort, Kapazität und Handhabung müssen bestätigt werden."
+      },
+      {
+        "id": "de-lager-staffel",
+        "question": "Kann Bestand gestaffelt freigegeben werden?",
+        "answer": "Ja, wenn Bestandszweck, Identifikation und Freigabeverantwortung definiert sind."
+      },
+      {
+        "id": "de-lager-zaehlung",
+        "question": "Garantieren Sie eine Zählung oder ein Prüfergebnis?",
+        "answer": "Nein; Nachweis-, Prüf- und Annahmestandards brauchen einen ausdrücklichen Umfang."
+      },
+      {
+        "id": "de-lager-beilagen",
+        "question": "Können Verpackung und Beilagen beim Bestand bleiben?",
+        "answer": "Sie können in eine freigegebene Komponenten- und Freigaberegel aufgenommen werden."
+      },
+      {
+        "id": "de-lager-fulfillment",
+        "question": "Kann die Lagerung an Fulfillment anbinden?",
+        "answer": "Ja, sobald verkaufsfähige Identität, Packregel und Auftragsübergabe bereit sind."
+      },
+      {
+        "id": "de-lager-abweichung",
+        "question": "Was, wenn Kartons nicht zur Meldung passen?",
+        "answer": "Abweichung erfassen und vor der Freigabe an den benannten Entscheidungsverantwortlichen leiten."
+      }
+    ]
+  },
+  "de/services/private-white-label": {
+    "file": "de-services-private-white-label.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Eigenmarke und White Label aus China | FreightVanta",
+    "description": "Koordinieren Sie Produkt, Branding-Materialien, Verpackungsversionen, Freigabepunkte und Fulfillment-Übergabe für Eigenmarken- und White-Label-Programme aus China.",
+    "keywords": [
+      "Private Label aus China",
+      "White Label aus China",
+      "Eigenmarke Sourcing",
+      "Versionskontrolle Markenprodukt",
+      "Private-Label-Verpackung"
+    ],
+    "heading": "Halten Sie Produkt, Verpackung und Freigabe Ihrer Eigenmarke von China bis zur nächsten Übergabe auf einer Linie.",
+    "body": "Ein Eigenmarken-Programm ist mehr als ein Logo auf einem bestehenden Produkt. Produktversion, freigegebene Eigenschaften, Markendateien, Etiketten, Verpackung, Beilagen, Lieferantenfragen und Fulfillment-Anweisung müssen sich auf dieselbe Entscheidung beziehen. FreightVanta hilft, diese Aufzeichnung zu ordnen und die nächste bestätigte Übergabe vorzubereiten. Marke, IP, rechtliche Kennzeichnung, Produktaussagen und Konformität bleiben einer qualifizierten Prüfung und einem schriftlichen Umfang vorbehalten.",
+    "serviceName": "Eigenmarke und White Label aus China",
+    "image": "/assets/freightvanta-topic-v18/images/service-private-label.jpg",
+    "faqs": [
+      {
+        "id": "de-pl-beratung",
+        "question": "Bieten Sie Marken- oder IP-Beratung?",
+        "answer": "Nein; nutzen Sie qualifizierte Rechtsberatung und einen bestätigten Umfang."
+      },
+      {
+        "id": "de-pl-verpackung",
+        "question": "Können White-Label-Produkte eigene Verpackung nutzen?",
+        "answer": "Möglich, wenn Produkt, Material, Menge und Packvorgabe freigegeben sind."
+      },
+      {
+        "id": "de-pl-etiketten",
+        "question": "Wie werden alte und neue Etiketten getrennt?",
+        "answer": "Über aktive Version, Stichtag, Restbestandsregel und klare Anweisung."
+      },
+      {
+        "id": "de-pl-konformitaet",
+        "question": "Garantiert die Eigenmarken-Koordination Marktkonformität?",
+        "answer": "Nein; Sicherheit, Zertifizierung, rechtliche Kennzeichnung und Aussagen müssen geprüft werden."
+      },
+      {
+        "id": "de-pl-anbindung",
+        "question": "Kann ein Eigenmarken-Programm an Sourcing und Fulfillment anbinden?",
+        "answer": "Ja, nachdem Produkt- und Markenentscheidungen stabil sind."
+      },
+      {
+        "id": "de-pl-entwurf",
+        "question": "Was, wenn das Artwork noch geprüft wird?",
+        "answer": "Als Entwurf belassen, Freigebenden benennen und nicht als aktive Packregel verwenden."
+      }
+    ]
+  },
+  "de/services/worldwide-fulfillment": {
+    "file": "de-services-worldwide-fulfillment.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Fulfillment für Produkte aus China | FreightVanta",
+    "description": "Bereiten Sie Bestand aus China mit klaren Kommissionier-, Pack-, Etiketten-, Versand- und Ausnahmeanweisungen für Kundenaufträge vor.",
+    "keywords": [
+      "Fulfillment für Produkte aus China",
+      "weltweites Fulfillment für importierte Produkte",
+      "E-Commerce-Fulfillment aus China",
+      "Pick-and-Pack-Übergabe",
+      "Ausnahmeprozess Aufträge"
+    ],
+    "heading": "Machen Sie aus Bestand aus China kundenfertige Aufträge mit einem klaren Fulfillment-Plan.",
+    "body": "Fulfillment ist die operative Ebene zwischen bereitem Bestand und dem Kundenversprechen. FreightVanta hilft zu koordinieren, wie Produkte aus China identifiziert, kommissioniert, gepackt, etikettiert, an einen Versanddienst übergeben und bearbeitet werden, wenn ein Auftrag eine Entscheidung braucht. Das richtige Setup hängt von Produkt, Auftragsprofil, Ziel, Markenmaterialien, Auftragsquelle und Lieferanforderung ab. Diese Seite verspricht keine Lagerstandorte, Carrier-Abdeckung, Automatisierung, Cut-off-Zeiten, Tracking-Verhalten oder weltweite Lieferung, bis diese Punkte geprüft sind.",
+    "serviceName": "Fulfillment für Produkte aus China",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "de-ff-weltweit",
+        "question": "Können Sie Kundenaufträge weltweit erfüllen?",
+        "answer": "Teilen Sie Zielmärkte; tatsächliche Standorte, Carrier, Produkteinschränkungen und Zielverfügbarkeit müssen geprüft werden."
+      },
+      {
+        "id": "de-ff-buendel",
+        "question": "Kann Lieferantenmaterial entfernt oder können Produkte gebündelt werden?",
+        "answer": "Möglich im Rahmen einer freigegebenen Packanweisung."
+      },
+      {
+        "id": "de-ff-shop",
+        "question": "Kann sich unser Shop automatisch anbinden?",
+        "answer": "Keine Integrationszusage, bevor Plattform und technische Unterstützung bestätigt sind."
+      },
+      {
+        "id": "de-ff-tracking",
+        "question": "Wie werden Tracking-Updates behandelt?",
+        "answer": "Abhängig vom gewählten Versandservice und der verfügbaren Anbindung."
+      },
+      {
+        "id": "de-ff-bestand",
+        "question": "Kann Fulfillment mit bereits aus China beschafftem Bestand starten?",
+        "answer": "Ja, sobald Produktidentität, Menge und Packregel nutzbar sind."
+      },
+      {
+        "id": "de-ff-retouren",
+        "question": "Wie werden Retouren oder Adressänderungen behandelt?",
+        "answer": "Den Ausnahmeverantwortlichen und den Reaktionsweg vor der Freigabe definieren."
+      }
+    ]
+  },
+  "de/industries/cross-border-ecommerce": {
+    "file": "de-industries-cross-border-ecommerce.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Logistik für grenzüberschreitenden E-Commerce aus China | FreightVanta",
+    "description": "Planen Sie den operativen Weg von der Beschaffung in China über Produktprüfung, Verpackung, Wareneingang und Freigabe bis zum kundenfertigen Auftrag.",
+    "keywords": [
+      "Logistik grenzüberschreitender E-Commerce aus China",
+      "Lieferkettenkoordination E-Commerce China",
+      "Sourcing und Fulfillment aus China",
+      "handelsfähiger E-Commerce-Bestand"
+    ],
+    "heading": "Verbinden Sie die Beschaffungsentscheidung in China mit der Bestellung, die Ihr Kunde erhalten soll.",
+    "body": "Grenzüberschreitender E-Commerce ist eine Kette verbundener Entscheidungen: Produktreferenz, Lieferantenfragen, Spezifikation, Verpackung, Wareneingang, Freigaberegel und Kundenauftrag. FreightVanta hilft, diese Kette sichtbar zu machen, damit das nächste Team mit demselben Produkt- und Packkontext arbeiten kann. Carrier-Abdeckung, Lieferzeit, Zoll, Plattformanbindung und Serviceverfügbarkeit bleiben von bestätigtem Ziel und Umfang abhängig.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "de-ec-kette",
+        "question": "Können Sie unsere gesamte E-Commerce-Lieferkette steuern?",
+        "answer": "Die Seite verbindet bestätigte Serviceübergaben; tatsächliche Leistungen und Länder brauchen eine Umfangsprüfung."
+      },
+      {
+        "id": "de-ec-termine",
+        "question": "Können Sie Liefertermine garantieren?",
+        "answer": "Nein; Route, Carrier, Zoll und Zielbedingungen müssen bestätigt werden."
+      },
+      {
+        "id": "de-ec-shop",
+        "question": "Können Sie Shopify oder einen anderen Shop unterstützen?",
+        "answer": "Keine Integrationszusage, bevor Plattform und Datenunterstützung geprüft sind."
+      },
+      {
+        "id": "de-ec-verbindung",
+        "question": "Können Sourcing, Verpackung, Lagerung und Fulfillment verbunden werden?",
+        "answer": "Ja, wenn jede Übergabe eine freigegebene Aufzeichnung hat."
+      },
+      {
+        "id": "de-ec-saison",
+        "question": "Kann Saisonbestand gestaffelt freigegeben werden?",
+        "answer": "Ja, mit Bestandszweck, Freigabeverantwortung und bestätigtem Ziel."
+      },
+      {
+        "id": "de-ec-zuerst",
+        "question": "Was sollte eine E-Commerce-Marke zuerst senden?",
+        "answer": "Produkt und SKU, Märkte, Auftragsquelle, Verpackung, Timing und die aktuelle operative Entscheidung."
+      }
+    ]
+  },
+  "de/industries/consumer-goods": {
+    "file": "de-industries-consumer-goods.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Logistik für Konsumgüter aus China | FreightVanta",
+    "description": "Koordinieren Sie Konsumgüter aus China von Produktreferenz und Verpackung über Wareneingang und Kanalfreigabe bis zur handels- oder kundenfertigen Übergabe.",
+    "keywords": [
+      "Logistik Konsumgüter aus China",
+      "Konsumgüter Sourcing und Verpackung aus China",
+      "Lieferkettenkoordination Konsumgüter China",
+      "handelsfertige Übergabe"
+    ],
+    "heading": "Bringen Sie Konsumgüter von der Produktreferenz in China zur handels- oder kundenfertigen Übergabe.",
+    "body": "Ein Konsumprodukt ist mehr als der Artikel im Karton. Produktversion, Präsentation, Verpackung, Wareneingangsnachweis, Kanal und Freigabeverantwortung prägen die nächste Entscheidung. FreightVanta hilft, diese Übergaben für DTC-, Abo-, Einzelhandels-, Großhandels-, Saison- und Nachfüllkontexte zu ordnen, ohne Produktqualität, Konformität, Lagerkapazität oder Lieferabdeckung vorauszusetzen.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "de-cg-vorschriften",
+        "question": "Können Sie garantieren, dass ein Konsumprodukt lokale Vorschriften erfüllt?",
+        "answer": "Nein; eine qualifizierte Konformitätsprüfung ist erforderlich."
+      },
+      {
+        "id": "de-cg-handelsfertig",
+        "question": "Können Sie handelsfertige Verpackung vorbereiten?",
+        "answer": "Verpackung und Packablauf sind planbar, wenn Dateien, Komponenten und Anweisungen freigegeben sind."
+      },
+      {
+        "id": "de-cg-saison",
+        "question": "Können Sie Saisonbestand für einen Launch handhaben?",
+        "answer": "Der Bestandsweg ist planbar; Termine und Kapazität müssen bestätigt werden."
+      },
+      {
+        "id": "de-cg-erfuellen",
+        "question": "Können Produkte in China beschafft und anschließend erfüllt werden?",
+        "answer": "Ja, über bestätigte Serviceübergaben."
+      },
+      {
+        "id": "de-cg-tests",
+        "question": "Bieten Sie Produkttests an?",
+        "answer": "Nur wenn Prüfmethode und Umfang ausdrücklich bestätigt sind."
+      },
+      {
+        "id": "de-cg-zuerst",
+        "question": "Was sollte eine Marke zuerst senden?",
+        "answer": "Produktversion, Kanal, Verpackung, Menge, Ziel und gewünschte Übergabe."
+      }
+    ]
+  },
+  "de/industries/industrial-components": {
+    "file": "de-industries-industrial-components.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Logistik für Industriekomponenten aus China | FreightVanta",
+    "description": "Koordinieren Sie spezifikationsgeführte Industrieteile aus China mit Versionskontrolle, Schutzverpackung, Dokumenten, Wareneingangsidentifikation und bestätigter Empfangsübergabe.",
+    "keywords": [
+      "Logistik Industriekomponenten aus China",
+      "Industrieteile Sourcing und Versand aus China",
+      "industrielle Lieferkette China",
+      "Schutzverpackung Industrieteile",
+      "spezifikationsgeführte Frachtkoordination"
+    ],
+    "heading": "Führen Sie die aktive Bauteilspezifikation von China bis zur kontrollierten Empfangsübergabe.",
+    "body": "Bei Industrieteilen beginnt eine nutzbare Lieferentscheidung mit der korrekten Referenz, Version, Menge, Schutzmethode, Dokumenten, Wareneingangsidentifikation und Empfangsverantwortung. FreightVanta hilft, diese Informationen für Produktionseinsatz, Wartung und Ersatzteile, Projekt sowie Baustellenlieferung zu ordnen. Technische Freigabe, Prüfung, regulatorische Arbeit, Carrier-Fähigkeit und Baustellenzugang bleiben separate Bestätigungspunkte.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/industry-receiving.jpg",
+    "faqs": [
+      {
+        "id": "de-ic-freigabe",
+        "question": "Geben Sie die technische Spezifikation frei?",
+        "answer": "Nein; die Seite organisiert die aktive Referenz, die technische Freigabe bleibt beim verantwortlichen Team."
+      },
+      {
+        "id": "de-ic-schutz",
+        "question": "Können Sie Schutzverpackung arrangieren?",
+        "answer": "Die Anforderung kann koordiniert werden; Material und Handhabungsumfang müssen bestätigt werden."
+      },
+      {
+        "id": "de-ic-meilenstein",
+        "question": "Können Sie eine Baustellenlieferung zu einem Meilenstein garantieren?",
+        "answer": "Nein; Route, Carrier, Zoll und Baustellenbedingungen müssen bestätigt werden."
+      },
+      {
+        "id": "de-ic-lager",
+        "question": "Können Industrieteile vor der Freigabe gelagert werden?",
+        "answer": "Lagerung und Identifikation sind in einem bestätigten Umfang planbar."
+      },
+      {
+        "id": "de-ic-zeitkritisch",
+        "question": "Können dringende Ersatzteile den zeitkritischen Weg nutzen?",
+        "answer": "Verweisen Sie auf Zeitkritische Fracht, sobald Konsequenz, Bereitstellungstermin und Routenentscheidung definiert sind."
+      },
+      {
+        "id": "de-ic-zuerst",
+        "question": "Was sollte zuerst angehängt werden?",
+        "answer": "Teilenummer und Version, Zeichnung oder Foto, Menge, Ziel, Verpackung und Timing."
+      }
+    ]
+  },
+  "de/industries/time-critical-cargo": {
+    "file": "de-industries-time-critical-cargo.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
+      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+    ],
+    "title": "Logistik für zeitkritische Fracht aus China | FreightVanta",
+    "description": "Planen Sie zeitkritische Fracht aus China mit sichtbarem Bereitstellungstermin, Dokumenten, Routenoptionen, Eskalationspfad und bestätigter nächster Übergabe.",
+    "keywords": [
+      "zeitkritische Fracht Logistik aus China",
+      "dringender Versand aus China",
+      "Luftfracht China dringend",
+      "zeitkritische Lieferkette",
+      "Notnachfüllung Logistik"
+    ],
+    "heading": "Machen Sie die nächste machbare Bewegung sichtbar, bevor die Uhr übernimmt.",
+    "body": "Dringende Frachtentscheidungen brauchen mehr als das Wort Express. FreightVanta hilft, geschäftliche Konsequenz, Frachtbereitschaft, Bereitstellungstermin, Dokumente, Routenfrage, Empfangsfenster und Eskalationsverantwortung zu sammeln, damit eine zeitkritische Bewegung als Entscheidungsset geprüft werden kann. Carrier-Kapazität, Laufzeit, Zollfreigabe, Raten, Sonderbehandlung und finale Lieferung werden nur für die tatsächliche Fracht und Route bestätigt.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-air-freight.jpg",
+    "faqs": [
+      {
+        "id": "de-tc-ankunft",
+        "question": "Können Sie eine Ankunftszeit garantieren?",
+        "answer": "Nein; tatsächlicher Carrier, Route, Zoll und Empfangsbedingungen müssen bestätigt werden."
+      },
+      {
+        "id": "de-tc-unvollstaendig",
+        "question": "Kann dringende Fracht mit unvollständigen Informationen starten?",
+        "answer": "Die erste Prüfung kann fehlende Fakten zeigen, aber eine Route lässt sich ohne die erforderlichen Angaben nicht bestätigen."
+      },
+      {
+        "id": "de-tc-routen",
+        "question": "Können Sie Luftfracht und andere Routenoptionen aus China vergleichen?",
+        "answer": "Routenfragen können organisiert werden; Verfügbarkeit, Rate und Laufzeit brauchen eine tatsächliche Bestätigung."
+      },
+      {
+        "id": "de-tc-scheitern",
+        "question": "Was, wenn die ursprüngliche Route scheitert?",
+        "answer": "Der Eskalationspfad hält fest, wer Alternativen prüft und welche Entscheidung als Nächstes nötig ist."
+      },
+      {
+        "id": "de-tc-sonderfracht",
+        "question": "Können Sie Sonder- oder regulierte Fracht übernehmen?",
+        "answer": "Nur nach ausdrücklicher Bestätigung von Produkt, Dokumenten, Handhabung und rechtlichen Anforderungen."
+      },
+      {
+        "id": "de-tc-zuerst",
+        "question": "Was sollten wir zuerst senden?",
+        "answer": "Bereitstellungstermin, Konsequenz, Fracht- und Verpackungsfakten, Ursprung, Ziel, Dokumente und Empfangsfenster."
+      }
+    ]
+  },
+  "es/product-sourcing": {
+    "file": "es-product-sourcing.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Sourcing de productos en China | FreightVanta",
+    "description": "Organiza el sourcing de productos en China con un brief para proveedor, respuestas comparables, puntos de muestra y un relevo preparado para el mercado español.",
+    "keywords": [
+      "sourcing de productos en China",
+      "comprar productos en China para empresas",
+      "proveedores de China",
+      "abastecimiento desde China",
+      "importar productos de China"
+    ],
+    "heading": "Sourcing de productos en China, ordenado para tu próxima decisión de compra.",
+    "body": "Un enlace, una imagen de referencia, una especificación o una cantidad objetivo son suficientes para empezar. FreightVanta convierte el abastecimiento desde China en un brief para proveedor: qué debe ser el producto, qué confirmar con proveedores de China, qué muestras o comparaciones revisar y cómo preparar el relevo hacia tu mercado español.",
+    "serviceName": "Sourcing de productos en China",
+    "image": "/assets/freightvanta-topic-v18/images/service-product-sourcing.jpg",
+    "faqs": [
+      {
+        "id": "es-sourcing-0",
+        "question": "¿Puede FreightVanta ayudar con el sourcing de productos en China?",
+        "answer": "Sí. FreightVanta puede estructurar el brief de producto, las preguntas para proveedores de China, las respuestas comparables y el relevo aprobado. La selección de proveedor, el control de calidad, los precios, el cumplimiento y los criterios de aceptación deben confirmarse por separado."
+      },
+      {
+        "id": "es-sourcing-1",
+        "question": "¿Podemos empezar solo con un enlace de producto?",
+        "answer": "Sí. Un enlace, una imagen o una descripción corta permite iniciar la conversación. La información que falta para el sourcing en China se registra como preguntas abiertas."
+      },
+      {
+        "id": "es-sourcing-2",
+        "question": "¿Se garantiza el proveedor de China o la calidad del producto?",
+        "answer": "No. Los controles de calidad, las auditorías, los precios, el cumplimiento y los criterios de aceptación deben confirmarse en un alcance de servicio aprobado."
+      },
+      {
+        "id": "es-sourcing-3",
+        "question": "¿Puede el sourcing desde China conectarse con fulfillment?",
+        "answer": "Sí. Tras aprobar producto, embalaje, cantidad, origen y destino, el relevo puede prepararse para inventario, transporte y fulfillment."
+      }
+    ]
+  },
+  "es/services/bulk-procurement": {
+    "file": "es-services-bulk-procurement.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Planificar una compra al por mayor en China | FreightVanta",
+    "description": "Prepara una compra al por mayor en China con cantidades claras, preguntas al proveedor, decisiones de stock, requisitos de embalaje e instrucciones de recepción.",
+    "keywords": [
+      "compra al por mayor en China",
+      "pedido al por mayor China",
+      "compras en volumen China",
+      "planificación de compras China",
+      "liberación de stock por etapas"
+    ],
+    "heading": "Planifica la compra al por mayor en China antes de que la cantidad genere flecos costosos.",
+    "body": "Un pedido mayor no es un pedido pequeño con más unidades. Cambia las preguntas de producción, el requisito de embalaje, la conversación sobre pagos, el método de recepción, la finalidad del stock y el plan de liberación. FreightVanta ayuda a reunir esas decisiones conectadas en un brief de compras operativo antes de que la compra al por mayor en China avance a la siguiente etapa. La selección de proveedor, las condiciones comerciales y la aprobación final siguen siendo de tu equipo.",
+    "serviceName": "Compra al por mayor en China",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "es-services-bulk-procurement-0",
+        "question": "¿FreightVanta garantiza precios más bajos para una compra al por mayor en China?",
+        "answer": "No. Sin alcance comercial escrito no se promete descuento ni ahorro."
+      },
+      {
+        "id": "es-services-bulk-procurement-1",
+        "question": "¿Se puede liberar una compra al por mayor por etapas?",
+        "answer": "Sí, si recepción, almacenaje, embalaje, carga e instrucciones de liberación se confirman antes."
+      },
+      {
+        "id": "es-services-bulk-procurement-2",
+        "question": "¿Podemos empezar con un proveedor existente?",
+        "answer": "Sí, con versión de producto, cantidad, embalaje, destino y circuito de aprobación."
+      },
+      {
+        "id": "es-services-bulk-procurement-3",
+        "question": "¿La compra al por mayor incluye inspección de calidad?",
+        "answer": "No automáticamente; criterios de aceptación, auditoría, testing y cumplimiento deben confirmarse."
+      },
+      {
+        "id": "es-services-bulk-procurement-4",
+        "question": "¿Puede la compra al por mayor enlazar con preparación de pedidos?",
+        "answer": "Sí, cuando identificador de stock, embalaje y reglas de preparación son estables."
+      },
+      {
+        "id": "es-services-bulk-procurement-5",
+        "question": "¿Qué pasa si la cantidad sigue en revisión?",
+        "answer": "Mantén un rango y al responsable de decisión visibles en lugar de presentar una cifra no aprobada como definitiva."
+      }
+    ]
+  },
+  "es/services/packaging-branding": {
+    "file": "es-services-packaging-branding.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Embalaje e imagen de marca para productos de China | FreightVanta",
+    "description": "Convierte embalaje aprobado, etiquetas, insertos y materiales de marca en una instrucción de empaquetado práctica para tu preparación de pedidos.",
+    "keywords": [
+      "embalaje personalizado para productos de China",
+      "embalaje e imagen de marca",
+      "insertos y etiquetas",
+      "instrucción de empaquetado",
+      "embalaje de marca desde China"
+    ],
+    "heading": "Haz que los productos de China lleguen con un embalaje que continúe tu marca.",
+    "body": "Un producto terminado aún no es una experiencia de cliente terminada. La caja, la bolsa, el inserto, la etiqueta, la regla de protección, el pack y el tratamiento del material del proveedor deben llegar al equipo de empaquetado como una instrucción utilizable. FreightVanta ayuda a convertir materiales de embalaje y marca aprobados en un brief de empaquetado coordinado para productos con origen en China. La marca, los artes, la promesa al cliente y la aprobación final siguen siendo de tu equipo.",
+    "serviceName": "Embalaje e imagen de marca",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "es-services-packaging-branding-0",
+        "question": "¿Podéis diseñar nuestro logo o nuestra marca?",
+        "answer": "La página coordina materiales aprobados; derecho, propiedad intelectual y creación requieren un alcance aparte."
+      },
+      {
+        "id": "es-services-packaging-branding-1",
+        "question": "¿Los productos de marca blanca pueden usar insertos o embalaje propios?",
+        "answer": "Posible cuando producto, materiales, cantidades y empaquetado están aprobados."
+      },
+      {
+        "id": "es-services-packaging-branding-2",
+        "question": "¿Cómo evitamos mezclar embalaje antiguo y nuevo?",
+        "answer": "Con versión activa, fecha de efecto, regla de stock restante e instrucción vigente."
+      },
+      {
+        "id": "es-services-packaging-branding-3",
+        "question": "¿La coordinación de embalaje garantiza cumplimiento regulatorio?",
+        "answer": "No; los requisitos de mercado, seguridad y certificación necesitan revisión cualificada."
+      },
+      {
+        "id": "es-services-packaging-branding-4",
+        "question": "¿Puede el embalaje enlazar con marca propia y preparación de pedidos?",
+        "answer": "Sí, cuando producto, versión y reglas de empaquetado son estables."
+      },
+      {
+        "id": "es-services-packaging-branding-5",
+        "question": "¿Y si el arte aún no es final?",
+        "answer": "Mantén el estado como borrador y nombra al aprobador; no lo publiques como regla activa."
+      }
+    ]
+  },
+  "es/services/inventory-storage": {
+    "file": "es-services-inventory-storage.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Almacenaje de mercancía procedente de China | FreightVanta",
+    "description": "Organiza recepción, identificación, almacenaje, instrucciones de liberación y decisiones de excepción para mercancía importada antes de que avance a carga, retail o pedidos de cliente.",
+    "keywords": [
+      "almacenaje de mercancía procedente de China",
+      "gestión de stock de mercancía importada",
+      "recepción y liberación",
+      "almacenaje de productos con origen en China"
+    ],
+    "heading": "Da al stock importado un plan claro de recepción, almacenaje y liberación.",
+    "body": "Cuando llega mercancía de China, la siguiente pregunta no es solo dónde se guarda. El equipo necesita saber qué ha llegado, a qué versión de producto pertenece, cómo se identifica, qué evidencia se registra, qué puede liberarse y quién decide cuando un recuento, una caja, una etiqueta o un destino no coinciden. FreightVanta ayuda a ordenar ese registro operativo antes de confirmar el alcance de almacenaje y liberación.",
+    "serviceName": "Almacenaje y liberación de stock",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "es-services-inventory-storage-0",
+        "question": "¿Podéis almacenar productos importados de China?",
+        "answer": "Comparte origen, producto, cantidad, calendario y destino; ubicación, capacidad y manipulación deben confirmarse."
+      },
+      {
+        "id": "es-services-inventory-storage-1",
+        "question": "¿Se puede liberar el stock por etapas?",
+        "answer": "Sí, cuando finalidad de stock, identificación y responsable de liberación están definidos."
+      },
+      {
+        "id": "es-services-inventory-storage-2",
+        "question": "¿Garantizáis un recuento o un resultado de inspección?",
+        "answer": "No; evidencias, inspección y criterios de aceptación requieren alcance explícito."
+      },
+      {
+        "id": "es-services-inventory-storage-3",
+        "question": "¿Pueden el embalaje y los insertos quedarse con el stock?",
+        "answer": "Pueden integrarse en una regla de componente y liberación aprobada."
+      },
+      {
+        "id": "es-services-inventory-storage-4",
+        "question": "¿Puede el almacenaje enlazar con preparación de pedidos?",
+        "answer": "Sí, cuando identidad vendible, regla de empaquetado y relevo de pedido están listos."
+      },
+      {
+        "id": "es-services-inventory-storage-5",
+        "question": "¿Qué pasa si las cajas no coinciden con el aviso?",
+        "answer": "Registrar la discrepancia y enviarla al responsable de decisión nombrado antes de liberar."
+      }
+    ]
+  },
+  "es/services/private-white-label": {
+    "file": "es-services-private-white-label.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Marca propia y marca blanca desde China | FreightVanta",
+    "description": "Coordina producto, materiales de marca, versiones de embalaje, puntos de aprobación y relevo hacia preparación de pedidos para tus programas de marca propia y marca blanca desde China.",
+    "keywords": [
+      "marca propia desde China",
+      "marca blanca China",
+      "sourcing marca propia",
+      "control de versión de producto de marca",
+      "coordinación de embalaje marca propia"
+    ],
+    "heading": "Mantén alineados producto, embalaje y aprobación de tu marca desde China hasta el siguiente relevo.",
+    "body": "Un programa de marca propia es más que poner un logo en un producto existente. Versión de producto, atributos aprobados, archivos de marca, etiquetas, embalaje, insertos, preguntas al proveedor e instrucción de preparación de pedidos deben referirse a la misma decisión. FreightVanta ayuda a ordenar ese registro y a preparar el siguiente relevo confirmado. Marca, propiedad intelectual, etiquetado legal, declaraciones de producto y cumplimiento quedan sujetos a revisión cualificada y alcance escrito.",
+    "serviceName": "Marca propia y marca blanca",
+    "image": "/assets/freightvanta-topic-v18/images/service-private-label.jpg",
+    "faqs": [
+      {
+        "id": "es-services-private-white-label-0",
+        "question": "¿Ofrecéis asesoría de marca o propiedad intelectual?",
+        "answer": "No; usa asesoría legal cualificada y un alcance confirmado."
+      },
+      {
+        "id": "es-services-private-white-label-1",
+        "question": "¿Los productos de marca blanca pueden usar embalaje personalizado?",
+        "answer": "Posible cuando producto, materiales, cantidades y empaquetado están aprobados."
+      },
+      {
+        "id": "es-services-private-white-label-2",
+        "question": "¿Cómo se separan etiquetas antiguas y nuevas?",
+        "answer": "Con versión activa, fecha de efecto, regla de stock restante e instrucción clara."
+      },
+      {
+        "id": "es-services-private-white-label-3",
+        "question": "¿La coordinación de marca propia garantiza cumplimiento de mercado?",
+        "answer": "No; seguridad, certificación, etiquetado legal y declaraciones deben verificarse."
+      },
+      {
+        "id": "es-services-private-white-label-4",
+        "question": "¿Puede un programa de marca propia enlazar con sourcing y preparación de pedidos?",
+        "answer": "Sí, cuando las decisiones de producto y marca son estables."
+      },
+      {
+        "id": "es-services-private-white-label-5",
+        "question": "¿Y si el arte sigue en revisión?",
+        "answer": "Mantenerlo como borrador, nombrar aprobador y no usarlo como regla de empaquetado activa."
+      }
+    ]
+  },
+  "es/services/worldwide-fulfillment": {
+    "file": "es-services-worldwide-fulfillment.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Preparación de pedidos para productos con origen en China | FreightVanta",
+    "description": "Prepara stock con origen en China para pedidos de cliente con instrucciones claras de picking, empaquetado, etiqueta, entrega al transporte y gestión de excepciones.",
+    "keywords": [
+      "preparación de pedidos para productos con origen en China",
+      "preparación de pedidos internacional",
+      "e-fulfillment desde China",
+      "relevo pick and pack",
+      "circuito de excepción de pedido"
+    ],
+    "heading": "Convierte stock con origen en China en pedidos listos para el cliente con un plan claro de preparación.",
+    "body": "La preparación de pedidos es la capa operativa entre el stock listo y la promesa al cliente. FreightVanta ayuda a coordinar cómo se identifican, preparan, empaquetan, etiquetan y entregan al transporte los productos con origen en China, y cómo se gestiona un pedido cuando necesita una decisión. La configuración correcta depende de producto, perfil de pedido, destino, materiales de marca, origen del pedido y requisito de entrega. Esta página no promete ubicaciones de almacén, cobertura de transportista, automatización, horarios de corte, comportamiento de seguimiento ni entrega mundial hasta que esos puntos se verifiquen.",
+    "serviceName": "Preparación de pedidos",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "es-services-worldwide-fulfillment-0",
+        "question": "¿Podéis preparar pedidos de cliente en todo el mundo?",
+        "answer": "Comparte mercados objetivo; ubicaciones reales, transportistas, restricciones de producto y disponibilidad de destino deben verificarse."
+      },
+      {
+        "id": "es-services-worldwide-fulfillment-1",
+        "question": "¿Se puede retirar material del proveedor o agrupar productos?",
+        "answer": "Posible bajo una instrucción de empaquetado aprobada."
+      },
+      {
+        "id": "es-services-worldwide-fulfillment-2",
+        "question": "¿Puede conectarse automáticamente nuestra tienda?",
+        "answer": "Ninguna promesa de integración antes de confirmar plataforma y soporte técnico."
+      },
+      {
+        "id": "es-services-worldwide-fulfillment-3",
+        "question": "¿Cómo se gestionan las actualizaciones de seguimiento?",
+        "answer": "Depende del servicio de transporte elegido y de la integración disponible."
+      },
+      {
+        "id": "es-services-worldwide-fulfillment-4",
+        "question": "¿Puede la preparación de pedidos empezar con stock ya adquirido en China?",
+        "answer": "Sí, cuando identidad de producto, cantidad y regla de empaquetado son utilizables."
+      },
+      {
+        "id": "es-services-worldwide-fulfillment-5",
+        "question": "¿Cómo se gestionan devoluciones o cambios de dirección?",
+        "answer": "Definir el responsable de excepción y el circuito de respuesta antes de liberar."
+      }
+    ]
+  },
+  "es/industries/cross-border-ecommerce": {
+    "file": "es-industries-cross-border-ecommerce.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Logística de comercio electrónico transfronterizo desde China | FreightVanta",
+    "description": "Planifica un recorrido operativo desde el sourcing en China hasta la comprobación de producto, el empaquetado, la entrada de stock, la liberación y los pedidos listos para el cliente.",
+    "keywords": [
+      "logística de comercio electrónico transfronterizo desde China",
+      "coordinación de cadena e-commerce China",
+      "sourcing y preparación de pedidos desde China",
+      "stock e-commerce listo para retail"
+    ],
+    "heading": "Conecta la decisión de sourcing en China con el pedido que tu cliente va a recibir.",
+    "body": "El comercio electrónico transfronterizo es una cadena de decisiones conectadas: referencia de producto, preguntas al proveedor, especificación, embalaje, entrada de stock, regla de liberación y pedido de cliente. FreightVanta ayuda a hacer visible esa cadena para que el siguiente equipo trabaje con el mismo contexto de producto y empaquetado. Cobertura de transportista, plazo de entrega, aduana, integración de plataforma y disponibilidad de servicio siguen sujetos al destino y al alcance confirmados.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "es-industries-cross-border-ecommerce-0",
+        "question": "¿Podéis gestionar toda nuestra cadena de e-commerce transfronterizo?",
+        "answer": "La página conecta relevos de servicio confirmados; servicios y países reales requieren revisión de alcance."
+      },
+      {
+        "id": "es-industries-cross-border-ecommerce-1",
+        "question": "¿Podéis garantizar fechas de entrega?",
+        "answer": "No; ruta, transportista, aduana y condiciones de destino deben confirmarse."
+      },
+      {
+        "id": "es-industries-cross-border-ecommerce-2",
+        "question": "¿Podéis soportar Shopify u otra tienda?",
+        "answer": "Ninguna promesa de integración antes de verificar plataforma y datos."
+      },
+      {
+        "id": "es-industries-cross-border-ecommerce-3",
+        "question": "¿Se pueden conectar sourcing, embalaje, almacenaje y preparación de pedidos?",
+        "answer": "Sí, cuando cada relevo tiene un registro aprobado."
+      },
+      {
+        "id": "es-industries-cross-border-ecommerce-4",
+        "question": "¿Se puede liberar stock de temporada por etapas?",
+        "answer": "Sí, con finalidad de stock, responsable de liberación y destino confirmados."
+      },
+      {
+        "id": "es-industries-cross-border-ecommerce-5",
+        "question": "¿Qué debería enviar primero una marca e-commerce?",
+        "answer": "Producto y SKU, mercados, origen del pedido, embalaje, calendario y la decisión operativa actual."
+      }
+    ]
+  },
+  "es/industries/consumer-goods": {
+    "file": "es-industries-consumer-goods.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Logística de bienes de consumo desde China | FreightVanta",
+    "description": "Coordina bienes de consumo con origen en China desde la referencia de producto y el embalaje hasta la entrada de stock, la liberación por canal y el relevo listo para retail o cliente.",
+    "keywords": [
+      "logística de bienes de consumo desde China",
+      "sourcing y embalaje de bienes de consumo China",
+      "coordinación de cadena de bienes de consumo China",
+      "relevo listo para retail"
+    ],
+    "heading": "Lleva un bien de consumo de la referencia de producto en China a un relevo listo para retail o cliente.",
+    "body": "Un producto de consumo es más que el artículo dentro de la caja. Versión de producto, presentación, embalaje, evidencia de recepción, canal y responsable de liberación dan forma a la siguiente decisión. FreightVanta ayuda a ordenar esos relevos para contextos DTC, suscripción, retail, mayorista, temporada y reposición, sin presuponer calidad de producto, cumplimiento, capacidad de almacenaje ni cobertura de entrega.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "es-industries-consumer-goods-0",
+        "question": "¿Podéis garantizar que un bien de consumo cumple la normativa local?",
+        "answer": "No; se requiere revisión de cumplimiento cualificada."
+      },
+      {
+        "id": "es-industries-consumer-goods-1",
+        "question": "¿Podéis preparar embalaje listo para retail?",
+        "answer": "Embalaje y empaquetado son planificables cuando archivos, componentes e instrucciones están aprobados."
+      },
+      {
+        "id": "es-industries-consumer-goods-2",
+        "question": "¿Podéis gestionar stock de lanzamiento de temporada?",
+        "answer": "El recorrido de stock es planificable; fechas y capacidad deben confirmarse."
+      },
+      {
+        "id": "es-industries-consumer-goods-3",
+        "question": "¿Se pueden adquirir productos en China y luego preparar pedidos?",
+        "answer": "Sí, mediante relevos de servicio confirmados."
+      },
+      {
+        "id": "es-industries-consumer-goods-4",
+        "question": "¿Ofrecéis testing de producto?",
+        "answer": "Solo cuando método y alcance están explícitamente confirmados."
+      },
+      {
+        "id": "es-industries-consumer-goods-5",
+        "question": "¿Qué debería enviar primero una marca?",
+        "answer": "Versión de producto, canal, embalaje, cantidad, destino y relevo deseado."
+      }
+    ]
+  },
+  "es/industries/industrial-components": {
+    "file": "es-industries-industrial-components.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Logística de componentes industriales desde China | FreightVanta",
+    "description": "Coordina piezas industriales guiadas por especificación desde China con control de versión, embalaje de protección, documentos, identificación de entrada y relevo de recepción confirmado.",
+    "keywords": [
+      "logística de componentes industriales desde China",
+      "sourcing y envío de piezas industriales China",
+      "cadena de componentes industriales China",
+      "embalaje de protección piezas industriales",
+      "coordinación de carga guiada por especificación"
+    ],
+    "heading": "Lleva la especificación activa de un componente desde China hasta un relevo de recepción controlado.",
+    "body": "En piezas industriales, una decisión de entrega utilizable empieza por la referencia correcta, la versión, la cantidad, el método de protección, los documentos, la identificación en la entrada y el responsable de recepción. FreightVanta ayuda a ordenar esa información para entrada de producción, mantenimiento y repuestos, proyectos y entrega en obra. Aprobación de ingeniería, testing, trabajo regulatorio, capacidad del transportista y acceso a obra siguen siendo puntos de confirmación separados.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/industry-receiving.jpg",
+    "faqs": [
+      {
+        "id": "es-industries-industrial-components-0",
+        "question": "¿Aprobáis la especificación de ingeniería?",
+        "answer": "No; la página organiza la referencia activa, la aprobación de ingeniería sigue en el equipo responsable."
+      },
+      {
+        "id": "es-industries-industrial-components-1",
+        "question": "¿Podéis organizar embalaje de protección?",
+        "answer": "El requisito puede coordinarse; material y alcance de manipulación deben confirmarse."
+      },
+      {
+        "id": "es-industries-industrial-components-2",
+        "question": "¿Podéis garantizar entrega en obra en un hito?",
+        "answer": "No; ruta, transportista, aduana y condiciones de obra deben confirmarse."
+      },
+      {
+        "id": "es-industries-industrial-components-3",
+        "question": "¿Se pueden almacenar piezas industriales antes de liberarlas?",
+        "answer": "Almacenaje e identificación son planificables en un alcance confirmado."
+      },
+      {
+        "id": "es-industries-industrial-components-4",
+        "question": "¿Pueden los repuestos urgentes usar la vía de carga urgente?",
+        "answer": "Enlazar con Carga urgente cuando consecuencia, fecha de disponibilidad y decisión de ruta estén definidas."
+      },
+      {
+        "id": "es-industries-industrial-components-5",
+        "question": "¿Qué adjuntar primero?",
+        "answer": "Número de pieza y versión, plano o foto, cantidad, destino, embalaje y calendario."
+      }
+    ]
+  },
+  "es/industries/time-critical-cargo": {
+    "file": "es-industries-time-critical-cargo.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+    ],
+    "title": "Logística de carga urgente desde China | FreightVanta",
+    "description": "Planifica carga urgente desde China con fecha de disponibilidad, documentos, opciones de ruta, circuito de escalado y próximo relevo confirmado visibles.",
+    "keywords": [
+      "logística de carga urgente desde China",
+      "envío urgente desde China",
+      "carga aérea urgente China",
+      "cadena logística sensible al tiempo",
+      "logística de reposición de emergencia"
+    ],
+    "heading": "Haz visible el siguiente movimiento viable antes de que el reloj tome el control.",
+    "body": "Una decisión de carga urgente necesita más que la palabra express. FreightVanta ayuda a reunir consecuencia de negocio, preparación de la carga, fecha de disponibilidad, documentos, pregunta de ruta, ventana de recepción y responsable de escalado para revisar un movimiento urgente como un conjunto de decisiones. Capacidad del transportista, plazo de tránsito, despacho de aduana, tarifas, manipulación especial y entrega final solo se confirman para la carga y la ruta reales.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-air-freight.jpg",
+    "faqs": [
+      {
+        "id": "es-industries-time-critical-cargo-0",
+        "question": "¿Podéis garantizar una hora de llegada?",
+        "answer": "No; transportista, ruta, aduana y condiciones de recepción reales deben confirmarse."
+      },
+      {
+        "id": "es-industries-time-critical-cargo-1",
+        "question": "¿Puede arrancar una carga urgente con información parcial?",
+        "answer": "La primera revisión puede revelar hechos faltantes, pero no se confirma ruta sin la información requerida."
+      },
+      {
+        "id": "es-industries-time-critical-cargo-2",
+        "question": "¿Podéis comparar carga aérea y otras opciones desde China?",
+        "answer": "Las preguntas de ruta pueden organizarse; disponibilidad, tarifa y plazo requieren confirmación real."
+      },
+      {
+        "id": "es-industries-time-critical-cargo-3",
+        "question": "¿Y si falla la ruta original?",
+        "answer": "El circuito de escalado registra quién evalúa alternativas y qué decisión hace falta después."
+      },
+      {
+        "id": "es-industries-time-critical-cargo-4",
+        "question": "¿Podéis gestionar carga especial o regulada?",
+        "answer": "Solo tras confirmar explícitamente producto, documentos, manipulación y requisitos legales."
+      },
+      {
+        "id": "es-industries-time-critical-cargo-5",
+        "question": "¿Qué deberíamos enviar primero?",
+        "answer": "Fecha de disponibilidad, consecuencia, hechos de carga y bultos, origen, destino, documentos y ventana de recepción."
+      }
+    ]
+  },
+  "fr/product-sourcing": {
+    "file": "fr-product-sourcing.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Sourcing en Chine pour entreprises | FreightVanta",
+    "description": "Coordonnez votre sourcing en Chine avec un brief fournisseur, des réponses comparables, des points d'échantillonnage et une remise préparée pour le marché français.",
+    "keywords": [
+      "sourcing en Chine",
+      "acheter en Chine pour entreprise",
+      "trouver un fournisseur en Chine",
+      "approvisionnement Chine",
+      "sourcing produits Chine"
+    ],
+    "heading": "Sourcing en Chine : un brief clair avant la prochaine décision d'achat.",
+    "body": "Un lien, une image de référence, une spécification ou une quantité cible suffit pour ouvrir une conversation structurée. FreightVanta organise le sourcing produits en Chine : produit attendu, questions à poser au fournisseur chinois, échantillons utiles, réponses comparables et relais opérationnel vers votre marché français.",
+    "serviceName": "Sourcing en Chine",
+    "image": "/assets/freightvanta-topic-v18/images/service-product-sourcing.jpg",
+    "faqs": [
+      {
+        "id": "fr-sourcing-0",
+        "question": "FreightVanta peut-il aider au sourcing de produits en Chine ?",
+        "answer": "Oui. FreightVanta peut structurer le brief produit, les questions aux fournisseurs en Chine, les réponses comparables et le relais approuvé. Le choix du fournisseur, le contrôle qualité, les prix, la conformité et les critères d'acceptation nécessitent un périmètre séparément confirmé."
+      },
+      {
+        "id": "fr-sourcing-1",
+        "question": "Peut-on commencer avec un simple lien produit ?",
+        "answer": "Oui. Un lien, une image ou une courte description permet de démarrer. Les informations manquantes pour le sourcing en Chine deviennent des questions pratiques."
+      },
+      {
+        "id": "fr-sourcing-2",
+        "question": "La qualité ou le fournisseur chinois sont-ils garantis ?",
+        "answer": "Non. Le contrôle qualité, les audits, les prix, la conformité et les critères d'acceptation doivent faire partie d'un périmètre explicitement validé."
+      },
+      {
+        "id": "fr-sourcing-3",
+        "question": "Le sourcing en Chine peut-il continuer vers le fulfillment ?",
+        "answer": "Oui. Une fois le produit, le packaging, la quantité, l'origine et la destination validés, le relais peut être préparé pour le stockage, le fret et le fulfillment."
+      }
+    ]
+  },
+  "fr/services/bulk-procurement": {
+    "file": "fr-services-bulk-procurement.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Planifier un achat en volume depuis la Chine | FreightVanta",
+    "description": "Préparez un achat en volume depuis la Chine avec des quantités claires, des questions fournisseurs, des décisions de stock, des exigences d'emballage et des instructions de réception.",
+    "keywords": [
+      "achat en volume depuis la Chine",
+      "commande en gros Chine",
+      "approvisionnement en volume Chine",
+      "planification d'achat Chine",
+      "libération de stock par étapes"
+    ],
+    "heading": "Planifiez l'achat en volume depuis la Chine avant que la quantité ne crée des points ouverts coûteux.",
+    "body": "Une commande plus importante n'est pas une petite commande avec plus de pièces. Elle modifie les questions de production, les exigences d'emballage, les échanges sur le paiement, la réception, la finalité du stock et le plan de libération. FreightVanta aide à réunir ces décisions liées dans un brief d'approvisionnement exploitable avant que l'achat en volume ne passe à l'étape suivante. Le choix des fournisseurs, les conditions commerciales et la validation finale restent à votre équipe.",
+    "serviceName": "Achat en volume depuis la Chine",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "fr-services-bulk-procurement-0",
+        "question": "FreightVanta garantit-il un prix plus bas pour un achat en volume depuis la Chine ?",
+        "answer": "Non. Aucun rabais ni économie n'est promis sans périmètre commercial écrit."
+      },
+      {
+        "id": "fr-services-bulk-procurement-1",
+        "question": "Un achat en volume peut-il être libéré par étapes ?",
+        "answer": "Oui, si la réception, le stockage, l'emballage, le fret et les instructions de libération sont confirmés au préalable."
+      },
+      {
+        "id": "fr-services-bulk-procurement-2",
+        "question": "Pouvons-nous démarrer avec un fournisseur existant ?",
+        "answer": "Oui, avec la version produit, la quantité, l'emballage, la destination et le circuit de validation."
+      },
+      {
+        "id": "fr-services-bulk-procurement-3",
+        "question": "L'achat en volume inclut-il un contrôle qualité ?",
+        "answer": "Pas automatiquement ; critères d'acceptation, audit, tests et conformité doivent être confirmés."
+      },
+      {
+        "id": "fr-services-bulk-procurement-4",
+        "question": "L'achat en volume peut-il s'enchaîner sur la préparation de commandes ?",
+        "answer": "Oui, dès que l'identifiant de stock, l'emballage et les règles de préparation sont stables."
+      },
+      {
+        "id": "fr-services-bulk-procurement-5",
+        "question": "Que faire si la quantité est encore à l'étude ?",
+        "answer": "Gardez une fourchette et le responsable de décision visibles plutôt que de présenter un chiffre non validé comme définitif."
+      }
+    ]
+  },
+  "fr/services/packaging-branding": {
+    "file": "fr-services-packaging-branding.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Emballage et image de marque pour les produits de Chine | FreightVanta",
+    "description": "Transformez un emballage validé, des étiquettes, des notices et des éléments de marque en une instruction de conditionnement exploitable pour votre préparation de commandes.",
+    "keywords": [
+      "emballage personnalisé produits de Chine",
+      "emballage et image de marque",
+      "notices et étiquettes",
+      "instruction de conditionnement",
+      "emballage de marque depuis la Chine"
+    ],
+    "heading": "Faites arriver les produits de Chine dans un emballage qui prolonge votre marque.",
+    "body": "Un produit fini n'est pas encore une expérience client finie. Le carton, le sachet, la notice, l'étiquette, la règle de protection, le lot et le traitement des éléments fournisseur doivent parvenir à l'équipe de conditionnement comme une instruction utilisable. FreightVanta aide à transformer des éléments d'emballage et de marque validés en un brief de conditionnement coordonné pour les produits sourcés en Chine. La marque, les fichiers créatifs, la promesse client et la validation finale restent à votre équipe.",
+    "serviceName": "Emballage et image de marque",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "fr-services-packaging-branding-0",
+        "question": "Pouvez-vous créer notre logo ou notre marque ?",
+        "answer": "La page coordonne des éléments validés ; le droit, la propriété intellectuelle et la création relèvent d'un périmètre distinct."
+      },
+      {
+        "id": "fr-services-packaging-branding-1",
+        "question": "Les produits en marque blanche peuvent-ils utiliser des notices ou un emballage personnalisés ?",
+        "answer": "Possible lorsque produit, matières, quantités et conditionnement sont validés."
+      },
+      {
+        "id": "fr-services-packaging-branding-2",
+        "question": "Comment éviter de mélanger anciens et nouveaux emballages ?",
+        "answer": "Avec une version active, une date d'effet, une règle sur le stock résiduel et une instruction à jour."
+      },
+      {
+        "id": "fr-services-packaging-branding-3",
+        "question": "La coordination d'emballage garantit-elle la conformité réglementaire ?",
+        "answer": "Non ; les exigences de marché, de sécurité et de certification nécessitent une revue qualifiée."
+      },
+      {
+        "id": "fr-services-packaging-branding-4",
+        "question": "L'emballage peut-il rejoindre la marque propre et la préparation de commandes ?",
+        "answer": "Oui, dès que produit, version et règles de conditionnement sont stables."
+      },
+      {
+        "id": "fr-services-packaging-branding-5",
+        "question": "Et si le fichier créatif n'est pas finalisé ?",
+        "answer": "Gardez le statut brouillon et nommez le valideur ; ne le publiez pas comme règle active."
+      }
+    ]
+  },
+  "fr/services/inventory-storage": {
+    "file": "fr-services-inventory-storage.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Stockage des marchandises en provenance de Chine | FreightVanta",
+    "description": "Organisez la réception, l'identification, le stockage, les instructions de libération et les décisions d'exception pour des marchandises importées avant leur départ vers le fret, la distribution ou les commandes clients.",
+    "keywords": [
+      "stockage de marchandises en provenance de Chine",
+      "gestion de stock de marchandises importées",
+      "réception et libération",
+      "stockage de produits sourcés en Chine"
+    ],
+    "heading": "Donnez au stock importé un plan clair de réception, de stockage et de libération.",
+    "body": "Quand la marchandise arrive de Chine, la question suivante n'est pas seulement de savoir où elle se trouve. L'équipe doit savoir ce qui est arrivé, à quelle version produit cela correspond, comment c'est identifié, quelle preuve est enregistrée, ce qui peut être libéré et qui décide lorsqu'un comptage, un carton, une étiquette ou une destination ne correspond pas. FreightVanta aide à structurer cet enregistrement opérationnel avant confirmation du stockage et de la libération.",
+    "serviceName": "Stockage et libération des stocks",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "fr-services-inventory-storage-0",
+        "question": "Pouvez-vous stocker des produits importés de Chine ?",
+        "answer": "Partagez origine, produit, quantité, calendrier et destination ; lieu, capacité et manutention doivent être confirmés."
+      },
+      {
+        "id": "fr-services-inventory-storage-1",
+        "question": "Le stock peut-il être libéré par étapes ?",
+        "answer": "Oui, si finalité de stock, identification et responsable de libération sont définis."
+      },
+      {
+        "id": "fr-services-inventory-storage-2",
+        "question": "Garantissez-vous un comptage ou un résultat de contrôle ?",
+        "answer": "Non ; preuves, contrôles et critères d'acceptation nécessitent un périmètre explicite."
+      },
+      {
+        "id": "fr-services-inventory-storage-3",
+        "question": "L'emballage et les notices peuvent-ils rester avec le stock ?",
+        "answer": "Ils peuvent être intégrés à une règle de composant et de libération validée."
+      },
+      {
+        "id": "fr-services-inventory-storage-4",
+        "question": "Le stockage peut-il rejoindre la préparation de commandes ?",
+        "answer": "Oui, dès que l'identité vendable, la règle de conditionnement et le relais de commande sont prêts."
+      },
+      {
+        "id": "fr-services-inventory-storage-5",
+        "question": "Que faire si les cartons ne correspondent pas à l'avis ?",
+        "answer": "Enregistrer l'écart et le transmettre au responsable de décision nommé avant toute libération."
+      }
+    ]
+  },
+  "fr/services/private-white-label": {
+    "file": "fr-services-private-white-label.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Marque propre et marque blanche depuis la Chine | FreightVanta",
+    "description": "Coordonnez produit, éléments de marque, versions d'emballage, points de validation et relais vers la préparation de commandes pour vos programmes de marque propre et de marque blanche depuis la Chine.",
+    "keywords": [
+      "marque propre depuis la Chine",
+      "marque blanche Chine",
+      "sourcing marque propre",
+      "contrôle de version produit de marque",
+      "coordination emballage marque propre"
+    ],
+    "heading": "Gardez produit, emballage et validation de marque alignés de la Chine jusqu'au prochain relais.",
+    "body": "Un programme de marque propre ne se limite pas à apposer un logo sur un produit existant. Version produit, caractéristiques validées, fichiers de marque, étiquettes, emballage, notices, questions fournisseurs et instruction de préparation de commandes doivent renvoyer à la même décision. FreightVanta aide à structurer cet enregistrement et à préparer le prochain relais confirmé. Marque, propriété intellectuelle, étiquetage légal, allégations produit et conformité restent soumis à une revue qualifiée et à un périmètre écrit.",
+    "serviceName": "Marque propre et marque blanche",
+    "image": "/assets/freightvanta-topic-v18/images/service-private-label.jpg",
+    "faqs": [
+      {
+        "id": "fr-services-private-white-label-0",
+        "question": "Proposez-vous un conseil en marque ou propriété intellectuelle ?",
+        "answer": "Non ; utilisez un conseil juridique qualifié et un périmètre confirmé."
+      },
+      {
+        "id": "fr-services-private-white-label-1",
+        "question": "Les produits en marque blanche peuvent-ils utiliser un emballage personnalisé ?",
+        "answer": "Possible lorsque produit, matières, quantités et conditionnement sont validés."
+      },
+      {
+        "id": "fr-services-private-white-label-2",
+        "question": "Comment séparer anciennes et nouvelles étiquettes ?",
+        "answer": "Avec version active, date d'effet, règle sur le stock résiduel et instruction claire."
+      },
+      {
+        "id": "fr-services-private-white-label-3",
+        "question": "La coordination de marque propre garantit-elle la conformité de marché ?",
+        "answer": "Non ; sécurité, certification, étiquetage légal et allégations doivent être vérifiés."
+      },
+      {
+        "id": "fr-services-private-white-label-4",
+        "question": "Un programme de marque propre peut-il rejoindre le sourcing et la préparation de commandes ?",
+        "answer": "Oui, une fois les décisions produit et marque stables."
+      },
+      {
+        "id": "fr-services-private-white-label-5",
+        "question": "Et si le fichier créatif est encore en revue ?",
+        "answer": "Le garder en brouillon, nommer un valideur et ne pas l'utiliser comme règle de conditionnement active."
+      }
+    ]
+  },
+  "fr/services/worldwide-fulfillment": {
+    "file": "fr-services-worldwide-fulfillment.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Préparation de commandes pour produits sourcés en Chine | FreightVanta",
+    "description": "Préparez un stock issu de Chine pour les commandes clients avec des instructions claires de prélèvement, conditionnement, étiquette, remise au transport et gestion des exceptions.",
+    "keywords": [
+      "préparation de commandes pour produits sourcés en Chine",
+      "préparation de commandes internationale",
+      "e-fulfillment depuis la Chine",
+      "relais pick and pack",
+      "circuit d'exception commande"
+    ],
+    "heading": "Transformez un stock issu de Chine en commandes prêtes pour le client avec un plan de préparation clair.",
+    "body": "La préparation de commandes est la couche opérationnelle entre un stock prêt et la promesse client. FreightVanta aide à coordonner l'identification des produits sourcés en Chine, le prélèvement, le conditionnement, l'étiquetage, la remise à un service de transport et le traitement lorsqu'une commande exige une décision. La bonne configuration dépend du produit, du profil de commande, de la destination, des éléments de marque, de la source de commande et de l'exigence de livraison. Cette page ne promet ni emplacements d'entrepôt, ni couverture transporteur, ni automatisation, ni heures limites, ni comportement de suivi, ni livraison mondiale avant vérification.",
+    "serviceName": "Préparation de commandes",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "fr-services-worldwide-fulfillment-0",
+        "question": "Pouvez-vous préparer des commandes clients dans le monde entier ?",
+        "answer": "Partagez les marchés visés ; lieux réels, transporteurs, restrictions produit et disponibilité destination doivent être vérifiés."
+      },
+      {
+        "id": "fr-services-worldwide-fulfillment-1",
+        "question": "Les éléments fournisseur peuvent-ils être retirés ou les produits regroupés en lot ?",
+        "answer": "Possible dans le cadre d'une instruction de conditionnement validée."
+      },
+      {
+        "id": "fr-services-worldwide-fulfillment-2",
+        "question": "Notre boutique peut-elle se connecter automatiquement ?",
+        "answer": "Aucune promesse d'intégration avant confirmation de la plateforme et du support technique."
+      },
+      {
+        "id": "fr-services-worldwide-fulfillment-3",
+        "question": "Comment le suivi est-il géré ?",
+        "answer": "Selon le service de transport retenu et l'intégration disponible."
+      },
+      {
+        "id": "fr-services-worldwide-fulfillment-4",
+        "question": "La préparation de commandes peut-elle démarrer avec un stock déjà sourcé en Chine ?",
+        "answer": "Oui, dès que l'identité produit, la quantité et la règle de conditionnement sont utilisables."
+      },
+      {
+        "id": "fr-services-worldwide-fulfillment-5",
+        "question": "Comment traiter retours ou changements d'adresse ?",
+        "answer": "Définir le responsable d'exception et le circuit de réponse avant la libération."
+      }
+    ]
+  },
+  "fr/industries/cross-border-ecommerce": {
+    "file": "fr-industries-cross-border-ecommerce.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Logistique e-commerce transfrontalier depuis la Chine | FreightVanta",
+    "description": "Planifiez un parcours opérationnel de l'approvisionnement en Chine au contrôle produit, au conditionnement, à la réception du stock, à la libération et aux commandes prêtes pour le client.",
+    "keywords": [
+      "logistique e-commerce transfrontalier depuis la Chine",
+      "coordination de chaîne e-commerce Chine",
+      "sourcing et préparation de commandes depuis la Chine",
+      "stock e-commerce prêt pour la distribution"
+    ],
+    "heading": "Reliez la décision de sourcing en Chine à la commande que votre client doit recevoir.",
+    "body": "L'e-commerce transfrontalier est une chaîne de décisions liées : référence produit, questions fournisseurs, spécification, emballage, réception du stock, règle de libération et commande client. FreightVanta aide à rendre cette chaîne visible pour que l'équipe suivante travaille avec le même contexte produit et conditionnement. Couverture transporteur, délai de livraison, douane, intégration de plateforme et disponibilité de service restent liés à la destination et au périmètre confirmés.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "fr-industries-cross-border-ecommerce-0",
+        "question": "Pouvez-vous gérer toute notre chaîne e-commerce transfrontalière ?",
+        "answer": "La page relie des relais de service confirmés ; les services et pays réels nécessitent une revue de périmètre."
+      },
+      {
+        "id": "fr-industries-cross-border-ecommerce-1",
+        "question": "Pouvez-vous garantir des dates de livraison ?",
+        "answer": "Non ; itinéraire, transporteur, douane et conditions de destination doivent être confirmés."
+      },
+      {
+        "id": "fr-industries-cross-border-ecommerce-2",
+        "question": "Pouvez-vous prendre en charge Shopify ou une autre boutique ?",
+        "answer": "Aucune promesse d'intégration avant vérification de la plateforme et des données."
+      },
+      {
+        "id": "fr-industries-cross-border-ecommerce-3",
+        "question": "Sourcing, emballage, stockage et préparation de commandes peuvent-ils être reliés ?",
+        "answer": "Oui, lorsque chaque relais dispose d'un enregistrement validé."
+      },
+      {
+        "id": "fr-industries-cross-border-ecommerce-4",
+        "question": "Le stock saisonnier peut-il être libéré par étapes ?",
+        "answer": "Oui, avec finalité de stock, responsable de libération et destination confirmée."
+      },
+      {
+        "id": "fr-industries-cross-border-ecommerce-5",
+        "question": "Que doit envoyer d'abord une marque e-commerce ?",
+        "answer": "Produit et SKU, marchés, source de commande, emballage, calendrier et décision opérationnelle en cours."
+      }
+    ]
+  },
+  "fr/industries/consumer-goods": {
+    "file": "fr-industries-consumer-goods.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Logistique des biens de consommation depuis la Chine | FreightVanta",
+    "description": "Coordonnez des biens de consommation sourcés en Chine, de la référence produit et de l'emballage à la réception du stock, à la libération par canal et au relais prêt pour la distribution ou le client.",
+    "keywords": [
+      "logistique biens de consommation depuis la Chine",
+      "sourcing et emballage biens de consommation Chine",
+      "coordination de chaîne biens de consommation Chine",
+      "relais prêt pour la distribution"
+    ],
+    "heading": "Faites passer un bien de consommation de la référence produit en Chine à un relais prêt pour la distribution ou le client.",
+    "body": "Un produit de consommation est plus que l'article dans le carton. Version produit, présentation, emballage, preuve de réception, canal et responsable de libération façonnent la prochaine décision. FreightVanta aide à organiser ces relais pour des contextes DTC, abonnement, distribution, gros, saisonnier et réassort, sans présumer qualité produit, conformité, capacité de stockage ni couverture de livraison.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "fr-industries-consumer-goods-0",
+        "question": "Pouvez-vous garantir qu'un bien de consommation respecte les réglementations locales ?",
+        "answer": "Non ; une revue de conformité qualifiée est nécessaire."
+      },
+      {
+        "id": "fr-industries-consumer-goods-1",
+        "question": "Pouvez-vous préparer un emballage prêt pour la distribution ?",
+        "answer": "Emballage et conditionnement sont planifiables lorsque fichiers, composants et instructions sont validés."
+      },
+      {
+        "id": "fr-industries-consumer-goods-2",
+        "question": "Pouvez-vous gérer un stock de lancement saisonnier ?",
+        "answer": "Le parcours de stock est planifiable ; dates et capacité doivent être confirmées."
+      },
+      {
+        "id": "fr-industries-consumer-goods-3",
+        "question": "Les produits peuvent-ils être sourcés en Chine puis préparés en commande ?",
+        "answer": "Oui, via des relais de service confirmés."
+      },
+      {
+        "id": "fr-industries-consumer-goods-4",
+        "question": "Proposez-vous des tests produit ?",
+        "answer": "Uniquement lorsque la méthode et le périmètre sont explicitement confirmés."
+      },
+      {
+        "id": "fr-industries-consumer-goods-5",
+        "question": "Que doit envoyer d'abord une marque ?",
+        "answer": "Version produit, canal, emballage, quantité, destination et relais souhaité."
+      }
+    ]
+  },
+  "fr/industries/industrial-components": {
+    "file": "fr-industries-industrial-components.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Logistique des composants industriels depuis la Chine | FreightVanta",
+    "description": "Coordonnez des pièces industrielles pilotées par spécification depuis la Chine avec contrôle de version, emballage de protection, documents, identification à la réception et relais de réception confirmé.",
+    "keywords": [
+      "logistique composants industriels depuis la Chine",
+      "sourcing et expédition de pièces industrielles Chine",
+      "chaîne composants industriels Chine",
+      "emballage de protection pièces industrielles",
+      "coordination fret pilotée par spécification"
+    ],
+    "heading": "Faites suivre la spécification active d'un composant de la Chine jusqu'à un relais de réception maîtrisé.",
+    "body": "Pour des pièces industrielles, une décision de livraison exploitable commence par la bonne référence, la version, la quantité, la méthode de protection, les documents, l'identification à la réception et le responsable de réception. FreightVanta aide à structurer ces informations pour l'approvisionnement de production, la maintenance et les pièces de rechange, les projets et la livraison sur site. Validation technique, tests, travail réglementaire, capacité transporteur et accès au site restent des points de confirmation distincts.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/industry-receiving.jpg",
+    "faqs": [
+      {
+        "id": "fr-industries-industrial-components-0",
+        "question": "Validez-vous la spécification technique ?",
+        "answer": "Non ; la page organise la référence active, la validation technique reste à l'équipe responsable."
+      },
+      {
+        "id": "fr-industries-industrial-components-1",
+        "question": "Pouvez-vous organiser un emballage de protection ?",
+        "answer": "L'exigence peut être coordonnée ; matière et périmètre de manutention doivent être confirmés."
+      },
+      {
+        "id": "fr-industries-industrial-components-2",
+        "question": "Pouvez-vous garantir une livraison sur site à un jalon ?",
+        "answer": "Non ; itinéraire, transporteur, douane et conditions de site doivent être confirmés."
+      },
+      {
+        "id": "fr-industries-industrial-components-3",
+        "question": "Les pièces industrielles peuvent-elles être stockées avant libération ?",
+        "answer": "Stockage et identification sont planifiables dans un périmètre confirmé."
+      },
+      {
+        "id": "fr-industries-industrial-components-4",
+        "question": "Des pièces de rechange urgentes peuvent-elles emprunter la voie du fret urgent ?",
+        "answer": "Renvoyer vers Fret urgent dès que conséquence, date de mise à disposition et décision d'itinéraire sont définies."
+      },
+      {
+        "id": "fr-industries-industrial-components-5",
+        "question": "Que joindre d'abord ?",
+        "answer": "Numéro de pièce et version, plan ou photo, quantité, destination, emballage et calendrier."
+      }
+    ]
+  },
+  "fr/industries/time-critical-cargo": {
+    "file": "fr-industries-time-critical-cargo.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+    ],
+    "title": "Logistique de fret urgent depuis la Chine | FreightVanta",
+    "description": "Planifiez un fret urgent depuis la Chine avec date de mise à disposition, documents, options d'itinéraire, circuit d'escalade et prochain relais confirmé visibles.",
+    "keywords": [
+      "logistique fret urgent depuis la Chine",
+      "expédition urgente depuis la Chine",
+      "fret aérien urgent Chine",
+      "chaîne logistique sensible au temps",
+      "logistique de réassort d'urgence"
+    ],
+    "heading": "Rendez le prochain mouvement réalisable visible avant que l'horloge ne prenne le dessus.",
+    "body": "Une décision de fret urgent demande plus que le mot express. FreightVanta aide à rassembler conséquence métier, préparation de la marchandise, date de mise à disposition, documents, question d'itinéraire, fenêtre de réception et responsable d'escalade afin qu'un mouvement urgent soit examiné comme un ensemble de décisions. Capacité transporteur, délai de transit, dédouanement, tarifs, manutention spéciale et livraison finale ne sont confirmés que pour la marchandise et l'itinéraire réels.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-air-freight.jpg",
+    "faqs": [
+      {
+        "id": "fr-industries-time-critical-cargo-0",
+        "question": "Pouvez-vous garantir une heure d'arrivée ?",
+        "answer": "Non ; transporteur, itinéraire, douane et conditions de réception réels doivent être confirmés."
+      },
+      {
+        "id": "fr-industries-time-critical-cargo-1",
+        "question": "Un fret urgent peut-il démarrer avec des informations partielles ?",
+        "answer": "Le premier examen peut révéler les faits manquants, mais un itinéraire ne peut être confirmé sans les informations requises."
+      },
+      {
+        "id": "fr-industries-time-critical-cargo-2",
+        "question": "Pouvez-vous comparer le fret aérien et d'autres options depuis la Chine ?",
+        "answer": "Les questions d'itinéraire peuvent être organisées ; disponibilité, tarif et délai exigent une confirmation réelle."
+      },
+      {
+        "id": "fr-industries-time-critical-cargo-3",
+        "question": "Et si l'itinéraire initial échoue ?",
+        "answer": "Le circuit d'escalade indique qui examine les alternatives et quelle décision est ensuite nécessaire."
+      },
+      {
+        "id": "fr-industries-time-critical-cargo-4",
+        "question": "Pouvez-vous prendre en charge des marchandises spéciales ou réglementées ?",
+        "answer": "Uniquement après confirmation explicite de produit, documents, manutention et exigences légales."
+      },
+      {
+        "id": "fr-industries-time-critical-cargo-5",
+        "question": "Que devons-nous envoyer d'abord ?",
+        "answer": "Date de mise à disposition, conséquence, faits marchandise et colis, origine, destination, documents et fenêtre de réception."
+      }
+    ]
+  },
+  "it/product-sourcing": {
+    "file": "it-product-sourcing.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Sourcing prodotti dalla Cina per aziende | FreightVanta",
+    "description": "Organizza il sourcing di prodotti dalla Cina con un brief per il fornitore, risposte confrontabili, punti campione e un passaggio preparato per il mercato italiano.",
+    "keywords": [
+      "sourcing prodotti dalla Cina",
+      "acquistare prodotti dalla Cina",
+      "fornitori cinesi",
+      "approvvigionamento dalla Cina",
+      "importare dalla Cina"
+    ],
+    "heading": "Sourcing prodotti dalla Cina, ordinato per la prossima decisione d'acquisto.",
+    "body": "Un link, un'immagine di riferimento, una specifica o una quantità obiettivo sono sufficienti per iniziare. FreightVanta organizza l'approvvigionamento dalla Cina in un brief per il fornitore: cosa deve essere il prodotto, cosa confermare con fornitori cinesi, quali campioni o confronti valutare e come preparare il passaggio verso il mercato italiano.",
+    "serviceName": "Ricerca fornitori in Cina",
+    "image": "/assets/freightvanta-topic-v18/images/service-product-sourcing.jpg",
+    "faqs": [
+      {
+        "id": "it-sourcing-0",
+        "question": "FreightVanta può aiutare con il sourcing di prodotti dalla Cina?",
+        "answer": "Sì. FreightVanta può strutturare il brief prodotto, le domande ai fornitori cinesi, le risposte confrontabili e il passaggio approvato. Scelta del fornitore, controllo qualità, prezzi, conformità e criteri di accettazione devono essere confermati separatamente."
+      },
+      {
+        "id": "it-sourcing-1",
+        "question": "Possiamo partire da un solo link prodotto?",
+        "answer": "Sì. Un link, un'immagine o una breve descrizione permettono di iniziare. Le informazioni mancanti per il sourcing dalla Cina diventano domande pratiche."
+      },
+      {
+        "id": "it-sourcing-2",
+        "question": "Il fornitore cinese o la qualità del prodotto sono garantiti?",
+        "answer": "No. Controlli qualità, audit, prezzi, conformità e criteri di accettazione devono essere esplicitamente confermati in un accordo di servizio approvato."
+      },
+      {
+        "id": "it-sourcing-3",
+        "question": "Il sourcing dalla Cina può proseguire verso il fulfillment?",
+        "answer": "Sì. Dopo l'approvazione di prodotto, packaging, quantità, origine e destinazione, il passaggio può essere preparato per magazzino, trasporto e fulfillment."
+      }
+    ]
+  },
+  "it/services/bulk-procurement": {
+    "file": "it-services-bulk-procurement.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Pianificare un acquisto all'ingrosso in Cina | FreightVanta",
+    "description": "Prepara un acquisto all'ingrosso in Cina con quantità chiare, domande ai fornitori, decisioni sulle scorte, requisiti di imballaggio e istruzioni di ricezione.",
+    "keywords": [
+      "acquisto all'ingrosso in Cina",
+      "ordine all'ingrosso Cina",
+      "acquisti in volume Cina",
+      "pianificazione acquisti Cina",
+      "rilascio scorte per fasi"
+    ],
+    "heading": "Pianifica l'acquisto all'ingrosso in Cina prima che la quantità crei dettagli aperti costosi.",
+    "body": "Un ordine più grande non è un ordine piccolo con più pezzi. Cambia le domande di produzione, il requisito di imballaggio, il confronto sul pagamento, il metodo di ricezione, la finalità delle scorte e il piano di rilascio. FreightVanta aiuta a raccogliere queste decisioni collegate in un brief di acquisto operativo prima che l'acquisto all'ingrosso in Cina passi alla fase successiva. Selezione dei fornitori, condizioni commerciali e approvazione finale restano al tuo team.",
+    "serviceName": "Acquisto all'ingrosso in Cina",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "it-services-bulk-procurement-0",
+        "question": "FreightVanta garantisce prezzi più bassi per un acquisto all'ingrosso in Cina?",
+        "answer": "No. Senza perimetro commerciale scritto non si promettono sconti o risparmi."
+      },
+      {
+        "id": "it-services-bulk-procurement-1",
+        "question": "Un acquisto all'ingrosso può essere rilasciato per fasi?",
+        "answer": "Sì, se ricezione, stoccaggio, imballaggio, trasporto e istruzioni di rilascio sono confermati prima."
+      },
+      {
+        "id": "it-services-bulk-procurement-2",
+        "question": "Possiamo partire da un fornitore esistente?",
+        "answer": "Sì, con versione di prodotto, quantità, imballaggio, destinazione e percorso di approvazione."
+      },
+      {
+        "id": "it-services-bulk-procurement-3",
+        "question": "L'acquisto all'ingrosso include un controllo qualità?",
+        "answer": "Non automaticamente; criteri di accettazione, audit, test e conformità devono essere confermati."
+      },
+      {
+        "id": "it-services-bulk-procurement-4",
+        "question": "L'acquisto all'ingrosso può collegarsi alla preparazione ordini?",
+        "answer": "Sì, quando identificatore di scorta, imballaggio e regole di preparazione sono stabili."
+      },
+      {
+        "id": "it-services-bulk-procurement-5",
+        "question": "Che cosa fare se la quantità è ancora in esame?",
+        "answer": "Mantieni un intervallo e il responsabile della decisione visibili, invece di presentare una cifra non approvata come definitiva."
+      }
+    ]
+  },
+  "it/services/packaging-branding": {
+    "file": "it-services-packaging-branding.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Imballaggio e immagine di marca per prodotti dalla Cina | FreightVanta",
+    "description": "Trasforma imballaggi approvati, etichette, inserti e materiali di marca in un'istruzione di confezionamento pratica per la preparazione degli ordini.",
+    "keywords": [
+      "imballaggio personalizzato per prodotti dalla Cina",
+      "imballaggio e immagine di marca",
+      "inserti ed etichette",
+      "istruzione di confezionamento",
+      "imballaggio di marca dalla Cina"
+    ],
+    "heading": "Fai arrivare i prodotti dalla Cina in un imballaggio che porta avanti il tuo marchio.",
+    "body": "Un prodotto finito non è ancora un'esperienza cliente finita. Cartone, sacchetto, inserto, etichetta, regola di protezione, bundle e gestione del materiale del fornitore devono raggiungere il team di confezionamento come istruzione utilizzabile. FreightVanta aiuta a trasformare materiali di imballaggio e di marca approvati in un brief di confezionamento coordinato per prodotti approvvigionati in Cina. Marchio, file grafici, promessa al cliente e approvazione finale restano al tuo team.",
+    "serviceName": "Imballaggio e immagine di marca",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "it-services-packaging-branding-0",
+        "question": "Potete progettare il nostro logo o marchio?",
+        "answer": "La pagina coordina materiali approvati; diritto, proprietà intellettuale e creatività richiedono un perimetro separato."
+      },
+      {
+        "id": "it-services-packaging-branding-1",
+        "question": "I prodotti white label possono usare inserti o imballaggi propri?",
+        "answer": "Possibile quando prodotto, materiali, quantità e confezionamento sono approvati."
+      },
+      {
+        "id": "it-services-packaging-branding-2",
+        "question": "Come evitiamo di mescolare imballaggi vecchi e nuovi?",
+        "answer": "Con versione attiva, data di efficacia, regola sulle scorte residue e istruzione aggiornata."
+      },
+      {
+        "id": "it-services-packaging-branding-3",
+        "question": "Il coordinamento dell'imballaggio garantisce la conformità normativa?",
+        "answer": "No; requisiti di mercato, sicurezza e certificazione richiedono una revisione qualificata."
+      },
+      {
+        "id": "it-services-packaging-branding-4",
+        "question": "L'imballaggio può collegarsi a marca privata e preparazione ordini?",
+        "answer": "Sì, quando prodotto, versione e regole di confezionamento sono stabili."
+      },
+      {
+        "id": "it-services-packaging-branding-5",
+        "question": "E se il file grafico non è ancora definitivo?",
+        "answer": "Mantieni lo stato di bozza e nomina l'approvatore; non pubblicarlo come regola attiva."
+      }
+    ]
+  },
+  "it/services/inventory-storage": {
+    "file": "it-services-inventory-storage.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Stoccaggio di merci provenienti dalla Cina | FreightVanta",
+    "description": "Organizza ricezione, identificazione, stoccaggio, istruzioni di rilascio e decisioni sulle eccezioni per merci importate prima che passino a trasporto, vendita al dettaglio o ordini cliente.",
+    "keywords": [
+      "stoccaggio di merci provenienti dalla Cina",
+      "gestione scorte merci importate",
+      "ricezione e rilascio",
+      "stoccaggio di prodotti dalla Cina"
+    ],
+    "heading": "Dai alle scorte importate un piano chiaro di ricezione, stoccaggio e rilascio.",
+    "body": "Quando arriva merce dalla Cina, la domanda successiva non è solo dove si trovi. Il team deve sapere che cosa è arrivato, a quale versione di prodotto appartiene, come viene identificato, quale evidenza è registrata, che cosa può essere rilasciato e chi decide quando conteggio, cartone, etichetta o destinazione non coincidono. FreightVanta aiuta a ordinare questo registro operativo prima di confermare il perimetro di stoccaggio e rilascio.",
+    "serviceName": "Stoccaggio e rilascio delle scorte",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "it-services-inventory-storage-0",
+        "question": "Potete stoccare prodotti importati dalla Cina?",
+        "answer": "Condividi origine, prodotto, quantità, calendario e destinazione; ubicazione, capacità e movimentazione devono essere confermate."
+      },
+      {
+        "id": "it-services-inventory-storage-1",
+        "question": "Le scorte possono essere rilasciate per fasi?",
+        "answer": "Sì, quando finalità della scorta, identificazione e responsabile del rilascio sono definiti."
+      },
+      {
+        "id": "it-services-inventory-storage-2",
+        "question": "Garantite un conteggio o un esito di ispezione?",
+        "answer": "No; evidenze, ispezione e criteri di accettazione richiedono un perimetro esplicito."
+      },
+      {
+        "id": "it-services-inventory-storage-3",
+        "question": "Imballaggio e inserti possono restare con le scorte?",
+        "answer": "Possono essere inclusi in una regola di componente e rilascio approvata."
+      },
+      {
+        "id": "it-services-inventory-storage-4",
+        "question": "Lo stoccaggio può collegarsi alla preparazione degli ordini?",
+        "answer": "Sì, quando identità vendibile, regola di confezionamento e passaggio ordine sono pronti."
+      },
+      {
+        "id": "it-services-inventory-storage-5",
+        "question": "Che cosa fare se i cartoni non corrispondono all'avviso?",
+        "answer": "Registrare la discrepanza e inoltrarla al responsabile di decisione nominato prima del rilascio."
+      }
+    ]
+  },
+  "it/services/private-white-label": {
+    "file": "it-services-private-white-label.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Marca privata e white label dalla Cina | FreightVanta",
+    "description": "Coordina prodotto, materiali di marca, versioni di imballaggio, punti di approvazione e passaggio alla preparazione degli ordini per programmi di marca privata e white label dalla Cina.",
+    "keywords": [
+      "marca privata dalla Cina",
+      "white label Cina",
+      "sourcing marca privata",
+      "controllo versione prodotto di marca",
+      "coordinamento imballaggio marca privata"
+    ],
+    "heading": "Mantieni allineati prodotto, imballaggio e approvazione del marchio dalla Cina al passaggio successivo.",
+    "body": "Un programma di marca privata è più che applicare un logo a un prodotto esistente. Versione di prodotto, attributi approvati, file di marca, etichette, imballaggio, inserti, domande ai fornitori e istruzione di preparazione ordini devono riferirsi alla stessa decisione. FreightVanta aiuta a ordinare questo registro e a preparare il passaggio successivo confermato. Marchio, proprietà intellettuale, etichettatura legale, dichiarazioni di prodotto e conformità restano soggetti a revisione qualificata e a un perimetro scritto.",
+    "serviceName": "Marca privata e white label",
+    "image": "/assets/freightvanta-topic-v18/images/service-private-label.jpg",
+    "faqs": [
+      {
+        "id": "it-services-private-white-label-0",
+        "question": "Offrite consulenza su marchio o proprietà intellettuale?",
+        "answer": "No; usa consulenza legale qualificata e un perimetro confermato."
+      },
+      {
+        "id": "it-services-private-white-label-1",
+        "question": "I prodotti white label possono usare imballaggi personalizzati?",
+        "answer": "Possibile quando prodotto, materiali, quantità e confezionamento sono approvati."
+      },
+      {
+        "id": "it-services-private-white-label-2",
+        "question": "Come si separano etichette vecchie e nuove?",
+        "answer": "Con versione attiva, data di efficacia, regola sulle scorte residue e istruzione chiara."
+      },
+      {
+        "id": "it-services-private-white-label-3",
+        "question": "Il coordinamento della marca privata garantisce la conformità di mercato?",
+        "answer": "No; sicurezza, certificazione, etichettatura legale e dichiarazioni devono essere verificate."
+      },
+      {
+        "id": "it-services-private-white-label-4",
+        "question": "Un programma di marca privata può collegarsi a sourcing e preparazione ordini?",
+        "answer": "Sì, quando le decisioni su prodotto e marchio sono stabili."
+      },
+      {
+        "id": "it-services-private-white-label-5",
+        "question": "E se il file grafico è ancora in revisione?",
+        "answer": "Mantenerlo in bozza, nominare un approvatore e non usarlo come regola di confezionamento attiva."
+      }
+    ]
+  },
+  "it/services/worldwide-fulfillment": {
+    "file": "it-services-worldwide-fulfillment.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Preparazione ordini per prodotti dalla Cina | FreightVanta",
+    "description": "Prepara scorte provenienti dalla Cina per gli ordini cliente con istruzioni chiare di prelievo, confezionamento, etichetta, consegna al trasporto e gestione delle eccezioni.",
+    "keywords": [
+      "preparazione ordini per prodotti dalla Cina",
+      "preparazione ordini internazionale",
+      "e-fulfillment dalla Cina",
+      "passaggio pick and pack",
+      "percorso eccezione ordine"
+    ],
+    "heading": "Trasforma le scorte provenienti dalla Cina in ordini pronti per il cliente con un piano di preparazione chiaro.",
+    "body": "La preparazione degli ordini è lo strato operativo tra scorte pronte e promessa al cliente. FreightVanta aiuta a coordinare come i prodotti approvvigionati in Cina vengono identificati, prelevati, confezionati, etichettati, consegnati a un servizio di trasporto e gestiti quando un ordine richiede una decisione. La configurazione corretta dipende da prodotto, profilo dell'ordine, destinazione, materiali di marca, origine dell'ordine e requisito di consegna. Questa pagina non promette ubicazioni di magazzino, copertura del corriere, automazione, orari limite, comportamento di tracciamento o consegna mondiale finché questi punti non sono verificati.",
+    "serviceName": "Preparazione degli ordini",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "it-services-worldwide-fulfillment-0",
+        "question": "Potete preparare ordini cliente in tutto il mondo?",
+        "answer": "Condividi i mercati obiettivo; ubicazioni reali, corrieri, restrizioni di prodotto e disponibilità di destinazione devono essere verificate."
+      },
+      {
+        "id": "it-services-worldwide-fulfillment-1",
+        "question": "Il materiale del fornitore può essere rimosso o i prodotti raggruppati?",
+        "answer": "Possibile nell'ambito di un'istruzione di confezionamento approvata."
+      },
+      {
+        "id": "it-services-worldwide-fulfillment-2",
+        "question": "Il nostro store può collegarsi automaticamente?",
+        "answer": "Nessuna promessa di integrazione prima di confermare piattaforma e supporto tecnico."
+      },
+      {
+        "id": "it-services-worldwide-fulfillment-3",
+        "question": "Come vengono gestiti gli aggiornamenti di tracciamento?",
+        "answer": "Dipende dal servizio di trasporto scelto e dall'integrazione disponibile."
+      },
+      {
+        "id": "it-services-worldwide-fulfillment-4",
+        "question": "La preparazione ordini può partire da scorte già acquistate in Cina?",
+        "answer": "Sì, quando identità di prodotto, quantità e regola di confezionamento sono utilizzabili."
+      },
+      {
+        "id": "it-services-worldwide-fulfillment-5",
+        "question": "Come vengono gestiti resi o cambi di indirizzo?",
+        "answer": "Definire il responsabile di eccezione e il percorso di risposta prima del rilascio."
+      }
+    ]
+  },
+  "it/industries/cross-border-ecommerce": {
+    "file": "it-industries-cross-border-ecommerce.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Logistica e-commerce transfrontaliero dalla Cina | FreightVanta",
+    "description": "Pianifica un percorso operativo dal sourcing in Cina al controllo prodotto, al confezionamento, all'ingresso delle scorte, al rilascio e agli ordini pronti per il cliente.",
+    "keywords": [
+      "logistica e-commerce transfrontaliero dalla Cina",
+      "coordinamento filiera e-commerce Cina",
+      "sourcing e preparazione ordini dalla Cina",
+      "scorte e-commerce pronte per la vendita"
+    ],
+    "heading": "Collega la decisione di sourcing in Cina all'ordine che il cliente deve ricevere.",
+    "body": "L'e-commerce transfrontaliero è una catena di decisioni collegate: referenza di prodotto, domande ai fornitori, specifica, imballaggio, ingresso delle scorte, regola di rilascio e ordine cliente. FreightVanta aiuta a rendere visibile questa catena, così il team successivo lavora con lo stesso contesto di prodotto e confezionamento. Copertura del corriere, tempi di consegna, dogana, integrazione della piattaforma e disponibilità del servizio restano legati a destinazione e perimetro confermati.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "it-industries-cross-border-ecommerce-0",
+        "question": "Potete gestire l'intera filiera e-commerce transfrontaliera?",
+        "answer": "La pagina collega passaggi di servizio confermati; servizi e paesi reali richiedono una revisione del perimetro."
+      },
+      {
+        "id": "it-industries-cross-border-ecommerce-1",
+        "question": "Potete garantire le date di consegna?",
+        "answer": "No; rotta, corriere, dogana e condizioni di destinazione devono essere confermati."
+      },
+      {
+        "id": "it-industries-cross-border-ecommerce-2",
+        "question": "Potete supportare Shopify o un altro store?",
+        "answer": "Nessuna promessa di integrazione prima di verificare piattaforma e dati."
+      },
+      {
+        "id": "it-industries-cross-border-ecommerce-3",
+        "question": "Sourcing, imballaggio, stoccaggio e preparazione ordini possono essere collegati?",
+        "answer": "Sì, quando ogni passaggio ha un registro approvato."
+      },
+      {
+        "id": "it-industries-cross-border-ecommerce-4",
+        "question": "Le scorte stagionali possono essere rilasciate per fasi?",
+        "answer": "Sì, con finalità delle scorte, responsabile del rilascio e destinazione confermati."
+      },
+      {
+        "id": "it-industries-cross-border-ecommerce-5",
+        "question": "Che cosa dovrebbe inviare prima un brand e-commerce?",
+        "answer": "Prodotto e SKU, mercati, origine dell'ordine, imballaggio, tempi e la decisione operativa attuale."
+      }
+    ]
+  },
+  "it/industries/consumer-goods": {
+    "file": "it-industries-consumer-goods.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Logistica per beni di consumo dalla Cina | FreightVanta",
+    "description": "Coordina beni di consumo provenienti dalla Cina dalla referenza di prodotto e dall'imballaggio all'ingresso delle scorte, al rilascio per canale e al passaggio pronto per vendita al dettaglio o cliente.",
+    "keywords": [
+      "logistica beni di consumo dalla Cina",
+      "sourcing e imballaggio beni di consumo Cina",
+      "coordinamento filiera beni di consumo Cina",
+      "passaggio pronto per la vendita al dettaglio"
+    ],
+    "heading": "Porta un bene di consumo dalla referenza di prodotto in Cina a un passaggio pronto per la vendita al dettaglio o per il cliente.",
+    "body": "Un prodotto di consumo è più dell'articolo dentro il cartone. Versione di prodotto, presentazione, imballaggio, evidenza di ricezione, canale e responsabile del rilascio determinano la decisione successiva. FreightVanta aiuta a ordinare questi passaggi per contesti DTC, abbonamento, vendita al dettaglio, ingrosso, stagionale e rifornimento, senza presupporre qualità del prodotto, conformità, capacità di stoccaggio o copertura di consegna.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "it-industries-consumer-goods-0",
+        "question": "Potete garantire che un bene di consumo rispetti la normativa locale?",
+        "answer": "No; serve una revisione di conformità qualificata."
+      },
+      {
+        "id": "it-industries-consumer-goods-1",
+        "question": "Potete preparare un imballaggio pronto per la vendita al dettaglio?",
+        "answer": "Imballaggio e confezionamento sono pianificabili quando file, componenti e istruzioni sono approvati."
+      },
+      {
+        "id": "it-industries-consumer-goods-2",
+        "question": "Potete gestire scorte di lancio stagionale?",
+        "answer": "Il percorso delle scorte è pianificabile; date e capacità devono essere confermate."
+      },
+      {
+        "id": "it-industries-consumer-goods-3",
+        "question": "I prodotti possono essere acquistati in Cina e poi preparati in ordine?",
+        "answer": "Sì, tramite passaggi di servizio confermati."
+      },
+      {
+        "id": "it-industries-consumer-goods-4",
+        "question": "Offrite test di prodotto?",
+        "answer": "Solo quando metodo e perimetro sono esplicitamente confermati."
+      },
+      {
+        "id": "it-industries-consumer-goods-5",
+        "question": "Che cosa dovrebbe inviare prima un brand?",
+        "answer": "Versione di prodotto, canale, imballaggio, quantità, destinazione e passaggio desiderato."
+      }
+    ]
+  },
+  "it/industries/industrial-components": {
+    "file": "it-industries-industrial-components.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Logistica componenti industriali dalla Cina | FreightVanta",
+    "description": "Coordina parti industriali guidate da specifica dalla Cina con controllo di versione, imballaggio protettivo, documenti, identificazione all'ingresso e passaggio di ricezione confermato.",
+    "keywords": [
+      "logistica componenti industriali dalla Cina",
+      "sourcing e spedizione parti industriali Cina",
+      "filiera componenti industriali Cina",
+      "imballaggio protettivo parti industriali",
+      "coordinamento trasporto guidato da specifica"
+    ],
+    "heading": "Porta la specifica attiva di un componente dalla Cina a un passaggio di ricezione controllato.",
+    "body": "Per le parti industriali una decisione di consegna utilizzabile parte dalla referenza corretta, dalla versione, dalla quantità, dal metodo di protezione, dai documenti, dall'identificazione all'ingresso e dal responsabile della ricezione. FreightVanta aiuta a ordinare queste informazioni per ingresso in produzione, manutenzione e ricambi, progetti e consegna in cantiere. Approvazione tecnica, test, attività regolatorie, capacità del vettore e accesso al cantiere restano punti di conferma separati.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/industry-receiving.jpg",
+    "faqs": [
+      {
+        "id": "it-industries-industrial-components-0",
+        "question": "Approvate la specifica tecnica?",
+        "answer": "No; la pagina organizza la referenza attiva, l'approvazione tecnica resta al team responsabile."
+      },
+      {
+        "id": "it-industries-industrial-components-1",
+        "question": "Potete organizzare un imballaggio protettivo?",
+        "answer": "Il requisito può essere coordinato; materiale e perimetro di movimentazione devono essere confermati."
+      },
+      {
+        "id": "it-industries-industrial-components-2",
+        "question": "Potete garantire una consegna in cantiere a una milestone?",
+        "answer": "No; rotta, vettore, dogana e condizioni del cantiere devono essere confermati."
+      },
+      {
+        "id": "it-industries-industrial-components-3",
+        "question": "Le parti industriali possono essere stoccate prima del rilascio?",
+        "answer": "Stoccaggio e identificazione sono pianificabili in un perimetro confermato."
+      },
+      {
+        "id": "it-industries-industrial-components-4",
+        "question": "I ricambi urgenti possono usare la via della spedizione urgente?",
+        "answer": "Collegare a Spedizione urgente quando conseguenza, data di disponibilità e decisione di rotta sono definite."
+      },
+      {
+        "id": "it-industries-industrial-components-5",
+        "question": "Che cosa allegare prima?",
+        "answer": "Numero di parte e versione, disegno o foto, quantità, destinazione, imballaggio e tempi."
+      }
+    ]
+  },
+  "it/industries/time-critical-cargo": {
+    "file": "it-industries-time-critical-cargo.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+    ],
+    "title": "Logistica spedizioni urgenti dalla Cina | FreightVanta",
+    "description": "Pianifica una spedizione urgente dalla Cina con data di disponibilità, documenti, opzioni di rotta, percorso di escalation e prossimo passaggio confermato visibili.",
+    "keywords": [
+      "logistica spedizioni urgenti dalla Cina",
+      "spedizione urgente dalla Cina",
+      "trasporto aereo urgente Cina",
+      "filiera sensibile al tempo",
+      "logistica di rifornimento d'emergenza"
+    ],
+    "heading": "Rendi visibile il prossimo movimento praticabile prima che l'orologio prenda il sopravvento.",
+    "body": "Una decisione di spedizione urgente richiede più della parola express. FreightVanta aiuta a raccogliere conseguenza di business, preparazione della merce, data di disponibilità, documenti, domanda di rotta, finestra di ricezione e responsabile di escalation, così un movimento urgente può essere esaminato come un insieme di decisioni. Capacità del vettore, tempi di transito, sdoganamento, tariffe, movimentazione speciale e consegna finale si confermano solo per la merce e la rotta reali.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-air-freight.jpg",
+    "faqs": [
+      {
+        "id": "it-industries-time-critical-cargo-0",
+        "question": "Potete garantire un orario di arrivo?",
+        "answer": "No; vettore, rotta, dogana e condizioni di ricezione reali devono essere confermati."
+      },
+      {
+        "id": "it-industries-time-critical-cargo-1",
+        "question": "Una spedizione urgente può partire con informazioni parziali?",
+        "answer": "La prima revisione può evidenziare fatti mancanti, ma la rotta non può essere confermata senza le informazioni richieste."
+      },
+      {
+        "id": "it-industries-time-critical-cargo-2",
+        "question": "Potete confrontare trasporto aereo e altre opzioni dalla Cina?",
+        "answer": "Le domande di rotta possono essere organizzate; disponibilità, tariffa e tempi richiedono una conferma reale."
+      },
+      {
+        "id": "it-industries-time-critical-cargo-3",
+        "question": "E se la rotta iniziale non funziona?",
+        "answer": "Il percorso di escalation registra chi valuta le alternative e quale decisione serve dopo."
+      },
+      {
+        "id": "it-industries-time-critical-cargo-4",
+        "question": "Potete gestire merci speciali o regolamentate?",
+        "answer": "Solo dopo conferma esplicita di prodotto, documenti, movimentazione e requisiti legali."
+      },
+      {
+        "id": "it-industries-time-critical-cargo-5",
+        "question": "Che cosa dovremmo inviare prima?",
+        "answer": "Data di disponibilità, conseguenza, fatti su merce e colli, origine, destinazione, documenti e finestra di ricezione."
+      }
+    ]
+  },
+  "nl/product-sourcing": {
+    "file": "nl-product-sourcing.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Producten inkopen in China | FreightVanta",
+    "description": "Producten inkopen in China met een leveranciersbrief, vergelijkbare antwoorden, monsterpunten en een voorbereide overdracht voor de Nederlandse markt.",
+    "keywords": [
+      "producten inkopen in China",
+      "China sourcing",
+      "leveranciers in China vinden",
+      "inkopen uit China",
+      "producten importeren uit China"
+    ],
+    "heading": "Sourcing in China, geordend voor uw volgende inkoopbeslissing.",
+    "body": "Een link, referentiebeeld, specificatie of doelhoeveelheid is genoeg om te starten. FreightVanta brengt China sourcing samen in een leveranciersklaar brief: wat het product moet zijn, wat leveranciers in China moeten bevestigen, welke monsters of vergelijkingen nodig zijn en hoe de overdracht voor de Nederlandse markt wordt voorbereid.",
+    "serviceName": "Sourcing in China",
+    "image": "/assets/freightvanta-topic-v18/images/service-product-sourcing.jpg",
+    "faqs": [
+      {
+        "id": "nl-sourcing-0",
+        "question": "Kan FreightVanta helpen met producten inkopen in China?",
+        "answer": "Ja. FreightVanta kan het productbrief, vragen voor leveranciers in China, vergelijkbare antwoorden en de goedgekeurde overdracht structureren. Leverancierskeuze, kwaliteitscontrole, prijs, compliance en acceptatiecriteria moeten afzonderlijk worden bevestigd."
+      },
+      {
+        "id": "nl-sourcing-1",
+        "question": "Kunnen we beginnen met alleen een productlink?",
+        "answer": "Ja. Een link, beeld of korte omschrijving is voldoende voor het eerste gesprek. Ontbrekende informatie voor China sourcing wordt als open vraag vastgelegd."
+      },
+      {
+        "id": "nl-sourcing-2",
+        "question": "Worden een leverancier in China of productkwaliteit gegarandeerd?",
+        "answer": "Nee. Kwaliteitscontrole, audits, prijs, compliance en acceptatiecriteria moeten expliciet worden overeengekomen in een goedgekeurde serviceomvang."
+      },
+      {
+        "id": "nl-sourcing-3",
+        "question": "Kan inkopen uit China aansluiten op fulfillment?",
+        "answer": "Ja. Zodra product, verpakking, hoeveelheid, oorsprong en bestemming zijn goedgekeurd, kan de overdracht worden voorbereid voor voorraad, transport en fulfillment."
+      }
+    ]
+  },
+  "nl/services/bulk-procurement": {
+    "file": "nl-services-bulk-procurement.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Grootschalige inkoop in China plannen | FreightVanta",
+    "description": "Plan een grootschalige inkoop in China met duidelijke aantallen, leveranciersvragen, voorraadbeslissingen, verpakkingseisen en ontvangstinstructies.",
+    "keywords": [
+      "grootschalige inkoop in China",
+      "bulkorder China",
+      "inkoop in volume China",
+      "inkoopplanning China",
+      "voorraadvrijgave in fasen"
+    ],
+    "heading": "Plan de grootschalige inkoop in China voordat het volume dure open eindjes oplevert.",
+    "body": "Een grotere order is niet een kleine order met meer stuks. Het verandert productievragen, verpakkingseisen, het gesprek over betaling, de ontvangstmethode, het doel van de voorraad en het vrijgaveplan. FreightVanta helpt deze samenhangende beslissingen samen te brengen in één werkbare inkoopbrief voordat de grootschalige inkoop in China naar de volgende fase gaat. Leverancierskeuze, handelsvoorwaarden en de eindgoedkeuring blijven bij uw team.",
+    "serviceName": "Grootschalige inkoop in China",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "nl-services-bulk-procurement-0",
+        "question": "Garandeert FreightVanta lagere prijzen voor een grootschalige inkoop in China?",
+        "answer": "Nee. Zonder schriftelijke commerciële scope worden geen korting of besparing belooft."
+      },
+      {
+        "id": "nl-services-bulk-procurement-1",
+        "question": "Kan een grootschalige inkoop gefaseerd worden vrijgegeven?",
+        "answer": "Ja, wanneer ontvangst, opslag, verpakking, vracht en vrijgave-instructies vooraf zijn bevestigd."
+      },
+      {
+        "id": "nl-services-bulk-procurement-2",
+        "question": "Kunnen we starten met een bestaande leverancier?",
+        "answer": "Ja, met productversie, aantal, verpakking, bestemming en goedkeuringstraject."
+      },
+      {
+        "id": "nl-services-bulk-procurement-3",
+        "question": "Valt kwaliteitsinspectie onder grootschalige inkoop?",
+        "answer": "Niet automatisch; acceptatiecriteria, audit, testen en compliance moeten worden bevestigd."
+      },
+      {
+        "id": "nl-services-bulk-procurement-4",
+        "question": "Kan grootschalige inkoop aansluiten op orderverwerking?",
+        "answer": "Ja, zodra voorraadidentificatie, verpakking en orderregels stabiel zijn."
+      },
+      {
+        "id": "nl-services-bulk-procurement-5",
+        "question": "Wat als het aantal nog in onderzoek is?",
+        "answer": "Houd een bandbreedte en de beslissingsverantwoordelijke zichtbaar in plaats van een niet-goedgekeurd aantal als definitief te presenteren."
+      }
+    ]
+  },
+  "nl/services/packaging-branding": {
+    "file": "nl-services-packaging-branding.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Verpakking en merk voor producten uit China | FreightVanta",
+    "description": "Zet goedgekeurde verpakking, etiketten, inserts en merkmaterialen om in een werkbare verpakkingsinstructie voor de orderverwerking.",
+    "keywords": [
+      "verpakking op maat voor producten uit China",
+      "verpakking en merk",
+      "inserts en etiketten",
+      "verpakkingsinstructie",
+      "merkverpakking uit China"
+    ],
+    "heading": "Laat producten uit China aankomen in een verpakking die uw merk verder draagt.",
+    "body": "Een afgewerkt product is nog geen afgeronde klantervaring. Doos, zak, insert, etiket, beschermingsregel, bundel en de omgang met leveranciersmateriaal moeten het verpakkingsteam bereiken als een bruikbare instructie. FreightVanta helpt goedgekeurde verpakkings- en merkmaterialen om te zetten in een afgestemde verpakkingsbrief voor producten uit China. Merk, artwork, klantbelofte en eindgoedkeuring blijven bij uw team.",
+    "serviceName": "Verpakking en merk",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "nl-services-packaging-branding-0",
+        "question": "Kunnen jullie ons logo of merk ontwerpen?",
+        "answer": "De pagina coördineert goedgekeurd materiaal; recht, intellectueel eigendom en creatie vragen een aparte scope."
+      },
+      {
+        "id": "nl-services-packaging-branding-1",
+        "question": "Kunnen white-labelproducten eigen inserts of verpakking gebruiken?",
+        "answer": "Mogelijk wanneer product, materialen, aantallen en verpakking zijn goedgekeurd."
+      },
+      {
+        "id": "nl-services-packaging-branding-2",
+        "question": "Hoe voorkomen we het mengen van oude en nieuwe verpakking?",
+        "answer": "Met actieve versie, ingangsdatum, restvoorraadregel en een actuele instructie."
+      },
+      {
+        "id": "nl-services-packaging-branding-3",
+        "question": "Garandeert verpakkingscoördinatie regelgevende compliance?",
+        "answer": "Nee; markt-, veiligheids- en certificeringseisen vragen een gekwalificeerde toets."
+      },
+      {
+        "id": "nl-services-packaging-branding-4",
+        "question": "Kan verpakking aansluiten op eigen merk en orderverwerking?",
+        "answer": "Ja, zodra product, versie en verpakkingsregels stabiel zijn."
+      },
+      {
+        "id": "nl-services-packaging-branding-5",
+        "question": "Wat als het artwork nog niet definitief is?",
+        "answer": "Laat de status concept en benoem de goedkeurder; publiceer het niet als actieve regel."
+      }
+    ]
+  },
+  "nl/services/inventory-storage": {
+    "file": "nl-services-inventory-storage.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Opslag van goederen uit China | FreightVanta",
+    "description": "Organiseer ontvangst, identificatie, opslag, vrijgave-instructies en uitzonderingsbeslissingen voor geïmporteerde goederen voordat ze naar vracht, retail of klantorders gaan.",
+    "keywords": [
+      "opslag van goederen uit China",
+      "voorraadbeheer geïmporteerde goederen",
+      "ontvangst en vrijgave",
+      "opslag van producten uit China"
+    ],
+    "heading": "Geef geïmporteerde voorraad een helder plan voor ontvangst, opslag en vrijgave.",
+    "body": "Wanneer goederen uit China aankomen, is de volgende vraag niet alleen waar ze staan. Het team moet weten wat is aangekomen, bij welke productversie het hoort, hoe het wordt geïdentificeerd, welk bewijs is vastgelegd, wat mag worden vrijgegeven en wie beslist wanneer aantal, karton, etiket of bestemming niet kloppen. FreightVanta helpt deze operationele registratie te ordenen voordat opslag en vrijgave worden bevestigd.",
+    "serviceName": "Opslag en vrijgave van voorraad",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "nl-services-inventory-storage-0",
+        "question": "Kunnen jullie producten uit China opslaan?",
+        "answer": "Deel oorsprong, product, aantal, timing en bestemming; locatie, capaciteit en behandeling moeten worden bevestigd."
+      },
+      {
+        "id": "nl-services-inventory-storage-1",
+        "question": "Kan voorraad gefaseerd worden vrijgegeven?",
+        "answer": "Ja, wanneer voorraaddoel, identificatie en vrijgaveverantwoordelijke zijn gedefinieerd."
+      },
+      {
+        "id": "nl-services-inventory-storage-2",
+        "question": "Garanderen jullie een telling of inspectieresultaat?",
+        "answer": "Nee; bewijs, inspectie en acceptatiecriteria vragen een expliciete scope."
+      },
+      {
+        "id": "nl-services-inventory-storage-3",
+        "question": "Kunnen verpakking en inserts bij de voorraad blijven?",
+        "answer": "Ze kunnen worden opgenomen in een goedgekeurde onderdeel- en vrijgaveregel."
+      },
+      {
+        "id": "nl-services-inventory-storage-4",
+        "question": "Kan opslag aansluiten op orderverwerking?",
+        "answer": "Ja, zodra verkoopbare identiteit, verpakkingsregel en orderoverdracht gereed zijn."
+      },
+      {
+        "id": "nl-services-inventory-storage-5",
+        "question": "Wat als kartons niet overeenkomen met de melding?",
+        "answer": "Leg de afwijking vast en stuur deze vóór vrijgave naar de benoemde beslissingsverantwoordelijke."
+      }
+    ]
+  },
+  "nl/services/private-white-label": {
+    "file": "nl-services-private-white-label.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Eigen merk en white label uit China | FreightVanta",
+    "description": "Coördineer product, merkmaterialen, verpakkingsversies, goedkeuringsmomenten en overdracht naar orderverwerking voor eigen-merk- en white-labelprogramma's uit China.",
+    "keywords": [
+      "eigen merk uit China",
+      "white label China",
+      "sourcing eigen merk",
+      "versiebeheer merkproduct",
+      "verpakkingscoördinatie eigen merk"
+    ],
+    "heading": "Houd product, verpakking en goedkeuring van uw eigen merk op één lijn van China tot de volgende overdracht.",
+    "body": "Een eigen-merkprogramma is meer dan een logo op een bestaand product. Productversie, goedgekeurde eigenschappen, merkbestanden, etiketten, verpakking, inserts, leveranciersvragen en orderinstructie moeten naar dezelfde beslissing verwijzen. FreightVanta helpt deze registratie te ordenen en de volgende bevestigde overdracht voor te bereiden. Merk, intellectueel eigendom, wettelijke etikettering, productclaims en compliance blijven onderworpen aan een gekwalificeerde toets en een schriftelijke scope.",
+    "serviceName": "Eigen merk en white label",
+    "image": "/assets/freightvanta-topic-v18/images/service-private-label.jpg",
+    "faqs": [
+      {
+        "id": "nl-services-private-white-label-0",
+        "question": "Bieden jullie merk- of IE-advies?",
+        "answer": "Nee; gebruik gekwalificeerd juridisch advies en een bevestigde scope."
+      },
+      {
+        "id": "nl-services-private-white-label-1",
+        "question": "Kunnen white-labelproducten verpakking op maat gebruiken?",
+        "answer": "Mogelijk wanneer product, materialen, aantallen en verpakking zijn goedgekeurd."
+      },
+      {
+        "id": "nl-services-private-white-label-2",
+        "question": "Hoe worden oude en nieuwe etiketten gescheiden?",
+        "answer": "Met actieve versie, ingangsdatum, restvoorraadregel en duidelijke instructie."
+      },
+      {
+        "id": "nl-services-private-white-label-3",
+        "question": "Garandeert eigen-merkcoördinatie marktcompliance?",
+        "answer": "Nee; veiligheid, certificering, wettelijke etikettering en claims moeten worden geverifieerd."
+      },
+      {
+        "id": "nl-services-private-white-label-4",
+        "question": "Kan een eigen-merkprogramma aansluiten op sourcing en orderverwerking?",
+        "answer": "Ja, nadat product- en merkbeslissingen stabiel zijn."
+      },
+      {
+        "id": "nl-services-private-white-label-5",
+        "question": "Wat als het artwork nog in beoordeling is?",
+        "answer": "Laat het concept, benoem een goedkeurder en gebruik het niet als actieve verpakkingsregel."
+      }
+    ]
+  },
+  "nl/services/worldwide-fulfillment": {
+    "file": "nl-services-worldwide-fulfillment.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Orderverwerking voor producten uit China | FreightVanta",
+    "description": "Maak voorraad uit China klaar voor klantorders met heldere instructies voor orderpicken, verpakken, etiketten, overdracht aan transport en uitzonderingsafhandeling.",
+    "keywords": [
+      "orderverwerking voor producten uit China",
+      "internationale orderverwerking",
+      "e-fulfillment vanuit China",
+      "pick-and-pack-overdracht",
+      "uitzonderingsproces order"
+    ],
+    "heading": "Maak van voorraad uit China klantklare orders met een helder verwerkingsplan.",
+    "body": "Orderverwerking is de operationele laag tussen gereedstaande voorraad en de klantbelofte. FreightVanta helpt coördineren hoe producten uit China worden geïdentificeerd, gepickt, verpakt, geëtiketteerd, overgedragen aan een transportdienst en afgehandeld wanneer een order een beslissing vraagt. De juiste opzet hangt af van product, orderprofiel, bestemming, merkmaterialen, orderbron en leveringseis. Deze pagina belooft geen magazijnlocaties, carrierdekking, automatisering, cut-offtijden, trackinggedrag of wereldwijde levering totdat deze punten zijn geverifieerd.",
+    "serviceName": "Orderverwerking",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "nl-services-worldwide-fulfillment-0",
+        "question": "Kunnen jullie klantorders wereldwijd verwerken?",
+        "answer": "Deel doelmarkten; werkelijke locaties, carriers, productbeperkingen en bestemmingsbeschikbaarheid moeten worden geverifieerd."
+      },
+      {
+        "id": "nl-services-worldwide-fulfillment-1",
+        "question": "Kan leveranciersmateriaal worden verwijderd of kunnen producten worden gebundeld?",
+        "answer": "Mogelijk binnen een goedgekeurde verpakkingsinstructie."
+      },
+      {
+        "id": "nl-services-worldwide-fulfillment-2",
+        "question": "Kan onze webshop automatisch worden gekoppeld?",
+        "answer": "Geen integratiebelofte voordat platform en technische ondersteuning zijn bevestigd."
+      },
+      {
+        "id": "nl-services-worldwide-fulfillment-3",
+        "question": "Hoe worden trackingupdates afgehandeld?",
+        "answer": "Afhankelijk van de gekozen transportdienst en beschikbare koppeling."
+      },
+      {
+        "id": "nl-services-worldwide-fulfillment-4",
+        "question": "Kan orderverwerking starten met al in China ingekochte voorraad?",
+        "answer": "Ja, zodra productidentiteit, aantal en verpakkingsregel bruikbaar zijn."
+      },
+      {
+        "id": "nl-services-worldwide-fulfillment-5",
+        "question": "Hoe worden retouren of adreswijzigingen afgehandeld?",
+        "answer": "Definieer de uitzonderingsverantwoordelijke en de reactieroute vóór vrijgave."
+      }
+    ]
+  },
+  "nl/industries/cross-border-ecommerce": {
+    "file": "nl-industries-cross-border-ecommerce.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Logistiek voor grensoverschrijdende e-commerce uit China | FreightVanta",
+    "description": "Plan een operationeel pad van sourcing in China via productcontrole, verpakking, voorraadontvangst en vrijgave tot klantklare orders.",
+    "keywords": [
+      "logistiek grensoverschrijdende e-commerce uit China",
+      "coördinatie e-commerceketen China",
+      "sourcing en orderverwerking uit China",
+      "retailklaar e-commercevoorraad"
+    ],
+    "heading": "Verbind de sourcingbeslissing in China met de order die uw klant gaat ontvangen.",
+    "body": "Grensoverschrijdende e-commerce is een keten van samenhangende beslissingen: productreferentie, leveranciersvragen, specificatie, verpakking, voorraadontvangst, vrijgaveregel en klantorder. FreightVanta helpt die keten zichtbaar te maken, zodat het volgende team met dezelfde product- en verpakkingscontext werkt. Carrierdekking, levertijd, douane, platformkoppeling en dienstbeschikbaarheid blijven afhankelijk van de bevestigde bestemming en scope.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-warehousing.jpg",
+    "faqs": [
+      {
+        "id": "nl-industries-cross-border-ecommerce-0",
+        "question": "Kunnen jullie onze hele e-commerceketen beheren?",
+        "answer": "De pagina verbindt bevestigde dienstoverdrachten; werkelijke diensten en landen vragen een scoperbeoordeling."
+      },
+      {
+        "id": "nl-industries-cross-border-ecommerce-1",
+        "question": "Kunnen jullie leverdata garanderen?",
+        "answer": "Nee; route, carrier, douane en bestemmingscondities moeten worden bevestigd."
+      },
+      {
+        "id": "nl-industries-cross-border-ecommerce-2",
+        "question": "Kunnen jullie Shopify of een andere winkel ondersteunen?",
+        "answer": "Geen integratiebelofte voordat platform en data zijn geverifieerd."
+      },
+      {
+        "id": "nl-industries-cross-border-ecommerce-3",
+        "question": "Kunnen sourcing, verpakking, opslag en orderverwerking worden verbonden?",
+        "answer": "Ja, wanneer elke overdracht een goedgekeurde registratie heeft."
+      },
+      {
+        "id": "nl-industries-cross-border-ecommerce-4",
+        "question": "Kan seizoensvoorraad gefaseerd worden vrijgegeven?",
+        "answer": "Ja, met voorraaddoel, vrijgaveverantwoordelijke en bevestigde bestemming."
+      },
+      {
+        "id": "nl-industries-cross-border-ecommerce-5",
+        "question": "Wat moet een e-commercemmerk eerst sturen?",
+        "answer": "Product en SKU, markten, orderbron, verpakking, timing en de huidige operationele beslissing."
+      }
+    ]
+  },
+  "nl/industries/consumer-goods": {
+    "file": "nl-industries-consumer-goods.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Logistiek voor consumentengoederen uit China | FreightVanta",
+    "description": "Coördineer consumentengoederen uit China van productreferentie en verpakking tot voorraadontvangst, kanaalvrijgave en een retail- of klantklare overdracht.",
+    "keywords": [
+      "logistiek consumentengoederen uit China",
+      "sourcing en verpakking consumentengoederen China",
+      "coördinatie consumentengoederenketen China",
+      "retailklare overdracht"
+    ],
+    "heading": "Breng consumentengoederen van een productreferentie in China naar een retail- of klantklare overdracht.",
+    "body": "Een consumentenproduct is meer dan het artikel in het karton. Productversie, presentatie, verpakking, ontvangstbewijs, kanaal en vrijgaveverantwoordelijke bepalen de volgende beslissing. FreightVanta helpt die overdrachten te ordenen voor DTC-, abonnement-, retail-, groothandel-, seizoens- en aanvulcontexten, zonder productkwaliteit, compliance, opslagcapaciteit of leveringsdekking te veronderstellen.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-packaging.jpg",
+    "faqs": [
+      {
+        "id": "nl-industries-consumer-goods-0",
+        "question": "Kunnen jullie garanderen dat een consumentenproduct aan lokale regelgeving voldoet?",
+        "answer": "Nee; een gekwalificeerde compliancetoets is nodig."
+      },
+      {
+        "id": "nl-industries-consumer-goods-1",
+        "question": "Kunnen jullie retailklare verpakking voorbereiden?",
+        "answer": "Verpakking en verpakkingsproces zijn planbaar wanneer bestanden, onderdelen en instructies zijn goedgekeurd."
+      },
+      {
+        "id": "nl-industries-consumer-goods-2",
+        "question": "Kunnen jullie seizoenslanceringsvoorraad verwerken?",
+        "answer": "Het voorraadtraject is planbaar; datums en capaciteit moeten worden bevestigd."
+      },
+      {
+        "id": "nl-industries-consumer-goods-3",
+        "question": "Kunnen producten in China worden ingekocht en daarna verwerkt?",
+        "answer": "Ja, via bevestigde dienstoverdrachten."
+      },
+      {
+        "id": "nl-industries-consumer-goods-4",
+        "question": "Bieden jullie producttests?",
+        "answer": "Alleen wanneer methode en scope expliciet zijn bevestigd."
+      },
+      {
+        "id": "nl-industries-consumer-goods-5",
+        "question": "Wat moet een merk eerst sturen?",
+        "answer": "Productversie, kanaal, verpakking, aantal, bestemming en gewenste overdracht."
+      }
+    ]
+  },
+  "nl/industries/industrial-components": {
+    "file": "nl-industries-industrial-components.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Logistiek voor industriële onderdelen uit China | FreightVanta",
+    "description": "Coördineer specificatiegestuurde industriële onderdelen uit China met versiebeheer, beschermende verpakking, documenten, ontvangstidentificatie en een bevestigde ontvangstoverdracht.",
+    "keywords": [
+      "logistiek industriële onderdelen uit China",
+      "sourcing en verzending industriële onderdelen China",
+      "industriële toeleveringsketen China",
+      "beschermende verpakking industriële onderdelen",
+      "specificatiegestuurde vrachtcoördinatie"
+    ],
+    "heading": "Voer de actieve specificatie van een onderdeel van China door naar een gecontroleerde ontvangstoverdracht.",
+    "body": "Voor industriële onderdelen begint een bruikbare leverbeslissing met de juiste referentie, versie, hoeveelheid, beschermingsmethode, documenten, ontvangstidentificatie en ontvangstverantwoordelijke. FreightVanta helpt die informatie te ordenen voor productie-aanvoer, onderhoud en reservedelen, projecten en levering op locatie. Technische goedkeuring, testen, regelgevend werk, carriercapaciteit en locatietoegang blijven aparte bevestigingspunten.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/industry-receiving.jpg",
+    "faqs": [
+      {
+        "id": "nl-industries-industrial-components-0",
+        "question": "Keuren jullie de technische specificatie goed?",
+        "answer": "Nee; de pagina ordent de actieve referentie, technische goedkeuring blijft bij het verantwoordelijke team."
+      },
+      {
+        "id": "nl-industries-industrial-components-1",
+        "question": "Kunnen jullie beschermende verpakking regelen?",
+        "answer": "De eis kan worden gecoördineerd; materiaal en behandelingsscope moeten worden bevestigd."
+      },
+      {
+        "id": "nl-industries-industrial-components-2",
+        "question": "Kunnen jullie levering op locatie bij een mijlpaal garanderen?",
+        "answer": "Nee; route, carrier, douane en locatiecondities moeten worden bevestigd."
+      },
+      {
+        "id": "nl-industries-industrial-components-3",
+        "question": "Kunnen industriële onderdelen worden opgeslagen vóór vrijgave?",
+        "answer": "Opslag en identificatie zijn planbaar binnen een bevestigde scope."
+      },
+      {
+        "id": "nl-industries-industrial-components-4",
+        "question": "Kunnen urgente reservedelen de tijdkritische route gebruiken?",
+        "answer": "Verwijs naar Tijdkritische vracht zodra consequentie, beschikbaarheidsdatum en routbeslissing zijn gedefinieerd."
+      },
+      {
+        "id": "nl-industries-industrial-components-5",
+        "question": "Wat moet eerst worden meegestuurd?",
+        "answer": "Onderdeelnummer en versie, tekening of foto, aantal, bestemming, verpakking en timing."
+      }
+    ]
+  },
+  "nl/industries/time-critical-cargo": {
+    "file": "nl-industries-time-critical-cargo.html",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "preloads": [
+      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+    ],
+    "title": "Logistiek voor tijdkritische vracht uit China | FreightVanta",
+    "description": "Plan tijdkritische vracht uit China met zichtbare beschikbaarheidsdatum, documenten, routeopties, escalatieroute en bevestigde volgende overdracht.",
+    "keywords": [
+      "logistiek tijdkritische vracht uit China",
+      "urgente verzending uit China",
+      "luchtvracht urgent China",
+      "tijdgevoelige toeleveringsketen",
+      "noodaanvulling logistiek"
+    ],
+    "heading": "Maak de volgende haalbare beweging zichtbaar voordat de klok het overneemt.",
+    "body": "Een urgente vrachtbeslissing vraagt meer dan het woord express. FreightVanta helpt zakelijke consequentie, vrachtgereedheid, beschikbaarheidsdatum, documenten, routevraag, ontvangstvenster en escalatieverantwoordelijke te verzamelen, zodat een tijdkritische beweging als beslissingsset kan worden beoordeeld. Carriercapaciteit, transittijd, douanevrijgave, tarieven, speciale behandeling en eindlevering worden alleen bevestigd voor de werkelijke vracht en route.",
+    "serviceName": "",
+    "image": "/assets/freightvanta-topic-v18/images/service-air-freight.jpg",
+    "faqs": [
+      {
+        "id": "nl-industries-time-critical-cargo-0",
+        "question": "Kunnen jullie een aankomsttijd garanderen?",
+        "answer": "Nee; werkelijke carrier, route, douane en ontvangstcondities moeten worden bevestigd."
+      },
+      {
+        "id": "nl-industries-time-critical-cargo-1",
+        "question": "Kan urgente vracht starten met onvolledige informatie?",
+        "answer": "De eerste beoordeling kan ontbrekende feiten tonen, maar een route kan niet worden bevestigd zonder de vereiste informatie."
+      },
+      {
+        "id": "nl-industries-time-critical-cargo-2",
+        "question": "Kunnen jullie luchtvracht en andere routeopties uit China vergelijken?",
+        "answer": "Routevragen kunnen worden geordend; beschikbaarheid, tarief en transittijd vragen werkelijke bevestiging."
+      },
+      {
+        "id": "nl-industries-time-critical-cargo-3",
+        "question": "Wat als de oorspronkelijke route mislukt?",
+        "answer": "De escalatieroute legt vast wie alternatieven beoordeelt en welke beslissing daarna nodig is."
+      },
+      {
+        "id": "nl-industries-time-critical-cargo-4",
+        "question": "Kunnen jullie speciale of gereguleerde vracht behandelen?",
+        "answer": "Alleen na expliciete bevestiging van product, documenten, behandeling en wettelijke eisen."
+      },
+      {
+        "id": "nl-industries-time-critical-cargo-5",
+        "question": "Wat moeten we eerst sturen?",
+        "answer": "Beschikbaarheidsdatum, consequentie, vracht- en collifeiten, oorsprong, bestemming, documenten en ontvangstvenster."
+      }
+    ]
+  }
+}

@@ -1,3 +1,5 @@
+import { cachedPhotos } from './cached-photos';
+
 /**
  * Media registry. Section records reference media by `media_id`; alt text lives with the section
  * copy. Local assets are served from /public/images; each has a real-photo fallback so the page
@@ -20,7 +22,7 @@ const pexelsUrl = (id: number, w: number, h: number) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
 
 /** Real photography (Pexels) with responsive candidates at a 3:2 crop. */
-const stock = (id: number): MediaEntry => ({
+const stock = (id: number): MediaEntry => cachedPhotos[id] ?? ({
   src: pexelsUrl(id, 1400, 933),
   srcSet: [640, 960, 1400, 1800].map((w) => `${pexelsUrl(id, w, Math.round((w * 2) / 3))} ${w}w`).join(', '),
   width: 1400,

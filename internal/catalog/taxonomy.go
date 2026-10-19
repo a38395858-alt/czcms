@@ -154,7 +154,7 @@ func (s *Service) GetPublicTaxonomyArchive(ctx context.Context, siteID int64, lo
 		       COALESCE((SELECT name_zh FROM languages WHERE default_locale = cl.locale ORDER BY id LIMIT 1),
 		                (SELECT name_zh FROM languages WHERE code = cl.locale LIMIT 1), cl.locale),
 		       cl.status, cl.title, cl.slug, cl.category, cl.tags_json, cl.template_key, cl.page_layout, cl.index_policy, cl.scheduled_at, cl.cover_media_id, cl.gallery_media_ids_json,
-		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.h1, cl.seo_title, cl.meta_description,
+		       COALESCE(m.original_name, ''), COALESCE(m.width, 0), COALESCE(m.height, 0), cl.summary, cl.body_html, cl.h1, cl.seo_title, cl.meta_description,
 		       cl.primary_keyword, cl.secondary_keywords_json, cl.canonical_url, cl.robots_index,
 		       cl.og_title, cl.og_description, cl.structured_data_json, cl.ai_state, c.owner_id,
 		       COALESCE(u.display_name, ''), cl.version, c.version, cl.published_at, cl.created_at, cl.updated_at
@@ -181,7 +181,7 @@ func (s *Service) GetPublicTaxonomyArchive(ctx context.Context, siteID int64, lo
 	defer rows.Close()
 	archive.Contents = make([]ContentLocale, 0)
 	for rows.Next() {
-		item, scanErr := scanContentLocale(rows, false)
+		item, scanErr := scanContentLocale(rows, true)
 		if scanErr != nil {
 			return PublicTaxonomyArchive{}, scanErr
 		}
@@ -189,6 +189,13 @@ func (s *Service) GetPublicTaxonomyArchive(ctx context.Context, siteID int64, lo
 	}
 	if err = rows.Err(); err != nil {
 		return PublicTaxonomyArchive{}, err
+	}
+	rows.Close()
+	for i := range archive.Contents {
+		archive.Contents[i], err = s.attachGalleryMedia(ctx, archive.Contents[i])
+		if err != nil {
+			return PublicTaxonomyArchive{}, err
+		}
 	}
 	return archive, nil
 }

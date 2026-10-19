@@ -108,6 +108,9 @@ a:focus-visible, summary:focus-visible { outline: none; box-shadow: var(--focus)
 .language-menu a small { color: var(--muted); font-size: .7rem; }
 .language-menu a:hover { background: var(--surface-soft); }
 .language-menu a[aria-current="page"] { background: var(--brand-light); color: var(--brand-dark); font-weight: 700; }
+/* The muted token fails 4.5:1 on the highlighted brand-light row; inherit the
+   row's own brand-dark instead so the active language stays readable. */
+.language-menu a[aria-current="page"] small { color: inherit; }
 .header-cta { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; padding: .55rem 1rem; border: 1px solid var(--brand); border-radius: var(--radius); background: var(--brand); color: #fff; font-size: .85rem; font-weight: 700; transition: background 180ms ease-out, border-color 180ms ease-out; }
 .header-cta:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
 
@@ -2047,7 +2050,9 @@ body.theme-atlas-commerce.language-de .guides-de .content-card:first-child .cont
 .guide-index-newsletter > .content-shell { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:clamp(2rem,8vw,8rem); align-items:end; }
 .guide-index-newsletter h2 { font-size:clamp(2rem,3.4vw,3.2rem); }
 .guide-index-newsletter p:not(.section-kicker) { max-width:58ch; margin:1.2rem 0 0; color:var(--ink-soft); line-height:1.75; }
-.guide-index-newsletter form { display:flex; gap:.55rem; align-items:stretch; }
+.guide-index-newsletter form { display:flex; flex-wrap:wrap; gap:.55rem; align-items:stretch; }
+.enquiry-feedback { line-height:1.6; overflow-wrap:anywhere; }
+.guide-index-newsletter .enquiry-feedback { flex:0 0 100%; margin:8px 0 0; color:inherit; }
 .guide-index-newsletter input { min-width:0; flex:1; height:48px; padding:0 .85rem; border:1px solid #b8c8de; border-radius:var(--radius); background:#fff; color:var(--ink); }
 .guide-index-newsletter button { height:48px; padding:0 1rem; border:1px solid var(--brand); border-radius:var(--radius); background:var(--brand); color:#fff; font-weight:750; cursor:pointer; }
 
@@ -2131,3 +2136,6 @@ body.theme-atlas-commerce.language-de .guides-de .content-card:first-child .cont
   .guide-index-newsletter form { display:grid; grid-template-columns:1fr; }
   .guide-index-newsletter input,.guide-index-newsletter button { width:100%; }
 }
+
+/* Dark-header brand tagline (2026-10-19) */
+.language-it .site-header .brand-copy small { color: #b9c2d4; }

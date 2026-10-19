@@ -11,7 +11,7 @@ body.fv-de-reference-home {
   --de-graphite-800: #23262c;
   --de-graphite-700: #31353d;
   --de-graphite-500: #5a606a;
-  --de-graphite-400: #767d88;
+  --de-graphite-400: #5f656f;
   --de-graphite-200: #c6cad1;
   --de-brick-700: #8f2814;
   --de-brick-600: #a83019;
@@ -71,6 +71,18 @@ body.fv-de-reference-home {
 .fv-de-brand > span { font-family: var(--de-serif); font-size: 1.35rem; font-weight: 700; line-height: 1; }
 .fv-de-brand em { opacity: .72; font-style: normal; font-weight: 600; }
 .fv-de-nav { display: flex; align-items: center; gap: 2px; }
+.fv-de-header-inner { position: relative; }
+.fv-de-nav summary { display: flex; min-height: 44px; align-items: center; gap: 6px; padding: 9px 11px; cursor: pointer; font-size: .92rem; font-weight: 600; color: var(--de-graphite-700); }
+.fv-de-nav summary:hover { background: var(--de-paper-100); }
+.fv-de-nav .fv-de-mega { position: absolute; inset: 100% 0 auto; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; padding: 22px; border: 1px solid var(--de-line-300); background: var(--de-paper-25); box-shadow: 0 20px 36px -16px rgba(22,24,28,.25); }
+.fv-de-mega a { display: block; padding: 14px; text-decoration: none; }
+.fv-de-mega strong { display: block; font-size: .95rem; font-weight: 600; }
+.fv-de-mega small { display: block; margin-top: 5px; color: var(--de-graphite-500); font-size: .82rem; font-weight: 400; line-height: 1.5; }
+.fv-de-nav details:not([open]) .fv-de-mega { display: none; }
+.fv-de-mobile nav { max-height: calc(100dvh - 72px); overflow-y: auto; }
+.fv-de-mobile nav details > summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; cursor: pointer; font-weight: 600; }
+.fv-de-mobile .fv-de-mega a { display: block; padding: 12px; font-weight: 400; }
+.fv-de-mobile .fv-de-mega a:last-child { margin: 0; justify-content: initial; background: transparent; color: var(--de-graphite-900); }
 .fv-de-nav a { padding: 9px 11px; border-radius: 2px; color: var(--de-graphite-700); font-size: .92rem; font-weight: 600; text-decoration: none; transition: background .15s ease, color .15s ease; }
 .fv-de-nav a:hover { background: rgba(22,24,28,.055); color: var(--de-graphite-900); }
 .fv-de-header-actions { display: flex; align-items: center; gap: 9px; }
@@ -189,7 +201,7 @@ body.fv-de-reference-home {
 .fv-de-industries li { position: relative; display: grid; grid-template-columns: 56px minmax(0,1fr); gap: 12px; padding: 25px 12px; border-bottom: 1px solid var(--de-line-300); transition: background .15s ease; }
 .fv-de-industries li:hover { background: var(--de-paper-50); }
 .fv-de-industries li small { padding-top: 5px; color: var(--de-graphite-400); font-family: var(--de-mono); font-size: .78rem; }
-.fv-de-industries li h3 { font-family: var(--de-serif); font-size: 1.43rem; }
+.fv-de-industries li h3 { font-family: var(--de-serif); font-size: 1.43rem; hyphens: auto; overflow-wrap: anywhere; }
 .fv-de-industries li h3 a { text-decoration: none; }
 .fv-de-industries li h3 a::after { position: absolute; inset: 0; content: ""; }
 .fv-de-industries li:hover h3 a { color: var(--de-brick-600); }
@@ -330,9 +342,99 @@ body.fv-de-reference-home {
   .fv-de-footer-main { grid-template-columns: 1fr; padding-block: 58px; }
   .fv-de-footer-bottom { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 20px; }
 }
+@media (max-width: 380px) {
+  .fv-de-header-inner { gap: 8px; }
+  .fv-de-brand { gap: 7px; }
+  .fv-de-brand > span { font-size: 1.08rem; }
+  .fv-de-brand svg { width: 26px; height: 26px; }
+  .fv-de-header-actions { gap: 7px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .fv-de-reference-home *,
   .fv-de-reference-home *::before,
   .fv-de-reference-home *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* ==========================================================================
+   Drawn icon marks
+   One authored SVG set (24x24 grid, 1.6 stroke, round joins) replaces the
+   decorative index numerals so each capability, principle and step is
+   recognisable before the label is read. Numerals stay where the order
+   itself carries meaning (the four-step process).
+   ========================================================================== */
+
+.fv-de-ico {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--de-line-300);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--de-brick-600);
+  transition: border-color .16s ease, color .16s ease;
+}
+
+.fv-de-ico .fv-de-ico-svg { width: 15px; height: 15px; display: block; }
+
+.fv-de-coverage a:hover .fv-de-ico { border-color: var(--de-brick-600); }
+
+.fv-de-operation li .fv-de-ico,
+.fv-de-industries li .fv-de-ico { margin-top: 1px; }
+
+.fv-de-industries li:hover .fv-de-ico { border-color: var(--de-brick-600); }
+
+/* --- process: the rotated diamond becomes a drawn chip; the numeral stays --- */
+.fv-de-process-steps li { padding-top: 54px; }
+
+.fv-de-process-steps i.fv-de-step-ico {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  transform: none;
+  border: 1px solid var(--de-line-300);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px var(--de-paper-25);
+  color: var(--de-brick-600);
+}
+
+.fv-de-process-steps i.fv-de-step-ico .fv-de-ico-svg { width: 16px; height: 16px; display: block; }
+
+.fv-de-process-steps li:not(:last-child)::after { top: 17px; left: 40px; }
+
+/* --- footer sits on graphite-900: keep its secondary text light --- */
+.fv-de-footer h2,
+.fv-de-footer-bottom { color: #9aa1ab; }
+
+/* --- secondary text on light paper needs the darker graphite --- */
+.fv-de-language small,
+.fv-de-route small i,
+.fv-de-service-index summary small,
+.fv-de-faq-list summary small,
+.fv-de-formblatt > header small { color: var(--de-graphite-500); }
+
+@media (max-width: 900px) {
+  .fv-de-process-steps i.fv-de-step-ico { width: 32px; height: 32px; }
+  .fv-de-process-steps li:not(:last-child)::after { left: 38px; }
+}
+
+@media (max-width: 640px) {
+  .fv-de-coverage .fv-de-shell { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fv-de-coverage a { min-height: 64px; gap: 9px; padding: 10px 12px; font-size: .84rem; }
+  .fv-de-ico { width: 26px; height: 26px; }
+  .fv-de-ico .fv-de-ico-svg { width: 13px; height: 13px; }
+  .fv-de-process-steps li { padding-top: 50px; }
+  .fv-de-process-steps i.fv-de-step-ico { width: 30px; height: 30px; }
+  .fv-de-process-steps i.fv-de-step-ico .fv-de-ico-svg { width: 14px; height: 14px; }
+  .fv-de-process-steps li:not(:last-child)::after { top: 15px; left: 36px; }
+  .fv-de-operation li,
+  .fv-de-industries li { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; }
 }

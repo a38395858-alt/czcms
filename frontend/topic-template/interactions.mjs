@@ -1,0 +1,31 @@
+import { chromium } from '@playwright/test';
+import { writeFileSync } from 'node:fs';
+const browser=await chromium.launch({headless:true,executablePath:'C:/Users/pc/AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe'});
+const rows=[];
+for(const [locale,port] of [['en',8081],['de',8082]]){
+ const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ await context.addInitScript(()=>localStorage.setItem('fv.analytics-consent.v1','denied'));
+ const page=await context.newPage();
+ await page.goto(`http://localhost:${port}/product-sourcing`,{waitUntil:'networkidle'});
+ const menu=page.locator(`button[aria-controls="${locale==='de'?'de-mobile-nav':'mobile-menu'}"]`);
+ await menu.click(); await page.locator(locale==='de'?'#de-mobile-nav':'#mobile-menu').waitFor({state:'visible'});
+ await page.keyboard.press('Escape');
+ if(await menu.getAttribute('aria-expanded')!=='false')throw new Error('Menu did not close');
+ const faq=page.locator('details').first();await faq.locator('summary').click();
+ if(!await faq.evaluate(e=>e.open))throw new Error('FAQ failed');
+ const form=page.locator('form').first();
+ await form.locator('[type="submit"]').click();
+ if(!await form.locator('[role="alert"]').count())throw new Error('Validation summary missing');
+ for(const [name,value] of Object.entries({fullName:'Browser Test',workEmail:`qa-${locale}@example.test`,company:'QA Test',origin:'China',destination:'Berlin'}))await form.locator(`[name="${name}"]`).fill(value);
+ await form.locator('input[type="radio"][value="product-sourcing"]').check();
+ await form.locator('input[type="checkbox"]').check();
+ let payload;
+ await page.route('**/topic-enquiry',async route=>{payload=route.request().postDataJSON();await route.fulfill({status:201,contentType:'application/json',body:JSON.stringify({reference:'UI-TEST-ONLY'})});});
+ await form.locator('[type="submit"]').click();
+ await page.getByText('UI-TEST-ONLY',{exact:false}).waitFor();
+ if(payload.locale!==locale||payload.route!=='product-sourcing'||!payload.form_token)throw new Error('Missing CMS payload');
+ rows.push({locale,menu:'pass',faq:'pass',validation:'pass',submissionUI:'pass (intercepted response)',siteId:payload.site_id,route:payload.route});
+ await context.close();
+}
+writeFileSync('../../output/topic18-review/interactions.json',JSON.stringify(rows,null,2));console.log(JSON.stringify(rows));
+await browser.close();
