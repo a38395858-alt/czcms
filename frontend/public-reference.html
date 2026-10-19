@@ -32,7 +32,9 @@
     <script src="/assets/js/public-navigation.js?v=20261016.1" defer></script>
     <link rel="stylesheet" href="/assets/css/country-layout.css?v=20261019.1">
   {{if .EnquiryContext}}<script id="freightvanta-enquiry-context" type="application/json">{{.EnquiryContext}}</script><script src="/assets/js/public-enquiry.js?v=20261015.2" defer></script>{{end}}
-  </head>
+      <link rel="stylesheet" href="/assets/css/mega-menu.css?v=20261019.5">
+    <script src="/assets/js/mega-menu.js?v=20261019.5" defer></script>
+</head>
   <body class="fv-reference-template fv-{{.LanguageCode}}-react-template">
     {{if .HomeMarkup}}<div id="root" data-prerendered="true">{{.HomeMarkup}}</div>{{else}}
     <div id="root">

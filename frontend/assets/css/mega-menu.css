@@ -1,0 +1,225 @@
+/* ==========================================================================
+   Unified site mega menu
+   One panel design for every language surface: a two-column link grid with a
+   separated action rail, matching the approved "Not sure where to start?"
+   reference. The panel is rendered by mega-menu.js from a per-language config;
+   the legacy per-template dropdown is hidden by that script.
+   ========================================================================== */
+
+.cz-mega {
+  --cz-ink: #0b1b33;
+  --cz-ink-soft: #4a5a72;
+  --cz-muted: #6b7a90;
+  --cz-line: #dfe6f0;
+  --cz-surface: #ffffff;
+  --cz-accent: #1a64d6;
+  --cz-accent-ink: #ffffff;
+  --cz-hover: #f4f8fd;
+  --cz-radius: 14px;
+
+  position: absolute;
+  z-index: 120;
+  display: none;
+  box-sizing: border-box;
+  width: min(940px, calc(100vw - 40px));
+  padding: 0;
+  border: 1px solid var(--cz-line);
+  border-radius: var(--cz-radius);
+  background: var(--cz-surface);
+  box-shadow: 0 28px 56px -24px rgba(8, 24, 48, .34), 0 2px 6px -2px rgba(8, 24, 48, .08);
+  color: var(--cz-ink);
+  font-family: inherit;
+  text-align: left;
+  overflow: hidden;
+}
+.cz-mega[data-open="true"] { display: block; }
+.cz-mega:focus { outline: none; }
+
+.cz-mega *,
+.cz-mega *::before,
+.cz-mega *::after { box-sizing: border-box; }
+
+.cz-mega-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 292px;
+}
+
+.cz-mega-main { padding: 26px 26px 28px; min-width: 0; }
+
+.cz-mega-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cz-mega-list[data-cols="2"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 30px;
+}
+.cz-mega-list[data-cols="1"] { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+/* The narrower Industries panel */
+.cz-mega[data-size="narrow"] { width: min(720px, calc(100vw - 40px)); }
+.cz-mega[data-size="narrow"] .cz-mega-grid { grid-template-columns: minmax(0, 1fr) 268px; }
+
+.cz-mega-eyebrow {
+  margin: 0 0 14px;
+  color: var(--cz-muted);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.cz-mega-list { margin: 0; padding: 0; list-style: none; }
+
+.cz-mega-item { display: block; }
+
+.cz-mega-link {
+  display: block;
+  padding: 9px 10px;
+  margin: 0 -10px;
+  border-radius: 8px;
+  color: var(--cz-ink);
+  text-decoration: none;
+  transition: background-color .14s ease, color .14s ease;
+}
+.cz-mega-link:hover,
+.cz-mega-link:focus-visible { background: var(--cz-hover); color: var(--cz-accent); }
+.cz-mega-link:focus-visible { outline: 2px solid var(--cz-accent); outline-offset: 1px; }
+
+.cz-mega-title {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -.005em;
+}
+
+.cz-mega-desc {
+  display: block;
+  margin-top: 3px;
+  color: var(--cz-ink-soft);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+/* --- action rail --- */
+.cz-mega-aside {
+  padding: 28px 26px;
+  border-left: 1px solid var(--cz-line);
+  background: #fbfcfe;
+  border-radius: 0 0 var(--cz-radius) 0;
+}
+
+.cz-mega-aside h2 {
+  margin: 0;
+  color: var(--cz-ink);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.015em;
+}
+
+.cz-mega-aside p {
+  margin: 10px 0 0;
+  color: var(--cz-ink-soft);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.cz-mega-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 18px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--cz-accent);
+  color: var(--cz-accent-ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: filter .14s ease;
+}
+.cz-mega-cta:hover { filter: brightness(1.06); }
+.cz-mega-cta:focus-visible { outline: 2px solid var(--cz-ink); outline-offset: 2px; }
+
+.cz-mega-secondary {
+  display: inline-block;
+  min-height: 28px;
+  margin-top: 12px;
+  color: var(--cz-accent);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- accent per language so the panel belongs to its site --- */
+html[lang^="de"] .cz-mega { --cz-accent: #a83019; --cz-hover: #fdf4f1; }
+html[lang^="fr"] .cz-mega { --cz-accent: #b45a24; --cz-hover: #fdf6f0; }
+html[lang^="es"] .cz-mega { --cz-accent: #a33a1b; --cz-hover: #fdf4ef; }
+html[lang^="it"] .cz-mega { --cz-accent: #c02620; --cz-hover: #fdf3f2; }
+html[lang^="nl"] .cz-mega { --cz-accent: #0c6b4a; --cz-hover: #f0f8f4; }
+
+/* --- narrow viewports: rail drops below the link grid --- */
+@media (max-width: 1080px) {
+  .cz-mega,
+  .cz-mega[data-size="narrow"] { width: min(100vw - 32px, 720px); }
+  .cz-mega-grid,
+  .cz-mega[data-size="narrow"] .cz-mega-grid { grid-template-columns: minmax(0, 1fr); }
+  .cz-mega-aside {
+    border-left: 0;
+    border-top: 1px solid var(--cz-line);
+    border-radius: 0 0 var(--cz-radius) var(--cz-radius);
+  }
+}
+
+@media (max-width: 720px) {
+  .cz-mega-list[data-cols="2"] { grid-template-columns: minmax(0, 1fr); }
+  .cz-mega-main { padding: 20px 18px; }
+  .cz-mega-aside { padding: 22px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cz-mega,
+  .cz-mega-link,
+  .cz-mega-cta { transition: none; }
+}
+
+/* --- trigger injected on templates that had no Solutions entry --- */
+.cz-mega-navitem { display: flex; align-items: center; }
+
+.cz-mega-navtrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+.cz-mega-navtrigger:hover { background: rgba(127, 140, 160, .14); }
+.cz-mega-navtrigger:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.cz-mega-navtrigger::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+  opacity: .7;
+}
+

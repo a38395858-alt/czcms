@@ -41,3 +41,4 @@ coverage.out
 /frontend/reference-template/.ssr/
 /frontend/reference-template-nl/.ssr/
 **/.vite/
+/frontend/var/
