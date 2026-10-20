@@ -44,3 +44,68 @@ footer .text-graphite-400 { color: #a9b0b9; }
 .fr-topic-site :is(h1, h2, h3),
 .it-topic-site :is(h1, h2, h3),
 .nl-topic-site :is(h1, h2, h3) { overflow-wrap: break-word; }
+
+/* ---------------------------------------------------------------------------
+   Six-step workflow relayout (2026-10-20)
+   Two sections share id="workflow"; only the grid variant (industry pages) gets
+   the editorial numbered treatment. The product-sourcing timeline keeps its
+   own layout, so every rule below is keyed on `ol.grid`.
+   --------------------------------------------------------------------------- */
+#workflow:has(ol.grid) { padding-block: clamp(56px, 6vw, 92px); }
+
+/* The heading row reserved an empty second column; let the title own the row. */
+#workflow:has(ol.grid) > .shell > div > div:first-child { display: block; }
+#workflow:has(ol.grid) > .shell > div > div:first-child > div:empty { display: none; }
+#workflow:has(ol.grid) h2 { margin-top: 0; }
+
+#workflow ol.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 40px;
+  row-gap: 44px;
+  margin-top: 52px;
+  padding: 0;
+  list-style: none;
+}
+
+#workflow ol.grid > li {
+  position: relative;
+  padding: 22px 0 0;
+  border-top: 1px solid #c9d6e6;
+}
+
+/* Drop the dot, the ring and both connector pseudo-elements. */
+#workflow ol.grid > li > span { display: none; }
+#workflow ol.grid > li::before,
+#workflow ol.grid > li::after { display: none !important; content: none !important; }
+
+#workflow ol.grid > li > p {
+  margin: 0;
+  color: #1552b8;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+#workflow ol.grid > li > h3 {
+  margin: 14px 0 0;
+  max-width: 24ch;
+  color: #0a1b33;
+  font-size: clamp(1.15rem, 0.95rem + 0.45vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.32;
+  text-wrap: pretty;
+}
+
+@media (max-width: 1024px) {
+  #workflow ol.grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; row-gap: 36px; }
+}
+
+@media (max-width: 640px) {
+  #workflow ol.grid { grid-template-columns: minmax(0, 1fr); row-gap: 30px; margin-top: 36px; }
+  #workflow ol.grid > li { padding-top: 18px; }
+  #workflow ol.grid > li > h3 { max-width: none; }
+}

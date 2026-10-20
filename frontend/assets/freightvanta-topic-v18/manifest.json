@@ -1,7 +1,7 @@
 {
   "en/product-sourcing": {
     "file": "en-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -72,7 +72,7 @@
   },
   "en/services/bulk-procurement": {
     "file": "en-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -127,7 +127,7 @@
   },
   "en/services/packaging-branding": {
     "file": "en-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -182,7 +182,7 @@
   },
   "en/services/inventory-storage": {
     "file": "en-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -236,7 +236,7 @@
   },
   "en/services/private-white-label": {
     "file": "en-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -291,7 +291,7 @@
   },
   "en/services/worldwide-fulfillment": {
     "file": "en-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -346,7 +346,7 @@
   },
   "en/industries/cross-border-ecommerce": {
     "file": "en-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -400,7 +400,7 @@
   },
   "en/industries/consumer-goods": {
     "file": "en-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -454,7 +454,7 @@
   },
   "en/industries/industrial-components": {
     "file": "en-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -509,7 +509,7 @@
   },
   "en/industries/time-critical-cargo": {
     "file": "en-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -564,7 +564,7 @@
   },
   "de/product-sourcing": {
     "file": "de-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -629,7 +629,7 @@
   },
   "de/services/bulk-procurement": {
     "file": "de-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -684,7 +684,7 @@
   },
   "de/services/packaging-branding": {
     "file": "de-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -739,7 +739,7 @@
   },
   "de/services/inventory-storage": {
     "file": "de-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -793,7 +793,7 @@
   },
   "de/services/private-white-label": {
     "file": "de-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -848,7 +848,7 @@
   },
   "de/services/worldwide-fulfillment": {
     "file": "de-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -903,7 +903,7 @@
   },
   "de/industries/cross-border-ecommerce": {
     "file": "de-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -957,7 +957,7 @@
   },
   "de/industries/consumer-goods": {
     "file": "de-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1011,7 +1011,7 @@
   },
   "de/industries/industrial-components": {
     "file": "de-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1066,7 +1066,7 @@
   },
   "de/industries/time-critical-cargo": {
     "file": "de-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1121,7 +1121,7 @@
   },
   "es/product-sourcing": {
     "file": "es-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1165,7 +1165,7 @@
   },
   "es/services/bulk-procurement": {
     "file": "es-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1219,7 +1219,7 @@
   },
   "es/services/packaging-branding": {
     "file": "es-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1273,7 +1273,7 @@
   },
   "es/services/inventory-storage": {
     "file": "es-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1326,7 +1326,7 @@
   },
   "es/services/private-white-label": {
     "file": "es-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1380,7 +1380,7 @@
   },
   "es/services/worldwide-fulfillment": {
     "file": "es-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1434,7 +1434,7 @@
   },
   "es/industries/cross-border-ecommerce": {
     "file": "es-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1487,7 +1487,7 @@
   },
   "es/industries/consumer-goods": {
     "file": "es-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1540,7 +1540,7 @@
   },
   "es/industries/industrial-components": {
     "file": "es-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1594,7 +1594,7 @@
   },
   "es/industries/time-critical-cargo": {
     "file": "es-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1648,7 +1648,7 @@
   },
   "fr/product-sourcing": {
     "file": "fr-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1692,7 +1692,7 @@
   },
   "fr/services/bulk-procurement": {
     "file": "fr-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1746,7 +1746,7 @@
   },
   "fr/services/packaging-branding": {
     "file": "fr-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1800,7 +1800,7 @@
   },
   "fr/services/inventory-storage": {
     "file": "fr-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1853,7 +1853,7 @@
   },
   "fr/services/private-white-label": {
     "file": "fr-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1907,7 +1907,7 @@
   },
   "fr/services/worldwide-fulfillment": {
     "file": "fr-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -1961,7 +1961,7 @@
   },
   "fr/industries/cross-border-ecommerce": {
     "file": "fr-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2014,7 +2014,7 @@
   },
   "fr/industries/consumer-goods": {
     "file": "fr-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2067,7 +2067,7 @@
   },
   "fr/industries/industrial-components": {
     "file": "fr-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2121,7 +2121,7 @@
   },
   "fr/industries/time-critical-cargo": {
     "file": "fr-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2175,7 +2175,7 @@
   },
   "it/product-sourcing": {
     "file": "it-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2219,7 +2219,7 @@
   },
   "it/services/bulk-procurement": {
     "file": "it-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2273,7 +2273,7 @@
   },
   "it/services/packaging-branding": {
     "file": "it-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2327,7 +2327,7 @@
   },
   "it/services/inventory-storage": {
     "file": "it-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2380,7 +2380,7 @@
   },
   "it/services/private-white-label": {
     "file": "it-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2434,7 +2434,7 @@
   },
   "it/services/worldwide-fulfillment": {
     "file": "it-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2488,7 +2488,7 @@
   },
   "it/industries/cross-border-ecommerce": {
     "file": "it-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2541,7 +2541,7 @@
   },
   "it/industries/consumer-goods": {
     "file": "it-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2594,7 +2594,7 @@
   },
   "it/industries/industrial-components": {
     "file": "it-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2648,7 +2648,7 @@
   },
   "it/industries/time-critical-cargo": {
     "file": "it-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2702,7 +2702,7 @@
   },
   "nl/product-sourcing": {
     "file": "nl-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2746,7 +2746,7 @@
   },
   "nl/services/bulk-procurement": {
     "file": "nl-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2800,7 +2800,7 @@
   },
   "nl/services/packaging-branding": {
     "file": "nl-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2854,7 +2854,7 @@
   },
   "nl/services/inventory-storage": {
     "file": "nl-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2907,7 +2907,7 @@
   },
   "nl/services/private-white-label": {
     "file": "nl-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -2961,7 +2961,7 @@
   },
   "nl/services/worldwide-fulfillment": {
     "file": "nl-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -3015,7 +3015,7 @@
   },
   "nl/industries/cross-border-ecommerce": {
     "file": "nl-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -3068,7 +3068,7 @@
   },
   "nl/industries/consumer-goods": {
     "file": "nl-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -3121,7 +3121,7 @@
   },
   "nl/industries/industrial-components": {
     "file": "nl-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
@@ -3175,7 +3175,7 @@
   },
   "nl/industries/time-critical-cargo": {
     "file": "nl-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261019fix4",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
     "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
     "preloads": [
       "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
