@@ -1,31 +1,31 @@
 {
-  "entry": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+  "entry": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
   "preloads": {
     "en": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "de": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "fr": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "es": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "it": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "nl": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ]
   }
 }

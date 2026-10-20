@@ -2,13 +2,11 @@ import { siteConfig } from '../../config/site';
 import { footerSection } from '../../content/en-global/home';
 import { INDUSTRIES } from '../../content/en-global/industries';
 import { SERVICES } from '../../content/en-global/services';
-import { SERVICE_TOPIC_NAV_LINKS } from '../../content/en-global/topics/index';
 import type { FooterColumn } from '../../content/types';
 import { openConsentSettings } from '../../lib/analytics';
 import { Link } from '../../lib/router';
 import { ArrowRight, MailIcon, PhoneIcon, PinIcon } from '../ui/Icons';
 import { Logo } from '../ui/Logo';
-import { LanguageList } from './Header';
 
 const heading = 'font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-navy-300';
 const linkClass = 'inline-flex py-1 text-[15px] text-navy-100 transition-colors hover:text-white hover:underline underline-offset-4';
@@ -56,18 +54,6 @@ export function SiteFooter() {
                     className={linkClass}
                   >
                     {service.navLabel}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-navy-300">
-              In-depth topic pages
-            </p>
-            <ul className="mt-3 space-y-1">
-              {SERVICE_TOPIC_NAV_LINKS.map((topic) => (
-                <li key={topic.href}>
-                  <Link to={topic.href} className={linkClass}>
-                    {topic.label}
                   </Link>
                 </li>
               ))}
@@ -156,12 +142,6 @@ export function SiteFooter() {
                 ))}
               </ul>
             )}
-            <div className="mt-8">
-              <h3 className={heading}>Language</h3>
-              <div className="mt-4">
-                <LanguageList variant="dark" />
-              </div>
-            </div>
           </div>
         </div>
       </div>

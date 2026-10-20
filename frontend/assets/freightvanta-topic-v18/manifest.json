@@ -1,12 +1,12 @@
 {
   "en/product-sourcing": {
     "file": "en-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Product Sourcing from China for Businesses | FreightVanta",
     "description": "Coordinate product sourcing from China with a supplier-ready brief, comparable responses, sample checkpoints, and an approved handoff for your destination market.",
@@ -72,12 +72,12 @@
   },
   "en/services/bulk-procurement": {
     "file": "en-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Bulk Procurement From China: Plan the Next Purchase | FreightVanta",
     "description": "Prepare a bulk purchase from China with clearer quantities, supplier questions, inventory decisions, packaging requirements, and receiving instructions.",
@@ -127,12 +127,12 @@
   },
   "en/services/packaging-branding": {
     "file": "en-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Packaging and Branding for Products From China | FreightVanta",
     "description": "Turn approved packaging, labels, inserts, and brand materials for products from China into a practical packout and fulfillment instruction.",
@@ -182,12 +182,12 @@
   },
   "en/services/inventory-storage": {
     "file": "en-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Inventory Storage for Goods From China | FreightVanta",
     "description": "Organize imported inventory receiving, identification, storage, release instructions, and exception decisions before goods move to freight, retail, or customer orders.",
@@ -236,12 +236,12 @@
   },
   "en/services/private-white-label": {
     "file": "en-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Private Label Products From China | FreightVanta",
     "description": "Coordinate product, brand assets, packaging versions, approval checkpoints, and fulfillment handoff for private-label and white-label programs from China.",
@@ -291,12 +291,12 @@
   },
   "en/services/worldwide-fulfillment": {
     "file": "en-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Fulfillment for China-Sourced Products | FreightVanta",
     "description": "Prepare China-sourced inventory for customer orders with clear picking, packing, label, shipping-handoff, and exception instructions.",
@@ -346,12 +346,12 @@
   },
   "en/industries/cross-border-ecommerce": {
     "file": "en-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Cross-Border Ecommerce Logistics From China | FreightVanta",
     "description": "Plan a cross-border ecommerce operating path from China sourcing to product checks, packout, inbound inventory, release and customer-ready orders.",
@@ -400,12 +400,12 @@
   },
   "en/industries/consumer-goods": {
     "file": "en-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Consumer Goods Logistics From China | FreightVanta",
     "description": "Coordinate China-sourced consumer goods from product reference and packaging through inbound inventory, channel release and customer-ready handoff.",
@@ -454,12 +454,12 @@
   },
   "en/industries/industrial-components": {
     "file": "en-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Industrial Components Logistics From China | FreightVanta",
     "description": "Coordinate specification-led industrial parts from China with revision control, protective packaging, documents, inbound identification and a confirmed receiving handoff.",
@@ -509,12 +509,12 @@
   },
   "en/industries/time-critical-cargo": {
     "file": "en-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-DO4JeWCf.js"
+      "/assets/freightvanta-topic-v18/assets/en-DmLhG3k2.js"
     ],
     "title": "Time-Critical Cargo Logistics From China | FreightVanta",
     "description": "Plan time-critical cargo from China with a visible ready date, documents, routing options, escalation path, and confirmed next handoff.",
@@ -564,12 +564,12 @@
   },
   "de/product-sourcing": {
     "file": "de-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Produkte aus China beschaffen | FreightVanta",
     "description": "Produkte aus China beschaffen: Lieferantenanfragen, vergleichbare Antworten, Musterpunkte und die Übergabe für Ihren Zielmarkt klar koordinieren.",
@@ -629,12 +629,12 @@
   },
   "de/services/bulk-procurement": {
     "file": "de-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Großeinkauf aus China planen | FreightVanta",
     "description": "Planen Sie einen Großeinkauf aus China mit klaren Mengen, Lieferantenfragen, Bestandsentscheidungen, Verpackungsvorgaben und Wareneingangshinweisen.",
@@ -684,12 +684,12 @@
   },
   "de/services/packaging-branding": {
     "file": "de-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Verpackung und Branding für Produkte aus China | FreightVanta",
     "description": "Verwandeln Sie freigegebene Verpackung, Etiketten, Beilagen und Branding-Materialien aus China in eine praktische Packanweisung für Ihr Fulfillment.",
@@ -739,12 +739,12 @@
   },
   "de/services/inventory-storage": {
     "file": "de-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Lagerhaltung für Waren aus China | FreightVanta",
     "description": "Organisieren Sie Wareneingang, Identifikation, Lagerung, Freigabeanweisungen und Ausnahmeentscheidungen für importierte Ware, bevor sie zu Versand, Handel oder Kundenaufträgen weitergeht.",
@@ -793,12 +793,12 @@
   },
   "de/services/private-white-label": {
     "file": "de-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Eigenmarke und White Label aus China | FreightVanta",
     "description": "Koordinieren Sie Produkt, Branding-Materialien, Verpackungsversionen, Freigabepunkte und Fulfillment-Übergabe für Eigenmarken- und White-Label-Programme aus China.",
@@ -848,12 +848,12 @@
   },
   "de/services/worldwide-fulfillment": {
     "file": "de-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Fulfillment für Produkte aus China | FreightVanta",
     "description": "Bereiten Sie Bestand aus China mit klaren Kommissionier-, Pack-, Etiketten-, Versand- und Ausnahmeanweisungen für Kundenaufträge vor.",
@@ -903,12 +903,12 @@
   },
   "de/industries/cross-border-ecommerce": {
     "file": "de-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Logistik für grenzüberschreitenden E-Commerce aus China | FreightVanta",
     "description": "Planen Sie den operativen Weg von der Beschaffung in China über Produktprüfung, Verpackung, Wareneingang und Freigabe bis zum kundenfertigen Auftrag.",
@@ -957,12 +957,12 @@
   },
   "de/industries/consumer-goods": {
     "file": "de-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Logistik für Konsumgüter aus China | FreightVanta",
     "description": "Koordinieren Sie Konsumgüter aus China von Produktreferenz und Verpackung über Wareneingang und Kanalfreigabe bis zur handels- oder kundenfertigen Übergabe.",
@@ -1011,12 +1011,12 @@
   },
   "de/industries/industrial-components": {
     "file": "de-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Logistik für Industriekomponenten aus China | FreightVanta",
     "description": "Koordinieren Sie spezifikationsgeführte Industrieteile aus China mit Versionskontrolle, Schutzverpackung, Dokumenten, Wareneingangsidentifikation und bestätigter Empfangsübergabe.",
@@ -1066,12 +1066,12 @@
   },
   "de/industries/time-critical-cargo": {
     "file": "de-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
       "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CCI0e15C.js"
+      "/assets/freightvanta-topic-v18/assets/de-DOBxXRs1.js"
     ],
     "title": "Logistik für zeitkritische Fracht aus China | FreightVanta",
     "description": "Planen Sie zeitkritische Fracht aus China mit sichtbarem Bereitstellungstermin, Dokumenten, Routenoptionen, Eskalationspfad und bestätigter nächster Übergabe.",
@@ -1121,11 +1121,11 @@
   },
   "es/product-sourcing": {
     "file": "es-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Sourcing de productos en China | FreightVanta",
     "description": "Organiza el sourcing de productos en China con un brief para proveedor, respuestas comparables, puntos de muestra y un relevo preparado para el mercado español.",
@@ -1165,11 +1165,11 @@
   },
   "es/services/bulk-procurement": {
     "file": "es-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Planificar una compra al por mayor en China | FreightVanta",
     "description": "Prepara una compra al por mayor en China con cantidades claras, preguntas al proveedor, decisiones de stock, requisitos de embalaje e instrucciones de recepción.",
@@ -1219,11 +1219,11 @@
   },
   "es/services/packaging-branding": {
     "file": "es-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Embalaje e imagen de marca para productos de China | FreightVanta",
     "description": "Convierte embalaje aprobado, etiquetas, insertos y materiales de marca en una instrucción de empaquetado práctica para tu preparación de pedidos.",
@@ -1273,11 +1273,11 @@
   },
   "es/services/inventory-storage": {
     "file": "es-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Almacenaje de mercancía procedente de China | FreightVanta",
     "description": "Organiza recepción, identificación, almacenaje, instrucciones de liberación y decisiones de excepción para mercancía importada antes de que avance a carga, retail o pedidos de cliente.",
@@ -1326,11 +1326,11 @@
   },
   "es/services/private-white-label": {
     "file": "es-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Marca propia y marca blanca desde China | FreightVanta",
     "description": "Coordina producto, materiales de marca, versiones de embalaje, puntos de aprobación y relevo hacia preparación de pedidos para tus programas de marca propia y marca blanca desde China.",
@@ -1380,11 +1380,11 @@
   },
   "es/services/worldwide-fulfillment": {
     "file": "es-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Preparación de pedidos para productos con origen en China | FreightVanta",
     "description": "Prepara stock con origen en China para pedidos de cliente con instrucciones claras de picking, empaquetado, etiqueta, entrega al transporte y gestión de excepciones.",
@@ -1434,11 +1434,11 @@
   },
   "es/industries/cross-border-ecommerce": {
     "file": "es-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Logística de comercio electrónico transfronterizo desde China | FreightVanta",
     "description": "Planifica un recorrido operativo desde el sourcing en China hasta la comprobación de producto, el empaquetado, la entrada de stock, la liberación y los pedidos listos para el cliente.",
@@ -1487,11 +1487,11 @@
   },
   "es/industries/consumer-goods": {
     "file": "es-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Logística de bienes de consumo desde China | FreightVanta",
     "description": "Coordina bienes de consumo con origen en China desde la referencia de producto y el embalaje hasta la entrada de stock, la liberación por canal y el relevo listo para retail o cliente.",
@@ -1540,11 +1540,11 @@
   },
   "es/industries/industrial-components": {
     "file": "es-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Logística de componentes industriales desde China | FreightVanta",
     "description": "Coordina piezas industriales guiadas por especificación desde China con control de versión, embalaje de protección, documentos, identificación de entrada y relevo de recepción confirmado.",
@@ -1594,11 +1594,11 @@
   },
   "es/industries/time-critical-cargo": {
     "file": "es-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/es-Dadxitj8.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/es-EBcyouZO.js"
     ],
     "title": "Logística de carga urgente desde China | FreightVanta",
     "description": "Planifica carga urgente desde China con fecha de disponibilidad, documentos, opciones de ruta, circuito de escalado y próximo relevo confirmado visibles.",
@@ -1648,11 +1648,11 @@
   },
   "fr/product-sourcing": {
     "file": "fr-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Sourcing en Chine pour entreprises | FreightVanta",
     "description": "Coordonnez votre sourcing en Chine avec un brief fournisseur, des réponses comparables, des points d'échantillonnage et une remise préparée pour le marché français.",
@@ -1692,11 +1692,11 @@
   },
   "fr/services/bulk-procurement": {
     "file": "fr-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Planifier un achat en volume depuis la Chine | FreightVanta",
     "description": "Préparez un achat en volume depuis la Chine avec des quantités claires, des questions fournisseurs, des décisions de stock, des exigences d'emballage et des instructions de réception.",
@@ -1746,11 +1746,11 @@
   },
   "fr/services/packaging-branding": {
     "file": "fr-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Emballage et image de marque pour les produits de Chine | FreightVanta",
     "description": "Transformez un emballage validé, des étiquettes, des notices et des éléments de marque en une instruction de conditionnement exploitable pour votre préparation de commandes.",
@@ -1800,11 +1800,11 @@
   },
   "fr/services/inventory-storage": {
     "file": "fr-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Stockage des marchandises en provenance de Chine | FreightVanta",
     "description": "Organisez la réception, l'identification, le stockage, les instructions de libération et les décisions d'exception pour des marchandises importées avant leur départ vers le fret, la distribution ou les commandes clients.",
@@ -1853,11 +1853,11 @@
   },
   "fr/services/private-white-label": {
     "file": "fr-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Marque propre et marque blanche depuis la Chine | FreightVanta",
     "description": "Coordonnez produit, éléments de marque, versions d'emballage, points de validation et relais vers la préparation de commandes pour vos programmes de marque propre et de marque blanche depuis la Chine.",
@@ -1907,11 +1907,11 @@
   },
   "fr/services/worldwide-fulfillment": {
     "file": "fr-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Préparation de commandes pour produits sourcés en Chine | FreightVanta",
     "description": "Préparez un stock issu de Chine pour les commandes clients avec des instructions claires de prélèvement, conditionnement, étiquette, remise au transport et gestion des exceptions.",
@@ -1961,11 +1961,11 @@
   },
   "fr/industries/cross-border-ecommerce": {
     "file": "fr-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Logistique e-commerce transfrontalier depuis la Chine | FreightVanta",
     "description": "Planifiez un parcours opérationnel de l'approvisionnement en Chine au contrôle produit, au conditionnement, à la réception du stock, à la libération et aux commandes prêtes pour le client.",
@@ -2014,11 +2014,11 @@
   },
   "fr/industries/consumer-goods": {
     "file": "fr-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Logistique des biens de consommation depuis la Chine | FreightVanta",
     "description": "Coordonnez des biens de consommation sourcés en Chine, de la référence produit et de l'emballage à la réception du stock, à la libération par canal et au relais prêt pour la distribution ou le client.",
@@ -2067,11 +2067,11 @@
   },
   "fr/industries/industrial-components": {
     "file": "fr-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Logistique des composants industriels depuis la Chine | FreightVanta",
     "description": "Coordonnez des pièces industrielles pilotées par spécification depuis la Chine avec contrôle de version, emballage de protection, documents, identification à la réception et relais de réception confirmé.",
@@ -2121,11 +2121,11 @@
   },
   "fr/industries/time-critical-cargo": {
     "file": "fr-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/fr-C3apQVag.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/fr-CakRI-pF.js"
     ],
     "title": "Logistique de fret urgent depuis la Chine | FreightVanta",
     "description": "Planifiez un fret urgent depuis la Chine avec date de mise à disposition, documents, options d'itinéraire, circuit d'escalade et prochain relais confirmé visibles.",
@@ -2175,11 +2175,11 @@
   },
   "it/product-sourcing": {
     "file": "it-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Sourcing prodotti dalla Cina per aziende | FreightVanta",
     "description": "Organizza il sourcing di prodotti dalla Cina con un brief per il fornitore, risposte confrontabili, punti campione e un passaggio preparato per il mercato italiano.",
@@ -2219,11 +2219,11 @@
   },
   "it/services/bulk-procurement": {
     "file": "it-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Pianificare un acquisto all'ingrosso in Cina | FreightVanta",
     "description": "Prepara un acquisto all'ingrosso in Cina con quantità chiare, domande ai fornitori, decisioni sulle scorte, requisiti di imballaggio e istruzioni di ricezione.",
@@ -2273,11 +2273,11 @@
   },
   "it/services/packaging-branding": {
     "file": "it-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Imballaggio e immagine di marca per prodotti dalla Cina | FreightVanta",
     "description": "Trasforma imballaggi approvati, etichette, inserti e materiali di marca in un'istruzione di confezionamento pratica per la preparazione degli ordini.",
@@ -2327,11 +2327,11 @@
   },
   "it/services/inventory-storage": {
     "file": "it-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Stoccaggio di merci provenienti dalla Cina | FreightVanta",
     "description": "Organizza ricezione, identificazione, stoccaggio, istruzioni di rilascio e decisioni sulle eccezioni per merci importate prima che passino a trasporto, vendita al dettaglio o ordini cliente.",
@@ -2380,11 +2380,11 @@
   },
   "it/services/private-white-label": {
     "file": "it-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Marca privata e white label dalla Cina | FreightVanta",
     "description": "Coordina prodotto, materiali di marca, versioni di imballaggio, punti di approvazione e passaggio alla preparazione degli ordini per programmi di marca privata e white label dalla Cina.",
@@ -2434,11 +2434,11 @@
   },
   "it/services/worldwide-fulfillment": {
     "file": "it-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Preparazione ordini per prodotti dalla Cina | FreightVanta",
     "description": "Prepara scorte provenienti dalla Cina per gli ordini cliente con istruzioni chiare di prelievo, confezionamento, etichetta, consegna al trasporto e gestione delle eccezioni.",
@@ -2488,11 +2488,11 @@
   },
   "it/industries/cross-border-ecommerce": {
     "file": "it-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Logistica e-commerce transfrontaliero dalla Cina | FreightVanta",
     "description": "Pianifica un percorso operativo dal sourcing in Cina al controllo prodotto, al confezionamento, all'ingresso delle scorte, al rilascio e agli ordini pronti per il cliente.",
@@ -2541,11 +2541,11 @@
   },
   "it/industries/consumer-goods": {
     "file": "it-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Logistica per beni di consumo dalla Cina | FreightVanta",
     "description": "Coordina beni di consumo provenienti dalla Cina dalla referenza di prodotto e dall'imballaggio all'ingresso delle scorte, al rilascio per canale e al passaggio pronto per vendita al dettaglio o cliente.",
@@ -2594,11 +2594,11 @@
   },
   "it/industries/industrial-components": {
     "file": "it-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Logistica componenti industriali dalla Cina | FreightVanta",
     "description": "Coordina parti industriali guidate da specifica dalla Cina con controllo di versione, imballaggio protettivo, documenti, identificazione all'ingresso e passaggio di ricezione confermato.",
@@ -2648,11 +2648,11 @@
   },
   "it/industries/time-critical-cargo": {
     "file": "it-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/it-CWNXtoKG.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/it-cYfUJhUy.js"
     ],
     "title": "Logistica spedizioni urgenti dalla Cina | FreightVanta",
     "description": "Pianifica una spedizione urgente dalla Cina con data di disponibilità, documenti, opzioni di rotta, percorso di escalation e prossimo passaggio confermato visibili.",
@@ -2702,11 +2702,11 @@
   },
   "nl/product-sourcing": {
     "file": "nl-product-sourcing.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Producten inkopen in China | FreightVanta",
     "description": "Producten inkopen in China met een leveranciersbrief, vergelijkbare antwoorden, monsterpunten en een voorbereide overdracht voor de Nederlandse markt.",
@@ -2746,11 +2746,11 @@
   },
   "nl/services/bulk-procurement": {
     "file": "nl-services-bulk-procurement.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Grootschalige inkoop in China plannen | FreightVanta",
     "description": "Plan een grootschalige inkoop in China met duidelijke aantallen, leveranciersvragen, voorraadbeslissingen, verpakkingseisen en ontvangstinstructies.",
@@ -2800,11 +2800,11 @@
   },
   "nl/services/packaging-branding": {
     "file": "nl-services-packaging-branding.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Verpakking en merk voor producten uit China | FreightVanta",
     "description": "Zet goedgekeurde verpakking, etiketten, inserts en merkmaterialen om in een werkbare verpakkingsinstructie voor de orderverwerking.",
@@ -2854,11 +2854,11 @@
   },
   "nl/services/inventory-storage": {
     "file": "nl-services-inventory-storage.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Opslag van goederen uit China | FreightVanta",
     "description": "Organiseer ontvangst, identificatie, opslag, vrijgave-instructies en uitzonderingsbeslissingen voor geïmporteerde goederen voordat ze naar vracht, retail of klantorders gaan.",
@@ -2907,11 +2907,11 @@
   },
   "nl/services/private-white-label": {
     "file": "nl-services-private-white-label.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Eigen merk en white label uit China | FreightVanta",
     "description": "Coördineer product, merkmaterialen, verpakkingsversies, goedkeuringsmomenten en overdracht naar orderverwerking voor eigen-merk- en white-labelprogramma's uit China.",
@@ -2961,11 +2961,11 @@
   },
   "nl/services/worldwide-fulfillment": {
     "file": "nl-services-worldwide-fulfillment.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Orderverwerking voor producten uit China | FreightVanta",
     "description": "Maak voorraad uit China klaar voor klantorders met heldere instructies voor orderpicken, verpakken, etiketten, overdracht aan transport en uitzonderingsafhandeling.",
@@ -3015,11 +3015,11 @@
   },
   "nl/industries/cross-border-ecommerce": {
     "file": "nl-industries-cross-border-ecommerce.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Logistiek voor grensoverschrijdende e-commerce uit China | FreightVanta",
     "description": "Plan een operationeel pad van sourcing in China via productcontrole, verpakking, voorraadontvangst en vrijgave tot klantklare orders.",
@@ -3068,11 +3068,11 @@
   },
   "nl/industries/consumer-goods": {
     "file": "nl-industries-consumer-goods.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Logistiek voor consumentengoederen uit China | FreightVanta",
     "description": "Coördineer consumentengoederen uit China van productreferentie en verpakking tot voorraadontvangst, kanaalvrijgave en een retail- of klantklare overdracht.",
@@ -3121,11 +3121,11 @@
   },
   "nl/industries/industrial-components": {
     "file": "nl-industries-industrial-components.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Logistiek voor industriële onderdelen uit China | FreightVanta",
     "description": "Coördineer specificatiegestuurde industriële onderdelen uit China met versiebeheer, beschermende verpakking, documenten, ontvangstidentificatie en een bevestigde ontvangstoverdracht.",
@@ -3175,11 +3175,11 @@
   },
   "nl/industries/time-critical-cargo": {
     "file": "nl-industries-time-critical-cargo.html",
-    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=20261020.2",
-    "js": "/assets/freightvanta-topic-v18/assets/topic-B_wKtgh0.js",
+    "css": "/assets/freightvanta-topic-v18/assets/topic.css?v=d6c0a12152e7",
+    "js": "/assets/freightvanta-topic-v18/assets/topic-CacvIoly.js",
     "preloads": [
-      "/assets/freightvanta-topic-v18/assets/seo-LFgZPOhM.js",
-      "/assets/freightvanta-topic-v18/assets/nl-DOD4MUFl.js"
+      "/assets/freightvanta-topic-v18/assets/seo-cot75Ar9.js",
+      "/assets/freightvanta-topic-v18/assets/nl-DNB0lBrJ.js"
     ],
     "title": "Logistiek voor tijdkritische vracht uit China | FreightVanta",
     "description": "Plan tijdkritische vracht uit China met zichtbare beschikbaarheidsdatum, documenten, routeopties, escalatieroute en bevestigde volgende overdracht.",
