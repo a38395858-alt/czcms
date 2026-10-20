@@ -91,7 +91,9 @@ var importedTopicDocument = template.Must(template.New("imported-topic").Parse(`
 {{range .Fonts}}<link rel="preload" as="font" type="font/woff2" href="{{.}}" crossorigin>{{end}}
 <link rel="stylesheet" href="/assets/css/public-navigation.css?v=20261013.5">
 <link rel="stylesheet" href="/assets/css/mega-menu.css?v=20261019.5">
+<link rel="stylesheet" href="/assets/css/enquiry-form.css?v=20261020.1">
 <script src="/assets/js/mega-menu.js?v=20261019.5" defer></script>
+<script src="/assets/js/enquiry-unify.js?v=20261020.1" defer></script>
 <script src="/assets/js/public-navigation.js?v=20261016.1" defer></script>
 <script id="freightvanta-cms-context" type="application/json">{{.Context}}</script>
 <script type="application/ld+json">{{.Schema}}</script>

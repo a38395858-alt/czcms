@@ -1,0 +1,162 @@
+/* ==========================================================================
+   Unified enquiry form (rendered by enquiry-unify.js)
+   One form system for every topic page: the homepage's fields, the homepage's
+   submission path, and the same visual language across all six sites.
+   ========================================================================== */
+
+.cz-enq {
+  --cz-enq-ink: #0b1b33;
+  --cz-enq-ink-soft: #4a5a72;
+  --cz-enq-line: #c9d6e6;
+  --cz-enq-line-soft: #dfe6f0;
+  --cz-enq-accent: #1a64d6;
+  --cz-enq-accent-ink: #ffffff;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: clamp(20px, 3.4vw, 40px);
+  border: 1px solid var(--cz-enq-line-soft);
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--cz-enq-ink);
+}
+
+.cz-enq *,
+.cz-enq *::before,
+.cz-enq *::after { box-sizing: border-box; }
+
+.cz-enq-note {
+  margin: 0 0 22px;
+  color: var(--cz-enq-ink-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cz-enq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+}
+
+.cz-enq-field { min-width: 0; }
+.cz-enq-field-wide { grid-column: 1 / -1; }
+
+.cz-enq-field > label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--cz-enq-ink);
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.cz-enq-req {
+  color: #b3261e;
+  font-weight: 700;
+}
+
+.cz-enq-field input,
+.cz-enq-field select,
+.cz-enq-field textarea {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--cz-enq-line);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--cz-enq-ink);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.45;
+  transition: border-color .14s ease, box-shadow .14s ease;
+}
+
+.cz-enq-field textarea { resize: vertical; min-height: 112px; }
+
+.cz-enq-field input:hover,
+.cz-enq-field select:hover,
+.cz-enq-field textarea:hover { border-color: #9db0c9; }
+
+.cz-enq-field input:focus-visible,
+.cz-enq-field select:focus-visible,
+.cz-enq-field textarea:focus-visible {
+  outline: none;
+  border-color: var(--cz-enq-accent);
+  box-shadow: 0 0 0 3px rgba(26, 100, 214, .16);
+}
+
+.cz-enq-field input::placeholder,
+.cz-enq-field textarea::placeholder { color: #7a879a; }
+
+.cz-enq-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 22px 0 0;
+  color: var(--cz-enq-ink-soft);
+  font-size: 13.5px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.cz-enq-consent input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--cz-enq-accent);
+}
+
+.cz-enq-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 24px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 3px;
+  background: var(--cz-enq-accent);
+  color: var(--cz-enq-accent-ink);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter .14s ease;
+}
+
+.cz-enq-submit:hover { filter: brightness(1.07); }
+.cz-enq-submit:focus-visible { outline: 2px solid var(--cz-enq-ink); outline-offset: 2px; }
+.cz-enq-submit[disabled] { opacity: .7; cursor: progress; }
+
+.cz-enq-status {
+  margin: 16px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.cz-enq-status[role="status"] { color: #0f6b3f; }
+.cz-enq-status[role="alert"] { color: #a8301b; }
+.cz-enq-status:focus { outline: none; }
+.cz-enq-status:focus-visible { outline: 2px solid var(--cz-enq-accent); outline-offset: 2px; }
+
+/* Per-site accent so the form belongs to the language it serves. */
+html[lang^="de"] .cz-enq { --cz-enq-accent: #a83019; }
+html[lang^="fr"] .cz-enq { --cz-enq-accent: #b45a24; }
+html[lang^="es"] .cz-enq { --cz-enq-accent: #a33a1b; }
+html[lang^="it"] .cz-enq { --cz-enq-accent: #c02620; }
+html[lang^="nl"] .cz-enq { --cz-enq-accent: #0c6b4a; }
+
+@media (max-width: 640px) {
+  .cz-enq-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .cz-enq-submit { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cz-enq-field input,
+  .cz-enq-field select,
+  .cz-enq-field textarea,
+  .cz-enq-submit { transition: none; }
+}
