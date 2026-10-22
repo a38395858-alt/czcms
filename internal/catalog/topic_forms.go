@@ -32,7 +32,7 @@ func (s *Service) ensureBuiltinEnquiryForm(ctx context.Context, siteID int64, lo
 	}
 	now := nowUTC()
 	_, err = tx.ExecContext(ctx, `INSERT INTO forms(site_id, locale, form_key, name, submit_label, status, success_message, notify_enabled, version, created_at, updated_at)
-		VALUES (?, ?, ?, ?, 'Request a plan', 'active', 'Thank you. Your enquiry has been received.', 0, 1, ?, ?)
+		VALUES (?, ?, ?, ?, 'Request a plan', 'active', 'Thank you. Your enquiry has been received.', 1, 1, ?, ?)
 		ON CONFLICT(site_id, locale, form_key) DO NOTHING`, siteID, locale, key, map[string]string{"topic-enquiry": "专题页询盘", "home-enquiry": "首页询盘", "newsletter": "资源订阅"}[key], now, now)
 	if err != nil {
 		return Form{}, err

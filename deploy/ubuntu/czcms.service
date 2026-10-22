@@ -1,0 +1,25 @@
+[Unit]
+Description=CZCMS website
+After=network.target clamav-daemon.service
+Wants=clamav-daemon.service
+
+[Service]
+Type=simple
+User=czcms
+Group=czcms
+WorkingDirectory=/var/lib/czcms
+EnvironmentFile=/etc/czcms/production.env
+ExecStart=/opt/czcms/current/czcms
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/czcms
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

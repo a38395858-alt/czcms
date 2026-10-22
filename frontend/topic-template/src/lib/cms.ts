@@ -1,5 +1,6 @@
 /** CMS values are supplied with the server-rendered document, never from the ZIP's .env. */
 export interface CMSContext {
+  sharedHeader?: boolean;
   locale: string;
   route: string;
   basePath: string;

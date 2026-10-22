@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"encoding/json"
 	"html"
 	"io"
@@ -10,6 +11,8 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+
+	"czcms/internal/mailer"
 )
 
 var importedContextPattern = regexp.MustCompile(`<script id="freightvanta-cms-context" type="application/json">(.*?)</script>`)
@@ -133,6 +136,17 @@ func TestTopicEnquiryPersistsEncryptedValuesAndRejectsCrossSiteTokens(t *testing
 		t.Fatal(err)
 	}
 	t.Cleanup(func() { _ = a.Close() })
+	if err = a.mail.Close(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	cfg, err := a.mail.Settings(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = a.mail.Save(context.Background(), mailer.Input{Enabled: true, Host: cfg.Host, Port: cfg.Port, Security: cfg.Security, Username: cfg.Username, Password: "local-test-only", FromEmail: cfg.FromEmail, FromName: cfg.FromName, Recipient: cfg.Recipient, Version: cfg.Version})
+	if err != nil {
+		t.Fatal(err)
+	}
 	for _, site := range []struct{ code, locale string }{{"global", "en"}, {"germany", "de"}, {"spain", "es"}, {"france", "fr"}, {"italy", "it"}, {"netherlands", "nl"}} {
 		page := httptest.NewRecorder()
 		a.Handler().ServeHTTP(page, httptest.NewRequest(http.MethodGet, "http://unbound.test/preview/"+site.code+"/product-sourcing", nil))
@@ -188,6 +202,10 @@ func TestTopicEnquiryPersistsEncryptedValuesAndRejectsCrossSiteTokens(t *testing
 		if site.locale == "es" && savedLocale != "es-ES" {
 			t.Fatal("Spanish enquiry lost CMS locale")
 		}
+	}
+	var deliveries int
+	if err = a.db.QueryRow(`SELECT COUNT(*) FROM mail_deliveries WHERE recipient='38395858@qq.com' AND status='pending'`).Scan(&deliveries); err != nil || deliveries != 6 {
+		t.Fatalf("topic enquiries not queued: %d %v", deliveries, err)
 	}
 }
 

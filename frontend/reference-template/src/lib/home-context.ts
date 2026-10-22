@@ -1,4 +1,4 @@
-interface HomeContext { locale: string; languages: Record<string, string>; enquiry?: { locale: string; siteId: number; basePath: string; formToken: string } }
+interface HomeContext { sharedHeader?: boolean; locale: string; languages: Record<string, string>; enquiry?: { locale: string; siteId: number; basePath: string; formToken: string } }
 declare global { var __FV_HOME__: HomeContext | undefined; }
 export function homeContext(): HomeContext | undefined {
   if (globalThis.__FV_HOME__) return globalThis.__FV_HOME__;

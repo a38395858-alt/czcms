@@ -23,6 +23,7 @@ import (
 	"czcms/internal/database"
 	"czcms/internal/filestore"
 	"czcms/internal/httpserver"
+	"czcms/internal/mailer"
 	"czcms/internal/security"
 	"czcms/internal/spider"
 )
@@ -34,6 +35,7 @@ type App struct {
 	previews  *localPreviewManager
 	analytics *analytics.Service
 	spider    *spider.Service
+	mail      *mailer.Service
 }
 
 func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
@@ -82,7 +84,7 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 	}
 	layered := cache.NewLayered(memory, redisStore, cfg.CacheTTL)
 
-	tmpl, err := template.ParseFS(webassets.Files, "index.html", "auth.html", "public.html", "editorial.html", "support.html", "public-atlas.html", "public-it.html", "public-reference.html", "public-nl.html")
+	tmpl, err := template.ParseFS(webassets.Files, "index.html", "auth.html", "public.html", "editorial.html", "support.html", "head.html", "public-atlas.html", "public-it.html", "public-reference.html", "public-nl.html")
 	if err != nil {
 		layered.Close()
 		return fail(fmt.Errorf("解析后台模板: %w", err))
@@ -114,6 +116,7 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 	previewManager := newLocalPreviewManager(cfg, db, logger)
 	analyticsService := analytics.New(db, keys, cfg.CookieSecure)
 	spiderService := spider.New(db)
+	mailService := mailer.New(db, keys, logger)
 	handler := httpserver.New(httpserver.Dependencies{
 		DB: db, Cache: layered, Logger: logger, Template: tmpl, Assets: staticFS, Started: time.Now(), Config: cfg,
 		Auth: authService, Authorization: authorization.New(db), Audit: audit.New(db), Keys: keys,
@@ -122,6 +125,7 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 		LocalizationAssistant: localizationAssistant,
 		Analytics:             analyticsService,
 		Spider:                spiderService,
+		Mail:                  mailService,
 		SyncLocalPreviews:     previewManager.Sync,
 	})
 	previewManager.SetHandler(handler)
@@ -132,7 +136,8 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 		layered.Close()
 		return fail(err)
 	}
-	return &App{db: db, cache: layered, http: handler, previews: previewManager, analytics: analyticsService, spider: spiderService}, nil
+	mailService.Start()
+	return &App{db: db, cache: layered, http: handler, previews: previewManager, analytics: analyticsService, spider: spiderService, mail: mailService}, nil
 }
 
 func (a *App) Handler() http.Handler { return a.http }

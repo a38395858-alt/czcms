@@ -11,6 +11,7 @@ import (
 	"strings"
 	"sync"
 
+	webassets "czcms/frontend"
 	"czcms/internal/catalog"
 )
 
@@ -62,18 +63,19 @@ func (s *server) loadImportedTopics() {
 }
 
 type importedTopicContext struct {
-	Locale    string            `json:"locale"`
-	Route     string            `json:"route"`
-	BasePath  string            `json:"basePath"`
-	SiteID    int64             `json:"siteId"`
-	SiteURL   string            `json:"siteUrl"`
-	Canonical string            `json:"canonical"`
-	Preview   bool              `json:"preview"`
-	Languages map[string]string `json:"languages"`
-	FormToken string            `json:"formToken"`
+	SharedHeader bool              `json:"sharedHeader"`
+	Locale       string            `json:"locale"`
+	Route        string            `json:"route"`
+	BasePath     string            `json:"basePath"`
+	SiteID       int64             `json:"siteId"`
+	SiteURL      string            `json:"siteUrl"`
+	Canonical    string            `json:"canonical"`
+	Preview      bool              `json:"preview"`
+	Languages    map[string]string `json:"languages"`
+	FormToken    string            `json:"formToken"`
 }
 
-var importedTopicDocument = template.Must(template.New("imported-topic").Parse(`<!doctype html>
+var importedTopicDocument = template.Must(template.Must(template.New("imported-topic").Parse(`<!doctype html>
 <html lang="{{.Language}}" dir="{{.Direction}}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{{.Page.Title}}</title><meta name="description" content="{{.Page.Description}}">
@@ -90,15 +92,14 @@ var importedTopicDocument = template.Must(template.New("imported-topic").Parse(`
 {{range .Page.Preloads}}<link rel="modulepreload" href="{{.}}">{{end}}
 {{range .Fonts}}<link rel="preload" as="font" type="font/woff2" href="{{.}}" crossorigin>{{end}}
 <link rel="stylesheet" href="/assets/css/public-navigation.css?v=20261013.5">
-<link rel="stylesheet" href="/assets/css/mega-menu.css?v=20261019.5">
 <link rel="stylesheet" href="/assets/css/enquiry-form.css?v=20261020.1">
-<script src="/assets/js/mega-menu.js?v=20261019.5" defer></script>
-<script src="/assets/js/enquiry-unify.js?v=20261020.1" defer></script>
-<script src="/assets/js/public-navigation.js?v=20261016.1" defer></script>
+<script src="/assets/js/enquiry-unify.js?v=20261022.1" defer></script>
+<script src="/assets/js/public-navigation.js?v=20261022.1" defer></script>
 <script id="freightvanta-cms-context" type="application/json">{{.Context}}</script>
 <script type="application/ld+json">{{.Schema}}</script>
-</head><body data-topic-template="v18" data-theme-id="{{.ThemeID}}"><div id="root">{{.Markup}}</div>
-<script type="module" src="{{.Page.JS}}"></script></body></html>`))
+{{template "head-assets" .}}
+</head><body data-topic-template="v18" data-theme-id="{{.ThemeID}}">{{template "head" .Header}}<div id="root">{{.Markup}}</div>
+<script type="module" src="{{.Page.JS}}"></script></body></html>`)).ParseFS(webassets.Files, "head.html"))
 
 func (s *server) serveImportedTopicTemplate(w http.ResponseWriter, r *http.Request, site catalog.Site, data publicSitePageData, routePath string) bool {
 	// These sites use the topic templates, including the
@@ -128,7 +129,7 @@ func (s *server) serveImportedTopicTemplate(w http.ResponseWriter, r *http.Reque
 		return false
 	}
 	base := strings.TrimSuffix(data.CurrentPath, "/"+requestRoute)
-	ctx := importedTopicContext{Locale: language, Route: route, BasePath: base, SiteID: site.ID,
+	ctx := importedTopicContext{SharedHeader: true, Locale: language, Route: route, BasePath: base, SiteID: site.ID,
 		SiteURL: strings.TrimRight(data.PublicOrigin, "/"), Canonical: data.CanonicalURL, Preview: data.Preview,
 		Languages: map[string]string{}, FormToken: publicFormToken(s, 0, site.ID)}
 	for _, lang := range data.Languages {
@@ -205,10 +206,11 @@ func (s *server) serveImportedTopicTemplate(w http.ResponseWriter, r *http.Reque
 		ThemeID                                                                    int64
 		Context, Schema                                                            template.JS
 		Markup                                                                     template.HTML
+		Header                                                                     publicHeaderData
 		Fonts                                                                      []string
 	}{page, data.Locale, data.Direction, strings.Join(page.Keywords, ", "), robots, color, data.CanonicalURL,
 		site.Name, favicon, data.Hreflangs, data.ThemeID, template.JS(contextJSON),
-		template.JS(importedTopicSchema(page, ctx)), template.HTML(markup), fonts}
+		template.JS(importedTopicSchema(page, ctx)), template.HTML(markup), data.Header, fonts}
 	var result bytes.Buffer
 	if err := importedTopicDocument.Execute(&result, view); err != nil {
 		s.Logger.Error("渲染导入专题页失败", "error", err, "route", route)

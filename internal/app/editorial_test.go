@@ -77,6 +77,9 @@ func TestSixMarketEditorialArchivesAndReadingPages(t *testing.T) {
 				t.Fatal("filter did not filter")
 			}
 			body := get("/editorial-qa-1")
+			if strings.Count(body, "data-shared-header") != 1 || strings.Count(index, "data-shared-header") != 1 {
+				t.Fatal("article and archive must each render one shared header")
+			}
 			for _, want := range []string{market.contents, `id="fv-reading-section-1"`, `rel="prev"`, `rel="next"`, `href="/#` + market.anchor + `"`} {
 				if !strings.Contains(body, want) {
 					t.Fatalf("content missing %q", want)

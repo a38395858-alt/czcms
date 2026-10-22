@@ -1,3 +1,4 @@
+import { homeContext } from '../../lib/home-context';
 import type { MouseEvent, ReactNode } from 'react';
 import { LocaleSuggestion } from '../../components/layout/LocaleSuggestion';
 import type { Route } from '../../lib/router';
@@ -13,9 +14,9 @@ export function EsShell({ route, focusMain, children }: { route: Route; focusMai
       >
         Saltar al contenido principal
       </a>
-      <LocaleSuggestion site="es" />
+      {!homeContext()?.sharedHeader && <><LocaleSuggestion site="es" />
       <EsAnnouncementBar />
-      <EsHeader route={route} />
+      <EsHeader route={route} /></>}
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
         {children}
       </main>

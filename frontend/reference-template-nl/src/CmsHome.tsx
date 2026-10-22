@@ -1,3 +1,4 @@
+import { homeContext } from './lib/home-context';
 import { RouterProvider, useRoute } from './lib/router';
 import { SkipLink, useRouteScroll } from './lib/route-effects';
 import { NlHeader, NlFooter } from './components/nl/DutchChrome';
@@ -8,7 +9,7 @@ function Home() {
   useRouteScroll(route);
   return <div className="flex min-h-screen flex-col overflow-x-clip">
     <SkipLink label="Direct naar inhoud" />
-    <NlHeader />
+    {!homeContext()?.sharedHeader && <NlHeader />}
     <main id="main" tabIndex={-1} className="flex-1 outline-none"><DutchHomePage /></main>
     <NlFooter />
     <ConsentBanner locale="nl" />

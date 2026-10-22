@@ -1,14 +1,14 @@
 /* Shared document navigation: native links, immediate feedback, accessible disclosures. */
 (function () {
   'use strict';
-  function menus() { return document.querySelectorAll('[data-public-menu], header details'); }
+  function menus() { return document.querySelectorAll('[data-public-menu], header:not([data-shared-header]) details'); }
   function close(menu, restoreFocus) {
     menu.open = false;
     if (restoreFocus) menu.querySelector('summary')?.focus();
   }
   document.addEventListener('toggle', function (event) {
     var menu = event.target;
-    if (!(menu instanceof HTMLDetailsElement) || !menu.open || !menu.matches('[data-public-menu], header details')) return;
+    if (!(menu instanceof HTMLDetailsElement) || !menu.open || !menu.matches('[data-public-menu], header:not([data-shared-header]) details')) return;
     menus().forEach(function (other) {
       if (other !== menu && !other.contains(menu) && !menu.contains(other)) close(other, false);
     });

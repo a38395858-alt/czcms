@@ -20,7 +20,7 @@ func (s *server) prepareReferenceHome(data *publicSitePageData) {
 		languageURLs[strings.ToLower(strings.Split(language.Code, "-")[0])] = language.URL
 	}
 	languageURLs[locale] = data.HomePath
-	initialContext, _ := json.Marshal(map[string]any{"locale": locale, "enquiry": json.RawMessage(data.EnquiryContext), "languages": languageURLs})
+	initialContext, _ := json.Marshal(map[string]any{"sharedHeader": true, "locale": locale, "enquiry": json.RawMessage(data.EnquiryContext), "languages": languageURLs})
 	data.HomeContext = template.JS(initialContext)
 	root := "freightvanta-template/"
 	if locale == "nl" {
@@ -70,10 +70,11 @@ func (s *server) prepareReferenceHome(data *publicSitePageData) {
 		markup = strings.ReplaceAll(markup, placeholder, html.EscapeString(url))
 	}
 	context, _ := json.Marshal(struct {
-		Locale    string            `json:"locale"`
-		Enquiry   json.RawMessage   `json:"enquiry"`
-		Languages map[string]string `json:"languages"`
-	}{locale, json.RawMessage(data.EnquiryContext), languages})
+		SharedHeader bool              `json:"sharedHeader"`
+		Locale       string            `json:"locale"`
+		Enquiry      json.RawMessage   `json:"enquiry"`
+		Languages    map[string]string `json:"languages"`
+	}{true, locale, json.RawMessage(data.EnquiryContext), languages})
 	data.HomeMarkup = template.HTML(markup)
 	data.HomeContext = template.JS(context)
 	for _, pattern := range fonts {

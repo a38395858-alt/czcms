@@ -36,6 +36,7 @@ import (
 	"czcms/internal/config"
 	"czcms/internal/contentsafety"
 	"czcms/internal/filestore"
+	"czcms/internal/mailer"
 	"czcms/internal/security"
 	"czcms/internal/spider"
 
@@ -61,6 +62,7 @@ type Dependencies struct {
 	Backups               *backup.Service
 	Analytics             *analytics.Service
 	Spider                *spider.Service
+	Mail                  *mailer.Service
 	SEOAssistant          SEOAssistant
 	LocalizationAssistant LocalizationAssistant
 	SyncLocalPreviews     func() error
@@ -305,6 +307,7 @@ type publicFormData struct {
 }
 
 type publicSitePageData struct {
+	Header             publicHeaderData
 	SiteName           string
 	MarketCode         string
 	SiteCode           string
@@ -426,6 +429,11 @@ func New(deps Dependencies) http.Handler {
 		protected.Post("/account/mfa", s.mfaSubmit)
 
 		protected.Route("/api/v1", func(api chi.Router) {
+			api.With(s.requirePermission("system.manage")).Get("/system/smtp", s.smtpSettings)
+			api.With(s.requirePermission("system.manage"), s.requireCSRF).Put("/system/smtp", s.smtpSave)
+			api.With(s.requirePermission("system.manage"), s.requireCSRF).Post("/system/smtp/test", s.smtpTest)
+			api.With(s.requirePermission("system.manage")).Get("/system/smtp/deliveries", s.smtpDeliveries)
+			api.With(s.requirePermission("system.manage"), s.requireCSRF).Post("/system/smtp/deliveries/{deliveryID}/retry", s.smtpRetry)
 			api.Get("/auth/me", s.me)
 			api.With(s.requirePermission("dashboard.view")).Get("/sites", s.listSites)
 			api.With(s.requirePermission("dashboard.view")).Get("/sites/{siteID}/languages", s.listSiteLanguages)
@@ -692,6 +700,8 @@ func (s *server) contentPreview(w http.ResponseWriter, r *http.Request) {
 	if data.ThemeKey != "atlas-commerce" && strings.EqualFold(data.LanguageCode, "nl") && (data.IsHome || data.IsServiceTopic || data.IsIndustrySolution) {
 		templateName = "public-nl.html"
 	}
+	data.Header = sharedPublicHeader(data)
+	data.Header.SuppressHreflang = true
 	if err = s.Template.ExecuteTemplate(w, templateName, data); err != nil {
 		s.Logger.Error("渲染内容前台预览失败", "error", err, "content_id", contentID, "site_id", siteID, "locale", locale)
 	}
@@ -699,7 +709,12 @@ func (s *server) contentPreview(w http.ResponseWriter, r *http.Request) {
 
 func (s *server) tryPublicSite(w http.ResponseWriter, r *http.Request) bool {
 	host := requestHostname(r.Host)
-	if host == "" || host == "localhost" || strings.HasSuffix(host, ".localhost") || net.ParseIP(host) != nil {
+	if host == "" || host == "localhost" || strings.HasSuffix(host, ".localhost") {
+		return false
+	}
+	// An IP can serve a site only through an explicit site_domains binding.
+	// Keep local administration addresses out of public host routing.
+	if ip := net.ParseIP(host); ip != nil && (ip.IsLoopback() || ip.IsUnspecified()) {
 		return false
 	}
 	site, domain, err := s.Catalog.SiteByHostname(r.Context(), host)
@@ -784,6 +799,7 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 		w.Header().Set("Retry-After", "300")
 	}
 	data, status := s.publicPageData(r, site, preview, canonical, routePath, themeOverride)
+	data.Header = sharedPublicHeader(data)
 	if data.RedirectURL != "" {
 		target := data.RedirectURL
 		if r.URL.RawQuery != "" {

@@ -16,6 +16,7 @@ import (
 
 	"czcms/internal/catalog"
 	"czcms/internal/contentsafety"
+	"czcms/internal/mailer"
 )
 
 func TestAllHomeFormsAndInboxWorkflow(t *testing.T) {
@@ -24,6 +25,19 @@ func TestAllHomeFormsAndInboxWorkflow(t *testing.T) {
 		t.Fatal(err)
 	}
 	t.Cleanup(func() { _ = a.Close() })
+	// Exercise the real public handlers with SMTP enabled. The worker is
+	// stopped so this integration test never contacts an external mail server.
+	if err = a.mail.Close(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	cfg, err := a.mail.Settings(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = a.mail.Save(context.Background(), mailer.Input{Enabled: true, Host: cfg.Host, Port: cfg.Port, Security: cfg.Security, Username: cfg.Username, Password: "local-test-only", FromEmail: cfg.FromEmail, FromName: cfg.FromName, Recipient: cfg.Recipient, Version: cfg.Version})
+	if err != nil {
+		t.Fatal(err)
+	}
 	homePattern := regexp.MustCompile(`<script id="freightvanta-enquiry-context" type="application/json">(.*?)</script>`)
 	var globalID, otherID int64
 	for _, site := range []struct{ code, locale string }{{"global", "en"}, {"germany", "de"}, {"france", "fr"}, {"spain", "es"}, {"italy", "it"}, {"netherlands", "nl"}} {
@@ -232,5 +246,12 @@ func TestAllHomeFormsAndInboxWorkflow(t *testing.T) {
 	contact := list("?q=contact-qa@example.test")
 	if contact.Total != 1 || contact.Submissions[0].Values["message"] != values.Get("message") {
 		t.Fatal("CMS contact submission missing from inbox")
+	}
+	var deliveries, submissions int
+	if err = a.db.QueryRow(`SELECT COUNT(*) FROM mail_deliveries WHERE recipient='38395858@qq.com' AND status='pending'`).Scan(&deliveries); err != nil {
+		t.Fatal(err)
+	}
+	if err = a.db.QueryRow(`SELECT COUNT(*) FROM form_submissions`).Scan(&submissions); err != nil || deliveries != submissions || deliveries != 13 {
+		t.Fatalf("public forms were not atomically queued: deliveries=%d submissions=%d error=%v", deliveries, submissions, err)
 	}
 }

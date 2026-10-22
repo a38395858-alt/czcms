@@ -1,0 +1,43 @@
+{{define "head-assets"}}
+<link rel="stylesheet" href="/assets/css/public-header.css?v=20261022.1">
+<script src="/assets/js/public-header.js?v=20261022.1" defer></script>
+{{end}}
+
+{{define "head"}}
+<header class="fv-head{{if .IsHome}} fv-head-home{{end}}" data-shared-header data-language="{{.LanguageCode}}">
+  <div class="fv-head-inner">
+    <a class="fv-head-brand" href="{{.HomePath}}" aria-label="FreightVanta · {{.Copy.PageHome}}">
+      <svg class="fv-head-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="4" fill="currentColor"/><path d="m7 25 6-4v11l-6 4zm9-7 7-4v15l-7 4zm10-7 7-5v20l-7 4z" fill="#fff"/></svg>
+      <span class="fv-head-wordmark"><strong>FreightVanta</strong><small>International logistics network</small></span>
+    </a>
+    <details class="fv-head-navigation">
+      <summary class="fv-head-toggle"><span>{{.MenuLabel}}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary>
+      <div class="fv-head-content">
+        <nav class="fv-head-nav" aria-label="{{.MenuLabel}}">
+          {{range .Menus}}
+          <details class="fv-head-dropdown" data-header-menu>
+            <summary>{{.Trigger}}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary>
+            <div class="fv-head-panel" data-columns="{{.Columns}}">
+              <div class="fv-head-panel-main"><p class="fv-head-eyebrow">{{.Eyebrow}}</p>
+                <ul class="fv-head-list">{{range .Items}}<li><a href="{{.Href}}"><strong>{{.Title}}</strong><span>{{.Desc}}</span></a></li>{{end}}</ul>
+              </div>
+              <aside class="fv-head-aside"><h2>{{.Aside.Title}}</h2><p>{{.Aside.Body}}</p><a class="fv-head-button" href="{{.Aside.CTAHref}}">{{.Aside.CTA}} <span aria-hidden="true">→</span></a>{{if .Aside.Secondary}}<a class="fv-head-secondary" href="{{.Aside.SecondaryHref}}">{{.Aside.Secondary}}</a>{{end}}</aside>
+            </div>
+          </details>
+          {{end}}
+          <a href="{{.GuideIndexPath}}">{{.Copy.NavGuides}}</a>
+          <a href="{{.Links.About}}">{{.Copy.NavAbout}}</a>
+          <a href="{{.Links.Contact}}">{{.Copy.NavContact}}</a>
+        </nav>
+        <div class="fv-head-actions">
+          <details class="fv-head-language" data-header-menu>
+            <summary aria-label="{{.Copy.SwitchLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-5 5-5 13 0 18 5-5 5-13 0-18"/></svg>{{.LanguageName}}<svg class="fv-head-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary>
+            <div class="fv-head-languages">{{range .Languages}}<a href="{{.URL}}"{{if not $.SuppressHreflang}} hreflang="{{.Code}}"{{end}} lang="{{.Locale}}"{{if eq .Locale $.Locale}} aria-current="page"{{end}}><span>{{.NativeName}}</span><small>{{.Code}}</small></a>{{end}}</div>
+          </details>
+          <a class="fv-head-button fv-head-cta" href="{{.EnquiryURL}}">{{.Copy.ContactButton}}</a>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+{{end}}

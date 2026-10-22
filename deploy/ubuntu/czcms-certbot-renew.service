@@ -1,0 +1,8 @@
+[Unit]
+Description=Renew CZCMS short-lived IP certificate
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/certbot/bin/certbot renew --quiet --no-random-sleep-on-renew

@@ -1,3 +1,4 @@
+import { homeContext } from './lib/home-context';
 import { SkipLink, useRouteScroll } from './lib/route-effects';
 import { ConsentBanner } from './components/layout/ConsentBanner';
 import { SiteFooter } from './components/layout/Footer';
@@ -101,7 +102,7 @@ function Layout() {
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip">
       <SkipLink label={skipLabel} />
-      {isGerman ? (
+      {!homeContext()?.sharedHeader && (isGerman ? (
         <DeHeader />
       ) : isFrench ? (
         <FrHeader />
@@ -116,7 +117,7 @@ function Layout() {
           <AnnouncementBar />
           <SiteHeader />
         </>
-      )}
+      ))}
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <PageSwitch route={route} />
       </main>

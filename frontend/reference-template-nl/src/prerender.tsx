@@ -8,7 +8,7 @@ const locales = ['nl'];
 writePreloads('dist', '/assets/nl-template/', { nl:'src/CmsHome.tsx' });
 mkdirSync('dist/pages', { recursive: true });
 for (const locale of locales) {
-  globalThis.__FV_HOME__ = { locale, languages: Object.fromEntries(['en','de','fr','es','it','nl'].map(code => [code, `__FV_HOME_${code}__`])) };
+  globalThis.__FV_HOME__ = { sharedHeader: true, locale, languages: Object.fromEntries(['en','de','fr','es','it','nl'].map(code => [code, `__FV_HOME_${code}__`])) };
   writeFileSync(`dist/pages/${locale}-home.html`, renderToString(<StrictMode><CmsHome /></StrictMode>));
 }
 cpSync(resolve('dist'), resolve('../assets/nl-template'), { recursive: true });

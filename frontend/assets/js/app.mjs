@@ -1,5 +1,6 @@
 import { modules, navigationItems, quickActions } from './data.mjs?v=20261015.1'
 import { mountFormInbox } from './form-inbox.mjs?v=20261015.2'
+import { mountSMTPSettings } from './smtp-settings.mjs?v=20261020.1'
 import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, metafieldSuggestedIdentifiers, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs?v=20260907.01'
 
 const $ = (selector, scope = document) => scope.querySelector(selector)
@@ -589,7 +590,7 @@ function renderModuleGuide(route) {
 
 function settingsSection() {
   const section = currentRouteParams().get('section') || 'status'
-  return ['status', 'backups', 'ai'].includes(section) ? section : 'status'
+  return ['status', 'backups', 'ai', 'smtp'].includes(section) ? section : 'status'
 }
 
 function seoSection() {
@@ -639,6 +640,7 @@ function renderSettingsTabs(section = settingsSection()) {
     { key: 'status', label: '运行状态' },
     { key: 'backups', label: '备份与恢复' },
     { key: 'ai', label: 'AI 配置' },
+    { key: 'smtp', label: '邮件转发' },
   ]
   return `<nav class="settings-tabs" aria-label="系统设置二级菜单">${tabs.map((tab) => `<a href="#/admin/settings?section=${tab.key}" ${tab.key === section ? 'aria-current="page"' : ''}>${escapeHtml(tab.label)}</a>`).join('')}</nav>`
 }
@@ -1064,6 +1066,15 @@ function renderSEOCenter() {
 function renderModule(route, options = {}) {
   const config = activeModuleConfig(route)
   if (!config) return navigate('/admin')
+  if (route === 'settings' && settingsSection() === 'smtp') {
+    moduleState.route = 'settings'
+    if (!liveState.me) {
+      moduleView.innerHTML = '<p role="status">正在验证邮件配置访问权限…</p>'
+      return
+    }
+    if (!moduleView.querySelector('.smtp-settings')) mountSMTPSettings(moduleView, { fetchJSON, can, escapeHtml, formatDate, tabs: renderSettingsTabs('smtp') })
+    return
+  }
 	if (route === 'settings' && settingsSection() === 'ai') {
 		renderAISettings()
 		return

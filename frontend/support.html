@@ -7,13 +7,12 @@
 <meta property="og:type" content="website"><meta property="og:title" content="{{.PageTitle}}"><meta property="og:description" content="{{.MetaDescription}}">
 {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}">{{end}}<script type="application/ld+json">{{.StructuredData}}</script>
 <link rel="stylesheet" href="/assets/css/public.css?v=20261019.3"><link rel="stylesheet" href="/assets/css/editorial-common.css?v=20261015.2"><link rel="stylesheet" href="/assets/css/country-layout.css?v=20261019.9"><link rel="stylesheet" href="/assets/css/support.css?v=20261016.2">
-<script src="/assets/js/public-navigation.js?v=20261016.1" defer></script>
+<script src="/assets/js/public-navigation.js?v=20261022.1" defer></script>
 {{if .EnquiryContext}}<script id="freightvanta-enquiry-context" type="application/json">{{.EnquiryContext}}</script><script src="/assets/js/public-enquiry.js?v=20261015.2" defer></script>{{end}}
-    <link rel="stylesheet" href="/assets/css/mega-menu.css?v=20261019.8">
-    <script src="/assets/js/mega-menu.js?v=20261019.8" defer></script>
+{{template "head-assets" .}}
 </head><body class="public-site editorial-surface language-{{.LanguageCode}} support-page">
 <a class="skip-link" href="#main-content">{{.Copy.PageHome}} · {{.Support.Title}}</a>
-<header class="support-header"><div class="content-shell"><a class="support-brand" href="{{.HomePath}}">FreightVanta</a><nav aria-label="{{.Copy.PageHome}}"><a href="{{.Links.Services}}">{{.Support.Copy.Services}}</a><a href="{{.Links.Industries}}">{{.Support.Copy.Industries}}</a><a href="{{.GuideIndexPath}}">{{.Copy.NavGuides}}</a><a href="{{.Links.About}}">{{.Support.Copy.About}}</a></nav><details data-public-menu class="support-language"><summary aria-label="{{.Copy.SwitchLabel}}">{{.LanguageName}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></summary><div>{{range .Languages}}<a href="{{.URL}}" lang="{{.Locale}}"{{if eq .Locale $.Locale}} aria-current="page"{{end}}>{{.NativeName}}</a>{{end}}</div></details></div></header>
+{{template "head" .Header}}
 <main id="main-content"><header class="support-masthead"><div class="content-shell"><nav class="support-breadcrumb" aria-label="{{.Copy.PageHome}}"><a href="{{.HomePath}}">{{.Copy.PageHome}}</a><span aria-hidden="true">/</span><span aria-current="page">{{.Support.Title}}</span></nav><h1>{{.Support.Title}}</h1><p>{{.Support.Body}}</p></div></header>
 <div class="content-shell support-content">
 {{if .Support.Notice}}<aside class="support-notice"><p>{{.Support.Notice}}</p></aside>{{end}}

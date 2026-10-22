@@ -1,3 +1,4 @@
+import { homeContext } from '../../lib/home-context';
 import type { MouseEvent, ReactNode } from 'react';
 import { LocaleSuggestion } from '../../components/layout/LocaleSuggestion';
 import type { Route } from '../../lib/router';
@@ -13,9 +14,9 @@ export function ItShell({ route, focusMain, children }: { route: Route; focusMai
       >
         Vai al contenuto principale
       </a>
-      <LocaleSuggestion site="it" />
+      {!homeContext()?.sharedHeader && <><LocaleSuggestion site="it" />
       <ItAnnouncementBar />
-      <ItHeader route={route} />
+      <ItHeader route={route} /></>}
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
         {children}
       </main>

@@ -490,32 +490,54 @@ func (s *Service) SaveFormSubmission(ctx context.Context, formID, contentLocaleI
 	if formID < 1 || siteID < 1 || len(encrypted) == 0 {
 		return 0, invalid("表单提交无效")
 	}
-	var active int
-	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM forms WHERE id = ? AND site_id = ? AND locale = ? AND status = 'active'`, formID, siteID, locale).Scan(&active); err != nil {
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
 		return 0, err
 	}
-	if active != 1 {
-		return 0, ErrNotFound
-	}
-	if dedupeHash != "" {
-		var recent int
-		if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM form_submissions WHERE form_id = ? AND dedupe_hash = ? AND created_at > ?`, formID, dedupeHash, time.Now().UTC().Add(-10*time.Minute).Format(time.RFC3339Nano)).Scan(&recent); err != nil {
-			return 0, err
-		}
-		if recent > 0 {
-			return 0, invalid("请勿重复提交")
-		}
-	}
+	defer tx.Rollback()
 	now := nowUTC()
 	var pageID any
 	if contentLocaleID > 0 {
 		pageID = contentLocaleID
 	}
-	result, err := s.db.ExecContext(ctx, `INSERT INTO form_submissions(form_id, content_locale_id, site_id, locale, source_path, values_encrypted, dedupe_hash, ip_hash, user_agent_hash, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?)`, formID, pageID, siteID, locale, sourcePath, encrypted, dedupeHash, ipHash, uaHash, now, now)
+	// The first statement acquires the writer lock before checking duplicates.
+	// A deferred read followed by an INSERT can fail with SQLITE_BUSY_SNAPSHOT
+	// when the asynchronous mail worker writes between those two statements.
+	result, err := tx.ExecContext(ctx, `INSERT INTO form_submissions(form_id, content_locale_id, site_id, locale, source_path, values_encrypted, dedupe_hash, ip_hash, user_agent_hash, status, created_at, updated_at)
+		SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?
+		WHERE EXISTS(SELECT 1 FROM forms WHERE id=? AND site_id=? AND locale=? AND status='active')
+		AND (?='' OR NOT EXISTS(SELECT 1 FROM form_submissions WHERE form_id=? AND dedupe_hash=? AND created_at>?))`,
+		formID, pageID, siteID, locale, sourcePath, encrypted, dedupeHash, ipHash, uaHash, now, now,
+		formID, siteID, locale, dedupeHash, formID, dedupeHash, time.Now().UTC().Add(-10*time.Minute).Format(time.RFC3339Nano))
 	if err != nil {
 		return 0, err
 	}
-	return result.LastInsertId()
+	if count, _ := result.RowsAffected(); count != 1 {
+		var active int
+		if err = tx.QueryRowContext(ctx, `SELECT COUNT(*) FROM forms WHERE id=? AND site_id=? AND locale=? AND status='active'`, formID, siteID, locale).Scan(&active); err != nil {
+			return 0, err
+		}
+		if active != 1 {
+			return 0, ErrNotFound
+		}
+		return 0, invalid("请勿重复提交")
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	// Persist the notification in the same transaction as the encrypted form.
+	// Disabled SMTP never backfills old enquiries when it is enabled later.
+	_, err = tx.ExecContext(ctx, `INSERT INTO mail_deliveries(submission_id,recipient,next_attempt_at,created_at,updated_at)
+		SELECT ?,smtp.recipient,?,?,? FROM smtp_settings smtp JOIN forms f ON f.id=?
+		WHERE smtp.id=1 AND smtp.enabled=1 AND f.notify_enabled=1`, id, now, now, now, formID)
+	if err != nil {
+		return 0, err
+	}
+	if err = tx.Commit(); err != nil {
+		return 0, err
+	}
+	return id, nil
 }
 
 func HashSubmission(values map[string]string) string {

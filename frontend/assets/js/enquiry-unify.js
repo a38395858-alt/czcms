@@ -3,7 +3,7 @@
    Topic pages render a 22-field bespoke form; the homepage renders the short
    CMS form that posts to /home-enquiry. This replaces the topic form with the
    homepage form so every surface collects and submits the same way.
-   Runs after hydration, like mega-menu.js.
+   Runs after the topic application has committed hydration.
    ========================================================================== */
 (function () {
   'use strict';
@@ -368,10 +368,8 @@
 
   function init() { replace(); }
 
-  // Topic pages are React-rendered. Replacing the form before hydration finishes
-  // makes React compare its own tree against our DOM and throw #418, so wait for
-  // hydration to settle before swapping.
-  window.addEventListener('load', init);
-  setTimeout(init, 2800);
-  setTimeout(init, 4600);
+  // Loading the document does not mean lazy React modules have hydrated yet.
+  // Use the application commit signal instead of guessing with timeouts.
+  if (document.documentElement.dataset.topicHydrated === 'true') init();
+  else document.addEventListener('freightvanta:topic-ready', init, { once: true });
 })();

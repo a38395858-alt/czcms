@@ -28,7 +28,7 @@ for (const locale of ['en', 'de', 'es', 'fr', 'it', 'nl']) {
     const definition = topicDefinitions[locale];
     const topic = definition.content(clean)!;
     globalThis.__FREIGHTVANTA_CMS__ = {
-      locale, route: clean, basePath: `__FV_SITE_${locale}__`, siteId: 0,
+      sharedHeader: true, locale, route: clean, basePath: `__FV_SITE_${locale}__`, siteId: 0,
       siteUrl: '__FV_ORIGIN__', canonical: '', preview: true, formToken: '',
       languages: Object.fromEntries(['en', 'de', 'fr', 'es', 'it', 'nl'].map(l => [l, `__FV_SITE_${l}__`])),
     };

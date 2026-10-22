@@ -1,3 +1,4 @@
+import { homeContext } from '../../lib/home-context';
 import type { MouseEvent, ReactNode } from 'react';
 import { LocaleSuggestion } from '../../components/layout/LocaleSuggestion';
 import type { Route } from '../../lib/router';
@@ -13,9 +14,9 @@ export function FrShell({ route, focusMain, children }: { route: Route; focusMai
       >
         Aller au contenu principal
       </a>
-      <LocaleSuggestion site="fr" />
+      {!homeContext()?.sharedHeader && <><LocaleSuggestion site="fr" />
       <FrAnnouncementBar />
-      <FrHeader route={route} />
+      <FrHeader route={route} /></>}
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
         {children}
       </main>
