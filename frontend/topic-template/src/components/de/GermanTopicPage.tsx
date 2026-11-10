@@ -83,9 +83,7 @@ function scrollToSection(id: string) {
 const toneClass = (tone: TopicTone) =>
   tone === 'navy' ? 'bg-graphite-900 text-white' : tone === 'mist' ? 'bg-paper-50' : 'bg-white';
 
-function Kicker({ children, dark }: { children: string; dark?: boolean }) {
-  return <p className={cn('de-kicker', dark ? 'text-petrol-300' : 'text-brick-600')}>{children}</p>;
-}
+
 
 function counterpartKey(content: TopicPageContent): string {
   if (content.id === 'de-product-sourcing') return 'product-sourcing';
@@ -331,8 +329,8 @@ function TopicSectionBlock({ section, index, route }: { section: TopicSection; i
 function DecisionBlock({ id, content }: { id: string; content: TopicDecision }) {
   return (
     <div className="max-w-4xl">
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <h2 id={id} className="mt-5 font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
+
+      <h2 id={id} className="font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
         {content.heading}
       </h2>
       <div className="mt-6 max-w-3xl space-y-5">
@@ -349,8 +347,8 @@ function DecisionBlock({ id, content }: { id: string; content: TopicDecision }) 
 function ScenariosBlock({ id, content }: { id: string; content: TopicScenarios }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className={cn(deH2, 'lg:col-span-7')}>
           {content.heading}
         </h2>
@@ -376,8 +374,8 @@ function ScenariosBlock({ id, content }: { id: string; content: TopicScenarios }
 function ChecklistBlock({ id, content }: { id: string; content: TopicChecklist }) {
   const header = (
     <>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <h2 id={id} className="mt-5 font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
+
+      <h2 id={id} className="font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
         {content.heading}
       </h2>
       {content.body && <p className="mt-5 text-lg leading-relaxed text-graphite-500">{content.body}</p>}
@@ -417,8 +415,8 @@ function WorkflowBlock({ id, content }: { id: string; content: TopicWorkflow }) 
     <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-4">
         <div className="lg:sticky lg:top-32">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="mt-5 font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
+
+          <h2 id={id} className="font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
             {content.heading}
           </h2>
           {content.intro && <p className="mt-5 text-lg leading-relaxed text-graphite-500">{content.intro}</p>}
@@ -459,8 +457,8 @@ function BriefBlock({ id, content }: { id: string; content: TopicBrief }) {
     <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
       <div className="lg:col-span-5">
         <div className="lg:sticky lg:top-32">
-          {content.kicker && <Kicker dark>{content.kicker}</Kicker>}
-          <h2 id={id} className="mt-5 font-serif text-[1.95rem] font-bold leading-[1.12] text-white sm:text-[2.5rem]">
+
+          <h2 id={id} className="font-serif text-[1.95rem] font-bold leading-[1.12] text-white sm:text-[2.5rem]">
             {content.heading}
           </h2>
           <div className="mt-6 space-y-5">
@@ -504,8 +502,8 @@ function BriefBlock({ id, content }: { id: string; content: TopicBrief }) {
 function ComparisonBlock({ id, content }: { id: string; content: TopicComparison }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className={cn(deH2, 'lg:col-span-7')}>
           {content.heading}
         </h2>
@@ -538,8 +536,8 @@ function ComparisonBlock({ id, content }: { id: string; content: TopicComparison
 function CheckpointsBlock({ id, content }: { id: string; content: TopicCheckpoints }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className={cn(deH2, 'lg:col-span-6')}>
           {content.heading}
         </h2>
@@ -567,8 +565,8 @@ function CheckpointsBlock({ id, content }: { id: string; content: TopicCheckpoin
 function ScopeTableBlock({ id, content }: { id: string; content: TopicScopeTable }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className={cn(deH2, 'lg:col-span-7')}>
           {content.heading}
         </h2>
@@ -623,8 +621,8 @@ function ScopeTableBlock({ id, content }: { id: string; content: TopicScopeTable
 function ControlsBlock({ id, content, dark }: { id: string; content: TopicControls; dark: boolean }) {
   return (
     <div>
-      {content.kicker && <Kicker dark={dark}>{content.kicker}</Kicker>}
-      <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2
           id={id}
           className={cn(
@@ -711,8 +709,8 @@ function FaqBlock({ id, content }: { id: string; content: TopicFaq }) {
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-4">
         <div className="lg:sticky lg:top-28">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="mt-6 font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
+
+          <h2 id={id} className="font-serif text-[1.95rem] font-bold leading-[1.12] text-graphite-900 sm:text-[2.5rem]">
             {content.heading}
           </h2>
           {content.guide && <p className="mt-5 text-[17px] leading-relaxed text-graphite-500">{content.guide}</p>}
@@ -842,14 +840,7 @@ function TopicEnquiry({ content }: { content: TopicPageContent }) {
     >
       <div className="shell">
         <div className="border-2 border-graphite-900 bg-paper-25 shadow-[8px_8px_0_rgba(22,24,28,0.1)]">
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b-2 border-graphite-900 bg-graphite-900 px-5 py-3 sm:px-8">
-            <p className="font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-paper-50">
-              Formblatt · {content.pageLabel}-Anfrage
-            </p>
-            <p aria-hidden="true" className="hidden font-mono text-[12px] text-graphite-400 sm:block">
-              {content.enquiry.kicker}
-            </p>
-          </div>
+
 
           <div className="grid gap-10 p-5 sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10">
             <div className="lg:col-span-5">

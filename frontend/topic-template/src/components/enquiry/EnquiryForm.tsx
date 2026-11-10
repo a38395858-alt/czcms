@@ -27,6 +27,7 @@ import { EN_STRINGS, type EnquiryStrings } from '../../lib/enquiry-locale';
 import { Link } from '../../lib/router';
 import { cn } from '../../utils/cn';
 import { AlertIcon, ArrowRight, CheckIcon, ChevronDown, MailIcon, PhoneIcon, SpinnerIcon } from '../ui/Icons';
+import { HomepageEnquiryForm } from './HomepageEnquiryForm';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 type TextFieldName = 'fullName' | 'workEmail' | 'company' | 'phone' | 'origin' | 'destination';
@@ -201,7 +202,15 @@ interface EnquiryFormProps {
   topicExtras?: TopicFormExtras;
 }
 
-export function EnquiryForm({
+export function EnquiryForm(props: EnquiryFormProps) {
+  // The CMS prerender and browser hydration must own the same short form.
+  // Never replace React-owned form nodes with a second, imperative renderer.
+  return cmsContext()
+    ? <HomepageEnquiryForm idPrefix={props.idPrefix} />
+    : <LegacyEnquiryForm {...props} />;
+}
+
+function LegacyEnquiryForm({
   idPrefix,
   placement,
   copy,

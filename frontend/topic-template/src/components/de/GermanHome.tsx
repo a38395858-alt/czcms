@@ -41,10 +41,10 @@ export function DeHero() {
   return (
     <section id="start" aria-labelledby="de-hero-title" className="bg-din-grid border-b border-line-200 bg-paper-25">
       <div className="shell pb-16 pt-12 sm:pt-16 lg:pb-24 lg:pt-20">
-        <p className="de-kicker text-brick-600">{deHero.eyebrow}</p>
+
         <h1
           id="de-hero-title"
-          className="mt-7 max-w-5xl font-serif text-[2.35rem] font-bold leading-[1.1] text-graphite-900 text-balance sm:text-[3.1rem] xl:text-[3.8rem]"
+          className="max-w-5xl font-serif text-[2.35rem] font-bold leading-[1.1] text-graphite-900 text-balance sm:text-[3.1rem] xl:text-[3.8rem]"
         >
           {deHero.title}
         </h1>
@@ -69,9 +69,7 @@ export function DeHero() {
                 {deHero.cta_secondary_label}
               </Link>
             </div>
-            <p className="mt-8 max-w-lg border-l-2 border-line-300 pl-4 text-[15px] leading-relaxed text-graphite-500">
-              {deHero.microcopy}
-            </p>
+
           </div>
 
           <div className="lg:col-span-7">
@@ -140,8 +138,8 @@ export function DeServices() {
   return (
     <section id="leistungen" aria-labelledby="de-services-title" className="bg-paper-25 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="de-kicker text-graphite-500">{deServicesSection.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="de-services-title" className={cn(deH2, 'lg:col-span-7')}>
             {deServicesSection.title}
           </h2>
@@ -243,17 +241,13 @@ export function DeOperation() {
   return (
     <section id="betrieb" aria-labelledby="de-operation-title" className="border-y border-line-200 bg-paper-50 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="de-kicker text-graphite-500">{deOperation.kicker}</p>
-        <div className="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-14">
+
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <h2 id="de-operation-title" className={deH2}>
               {deOperation.title}
             </h2>
-            <blockquote className="mt-8 max-w-md border-l-2 border-brick-600 pl-5">
-              <p className="font-serif text-xl font-medium italic leading-normal text-graphite-700 sm:text-[1.45rem]">
-                {deOperation.pull_quote}
-              </p>
-            </blockquote>
+
           </div>
           <ol className="border-t-2 border-graphite-900 lg:col-span-7">
             {deOperation.items.map((item, index) => (
@@ -280,12 +274,12 @@ export function DeProcess() {
   return (
     <section id="ablauf" aria-labelledby="de-process-title" className="bg-din-grid bg-paper-25 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="de-kicker text-graphite-500">{deProcess.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="de-process-title" className={cn(deH2, 'lg:col-span-6')}>
             {deProcess.title}
           </h2>
-          <p className="text-lg leading-relaxed text-graphite-500 lg:col-span-5 lg:col-start-8">{deProcess.body}</p>
+
         </div>
 
         <ol className="mt-14 grid lg:grid-cols-4 lg:gap-8">
@@ -300,11 +294,8 @@ export function DeProcess() {
               )}
             >
               <span aria-hidden="true" className="absolute left-0 top-1 h-[13px] w-[13px] rotate-45 bg-brick-600 ring-4 ring-paper-25 lg:top-0" />
-              <p className="font-mono text-sm font-medium tracking-[0.08em] text-petrol-700">
-                <span className="sr-only">Schritt </span>
-                {step.step}
-              </p>
-              <h3 className="mt-3 font-serif text-[1.35rem] font-bold leading-snug text-graphite-900">{step.title}</h3>
+
+              <h3 className="font-serif text-[1.35rem] font-bold leading-snug text-graphite-900">{step.title}</h3>
               <p className="mt-3 text-base leading-relaxed text-graphite-500">{step.copy}</p>
             </li>
           ))}
@@ -326,13 +317,13 @@ export function DeIndustries() {
   return (
     <section id="branchen" aria-labelledby="de-industries-title" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="de-kicker text-graphite-500">{deIndustries.kicker}</p>
-        <div className="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-10">
+
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <h2 id="de-industries-title" className={deH2}>
               {deIndustries.title}
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-graphite-500">{deIndustries.body}</p>
+
           </div>
           <ul className="border-t-2 border-graphite-900 lg:col-span-7 lg:col-start-6">
             {deIndustries.items.map((item, index) => (
@@ -373,8 +364,8 @@ export function DeResources() {
   return (
     <section id="wissen" aria-labelledby="de-resources-title" className="border-y border-line-200 bg-paper-50 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="de-kicker text-graphite-500">{deResources.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12">
+
+        <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <h2 id="de-resources-title" className={deH2}>
               {deResources.title}
@@ -424,14 +415,14 @@ export function DeFaq() {
   return (
     <section id="fragen" aria-labelledby="de-faq-title" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="de-kicker text-graphite-500">{deFaq.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-12">
+
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
               <h2 id="de-faq-title" className={deH2}>
                 {deFaq.title}
               </h2>
-              <p className="mt-5 text-[17px] leading-relaxed text-graphite-500">{deFaq.aside_prompt}</p>
+
               <Link
                 to={deFaq.aside_link_url}
                 className="mt-3 inline-flex items-center gap-2 font-semibold text-brick-600 underline decoration-brick-600/40 decoration-2 underline-offset-4 hover:decoration-brick-600"
@@ -474,12 +465,7 @@ export function DeEnquiry() {
     <section id="anfrage" aria-labelledby="de-enquiry-title" className="bg-din-grid border-t border-line-300 bg-paper-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
         <div className="border-2 border-graphite-900 bg-paper-25 shadow-[8px_8px_0_rgba(22,24,28,0.1)]">
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b-2 border-graphite-900 bg-graphite-900 px-5 py-3 sm:px-8">
-            <p className="font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-paper-50">{deEnquiry.form_tag}</p>
-            <p aria-hidden="true" className="hidden font-mono text-[12px] text-graphite-400 sm:block">
-              {deEnquiry.kicker}
-            </p>
-          </div>
+
 
           <div className="grid gap-10 p-5 sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10">
             <div className="lg:col-span-5">

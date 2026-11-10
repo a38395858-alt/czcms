@@ -133,8 +133,8 @@ export function SpanishLegalPage({ slug }: { slug: EsLegalSlug }) {
               </li>
             </ol>
           </nav>
-          <p className="es-kicker mt-8 text-terra-600">Información legal</p>
-          <h1 className="mt-5 max-w-3xl font-bricolage text-[2.4rem] font-extrabold leading-[1.05] tracking-tight text-carbon-900 sm:text-5xl">
+
+          <h1 className="max-w-3xl font-bricolage text-[2.4rem] font-extrabold leading-[1.05] tracking-tight text-carbon-900 sm:text-5xl">
             {page.title}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-carbon-600">{page.lead}</p>

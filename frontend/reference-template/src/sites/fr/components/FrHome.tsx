@@ -33,8 +33,8 @@ export function FrHero({ section }: { section: HeroSection }) {
       <div aria-hidden="true" className="fr-chart-bg pointer-events-none absolute inset-0 -z-10" />
       <div className="shell grid gap-12 pb-16 pt-10 sm:pt-14 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-24 lg:pt-20">
         <div className="max-w-2xl lg:col-span-6 lg:pr-4">
-          <p className="fr-eyebrow text-outremer-700">{section.eyebrow}</p>
-          <h1 id="fr-hero-title" className="mt-6 font-fr-serif text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.012em] text-balance sm:text-[3.2rem] xl:text-[3.75rem]">
+
+          <h1 id="fr-hero-title" className="font-fr-serif text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.012em] text-balance sm:text-[3.2rem] xl:text-[3.75rem]">
             {section.title}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-encre-600 sm:text-[1.15rem] sm:leading-relaxed">{section.body}</p>
@@ -47,7 +47,7 @@ export function FrHero({ section }: { section: HeroSection }) {
               {section.cta_secondary_label}
             </Link>
           </div>
-          <p className="mt-8 max-w-lg border-l-2 border-sienne-600/60 pl-4 font-fr-serif text-[16px] italic leading-relaxed text-encre-600">{section.settings.microcopy}</p>
+
         </div>
 
         <div className="lg:col-span-6">
@@ -66,7 +66,7 @@ function Ledger({ labels }: { labels: string[] }) {
   return (
     <div className="mt-5 rounded-[12px] border border-lin-300 bg-white/85 backdrop-blur-sm">
       <div className="flex items-center justify-between border-b border-lin-200 px-5 py-2.5">
-        <span className="fr-eyebrow text-encre-900">Carnet d’escales</span>
+        <span className="text-sm font-semibold text-encre-900">Carnet d’escales</span>
         <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-encre-500">Chine → France · UE</span>
       </div>
       <ol className="divide-y divide-lin-200 px-5">
@@ -174,8 +174,8 @@ export function FrServicePaths({ section }: { section: ServicePathsSection }) {
       <div className="shell">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-7">
-            <p className="fr-eyebrow text-outremer-700">{section.eyebrow}</p>
-            <h2 id="fr-services-title" className="fr-h2 mt-5 text-encre-900">
+
+            <h2 id="fr-services-title" className="fr-h2 text-encre-900">
               {section.title}
             </h2>
           </div>
@@ -184,7 +184,7 @@ export function FrServicePaths({ section }: { section: ServicePathsSection }) {
 
         <div className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:gap-12">
           <div className="relative lg:col-span-4">
-            <p className="fr-eyebrow mb-3 hidden text-encre-500 lg:inline-flex">Sommaire</p>
+            <p className="text-sm font-semibold mb-3 hidden text-encre-500 lg:inline-flex">Sommaire</p>
             <div
               ref={stripRef}
               role="tablist"
@@ -242,7 +242,7 @@ export function FrServicePaths({ section }: { section: ServicePathsSection }) {
                 >
                   <div className="relative overflow-hidden rounded-[14px] bg-lin-100 ring-1 ring-encre-900/10">
                     <Img media={media} alt={item.media_alt} loading={index === initialIndex ? 'eager' : 'lazy'} sizes="(min-width: 1024px) 60vw, 100vw" className="aspect-[16/9] w-full object-cover" />
-                    <span className="absolute left-4 top-4 rounded-full bg-encre-900/90 px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-white">{item.label}</span>
+
                   </div>
                   <div className="mt-8 grid gap-7 xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-10">
                     <div>
@@ -291,11 +291,11 @@ export function FrOperation({ section }: { section: OperationSection }) {
       <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <p className="fr-eyebrow text-outremer-300">{section.eyebrow}</p>
-            <h2 id="fr-operation-title" className="fr-h2 mt-5 text-white">
+
+            <h2 id="fr-operation-title" className="fr-h2 text-white">
               {section.title}
             </h2>
-            <p className="mt-8 max-w-md border-l-2 border-sienne-500 pl-5 font-fr-serif text-xl italic leading-snug text-lin-100 sm:text-2xl">« {section.settings.pull_quote} »</p>
+
             <Link to={section.cta_primary_url} className="mt-10 inline-flex items-center gap-2 font-semibold text-outremer-300 underline decoration-outremer-300/40 underline-offset-4 hover:decoration-outremer-300">
               {section.cta_primary_label}
               <ArrowRight className="h-4 w-4" />
@@ -303,10 +303,9 @@ export function FrOperation({ section }: { section: OperationSection }) {
           </div>
         </div>
         <ol className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
-          {section.items.map((item, index) => (
+          {section.items.map((item) => (
             <li key={item.title} className="border-t border-white/20 pt-6">
-              <span className="font-fr-serif text-[15px] font-semibold text-sienne-300">{String(index + 1).padStart(2, '0')}</span>
-              <h3 className="mt-3 font-fr-serif text-2xl font-semibold leading-tight text-white">{item.title}</h3>
+              <h3 className="font-fr-serif text-2xl font-semibold leading-tight text-white">{item.title}</h3>
               <p className="mt-3 text-[16px] leading-relaxed text-lin-200">{item.copy}</p>
             </li>
           ))}
@@ -325,7 +324,7 @@ export function FrProcess({ section }: { section: ProcessSection }) {
           <h2 id="fr-process-title" className="fr-h2 text-encre-900 lg:col-span-6">
             {section.title}
           </h2>
-          <p className="text-lg leading-relaxed text-encre-600 lg:col-span-5 lg:col-start-8">{section.body}</p>
+
         </div>
 
         <ol className="mt-14 grid gap-px overflow-hidden rounded-[14px] border border-lin-300 bg-lin-300 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
@@ -362,7 +361,7 @@ export function FrIndustries({ section }: { section: IndustriesSection }) {
           <h2 id="fr-industries-title" className="fr-h2 text-encre-900">
             {section.title}
           </h2>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-encre-600">{section.body}</p>
+
           <figure className="relative mt-10 lg:mt-14">
             <div className="overflow-hidden rounded-[14px] bg-lin-100 ring-1 ring-encre-900/10">
               <Img media={media} alt={section.media_alt} sizes="(min-width: 1024px) 56vw, 100vw" className="aspect-[4/3] w-full object-cover lg:aspect-[16/11]" />
@@ -417,8 +416,8 @@ export function FrResources({ section }: { section: ResourcesSection }) {
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-8">
-            <p className="fr-eyebrow text-outremer-700">{section.eyebrow}</p>
-            <h2 id="fr-resources-title" className="fr-h2 mt-5 text-encre-900">
+
+            <h2 id="fr-resources-title" className="fr-h2 text-encre-900">
               <Link to={section.settings.heading_url} onClick={() => guideClick('heading')} className="decoration-outremer-600/50 decoration-2 underline-offset-[6px] hover:underline">
                 {section.title}
               </Link>
@@ -458,7 +457,7 @@ export function FrResources({ section }: { section: ResourcesSection }) {
         )}
 
         <nav aria-labelledby="fr-resources-topics" className="mt-14 border-t border-encre-900 pt-8">
-          <p id="fr-resources-topics" className="fr-eyebrow text-encre-500">
+          <p id="fr-resources-topics" className="text-sm font-semibold text-encre-500">
             {section.settings.topics_label}
           </p>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -491,7 +490,7 @@ export function FrFaq({ section }: { section: FaqSection }) {
             <h2 id="fr-faq-title" className="fr-h2 text-encre-900">
               {section.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-encre-600">{section.settings.aside_prompt}</p>
+
             <Link to={section.settings.aside_link_url} className="fr-link mt-3">
               {section.settings.aside_link_label}
               <ArrowRight className="h-4 w-4" />
@@ -524,8 +523,8 @@ export function FrEnquirySection({ section }: { section: EnquirySection }) {
     <section id="demande" aria-labelledby="fr-enquiry-title" className="border-t border-encre-900/10 bg-lin-100 py-20 sm:py-24 lg:py-32">
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <p className="fr-eyebrow text-outremer-700">{section.eyebrow}</p>
-          <h2 id="fr-enquiry-title" className="mt-5 font-fr-serif text-[2rem] font-semibold leading-[1.1] text-encre-900 text-balance sm:text-[2.5rem]">
+
+          <h2 id="fr-enquiry-title" className="font-fr-serif text-[2rem] font-semibold leading-[1.1] text-encre-900 text-balance sm:text-[2.5rem]">
             {section.title}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-encre-600">{section.body}</p>

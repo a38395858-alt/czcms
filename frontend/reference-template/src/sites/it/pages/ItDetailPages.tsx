@@ -150,8 +150,8 @@ export function ItIndustriesPage() {
                 </div>
               </div>
               <div className="lg:col-span-6">
-                <p className="it-eyebrow text-ottanio-700">{industry.menuLine}</p>
-                <h2 className="mt-4 font-it-display text-[2.2rem] font-semibold leading-tight tracking-[-0.015em] text-grafite-900">{industry.name}</h2>
+
+                <h2 className="font-it-display text-[2.2rem] font-semibold leading-tight tracking-[-0.015em] text-grafite-900">{industry.name}</h2>
                 <p className="mt-4 text-lg leading-relaxed text-grafite-600">{industry.copy}</p>
                 <ItCheckList items={industry.questions.slice(0, 2)} className="mt-6" />
                 <Link to={`/it/settori/${industry.slug}`} className="it-btn it-btn-dark mt-8 w-full sm:w-auto">
@@ -304,7 +304,7 @@ export function ItGuidesPage() {
                 </div>
                 <div className="lg:col-span-4">
                   <div className="bg-grafite-900 p-7 text-white">
-                    <p className="it-eyebrow text-ottanio-300">Sta preparando una spedizione?</p>
+                    <p className="text-sm font-semibold text-ottanio-300">Sta preparando una spedizione?</p>
                     <p className="mt-4 font-it-display text-2xl font-semibold leading-snug">Trasformi quello che ha appena letto in un piano con cui il suo team può lavorare.</p>
                     <Link to={IT_ANCHORS.enquiry} className="it-btn it-btn-primary mt-6 w-full">
                       Richiedi un piano di spedizione
@@ -411,7 +411,7 @@ function ArticleDetail({ article }: { article: ArticleIt }) {
           <aside className="lg:col-span-4">
             <div className="space-y-8 lg:sticky lg:top-28">
               <div className="bg-grafite-900 p-7 text-white">
-                <p className="it-eyebrow text-ottanio-300">Richiedi un piano</p>
+                <p className="text-sm font-semibold text-ottanio-300">Richiedi un piano</p>
                 <p className="mt-4 font-it-display text-2xl font-semibold leading-snug">Sta preparando una spedizione come questa?</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-grafite-300">Un link al prodotto, una descrizione della spedizione o la rotta da pianificare bastano per iniziare.</p>
                 <Link to={IT_ANCHORS.enquiry} className="it-btn it-btn-primary mt-6 w-full">
@@ -421,7 +421,7 @@ function ArticleDetail({ article }: { article: ArticleIt }) {
               </div>
               {services.length > 0 && (
                 <div>
-                  <h2 className="it-eyebrow text-grafite-500">Servizi collegati</h2>
+                  <h2 className="text-sm font-semibold text-grafite-500">Servizi collegati</h2>
                   <ul className="mt-3 border-t-2 border-grafite-900">
                     {services.map((service) => (
                       <li key={service.slug} className="border-b border-grafite-200">

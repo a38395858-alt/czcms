@@ -60,6 +60,7 @@ export interface TopicStep {
 }
 
 export interface TopicWorkflow {
+  layout?: 'connected-ledger';
   kicker?: string;
   heading: string;
   intro?: string;

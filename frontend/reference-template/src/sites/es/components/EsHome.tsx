@@ -47,10 +47,10 @@ export function EsHero({ section }: { section: HeroSection }) {
       <div className="shell pt-10 sm:pt-14 lg:pt-20">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
           <div className="lg:col-span-7">
-            <p className="es-eyebrow text-mar-700">{section.eyebrow}</p>
+
             <h1
               id="es-hero-title"
-              className="mt-6 font-es text-[2.4rem] font-extrabold leading-[1.03] tracking-[-0.025em] text-balance sm:text-[3.25rem] lg:text-[3.5rem] xl:text-[4.1rem]"
+              className="font-es text-[2.4rem] font-extrabold leading-[1.03] tracking-[-0.025em] text-balance sm:text-[3.25rem] lg:text-[3.5rem] xl:text-[4.1rem]"
             >
               <Highlighted text={section.title} phrase={HERO_HIGHLIGHT_ES} />
             </h1>
@@ -66,7 +66,7 @@ export function EsHero({ section }: { section: HeroSection }) {
                 {section.cta_secondary_label}
               </Link>
             </div>
-            <p className="mt-6 max-w-lg border-l-[3px] border-albero-400 pl-4 text-[15px] leading-relaxed text-carbon-600">{section.settings.microcopy}</p>
+
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@ export function EsHero({ section }: { section: HeroSection }) {
           </div>
           <figcaption className="relative bg-pino-900 px-5 py-5 text-white sm:px-8 lg:absolute lg:inset-x-10 lg:-bottom-14 lg:rounded-lg lg:shadow-[0_24px_48px_-24px_rgba(6,35,28,0.6)]">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/15 pb-3">
-              <span className="es-eyebrow text-albero-300">Hoja de ruta</span>
+              <span className="text-sm font-semibold text-albero-300">Hoja de ruta</span>
               <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-pino-200">China → España · UE</span>
             </div>
             <ol className="relative mt-4 grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-4">
@@ -180,8 +180,8 @@ export function EsServicePaths({ section }: { section: ServicePathsSection }) {
       <div className="shell">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-7">
-            <p className="es-eyebrow text-mar-700">{section.eyebrow}</p>
-            <h2 id="es-services-title" className="es-h2 mt-5 text-carbon-900">
+
+            <h2 id="es-services-title" className="es-h2 text-carbon-900">
               {section.title}
             </h2>
           </div>
@@ -190,7 +190,7 @@ export function EsServicePaths({ section }: { section: ServicePathsSection }) {
 
         <div className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:gap-12">
           <div className="relative lg:order-2 lg:col-span-4">
-            <p className="es-eyebrow mb-3 hidden text-carbon-600 lg:inline-flex">Índice</p>
+            <p className="text-sm font-semibold mb-3 hidden text-carbon-600 lg:inline-flex">Índice</p>
             <div
               ref={stripRef}
               role="tablist"
@@ -246,7 +246,7 @@ export function EsServicePaths({ section }: { section: ServicePathsSection }) {
                 >
                   <div className="es-block-shadow relative mb-[14px] mr-[14px] overflow-hidden bg-pino-900">
                     <Img media={media} alt={item.media_alt} loading={index === initialIndex ? 'eager' : 'lazy'} sizes="(min-width: 1024px) 60vw, 100vw" className="aspect-[16/10] w-full object-cover" />
-                    <span className="absolute left-4 top-4 bg-albero-300 px-2.5 py-1 text-[12px] font-extrabold uppercase tracking-[0.1em] text-carbon-900">{item.label}</span>
+
                   </div>
                   <h3 className="mt-8 font-es text-[2rem] font-extrabold leading-[1.05] tracking-[-0.02em] text-carbon-900 sm:text-[2.4rem]">{item.title}</h3>
                   <p className="mt-4 text-[17px] leading-relaxed text-carbon-600">{item.copy}</p>
@@ -292,13 +292,13 @@ export function EsOperation({ section }: { section: OperationSection }) {
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <p className="es-eyebrow text-albero-300">{section.eyebrow}</p>
-            <h2 id="es-operation-title" className="es-h2 mt-5 text-white">
+
+            <h2 id="es-operation-title" className="es-h2 text-white">
               {section.title}
             </h2>
           </div>
           <div className="lg:col-span-5">
-            <p className="border-l-[3px] border-albero-400 pl-5 text-xl font-semibold leading-snug text-pino-100">{section.settings.pull_quote}</p>
+
             <Link to={section.cta_primary_url} className="mt-6 inline-flex items-center gap-2 font-semibold text-albero-300 underline decoration-albero-300/40 underline-offset-4 hover:decoration-albero-300">
               {section.cta_primary_label}
               <ArrowRight className="h-4 w-4" />
@@ -329,7 +329,7 @@ export function EsProcess({ section }: { section: ProcessSection }) {
           <h2 id="es-process-title" className="es-h2 text-carbon-900 lg:col-span-6">
             {section.title}
           </h2>
-          <p className="text-lg leading-relaxed text-carbon-600 lg:col-span-5 lg:col-start-8">{section.body}</p>
+
         </div>
 
         <ol className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-4 lg:gap-8">
@@ -370,7 +370,7 @@ export function EsIndustries({ section }: { section: IndustriesSection }) {
           <h2 id="es-industries-title" className="es-h2 text-carbon-900">
             {section.title}
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-carbon-600">{section.body}</p>
+
         </div>
         <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-12">
           <div className="flex flex-col lg:col-span-5">
@@ -427,8 +427,8 @@ export function EsResources({ section }: { section: ResourcesSection }) {
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-8">
-            <p className="es-eyebrow text-mar-700">{section.eyebrow}</p>
-            <h2 id="es-resources-title" className="es-h2 mt-5 text-carbon-900">
+
+            <h2 id="es-resources-title" className="es-h2 text-carbon-900">
               <Link to={section.settings.heading_url} onClick={() => guideClick('heading')} className="decoration-albero-400 decoration-4 underline-offset-[6px] hover:underline">
                 {section.title}
               </Link>
@@ -468,7 +468,7 @@ export function EsResources({ section }: { section: ResourcesSection }) {
         )}
 
         <nav aria-labelledby="es-resources-topics" className="mt-14 border-t border-carbon-900/10 pt-8">
-          <p id="es-resources-topics" className="es-eyebrow text-carbon-600">
+          <p id="es-resources-topics" className="text-sm font-semibold text-carbon-600">
             {section.settings.topics_label}
           </p>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -501,7 +501,7 @@ export function EsFaq({ section }: { section: FaqSection }) {
             <h2 id="es-faq-title" className="es-h2 text-carbon-900">
               {section.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-carbon-600">{section.settings.aside_prompt}</p>
+
             <Link to={section.settings.aside_link_url} className="es-link mt-3">
               {section.settings.aside_link_label}
               <ArrowRight className="h-4 w-4" />
@@ -575,8 +575,8 @@ export function EsEnquirySection({ section }: { section: EnquirySection }) {
       <div aria-hidden="true" className="es-azulejo pointer-events-none absolute inset-0 -z-10 opacity-70" />
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <p className="es-eyebrow text-mar-700">{section.eyebrow}</p>
-          <h2 id="es-enquiry-title" className="mt-5 font-es text-[2rem] font-extrabold leading-[1.06] tracking-[-0.02em] text-carbon-900 text-balance sm:text-[2.5rem]">
+
+          <h2 id="es-enquiry-title" className="font-es text-[2rem] font-extrabold leading-[1.06] tracking-[-0.02em] text-carbon-900 text-balance sm:text-[2.5rem]">
             {section.title}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-carbon-700">{section.body}</p>

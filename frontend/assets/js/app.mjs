@@ -1,6 +1,7 @@
-import { modules, navigationItems, quickActions } from './data.mjs?v=20261015.1'
+import { modules, navigationItems, quickActions } from './data.mjs?v=20261028.3'
 import { mountFormInbox } from './form-inbox.mjs?v=20261015.2'
 import { mountSMTPSettings } from './smtp-settings.mjs?v=20261020.1'
+import { mountHTSSettings } from './hts-settings.mjs?v=20261105.1'
 import { contentEditorSlug, contentWordCount, escapeHtml, filterRows, metafieldSuggestedIdentifiers, normalizeTags, routeFromHash, sitePublicPath, statusClass } from './utils.mjs?v=20260907.01'
 
 const $ = (selector, scope = document) => scope.querySelector(selector)
@@ -20,7 +21,9 @@ const apiRoutes = new Set(['sites', 'languages', 'content', 'taxonomy', 'product
 const siteScopedRoutes = new Set(['content', 'taxonomy', 'urls', 'publishing', 'localization'])
 const extendedSiteScopedRoutes = new Set([...siteScopedRoutes, 'products', 'product-categories'])
 const contentBulkSelectionLimit = 100
-const moduleState = { route: '', contentSection: '', contentScope: 'all', query: '', filter: '', selected: new Set(), backupSelected: new Set(), analyticsSiteID: null, analyticsDays: 30, analyticsFrom: '', analyticsTo: '', spiderSiteID: null, spiderDays: 30, spiderFrom: '', spiderTo: '', spiderBot: '', spiderEngine: '', spiderStatus: 'all', auditPage: 0, auditPageSize: 20, auditFrom: '', auditTo: '', auditStatus: 'all', auditCategory: 'all', auditQuery: '' }
+const moduleState = { route: '', contentSection: '', contentScope: 'all', contentPage: 0, contentPageSize: 20, query: '', filter: '', selected: new Set(), backupSelected: new Set(), analyticsSiteID: null, analyticsDays: 30, analyticsFrom: '', analyticsTo: '', spiderSiteID: null, spiderDays: 30, spiderFrom: '', spiderTo: '', spiderBot: '', spiderEngine: '', spiderStatus: 'all', auditPage: 0, auditPageSize: 20, auditFrom: '', auditTo: '', auditStatus: 'all', auditCategory: 'all', auditQuery: '' }
+let contentRequestSequence = 0
+let contentSearchTimer = 0
 const contentEditorState = { key: '', item: null, newLocale: false, draftTimer: 0, seoTimer: 0, dirty: false, rendering: false, richSelection: null, metafieldRichSelections: new Map(), imageUploading: false, productGallery: [], productGalleryDragging: '' }
 const templateEditorState = {
   expandedID: '',
@@ -50,6 +53,7 @@ const liveState = {
   spider: null,
   analytics: null,
   localizationAIAvailable: false,
+  content: { total: 0, limit: 20, offset: 0, counts: {} },
   audit: { total: 0, limit: 20, offset: 0, success_total: 0, failure_total: 0 },
   me: null,
   loaded: new Set(),
@@ -163,7 +167,7 @@ function renderContentScopePicker() {
 
 function renderContentBulkTrigger(config) {
   if (!can('content.write')) return ''
-  const selectableRows = filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected('content', row))
+  const selectableRows = moduleRows(config).filter((row) => rowCanBeSelected('content', row))
   const selectedCount = moduleState.selected.size
   const selectableWithinLimit = selectableRows.slice(0, contentBulkSelectionLimit)
   const allSelected = selectableWithinLimit.length > 0 && selectableWithinLimit.every((row) => moduleState.selected.has(String(row.id)))
@@ -273,8 +277,19 @@ function renderStats(stats, className = '') {
 }
 
 function sitePreviewURL(row) {
-  const port = Number(row?._raw?.local_port || 0)
-  return port >= 1024 && port <= 65535 ? `http://localhost:${port}/` : ''
+  const origin = sitePreviewOrigin(row?._raw)
+  return origin ? `${origin}/` : ''
+}
+
+function sitePreviewOrigin(site) {
+  if (typeof site?.preview_url === 'string') return site.preview_url.replace(/\/+$/, '')
+  const port = Number(site?.local_port || 0)
+  return port >= 1024 && port <= 65535 ? `http://localhost:${port}` : ''
+}
+
+function sitePreviewAddress(site) {
+  const known = liveState.sites.find((item) => Number(item.id) === Number(site?.site_id || site?.id))
+  return sitePreviewOrigin(known || site).replace(/^https?:\/\//, '') || '待配置预览地址'
 }
 
 function rowCanBeSelected(route, row) {
@@ -516,6 +531,31 @@ function renderBulkActions(config) {
   return ''
 }
 
+function moduleRows(config) {
+  return moduleState.route === 'content' ? config.rows : filterRows(config.rows, moduleState.query, moduleState.filter)
+}
+
+function contentListStatus() {
+  const meta = liveState.content
+  return `第 ${Math.floor(meta.offset / meta.limit) + 1} 页 · 共 ${meta.total} 条`
+}
+
+function renderContentPagination() {
+  const { total, limit, offset } = liveState.content
+  const current = Math.floor(offset / limit) + 1
+  const pages = Math.max(1, Math.ceil(total / limit))
+  const disabled = liveState.loading.has('content') || liveState.errors.has('content')
+  return `<footer class="audit-pagination" aria-label="内容列表分页"><span aria-live="polite">显示 ${total ? offset + 1 : 0}–${Math.min(total, offset + limit)}，共 ${total} 条</span><label><span>每页</span><select data-content-page-size aria-label="每页内容数量" ${disabled ? 'disabled' : ''}>${[20, 50, 100].map((size) => `<option value="${size}" ${limit === size ? 'selected' : ''}>${size}</option>`).join('')}</select><span>条</span></label><span class="audit-page-number">第 ${current} / ${pages} 页</span><button class="button button-secondary button-compact" type="button" data-content-page="0" ${disabled || current <= 1 ? 'disabled' : ''}>首页</button><button class="button button-secondary button-compact" type="button" data-content-page="${current - 2}" ${disabled || current <= 1 ? 'disabled' : ''}>上一页</button><button class="button button-secondary button-compact" type="button" data-content-page="${current}" ${disabled || current >= pages ? 'disabled' : ''}>下一页</button><button class="button button-secondary button-compact" type="button" data-content-page="${pages - 1}" ${disabled || current >= pages ? 'disabled' : ''}>末页</button></footer>`
+}
+
+function loadContentPage(page = 0) {
+  window.clearTimeout(contentSearchTimer)
+  moduleState.contentPage = Math.max(0, Number(page) || 0)
+  moduleState.selected.clear()
+  liveState.loaded.delete('content')
+  return loadRoute('content', true)
+}
+
 function renderModuleTableRegion(config) {
   return `${renderBulkActions(config)}${renderModuleTable(config)}`
 }
@@ -529,7 +569,7 @@ function renderModuleTable(config) {
   if (liveState.errors.has(route)) {
     return `<div class="module-error">${icon('alert')}<strong>暂时无法读取${escapeHtml(config.entityName)}</strong><p>${escapeHtml(liveState.errors.get(route))}</p><button class="button button-secondary" type="button" data-retry-module>重新加载</button></div>`
   }
-  const rows = filterRows(config.rows, moduleState.query, moduleState.filter)
+  const rows = moduleRows(config)
   const selectableRows = rows.filter((row) => rowCanBeSelected(route, row))
   const selectableRowsForCurrentAction = selectableRowsForBulk(route, selectableRows)
   const allSelected = selectableRowsForCurrentAction.length > 0 && selectableRowsForCurrentAction.every((row) => moduleState.selected.has(String(row.id)))
@@ -590,7 +630,7 @@ function renderModuleGuide(route) {
 
 function settingsSection() {
   const section = currentRouteParams().get('section') || 'status'
-  return ['status', 'backups', 'ai', 'smtp'].includes(section) ? section : 'status'
+  return ['status', 'backups', 'ai', 'smtp', 'hts'].includes(section) ? section : 'status'
 }
 
 function seoSection() {
@@ -607,16 +647,17 @@ function contentModuleConfig() {
   const base = modules.content
   const section = contentSection()
   const rows = base.rows.filter((row) => section === 'pages' ? row?._raw?.content_type === 'page' : section === 'products' ? row?._raw?.content_type === 'product' : row?._raw?.content_type !== 'page' && row?._raw?.content_type !== 'product')
-  const countBy = (status) => rows.filter((row) => row.status === status).length
+  const countBy = (status) => Number(liveState.content.counts[Object.entries(contentStatus).find(([, label]) => label === status)?.[0]] || 0)
+  const total = Object.values(liveState.content.counts).reduce((sum, count) => sum + Number(count), 0)
   if (section === 'products') return {
     ...base,
     title: '产品管理', subtitle: '维护 B 端产品信息展示、技术参数、资料下载与询盘入口', primaryAction: '新建产品', entityName: '产品',
-    stats: [{ label: '产品总数', value: String(rows.length), tone: 'blue', icon: 'layers' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '缺少 SEO', value: String(rows.filter((row) => !row._raw?.meta_description && !row._raw?.seo_title).length), tone: 'red', icon: 'search' }],
+    stats: [{ label: '产品总数', value: String(total), tone: 'blue', icon: 'layers' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '需要更新', value: String(countBy('需要更新')), tone: 'red', icon: 'alert' }],
     filters: ['全部产品', '草稿', '待审核', '已发布', '需要更新'], rows,
   }
   if (section !== 'pages') return {
     ...base,
-    stats: [{ label: '内容总数', value: String(rows.length), tone: 'blue', icon: 'file' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '需要更新', value: String(countBy('需要更新')), tone: 'red', icon: 'alert' }],
+    stats: [{ label: '内容总数', value: String(total), tone: 'blue', icon: 'file' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '需要更新', value: String(countBy('需要更新')), tone: 'red', icon: 'alert' }],
     rows,
   }
   return {
@@ -625,7 +666,7 @@ function contentModuleConfig() {
     subtitle: '创建和维护关于我们、联系我们、专题与自定义落地页面',
     primaryAction: '新建单页面',
     entityName: '单页面',
-    stats: [{ label: '单页面总数', value: String(rows.length), tone: 'blue', icon: 'file' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '需要更新', value: String(countBy('需要更新')), tone: 'red', icon: 'alert' }],
+    stats: [{ label: '单页面总数', value: String(total), tone: 'blue', icon: 'file' }, { label: '待审核', value: String(countBy('待审核')), tone: 'amber', icon: 'clipboard' }, { label: '已发布', value: String(countBy('已发布')), tone: 'green', icon: 'check' }, { label: '需要更新', value: String(countBy('需要更新')), tone: 'red', icon: 'alert' }],
     filters: ['全部单页面', '草稿', '待审核', '定时发布', '已发布', '需要更新'],
     rows,
   }
@@ -641,6 +682,7 @@ function renderSettingsTabs(section = settingsSection()) {
     { key: 'backups', label: '备份与恢复' },
     { key: 'ai', label: 'AI 配置' },
     { key: 'smtp', label: '邮件转发' },
+    { key: 'hts', label: 'HTS 税则数据' },
   ]
   return `<nav class="settings-tabs" aria-label="系统设置二级菜单">${tabs.map((tab) => `<a href="#/admin/settings?section=${tab.key}" ${tab.key === section ? 'aria-current="page"' : ''}>${escapeHtml(tab.label)}</a>`).join('')}</nav>`
 }
@@ -855,7 +897,7 @@ function renderAIContentEntry() {
       ? `<span class="seo-ai-signals"><b>JSON-LD</b><b>canonical</b><b>hreflang</b></span><small>随公开 HTML 页面自动输出</small>`
       : `<span class="seo-ai-signals is-muted"><b>JSON-LD</b><b>canonical</b><b>hreflang</b></span><small>等待可收录内容发布</small>`
     return `<tr>
-      <td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td>
+      <td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · ${escapeHtml(sitePreviewAddress(site))}</small></span></div></td>
       <td><div class="seo-ai-files">${localLinks}</div><small class="seo-ai-origin">本地预览 · noindex</small></td>
       <td><div class="seo-ai-coverage"><span><strong>${Number(content.article_count || 0).toLocaleString('zh-CN')}</strong>文章</span><span><strong>${Number(content.product_count || 0).toLocaleString('zh-CN')}</strong>产品</span><span><strong>${Number(content.page_count || 0).toLocaleString('zh-CN')}</strong>单页面</span></div></td>
       <td><div class="seo-ai-html">${signal}</div></td>
@@ -1039,16 +1081,16 @@ function renderSEOCenter() {
       const publication = hasPublicRobots
         ? `<a class="seo-robots-status ${publicationClass}" href="${escapeHtml(publicRobots)}" target="_blank" rel="noopener" aria-label="打开${escapeHtml(site.name)}的正式 robots"><i aria-hidden="true"></i><span><strong>${publicationLabel}</strong><small>${publicationDetail} · 正式 robots</small></span></a>`
         : `<span class="seo-robots-status ${publicationClass}"><i aria-hidden="true"></i><span><strong>${publicationLabel}</strong><small>${publicationDetail}</small></span></span>`
-      return `<tr><td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td><td><span class="seo-robots-entry"><a href="${escapeHtml(localRobots)}" target="_blank" rel="noopener" title="${escapeHtml(localRobots)}">${icon('lock', 'icon icon-sm')}<code>/robots.txt</code></a><small>localhost:${escapeHtml(site.local_port)}</small></span></td><td><span class="seo-robots-policy ${active ? 'is-active' : 'is-disabled'}"><i aria-hidden="true"></i><span><strong>${active ? '自动策略' : '抓取已关闭'}</strong><small>${active ? '后台、动态路径与 noindex 页面' : '站点当前不提供公开抓取'}</small></span></span></td><td><span class="seo-count-stack seo-robots-count"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面</span></span></td><td>${publication}</td><td class="seo-robots-action"><div class="row-actions">${seoRobotsEditorAction(site)}</div></td></tr>`
+      return `<tr><td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · ${escapeHtml(sitePreviewAddress(site))}</small></span></div></td><td><span class="seo-robots-entry"><a href="${escapeHtml(localRobots)}" target="_blank" rel="noopener" title="${escapeHtml(localRobots)}">${icon('lock', 'icon icon-sm')}<code>/robots.txt</code></a><small>${escapeHtml(sitePreviewAddress(site))}</small></span></td><td><span class="seo-robots-policy ${active ? 'is-active' : 'is-disabled'}"><i aria-hidden="true"></i><span><strong>${active ? '自动策略' : '抓取已关闭'}</strong><small>${active ? '后台、动态路径与 noindex 页面' : '站点当前不提供公开抓取'}</small></span></span></td><td><span class="seo-count-stack seo-robots-count"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面</span></span></td><td>${publication}</td><td class="seo-robots-action"><div class="row-actions">${seoRobotsEditorAction(site)}</div></td></tr>`
     }).join('') : `<tr><td colspan="6"><div class="empty-state">${icon('lock')}<strong>当前账号还没有可管理的站点</strong><p>新增站点后会自动生成 robots.txt。</p></div></td></tr>`
-    moduleView.innerHTML = `${heading}<section class="seo-automation-note seo-robots-automation-note" id="seo-robots-policy-info" tabindex="-1" aria-labelledby="seo-robots-automation-title"><span class="seo-automation-icon">${icon('lock')}</span><div><h2 id="seo-robots-automation-title">系统规则会自动合并到每个站点</h2><p>robots 自动化策略默认屏蔽后台、API、登录、媒体图片与动态查询；<code>noindex</code> 单页面会自动加入禁止抓取。自定义规则只影响所属站点，系统安全规则与 Sitemap 规则始终保留。</p></div></section><div class="seo-robots-summary"><div><h2 id="seo-robots-title">站点 robots</h2><p>每个站点一份动态 robots.txt，选择任意站点进行编辑</p></div><span><strong>${sites.length}</strong> 个站点 · 规则按站点独立保存</span></div><section class="panel seo-sitemap-panel seo-robots-panel" aria-labelledby="seo-robots-title"><div class="table-scroll"><table class="seo-sitemap-table seo-robots-table"><thead><tr><th>站点</th><th>robots 入口</th><th>抓取策略</th><th>自动屏蔽</th><th>发布状态</th><th><span class="visually-hidden">操作</span></th></tr></thead><tbody>${robotsRows}</tbody></table></div></section><section class="seo-operation-note" aria-label="robots 操作说明"><div>${icon('lock')}<span><strong>本地测试保护</strong><small>本地端口始终返回 <code>Disallow: /</code>，避免开发内容被搜索引擎抓取。</small></span></div><div>${icon('edit')}<span><strong>站点级编辑</strong><small>点击“编辑”只修改该站点的自定义规则；系统安全规则和 Sitemap 规则会继续保留。</small></span></div></section>`
+    moduleView.innerHTML = `${heading}<section class="seo-automation-note seo-robots-automation-note" id="seo-robots-policy-info" tabindex="-1" aria-labelledby="seo-robots-automation-title"><span class="seo-automation-icon">${icon('lock')}</span><div><h2 id="seo-robots-automation-title">系统规则会自动合并到每个站点</h2><p>robots 自动化策略默认屏蔽后台、API、登录与动态查询；公开图片允许抓取；<code>noindex</code> 单页面会自动加入禁止抓取。自定义规则只影响所属站点，系统安全规则与 Sitemap 规则始终保留。</p></div></section><div class="seo-robots-summary"><div><h2 id="seo-robots-title">站点 robots</h2><p>每个站点一份动态 robots.txt，选择任意站点进行编辑</p></div><span><strong>${sites.length}</strong> 个站点 · 规则按站点独立保存</span></div><section class="panel seo-sitemap-panel seo-robots-panel" aria-labelledby="seo-robots-title"><div class="table-scroll"><table class="seo-sitemap-table seo-robots-table"><thead><tr><th>站点</th><th>robots 入口</th><th>抓取策略</th><th>自动屏蔽</th><th>发布状态</th><th><span class="visually-hidden">操作</span></th></tr></thead><tbody>${robotsRows}</tbody></table></div></section><section class="seo-operation-note" aria-label="robots 操作说明"><div>${icon('lock')}<span><strong>本地测试保护</strong><small>本地端口始终返回 <code>Disallow: /</code>，避免开发内容被搜索引擎抓取。</small></span></div><div>${icon('edit')}<span><strong>站点级编辑</strong><small>点击“编辑”只修改该站点的自定义规则；系统安全规则和 Sitemap 规则会继续保留。</small></span></div></section>`
     return
   }
   const rows = sites.length ? sites.map((site) => {
     const state = seoSitemapState(site)
     const localSitemap = site.sitemap_url || ''
     return `<tr>
-      <td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · localhost:${escapeHtml(site.local_port)}</small></span></div></td>
+      <td><div class="seo-site-name"><span class="seo-site-mark">${icon('globe', 'icon icon-sm')}</span><span><strong>${escapeHtml(site.name)}</strong><small>${escapeHtml(site.code)} · ${escapeHtml(sitePreviewAddress(site))}</small></span></div></td>
       <td><a class="seo-machine-url" href="${escapeHtml(localSitemap)}" target="_blank" rel="noopener" title="${escapeHtml(localSitemap)}">${icon('file', 'icon icon-sm')}<code>/sitemap.xml</code></a></td>
       <td><div class="seo-count-stack"><strong>${Number(site.indexable_page_count || 0).toLocaleString('zh-CN')}</strong><span>内容、栏目与标签归档 · ${Number(site.language_count || 0)} 个可渲染语言</span></div></td>
       <td><div class="seo-count-stack seo-noindex-count"><strong>${Number(site.single_page_excluded_count || 0).toLocaleString('zh-CN')}</strong><span>单页面 noindex</span></div></td>
@@ -1064,8 +1106,16 @@ function renderSEOCenter() {
 }
 
 function renderModule(route, options = {}) {
+  const searchFocused = document.activeElement?.matches('[data-module-search]') && moduleState.route === route
+  const searchSelection = searchFocused ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null
   const config = activeModuleConfig(route)
   if (!config) return navigate('/admin')
+  if (route === 'settings' && settingsSection() === 'hts') {
+    moduleState.route = 'settings'
+    if (!liveState.me) { moduleView.innerHTML = '<p role="status">正在验证税则数据访问权限…</p>'; return }
+    if (!moduleView.querySelector('.hts-admin')) mountHTSSettings(moduleView, { fetchJSON, can, escapeHtml, formatDate, tabs: renderSettingsTabs('hts') })
+    return
+  }
   if (route === 'settings' && settingsSection() === 'smtp') {
     moduleState.route = 'settings'
     if (!liveState.me) {
@@ -1095,6 +1145,9 @@ function renderModule(route, options = {}) {
   if (moduleState.route !== route || moduleState.contentSection !== sectionKey) {
     moduleState.route = route
     moduleState.contentSection = sectionKey
+    moduleState.contentPage = 0
+    window.clearTimeout(contentSearchTimer)
+    if (route === 'content') liveState.loaded.delete('content')
     moduleState.query = ''
     moduleState.filter = config.filters[0]
     moduleState.selected.clear()
@@ -1107,7 +1160,7 @@ function renderModule(route, options = {}) {
     : ''
   const scopedSite = extendedSiteScopedRoutes.has(route) ? currentSite() : null
   const scopeLabel = route === 'content' ? contentScopeLabel() : scopedSite ? `当前站点：${scopedSite.name}` : ''
-  const statusText = liveState.loading.has(route) ? '正在读取…' : liveState.errors.has(route) ? '读取失败' : selectedCount ? `已选择 ${selectedCount} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : route === 'audit' ? `第 ${Math.floor(Number(liveState.audit.offset || 0) / Math.max(1, Number(liveState.audit.limit || 20))) + 1} 页 · 共 ${Number(liveState.audit.total || 0)} 条` : `共 ${filterRows(config.rows, moduleState.query, moduleState.filter).length} 条记录`
+  const statusText = liveState.loading.has(route) ? '正在读取…' : liveState.errors.has(route) ? '读取失败' : selectedCount ? `已选择 ${selectedCount} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : route === 'content' ? contentListStatus() : route === 'audit' ? `第 ${Math.floor(Number(liveState.audit.offset || 0) / Math.max(1, Number(liveState.audit.limit || 20))) + 1} 页 · 共 ${Number(liveState.audit.total || 0)} 条` : `共 ${moduleRows(config).length} 条记录`
   moduleView.innerHTML = `
     <div class="page-heading">
       <div><h1 id="module-title">${escapeHtml(config.title)}</h1><p>${escapeHtml(config.subtitle)}${scopeLabel ? `<span class="module-scope">${escapeHtml(scopeLabel)}</span>` : ''}</p></div>
@@ -1126,9 +1179,14 @@ function renderModule(route, options = {}) {
     </div>`}
     <section class="panel module-panel" aria-labelledby="module-list-title">
       <header class="panel-header"><h2 id="module-list-title">${escapeHtml(config.entityName)}列表</h2><div class="selection-info">${statusText}</div></header>
-      <div id="module-table-region">${renderModuleTableRegion(config)}</div>${route === 'audit' ? renderAuditPagination() : ''}
+      <div id="module-table-region">${renderModuleTableRegion(config)}</div>${route === 'audit' ? renderAuditPagination() : route === 'content' ? renderContentPagination() : ''}
     </section>`
   syncModuleSelectionControl(config)
+  if (searchFocused) {
+    const search = $('[data-module-search]', moduleView)
+    search?.focus({ preventScroll: true })
+    if (search && searchSelection?.[0] !== null) search.setSelectionRange(...searchSelection)
+  }
   if (options.focus) moduleView.querySelector(options.focus)?.focus()
 }
 
@@ -1140,7 +1198,7 @@ function refreshModuleTable() {
   const selectionInfo = $('.selection-info', moduleView)
   if (selectionInfo) {
     const count = moduleState.selected.size
-    selectionInfo.innerHTML = count ? `已选择 ${count} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : `共 ${filterRows(config.rows, moduleState.query, moduleState.filter).length} 条记录`
+    selectionInfo.innerHTML = count ? `已选择 ${count} 项 · <button class="text-button" data-clear-selection>取消选择</button>` : moduleState.route === 'content' ? contentListStatus() : `共 ${moduleRows(config).length} 条记录`
   }
   syncModuleSelectionControl(config)
 }
@@ -1248,7 +1306,7 @@ async function saveActiveTemplateFile(themeID, button) {
 function syncModuleSelectionControl(config) {
   const selectAll = $('[data-select-all]', moduleView)
   if (!selectAll) return
-  const selectableRows = selectableRowsForBulk(moduleState.route, filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected(moduleState.route, row)))
+  const selectableRows = selectableRowsForBulk(moduleState.route, moduleRows(config).filter((row) => rowCanBeSelected(moduleState.route, row)))
   const selectedCount = selectableRows.filter((row) => moduleState.selected.has(String(row.id))).length
   selectAll.checked = selectableRows.length > 0 && selectedCount === selectableRows.length
   selectAll.indeterminate = selectedCount > 0 && selectedCount < selectableRows.length
@@ -1311,7 +1369,7 @@ function applyRoute() {
   } else if (!isDashboard) {
     const contentSectionChanged = route === 'content' && moduleState.contentSection !== contentSection()
     renderModule(route)
-    if (realRoutes.has(route) && (!liveState.loaded.has(route) || contentSectionChanged) && !liveState.loading.has(route)) void loadRoute(route, contentSectionChanged)
+    if (realRoutes.has(route) && (!liveState.loaded.has(route) || contentSectionChanged) && (!liveState.loading.has(route) || contentSectionChanged)) void loadRoute(route, contentSectionChanged)
   }
   const item = navigationItems.find((entry) => entry.key === route)
   document.title = `${isContentEditor ? (editorMode === 'edit' ? '编辑内容' : editorMode === 'locale' ? '添加语言版本' : '新增内容') : item?.label ?? '控制台'} · CZCMS`
@@ -1341,15 +1399,27 @@ function formatDateTimeLocal(value) {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
 }
 
+function formatPublicationDate(value) {
+  if (!value) return '未发布'
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).format(date)
+}
+
+function contentPublicationSettings(item, creating) {
+  const published = item?.published_at && new Date(item.published_at).getTime() <= Date.now()
+  if (published && !creating) return `<div class="form-field"><span>首次发布时间</span><strong>${escapeHtml(formatPublicationDate(item.published_at))}</strong><small>首次发布时间固定保存，后续编辑、撤回或重新发布均不会改变。</small></div>`
+  return field('定时发布时间', 'scheduled_at', defaultContentScheduledAt(item, creating), { type: 'datetime-local', help: '留空即发布时的当前时间；设置未来时间后，到点自动开放，最多受 60 秒页面缓存影响。' })
+}
+
 function defaultContentScheduledAt(item, creating = false) {
-  return creating ? formatDateTimeLocal(new Date()) : formatDateTimeLocal(item?.scheduled_at)
+  return creating ? '' : formatDateTimeLocal(item?.scheduled_at)
 }
 
 function updateSiteData(items) {
   liveState.sites = items
   modules.sites.rows = items.map((item) => ({
     id: item.id, name: item.name, market: item.market_code,
-    domain: item.primary_domain ? `${item.primary_domain}${item.domain_count > 1 ? `（${item.domain_count} 个）` : ''}` : `localhost:${item.local_port}`,
+    domain: item.primary_domain ? `${item.primary_domain}${item.domain_count > 1 ? `（${item.domain_count} 个）` : ''}` : sitePreviewAddress(item),
     languages: `${item.language_count} 种`, status: siteStatus[item.status] ?? item.status, updatedAt: formatDate(item.updated_at), _raw: item,
   }))
   modules.sites.stats[0].value = String(items.length)
@@ -1371,11 +1441,12 @@ function updateLanguageData(items) {
   modules.languages.stats[3].value = String(items.filter((item) => item.direction === 'rtl').length)
 }
 
-function updateContentData(items, total, counts = {}) {
+function updateContentData(items, total = items.length, counts = {}, meta = {}) {
+  liveState.content = { total: Number(total), limit: Number(meta.limit || moduleState.contentPageSize), offset: Number(meta.offset || 0), counts }
   modules.content.rows = items.map((item) => ({
     id: item.id, name: item.title, type: contentTypes[item.content_type] ?? item.content_type,
     site: item.site_name || `站点 #${item.site_id}`, language: item.language_name || item.locale, owner: item.owner_name || '未分配', status: contentStatus[isScheduledContent(item) ? 'scheduled' : item.status] ?? item.status,
-    updatedAt: formatDate(item.updated_at), _raw: item,
+    publishedAt: isScheduledContent(item) ? '待定时发布' : item.published_at ? formatPublicationDate(item.published_at) : '未发布', updatedAt: formatDate(item.updated_at), _raw: item,
   }))
   modules.content.stats[0].value = Number(total).toLocaleString('zh-CN')
 	modules.content.stats[1].value = Number(counts.review ?? 0).toLocaleString('zh-CN')
@@ -1826,7 +1897,7 @@ function renderAnalytics() {
 function renderDashboardData() {
   const siteBody = $('#dashboard-site-body')
   if (siteBody) {
-    siteBody.innerHTML = liveState.sites.length ? liveState.sites.map((site) => `<tr><td><strong>${escapeHtml(site.name)}</strong></td><td>${escapeHtml(site.market_code || '—')}</td><td><a class="table-link" href="http://localhost:${escapeHtml(site.local_port)}/" target="_blank" rel="noopener">localhost:${escapeHtml(site.local_port)}</a></td><td>${escapeHtml(site.language_count)} 种</td><td>${escapeHtml(site.resolved_domain_count || 0)} / ${escapeHtml(site.domain_count || 0)}</td><td>${badge(siteStatus[site.status] ?? site.status)}</td></tr>`).join('') : '<tr><td colspan="6"><div class="dashboard-loading">当前账号没有可访问的站点</div></td></tr>'
+    siteBody.innerHTML = liveState.sites.length ? liveState.sites.map((site) => `<tr><td><strong>${escapeHtml(site.name)}</strong></td><td>${escapeHtml(site.market_code || '—')}</td><td><a class="table-link" href="${escapeHtml(sitePreviewOrigin(site))}/" target="_blank" rel="noopener">${escapeHtml(sitePreviewAddress(site))}</a></td><td>${escapeHtml(site.language_count)} 种</td><td>${escapeHtml(site.resolved_domain_count || 0)} / ${escapeHtml(site.domain_count || 0)}</td><td>${badge(siteStatus[site.status] ?? site.status)}</td></tr>`).join('') : '<tr><td colspan="6"><div class="dashboard-loading">当前账号没有可访问的站点</div></td></tr>'
   }
   if ($('#review-count')) $('#review-count').textContent = modules.content.stats[1].value
   if ($('#failure-count')) $('#failure-count').textContent = modules.publishing.stats[2].value
@@ -1882,6 +1953,7 @@ async function loadRoute(route, force = false) {
       return
     }
   }
+  const contentRequest = route === 'content' ? ++contentRequestSequence : 0
   liveState.loading.add(route)
   liveState.errors.delete(route)
   if (currentRoute() === route) renderModule(route)
@@ -1893,9 +1965,20 @@ async function loadRoute(route, force = false) {
       const payload = await fetchJSON('/api/v1/languages')
       updateLanguageData(payload.languages ?? [])
     } else if (route === 'content') {
-		const contentPath = contentSection() === 'pages' ? '/api/v1/contents?limit=100&content_type=page' : contentSection() === 'products' ? '/api/v1/contents?limit=100&content_type=product' : '/api/v1/contents?limit=100&content_type=non_page'
-		const payload = await fetchJSON(isAllSitesContentScope() ? contentPath : siteScopedAPIPath(contentPath))
-		updateContentData(payload.contents ?? [], payload.total ?? 0, payload.status_counts ?? {})
+      const params = new URLSearchParams({ limit: String(moduleState.contentPageSize), offset: String(moduleState.contentPage * moduleState.contentPageSize), content_type: contentSection() === 'pages' ? 'page' : contentSection() === 'products' ? 'product' : 'editorial', q: moduleState.query })
+      const status = Object.entries(contentStatus).find(([, label]) => label === moduleState.filter)?.[0]
+      if (status) params.set('status', status)
+      if (!isAllSitesContentScope() && currentSiteID()) params.set('site_id', String(currentSiteID()))
+      let payload = await fetchJSON(`/api/v1/contents?${params}`)
+      if (contentRequest !== contentRequestSequence) return
+      const lastPage = Math.max(0, Math.ceil(Number(payload.total || 0) / moduleState.contentPageSize) - 1)
+      if (moduleState.contentPage > lastPage) {
+        moduleState.contentPage = lastPage
+        params.set('offset', String(lastPage * moduleState.contentPageSize))
+        payload = await fetchJSON(`/api/v1/contents?${params}`)
+        if (contentRequest !== contentRequestSequence) return
+      }
+      updateContentData(payload.contents ?? [], payload.total ?? 0, payload.status_counts ?? {}, payload)
 	    } else if (route === 'taxonomy') {
 	      const payload = await fetchJSON(siteScopedAPIPath('/api/v1/taxonomy/terms'))
 	      updateTaxonomyData(payload.terms ?? [])
@@ -1963,10 +2046,12 @@ async function loadRoute(route, force = false) {
     liveState.loaded.add(route)
     if (['sites', 'content', 'products', 'publishing', 'settings'].includes(route)) renderDashboardData()
   } catch (error) {
-    if (error.status !== 401) liveState.errors.set(route, requestErrorMessage(error))
+    if ((!contentRequest || contentRequest === contentRequestSequence) && error.status !== 401) liveState.errors.set(route, requestErrorMessage(error))
   } finally {
-    liveState.loading.delete(route)
-    if (currentRoute() === route) renderModule(route)
+    if (!contentRequest || contentRequest === contentRequestSequence) {
+      liveState.loading.delete(route)
+      if (currentRoute() === route) renderModule(route)
+    }
   }
 }
 
@@ -2042,7 +2127,7 @@ function domainStatus(domain) {
 }
 
 function siteDomainFields(item, domains) {
-  const previewURL = `http://localhost:${item.local_port}/`
+  const previewURL = sitePreviewOrigin(item) ? `${sitePreviewOrigin(item)}/` : ''
   const rows = domains.length ? domains.map((domain) => {
     const state = domainStatus(domain)
     const addresses = domain.resolved_addresses?.length ? domain.resolved_addresses.join('、') : '尚无解析结果'
@@ -2052,10 +2137,10 @@ function siteDomainFields(item, domains) {
       <span class="domain-addresses" title="${escapeHtml(addresses)}">${escapeHtml(addresses)}</span>
       <div class="domain-actions">${domain.kind === 'alias' ? `<button class="button button-quiet button-compact" type="button" data-primary-domain="${domain.id}" data-domain-version="${domain.version}" data-domain-hostname="${escapeHtml(domain.hostname)}">设为主域名</button>` : ''}<button class="button button-secondary button-compact" type="button" data-check-domain="${domain.id}">检查 DNS</button><button class="button button-quiet button-compact" type="button" data-delete-domain="${domain.id}" data-domain-version="${domain.version}" aria-label="删除域名 ${escapeHtml(domain.hostname)}">删除</button></div>
     </div>`
-  }).join('') : '<div class="domain-empty"><strong>尚未绑定正式域名</strong><span>当前可以先使用上方 localhost 地址完成模板和内容测试。</span></div>'
+  }).join('') : '<div class="domain-empty"><strong>尚未绑定正式域名</strong><span>当前可以先使用上方预览地址完成模板和内容测试。</span></div>'
   return `<div class="site-access-fields form-field-wide"><section class="form-section site-access-section" aria-labelledby="local-preview-heading">
-    <div class="section-heading"><div><h3 id="local-preview-heading">独立端口测试</h3><p>这个多语言站点使用专属 localhost 端口，不需要修改 hosts 或 DNS。</p></div><a class="button button-secondary" href="${escapeHtml(previewURL)}" target="_blank" rel="noopener">打开预览</a></div>
-    ${field('本地预览地址', 'local_preview_url', previewURL, { readonly: true, wide: true, help: '端口变更需先保存站点；本地页面自动 noindex，不会被搜索引擎收录。' })}
+    <div class="section-heading"><div><h3 id="local-preview-heading">独立端口测试</h3><p>这个多语言站点使用独立预览地址，不需要修改 hosts 或 DNS。</p></div><a class="button button-secondary" href="${escapeHtml(previewURL)}" target="_blank" rel="noopener">打开预览</a></div>
+    ${field('站点预览地址', 'local_preview_url', previewURL, { readonly: true, wide: true, help: '端口变更需先保存站点；本地页面自动 noindex，不会被搜索引擎收录。' })}
   </section>
   <section class="form-section site-access-section" aria-labelledby="domain-binding-heading">
     <div class="section-heading"><div><h3 id="domain-binding-heading">正式域名与解析</h3><p>先在这里绑定，再到域名服务商把 A / AAAA 或 CNAME 记录指向本服务器。</p></div></div>
@@ -2118,7 +2203,7 @@ function siteCreateTemplateFields(templates = [], canBindTemplates = false) {
 
 function siteLanguageFields(bindings = [], templates = [], editable = false, site = null) {
   if (!bindings.length) return '<div class="site-template-empty">此站点暂未配置语言绑定，请先在语言管理中添加语言。</div>'
-  const previewURL = (binding) => site?.local_port ? `http://localhost:${site.local_port}${sitePublicPath(site, binding.locale)}` : ''
+  const previewURL = (binding) => sitePreviewOrigin(site) ? `${sitePreviewOrigin(site)}${sitePublicPath(site, binding.locale)}` : ''
   if (!editable) return `<div class="site-template-readonly"><div class="form-hint"><strong>只读模板配置</strong><span>当前账号可以查看绑定和前台效果，但没有修改模板绑定的权限。</span></div>${bindings.map((binding) => {
     const theme = templates.find((item) => String(item.id) === String(binding.theme_package_id ?? ''))
     return `<div class="binding-row binding-row-readonly"><div class="binding-language"><strong>${escapeHtml(binding.language_name)}</strong><span>${escapeHtml(binding.locale)}</span></div><strong>${escapeHtml(theme?.name || (binding.theme_package_id ? `模板 #${binding.theme_package_id}` : '未绑定模板'))}</strong>${badge(binding.enabled ? '已启用' : '已停用')}${previewURL(binding) && binding.theme_package_id ? `<a class="button button-secondary button-compact" href="${escapeHtml(previewURL(binding))}" target="_blank" rel="noopener">查看站点</a>` : ''}</div>`
@@ -2147,7 +2232,7 @@ function siteLanguageOverview(bindings = [], site = null) {
   if (!bindings.length) return '<div class="site-language-empty"><strong>尚未配置语言</strong><span>请先在语言管理中添加语言，再为每个语言站点选择模板。</span></div>'
   return `<div class="site-language-overview">
     <div class="site-language-overview-heading"><div><h3>语言切换</h3><p>为每个语言站点设置启用状态，并快速进入对应的模板与前台预览。</p></div><span class="site-language-count">${bindings.length} 个语言站点</span></div>
-    <div class="site-language-card-list">${bindings.map((binding, index) => `<button class="site-language-card ${index === 0 ? 'is-current' : ''}" type="button" data-site-language-tab="${escapeHtml(binding.language_id)}" aria-pressed="${index === 0 ? 'true' : 'false'}"><span class="site-language-code">${escapeHtml(binding.locale)}</span><span class="site-language-card-copy"><strong>${escapeHtml(binding.language_name)}</strong><small>${escapeHtml(binding.native_name || binding.language_name)} · localhost:${escapeHtml(site?.local_port || '')}</small></span><span class="site-language-card-state">${binding.enabled ? '已启用' : '已停用'}<em>进入配置</em></span>${icon('chevron', 'icon icon-sm')}</button>`).join('')}</div>
+    <div class="site-language-card-list">${bindings.map((binding, index) => `<button class="site-language-card ${index === 0 ? 'is-current' : ''}" type="button" data-site-language-tab="${escapeHtml(binding.language_id)}" aria-pressed="${index === 0 ? 'true' : 'false'}"><span class="site-language-code">${escapeHtml(binding.locale)}</span><span class="site-language-card-copy"><strong>${escapeHtml(binding.language_name)}</strong><small>${escapeHtml(binding.native_name || binding.language_name)} · ${escapeHtml(sitePreviewAddress(site))}</small></span><span class="site-language-card-state">${binding.enabled ? '已启用' : '已停用'}<em>进入配置</em></span>${icon('chevron', 'icon icon-sm')}</button>`).join('')}</div>
     <div class="site-editor-note">${icon('link', 'icon icon-sm')}<span><strong>语言与模板独立生效</strong><small>点击语言卡片可直接进入该语言的模板预览；保存模板绑定后，前台对应端口立即使用新的设置。</small></span></div>
   </div>`
 }
@@ -2175,7 +2260,7 @@ function siteFields(item = null, domains = [], bindings = [], templates = [], ca
   </div><div class="site-editor-note">${icon('search', 'icon icon-sm')}<span><strong>前台 SEO 生效规则</strong><small>首页使用此 Title；内容页优先使用内容自身的 SEO 标题。修改 Icon 或 Title 后，点击窗口底部的“保存修改”。</small></span></div>`
   if (!item) return `${identityFields}${siteCreateTemplateFields(templates, can('templates.manage'))}<div class="form-hint form-field-wide"><strong>创建后的访问地址</strong><span>系统会生成固定的 localhost 预览地址；初始模板会立即绑定到所选语言，之后可继续添加语言、切换独立模板并绑定正式域名。</span></div>`
   return `<div class="site-editor-shell"><nav class="site-editor-tabs" role="tablist" aria-label="编辑站点设置">
-    <div class="site-editor-summary"><span class="site-editor-mark">${icon('globe')}</span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.market_code)} · localhost:${escapeHtml(item.local_port)}</small></div>
+    <div class="site-editor-summary"><span class="site-editor-mark">${icon('globe')}</span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.market_code)} · ${escapeHtml(sitePreviewAddress(item))}</small></div>
     <button type="button" role="tab" aria-selected="true" aria-controls="site-panel-identity" data-site-editor-tab="identity">${icon('settings', 'icon icon-sm')}<span><strong>基本信息</strong><small>名称、端口与状态</small></span></button>
     <button type="button" role="tab" aria-selected="false" aria-controls="site-panel-languages" tabindex="-1" data-site-editor-tab="languages">${icon('globe', 'icon icon-sm')}<span><strong>语言切换</strong><small>启用语言与站点入口</small></span></button>
     <button type="button" role="tab" aria-selected="false" aria-controls="site-panel-template" tabindex="-1" data-site-editor-tab="template">${icon('template', 'icon icon-sm')}<span><strong>模板与预览</strong><small>选择并查看网站</small></span></button>
@@ -2286,7 +2371,7 @@ async function contentFields(item = null, newLocale = false) {
       </div></details>` : ''}
     </div>
     <aside class="content-editor-side" aria-label="内容发布设置">
-      <section class="editor-side-section"><h3>发布设置</h3>${selectField('站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale, help: item && !newLocale ? '现有内容的站点不能直接迁移；请添加新的语言版本。' : '' })}${selectField('语言 / Locale', 'locale', localeChoices, item?.locale ?? localeChoices[0]?.value ?? '', { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}${field('定时发布时间', 'scheduled_at', defaultContentScheduledAt(item, !item || newLocale), { type: 'datetime-local', help: '默认当前时间；改为未来时间并发布后，前台会在到点时自动开放，最多受 60 秒页面缓存影响。' })}</section>
+      <section class="editor-side-section"><h3>发布设置</h3>${selectField('站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale, help: item && !newLocale ? '现有内容的站点不能直接迁移；请添加新的语言版本。' : '' })}${selectField('语言 / Locale', 'locale', localeChoices, item?.locale ?? localeChoices[0]?.value ?? '', { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}${contentPublicationSettings(item, !item || newLocale)}</section>
       <section class="editor-side-section"><h3>归档与展示</h3>${field('栏目', 'category', item?.category, { maxlength: 100, placeholder: '物流知识 / 服务指南' })}${field('Tag 标签', 'tags', (item?.tags ?? []).join(', '), { maxlength: 1800, placeholder: '国际物流, 欧洲专线', help: '逗号分隔；自动去重，最多 30 个。' })}${field('模板套装 Key', 'template_key', item?.template_key, { maxlength: 100, placeholder: 'global-commerce/article' })}</section>
       <section class="editor-side-section publish-check-panel"><h3>发布前检查</h3><div class="check-row"><span class="check-dot check-dot-neutral"></span><span>标题和 Slug</span><small>保存时校验</small></div><div class="check-row"><span class="check-dot check-dot-neutral"></span><span>正文安全清洗</span><small>服务端执行</small></div><div class="check-row"><span class="check-dot check-dot-neutral"></span><span>SEO 字段完整</span><small>发布前检查</small></div><p>发布操作会写入审计日志，可在发布管理中追踪。</p></section>
     </aside>
@@ -2295,12 +2380,12 @@ async function contentFields(item = null, newLocale = false) {
 
 function siteBaseURL(site) {
   if (!site) return 'http://localhost:8081'
-  return site.primary_domain ? `https://${site.primary_domain}` : `http://localhost:${site.local_port}`
+  return site.primary_domain ? `https://${site.primary_domain}` : sitePreviewOrigin(site)
 }
 
 function contentFrontendPreviewURL(site, item) {
-  const port = Number(site?.local_port || 0)
-  const base = port >= 1024 && port <= 65535 ? `http://localhost:${port}` : siteBaseURL(site).replace(/\/+$/, '')
+  const base = sitePreviewOrigin(site) || siteBaseURL(site).replace(/\/+$/, '')
+  if (!base) return ''
   const slug = String(item?.slug || '').split('/').filter(Boolean).map((part) => encodeURIComponent(part)).join('/')
   const locale = Number(site?.language_count || 0) > 1 ? encodeURIComponent(String(item?.locale || '').trim()) : ''
   return `${base}${sitePublicPath(site, locale, slug)}`
@@ -2648,7 +2733,7 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
   const sourceSite = defaultEnglishSite()
   const siteID = item?.site_id ?? (newLocale ? Number($('#site-switcher')?.dataset.siteId || liveState.sites[0]?.id || 0) : Number(sourceSite?.id || 0))
   const bindings = siteID ? await loadSiteLanguages(siteID) : []
-  const siteChoices = liveState.sites.map((site) => ({ value: site.id, label: `${site.name} · ${site.primary_domain || `localhost:${site.local_port}`}` }))
+  const siteChoices = liveState.sites.map((site) => ({ value: site.id, label: `${site.name} · ${site.primary_domain || sitePreviewAddress(site)}` }))
   const localeChoices = bindings.filter((binding) => binding.enabled || binding.locale === item?.locale).map((binding) => ({ value: binding.locale, label: `${binding.language_name} / ${binding.locale}` }))
   const selectedLocale = item?.locale ?? localeChoices[0]?.value ?? ''
   const categoryTerms = contentTaxonomyTerms(siteID, selectedLocale, 'category')
@@ -2742,7 +2827,7 @@ async function contentEditorPageMarkup(item = null, newLocale = false) {
 
       <aside class="content-publish-sidebar" aria-label="发布设置">
         ${isProduct ? productGalleryMarkup(item) : ''}
-        <section class="publish-sidebar-section"><h2>发布设置</h2><div class="publish-summary-row"><span>状态</span>${selectField('状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}</div><div class="publish-summary-row"><span>发布时间</span>${field('发布时间', 'scheduled_at', scheduledAt, { type: 'datetime-local', help: '默认当前时间；改为未来时间并发布后，前台会在到点时自动开放，最多受 60 秒页面缓存影响。' })}</div><div class="publish-summary-row publish-owner"><span>作者</span><strong>${escapeHtml(item?.owner_name || '当前管理员')}</strong></div><button class="button button-primary publish-sidebar-button" type="button" data-content-action="publish">立即发布</button></section>
+        <section class="publish-sidebar-section"><h2>发布设置</h2><div class="publish-summary-row"><span>状态</span>${selectField('状态', 'status', Object.entries(contentStatus).filter(([value]) => value !== 'scheduled').map(([value, label]) => ({ value, label })), item?.status ?? 'draft')}</div><div class="publish-summary-row"><span>发布时间</span>${contentPublicationSettings(item, !item || newLocale)}</div><div class="publish-summary-row publish-owner"><span>作者</span><strong>${escapeHtml(item?.owner_name || '当前管理员')}</strong></div><button class="button button-primary publish-sidebar-button" type="button" data-content-action="publish">立即发布</button></section>
         <section class="publish-sidebar-section"><header class="sidebar-section-heading"><h2>站点与语言</h2><button type="button" class="text-button" data-content-action="localize">AI 同步其他语言</button></header>${selectField('目标站点', 'site_id', siteChoices, siteID, { required: true, disabled: Boolean(item) && !newLocale })}${selectField('内容语言', 'locale', localeChoices, selectedLocale, { required: true, disabled: Boolean(item) && !newLocale })}${!isProduct ? `<input type="hidden" name="cover_media_id" value="${escapeHtml(item?.cover_media_id ?? '')}"><div class="cover-selector ${coverSelected ? 'is-selected' : ''}" data-cover-selector><span class="cover-placeholder">${icon('image')}</span><span><small>封面图</small><strong data-cover-name>${escapeHtml(coverName)}</strong><em data-cover-details>${escapeHtml(coverDetails)}</em></span><span class="cover-actions"><button class="button button-secondary button-compact" type="button" data-content-action="media">${coverSelected ? '更换' : '上传'}</button><button class="text-button" type="button" data-content-action="cover-remove" ${coverSelected ? '' : 'hidden'}>移除</button></span></div>` : ''}</section>
         <section class="publish-sidebar-section"><h2>栏目、标签与模板</h2><label class="form-field"><span>栏目</span><input name="category" list="content-category-suggestions" value="${escapeHtml(item?.category ?? '')}" maxlength="100" placeholder="选择或输入栏目"><datalist id="content-category-suggestions">${taxonomyOptionMarkup(categoryTerms)}</datalist><small data-category-suggestion-count>${categoryTerms.length ? `当前范围有 ${categoryTerms.length} 个可用栏目；也可输入新名称，保存时自动创建。` : '当前范围还没有栏目；输入名称并保存后会自动创建。'}</small></label><label class="form-field tag-editor-field"><span>标签</span><input type="hidden" name="tags" value="${escapeHtml(tags)}"><div class="tag-editor" data-tag-editor><div class="tag-chip-list" data-tag-list></div><input type="text" data-tag-entry list="content-tag-suggestions" maxlength="80" aria-describedby="content-tag-help" placeholder="输入标签后按回车或逗号"></div><datalist id="content-tag-suggestions">${taxonomyOptionMarkup(tagTerms)}</datalist><small id="content-tag-help" data-tag-suggestion-count>${contentTagHelpText(tagTerms.length)}</small></label>${field('页面模板', 'template_key', item?.template_key ?? '', { maxlength: 100, placeholder: templatePlaceholder })}</section>
         ${contactFormManager}
@@ -3952,7 +4037,7 @@ async function openContentLocalizationDialog() {
       <section class="localization-target-section"><header><div><h3>同步到已上线模板的国家站</h3><p>系统按当前配置自动识别：站点运行中、语言已启用、模板已绑定且能够安全渲染时，默认加入本次同步。</p></div><button class="text-button" type="button" data-select-localization-targets ${selectable.length ? '' : 'disabled'}>取消选择全部</button></header><div class="localization-target-list">${targets.length ? targets.map((target) => {
 		const disabled = !target.accessible || !target.site_online || !target.template_online || target.existing
 		const status = target.existing ? `已存在 · ${contentStatus[target.existing_status] || target.existing_status}` : !target.site_online ? '站点未上线' : !target.template_bound ? '未绑定模板' : !target.template_online ? '模板不可上线' : !target.accessible ? '无权限' : '模板已上线'
-        return `<label class="localization-target ${disabled ? 'is-disabled' : ''}"><input type="checkbox" name="localization_target" value="${escapeHtml(`${target.site_id}|${target.locale}`)}" ${disabled ? 'disabled' : 'checked'}><span class="locale-mark">${escapeHtml(String(target.locale).split('-')[0].toUpperCase())}</span><span><strong>${escapeHtml(target.language_name)} <em>${escapeHtml(target.native_name)}</em></strong><small>${escapeHtml(target.site_name)} · localhost:${escapeHtml(target.local_port)} · ${escapeHtml(target.market_code)}</small></span><span class="target-availability">${escapeHtml(status)}</span>${target.reason ? `<span class="target-reason">${escapeHtml(target.reason)}</span>` : ''}</label>`
+        return `<label class="localization-target ${disabled ? 'is-disabled' : ''}"><input type="checkbox" name="localization_target" value="${escapeHtml(`${target.site_id}|${target.locale}`)}" ${disabled ? 'disabled' : 'checked'}><span class="locale-mark">${escapeHtml(String(target.locale).split('-')[0].toUpperCase())}</span><span><strong>${escapeHtml(target.language_name)} <em>${escapeHtml(target.native_name)}</em></strong><small>${escapeHtml(target.site_name)} · ${escapeHtml(sitePreviewAddress(target))} · ${escapeHtml(target.market_code)}</small></span><span class="target-availability">${escapeHtml(status)}</span>${target.reason ? `<span class="target-reason">${escapeHtml(target.reason)}</span>` : ''}</label>`
       }).join('') : '<div class="localization-empty">没有可用的非英语目标站，请先让分站进入运行状态、启用语言并绑定可渲染模板。</div>'}</div></section>
       <section class="localization-controls"><header><h3>事实与术语保护</h3><p>品牌、产品型号、服务名等可锁定原样；禁用词会在保存前再次检查。</p></header><div class="localization-control-grid"><label class="form-field"><span>必须保留的术语</span><textarea name="locked_terms" maxlength="12000" placeholder="例如：Global Route, DDP\n使用逗号或换行分隔"></textarea></label><label class="form-field"><span>禁止出现的词</span><textarea name="forbidden_terms" maxlength="12000" placeholder="例如：保证到达, 最低价格\n使用逗号或换行分隔"></textarea></label></div></section>
       <aside class="localization-safety-note">${icon('lock')}<span><strong>发布安全门</strong><small>AI 版本统一保存为“草稿 / AI 待审”，不会覆盖已有版本，也不会自动上线。人工核对当地语法、关键词和事实后，再提交审核或发布。关键词只标记为 AI 语境建议；没有真实工具数据时不显示搜索量、排名或竞争度。</small></span></aside>`
@@ -4077,7 +4162,7 @@ async function openSiteRobotsDialog(site) {
     $('#entity-dialog-title').textContent = `编辑 robots · ${site.name}`
     $('#entity-dialog-description').textContent = '保存后立即合并到该站点正式 robots.txt；系统自动安全规则、Sitemap 和 noindex 单页规则会继续保留。'
     $('#entity-dialog-error').hidden = true
-    $('#entity-fields').innerHTML = `<section class="robots-editor"><div class="form-hint"><strong>系统自动规则</strong><span>后台、API、图片、动态查询、表单提交，以及默认 noindex 的单页面均由系统维护，不需要手工重复填写。</span></div><label class="form-field form-field-wide"><span>此站点的自定义 robots 规则</span><textarea class="code-field robots-rules-input" name="custom_rules" rows="16" maxlength="24000" spellcheck="false" autocomplete="off" placeholder="# Google 以外的爬虫规则\nUser-agent: ExampleBot\nDisallow: /private/"></textarea><small>支持标准 robots.txt 文本（如 User-agent、Allow、Disallow、Crawl-delay、Sitemap 和注释）。最多 300 行；规则只作用于当前站点。</small></label><div class="form-hint"><strong>保存前检查</strong><span>系统会限制长度和控制字符，并使用版本号防止其他管理员的修改被覆盖。保存记录会写入审计日志。</span></div></section>`
+    $('#entity-fields').innerHTML = `<section class="robots-editor"><div class="form-hint"><strong>系统自动规则</strong><span>后台、API、动态查询、表单提交及 noindex 单页面由系统限制；公开页面、样式脚本与图片允许搜索引擎抓取。</span></div><label class="form-field form-field-wide"><span>此站点的自定义 robots 规则</span><textarea class="code-field robots-rules-input" name="custom_rules" rows="16" maxlength="24000" spellcheck="false" autocomplete="off" placeholder="# Google 以外的爬虫规则\nUser-agent: ExampleBot\nDisallow: /private/"></textarea><small>支持标准 robots.txt 文本（如 User-agent、Allow、Disallow、Crawl-delay、Sitemap 和注释）。最多 300 行；规则只作用于当前站点。</small></label><div class="form-hint"><strong>保存前检查</strong><span>系统会限制长度和控制字符，并使用版本号防止其他管理员的修改被覆盖。保存记录会写入审计日志。</span></div></section>`
     entityForm.elements.custom_rules.value = settings.custom_rules || ''
     $('#delete-entity-button').hidden = true
     $('#add-locale-button').hidden = true
@@ -4718,7 +4803,7 @@ function openTemplateDetails(item) {
 	const bindings = Array.isArray(item.bindings) ? item.bindings : []
 	const bindingList = bindings.length ? bindings.map((binding) => {
 		const previewPath = `/admin/template-preview/${encodeURIComponent(item.id)}/${encodeURIComponent(binding.site_code)}/${encodeURIComponent(binding.locale)}`
-		return `<div class="template-binding-item"><span><strong>${escapeHtml(binding.site_name)}</strong><small>${escapeHtml(binding.locale)} · localhost:${escapeHtml(binding.local_port)}</small></span><a class="button button-secondary button-compact" href="${escapeHtml(previewPath)}" target="_blank" rel="noopener">${icon('eye', 'icon icon-sm')}预览</a></div>`
+		return `<div class="template-binding-item"><span><strong>${escapeHtml(binding.site_name)}</strong><small>${escapeHtml(binding.locale)} · ${escapeHtml(sitePreviewAddress(binding))}</small></span><a class="button button-secondary button-compact" href="${escapeHtml(previewPath)}" target="_blank" rel="noopener">${icon('eye', 'icon icon-sm')}预览</a></div>`
 	}).join('') : '<p class="content-readonly-empty">尚未绑定站点语言。可先预览模板，再进入站点管理完成绑定。</p>'
   entityForm.reset()
   entityForm.dataset.route = 'templates'
@@ -5869,6 +5954,8 @@ $('#site-menu').addEventListener('click', (event) => {
   closePopovers()
   moduleState.selected.clear()
   moduleState.query = ''
+  moduleState.contentPage = 0
+  window.clearTimeout(contentSearchTimer)
   for (const route of siteScopedRoutes) {
     liveState.loaded.delete(route)
     liveState.errors.delete(route)
@@ -5935,6 +6022,8 @@ $('#action-list').addEventListener('click', (event) => {
 })
 
 moduleView.addEventListener('click', (event) => {
+  const contentPage = event.target.closest('[data-content-page]')
+  if (contentPage && !contentPage.disabled) { void loadContentPage(contentPage.dataset.contentPage); return }
   const auditApply = event.target.closest('[data-audit-apply]')
   if (auditApply) { applyAuditFilters(); return }
   const auditReset = event.target.closest('[data-audit-reset]')
@@ -6074,13 +6163,14 @@ moduleView.addEventListener('click', (event) => {
   if (filter) {
     moduleState.filter = filter.dataset.filter
     moduleState.selected.clear()
-    renderModule(moduleState.route)
+    if (moduleState.route === 'content') void loadContentPage(0)
+    else renderModule(moduleState.route)
     return
   }
   const contentBulkSelect = event.target.closest('[data-content-bulk-select]')
   if (contentBulkSelect) {
     const config = activeModuleConfig('content')
-    const rows = selectableRowsForBulk('content', filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected('content', row)))
+    const rows = selectableRowsForBulk('content', moduleRows(config).filter((row) => rowCanBeSelected('content', row)))
     const allSelected = rows.length > 0 && rows.every((row) => moduleState.selected.has(String(row.id)))
     moduleState.selected.clear()
     if (!allSelected) rows.forEach((row) => moduleState.selected.add(String(row.id)))
@@ -6344,7 +6434,10 @@ moduleView.addEventListener('input', (event) => {
 	if (event.target.matches('[data-module-search]')) {
 		moduleState.query = event.target.value
 		moduleState.selected.clear()
-		refreshModuleTable()
+		if (moduleState.route === 'content') {
+      window.clearTimeout(contentSearchTimer)
+      contentSearchTimer = window.setTimeout(() => void loadContentPage(0), 300)
+    } else refreshModuleTable()
 	}
 })
 
@@ -6368,6 +6461,11 @@ moduleView.addEventListener('scroll', (event) => {
 }, true)
 
 moduleView.addEventListener('change', (event) => {
+  if (event.target.matches('[data-content-page-size]')) {
+    moduleState.contentPageSize = [20, 50, 100].includes(Number(event.target.value)) ? Number(event.target.value) : 20
+    void loadContentPage(0)
+    return
+  }
 	if (event.target.matches('[data-audit-page-size]')) {
 		moduleState.auditPageSize = Math.max(1, Number(event.target.value || 20))
 		void loadAuditPage(0)
@@ -6419,6 +6517,7 @@ moduleView.addEventListener('change', (event) => {
     return
   }
   if (event.target.matches('[data-content-scope]')) {
+    moduleState.contentPage = 0
     moduleState.contentScope = event.target.value === 'all' ? 'all' : 'current'
     moduleState.selected.clear()
     liveState.loaded.delete('content')
@@ -6436,7 +6535,7 @@ moduleView.addEventListener('change', (event) => {
   }
   if (event.target.matches('[data-select-all]')) {
     const config = activeModuleConfig()
-    const rows = selectableRowsForBulk(moduleState.route, filterRows(config.rows, moduleState.query, moduleState.filter).filter((row) => rowCanBeSelected(moduleState.route, row)))
+    const rows = selectableRowsForBulk(moduleState.route, moduleRows(config).filter((row) => rowCanBeSelected(moduleState.route, row)))
     moduleState.selected.clear()
     if (event.target.checked) rows.forEach((row) => moduleState.selected.add(String(row.id)))
     renderModule(moduleState.route)

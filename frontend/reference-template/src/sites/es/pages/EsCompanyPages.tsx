@@ -135,7 +135,7 @@ export function EsContactPage() {
                 )}
               </ul>
             )}
-            <h3 className="es-eyebrow mt-10 text-carbon-700">Conviene indicar</h3>
+            <h3 className="text-sm font-semibold mt-10 text-carbon-700">Conviene indicar</h3>
             <p className="mt-3 text-[16px] leading-relaxed text-carbon-800">{processEs.items[0].copy}</p>
             <EsCheckList items={enquiryEs.settings.reassurance} className="mt-6" />
           </div>
@@ -453,8 +453,8 @@ export function EsNotFoundPage({ path }: { path: string }) {
     <section className="relative isolate overflow-hidden bg-arena-50 py-24 text-carbon-900 sm:py-32">
       <div aria-hidden="true" className="es-azulejo pointer-events-none absolute inset-0 -z-10 opacity-80" />
       <div className="shell max-w-3xl">
-        <p className="es-eyebrow text-almagre-700">Ruta no encontrada</p>
-        <h1 className="mt-5 font-es text-5xl font-extrabold leading-tight tracking-[-0.025em]">Este traspaso no lleva a ninguna parte.</h1>
+
+        <h1 className="font-es text-5xl font-extrabold leading-tight tracking-[-0.025em]">Este traspaso no lleva a ninguna parte.</h1>
         <p className="mt-5 text-lg text-carbon-700">
           La página <span className="font-mono text-base text-carbon-900">{path}</span> no está disponible. Elija un siguiente paso.
         </p>

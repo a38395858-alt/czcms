@@ -157,11 +157,12 @@ test('structured data preview can copy its canonical JSON-LD on local HTTP', () 
   assert.match(css, /\.schema-preview-actions/)
 })
 
-test('new content defaults publishing time to the current local time without overwriting existing content', () => {
+test('new content uses the actual publication time and published content shows its fixed first publication', () => {
   const app = readFileSync(new URL('../assets/js/app.mjs', import.meta.url), 'utf8')
   assert.match(app, /function defaultContentScheduledAt\(item, creating = false\)/)
   assert.match(app, /const scheduledAt = defaultContentScheduledAt\(item, mode !== 'edit'\)/)
-  assert.match(app, /默认当前时间；改为未来时间并发布后/)
+  assert.match(app, /留空即发布时的当前时间/)
+  assert.match(app, /首次发布时间固定保存/)
 })
 
 test('content editor commits typed tags on delimiter, blur and save', () => {
@@ -191,8 +192,8 @@ test('top site switcher scopes operational modules and refreshes their cached da
   const app = readFileSync(new URL('../assets/js/app.mjs', import.meta.url), 'utf8')
   const css = readFileSync(new URL('../assets/css/admin.css', import.meta.url), 'utf8')
   assert.match(app, /const siteScopedRoutes = new Set\(\['content', 'taxonomy', 'urls', 'publishing', 'localization'\]\)/)
-  assert.match(app, /siteScopedAPIPath\(contentPath\)/)
-  assert.match(app, /content_type=page/)
+  assert.match(app, /params\.set\('site_id', String\(currentSiteID\(\)\)\)/)
+  assert.match(app, /content_type: contentSection\(\) === 'pages' \? 'page'/)
   assert.match(app, /siteScopedAPIPath\('\/api\/v1\/taxonomy\/terms'\)/)
   assert.match(app, /siteScopedAPIPath\('\/api\/v1\/urls\/redirects'\)/)
   assert.match(app, /siteScopedAPIPath\('\/api\/v1\/publishing\/releases'\)/)
@@ -214,7 +215,7 @@ test('content management can show every authorized site without changing the act
   assert.match(app, /function renderContentScopePicker\(\)/)
   assert.match(app, /data-content-scope/)
   assert.match(app, /所有可访问站点/)
-  assert.match(app, /isAllSitesContentScope\(\) \? contentPath : siteScopedAPIPath\(contentPath\)/)
+  assert.match(app, /!isAllSitesContentScope\(\) && currentSiteID\(\)/)
   assert.match(app, /site: item\.site_name \|\| `站点 #\$\{item\.site_id\}`/)
   assert.match(app, /moduleState\.selected\.clear\(\)[\s\S]*?loadRoute\('content', true\)/)
   assert.match(data, /content:\s*\{[\s\S]*?key: 'site', label: '所属站点'/)
@@ -325,7 +326,7 @@ test('published content links to the native multilingual frontend', () => {
 })
 
 test('public template renders six-language SEO pages and CMS content', () => {
-  const page = readFileSync(new URL('../public.html', import.meta.url), 'utf8')
+  const page = readFileSync(new URL('../public.html', import.meta.url), 'utf8') + readFileSync(new URL('../head.html', import.meta.url), 'utf8')
   const css = readFileSync(new URL('../assets/css/public.css', import.meta.url), 'utf8')
   assert.match(page, /hreflang/)
   assert.match(page, /application\/ld\+json/)
@@ -334,9 +335,9 @@ test('public template renders six-language SEO pages and CMS content', () => {
 	assert.match(page, /article-masthead/)
 	assert.match(page, /\.Content\.ReadingMinutes/)
 	assert.match(page, /\.Related/)
-  assert.match(page, /language-picker/)
+  assert.match(page, /fv-head-languages/)
   assert.match(page, /rel="icon"/)
-  assert.match(page, /mobile-nav-menu/)
+  assert.match(page, /fv-head-toggle/)
   assert.match(css, /\.article-body h4/)
 	assert.match(css, /\.article-layout/)
 	assert.match(css, /\.mobile-nav \{[^}]*display: none/)

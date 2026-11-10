@@ -1,0 +1,59 @@
+{{define "taric-lookup"}}
+{{$p := .TARIC}}{{$c := $p.Copy}}
+<section class="htd-page taric-page" lang="{{.LanguageCode}}" data-taric><div class="wrap">
+<nav class="crumb" aria-label="{{index $c "home"}}"><a href="{{.HomePath}}">{{index $c "home"}}</a><span aria-hidden="true">/</span>{{if $p.Entry}}<a href="{{.TARICURL}}">{{index $c "code"}}</a><span aria-hidden="true">/</span><span>{{$p.Entry.Formatted}}</span>{{else}}<span>{{index $c "code"}}</span>{{end}}</nav>
+<div class="intro"><div><h1>{{index $c "title"}}</h1><p>{{index $c "intro"}}</p></div></div>
+<div class="market-bar"><span class="active">{{index $c "country"}} · EU TARIC</span>{{if $p.Entry}}<a href="{{.TARICURL}}?q={{slice $p.Entry.Code 0 6}}">{{index $c "back"}}</a>{{end}}</div>
+<form class="search-box" action="{{.TARICURL}}" method="get" role="search" data-taric-search><label for="taric-query">{{index $c "searchLabel"}}<div class="search-input"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="taric-query" name="q" type="search" maxlength="120" value="{{if $p.Entry}}{{$p.Entry.Code}}{{else}}{{$p.Result.Query}}{{end}}" placeholder="{{index $c "placeholder"}}" autocomplete="off"></div></label><button class="action" type="submit">{{index $c "search"}} <span aria-hidden="true">→</span></button></form>
+{{if not $p.Entry}}
+<nav class="taric-common" aria-labelledby="taric-common-title">
+<h2 id="taric-common-title">{{index $c "commonCodes"}}</h2>
+<ul>
+<li><a href="{{.TARICURL}}?q=851713"><strong>851713</strong><span>{{index $c "commonPhones"}}</span></a></li>
+<li><a href="{{.TARICURL}}?q=847130"><strong>847130</strong><span>{{index $c "commonLaptops"}}</span></a></li>
+<li><a href="{{.TARICURL}}?q=610910"><strong>610910</strong><span>{{index $c "commonShirts"}}</span></a></li>
+<li><a href="{{.TARICURL}}?q=850760"><strong>850760</strong><span>{{index $c "commonBatteries"}}</span></a></li>
+<li><a href="{{.TARICURL}}?q=940360"><strong>940360</strong><span>{{index $c "commonFurniture"}}</span></a></li>
+<li><a href="{{.TARICURL}}?q=950300"><strong>950300</strong><span>{{index $c "commonToys"}}</span></a></li>
+<li><a href="{{.TARICURL}}?q=4202"><strong>4202</strong><span>{{index $c "commonBags"}}</span></a></li>
+<li><a href="{{.TARICURL}}?q=6404"><strong>6404</strong><span>{{index $c "commonFootwear"}}</span></a></li>
+</ul>
+</nav>
+{{end}}
+{{if $p.Entry}}
+<div class="page-grid"><article class="document">
+<header class="product-head" id="overview"><div class="record-top"><span>{{index $c "country"}} · TARIC</span><span class="status">{{$p.Result.Date}}</span></div><div class="code-row"><strong class="commodity-code">{{$p.Entry.Code}}</strong><button class="copy" type="button" data-taric-copy="{{$p.Entry.Code}}" disabled>{{index $c "copy"}}</button></div><h2 class="product-name">{{$p.Entry.Name}}</h2><p>{{index $c "description"}}: {{$p.Entry.Description}}</p><div class="facts"><span>{{index $c "unit"}} <strong>{{if $p.Entry.Unit}}{{$p.Entry.Unit}}{{else}}{{index $c "unavailable"}}{{end}}</strong></span><span>{{index $c "snapshot"}} <strong>{{$p.Result.Date}}</strong></span></div></header>
+<section class="section" id="measures" aria-labelledby="taric-measures-title"><div class="section-title"><h2 id="taric-measures-title">{{index $c "measures"}}</h2></div>
+<form class="taric-measure-form" method="get" data-taric-measures><input type="hidden" name="measures" value="1"><div><label for="taric-origin">{{index $c "origin"}}</label><input id="taric-origin" name="origin" type="text" maxlength="2" minlength="2" pattern="[A-Za-z]{2}" value="{{$p.Origin}}" required list="taric-origins" autocomplete="off" aria-describedby="taric-origin-hint"><datalist id="taric-origins"><option value="CN"><option value="US"><option value="GB"><option value="JP"><option value="IN"><option value="TR"><option value="VN"><option value="CH"></datalist></div><div><label for="taric-date">{{index $c "measureDate"}}</label><input id="taric-date" name="date" type="date" min="2007-01-01" max="{{$p.Today}}" value="{{$p.MeasureDate}}" required></div><button class="action" type="submit">{{index $c "load"}}</button><p id="taric-origin-hint">{{index $c "originHint"}}</p></form>
+<div data-taric-measure-output aria-busy="false">
+{{if $p.Measures}}{{template "taric-measure-results" $p}}{{else}}<p class="taric-feedback" role="status">{{if $p.MeasureError}}{{index $c "measureError"}}{{else}}{{index $c "measureInitial"}}{{end}}</p>{{end}}
+</div><p class="small-note">{{index $c "measureNote"}}</p><a class="taric-official-measures" data-taric-measure-link href="{{$p.OfficialURL}}" target="_blank" rel="noopener noreferrer">{{index $c "official"}} <span aria-hidden="true">↗</span></a></section>
+<section class="section" id="classification" aria-labelledby="taric-classification-title"><div class="section-title"><h2 id="taric-classification-title">{{index $c "classification"}}</h2></div><table class="data-table classification"><caption class="sr-only">{{index $c "classification"}}</caption><thead><tr><th scope="col">{{index $c "code"}}</th><th scope="col">{{index $c "description"}}</th></tr></thead><tbody>{{range $p.Entry.Hierarchy}}<tr><th scope="row">{{if .Code}}{{.Code}}{{else}}{{index $c "group"}}{{end}}</th><td>{{.Description}}</td></tr>{{end}}<tr><th scope="row">{{$p.Entry.Formatted}}</th><td>{{$p.Entry.Description}}</td></tr></tbody></table>{{if $p.Notes}}<details class="legal-notes"><summary>{{index $c "notes"}}</summary><ul>{{range $p.Notes}}<li>{{.}}</li>{{end}}</ul></details>{{end}}</section>
+<section class="section" id="national" aria-labelledby="taric-national-title"><div class="section-title"><h2 id="taric-national-title">{{index $c "national"}}</h2></div><p class="section-intro">{{index $c "nationalText"}}</p><a href="{{$p.NationalURL}}" target="_blank" rel="noopener noreferrer">{{index $c "nationalLink"}} <span aria-hidden="true">↗</span></a></section>
+</article><aside class="sidebar"><nav class="side-panel side-nav" aria-label="{{index $c "detailsTitle"}}"><h2>{{index $c "detailsTitle"}}</h2><a href="#overview">{{index $c "overview"}}</a><a href="#measures">{{index $c "measures"}}</a><a href="#classification">{{index $c "classification"}}</a><a href="#national">{{index $c "national"}}</a></nav><section class="side-panel source"><h2>{{index $c "source"}}</h2><dl><dt>{{index $c "snapshot"}}</dt><dd>{{$p.Result.Date}}</dd><dt>{{index $c "checked"}}</dt><dd><time datetime="{{$p.Result.RetrievedAt}}">{{slice $p.Result.RetrievedAt 0 10}}</time></dd></dl><p>{{index $c "sourceText"}}</p><a data-taric-measure-link href="{{$p.OfficialURL}}" target="_blank" rel="noopener noreferrer">{{index $c "official"}} ↗</a></section><section class="jurisdiction"><h2>{{index $c "shipping"}}</h2><a href="{{.ShippingCalculatorURL}}">{{index $c "shipping"}} →</a></section></aside></div>
+{{else}}
+<section class="document taric-search-results" aria-labelledby="taric-results-title" data-taric-results aria-busy="false">
+{{template "taric-search-results" .}}
+</section><section class="taric-search-source"><h2>{{index $c "source"}}</h2><p>{{index $c "snapshot"}}: <time>{{$p.Result.Date}}</time> · {{index $c "checked"}}: <time>{{slice $p.Result.RetrievedAt 0 10}}</time></p><p>{{index $c "sourceText"}}</p><a data-taric-measure-link href="{{$p.OfficialURL}}" target="_blank" rel="noopener noreferrer">{{index $c "official"}} ↗</a></section>
+{{end}}
+<p class="legal-note">{{index $c "disclaimer"}}</p><div class="copy-toast" data-taric-toast role="status" aria-live="polite"></div><script type="application/json" id="taric-context">{{$p.Context}}</script>
+</div></section>
+{{end}}
+
+{{define "taric-search-results"}}
+{{$p:=.TARIC}}{{$c:=$p.Copy}}
+{{if $p.Error}}<p class="taric-feedback" role="alert">{{$p.Error}}</p>{{end}}
+{{if $p.Missing}}<div class="taric-empty"><h2 id="taric-results-title">{{index $c "missing"}}</h2><p>{{index $c "foreign"}}</p>{{if $p.Prefix}}<a href="{{.TARICURL}}?q={{$p.Prefix}}">{{index $c "prefix"}} · {{$p.Prefix}}</a>{{else}}<a href="{{.TARICURL}}">{{index $c "back"}}</a>{{end}}</div>
+{{else if $p.Items}}
+<div class="taric-result-heading"><h2 id="taric-results-title">{{index $c "results"}}</h2><p role="status">{{$p.Result.Total}} {{index $c "matches"}} · {{index $c "page"}} {{$p.Result.Page}}</p></div>
+<table class="data-table taric-result-table"><caption class="sr-only">{{index $c "results"}}</caption><thead><tr><th scope="col">{{index $c "code"}}</th><th scope="col">{{index $c "description"}}</th><th scope="col">{{index $c "unit"}}</th><th scope="col">{{index $c "detail"}}</th></tr></thead><tbody>{{range $p.Items}}<tr><td data-label="{{index $c "code"}}"><a class="taric-code" href="{{.DetailURL}}">{{.Formatted}}</a><button class="mini-copy" type="button" data-taric-copy="{{.Code}}" disabled>{{index $c "copy"}}</button></td><td data-label="{{index $c "description"}}">{{.Name}}</td><td data-label="{{index $c "unit"}}">{{if .Unit}}{{.Unit}}{{else}}{{index $c "unavailable"}}{{end}}</td><td><a href="{{.DetailURL}}">{{index $c "detail"}} →</a></td></tr>{{end}}</tbody></table>
+<nav class="taric-pagination" aria-label="{{index $c "page"}}">{{if $p.PreviousURL}}<a href="{{$p.PreviousURL}}">← {{index $c "previous"}}</a>{{else}}<span></span>{{end}}<span>{{index $c "page"}} {{$p.Result.Page}}</span>{{if $p.NextURL}}<a href="{{$p.NextURL}}">{{index $c "next"}} →</a>{{else}}<span></span>{{end}}</nav>
+{{else}}<div class="taric-empty"><h2 id="taric-results-title">{{if $p.Result.Query}}{{index $c "empty"}}{{else}}{{index $c "initial"}}{{end}}</h2><p>{{if $p.Result.ForeignCode}}{{index $c "foreign"}}{{else if $p.Result.Query}}{{index $c "emptyHint"}}{{else}}{{index $c "initialHint"}}{{end}}</p>{{if $p.Prefix}}<a href="{{.TARICURL}}?q={{$p.Prefix}}">{{index $c "prefix"}} · {{$p.Prefix}}</a>{{end}}</div>{{end}}
+{{end}}
+
+{{define "taric-measure-results"}}
+{{$p:=.}}{{$c:=$p.Copy}}
+{{if $p.Measures.Stale}}<p class="taric-feedback" role="status">{{index $c "stale"}}</p>{{end}}
+<p class="taric-measure-meta">{{index $c "origin"}}: {{$p.Measures.Origin}} · {{index $c "measureDate"}}: {{$p.Measures.Date}} · {{index $c "checked"}}: {{$p.Measures.CheckedAt}}</p>
+<table class="data-table taric-measure-table"><caption class="sr-only">{{index $c "measures"}}</caption><thead><tr><th scope="col">{{index $c "measures"}}</th><th scope="col">{{index $c "rate"}}</th><th scope="col">{{index $c "area"}}</th><th scope="col">{{index $c "regulation"}}</th></tr></thead><tbody>{{range $p.Measures.Items}}<tr><td data-label="{{index $c "measures"}}">{{.Description}}{{if .Conditional}}<small>{{index $c "conditional"}}</small>{{end}}</td><td data-label="{{index $c "rate"}}"><strong>{{if .Rate}}{{.Rate}}{{else}}{{index $c "noRate"}}{{end}}</strong></td><td data-label="{{index $c "area"}}">{{.Area}}</td><td data-label="{{index $c "regulation"}}">{{if .Regulation}}{{.Regulation}}{{else}}{{index $c "unavailable"}}{{end}}</td></tr>{{end}}</tbody></table><p class="small-note">{{index $c "conditionText"}}</p>
+{{end}}

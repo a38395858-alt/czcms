@@ -33,8 +33,8 @@ export function DeHero({ section }: { section: HeroSection }) {
       <div aria-hidden="true" className="de-grid-bg pointer-events-none absolute inset-0 -z-10" />
       <div className="shell grid gap-12 pb-16 pt-10 sm:pt-14 lg:grid-cols-12 lg:items-start lg:gap-10 lg:pb-28 lg:pt-20">
         <div className="max-w-2xl lg:col-span-6 lg:pr-6">
-          <p className="de-eyebrow text-enzian-700">{section.eyebrow}</p>
-          <h1 id="de-hero-title" className="mt-6 font-de-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.3rem] xl:text-[3.9rem]">
+
+          <h1 id="de-hero-title" className="font-de-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.3rem] xl:text-[3.9rem]">
             {section.title}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-anthrazit-600 sm:text-[1.15rem] sm:leading-relaxed">{section.body}</p>
@@ -47,7 +47,7 @@ export function DeHero({ section }: { section: HeroSection }) {
               {section.cta_secondary_label}
             </Link>
           </div>
-          <p className="mt-8 max-w-lg border-l-2 border-anthrazit-900/20 pl-4 text-[15px] leading-relaxed text-anthrazit-600">{section.settings.microcopy}</p>
+
         </div>
 
         <div className="relative lg:col-span-6">
@@ -65,7 +65,7 @@ function SpecPanel({ labels }: { labels: string[] }) {
   return (
     <div className="mt-5 border border-anthrazit-900 bg-white text-anthrazit-900 shadow-[0_24px_48px_-32px_rgba(20,23,26,0.45)] lg:absolute lg:-bottom-12 lg:-left-10 lg:mt-0 lg:w-[26rem] xl:-left-12">
       <div className="flex items-center justify-between border-b border-anthrazit-900 px-5 py-2.5">
-        <span className="de-eyebrow text-anthrazit-900">Sendungsübersicht</span>
+        <span className="text-sm font-semibold text-anthrazit-900">Sendungsübersicht</span>
         <span className="font-de-mono text-[11px] uppercase tracking-[0.14em] text-anthrazit-500">CN → DE · EU</span>
       </div>
       <dl className="divide-y divide-anthrazit-900/10 px-5">
@@ -172,8 +172,8 @@ export function DeServicePaths({ section }: { section: ServicePathsSection }) {
       <div className="shell">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-7">
-            <p className="de-eyebrow text-enzian-700">{section.eyebrow}</p>
-            <h2 id="de-services-title" className="de-h2 mt-5 text-anthrazit-900">
+
+            <h2 id="de-services-title" className="de-h2 text-anthrazit-900">
               {section.title}
             </h2>
           </div>
@@ -239,9 +239,7 @@ export function DeServicePaths({ section }: { section: ServicePathsSection }) {
                       sizes="(min-width: 1024px) 40vw, 100vw"
                       className="aspect-[16/10] h-full w-full object-cover lg:aspect-auto lg:min-h-[26rem]"
                     />
-                    <span className="absolute left-4 top-4 bg-anthrazit-900 px-2.5 py-1.5 font-de-mono text-[11px] font-medium uppercase tracking-[0.14em] text-white">
-                      {item.label}
-                    </span>
+
                   </div>
                   <div className="flex flex-col p-6 sm:p-8 lg:col-span-7 lg:p-10">
                     <h3 className="font-de-display text-[2rem] font-bold leading-[1.08] text-anthrazit-900 sm:text-[2.35rem]">{item.title}</h3>
@@ -295,13 +293,11 @@ export function DeOperation({ section }: { section: OperationSection }) {
       <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <p className="de-eyebrow text-enzian-300">{section.eyebrow}</p>
-            <h2 id="de-operation-title" className="de-h2 mt-5 text-white">
+
+            <h2 id="de-operation-title" className="de-h2 text-white">
               {section.title}
             </h2>
-            <p className="mt-8 max-w-md border-l-4 border-ziegel-500 pl-5 text-xl font-semibold leading-snug text-anthrazit-100 sm:text-2xl">
-              {section.settings.pull_quote}
-            </p>
+
             <Link to={section.cta_primary_url} className="mt-10 inline-flex items-center gap-2 font-semibold text-enzian-300 underline decoration-enzian-300/40 underline-offset-4 hover:decoration-enzian-300">
               {section.cta_primary_label}
               <ArrowRight className="h-4 w-4" />
@@ -334,7 +330,7 @@ export function DeProcess({ section }: { section: ProcessSection }) {
           <h2 id="de-process-title" className="de-h2 text-anthrazit-900 lg:col-span-6">
             {section.title}
           </h2>
-          <p className="text-lg leading-relaxed text-anthrazit-600 lg:col-span-5 lg:col-start-8">{section.body}</p>
+
         </div>
 
         <ol className="mt-14 grid lg:mt-20 lg:grid-cols-4 lg:gap-8">
@@ -378,7 +374,7 @@ export function DeIndustries({ section }: { section: IndustriesSection }) {
           <h2 id="de-industries-title" className="de-h2 text-anthrazit-900">
             {section.title}
           </h2>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-anthrazit-600">{section.body}</p>
+
           <figure className="relative mt-10 lg:mt-14">
             <div className="overflow-hidden border border-anthrazit-900 bg-kiesel-100">
               <Img media={media} alt={section.media_alt} sizes="(min-width: 1024px) 56vw, 100vw" className="aspect-[4/3] w-full object-cover lg:aspect-[16/11]" />
@@ -434,8 +430,8 @@ export function DeResources({ section }: { section: ResourcesSection }) {
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-8">
-            <p className="de-eyebrow text-enzian-700">{section.eyebrow}</p>
-            <h2 id="de-resources-title" className="de-h2 mt-5 text-anthrazit-900">
+
+            <h2 id="de-resources-title" className="de-h2 text-anthrazit-900">
               <Link to={section.settings.heading_url} onClick={() => guideClick('heading')} className="decoration-enzian-600/50 decoration-2 underline-offset-[6px] hover:underline">
                 {section.title}
               </Link>
@@ -475,7 +471,7 @@ export function DeResources({ section }: { section: ResourcesSection }) {
         )}
 
         <nav aria-labelledby="de-resources-topics" className="mt-14 border-t border-anthrazit-900 pt-8">
-          <p id="de-resources-topics" className="de-eyebrow text-anthrazit-500">
+          <p id="de-resources-topics" className="text-sm font-semibold text-anthrazit-500">
             {section.settings.topics_label}
           </p>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -508,7 +504,7 @@ export function DeFaq({ section }: { section: FaqSection }) {
             <h2 id="de-faq-title" className="de-h2 text-anthrazit-900">
               {section.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-anthrazit-600">{section.settings.aside_prompt}</p>
+
             <Link to={section.settings.aside_link_url} className="de-link mt-3">
               {section.settings.aside_link_label}
               <ArrowRight className="h-4 w-4" />
@@ -541,8 +537,8 @@ export function DeEnquirySection({ section }: { section: EnquirySection }) {
     <section id="anfrage" aria-labelledby="de-enquiry-title" className="border-t border-anthrazit-900 bg-kiesel-100 py-20 sm:py-24 lg:py-32">
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <p className="de-eyebrow text-enzian-700">{section.eyebrow}</p>
-          <h2 id="de-enquiry-title" className="mt-5 font-de-display text-[2rem] font-bold leading-[1.08] text-anthrazit-900 text-balance sm:text-[2.6rem]">
+
+          <h2 id="de-enquiry-title" className="font-de-display text-[2rem] font-bold leading-[1.08] text-anthrazit-900 text-balance sm:text-[2.6rem]">
             {section.title}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-anthrazit-600">{section.body}</p>

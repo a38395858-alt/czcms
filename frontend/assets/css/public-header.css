@@ -82,5 +82,5 @@
   .fv-head .fv-head-languages{position:static;box-shadow:none;margin:8px 0}
   .fv-head .fv-head-cta{width:100%}
 }
-@media(max-width:420px){.fv-head .fv-head-inner{padding:0 18px}.fv-head .fv-head-wordmark small{font-size:8px;letter-spacing:.6px}.fv-head .fv-head-brand{gap:9px}.fv-head .fv-head-mark{width:34px;height:34px}}
+@media(max-width:420px){.fv-head .fv-head-inner{padding:0 18px}.fv-head .fv-head-wordmark{min-width:0}.fv-head .fv-head-wordmark small{font-size:8px;letter-spacing:.6px;overflow-wrap:anywhere}.fv-head .fv-head-brand{gap:9px;min-width:0;flex:0 1 auto}.fv-head .fv-head-navigation{flex:none}.fv-head .fv-head-mark{width:34px;height:34px}}
 @media(prefers-reduced-motion:reduce){.fv-head svg{transition:none}}

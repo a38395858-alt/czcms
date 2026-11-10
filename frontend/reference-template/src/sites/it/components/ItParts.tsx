@@ -49,15 +49,15 @@ interface PageHeroProps {
 }
 
 /** White editorial header: hairline rule, Bodoni headline, optional framed image. */
-export function ItPageHero({ breadcrumbs, eyebrow, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
+export function ItPageHero({ breadcrumbs, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
   return (
     <section className="border-b border-grafite-900 bg-white text-grafite-900">
       <div className="shell pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20">
         <ItBreadcrumbs items={breadcrumbs} />
         <div className={cn('mt-8 grid gap-10 lg:mt-10', media && 'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-14')}>
           <div className={cn(!media && 'max-w-3xl')}>
-            {eyebrow && <p className="it-eyebrow text-ottanio-700">{eyebrow}</p>}
-            <h1 className="mt-5 font-it-display text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.02em] text-balance sm:text-5xl lg:text-[3.6rem]">{title}</h1>
+
+            <h1 className="font-it-display text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.02em] text-balance sm:text-5xl lg:text-[3.6rem]">{title}</h1>
             {lead && <p className="mt-5 text-xl leading-snug text-grafite-700 sm:text-2xl">{lead}</p>}
             {body && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-grafite-600">{body}</p>}
             {actions && <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div>}
@@ -89,7 +89,7 @@ export function ItCheckList({ items, className }: { items: string[]; className?:
 export function ItScopeNote({ children }: { children: ReactNode }) {
   return (
     <div className="border-l-2 border-ottanio-700 bg-ottanio-100 px-5 py-4 text-[15px] leading-relaxed text-grafite-800">
-      <p className="it-eyebrow text-ottanio-800">Perimetro</p>
+      <p className="text-sm font-semibold text-ottanio-800">Perimetro</p>
       <p className="mt-2">{children}</p>
     </div>
   );
@@ -110,8 +110,8 @@ export function ItCtaBand({
     <section aria-label="Richiedi un piano di spedizione" className="bg-grafite-900 text-white">
       <div className="shell flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
         <div className="max-w-2xl">
-          <p className="it-eyebrow text-ottanio-300">Richiedi un piano di spedizione</p>
-          <h2 className="mt-4 font-it-display text-[2rem] font-semibold leading-tight tracking-[-0.015em] sm:text-[2.6rem]">{title}</h2>
+
+          <h2 className="font-it-display text-[2rem] font-semibold leading-tight tracking-[-0.015em] sm:text-[2.6rem]">{title}</h2>
           <p className="mt-4 text-lg leading-relaxed text-grafite-200">{body}</p>
         </div>
         <Link
@@ -154,7 +154,7 @@ function Cover({ article, className, sizes }: { article: ArticleIt; className: s
         <Img media={getMedia(article.coverId)} alt={article.coverAlt} sizes={sizes} className="h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]" />
       ) : (
         <div className="flex h-full w-full items-end bg-nebbia-100 p-4">
-          <span className="it-eyebrow text-grafite-500">{article.category}</span>
+          <span className="text-sm font-semibold text-grafite-500">{article.category}</span>
         </div>
       )}
     </div>

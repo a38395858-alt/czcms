@@ -1,0 +1,9847 @@
+{
+  "version": 1,
+  "dataMode": "demo",
+  "country": "NL",
+  "language": "nl",
+  "locale": "nl-NL",
+  "currency": "EUR",
+  "basis": "door-to-door",
+  "postcodePattern": "^[1-9]\\d{3}\\s?[A-Z]{2}$",
+  "contactAnchor": "aanvraag",
+  "copy": {
+    "home": "Home",
+    "breadcrumb": "Verzendkosten en levertijd",
+    "resultTitle": "Resultaten: kosten en levertijd",
+    "title": "China naar Nederland: verzendkosten en levertijd berekenen",
+    "intro": "Bereken kosten en levertijden van China naar Nederland per zee, lucht of koerier, of bezorging vanuit een Nederlands magazijn.",
+    "demo": "Alleen ter indicatie",
+    "demoNote": "Voorbeeldtarieven en levertijden, geen actuele offertes of gegarandeerde bezorgdata. Neem contact op voor een offerte en zendinggebonden transittijden.",
+    "contact": "Kosten en levertijd aanvragen",
+    "oceanType": "Zeevrachtzending",
+    "lcl": "LCL / deelcontainer",
+    "fcl": "FCL / volle container",
+    "containerType": "Containertype",
+    "containerCount": "Aantal containers",
+    "lastmile": "Laatste kilometer Nederland",
+    "warehouse": "Vertrekmagazijn",
+    "postcode": "Nederlandse postcode",
+    "deliveryType": "Bezorgmethode",
+    "bothDelivery": "Pakket en vrachtwagen vergelijken",
+    "parcel": "Pakketbezorging",
+    "truck": "Pallet / vrachtwagen",
+    "pallets": "Aantal pallets",
+    "modeLabel": "Vervoerswijze",
+    "sea": "Zeevracht",
+    "air": "Luchtvracht",
+    "express": "Koerier",
+    "allModes": "Alles vergelijken",
+    "from": "Van",
+    "to": "Naar",
+    "oceanLabel": "Zeevrachtservice",
+    "bothOcean": "Alle zeevrachtdiensten",
+    "standard": "Standaard zeevracht",
+    "weight": "Brutogewicht",
+    "volume": "Totaal volume",
+    "search": "Kosten en levertijd bekijken",
+    "cargoHelp": "LCL: gewicht of volume. FCL: containertype en aantal. Lucht en koerier: belastbaar gewicht.",
+    "door": "Van deur tot deur",
+    "loading": "Voorbeeldroutes laden…",
+    "enquiry": "Offerte voor deze route aanvragen",
+    "changed": "Gegevens gewijzigd. Zoek opnieuw.",
+    "empty": "Geen voorbeeldtarief voor deze route en dienst. Wijzig uw keuze of vraag een offerte aan.",
+    "loadError": "Voorbeeldroutes konden niet worden geladen. Probeer het opnieuw.",
+    "retry": "Opnieuw proberen",
+    "seaNote": "LCL · op gewicht of volume",
+    "airNote": "Belastbaar gewicht · deler 6.000",
+    "expressNote": "Belastbaar gewicht · deler 5.000",
+    "transit": "Indicatieve transittijd",
+    "freight": "Geschatte vrachtkosten",
+    "days": "dagen",
+    "businessDays": "werkdagen",
+    "sample": "Demonstratieschatting · EUR",
+    "details": "Berekening bekijken",
+    "ready": "Kies uw route en bekijk kosten en levertijden op een aparte resultatenpagina.",
+    "port": "Haven-tot-haven · binnenlandse bezorging uitgesloten",
+    "mixedBasis": "Omvang per optie vermeld",
+    "lastmileBasis": "Referentie magazijn-adres",
+    "fclNote": "FCL · tarief per container",
+    "lastmileNote": "Binnenlandse bezorging · internationale vracht uitgesloten",
+    "fclHelp": "FCL-prijs = containertarief × aantal. Alleen haven-tot-haven; bevestig lokale kosten afzonderlijk.",
+    "lastmileCargoHelp": "Pakket op belastbaar gewicht (deler 5.000), vrachtwagen op aantal pallets. Afzonderlijke opties, niet optellen.",
+    "lastmileHelp": "Kies een magazijn en een ingestelde voorbeeldpostcode. Beschikbaarheid bevestigen.",
+    "samplePostcode": "Voorbeeldpostcode {postcode} gebruiken",
+    "sampleHelp": "Demomagazijn: {warehouse}. Voorbeeldpostcodes: {codes}. Andere postcodes hebben geen demotarief. Bevestig de beschikbaarheid.",
+    "summary": "{n} opties · {w} kg · {v} CBM · demonstratietarieven",
+    "count": "{n} vervoersopties gevonden.",
+    "containers": "{n} × {type} × EUR {lo}–{hi}/container. Alleen haven-tot-haven; lokale kosten, douane, belasting en bezorging uitgesloten.",
+    "palletCost": "{n} pallets × EUR {lo}–{hi}/pallet. Bijzondere diensten en toeslagen uitgesloten.",
+    "wm": "{q} W/M × EUR {lo}–{hi}/W/M. Hoogste van CBM, kg ÷ 1.000 en minimum {min}.",
+    "kg": "{q} belastbare kg × EUR {lo}–{hi}/kg. Hoogste van bruto, volume × 1.000.000 ÷ {d} ({v} kg) en minimum {min} kg, naar boven afgerond.",
+    "noVolume": " Geen volume opgegeven: verpakte afmetingen kunnen de prijs verhogen.",
+    "exclusions": "Alleen demo: geen actuele tarieven of gegarandeerde data. FCL haven-tot-haven; laatste kilometer magazijn-adres. Invoerrechten, belastingen, verzekering, lokale kosten en toeslagen uitgesloten. Internationaal in kalenderdagen; binnenlands in werkdagen. Voorbereiding, boeking en douanevertraging zijn aanvullend.",
+    "guideTitle": "Kosten en levertijden China–Nederland plannen",
+    "regionsTitle": "Nederlandse regio’s en referentiehavens",
+    "faqTitle": "Vragen over vervoer China–Nederland",
+    "openTool": "Aparte calculator openen",
+    "servicesTitle": "Gerelateerde diensten",
+    "enquirySuffix": "Bevestig de actuele kosten en levertijden.",
+    "fclSummary": "{n} × {type} · Demonstratieschatting · EUR",
+    "errors": {
+      "origin": "Kies een geldig vertrekpunt.",
+      "destination": "Kies een geldige bestemming.",
+      "mode": "Kies een vervoerswijze.",
+      "oceanService": "Kies een zeevrachtdienst.",
+      "oceanType": "Kies LCL of FCL.",
+      "containerType": "Kies een geldig containertype.",
+      "containerCount": "Vul 1–100 hele containers in.",
+      "warehouse": "Kies een Nederlands magazijn.",
+      "postcode": "Vul een Nederlandse postcode in, bijvoorbeeld 3011 AA.",
+      "deliveryType": "Kies een bezorgmethode.",
+      "pallets": "Vul 1–100 hele pallets in.",
+      "weight": "Vul een gewicht boven 0 en tot 1.000.000 kg in.",
+      "volume": "Vul een geldig volume tot 10.000 CBM in. LCL vereist meer dan 0."
+    },
+    "processTitle": "Zo verloopt een zending van China naar Nederland"
+  },
+  "seo": {
+    "title": "China naar Nederland: verzendkosten en levertijd berekenen | FreightVanta",
+    "homeTitle": "China–Nederland: vrachtkosten en levertijden | FreightVanta",
+    "description": "Vergelijk kosten en levertijden van China naar Nederland: zeevracht LCL/FCL, luchtvracht, koerier en bezorging vanuit Nederlandse magazijnen. Demodata in EUR.",
+    "keywords": "China naar Nederland: verzendkosten en levertijd berekenen, Zeevracht, Luchtvracht, Expresskoerier, Laatste kilometer Nederland, LCL, FCL"
+  },
+  "sections": [
+    {
+      "title": "Rotterdam als zeehaven, meerdere bestemmingsregio’s",
+      "body": "De zeereferentie voor deze routes is Rotterdam. Amsterdam, Venlo, Tilburg, Eindhoven, Utrecht en Groningen hebben elk een eigen bestemming en natransport. FCL-prijzen gelden van haven tot haven; levering naar de gekozen stad vraagt een aparte bevestiging."
+    },
+    {
+      "title": "Eenheden vergelijken vóór u boekt",
+      "body": "LCL gebruikt de hoogste waarde van volume, gewicht in tonnen en de minimumhoeveelheid. FCL rekent per 20GP, 40GP of 40HQ en aantal containers. Luchtvracht en koerier gebruiken het belastbare gewicht."
+    },
+    {
+      "title": "Nederlandse postcode en laatste kilometer",
+      "body": "Gebruik vier cijfers en twee letters, bijvoorbeeld 3011 AA. Kleine letters en een ontbrekende spatie worden genormaliseerd. Alleen expliciet ingestelde magazijn-postcodecombinaties hebben een demotarief; een onbekende postcode krijgt geen tarief van een nabijgelegen plaats."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Zijn dit actuele vrachttarieven en gegarandeerde levertijden?",
+      "answer": "Nee. Alle bedragen in EUR en doorlooptijden zijn demonstratiegegevens. Neem contact op voor actuele beschikbaarheid, een zendinggebonden offerte en de verwachte levering."
+    },
+    {
+      "question": "Welke invoerkosten ontbreken in de schatting?",
+      "answer": "Invoerrechten, btw, verzekering, lokale havenkosten en bijzondere toeslagen zijn uitgesloten. Bevestig de leveringsconditie en controleer EORI, handelsfactuur, paklijst en goederencode vóór vertrek."
+    }
+  ],
+  "origins": [
+    {
+      "id": "shanghai",
+      "nl": "Shanghai, China"
+    },
+    {
+      "id": "ningbo",
+      "nl": "Ningbo, China"
+    },
+    {
+      "id": "shenzhen",
+      "nl": "Shenzhen, China"
+    },
+    {
+      "id": "qingdao",
+      "nl": "Qingdao, China"
+    },
+    {
+      "id": "xiamen",
+      "nl": "Xiamen, China"
+    },
+    {
+      "id": "guangzhou",
+      "nl": "Guangzhou, China"
+    },
+    {
+      "id": "tianjin",
+      "nl": "Tianjin, China"
+    },
+    {
+      "id": "dalian",
+      "nl": "Dalian, China"
+    },
+    {
+      "id": "fuzhou",
+      "nl": "Fuzhou, China"
+    },
+    {
+      "id": "shantou",
+      "nl": "Shantou, China"
+    },
+    {
+      "id": "nanjing",
+      "nl": "Nanjing, China"
+    },
+    {
+      "id": "suzhou",
+      "nl": "Suzhou, China"
+    },
+    {
+      "id": "foshan",
+      "nl": "Foshan, China"
+    },
+    {
+      "id": "zhongshan",
+      "nl": "Zhongshan, China"
+    },
+    {
+      "id": "zhuhai",
+      "nl": "Zhuhai, China"
+    },
+    {
+      "id": "lianyungang",
+      "nl": "Lianyungang, China"
+    },
+    {
+      "id": "chongqing",
+      "nl": "Chongqing, China"
+    },
+    {
+      "id": "wuhan",
+      "nl": "Wuhan, China"
+    },
+    {
+      "id": "yiwu",
+      "nl": "Yiwu, China"
+    },
+    {
+      "id": "chengdu",
+      "nl": "Chengdu, China"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "groningen",
+      "region": "Noord-Nederland",
+      "port": {
+        "nl": "Rotterdam"
+      },
+      "nl": "Groningen, Nederland"
+    },
+    {
+      "id": "amsterdam",
+      "region": "Noord-Holland",
+      "port": {
+        "nl": "Rotterdam"
+      },
+      "nl": "Amsterdam, Nederland"
+    },
+    {
+      "id": "rotterdam",
+      "region": "Zuid-Holland",
+      "port": {
+        "nl": "Rotterdam"
+      },
+      "nl": "Rotterdam, Nederland"
+    },
+    {
+      "id": "tilburg",
+      "region": "Noord-Brabant",
+      "port": {
+        "nl": "Rotterdam"
+      },
+      "nl": "Tilburg, Nederland"
+    },
+    {
+      "id": "eindhoven",
+      "region": "Noord-Brabant",
+      "port": {
+        "nl": "Rotterdam"
+      },
+      "nl": "Eindhoven, Nederland"
+    },
+    {
+      "id": "venlo",
+      "region": "Limburg",
+      "port": {
+        "nl": "Rotterdam"
+      },
+      "nl": "Venlo, Nederland"
+    },
+    {
+      "id": "utrecht",
+      "region": "Midden-Nederland",
+      "port": {
+        "nl": "Rotterdam"
+      },
+      "nl": "Utrecht, Nederland"
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "rotterdam-warehouse",
+      "region": "Zuid-Holland",
+      "examplePostcode": "3011 AA",
+      "nl": "Rotterdam"
+    },
+    {
+      "id": "amsterdam-warehouse",
+      "region": "Noord-Holland",
+      "examplePostcode": "1012 AB",
+      "nl": "Amsterdam"
+    },
+    {
+      "id": "venlo-warehouse",
+      "region": "Limburg",
+      "examplePostcode": "5911 AA",
+      "nl": "Venlo"
+    },
+    {
+      "id": "tilburg-warehouse",
+      "region": "Noord-Brabant",
+      "examplePostcode": "5038 AA",
+      "nl": "Tilburg"
+    },
+    {
+      "id": "eindhoven-warehouse",
+      "region": "Noord-Brabant",
+      "examplePostcode": "5611 AA",
+      "nl": "Eindhoven"
+    },
+    {
+      "id": "utrecht-warehouse",
+      "region": "Midden-Nederland",
+      "examplePostcode": "3511 AA",
+      "nl": "Utrecht"
+    },
+    {
+      "id": "groningen-warehouse",
+      "region": "Noord-Nederland",
+      "examplePostcode": "9711 AA",
+      "nl": "Groningen"
+    }
+  ],
+  "services": [
+    {
+      "id": "standard",
+      "mode": "sea",
+      "billing": "wm",
+      "minimum": 1,
+      "nl": "Standaard zeevracht"
+    },
+    {
+      "id": "air",
+      "mode": "air",
+      "billing": "kg",
+      "minimum": 45,
+      "divisor": 6000,
+      "increment": 1,
+      "nl": "Luchtvracht"
+    },
+    {
+      "id": "express",
+      "mode": "express",
+      "billing": "kg",
+      "minimum": 0.5,
+      "divisor": 5000,
+      "increment": 0.5,
+      "nl": "Expresskoerier"
+    },
+    {
+      "id": "nl-parcel",
+      "mode": "lastmile",
+      "deliveryType": "parcel",
+      "billing": "kg",
+      "minimum": 1,
+      "divisor": 5000,
+      "increment": 0.5,
+      "nl": "Pakketbezorging"
+    },
+    {
+      "id": "nl-truck",
+      "mode": "lastmile",
+      "deliveryType": "truck",
+      "billing": "pallet",
+      "minimum": 1,
+      "nl": "Pallet / vrachtwagen"
+    }
+  ],
+  "routes": [
+    {
+      "origin": "shanghai",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            137,
+            202
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            148,
+            213
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.18,
+            9.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.35,
+            14.55
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            159,
+            224
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.36,
+            9.66
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            170,
+            235
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.54,
+            9.84
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.65,
+            14.85
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            181,
+            246
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.72,
+            10.02
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            192,
+            257
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.95,
+            15.15
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            203,
+            268
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.08,
+            10.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            144,
+            209
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.32,
+            14.52
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            155,
+            220
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.28,
+            9.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.47,
+            14.67
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            166,
+            231
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.46,
+            9.76
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.62,
+            14.82
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            177,
+            242
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.64,
+            9.94
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.77,
+            14.97
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            188,
+            253
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.82,
+            10.12
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.92,
+            15.12
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            199,
+            264
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.07,
+            15.27
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            210,
+            275
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.18,
+            10.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.22,
+            15.42
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            151,
+            216
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.44,
+            14.64
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            162,
+            227
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.38,
+            9.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.59,
+            14.79
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            173,
+            238
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.56,
+            9.86
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.74,
+            14.94
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            184,
+            249
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.74,
+            10.04
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.89,
+            15.09
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            195,
+            260
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.92,
+            10.22
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.04,
+            15.24
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            206,
+            271
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.19,
+            15.39
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            217,
+            282
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.28,
+            10.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.34,
+            15.54
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            158,
+            223
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.56,
+            14.76
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            169,
+            234
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.48,
+            9.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.71,
+            14.91
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            180,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.66,
+            9.96
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.86,
+            15.06
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            191,
+            256
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.84,
+            10.14
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.01,
+            15.21
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            202,
+            267
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.02,
+            10.32
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.16,
+            15.36
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            213,
+            278
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.31,
+            15.51
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            224,
+            289
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.38,
+            10.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.46,
+            15.66
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            165,
+            230
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.68,
+            14.88
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            176,
+            241
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.58,
+            9.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.83,
+            15.03
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            187,
+            252
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.76,
+            10.06
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.98,
+            15.18
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            198,
+            263
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.94,
+            10.24
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.13,
+            15.33
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            209,
+            274
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.12,
+            10.42
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.28,
+            15.48
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            220,
+            285
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.43,
+            15.63
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            231,
+            296
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.48,
+            10.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.58,
+            15.78
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            172,
+            237
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            183,
+            248
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.68,
+            9.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.95,
+            15.15
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            194,
+            259
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.86,
+            10.16
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            205,
+            270
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.04,
+            10.34
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.25,
+            15.45
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            216,
+            281
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.22,
+            10.52
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            227,
+            292
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.55,
+            15.75
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            238,
+            303
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.58,
+            10.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            179,
+            244
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.92,
+            15.12
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            190,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.78,
+            10.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.07,
+            15.27
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            201,
+            266
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.96,
+            10.26
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.22,
+            15.42
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            212,
+            277
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.14,
+            10.44
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.37,
+            15.57
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            223,
+            288
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.32,
+            10.62
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.52,
+            15.72
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            234,
+            299
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.67,
+            15.87
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            245,
+            310
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.68,
+            10.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.82,
+            16.02
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            186,
+            251
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.04,
+            15.24
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            197,
+            262
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.88,
+            10.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.19,
+            15.39
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            208,
+            273
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.06,
+            10.36
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.34,
+            15.54
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            219,
+            284
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.24,
+            10.54
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.49,
+            15.69
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            230,
+            295
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.42,
+            10.72
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.64,
+            15.84
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            241,
+            306
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.6,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.79,
+            15.99
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            252,
+            317
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.78,
+            11.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.94,
+            16.14
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            193,
+            258
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.16,
+            15.36
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            204,
+            269
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.98,
+            10.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.31,
+            15.51
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            215,
+            280
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.16,
+            10.46
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.46,
+            15.66
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            226,
+            291
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.34,
+            10.64
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.61,
+            15.81
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            237,
+            302
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.52,
+            10.82
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.76,
+            15.96
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            248,
+            313
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.7,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.91,
+            16.11
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            259,
+            324
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.88,
+            11.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.06,
+            16.26
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            200,
+            265
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.28,
+            15.48
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            211,
+            276
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.08,
+            10.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.43,
+            15.63
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            222,
+            287
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.26,
+            10.56
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.58,
+            15.78
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            233,
+            298
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.44,
+            10.74
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.73,
+            15.93
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            244,
+            309
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.62,
+            10.92
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.88,
+            16.08
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            255,
+            320
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.8,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.03,
+            16.23
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            266,
+            331
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.98,
+            11.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.18,
+            16.38
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            207,
+            272
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            218,
+            283
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.18,
+            10.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.55,
+            15.75
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            229,
+            294
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.36,
+            10.66
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            240,
+            305
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.54,
+            10.84
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.85,
+            16.05
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            251,
+            316
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.72,
+            11.02
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            262,
+            327
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.9,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.15,
+            16.35
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            273,
+            338
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.08,
+            11.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.3,
+            16.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            214,
+            279
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.52,
+            15.72
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            225,
+            290
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.28,
+            10.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.67,
+            15.87
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            236,
+            301
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.46,
+            10.76
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.82,
+            16.02
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            247,
+            312
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.64,
+            10.94
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.97,
+            16.17
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            258,
+            323
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.82,
+            11.12
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.12,
+            16.32
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            269,
+            334
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.0,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.27,
+            16.47
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            280,
+            345
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.18,
+            11.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.42,
+            16.62
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            221,
+            286
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.64,
+            15.84
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            232,
+            297
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.38,
+            10.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.79,
+            15.99
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            243,
+            308
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.56,
+            10.86
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.94,
+            16.14
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            254,
+            319
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.74,
+            11.04
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.09,
+            16.29
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            265,
+            330
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.92,
+            11.22
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.24,
+            16.44
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            276,
+            341
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.1,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.39,
+            16.59
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            287,
+            352
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.28,
+            11.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.54,
+            16.74
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            228,
+            293
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.76,
+            15.96
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            239,
+            304
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.48,
+            10.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.91,
+            16.11
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            250,
+            315
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.66,
+            10.96
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.06,
+            16.26
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            261,
+            326
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.84,
+            11.14
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.21,
+            16.41
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            272,
+            337
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.02,
+            11.32
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.36,
+            16.56
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            283,
+            348
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.2,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.51,
+            16.71
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            294,
+            359
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.38,
+            11.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.66,
+            16.86
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            235,
+            300
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.88,
+            16.08
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            246,
+            311
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.58,
+            10.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.03,
+            16.23
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            257,
+            322
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.76,
+            11.06
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.18,
+            16.38
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            268,
+            333
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.94,
+            11.24
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.33,
+            16.53
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            279,
+            344
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.12,
+            11.42
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.48,
+            16.68
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            290,
+            355
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.3,
+            11.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.63,
+            16.83
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            301,
+            366
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.48,
+            11.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.78,
+            16.98
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            242,
+            307
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            253,
+            318
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.68,
+            10.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.15,
+            16.35
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            264,
+            329
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.86,
+            11.16
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.3,
+            16.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            275,
+            340
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.04,
+            11.34
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.45,
+            16.65
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            286,
+            351
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.22,
+            11.52
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.6,
+            16.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            297,
+            362
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.4,
+            11.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.75,
+            16.95
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            308,
+            373
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.58,
+            11.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.9,
+            17.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            249,
+            314
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.6,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.12,
+            16.32
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            260,
+            325
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.78,
+            11.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.27,
+            16.47
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            271,
+            336
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.96,
+            11.26
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.42,
+            16.62
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            282,
+            347
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.14,
+            11.44
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.57,
+            16.77
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            293,
+            358
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.32,
+            11.62
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.72,
+            16.92
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            304,
+            369
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.5,
+            11.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.87,
+            17.07
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            315,
+            380
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.68,
+            11.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            13.02,
+            17.22
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            256,
+            321
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.7,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.24,
+            16.44
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            267,
+            332
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.88,
+            11.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.39,
+            16.59
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            278,
+            343
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.06,
+            11.36
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.54,
+            16.74
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            289,
+            354
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.24,
+            11.54
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.69,
+            16.89
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            300,
+            365
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.42,
+            11.72
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.84,
+            17.04
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            311,
+            376
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.6,
+            11.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.99,
+            17.19
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            322,
+            387
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.78,
+            12.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            13.14,
+            17.34
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            263,
+            328
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.8,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.36,
+            16.56
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            274,
+            339
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.98,
+            11.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.51,
+            16.71
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            285,
+            350
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.16,
+            11.46
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.66,
+            16.86
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            296,
+            361
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.34,
+            11.64
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.81,
+            17.01
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            307,
+            372
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.52,
+            11.82
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.96,
+            17.16
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            318,
+            383
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.7,
+            12.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            13.11,
+            17.31
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            329,
+            394
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.88,
+            12.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            13.26,
+            17.46
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            270,
+            335
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            8.9,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.48,
+            16.68
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            281,
+            346
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.08,
+            11.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.63,
+            16.83
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            292,
+            357
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.26,
+            11.56
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.78,
+            16.98
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            303,
+            368
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.44,
+            11.74
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.93,
+            17.13
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            314,
+            379
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.62,
+            11.92
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            13.08,
+            17.28
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            325,
+            390
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.8,
+            12.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            13.23,
+            17.43
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            336,
+            401
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            9.98,
+            12.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            13.38,
+            17.58
+          ]
+        }
+      ]
+    }
+  ],
+  "fclRoutes": [
+    {
+      "origin": "shanghai",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4410,
+              5260
+            ],
+            "40gp": [
+              5360,
+              6360
+            ],
+            "40hc": [
+              5560,
+              6660
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4410,
+              5260
+            ],
+            "40gp": [
+              5360,
+              6360
+            ],
+            "40hc": [
+              5560,
+              6660
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4410,
+              5260
+            ],
+            "40gp": [
+              5360,
+              6360
+            ],
+            "40hc": [
+              5560,
+              6660
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4410,
+              5260
+            ],
+            "40gp": [
+              5360,
+              6360
+            ],
+            "40hc": [
+              5560,
+              6660
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4410,
+              5260
+            ],
+            "40gp": [
+              5360,
+              6360
+            ],
+            "40hc": [
+              5560,
+              6660
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4410,
+              5260
+            ],
+            "40gp": [
+              5360,
+              6360
+            ],
+            "40hc": [
+              5560,
+              6660
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4410,
+              5260
+            ],
+            "40gp": [
+              5360,
+              6360
+            ],
+            "40hc": [
+              5560,
+              6660
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "rotterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4495,
+              5345
+            ],
+            "40gp": [
+              5445,
+              6445
+            ],
+            "40hc": [
+              5645,
+              6745
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "amsterdam",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4495,
+              5345
+            ],
+            "40gp": [
+              5445,
+              6445
+            ],
+            "40hc": [
+              5645,
+              6745
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "venlo",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4495,
+              5345
+            ],
+            "40gp": [
+              5445,
+              6445
+            ],
+            "40hc": [
+              5645,
+              6745
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "tilburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4495,
+              5345
+            ],
+            "40gp": [
+              5445,
+              6445
+            ],
+            "40hc": [
+              5645,
+              6745
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "eindhoven",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4495,
+              5345
+            ],
+            "40gp": [
+              5445,
+              6445
+            ],
+            "40hc": [
+              5645,
+              6745
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "utrecht",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4495,
+              5345
+            ],
+            "40gp": [
+              5445,
+              6445
+            ],
+            "40hc": [
+              5645,
+              6745
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "groningen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4495,
+              5345
+            ],
+            "40gp": [
+              5445,
+              6445
+            ],
+            "40hc": [
+              5645,
+              6745
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "lastMileRoutes": [
+    {
+      "warehouse": "rotterdam-warehouse",
+      "postcode": "3011 AA",
+      "offers": [
+        {
+          "service": "nl-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.11,
+            1.7
+          ]
+        },
+        {
+          "service": "nl-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            128,
+            205
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "amsterdam-warehouse",
+      "postcode": "1012 AB",
+      "offers": [
+        {
+          "service": "nl-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.15,
+            1.75
+          ]
+        },
+        {
+          "service": "nl-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            136,
+            214
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "venlo-warehouse",
+      "postcode": "5911 AA",
+      "offers": [
+        {
+          "service": "nl-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.19,
+            1.8
+          ]
+        },
+        {
+          "service": "nl-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            144,
+            223
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "tilburg-warehouse",
+      "postcode": "5038 AA",
+      "offers": [
+        {
+          "service": "nl-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.23,
+            1.85
+          ]
+        },
+        {
+          "service": "nl-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            152,
+            232
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "eindhoven-warehouse",
+      "postcode": "5611 AA",
+      "offers": [
+        {
+          "service": "nl-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.27,
+            1.9
+          ]
+        },
+        {
+          "service": "nl-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            160,
+            241
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "utrecht-warehouse",
+      "postcode": "3511 AA",
+      "offers": [
+        {
+          "service": "nl-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.31,
+            1.95
+          ]
+        },
+        {
+          "service": "nl-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            168,
+            250
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "groningen-warehouse",
+      "postcode": "9711 AA",
+      "offers": [
+        {
+          "service": "nl-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.35,
+            2.0
+          ]
+        },
+        {
+          "service": "nl-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            176,
+            259
+          ]
+        }
+      ]
+    }
+  ],
+  "process": [
+    {
+      "No": "01",
+      "Title": "Ophalen bij de leverancier",
+      "Body": "Lading gereed, laadcondities en ophaalvenster bevestigd. Elke vertraging hier verschuift alle latere data."
+    },
+    {
+      "No": "02",
+      "Title": "Exportafhandeling",
+      "Body": "Exportaangifte, goederenomschrijving en boekingssluiting afgestemd op het gekozen vertrek. Documenten worden gecontroleerd voordat de container sluit."
+    },
+    {
+      "No": "03",
+      "Title": "Zee- of luchtvracht",
+      "Body": "Het hoofdtransport, met een schema dat u kunt controleren in plaats van een schatting. Haven- of luchthavenparen volgen de gekozen route."
+    },
+    {
+      "No": "04",
+      "Title": "Invoer in Nederland",
+      "Body": "EORI-nummer, douaneaangifte en btw bij invoer. De goederencode bepaalt het recht en eventuele beperkingen."
+    },
+    {
+      "No": "05",
+      "Title": "Van haven tot voordeur",
+      "Body": "Vrijgave van de container, lossen bij groupage en een leverafspraak die past bij openingstijden en middelen van de ontvanger."
+    },
+    {
+      "No": "06",
+      "Title": "Levering en bewijs",
+      "Body": "Ondertekend leverbewijs, afwijkingen vastgelegd en documenten gearchiveerd, zodat de volgende zending van een bekende stand vertrekt."
+    }
+  ],
+  "regionOrder": [
+    "Noord-Nederland",
+    "Noord-Holland",
+    "Zuid-Holland",
+    "Noord-Brabant",
+    "Limburg",
+    "Midden-Nederland"
+  ]
+}

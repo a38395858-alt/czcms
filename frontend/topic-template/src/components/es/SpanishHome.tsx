@@ -29,7 +29,6 @@ const ES_FORM_THEME: FormTheme = {
 };
 
 const heading = 'font-bricolage text-[clamp(2rem,3.5vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.045em] text-azul-800 text-balance';
-const kicker = 'font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-terra-700';
 const buttonPrimary = 'btn w-full rounded-[3px] bg-terra-700 px-6 text-base text-white hover:bg-terra-600 sm:w-auto';
 const buttonOutline = 'btn w-full rounded-[3px] border border-white/65 px-6 text-base text-white hover:bg-white/10 sm:w-auto';
 const number = (index: number) => String(index + 1).padStart(2, '0');
@@ -61,8 +60,8 @@ export function EsHero() {
           <p className="font-bricolage text-[clamp(2.35rem,7.4vw,6.6rem)] font-bold leading-[0.95] tracking-[-0.07em] text-white">
             FreightVanta<span className="text-oranje-300">.</span>
           </p>
-          <p className="mt-9 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white/85 sm:text-xs">{esHero.eyebrow}</p>
-          <h1 id="es-hero-title" className="mt-4 max-w-2xl font-bricolage text-[clamp(2.25rem,4.4vw,4rem)] font-semibold leading-[1.07] tracking-[-0.045em] text-balance">
+
+          <h1 id="es-hero-title" className="max-w-2xl font-bricolage text-[clamp(2.25rem,4.4vw,4rem)] font-semibold leading-[1.07] tracking-[-0.045em] text-balance">
             {esHero.title}
           </h1>
           <p className="mt-6 max-w-[600px] text-[16px] leading-[1.7] text-white/90 sm:text-lg">{esHero.body}</p>
@@ -74,7 +73,7 @@ export function EsHero() {
               {esHero.cta_secondary_label}
             </Link>
           </div>
-          <p className="mt-7 max-w-lg border-l border-oranje-300 pl-4 text-sm leading-relaxed text-white/80">{esHero.microcopy}</p>
+
         </div>
       </div>
     </section>
@@ -137,8 +136,8 @@ export function EsServices() {
   return (
     <section id="servicios" aria-labelledby="es-services-title" className="bg-white py-20 sm:py-24 lg:py-32">
       <div className="shell">
-        <p className={kicker}>{esServicesSection.kicker}</p>
-        <div className="mt-5 grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="es-services-title" className={cn(heading, 'lg:col-span-7')}>{esServicesSection.title}</h2>
           <p className="text-[17px] leading-relaxed text-carbon-600 lg:col-span-5">{esServicesSection.body}</p>
         </div>
@@ -200,9 +199,9 @@ export function EsOperation() {
     <section id="operacion" aria-labelledby="es-operation-title" className="bg-azul-800 py-20 text-white sm:py-24 lg:py-32">
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <p className={cn(kicker, 'text-oranje-300')}>{esOperation.kicker}</p>
-          <h2 id="es-operation-title" className="mt-5 font-bricolage text-[clamp(2rem,3.5vw,3.6rem)] font-semibold leading-[1.06] tracking-tight text-balance">{esOperation.title}</h2>
-          <blockquote className="mt-8 max-w-md border-l-2 border-oranje-300 pl-5 text-xl leading-snug text-white/85">{esOperation.pull_quote}</blockquote>
+
+          <h2 id="es-operation-title" className="font-bricolage text-[clamp(2rem,3.5vw,3.6rem)] font-semibold leading-[1.06] tracking-tight text-balance">{esOperation.title}</h2>
+
         </div>
         <ol className="border-t border-white/25 lg:col-span-6 lg:col-start-7">
           {esOperation.items.map((item, index) => (
@@ -221,10 +220,10 @@ export function EsProcess() {
   return (
     <section id="proceso" aria-labelledby="es-process-title" className="bg-arena-50 py-20 sm:py-24 lg:py-32">
       <div className="shell">
-        <p className={kicker}>{esProcess.kicker}</p>
-        <div className="mt-5 grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="es-process-title" className={cn(heading, 'lg:col-span-7')}>{esProcess.title}</h2>
-          <p className="text-[17px] leading-relaxed text-carbon-600 lg:col-span-5">{esProcess.body}</p>
+
         </div>
         <ol className="mt-12 border-t border-carbon-900/20 lg:mt-16">
           {esProcess.steps.map((step) => (
@@ -245,10 +244,10 @@ export function EsIndustries() {
   return (
     <section id="sectores" aria-labelledby="es-industries-title" className="bg-white py-20 sm:py-24 lg:py-32">
       <div className="shell">
-        <p className={kicker}>{esIndustries.kicker}</p>
-        <div className="mt-5 grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="es-industries-title" className={cn(heading, 'lg:col-span-7')}>{esIndustries.title}</h2>
-          <p className="text-[17px] leading-relaxed text-carbon-600 lg:col-span-5">{esIndustries.body}</p>
+
         </div>
         <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14">
           <figure className="lg:col-span-6">
@@ -278,8 +277,8 @@ export function EsResources() {
     <section id="recursos" aria-labelledby="es-resources-title" className="bg-arena-50 py-20 sm:py-24 lg:py-32">
       <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-5">
-          <p className={kicker}>{esResources.kicker}</p>
-          <h2 id="es-resources-title" className={cn(heading, 'mt-5')}>{esResources.title}</h2>
+
+          <h2 id="es-resources-title" className={cn(heading, '')}>{esResources.title}</h2>
           <p className="mt-5 text-[17px] leading-relaxed text-carbon-600">{esResources.body}</p>
           <p className="mt-6 border-l-2 border-azul-700 pl-4 text-[14px] leading-relaxed text-carbon-600">{esResources.note}</p>
           <Link to={esResources.cta_url} hrefLang="en" onClick={() => track('home_guides_click', { site: 'es', target: 'resource_center' })} className="mt-8 inline-flex items-center gap-2 font-semibold text-azul-700 underline underline-offset-4 hover:text-azul-800">{esResources.cta_label}<ArrowUpRight className="h-4 w-4" /></Link>
@@ -302,7 +301,7 @@ export function EsFaq() {
   return (
     <section id="preguntas" aria-labelledby="es-faq-title" className="bg-white py-20 sm:py-24 lg:py-32">
       <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-4"><p className={kicker}>{esFaq.kicker}</p><h2 id="es-faq-title" className={cn(heading, 'mt-5')}>{esFaq.title}</h2><p className="mt-5 text-[16px] leading-relaxed text-carbon-600">{esFaq.aside_prompt}</p><Link to={esFaq.aside_link_url} className="mt-4 inline-flex items-center gap-2 font-semibold text-azul-700 underline underline-offset-4">{esFaq.aside_link_label}<ArrowRight className="h-4 w-4" /></Link></div>
+        <div className="lg:col-span-4"><h2 id="es-faq-title" className={cn(heading, '')}>{esFaq.title}</h2><Link to={esFaq.aside_link_url} className="mt-4 inline-flex items-center gap-2 font-semibold text-azul-700 underline underline-offset-4">{esFaq.aside_link_label}<ArrowRight className="h-4 w-4" /></Link></div>
         <div className="border-t border-carbon-900/20 lg:col-span-8">
           {esFaq.items.map((item) => (
             <details key={item.id} className="group border-b border-carbon-900/15">
@@ -321,8 +320,8 @@ export function EsEnquiry() {
     <section id="solicitud" aria-labelledby="es-enquiry-title" className="bg-azul-800 py-20 text-white sm:py-24 lg:py-32">
       <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-5">
-          <p className={cn(kicker, 'text-oranje-300')}>{esEnquiry.kicker}</p>
-          <h2 id="es-enquiry-title" className="mt-5 font-bricolage text-[clamp(2rem,3.5vw,3.5rem)] font-semibold leading-[1.08] tracking-tight text-balance">{esEnquiry.title}</h2>
+
+          <h2 id="es-enquiry-title" className="font-bricolage text-[clamp(2rem,3.5vw,3.5rem)] font-semibold leading-[1.08] tracking-tight text-balance">{esEnquiry.title}</h2>
           <p className="mt-5 text-[17px] leading-relaxed text-white/85">{esEnquiry.body}</p>
           <ul className="mt-9 space-y-4 border-t border-white/25 pt-7">
             {esEnquiry.reassurance.map((line) => <li key={line} className="flex gap-3 text-[15px] leading-relaxed text-white/85"><CheckIcon className="mt-1 h-4 w-4 shrink-0 text-oranje-300" /><span>{line}</span></li>)}

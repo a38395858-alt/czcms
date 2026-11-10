@@ -115,8 +115,8 @@ export function FrenchLegalPage({ slug }: { slug: FrLegalSlug }) {
               </li>
             </ol>
           </nav>
-          <p className="fr-kicker fr-kicker--left mt-8 text-safran-600">Informations légales</p>
-          <h1 className="mt-5 max-w-3xl font-poster text-[2.4rem] font-bold leading-[1.08] text-encre-900 sm:text-5xl">
+
+          <h1 className="max-w-3xl font-poster text-[2.4rem] font-bold leading-[1.08] text-encre-900 sm:text-5xl">
             {page.title}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-encre-500">{page.lead}</p>

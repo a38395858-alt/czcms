@@ -115,8 +115,8 @@ export function GermanLegalPage({ slug }: { slug: DeLegalSlug }) {
               </li>
             </ol>
           </nav>
-          <p className="de-kicker mt-8 text-graphite-500">Rechtliches</p>
-          <h1 className="mt-5 max-w-3xl font-serif text-[2.4rem] font-bold leading-[1.1] text-graphite-900 sm:text-5xl">
+
+          <h1 className="max-w-3xl font-serif text-[2.4rem] font-bold leading-[1.1] text-graphite-900 sm:text-5xl">
             {page.title}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-graphite-500">{page.lead}</p>

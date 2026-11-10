@@ -13,6 +13,8 @@
 .reading-byline { display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px; padding:20px 0; border-top:1px solid var(--line); color:var(--reading-quiet); font-size:12px; font-variant-numeric:tabular-nums; }
 .reading-byline > span:first-child { color:var(--brand); font-weight:700; margin-right:auto; }
 .reading-byline time { margin-left:6px; }
+.reading-planning-note { max-width:75ch; margin:0; padding-block:0 20px; color:var(--reading-quiet); font-size:13px; line-height:1.65; }
+.reading-byline a { text-decoration:underline; text-underline-offset:3px; }
 .public-site.page-article .reading-page .article-layout { grid-template-columns:minmax(0,740px) minmax(230px,280px); gap:clamp(40px,7vw,104px); padding-block:64px 56px; }
 .public-site.page-article .reading-page .article-body { max-width:70ch; padding-bottom:12px; color:var(--ink-soft); font-size:18px; line-height:1.85; }
 .reading-page .article-body > :first-child { margin-top:0; }

@@ -1,8 +1,8 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
-import { EnquiryForm } from '../../../components/enquiry/EnquiryForm';
+import { HomepageEnquiryForm } from '../../../components/enquiry/HomepageEnquiryForm';
 import { ArrowRight, CheckIcon, PlusIcon } from '../../../components/ui/Icons';
 import { Img } from '../../../components/ui/Img';
-import { SITE_META, siteConfig } from '../../../config/site';
+import { siteConfig } from '../../../config/site';
 import { getLatestArticlesIt } from '../../../content/it/articles';
 import { HERO_SCHEDA_IT, IT_ANCHORS } from '../../../content/it/home';
 import { getMedia } from '../../../content/media';
@@ -18,8 +18,7 @@ import type {
   ServicePathsSection,
 } from '../../../content/types';
 import { track } from '../../../lib/analytics';
-import { setPrefill } from '../../../lib/enquiry';
-import { itStrings } from '../../../lib/enquiry-i18n';
+import { consumePrefill, getPrefill, setPrefill, subscribePrefill } from '../../../lib/enquiry';
 import { prefersReducedMotion, useMediaQuery } from '../../../lib/hooks';
 import { Link } from '../../../lib/router';
 import { cn } from '../../../utils/cn';
@@ -33,8 +32,8 @@ export function ItHero({ section }: { section: HeroSection }) {
     <section id="hero" aria-labelledby="it-hero-title" className="border-b border-grafite-900 bg-white text-grafite-900">
       <div className="shell grid gap-10 pb-14 pt-10 sm:pt-14 lg:grid-cols-12 lg:gap-x-12 lg:pb-20 lg:pt-16">
         <div className="lg:col-span-7">
-          <p className="it-eyebrow text-ottanio-700">{section.eyebrow}</p>
-          <h1 id="it-hero-title" className="mt-6 font-it-display text-[2.6rem] font-semibold leading-[1.0] tracking-[-0.025em] text-balance sm:text-[3.5rem] xl:text-[4.4rem]">
+
+          <h1 id="it-hero-title" className="font-it-display text-[2.6rem] font-semibold leading-[1.0] tracking-[-0.025em] text-balance sm:text-[3.5rem] xl:text-[4.4rem]">
             {section.title}
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-grafite-600">{section.body}</p>
@@ -47,7 +46,7 @@ export function ItHero({ section }: { section: HeroSection }) {
               {section.cta_secondary_label}
             </Link>
           </div>
-          <p className="mt-8 max-w-lg border-t border-grafite-200 pt-4 text-[15px] leading-relaxed text-grafite-600">{section.settings.microcopy}</p>
+
         </div>
 
         <div className="lg:col-span-5">
@@ -166,8 +165,8 @@ export function ItServicePaths({ section }: { section: ServicePathsSection }) {
       <div className="shell">
         <div className="grid gap-6 border-b border-grafite-900 pb-10 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-7">
-            <p className="it-eyebrow text-ottanio-700">{section.eyebrow}</p>
-            <h2 id="it-services-title" className="it-h2 mt-5 text-grafite-900">
+
+            <h2 id="it-services-title" className="it-h2 text-grafite-900">
               {section.title}
             </h2>
           </div>
@@ -235,7 +234,7 @@ export function ItServicePaths({ section }: { section: ServicePathsSection }) {
                   <h3 className="mt-8 font-it-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.02em] text-grafite-900 sm:text-[2.5rem]">{item.title}</h3>
                   <p className="mt-4 text-[17px] leading-relaxed text-grafite-600">{item.copy}</p>
                   <dl className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-grafite-200 pt-4">
-                    <dt className="it-eyebrow text-grafite-500">Perimetro</dt>
+                    <dt className="text-sm font-semibold text-grafite-500">Perimetro</dt>
                     <dd className="flex flex-wrap gap-x-5 gap-y-1">
                       {item.tags.map((tag) => (
                         <span key={tag} className="text-[14px] font-semibold text-grafite-800">
@@ -278,13 +277,13 @@ export function ItOperation({ section }: { section: OperationSection }) {
       <div className="shell">
         <div className="grid gap-10 border-b border-white/20 pb-12 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <p className="it-eyebrow text-ottanio-300">{section.eyebrow}</p>
-            <h2 id="it-operation-title" className="it-h2 mt-5 text-white">
+
+            <h2 id="it-operation-title" className="it-h2 text-white">
               {section.title}
             </h2>
           </div>
           <div className="lg:col-span-5">
-            <p className="font-it-display text-xl italic leading-snug text-grafite-200 sm:text-2xl">« {section.settings.pull_quote} »</p>
+
             <Link to={section.cta_primary_url} className="mt-6 inline-flex items-center gap-2 font-semibold text-ottanio-300 underline decoration-ottanio-300/40 underline-offset-4 hover:decoration-ottanio-300">
               {section.cta_primary_label}
               <ArrowRight className="h-4 w-4" />
@@ -294,8 +293,7 @@ export function ItOperation({ section }: { section: OperationSection }) {
         <ol className="grid sm:grid-cols-2 lg:grid-cols-4">
           {section.items.map((item, index) => (
             <li key={item.title} className={cn('border-b border-white/15 py-8 lg:border-b-0 lg:border-l lg:px-6 lg:py-10', index === 0 && 'lg:border-l-0 lg:pl-0')}>
-              <span className="font-it-display text-[0.95rem] font-semibold text-rosso-300">{String(index + 1).padStart(2, '0')}</span>
-              <h3 className="mt-4 font-it-display text-2xl font-semibold leading-tight">{item.title}</h3>
+              <h3 className="font-it-display text-2xl font-semibold leading-tight">{item.title}</h3>
               <p className="mt-3 text-[16px] leading-relaxed text-grafite-300">{item.copy}</p>
             </li>
           ))}
@@ -314,7 +312,7 @@ export function ItProcess({ section }: { section: ProcessSection }) {
           <h2 id="it-process-title" className="it-h2 text-grafite-900 lg:col-span-6">
             {section.title}
           </h2>
-          <p className="text-lg leading-relaxed text-grafite-600 lg:col-span-5 lg:col-start-8">{section.body}</p>
+
         </div>
 
         <ol className="mt-14 grid lg:mt-20 lg:grid-cols-4">
@@ -346,7 +344,7 @@ export function ItIndustries({ section }: { section: IndustriesSection }) {
           <h2 id="it-industries-title" className="it-h2 text-grafite-900">
             {section.title}
           </h2>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-grafite-600">{section.body}</p>
+
           <figure className="mt-10 lg:mt-14">
             <div className="border border-grafite-900 bg-nebbia-100 p-2">
               <Img media={media} alt={section.media_alt} sizes="(min-width: 1024px) 56vw, 100vw" className="aspect-[4/3] w-full object-cover lg:aspect-[16/11]" />
@@ -407,8 +405,8 @@ export function ItResources({ section }: { section: ResourcesSection }) {
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-8">
-            <p className="it-eyebrow text-ottanio-700">{section.eyebrow}</p>
-            <h2 id="it-resources-title" className="it-h2 mt-5 text-grafite-900">
+
+            <h2 id="it-resources-title" className="it-h2 text-grafite-900">
               <Link to={section.settings.heading_url} onClick={() => guideClick('heading')} className="decoration-rosso-600 decoration-2 underline-offset-[8px] hover:underline">
                 {section.title}
               </Link>
@@ -448,7 +446,7 @@ export function ItResources({ section }: { section: ResourcesSection }) {
         )}
 
         <nav aria-labelledby="it-resources-topics" className="mt-14 border-t border-grafite-900 pt-8">
-          <p id="it-resources-topics" className="it-eyebrow text-grafite-500">
+          <p id="it-resources-topics" className="text-sm font-semibold text-grafite-500">
             {section.settings.topics_label}
           </p>
           <ul className="mt-4 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -484,7 +482,7 @@ export function ItFaq({ section }: { section: FaqSection }) {
             <h2 id="it-faq-title" className="it-h2 text-grafite-900">
               {section.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-grafite-600">{section.settings.aside_prompt}</p>
+
             <Link to={section.settings.aside_link_url} className="it-link mt-3">
               {section.settings.aside_link_label}
               <ArrowRight className="h-4 w-4" />
@@ -525,7 +523,7 @@ export function ItPrivacyNotice() {
 
   return (
     <section aria-labelledby="it-privacy-title" className="mt-6 border border-grafite-200 bg-nebbia-50 p-5 text-[13px] leading-relaxed text-grafite-700 sm:p-6">
-      <h3 id="it-privacy-title" className="it-eyebrow text-grafite-900">
+      <h3 id="it-privacy-title" className="text-sm font-semibold text-grafite-900">
         Informativa privacy in breve
       </h3>
       <dl className="mt-3 divide-y divide-grafite-200">
@@ -555,8 +553,8 @@ export function ItEnquirySection({ section }: { section: EnquirySection }) {
     <section id="richiesta" aria-labelledby="it-enquiry-title" className="border-t border-grafite-900 bg-nebbia-100 py-20 sm:py-24 lg:py-32">
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <p className="it-eyebrow text-ottanio-700">{section.eyebrow}</p>
-          <h2 id="it-enquiry-title" className="mt-5 font-it-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.02em] text-grafite-900 text-balance sm:text-[2.6rem]">
+
+          <h2 id="it-enquiry-title" className="font-it-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.02em] text-grafite-900 text-balance sm:text-[2.6rem]">
             {section.title}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-grafite-600">{section.body}</p>
@@ -570,15 +568,10 @@ export function ItEnquirySection({ section }: { section: EnquirySection }) {
           </ul>
         </div>
         <div className="lg:col-span-7">
-          <EnquiryForm
+          <HomepageEnquiryForm
             idPrefix="it-richiesta"
-            placement="home"
-            copy={section.settings}
-            strings={itStrings}
-            theme="grafica"
-            privacyUrl={siteConfig.legalIt.privacy}
-            siteId={SITE_META.it.siteId}
-            locale={SITE_META.it.locale}
+            locale="it"
+            prefillStore={{ subscribe: subscribePrefill, getSnapshot: getPrefill, consume: consumePrefill }}
           />
           <ItPrivacyNotice />
         </div>

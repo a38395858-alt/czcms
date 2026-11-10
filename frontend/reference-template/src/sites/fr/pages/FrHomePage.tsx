@@ -1,3 +1,4 @@
+import { HomeShippingPlanner } from '../../../components/HomeShippingPlanner';
 import { siteConfig } from '../../../config/site';
 import { HOME_META_FR, getPublishedHomeSectionsFr } from '../../../content/fr/home';
 import type { FaqSection, HomeSection, ServicePathsSection } from '../../../content/types';
@@ -7,7 +8,7 @@ import { FrCoverage, FrEnquirySection, FrFaq, FrHero, FrIndustries, FrOperation,
 function renderSection(section: HomeSection) {
   switch (section.section_key) {
     case 'hero':
-      return <FrHero key={section.section_key} section={section} />;
+      return <div key={section.section_key}><FrHero section={section} /><HomeShippingPlanner /></div>;
     case 'coverage':
       return <FrCoverage key={section.section_key} section={section} />;
     case 'service_paths':

@@ -159,7 +159,7 @@ export const PRODUCT_SOURCING_TOPIC: TopicPageContent = {
         heading: 'Give China supplier sourcing one shared brief instead of several disconnected conversations.',
         paragraphs: [
           'A sourcing conversation becomes more useful when the product reference, supplier questions, intended market, sample evidence, and approval record stay connected. This is the practical meaning behind searches such as “China sourcing agent” or “supplier sourcing in China”: a business needs a reliable way to move from a reference to a decision, not a list of vague supplier promises.',
-          'The brief can show which supplier information is comparable, which commercial term still needs negotiation, which product attribute is not yet evidenced, and which downstream team needs to be involved. The page must not describe FreightVanta as the legal importer, a factory auditor, or a guaranteed quality authority unless the confirmed scope says so.',
+          'The brief shows which supplier information is comparable, which commercial terms need negotiation, which product attributes need evidence, and which team owns the next step. Sourcing coordination does not include acting as your legal importer or factory auditor unless separately agreed in writing.',
         ],
         points: [
           {
@@ -307,7 +307,7 @@ export const PRODUCT_SOURCING_TOPIC: TopicPageContent = {
             id: 'ps-agent',
             question: 'Do you act as a China sourcing agent?',
             answer:
-              'The page describes sourcing coordination, question management, comparison and handoff. Any agency, purchasing authority, importer-of-record or legal representation must be defined in a separate confirmed scope.',
+              'We coordinate sourcing questions, supplier comparisons and operational handoffs. Purchasing authority, agency, importer-of-record responsibilities and legal representation require a separate written agreement.',
           },
           {
             id: 'ps-compare',
@@ -325,7 +325,7 @@ export const PRODUCT_SOURCING_TOPIC: TopicPageContent = {
             id: 'ps-samples',
             question: 'Can you arrange samples or inspection?',
             answer:
-              'Sample coordination and inspection can be discussed as separate scope items. The page must not imply a test method, pass result or inspection guarantee before it is agreed.',
+              'Sample coordination and inspection can be arranged as separate scope items. Before work begins, agree the inspection provider, test method, acceptance criteria and reporting requirements. Sample coordination alone does not guarantee an inspection result.',
           },
           {
             id: 'ps-downstream',

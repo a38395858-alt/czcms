@@ -134,7 +134,7 @@ export function DeContactPage() {
                 )}
               </ul>
             )}
-            <h3 className="de-eyebrow mt-10 text-anthrazit-500">Hilfreiche Angaben</h3>
+            <h3 className="text-sm font-semibold mt-10 text-anthrazit-500">Hilfreiche Angaben</h3>
             <p className="mt-3 text-[16px] leading-relaxed text-anthrazit-700">{processDe.items[0].copy}</p>
             <DeCheckList items={enquiryDe.settings.reassurance} className="mt-6" />
             <p className="mt-8 text-sm leading-relaxed text-anthrazit-600">
@@ -205,7 +205,7 @@ function LegalBlock({ heading, children }: { heading: string; children: ReactNod
 function DraftNotice({ children }: { children: ReactNode }) {
   return (
     <p className="border border-anthrazit-900 border-l-4 border-l-ziegel-600 bg-papier px-5 py-4 text-[15px] leading-relaxed text-anthrazit-700">
-      <span className="de-eyebrow mr-2 text-ziegel-700">Entwurf</span>
+      <span className="text-sm font-semibold mr-2 text-ziegel-700">Entwurf</span>
       {children}
     </p>
   );
@@ -423,8 +423,8 @@ export function DeNotFoundPage({ path }: { path: string }) {
     <section className={cn('relative isolate overflow-hidden border-b border-anthrazit-900 bg-papier py-24 text-anthrazit-900 sm:py-32')}>
       <div aria-hidden="true" className="de-grid-bg pointer-events-none absolute inset-0 -z-10" />
       <div className="shell max-w-3xl">
-        <p className="de-eyebrow text-ziegel-700">Route nicht gefunden</p>
-        <h1 className="mt-5 font-de-display text-5xl font-bold leading-tight">Diese Übergabe führt ins Leere.</h1>
+
+        <h1 className="font-de-display text-5xl font-bold leading-tight">Diese Übergabe führt ins Leere.</h1>
         <p className="mt-5 text-lg text-anthrazit-600">
           Die Seite <span className="font-de-mono text-base text-anthrazit-800">{path}</span> ist nicht verfügbar. Wählen Sie einen nächsten Schritt.
         </p>

@@ -13,7 +13,7 @@ export function Process({ section }: { section: ProcessSection }) {
           <h2 id="process-title" className="h2 text-navy-900 lg:col-span-6">
             {section.title}
           </h2>
-          <p className="text-lg leading-relaxed text-navy-600 lg:col-span-5 lg:col-start-8">{section.body}</p>
+
         </div>
 
         <ol className="mt-14 grid lg:mt-20 lg:grid-cols-4 lg:gap-8">
@@ -32,11 +32,9 @@ export function Process({ section }: { section: ProcessSection }) {
                 aria-hidden="true"
                 className="absolute left-0 top-1 h-[15px] w-[15px] rounded-full bg-safety-500 ring-[5px] ring-mist-50 lg:top-0"
               />
-              <p className="font-mono text-sm font-medium tracking-[0.08em] text-signal-700">
-                <span className="sr-only">Step </span>
-                {step.step}
-              </p>
-              <h3 className="mt-3 font-display text-2xl font-semibold leading-tight text-navy-900 sm:text-[1.65rem]">
+
+              <h3 className="font-display text-2xl font-semibold leading-tight text-navy-900 sm:text-[1.65rem]">
+                <span className="mr-3 text-sm font-medium text-signal-700">{step.step}</span>
                 {step.title}
               </h3>
               <p className="mt-3 text-base leading-relaxed text-navy-600">{step.copy}</p>

@@ -1,6 +1,7 @@
 import { useEffect, useState, type ComponentType, type MouseEvent, type ReactNode } from 'react';
 import { withClientRecovery } from '../../shared/client-recovery';
 import { homeContext } from './lib/home-context';
+import PartnerNetwork from './components/PartnerNetwork';
 import { RouterProvider, useRoute, type Route } from './lib/router';
 import { focusMain, useRouteScroll, useSiteDocument } from './lib/route-effects';
 export interface HomeDefinition {
@@ -11,7 +12,7 @@ function Home({ definition: { Shell, Page } }: { definition: HomeDefinition }) {
   const route = useRoute();
   useRouteScroll(route);
   useSiteDocument(route);
-  return <Shell route={route} focusMain={focusMain}><Page /></Shell>;
+  return <Shell route={route} focusMain={focusMain}><Page /><PartnerNetwork locale={homeContext()?.locale ?? 'en'} /></Shell>;
 }
 export default function CmsHome({ definition }: { definition: HomeDefinition }) {
   return <RouterProvider><RouteContent definition={definition} /></RouterProvider>;

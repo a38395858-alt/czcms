@@ -16,8 +16,8 @@ export function Resources({ section }: { section: ResourcesSection }) {
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-8">
-            <p className="eyebrow text-signal-700">{section.eyebrow}</p>
-            <h2 id="resources-title" className="h2 mt-5 text-navy-900">
+
+            <h2 id="resources-title" className="h2 text-navy-900">
               <Link
                 to={section.settings.heading_url}
                 onClick={() => guideClick('heading')}

@@ -49,7 +49,7 @@ interface PageHeroProps {
 }
 
 /** Ivory, serif-led page header with nautical-chart contours. */
-export function FrPageHero({ breadcrumbs, eyebrow, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
+export function FrPageHero({ breadcrumbs, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
   return (
     <section className="relative isolate overflow-hidden border-b border-encre-900/10 bg-ivoire text-encre-900">
       <div aria-hidden="true" className="fr-chart-bg pointer-events-none absolute inset-0 -z-10" />
@@ -57,8 +57,8 @@ export function FrPageHero({ breadcrumbs, eyebrow, title, lead, body, media, med
         <FrBreadcrumbs items={breadcrumbs} />
         <div className={cn('mt-8 grid gap-10 lg:mt-10', media && 'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-14')}>
           <div className={cn(!media && 'max-w-3xl')}>
-            {eyebrow && <p className="fr-eyebrow text-outremer-700">{eyebrow}</p>}
-            <h1 className="mt-5 font-fr-serif text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.01em] text-balance sm:text-5xl lg:text-[3.5rem]">{title}</h1>
+
+            <h1 className="font-fr-serif text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.01em] text-balance sm:text-5xl lg:text-[3.5rem]">{title}</h1>
             {lead && <p className="mt-5 font-fr-serif text-xl leading-snug text-encre-700 sm:text-2xl">{lead}</p>}
             {body && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-encre-600">{body}</p>}
             {actions && <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div>}
@@ -90,7 +90,7 @@ export function FrCheckList({ items, className }: { items: string[]; className?:
 export function FrScopeNote({ children }: { children: ReactNode }) {
   return (
     <div className="rounded-[8px] border border-lin-300 border-l-4 border-l-outremer-700 bg-white px-5 py-4 text-[15px] leading-relaxed text-encre-700">
-      <p className="fr-eyebrow text-outremer-700">Périmètre</p>
+      <p className="text-sm font-semibold text-outremer-700">Périmètre</p>
       <p className="mt-2">{children}</p>
     </div>
   );
@@ -111,8 +111,8 @@ export function FrCtaBand({
     <section aria-label="Demander un plan d’expédition" className="border-t border-encre-900/10 bg-lin-100">
       <div className="shell flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
         <div className="max-w-2xl">
-          <p className="fr-eyebrow text-outremer-700">Demander un plan d’expédition</p>
-          <h2 className="mt-4 font-fr-serif text-[2rem] font-semibold leading-tight text-encre-900 sm:text-[2.5rem]">{title}</h2>
+
+          <h2 className="font-fr-serif text-[2rem] font-semibold leading-tight text-encre-900 sm:text-[2.5rem]">{title}</h2>
           <p className="mt-4 text-lg leading-relaxed text-encre-600">{body}</p>
         </div>
         <Link
@@ -155,7 +155,7 @@ function Cover({ article, className, sizes }: { article: ArticleFr; className: s
         <Img media={getMedia(article.coverId)} alt={article.coverAlt} sizes={sizes} className="h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]" />
       ) : (
         <div className="flex h-full w-full items-end bg-lin-100 p-4">
-          <span className="fr-eyebrow text-encre-500">{article.category}</span>
+          <span className="text-sm font-semibold text-encre-500">{article.category}</span>
         </div>
       )}
     </div>

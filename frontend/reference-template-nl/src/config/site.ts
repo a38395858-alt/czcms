@@ -1,10 +1,11 @@
 import { homeContext } from '../lib/home-context';
+import { companyEmail } from '../../../shared/company-contact';
 /**
  * Site-level configuration for the English Global homepage.
  *
  * Values are read from Vite env variables (see `.env`) so owners can configure them without
  * editing templates. Contact, legal, locale, and URL details must be verified by FreightVanta
- * before publishing — they are intentionally empty by default and hidden when empty.
+ * before publishing — unconfirmed details remain empty and hidden; the approved company email is shared across sites.
  */
 const env = import.meta.env;
 const clean = (value: string | undefined) => (value ?? '').trim();
@@ -60,7 +61,7 @@ export const siteConfig = {
   enquiryEndpoint: clean(env.VITE_ENQUIRY_ENDPOINT),
   analyticsEndpoint: clean(env.VITE_ANALYTICS_ENDPOINT),
   contact: {
-    email: clean(env.VITE_CONTACT_EMAIL),
+    email: clean(env.VITE_CONTACT_EMAIL) || companyEmail,
     phone: clean(env.VITE_CONTACT_PHONE),
     address: clean(env.VITE_CONTACT_ADDRESS),
   },

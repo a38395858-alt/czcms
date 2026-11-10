@@ -1,0 +1,277 @@
+{
+  "Country": "DE",
+  "Language": "de",
+  "Name": "Deutschland",
+  "Copy": {
+    "name": "Deutschland",
+    "title": "Lagerkarte & Lagersuche in Deutschland",
+    "intro": "Amazon-FBA-Adressen und Drittanbieter-Lager finden. Bundesland wählen oder Lager in der Nähe einer deutschen Adresse suchen.",
+    "footer": "Lager in Deutschland suchen",
+    "seoTitle": "FBA-Lager Deutschland: Adressen & Karte | FreightVanta",
+    "seoDescription": "FBA-Lager und 3PL-Lager in Deutschland nach Code, Bundesland oder PLZ finden. Lager in der Nähe suchen und ungefähre Luftlinienentfernungen in km vergleichen.",
+    "seoKeywords": "FBA Lager Deutschland, Amazon Lager Adresse, Lager in der Nähe, 3PL Lagerkarte",
+    "home": "Startseite",
+    "skip": "Zum Inhalt springen",
+    "browse": "Nach Bundesland",
+    "nearby": "In der Nähe suchen",
+    "featuredLink": "Ausgewählte Lager ansehen",
+    "searchLabel": "Lagercode, Bundesland, Stadt oder PLZ",
+    "nearbyLabel": "Adresse, Stadt oder deutsche PLZ",
+    "placeholder": "Z. B. DUS2, Nordrhein-Westfalen oder 47495",
+    "nearbyPlaceholder": "Z. B. Berlin, 47495 oder eine vollständige Adresse",
+    "clear": "Löschen",
+    "search": "Lager suchen",
+    "radius": "Suchradius",
+    "warehouseType": "Lagertyp",
+    "all": "Alle",
+    "allTypes": "Alle Lagertypen",
+    "threePL": "Drittanbieter (3PL)",
+    "stateJump": "Bundesland wählen",
+    "chooseState": "Alle Bundesländer",
+    "mapLoading": "Karte wird geladen…",
+    "mapError": "Die Karte ist nicht verfügbar. Die Textsuche funktioniert weiterhin. Seite neu laden, um es erneut zu versuchen.",
+    "mapCaption": "Bundesland anklicken, um Lager zu finden",
+    "mapLabel": "Karte der Bundesländer und Lager",
+    "selected": "Ausgewählt",
+    "directoryCount": "Einträge im Verzeichnis",
+    "legend": "Zahlen zeigen Einträge, keine Gesamtzahl aller Lager",
+    "results": "Suchergebnisse",
+    "nearbyResults": "Lager in der Nähe",
+    "emptyBrowse": "Keine Einträge für diese Auswahl. Anderen Ort oder Lagertyp versuchen. Das Verzeichnis ist nicht vollständig.",
+    "emptyNearby": "Keine erfassten Lager in diesem Radius. Radius vergrößern oder Filter ändern; das Verzeichnis ist nicht vollständig.",
+    "nearbyPrompt": "Adresse, Stadt oder PLZ eingeben und Suche starten.",
+    "pendingChoice": "Mehrere Orte gefunden. Bitte den passenden Ort wählen.",
+    "locationNoMatch": "Kein passender Ort in Deutschland. Adresse prüfen oder Stadt bzw. PLZ versuchen.",
+    "locationError": "Adresssuche derzeit nicht verfügbar. Erneut versuchen oder Stadt bzw. PLZ verwenden.",
+    "invalidQuery": "Bitte 2–200 Zeichen für einen Ort oder höchstens 120 Zeichen für die Lagersuche eingeben.",
+    "busy": "Die Ortssuche ist ausgelastet. Bitte kurz warten und erneut versuchen.",
+    "finding": "Ort wird gesucht…",
+    "locate": "Auf der Karte zeigen",
+    "copy": "Adresse kopieren",
+    "copied": "Adresse kopiert",
+    "copyManual": "Adresse markiert. Bitte manuell kopieren.",
+    "fullAddress": "Vollständige Adresse",
+    "source": "Quelle",
+    "directions": "Route öffnen",
+    "featuresTitle": "Ausgewählte Lageradressen",
+    "featuresIntro": "Referenzadressen für die Versandplanung nach Deutschland.",
+    "allRegions": "Alle Regionen",
+    "hubsTitle": "Lager nach Region entdecken",
+    "hubsIntro": "Regionen mit Adressen in dieser Auswahl.",
+    "planningTitle": "Versand nach Deutschland planen",
+    "planningBody": "Referenzkosten und Transportzeiten vergleichen, anschließend Details mit unserem Team abstimmen.",
+    "planningCTA": "Kosten & Transportzeit prüfen",
+    "dataTitle": "Abdeckung, Koordinaten und Quellen",
+    "coverageNote": "Unabhängige Auswahl öffentlich gelisteter Adressen, kein vollständiges oder aktuelles Amazon-Register. Eine Nennung belegt weder Partnerschaft noch freie Kapazität.",
+    "geometryNote": "Grenzen: geoBoundaries / nationale Geodatenanbieter. Länderkarte einschließlich Inseln; Frankreich nur europäisches Festland und Korsika.",
+    "locationNote": "Lagerpunkte sind ungefähre PLZ- oder Ortsmittelpunkte (GeoNames, CC BY 4.0), keine Einfahrten. Entfernung als Luftlinie in km, keine Fahrstrecke oder Lieferzeit.",
+    "providerNote": "Straßenadresssuche: OpenStreetMap / Nominatim. Eingegebene Straßenadressen werden zur Ortssuche an diesen Dienst gesendet.",
+    "dispatchNote": "Vor Versand die Empfängeradresse und Terminannahme im Amazon-Versandplan bzw. beim Betreiber bestätigen.",
+    "nearbyHint": "Adresse oder PLZ suchen. Ein eindeutiger Treffer zeigt nahe Lager sofort; bei mehreren Treffern bitte einen Ort wählen.",
+    "browseHint": "Bundesland auf der Karte anklicken oder einen Lagercode eingeben. Empfangsadresse vor Versand bestätigen.",
+    "reset": "Ansicht zurücksetzen",
+    "straightLine": "Luftlinie",
+    "postalPrecision": "Ungefährer PLZ-Mittelpunkt",
+    "cityPrecision": "Ungefährer Ortsmittelpunkt",
+    "osmPrecision": "OSM-Referenzpunkt, bitte prüfen",
+    "unknownPrecision": "Keine geprüfte Position",
+    "mapReturn": "Zur Landeskarte",
+    "zoomIn": "Vergrößern",
+    "zoomOut": "Verkleinern",
+    "resultFoot": "Lager wählen, um den ungefähren Referenzpunkt zu markieren.",
+    "nearbyFoot": "Ungefähre Luftlinie; keine Fahrstrecke oder Lieferzeit.",
+    "noscript": "Karte und Umkreissuche benötigen JavaScript. Die Textsuche oben funktioniert auch ohne JavaScript.",
+    "dataError": "Lagerdaten konnten nicht geladen werden. Bitte Seite neu laden."
+  },
+  "DefaultState": "Nordrhein-Westfalen",
+  "MapURL": "/assets/data/warehouse-regions.de.geojson",
+  "States": [
+    {
+      "code": "BW",
+      "name": "Baden-Württemberg",
+      "region": "Baden-Württemberg"
+    },
+    {
+      "code": "BY",
+      "name": "Bayern",
+      "region": "Bayern"
+    },
+    {
+      "code": "BE",
+      "name": "Berlin",
+      "region": "Berlin"
+    },
+    {
+      "code": "BB",
+      "name": "Brandenburg",
+      "region": "Brandenburg"
+    },
+    {
+      "code": "HB",
+      "name": "Bremen",
+      "region": "Bremen"
+    },
+    {
+      "code": "HH",
+      "name": "Hamburg",
+      "region": "Hamburg"
+    },
+    {
+      "code": "HE",
+      "name": "Hessen",
+      "region": "Hessen"
+    },
+    {
+      "code": "MV",
+      "name": "Mecklenburg-Vorpommern",
+      "region": "Mecklenburg-Vorpommern"
+    },
+    {
+      "code": "NI",
+      "name": "Niedersachsen",
+      "region": "Niedersachsen"
+    },
+    {
+      "code": "NW",
+      "name": "Nordrhein-Westfalen",
+      "region": "Nordrhein-Westfalen"
+    },
+    {
+      "code": "RP",
+      "name": "Rheinland-Pfalz",
+      "region": "Rheinland-Pfalz"
+    },
+    {
+      "code": "SL",
+      "name": "Saarland",
+      "region": "Saarland"
+    },
+    {
+      "code": "SN",
+      "name": "Sachsen",
+      "region": "Sachsen"
+    },
+    {
+      "code": "ST",
+      "name": "Sachsen-Anhalt",
+      "region": "Sachsen-Anhalt"
+    },
+    {
+      "code": "SH",
+      "name": "Schleswig-Holstein",
+      "region": "Schleswig-Holstein"
+    },
+    {
+      "code": "TH",
+      "name": "Thüringen",
+      "region": "Thüringen"
+    }
+  ],
+  "Warehouses": [
+    {
+      "code": "DUS2",
+      "name": "DUS2",
+      "type": "fba",
+      "address": "Amazonstraße 1",
+      "city": "Rheinberg",
+      "zip": "47495",
+      "country": "DE",
+      "state": "NW",
+      "stateName": "Nordrhein-Westfalen",
+      "region": "Nordrhein-Westfalen",
+      "sourceURL": "https://www.amzprep.com/amazon-warehouse-locations/germany",
+      "lat": 51.5465,
+      "lng": 6.5952,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "FRA3",
+      "name": "FRA3",
+      "type": "fba",
+      "address": "Amazonstraße 1",
+      "city": "Bad Hersfeld",
+      "zip": "36251",
+      "country": "DE",
+      "state": "HE",
+      "stateName": "Hessen",
+      "region": "Hessen",
+      "sourceURL": "https://www.amzprep.com/amazon-warehouse-locations/germany",
+      "lat": 50.872,
+      "lng": 9.7089,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "MUC3",
+      "name": "MUC3",
+      "type": "fba",
+      "address": "Amazonstraße 1",
+      "city": "Graben",
+      "zip": "86836",
+      "country": "DE",
+      "state": "BY",
+      "stateName": "Bayern",
+      "region": "Bayern",
+      "sourceURL": "https://www.amzprep.com/amazon-warehouse-locations/germany",
+      "lat": 48.1873,
+      "lng": 10.8222,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "LEJ1",
+      "name": "LEJ1",
+      "type": "fba",
+      "address": "Amazonstraße 1",
+      "city": "Leipzig",
+      "zip": "04347",
+      "country": "DE",
+      "state": "SN",
+      "stateName": "Sachsen",
+      "region": "Sachsen",
+      "sourceURL": "https://www.openstreetmap.org/way/112590309",
+      "lat": 51.3637,
+      "lng": 12.4312,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "3PL-AA-DOR",
+      "name": "Active Ants · Dorsten",
+      "type": "3pl",
+      "address": "Hoeschstraße 20",
+      "city": "Dorsten",
+      "zip": "46284",
+      "country": "DE",
+      "state": "NW",
+      "stateName": "Nordrhein-Westfalen",
+      "region": "Nordrhein-Westfalen",
+      "sourceURL": "https://www.activeants.com/de/kontakt/",
+      "lat": 51.6812,
+      "lng": 6.963,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    }
+  ],
+  "FeaturedCodes": [
+    "DUS2",
+    "FRA3",
+    "MUC3",
+    "LEJ1"
+  ],
+  "Sources": [
+    {
+      "Name": "AMZ Prep",
+      "URL": "https://www.amzprep.com/amazon-warehouse-locations/germany"
+    },
+    {
+      "Name": "Active Ants",
+      "URL": "https://www.activeants.com/de/kontakt/"
+    },
+    {
+      "Name": "© OpenStreetMap-Mitwirkende · ODbL",
+      "URL": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

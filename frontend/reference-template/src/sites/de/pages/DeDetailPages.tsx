@@ -160,8 +160,8 @@ export function DeIndustriesPage() {
                 </div>
               </div>
               <div className="lg:col-span-6">
-                <p className="de-eyebrow text-enzian-700">{industry.menuLine}</p>
-                <h2 className="mt-4 font-de-display text-[2.2rem] font-bold leading-tight text-anthrazit-900">{industry.name}</h2>
+
+                <h2 className="font-de-display text-[2.2rem] font-bold leading-tight text-anthrazit-900">{industry.name}</h2>
                 <p className="mt-4 text-lg leading-relaxed text-anthrazit-600">{industry.copy}</p>
                 <DeCheckList items={industry.questions.slice(0, 2)} className="mt-6" />
                 <Link to={`/de/branchen/${industry.slug}`} className="de-btn de-btn-dark mt-8 w-full sm:w-auto">
@@ -314,7 +314,7 @@ export function DeGuidesPage() {
                 </div>
                 <div className="lg:col-span-4">
                   <div className="border border-anthrazit-900 bg-anthrazit-900 p-7 text-white">
-                    <p className="de-eyebrow text-enzian-300">Sendung in Planung?</p>
+                    <p className="text-sm font-semibold text-enzian-300">Sendung in Planung?</p>
                     <p className="mt-4 font-de-display text-2xl font-bold leading-snug">Machen Sie aus dem Gelesenen einen Plan, mit dem Ihr Team arbeiten kann.</p>
                     <Link to={DE_ANCHORS.enquiry} className="de-btn de-btn-primary mt-6 w-full">
                       Sendungsplan anfragen
@@ -422,7 +422,7 @@ function ArticleDetail({ article }: { article: ArticleDe }) {
           <aside className="lg:col-span-4">
             <div className="space-y-8 lg:sticky lg:top-28">
               <div className="border border-anthrazit-900 bg-anthrazit-900 p-7 text-white">
-                <p className="de-eyebrow text-enzian-300">Sendungsplan anfragen</p>
+                <p className="text-sm font-semibold text-enzian-300">Sendungsplan anfragen</p>
                 <p className="mt-4 font-de-display text-2xl font-bold leading-snug">Planen Sie eine solche Sendung?</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-anthrazit-200">Ein Produktlink, ein Sendungsbriefing oder die zu planende Route genügt für den Anfang.</p>
                 <Link to={DE_ANCHORS.enquiry} className="de-btn de-btn-primary mt-6 w-full">
@@ -432,7 +432,7 @@ function ArticleDetail({ article }: { article: ArticleDe }) {
               </div>
               {services.length > 0 && (
                 <div>
-                  <h2 className="de-eyebrow text-anthrazit-500">Passende Leistungen</h2>
+                  <h2 className="text-sm font-semibold text-anthrazit-500">Passende Leistungen</h2>
                   <ul className="mt-3 border-t border-anthrazit-900">
                     {services.map((service) => (
                       <li key={service.slug} className="border-b border-anthrazit-900/15">

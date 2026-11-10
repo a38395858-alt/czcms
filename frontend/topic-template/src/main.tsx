@@ -10,6 +10,7 @@ import './fr-topics.css';
 import './it-topics.css';
 import './nl-topics.css';
 import './topic-composition.css';
+import './components/topic/bulk-procurement-workflow.css';
 import { cmsContext } from './lib/cms';
 const loaders = {
   en: () => import('./languages/en'), de: () => import('./languages/de'),

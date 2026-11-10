@@ -15,10 +15,10 @@ export function EnquirySection({ section }: { section: EnquirySectionRecord }) {
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <div>
-            <p className="eyebrow text-signal-700">{section.eyebrow}</p>
+
             <h2
               id="enquiry-title"
-              className="mt-5 font-display text-[2rem] font-semibold leading-[1.08] text-navy-900 text-balance sm:text-[2.6rem]"
+              className="font-display text-[2rem] font-semibold leading-[1.08] text-navy-900 text-balance sm:text-[2.6rem]"
             >
               {section.title}
             </h2>

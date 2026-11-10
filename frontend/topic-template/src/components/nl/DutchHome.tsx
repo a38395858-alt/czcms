@@ -56,10 +56,10 @@ export function NlHero() {
       <div className="shell pb-16 pt-12 sm:pt-16 lg:pb-20 lg:pt-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-8">
-            <p className="nl-kicker text-dijk-800">{nlHero.eyebrow}</p>
+
             <h1
               id="nl-hero-title"
-              className="mt-6 font-archivo text-[2.3rem] leading-[1.04] tracking-tight text-dijk-950 text-balance sm:text-[3.2rem] xl:text-[3.8rem]"
+              className="font-archivo text-[2.3rem] leading-[1.04] tracking-tight text-dijk-950 text-balance sm:text-[3.2rem] xl:text-[3.8rem]"
             >
               {nlHero.title}
             </h1>
@@ -83,9 +83,7 @@ export function NlHero() {
                 {nlHero.cta_secondary_label}
               </Link>
             </div>
-            <p className="border-l-4 border-oranje-500 pl-4 text-[14.5px] leading-relaxed text-lei-600">
-              {nlHero.microcopy}
-            </p>
+
           </div>
         </div>
 
@@ -179,8 +177,8 @@ export function NlServices() {
   return (
     <section id="diensten" aria-labelledby="nl-services-title" className="bg-getij-50 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="nl-kicker text-dijk-800">{nlServicesSection.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="nl-services-title" className={cn(nlH2, 'lg:col-span-7')}>
             {nlServicesSection.title}
           </h2>
@@ -305,14 +303,12 @@ export function NlOperation() {
   return (
     <section id="werkwijze" aria-labelledby="nl-operation-title" className="bg-dijk-950 py-20 text-getij-50 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="nl-kicker text-getij-50">{nlOperation.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
+
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
           <h2 id="nl-operation-title" className="font-archivo text-[1.85rem] leading-[1.08] tracking-tight sm:text-[2.5rem] lg:col-span-6">
             {nlOperation.title}
           </h2>
-          <blockquote className="border border-white/25 border-l-4 border-l-oranje-500 p-5 sm:p-6 lg:col-span-6">
-            <p className="font-archivo text-[1.05rem] leading-snug sm:text-[1.25rem]">{nlOperation.pull_quote}</p>
-          </blockquote>
+
         </div>
 
         <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -336,12 +332,12 @@ export function NlProcess() {
   return (
     <section id="proces" aria-labelledby="nl-process-title" className="bg-getij-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="nl-kicker text-dijk-800">{nlProcess.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="nl-process-title" className={cn(nlH2, 'lg:col-span-6')}>
             {nlProcess.title}
           </h2>
-          <p className="text-lg leading-relaxed text-lei-600 lg:col-span-5 lg:col-start-8">{nlProcess.body}</p>
+
         </div>
 
         <ol className="mt-14 grid lg:grid-cols-4">
@@ -376,16 +372,16 @@ export function NlIndustries() {
   return (
     <section id="sectoren" aria-labelledby="nl-industries-title" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="nl-kicker text-dijk-800">{nlIndustries.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="nl-industries-title" className={cn(nlH2, 'lg:col-span-7')}>
             {nlIndustries.title}
           </h2>
-          <p className="text-lg leading-relaxed text-lei-600 lg:col-span-5">{nlIndustries.body}</p>
+
         </div>
 
         <ul className="mt-12 space-y-4">
-          {nlIndustries.items.map((item, index) => {
+          {nlIndustries.items.map((item) => {
             const shot = INDUSTRY_MEDIA[item.slug] ?? INDUSTRY_MEDIA['cross-border-ecommerce'];
             return (
               <li
@@ -401,11 +397,8 @@ export function NlIndustries() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <p className="flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-dijk-800">
-                    <span aria-hidden="true" className="h-2 w-2 bg-oranje-500" />
-                    Sector {num(index)}
-                  </p>
-                  <h3 className="mt-2 font-archivo text-[1.25rem] leading-snug text-dijk-950 sm:text-[1.45rem]">
+
+                  <h3 className="font-archivo text-[1.25rem] leading-snug text-dijk-950 sm:text-[1.45rem]">
                     <Link
                       to={item.href}
                       hrefLang="en"
@@ -441,8 +434,8 @@ export function NlResources() {
   return (
     <section id="bronnen" aria-labelledby="nl-resources-title" className="bg-getij-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="nl-kicker text-dijk-800">{nlResources.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-14">
+
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <h2 id="nl-resources-title" className={nlH2}>
               {nlResources.title}
@@ -494,11 +487,11 @@ export function NlFaq() {
       <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
-            <p className="nl-kicker text-dijk-800">{nlFaq.kicker}</p>
-            <h2 id="nl-faq-title" className={cn(nlH2, 'mt-6')}>
+
+            <h2 id="nl-faq-title" className={cn(nlH2, '')}>
               {nlFaq.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-lei-600">{nlFaq.aside_prompt}</p>
+
             <Link
               to={nlFaq.aside_link_url}
               className="mt-4 inline-flex items-center gap-2 font-bold text-delfts-700 underline decoration-delfts-700/40 decoration-2 underline-offset-4 hover:decoration-delfts-700"
@@ -535,8 +528,8 @@ export function NlEnquiry() {
     <section id="aanvraag" aria-labelledby="nl-enquiry-title" className="bg-haven-grid border-t border-getij-200 bg-getij-100 py-20 sm:py-24 lg:py-28">
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <p className="nl-kicker text-dijk-800">{nlEnquiry.kicker}</p>
-          <h2 id="nl-enquiry-title" className="mt-6 font-archivo text-[1.8rem] leading-[1.1] tracking-tight text-dijk-950 text-balance sm:text-[2.3rem]">
+
+          <h2 id="nl-enquiry-title" className="font-archivo text-[1.8rem] leading-[1.1] tracking-tight text-dijk-950 text-balance sm:text-[2.3rem]">
             {nlEnquiry.title}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-lei-600">{nlEnquiry.body}</p>
@@ -552,10 +545,7 @@ export function NlEnquiry() {
           </ul>
         </div>
         <div className="lg:col-span-7">
-          <p className="mb-3 inline-flex items-center gap-2 border-2 border-dijk-900 bg-white px-3 py-1.5 font-mono text-[11.5px] font-medium uppercase tracking-[0.14em] text-dijk-900">
-            <span aria-hidden="true" className="h-2 w-2 bg-oranje-500" />
-            {nlEnquiry.form_tag}
-          </p>
+
           <div className="nl-ticks">
             <EnquiryForm
               idPrefix="nl-enquiry"

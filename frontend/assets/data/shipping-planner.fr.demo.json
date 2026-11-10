@@ -1,0 +1,9846 @@
+{
+  "version": 1,
+  "dataMode": "demo",
+  "country": "FR",
+  "language": "fr",
+  "locale": "fr-FR",
+  "currency": "EUR",
+  "basis": "door-to-door",
+  "postcodePattern": "^\\d{5}$",
+  "contactAnchor": "demande",
+  "copy": {
+    "home": "Accueil",
+    "breadcrumb": "Frais et délais de transport",
+    "resultTitle": "Résultats : coûts et délais",
+    "title": "Chine–France : calcul des frais et délais de transport",
+    "intro": "Estimez les frais et délais de Chine vers la France par mer, avion ou express, ou la livraison depuis un entrepôt français.",
+    "demo": "À titre indicatif",
+    "demoNote": "Tarifs et délais de démonstration, sans cotation en temps réel ni date de livraison garantie. Contactez-nous pour un devis adapté à votre envoi.",
+    "contact": "Demander un tarif et un délai",
+    "oceanType": "Envoi maritime",
+    "lcl": "LCL / groupage",
+    "fcl": "FCL / conteneur complet",
+    "containerType": "Type de conteneur",
+    "containerCount": "Nombre de conteneurs",
+    "lastmile": "Livraison en France",
+    "warehouse": "Entrepôt de départ",
+    "postcode": "Code postal français",
+    "deliveryType": "Mode de livraison",
+    "bothDelivery": "Comparer colis et camion",
+    "parcel": "Livraison de colis",
+    "truck": "Palette / camion",
+    "pallets": "Nombre de palettes",
+    "modeLabel": "Mode de transport",
+    "sea": "Fret maritime",
+    "air": "Fret aérien",
+    "express": "Express",
+    "allModes": "Tout comparer",
+    "from": "Départ",
+    "to": "Destination",
+    "oceanLabel": "Service maritime",
+    "bothOcean": "Tous les services maritimes",
+    "standard": "Fret maritime standard",
+    "weight": "Poids brut",
+    "volume": "Volume total",
+    "search": "Vérifier les coûts et délais",
+    "cargoHelp": "LCL : poids ou volume. FCL : type et nombre de conteneurs. Aérien et express : poids taxable.",
+    "door": "De bout en bout",
+    "loading": "Chargement des trajets de démonstration…",
+    "enquiry": "Demander un devis pour ce trajet",
+    "changed": "Données modifiées. Relancez la recherche.",
+    "empty": "Aucun tarif de démonstration pour ce trajet et ce service. Modifiez la sélection ou demandez un devis.",
+    "loadError": "Impossible de charger les trajets. Veuillez réessayer.",
+    "retry": "Réessayer",
+    "seaNote": "LCL · poids ou volume",
+    "airNote": "Poids taxable · diviseur 6 000",
+    "expressNote": "Poids taxable · diviseur 5 000",
+    "transit": "Délai indicatif",
+    "freight": "Frais de transport estimés",
+    "days": "jours",
+    "businessDays": "jours ouvrés",
+    "sample": "Estimation de démonstration · EUR",
+    "details": "Détail du calcul",
+    "ready": "Choisissez votre trajet pour consulter les coûts et délais sur une page de résultats.",
+    "port": "Port-à-port · livraison intérieure exclue",
+    "mixedBasis": "Périmètre indiqué par offre",
+    "lastmileBasis": "Référence entrepôt-adresse",
+    "fclNote": "FCL · tarif par conteneur",
+    "lastmileNote": "Livraison nationale · fret international exclu",
+    "fclHelp": "Prix FCL = tarif par conteneur × quantité. Port-à-port uniquement ; frais locaux à confirmer.",
+    "lastmileCargoHelp": "Colis au poids taxable (diviseur 5 000), camion au nombre de palettes. Offres séparées à ne pas additionner.",
+    "lastmileHelp": "Choisissez un entrepôt et un code postal de démonstration. Disponibilité à confirmer.",
+    "samplePostcode": "Utiliser le code postal {postcode}",
+    "sampleHelp": "Entrepôt de démonstration : {warehouse}. Codes postaux : {codes}. Aucun tarif exemple pour les autres codes. Disponibilité à confirmer.",
+    "summary": "{n} offres · {w} kg · {v} CBM · données de démonstration",
+    "count": "{n} offres de transport trouvées.",
+    "containers": "{n} × {type} × EUR {lo}–{hi}/conteneur. Port-à-port ; frais locaux, douane, taxes et livraison exclus.",
+    "palletCost": "{n} palettes × EUR {lo}–{hi}/palette. Prestations particulières et suppléments exclus.",
+    "wm": "{q} W/M × EUR {lo}–{hi}/W/M. Maximum entre CBM, kg ÷ 1 000 et minimum {min}.",
+    "kg": "{q} kg taxables × EUR {lo}–{hi}/kg. Maximum entre poids brut, volume × 1 000 000 ÷ {d} ({v} kg) et minimum {min} kg, arrondi au palier supérieur.",
+    "noVolume": " Volume absent : les dimensions emballées peuvent augmenter le prix.",
+    "exclusions": "Démonstration uniquement : tarifs non actualisés et délais non garantis. FCL port-à-port ; livraison locale entrepôt-adresse. Douane, taxes, assurance, frais locaux et suppléments exclus. International en jours calendaires, livraison locale en jours ouvrés. Préparation, réservation et retards douaniers en supplément.",
+    "guideTitle": "Préparer les coûts et délais Chine–France",
+    "regionsTitle": "Régions françaises et ports de référence",
+    "faqTitle": "Questions sur le transport Chine–France",
+    "openTool": "Ouvrir le calculateur dédié",
+    "servicesTitle": "Services complémentaires",
+    "enquirySuffix": "Merci de confirmer les tarifs et délais actuels.",
+    "fclSummary": "{n} × {type} · Estimation de démonstration · EUR",
+    "errors": {
+      "origin": "Choisissez un départ valide.",
+      "destination": "Choisissez une destination valide.",
+      "mode": "Choisissez un mode de transport.",
+      "oceanService": "Choisissez un service maritime.",
+      "oceanType": "Choisissez LCL ou FCL.",
+      "containerType": "Choisissez un conteneur valide.",
+      "containerCount": "Saisissez de 1 à 100 conteneurs entiers.",
+      "warehouse": "Choisissez un entrepôt français.",
+      "postcode": "Saisissez un code postal français à cinq chiffres.",
+      "deliveryType": "Choisissez un mode de livraison.",
+      "pallets": "Saisissez de 1 à 100 palettes entières.",
+      "weight": "Saisissez un poids supérieur à 0, jusqu’à 1 000 000 kg.",
+      "volume": "Saisissez un volume valide, jusqu’à 10 000 CBM. Le LCL exige un volume positif."
+    },
+    "processTitle": "Le déroulé d’une expédition de Chine vers la France"
+  },
+  "seo": {
+    "title": "Chine–France : calcul des frais et délais de transport | FreightVanta",
+    "homeTitle": "Transport Chine–France : coûts et délais | FreightVanta",
+    "description": "Comparez les frais et délais Chine–France : fret maritime LCL/FCL, aérien, express et livraison depuis un entrepôt français. Estimations de démonstration en EUR.",
+    "keywords": "Chine–France : calcul des frais et délais de transport, Fret maritime, Fret aérien, Courrier express, Livraison en France, LCL, FCL"
+  },
+  "sections": [
+    {
+      "title": "Le Havre ou Fos-sur-Mer : choisir sa porte d’entrée",
+      "body": "Le Havre sert de référence pour Paris, Lille et le nord de la France. Fos-sur-Mer représente les arrivées méditerranéennes vers Marseille, Lyon et Toulouse. Les destinations intérieures nécessitent un acheminement supplémentaire, à confirmer séparément pour le FCL."
+    },
+    {
+      "title": "Comprendre les coûts Chine–France",
+      "body": "Le groupage LCL est calculé au poids ou au volume. Le conteneur complet FCL utilise un tarif par 20GP, 40GP ou 40HQ, sans saisie de poids ni de volume. Le fret aérien et l’express utilisent le poids taxable."
+    },
+    {
+      "title": "Livraison locale et préparation de l’importation",
+      "body": "La livraison de démonstration part d’un entrepôt français vers un code postal à cinq chiffres. Les coûts de douane, la TVA, l’assurance et les prestations exceptionnelles sont exclus. Préparez notamment la facture commerciale, la liste de colisage et les informations EORI."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Ces délais incluent-ils la préparation de la marchandise ?",
+      "answer": "Non. Les délais internationaux sont exprimés en jours calendaires après départ. La préparation, la réservation et les éventuels contrôles douaniers s’ajoutent. La livraison locale utilise des jours ouvrés."
+    },
+    {
+      "question": "Puis-je obtenir un tarif pour une autre ville ou un autre code postal ?",
+      "answer": "Oui, contactez-nous pour une étude de votre trajet. Le calculateur affiche uniquement les lignes et codes postaux explicitement configurés, sans appliquer le tarif d’une ville voisine."
+    }
+  ],
+  "origins": [
+    {
+      "id": "shanghai",
+      "fr": "Shanghai, Chine"
+    },
+    {
+      "id": "ningbo",
+      "fr": "Ningbo, Chine"
+    },
+    {
+      "id": "shenzhen",
+      "fr": "Shenzhen, Chine"
+    },
+    {
+      "id": "qingdao",
+      "fr": "Qingdao, Chine"
+    },
+    {
+      "id": "xiamen",
+      "fr": "Xiamen, Chine"
+    },
+    {
+      "id": "guangzhou",
+      "fr": "Guangzhou, Chine"
+    },
+    {
+      "id": "tianjin",
+      "fr": "Tianjin, Chine"
+    },
+    {
+      "id": "dalian",
+      "fr": "Dalian, Chine"
+    },
+    {
+      "id": "fuzhou",
+      "fr": "Fuzhou, Chine"
+    },
+    {
+      "id": "shantou",
+      "fr": "Shantou, Chine"
+    },
+    {
+      "id": "nanjing",
+      "fr": "Nanjing, Chine"
+    },
+    {
+      "id": "suzhou",
+      "fr": "Suzhou, Chine"
+    },
+    {
+      "id": "foshan",
+      "fr": "Foshan, Chine"
+    },
+    {
+      "id": "zhongshan",
+      "fr": "Zhongshan, Chine"
+    },
+    {
+      "id": "zhuhai",
+      "fr": "Zhuhai, Chine"
+    },
+    {
+      "id": "lianyungang",
+      "fr": "Lianyungang, Chine"
+    },
+    {
+      "id": "chongqing",
+      "fr": "Chongqing, Chine"
+    },
+    {
+      "id": "wuhan",
+      "fr": "Wuhan, Chine"
+    },
+    {
+      "id": "yiwu",
+      "fr": "Yiwu, Chine"
+    },
+    {
+      "id": "chengdu",
+      "fr": "Chengdu, Chine"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "le-havre",
+      "region": "Normandie & Nord",
+      "port": {
+        "fr": "Le Havre"
+      },
+      "fr": "Le Havre, France"
+    },
+    {
+      "id": "lille",
+      "region": "Normandie & Nord",
+      "port": {
+        "fr": "Le Havre"
+      },
+      "fr": "Lille, France"
+    },
+    {
+      "id": "paris",
+      "region": "Île-de-France",
+      "port": {
+        "fr": "Le Havre"
+      },
+      "fr": "Paris, France"
+    },
+    {
+      "id": "bordeaux",
+      "region": "Ouest & Sud-Ouest",
+      "port": {
+        "fr": "Le Havre"
+      },
+      "fr": "Bordeaux, France"
+    },
+    {
+      "id": "toulouse",
+      "region": "Ouest & Sud-Ouest",
+      "port": {
+        "fr": "Fos-sur-Mer"
+      },
+      "fr": "Toulouse, France"
+    },
+    {
+      "id": "lyon",
+      "region": "Rhône-Alpes",
+      "port": {
+        "fr": "Fos-sur-Mer"
+      },
+      "fr": "Lyon, France"
+    },
+    {
+      "id": "marseille",
+      "region": "Méditerranée",
+      "port": {
+        "fr": "Fos-sur-Mer"
+      },
+      "fr": "Marseille, France"
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "le-havre-warehouse",
+      "region": "Normandie & Nord",
+      "examplePostcode": "76600",
+      "fr": "Le Havre"
+    },
+    {
+      "id": "paris-warehouse",
+      "region": "Île-de-France",
+      "examplePostcode": "75001",
+      "fr": "Paris"
+    },
+    {
+      "id": "lille-warehouse",
+      "region": "Normandie & Nord",
+      "examplePostcode": "59000",
+      "fr": "Lille"
+    },
+    {
+      "id": "marseille-warehouse",
+      "region": "Méditerranée",
+      "examplePostcode": "13001",
+      "fr": "Marseille"
+    },
+    {
+      "id": "lyon-warehouse",
+      "region": "Rhône-Alpes",
+      "examplePostcode": "69001",
+      "fr": "Lyon"
+    },
+    {
+      "id": "bordeaux-warehouse",
+      "region": "Ouest & Sud-Ouest",
+      "examplePostcode": "33000",
+      "fr": "Bordeaux"
+    },
+    {
+      "id": "toulouse-warehouse",
+      "region": "Ouest & Sud-Ouest",
+      "examplePostcode": "31000",
+      "fr": "Toulouse"
+    }
+  ],
+  "services": [
+    {
+      "id": "standard",
+      "mode": "sea",
+      "billing": "wm",
+      "minimum": 1,
+      "fr": "Fret maritime standard"
+    },
+    {
+      "id": "air",
+      "mode": "air",
+      "billing": "kg",
+      "minimum": 45,
+      "divisor": 6000,
+      "increment": 1,
+      "fr": "Fret aérien"
+    },
+    {
+      "id": "express",
+      "mode": "express",
+      "billing": "kg",
+      "minimum": 0.5,
+      "divisor": 5000,
+      "increment": 0.5,
+      "fr": "Courrier express"
+    },
+    {
+      "id": "fr-parcel",
+      "mode": "lastmile",
+      "deliveryType": "parcel",
+      "billing": "kg",
+      "minimum": 1,
+      "divisor": 5000,
+      "increment": 0.5,
+      "fr": "Livraison de colis"
+    },
+    {
+      "id": "fr-truck",
+      "mode": "lastmile",
+      "deliveryType": "truck",
+      "billing": "pallet",
+      "minimum": 1,
+      "fr": "Palette / camion"
+    }
+  ],
+  "routes": [
+    {
+      "origin": "shanghai",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            158,
+            223
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            5.95,
+            8.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.45,
+            13.65
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            169,
+            234
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.13,
+            8.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.6,
+            13.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            180,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.31,
+            8.61
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.75,
+            13.95
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            191,
+            256
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.49,
+            8.79
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.9,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            202,
+            267
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.67,
+            8.97
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.05,
+            14.25
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            213,
+            278
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.85,
+            9.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            224,
+            289
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.03,
+            9.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.35,
+            14.55
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            165,
+            230
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.05,
+            8.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.57,
+            13.77
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            176,
+            241
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.23,
+            8.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.72,
+            13.92
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            187,
+            252
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.41,
+            8.71
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.87,
+            14.07
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            198,
+            263
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.59,
+            8.89
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.02,
+            14.22
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            209,
+            274
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.77,
+            9.07
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.17,
+            14.37
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            220,
+            285
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.95,
+            9.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.32,
+            14.52
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            231,
+            296
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.13,
+            9.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.47,
+            14.67
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            172,
+            237
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.15,
+            8.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.69,
+            13.89
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            183,
+            248
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.33,
+            8.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.84,
+            14.04
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            194,
+            259
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.51,
+            8.81
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.99,
+            14.19
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            205,
+            270
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.69,
+            8.99
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.14,
+            14.34
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            216,
+            281
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.87,
+            9.17
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.29,
+            14.49
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            227,
+            292
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.05,
+            9.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.44,
+            14.64
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            238,
+            303
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.23,
+            9.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.59,
+            14.79
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            179,
+            244
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.25,
+            8.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.81,
+            14.01
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            190,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.43,
+            8.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.96,
+            14.16
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            201,
+            266
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.61,
+            8.91
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.11,
+            14.31
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            212,
+            277
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.79,
+            9.09
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.26,
+            14.46
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            223,
+            288
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.97,
+            9.27
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.41,
+            14.61
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            234,
+            299
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.15,
+            9.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.56,
+            14.76
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            245,
+            310
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.33,
+            9.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.71,
+            14.91
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            186,
+            251
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.35,
+            8.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.93,
+            14.13
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            197,
+            262
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.53,
+            8.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.08,
+            14.28
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            208,
+            273
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.71,
+            9.01
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.23,
+            14.43
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            219,
+            284
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.89,
+            9.19
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.38,
+            14.58
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            230,
+            295
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.07,
+            9.37
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.53,
+            14.73
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            241,
+            306
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.25,
+            9.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.68,
+            14.88
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            252,
+            317
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.43,
+            9.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.83,
+            15.03
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            193,
+            258
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.45,
+            8.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.05,
+            14.25
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            204,
+            269
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.63,
+            8.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            215,
+            280
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.81,
+            9.11
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.35,
+            14.55
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            226,
+            291
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.99,
+            9.29
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            237,
+            302
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.17,
+            9.47
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.65,
+            14.85
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            248,
+            313
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.35,
+            9.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            259,
+            324
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.53,
+            9.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.95,
+            15.15
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            200,
+            265
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.55,
+            8.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.17,
+            14.37
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            211,
+            276
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.73,
+            9.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.32,
+            14.52
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            222,
+            287
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.91,
+            9.21
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.47,
+            14.67
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            233,
+            298
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.09,
+            9.39
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.62,
+            14.82
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            244,
+            309
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.27,
+            9.57
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.77,
+            14.97
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            255,
+            320
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.45,
+            9.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.92,
+            15.12
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            266,
+            331
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.63,
+            9.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.07,
+            15.27
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            207,
+            272
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.65,
+            8.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.29,
+            14.49
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            218,
+            283
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.83,
+            9.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.44,
+            14.64
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            229,
+            294
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.01,
+            9.31
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.59,
+            14.79
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            240,
+            305
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.19,
+            9.49
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.74,
+            14.94
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            251,
+            316
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.37,
+            9.67
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.89,
+            15.09
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            262,
+            327
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.55,
+            9.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.04,
+            15.24
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            273,
+            338
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.73,
+            10.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.19,
+            15.39
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            214,
+            279
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.75,
+            9.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.41,
+            14.61
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            225,
+            290
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.93,
+            9.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.56,
+            14.76
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            236,
+            301
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.11,
+            9.41
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.71,
+            14.91
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            247,
+            312
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.29,
+            9.59
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.86,
+            15.06
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            258,
+            323
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.47,
+            9.77
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.01,
+            15.21
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            269,
+            334
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.65,
+            9.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.16,
+            15.36
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            280,
+            345
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.83,
+            10.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.31,
+            15.51
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            221,
+            286
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.85,
+            9.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.53,
+            14.73
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            232,
+            297
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.03,
+            9.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.68,
+            14.88
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            243,
+            308
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.21,
+            9.51
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.83,
+            15.03
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            254,
+            319
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.39,
+            9.69
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.98,
+            15.18
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            265,
+            330
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.57,
+            9.87
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.13,
+            15.33
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            276,
+            341
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.75,
+            10.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.28,
+            15.48
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            287,
+            352
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.93,
+            10.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.43,
+            15.63
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            228,
+            293
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.95,
+            9.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.65,
+            14.85
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            239,
+            304
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.13,
+            9.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            250,
+            315
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.31,
+            9.61
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.95,
+            15.15
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            261,
+            326
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.49,
+            9.79
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            272,
+            337
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.67,
+            9.97
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.25,
+            15.45
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            283,
+            348
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.85,
+            10.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            294,
+            359
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.03,
+            10.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.55,
+            15.75
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            235,
+            300
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.05,
+            9.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.77,
+            14.97
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            246,
+            311
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.23,
+            9.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.92,
+            15.12
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            257,
+            322
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.41,
+            9.71
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.07,
+            15.27
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            268,
+            333
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.59,
+            9.89
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.22,
+            15.42
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            279,
+            344
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.77,
+            10.07
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.37,
+            15.57
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            290,
+            355
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.95,
+            10.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.52,
+            15.72
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            301,
+            366
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.13,
+            10.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.67,
+            15.87
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            242,
+            307
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.15,
+            9.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.89,
+            15.09
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            253,
+            318
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.33,
+            9.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.04,
+            15.24
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            264,
+            329
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.51,
+            9.81
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.19,
+            15.39
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            275,
+            340
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.69,
+            9.99
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.34,
+            15.54
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            286,
+            351
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.87,
+            10.17
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.49,
+            15.69
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            297,
+            362
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.05,
+            10.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.64,
+            15.84
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            308,
+            373
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.23,
+            10.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.79,
+            15.99
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            249,
+            314
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.25,
+            9.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.01,
+            15.21
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            260,
+            325
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.43,
+            9.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.16,
+            15.36
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            271,
+            336
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.61,
+            9.91
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.31,
+            15.51
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            282,
+            347
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.79,
+            10.09
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.46,
+            15.66
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            293,
+            358
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.97,
+            10.27
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.61,
+            15.81
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            304,
+            369
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.15,
+            10.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.76,
+            15.96
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            315,
+            380
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.33,
+            10.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.91,
+            16.11
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            256,
+            321
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.35,
+            9.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.13,
+            15.33
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            267,
+            332
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.53,
+            9.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.28,
+            15.48
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            278,
+            343
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.71,
+            10.01
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.43,
+            15.63
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            289,
+            354
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.89,
+            10.19
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.58,
+            15.78
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            300,
+            365
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.07,
+            10.37
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.73,
+            15.93
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            311,
+            376
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.25,
+            10.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.88,
+            16.08
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            322,
+            387
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.43,
+            10.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.03,
+            16.23
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            263,
+            328
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.45,
+            9.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.25,
+            15.45
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            274,
+            339
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.63,
+            9.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            285,
+            350
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.81,
+            10.11
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.55,
+            15.75
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            296,
+            361
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.99,
+            10.29
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            307,
+            372
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.17,
+            10.47
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.85,
+            16.05
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            318,
+            383
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.35,
+            10.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            329,
+            394
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.53,
+            10.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.15,
+            16.35
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            270,
+            335
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.55,
+            9.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.37,
+            15.57
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            281,
+            346
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.73,
+            10.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.52,
+            15.72
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            292,
+            357
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.91,
+            10.21
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.67,
+            15.87
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            303,
+            368
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.09,
+            10.39
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.82,
+            16.02
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            314,
+            379
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.27,
+            10.57
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.97,
+            16.17
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            325,
+            390
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.45,
+            10.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.12,
+            16.32
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            336,
+            401
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.63,
+            10.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.27,
+            16.47
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            277,
+            342
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.65,
+            9.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.49,
+            15.69
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            288,
+            353
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.83,
+            10.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.64,
+            15.84
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            299,
+            364
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.01,
+            10.31
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.79,
+            15.99
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            310,
+            375
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.19,
+            10.49
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.94,
+            16.14
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            321,
+            386
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.37,
+            10.67
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.09,
+            16.29
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            332,
+            397
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.55,
+            10.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.24,
+            16.44
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            343,
+            408
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.73,
+            11.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.39,
+            16.59
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            284,
+            349
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.75,
+            10.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.61,
+            15.81
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            295,
+            360
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.93,
+            10.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.76,
+            15.96
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            306,
+            371
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.11,
+            10.41
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.91,
+            16.11
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            317,
+            382
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.29,
+            10.59
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.06,
+            16.26
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            328,
+            393
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.47,
+            10.77
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.21,
+            16.41
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            339,
+            404
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.65,
+            10.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.36,
+            16.56
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            350,
+            415
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.83,
+            11.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.51,
+            16.71
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            291,
+            356
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.85,
+            10.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.73,
+            15.93
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            302,
+            367
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.03,
+            10.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.88,
+            16.08
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            313,
+            378
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.21,
+            10.51
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.03,
+            16.23
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            324,
+            389
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.39,
+            10.69
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.18,
+            16.38
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            56
+          ],
+          "rate": [
+            335,
+            400
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.57,
+            10.87
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.33,
+            16.53
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            57
+          ],
+          "rate": [
+            346,
+            411
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.75,
+            11.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.48,
+            16.68
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            357,
+            422
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.93,
+            11.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.63,
+            16.83
+          ]
+        }
+      ]
+    }
+  ],
+  "fclRoutes": [
+    {
+      "origin": "shanghai",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2370,
+              3220
+            ],
+            "40gp": [
+              3320,
+              4320
+            ],
+            "40hc": [
+              3520,
+              4620
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2370,
+              3220
+            ],
+            "40gp": [
+              3320,
+              4320
+            ],
+            "40hc": [
+              3520,
+              4620
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2370,
+              3220
+            ],
+            "40gp": [
+              3320,
+              4320
+            ],
+            "40hc": [
+              3520,
+              4620
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2600,
+              3450
+            ],
+            "40gp": [
+              3550,
+              4550
+            ],
+            "40hc": [
+              3750,
+              4850
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2600,
+              3450
+            ],
+            "40gp": [
+              3550,
+              4550
+            ],
+            "40hc": [
+              3750,
+              4850
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2370,
+              3220
+            ],
+            "40gp": [
+              3320,
+              4320
+            ],
+            "40hc": [
+              3520,
+              4620
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2600,
+              3450
+            ],
+            "40gp": [
+              3550,
+              4550
+            ],
+            "40hc": [
+              3750,
+              4850
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2455,
+              3305
+            ],
+            "40gp": [
+              3405,
+              4405
+            ],
+            "40hc": [
+              3605,
+              4705
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2455,
+              3305
+            ],
+            "40gp": [
+              3405,
+              4405
+            ],
+            "40hc": [
+              3605,
+              4705
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2455,
+              3305
+            ],
+            "40gp": [
+              3405,
+              4405
+            ],
+            "40hc": [
+              3605,
+              4705
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2685,
+              3535
+            ],
+            "40gp": [
+              3635,
+              4635
+            ],
+            "40hc": [
+              3835,
+              4935
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2685,
+              3535
+            ],
+            "40gp": [
+              3635,
+              4635
+            ],
+            "40hc": [
+              3835,
+              4935
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2455,
+              3305
+            ],
+            "40gp": [
+              3405,
+              4405
+            ],
+            "40hc": [
+              3605,
+              4705
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2685,
+              3535
+            ],
+            "40gp": [
+              3635,
+              4635
+            ],
+            "40hc": [
+              3835,
+              4935
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3390
+            ],
+            "40gp": [
+              3490,
+              4490
+            ],
+            "40hc": [
+              3690,
+              4790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3390
+            ],
+            "40gp": [
+              3490,
+              4490
+            ],
+            "40hc": [
+              3690,
+              4790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3390
+            ],
+            "40gp": [
+              3490,
+              4490
+            ],
+            "40hc": [
+              3690,
+              4790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2770,
+              3620
+            ],
+            "40gp": [
+              3720,
+              4720
+            ],
+            "40hc": [
+              3920,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2770,
+              3620
+            ],
+            "40gp": [
+              3720,
+              4720
+            ],
+            "40hc": [
+              3920,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3390
+            ],
+            "40gp": [
+              3490,
+              4490
+            ],
+            "40hc": [
+              3690,
+              4790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2770,
+              3620
+            ],
+            "40gp": [
+              3720,
+              4720
+            ],
+            "40hc": [
+              3920,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2625,
+              3475
+            ],
+            "40gp": [
+              3575,
+              4575
+            ],
+            "40hc": [
+              3775,
+              4875
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2625,
+              3475
+            ],
+            "40gp": [
+              3575,
+              4575
+            ],
+            "40hc": [
+              3775,
+              4875
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2625,
+              3475
+            ],
+            "40gp": [
+              3575,
+              4575
+            ],
+            "40hc": [
+              3775,
+              4875
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              2855,
+              3705
+            ],
+            "40gp": [
+              3805,
+              4805
+            ],
+            "40hc": [
+              4005,
+              5105
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              2855,
+              3705
+            ],
+            "40gp": [
+              3805,
+              4805
+            ],
+            "40hc": [
+              4005,
+              5105
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2625,
+              3475
+            ],
+            "40gp": [
+              3575,
+              4575
+            ],
+            "40hc": [
+              3775,
+              4875
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              2855,
+              3705
+            ],
+            "40gp": [
+              3805,
+              4805
+            ],
+            "40hc": [
+              4005,
+              5105
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3790
+            ],
+            "40gp": [
+              3890,
+              4890
+            ],
+            "40hc": [
+              4090,
+              5190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3790
+            ],
+            "40gp": [
+              3890,
+              4890
+            ],
+            "40hc": [
+              4090,
+              5190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3790
+            ],
+            "40gp": [
+              3890,
+              4890
+            ],
+            "40hc": [
+              4090,
+              5190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3025,
+              3875
+            ],
+            "40gp": [
+              3975,
+              4975
+            ],
+            "40hc": [
+              4175,
+              5275
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3025,
+              3875
+            ],
+            "40gp": [
+              3975,
+              4975
+            ],
+            "40hc": [
+              4175,
+              5275
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3025,
+              3875
+            ],
+            "40gp": [
+              3975,
+              4975
+            ],
+            "40hc": [
+              4175,
+              5275
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3110,
+              3960
+            ],
+            "40gp": [
+              4060,
+              5060
+            ],
+            "40hc": [
+              4260,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3110,
+              3960
+            ],
+            "40gp": [
+              4060,
+              5060
+            ],
+            "40hc": [
+              4260,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3110,
+              3960
+            ],
+            "40gp": [
+              4060,
+              5060
+            ],
+            "40hc": [
+              4260,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3195,
+              4045
+            ],
+            "40gp": [
+              4145,
+              5145
+            ],
+            "40hc": [
+              4345,
+              5445
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3195,
+              4045
+            ],
+            "40gp": [
+              4145,
+              5145
+            ],
+            "40hc": [
+              4345,
+              5445
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3195,
+              4045
+            ],
+            "40gp": [
+              4145,
+              5145
+            ],
+            "40hc": [
+              4345,
+              5445
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4130
+            ],
+            "40gp": [
+              4230,
+              5230
+            ],
+            "40hc": [
+              4430,
+              5530
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4130
+            ],
+            "40gp": [
+              4230,
+              5230
+            ],
+            "40hc": [
+              4430,
+              5530
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4130
+            ],
+            "40gp": [
+              4230,
+              5230
+            ],
+            "40hc": [
+              4430,
+              5530
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              3365,
+              4215
+            ],
+            "40gp": [
+              4315,
+              5315
+            ],
+            "40hc": [
+              4515,
+              5615
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              3365,
+              4215
+            ],
+            "40gp": [
+              4315,
+              5315
+            ],
+            "40hc": [
+              4515,
+              5615
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              3365,
+              4215
+            ],
+            "40gp": [
+              4315,
+              5315
+            ],
+            "40hc": [
+              4515,
+              5615
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4300
+            ],
+            "40gp": [
+              4400,
+              5400
+            ],
+            "40hc": [
+              4600,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4300
+            ],
+            "40gp": [
+              4400,
+              5400
+            ],
+            "40hc": [
+              4600,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4300
+            ],
+            "40gp": [
+              4400,
+              5400
+            ],
+            "40hc": [
+              4600,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3535,
+              4385
+            ],
+            "40gp": [
+              4485,
+              5485
+            ],
+            "40hc": [
+              4685,
+              5785
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3535,
+              4385
+            ],
+            "40gp": [
+              4485,
+              5485
+            ],
+            "40hc": [
+              4685,
+              5785
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3535,
+              4385
+            ],
+            "40gp": [
+              4485,
+              5485
+            ],
+            "40hc": [
+              4685,
+              5785
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3620,
+              4470
+            ],
+            "40gp": [
+              4570,
+              5570
+            ],
+            "40hc": [
+              4770,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3620,
+              4470
+            ],
+            "40gp": [
+              4570,
+              5570
+            ],
+            "40hc": [
+              4770,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3620,
+              4470
+            ],
+            "40gp": [
+              4570,
+              5570
+            ],
+            "40hc": [
+              4770,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3705,
+              4555
+            ],
+            "40gp": [
+              4655,
+              5655
+            ],
+            "40hc": [
+              4855,
+              5955
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3705,
+              4555
+            ],
+            "40gp": [
+              4655,
+              5655
+            ],
+            "40hc": [
+              4855,
+              5955
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3705,
+              4555
+            ],
+            "40gp": [
+              4655,
+              5655
+            ],
+            "40hc": [
+              4855,
+              5955
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              3790,
+              4640
+            ],
+            "40gp": [
+              4740,
+              5740
+            ],
+            "40hc": [
+              4940,
+              6040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              3790,
+              4640
+            ],
+            "40gp": [
+              4740,
+              5740
+            ],
+            "40hc": [
+              4940,
+              6040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              3790,
+              4640
+            ],
+            "40gp": [
+              4740,
+              5740
+            ],
+            "40hc": [
+              4940,
+              6040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3875,
+              4725
+            ],
+            "40gp": [
+              4825,
+              5825
+            ],
+            "40hc": [
+              5025,
+              6125
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3875,
+              4725
+            ],
+            "40gp": [
+              4825,
+              5825
+            ],
+            "40hc": [
+              5025,
+              6125
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3875,
+              4725
+            ],
+            "40gp": [
+              4825,
+              5825
+            ],
+            "40hc": [
+              5025,
+              6125
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3960,
+              4810
+            ],
+            "40gp": [
+              4910,
+              5910
+            ],
+            "40hc": [
+              5110,
+              6210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3960,
+              4810
+            ],
+            "40gp": [
+              4910,
+              5910
+            ],
+            "40hc": [
+              5110,
+              6210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3960,
+              4810
+            ],
+            "40gp": [
+              4910,
+              5910
+            ],
+            "40hc": [
+              5110,
+              6210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4045,
+              4895
+            ],
+            "40gp": [
+              4995,
+              5995
+            ],
+            "40hc": [
+              5195,
+              6295
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4045,
+              4895
+            ],
+            "40gp": [
+              4995,
+              5995
+            ],
+            "40hc": [
+              5195,
+              6295
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4045,
+              4895
+            ],
+            "40gp": [
+              4995,
+              5995
+            ],
+            "40hc": [
+              5195,
+              6295
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              4130,
+              4980
+            ],
+            "40gp": [
+              5080,
+              6080
+            ],
+            "40hc": [
+              5280,
+              6380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              4130,
+              4980
+            ],
+            "40gp": [
+              5080,
+              6080
+            ],
+            "40hc": [
+              5280,
+              6380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              4130,
+              4980
+            ],
+            "40gp": [
+              5080,
+              6080
+            ],
+            "40hc": [
+              5280,
+              6380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "le-havre",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "paris",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "lille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "marseille",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              4215,
+              5065
+            ],
+            "40gp": [
+              5165,
+              6165
+            ],
+            "40hc": [
+              5365,
+              6465
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "lyon",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              4215,
+              5065
+            ],
+            "40gp": [
+              5165,
+              6165
+            ],
+            "40hc": [
+              5365,
+              6465
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bordeaux",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "toulouse",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            47
+          ],
+          "rates": {
+            "20gp": [
+              4215,
+              5065
+            ],
+            "40gp": [
+              5165,
+              6165
+            ],
+            "40hc": [
+              5365,
+              6465
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "lastMileRoutes": [
+    {
+      "warehouse": "le-havre-warehouse",
+      "postcode": "76600",
+      "offers": [
+        {
+          "service": "fr-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            0.84,
+            1.4
+          ]
+        },
+        {
+          "service": "fr-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            92,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "paris-warehouse",
+      "postcode": "75001",
+      "offers": [
+        {
+          "service": "fr-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            0.88,
+            1.45
+          ]
+        },
+        {
+          "service": "fr-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            100,
+            169
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "lille-warehouse",
+      "postcode": "59000",
+      "offers": [
+        {
+          "service": "fr-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            0.92,
+            1.5
+          ]
+        },
+        {
+          "service": "fr-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            108,
+            178
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "marseille-warehouse",
+      "postcode": "13001",
+      "offers": [
+        {
+          "service": "fr-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            0.96,
+            1.55
+          ]
+        },
+        {
+          "service": "fr-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            116,
+            187
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "lyon-warehouse",
+      "postcode": "69001",
+      "offers": [
+        {
+          "service": "fr-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.0,
+            1.6
+          ]
+        },
+        {
+          "service": "fr-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            124,
+            196
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "bordeaux-warehouse",
+      "postcode": "33000",
+      "offers": [
+        {
+          "service": "fr-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.04,
+            1.65
+          ]
+        },
+        {
+          "service": "fr-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            132,
+            205
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "toulouse-warehouse",
+      "postcode": "31000",
+      "offers": [
+        {
+          "service": "fr-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.08,
+            1.7
+          ]
+        },
+        {
+          "service": "fr-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            140,
+            214
+          ]
+        }
+      ]
+    }
+  ],
+  "process": [
+    {
+      "No": "01",
+      "Title": "Enlèvement chez le fournisseur",
+      "Body": "Marchandise prête, conditions de chargement et créneau d’enlèvement confirmés. Tout retard ici décale les étapes suivantes."
+    },
+    {
+      "No": "02",
+      "Title": "Dédouanement export",
+      "Body": "Déclaration export, description de la marchandise et date limite alignées sur le départ retenu. Les documents sont contrôlés avant la fermeture du conteneur."
+    },
+    {
+      "No": "03",
+      "Title": "Fret maritime ou aérien",
+      "Body": "Le transport principal, avec un horaire vérifiable plutôt qu’une estimation. Les paires de ports ou d’aéroports suivent la route choisie."
+    },
+    {
+      "No": "04",
+      "Title": "Import en France",
+      "Body": "Numéro EORI, déclaration en douane et TVA à l’importation. Le code produit détermine les droits et les éventuelles restrictions."
+    },
+    {
+      "No": "05",
+      "Title": "Du port à la porte",
+      "Body": "Mainlevée du conteneur, dégroupage pour le groupage, et un rendez-vous de livraison compatible avec les horaires du destinataire."
+    },
+    {
+      "No": "06",
+      "Title": "Livraison et preuve",
+      "Body": "Preuve de livraison signée, écarts documentés et pièces archivées, pour que l’expédition suivante parte d’un état connu."
+    }
+  ],
+  "regionOrder": [
+    "Normandie & Nord",
+    "Île-de-France",
+    "Ouest & Sud-Ouest",
+    "Rhône-Alpes",
+    "Méditerranée"
+  ]
+}

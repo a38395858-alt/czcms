@@ -1,3 +1,4 @@
+import { HomeShippingLink } from '../../../components/HomeShippingPlanner';
 import { useCallback, useEffect, useRef, useState, type FocusEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowRight, CheckIcon, ChevronDown, CloseIcon, MailIcon, MenuIcon, PhoneIcon, PinIcon } from '../../../components/ui/Icons';
@@ -186,7 +187,7 @@ function SolucionesMenu({ open, route }: { open: boolean; route: Route }) {
     <div id="es-menu-soluciones" hidden={!open} className="absolute inset-x-0 top-full bg-white text-carbon-900 shadow-[0_32px_64px_-24px_rgba(11,48,39,0.45)]">
       <div className="shell grid grid-cols-12 gap-10 py-10">
         <div className="col-span-8">
-          <p className="es-eyebrow text-mar-700">Soluciones</p>
+
           <ul className="mt-4 grid grid-cols-2 gap-x-8">
             {ES_TOPIC_SERVICES.map((service) => {
               const current = route.name === 'service' && route.slug === service.slug;
@@ -580,7 +581,7 @@ export function EsFooter() {
           <p className="text-[12px] font-semibold uppercase tracking-[0.12em]">Español · España</p>
         </div>
       </div>
-    </footer>
+    <nav className="sp-react-footer-tool"><HomeShippingLink /></nav></footer>
   );
 }
 

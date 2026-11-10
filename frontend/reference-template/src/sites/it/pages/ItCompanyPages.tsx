@@ -145,7 +145,7 @@ export function ItContactPage() {
                 )}
               </ul>
             )}
-            <h3 className="it-eyebrow mt-10 text-grafite-500">Utile da indicare</h3>
+            <h3 className="text-sm font-semibold mt-10 text-grafite-500">Utile da indicare</h3>
             <p className="mt-3 text-[16px] leading-relaxed text-grafite-800">{processIt.items[0].copy}</p>
             <ItCheckList items={enquiryIt.settings.reassurance} className="mt-6" />
           </div>
@@ -210,7 +210,7 @@ function LegalBlock({ heading, children }: { heading: string; children: ReactNod
 function DraftNotice({ children }: { children: ReactNode }) {
   return (
     <p className="border-l-2 border-rosso-600 bg-nebbia-50 px-5 py-4 text-[15px] leading-relaxed text-grafite-700">
-      <span className="it-eyebrow mr-2 text-rosso-700">Bozza</span>
+      <span className="text-sm font-semibold mr-2 text-rosso-700">Bozza</span>
       {children}
     </p>
   );
@@ -472,8 +472,8 @@ export function ItNotFoundPage({ path }: { path: string }) {
   return (
     <section className="border-b border-grafite-900 bg-white py-24 text-grafite-900 sm:py-32">
       <div className="shell max-w-3xl">
-        <p className="it-eyebrow text-rosso-700">Rotta non trovata</p>
-        <h1 className="mt-5 font-it-display text-5xl font-semibold leading-tight tracking-[-0.02em]">Questo passaggio non porta da nessuna parte.</h1>
+
+        <h1 className="font-it-display text-5xl font-semibold leading-tight tracking-[-0.02em]">Questo passaggio non porta da nessuna parte.</h1>
         <p className="mt-5 text-lg text-grafite-600">
           La pagina <span className="font-mono text-base text-grafite-900">{path}</span> non è disponibile. Scelga un passo successivo.
         </p>

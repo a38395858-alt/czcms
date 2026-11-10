@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { siteConfig } from '../config/site';
+import { homeContext } from './home-context';
 import type { FaqItem, ServicePathItem } from '../content/types';
 
 export interface PageMeta {
@@ -39,6 +40,7 @@ export function truncate(text: string, max = 158): string {
 /** Keeps title, description, canonical, and Open Graph in step with the visible page. */
 export function useDocumentMeta({ title, description, path, ogLocale = 'en_US' }: PageMeta) {
   useEffect(() => {
+    if (homeContext()) return;
     const url = `${siteConfig.siteUrl}${path}`;
     document.title = title;
     upsertMeta('name', 'description', description);
@@ -54,6 +56,7 @@ export function useDocumentMeta({ title, description, path, ogLocale = 'en_US' }
 export function useJsonLd(id: string, data: object | null) {
   const json = data ? JSON.stringify(data).replace(/</g, '\\u003c') : null;
   useEffect(() => {
+    if (homeContext()) return;
     if (!json) return;
     document.getElementById(id)?.remove();
     const script = document.createElement('script');

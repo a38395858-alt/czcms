@@ -1,3 +1,4 @@
+import { HomeShippingLink } from '../../../components/HomeShippingPlanner';
 import { useCallback, useEffect, useRef, useState, type FocusEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { LOCALIZED_HOMEPAGES, localizedUrl, siteConfig } from '../../../config/site';
@@ -190,7 +191,7 @@ function LeistungenMenu({ open, route }: { open: boolean; route: Route }) {
     >
       <div className="shell grid grid-cols-12 gap-10 py-10">
         <div className="col-span-8">
-          <p className="de-eyebrow text-anthrazit-500">Leistungen</p>
+
           <ul className="mt-4 grid grid-cols-2 gap-x-8">
             {SERVICES_DE.map((service) => {
               const current = route.name === 'service' && route.slug === service.slug;
@@ -591,7 +592,7 @@ export function DeFooter() {
           <p className="font-de-mono text-[12px] uppercase tracking-[0.12em]">Deutsch · Deutschland</p>
         </div>
       </div>
-    </footer>
+    <nav className="sp-react-footer-tool"><HomeShippingLink /></nav></footer>
   );
 }
 

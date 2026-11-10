@@ -1,0 +1,9845 @@
+{
+  "version": 1,
+  "dataMode": "demo",
+  "country": "DE",
+  "language": "de",
+  "locale": "de-DE",
+  "currency": "EUR",
+  "basis": "door-to-door",
+  "postcodePattern": "^\\d{5}$",
+  "contactAnchor": "anfrage",
+  "copy": {
+    "home": "Startseite",
+    "breadcrumb": "Versandkosten & Lieferzeit",
+    "resultTitle": "Ergebnisse: Versandkosten & Lieferzeit",
+    "title": "China nach Deutschland: Versandkosten & Lieferzeit berechnen",
+    "intro": "Versandkosten und Laufzeiten von China nach Deutschland vergleichen: Seefracht, Luftfracht, Express oder Zustellung ab deutschem Lager.",
+    "demo": "Nur zur Orientierung",
+    "demoNote": "Beispielpreise und Laufzeiten, keine Echtzeitangebote oder garantierten Liefertermine. Kontaktieren Sie uns für ein konkretes Angebot und genaue Transportdetails.",
+    "contact": "Preis & Laufzeit anfragen",
+    "oceanType": "Seefrachtsendung",
+    "lcl": "LCL / Sammelcontainer",
+    "fcl": "FCL / Vollcontainer",
+    "containerType": "Containertyp",
+    "containerCount": "Containeranzahl",
+    "lastmile": "Zustellung in Deutschland",
+    "warehouse": "Versandlager",
+    "postcode": "Deutsche Postleitzahl",
+    "deliveryType": "Zustellart",
+    "bothDelivery": "Paket & Lkw vergleichen",
+    "parcel": "Paketzustellung",
+    "truck": "Palette / Lkw",
+    "pallets": "Palettenanzahl",
+    "modeLabel": "Transportart",
+    "sea": "Seefracht",
+    "air": "Luftfracht",
+    "express": "Express",
+    "allModes": "Alle vergleichen",
+    "from": "Abgangsort",
+    "to": "Zielort",
+    "oceanLabel": "Seefrachtservice",
+    "bothOcean": "Alle Seefrachtangebote",
+    "standard": "Standard-Seefracht",
+    "weight": "Bruttogewicht",
+    "volume": "Gesamtvolumen",
+    "search": "Kosten & Lieferzeit prüfen",
+    "cargoHelp": "LCL: Gewicht oder Volumen. FCL: Containertyp und Anzahl. Luftfracht und Express: frachtpflichtiges Gewicht.",
+    "door": "Haus-zu-Haus",
+    "loading": "Beispielrouten werden geladen…",
+    "enquiry": "Angebot für diese Route anfordern",
+    "changed": "Angaben geändert. Bitte erneut suchen.",
+    "empty": "Für diese Route und Leistung ist kein Beispieltarif hinterlegt. Ändern Sie die Auswahl oder fordern Sie ein Angebot an.",
+    "loadError": "Beispielrouten konnten nicht geladen werden. Bitte erneut versuchen.",
+    "retry": "Erneut versuchen",
+    "seaNote": "LCL · nach Gewicht oder Volumen",
+    "airNote": "Frachtpflichtiges Gewicht · Teiler 6.000",
+    "expressNote": "Frachtpflichtiges Gewicht · Teiler 5.000",
+    "transit": "Referenzlaufzeit",
+    "freight": "Geschätzte Frachtkosten",
+    "days": "Tage",
+    "businessDays": "Werktage",
+    "sample": "Beispielschätzung · EUR",
+    "details": "Berechnung im Detail",
+    "ready": "Route wählen und Versandkosten sowie Lieferzeit auf einer eigenen Ergebnisseite prüfen.",
+    "port": "Hafen-zu-Hafen · ohne Inlandzustellung",
+    "mixedBasis": "Leistungsumfang je Angebot",
+    "lastmileBasis": "Lager-zu-Adresse-Referenz",
+    "fclNote": "FCL · Preis pro Container",
+    "lastmileNote": "Inlandzustellung · ohne internationale Fracht",
+    "fclHelp": "FCL-Preis = Containertarif × Anzahl. Nur Hafen-zu-Hafen; lokale Gebühren bitte separat bestätigen.",
+    "lastmileCargoHelp": "Paket nach frachtpflichtigem Gewicht (Teiler 5.000), Lkw nach Palettenanzahl. Getrennte Angebote, nicht addieren.",
+    "lastmileHelp": "Wählen Sie ein Lager und eine hinterlegte Beispiel-Postleitzahl. Verfügbarkeit bitte bestätigen.",
+    "samplePostcode": "Beispiel-PLZ {postcode} verwenden",
+    "sampleHelp": "Demo-Lager: {warehouse}. Beispiel-PLZ: {codes}. Andere PLZ haben keinen Beispieltarif. Lagerverfügbarkeit bitte bestätigen.",
+    "summary": "{n} Angebote · {w} kg · {v} CBM · Beispieldaten",
+    "count": "{n} Transportangebote gefunden.",
+    "containers": "{n} × {type} × EUR {lo}–{hi}/Container. Nur Hafen-zu-Hafen; lokale Gebühren, Zoll, Steuern und Zustellung ausgeschlossen.",
+    "palletCost": "{n} Paletten × EUR {lo}–{hi}/Palette. Sonderleistungen und Zuschläge ausgeschlossen.",
+    "wm": "{q} W/M × EUR {lo}–{hi}/W/M. Maximum aus CBM, kg ÷ 1.000 und Mindestmenge {min}.",
+    "kg": "{q} frachtpflichtige kg × EUR {lo}–{hi}/kg. Maximum aus Brutto, Volumen × 1.000.000 ÷ {d} ({v} kg) und Minimum {min} kg, aufgerundet.",
+    "noVolume": " Kein Volumen angegeben; Packmaße können den Preis erhöhen.",
+    "exclusions": "Nur Demo: keine Echtzeitpreise oder garantierten Termine. FCL: Hafen-zu-Hafen; letzte Meile: Lager-zu-Adresse. Zoll, Steuern, Versicherung, lokale Gebühren und Sonderzuschläge ausgeschlossen. International: Kalendertage; Inland: Werktage. Vorbereitung, Buchung und Zollverzögerungen kommen hinzu.",
+    "guideTitle": "Versandkosten und Laufzeiten nach Deutschland planen",
+    "regionsTitle": "Deutsche Zielregionen und Referenzhäfen",
+    "faqTitle": "Fragen zum Versand China–Deutschland",
+    "openTool": "Rechner auf eigener Seite öffnen",
+    "servicesTitle": "Weiterführende Leistungen",
+    "enquirySuffix": "Bitte aktuelle Preise und Laufzeiten bestätigen.",
+    "fclSummary": "{n} × {type} · Beispielschätzung · EUR",
+    "errors": {
+      "origin": "Gültigen Abgangsort wählen.",
+      "destination": "Gültigen Zielort wählen.",
+      "mode": "Transportart wählen.",
+      "oceanService": "Seefrachtservice wählen.",
+      "oceanType": "LCL oder FCL wählen.",
+      "containerType": "Gültigen Containertyp wählen.",
+      "containerCount": "1–100 ganze Container eingeben.",
+      "warehouse": "Ein deutsches Demo-Lager wählen.",
+      "postcode": "Eine fünfstellige deutsche PLZ eingeben.",
+      "deliveryType": "Zustellart wählen.",
+      "pallets": "1–100 ganze Paletten eingeben.",
+      "weight": "Gewicht über 0 und bis 1.000.000 kg eingeben.",
+      "volume": "Gültiges Volumen bis 10.000 CBM eingeben. LCL erfordert mehr als 0."
+    },
+    "processTitle": "So läuft eine Sendung von China nach Deutschland"
+  },
+  "seo": {
+    "title": "China nach Deutschland: Versandkosten & Lieferzeit berechnen | FreightVanta",
+    "homeTitle": "China–Deutschland: Frachtkosten & Transportzeiten | FreightVanta",
+    "description": "Versandkosten und Lieferzeiten von China nach Deutschland vergleichen: Seefracht LCL/FCL, Luftfracht, Express sowie Zustellung ab deutschem Lager. Demo in EUR.",
+    "keywords": "China nach Deutschland: Versandkosten & Lieferzeit berechnen, Seefracht, Luftfracht, Expresskurier, Zustellung in Deutschland, LCL, FCL"
+  },
+  "sections": [
+    {
+      "title": "Nordhäfen und Binnenziele",
+      "body": "Hamburg und Bremerhaven sind Referenzhäfen für die Seefracht. Berlin, Frankfurt, Duisburg, München und Stuttgart benötigen einen zusätzlichen Inlandstransport. Die FCL-Schätzung endet am angegebenen Hafen; die Zustellung in die Zielstadt ist separat anzufragen."
+    },
+    {
+      "title": "LCL, FCL oder Luftfracht nach Deutschland?",
+      "body": "LCL wird nach Volumen oder Gewicht berechnet. Für 20GP, 40GP und 40HQ zählt beim FCL nur die Anzahl der Container. Luftfracht und Express berücksichtigen das frachtpflichtige Gewicht. Vergleichen Sie nur Angebote mit identischem Leistungsumfang."
+    },
+    {
+      "title": "Deutsche Lager und Postleitzahlen",
+      "body": "Für die letzte Meile wählen Sie einen Demo-Lagerstandort und eine fünfstellige deutsche Postleitzahl. Führende Nullen bleiben erhalten. Die Beispieldaten stehen nur für die ausdrücklich hinterlegten Postleitzahlen zur Verfügung."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Sind die Versandkosten und Lieferzeiten verbindlich?",
+      "answer": "Nein. Alle EUR-Beträge und Laufzeiten sind Beispieldaten. Bitte kontaktieren Sie uns für ein aktuelles Angebot, verfügbare Kapazitäten und den konkreten Transportplan."
+    },
+    {
+      "question": "Sind Zoll und Einfuhrumsatzsteuer enthalten?",
+      "answer": "Nein. Zoll, Einfuhrumsatzsteuer, Versicherung, Hafen- und Sondergebühren sind nicht enthalten. Klären Sie EORI, Warenbeschreibung, Zolltarifnummer und Lieferbedingung vor der Buchung."
+    }
+  ],
+  "origins": [
+    {
+      "id": "shanghai",
+      "de": "Shanghai, China"
+    },
+    {
+      "id": "ningbo",
+      "de": "Ningbo, China"
+    },
+    {
+      "id": "shenzhen",
+      "de": "Shenzhen, China"
+    },
+    {
+      "id": "qingdao",
+      "de": "Qingdao, China"
+    },
+    {
+      "id": "xiamen",
+      "de": "Xiamen, China"
+    },
+    {
+      "id": "guangzhou",
+      "de": "Guangzhou, China"
+    },
+    {
+      "id": "tianjin",
+      "de": "Tianjin, China"
+    },
+    {
+      "id": "dalian",
+      "de": "Dalian, China"
+    },
+    {
+      "id": "fuzhou",
+      "de": "Fuzhou, China"
+    },
+    {
+      "id": "shantou",
+      "de": "Shantou, China"
+    },
+    {
+      "id": "nanjing",
+      "de": "Nanjing, China"
+    },
+    {
+      "id": "suzhou",
+      "de": "Suzhou, China"
+    },
+    {
+      "id": "foshan",
+      "de": "Foshan, China"
+    },
+    {
+      "id": "zhongshan",
+      "de": "Zhongshan, China"
+    },
+    {
+      "id": "zhuhai",
+      "de": "Zhuhai, China"
+    },
+    {
+      "id": "lianyungang",
+      "de": "Lianyungang, China"
+    },
+    {
+      "id": "chongqing",
+      "de": "Chongqing, China"
+    },
+    {
+      "id": "wuhan",
+      "de": "Wuhan, China"
+    },
+    {
+      "id": "yiwu",
+      "de": "Yiwu, China"
+    },
+    {
+      "id": "chengdu",
+      "de": "Chengdu, China"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "hamburg",
+      "region": "Norddeutschland",
+      "port": {
+        "de": "Hamburg"
+      },
+      "de": "Hamburg, Deutschland"
+    },
+    {
+      "id": "bremen",
+      "region": "Norddeutschland",
+      "port": {
+        "de": "Bremerhaven"
+      },
+      "de": "Bremen, Deutschland"
+    },
+    {
+      "id": "berlin",
+      "region": "Ostdeutschland",
+      "port": {
+        "de": "Hamburg"
+      },
+      "de": "Berlin, Deutschland"
+    },
+    {
+      "id": "frankfurt",
+      "region": "Mitte & Westen",
+      "port": {
+        "de": "Hamburg"
+      },
+      "de": "Frankfurt am Main, Deutschland"
+    },
+    {
+      "id": "duisburg",
+      "region": "Mitte & Westen",
+      "port": {
+        "de": "Hamburg"
+      },
+      "de": "Duisburg, Deutschland"
+    },
+    {
+      "id": "munich",
+      "region": "Süddeutschland",
+      "port": {
+        "de": "Hamburg"
+      },
+      "de": "München, Deutschland"
+    },
+    {
+      "id": "stuttgart",
+      "region": "Süddeutschland",
+      "port": {
+        "de": "Hamburg"
+      },
+      "de": "Stuttgart, Deutschland"
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "hamburg-warehouse",
+      "region": "Norddeutschland",
+      "examplePostcode": "20095",
+      "de": "Hamburg"
+    },
+    {
+      "id": "bremen-warehouse",
+      "region": "Norddeutschland",
+      "examplePostcode": "28195",
+      "de": "Bremen"
+    },
+    {
+      "id": "berlin-warehouse",
+      "region": "Ostdeutschland",
+      "examplePostcode": "10115",
+      "de": "Berlin"
+    },
+    {
+      "id": "frankfurt-warehouse",
+      "region": "Mitte & Westen",
+      "examplePostcode": "60311",
+      "de": "Frankfurt am Main"
+    },
+    {
+      "id": "duisburg-warehouse",
+      "region": "Mitte & Westen",
+      "examplePostcode": "47051",
+      "de": "Duisburg"
+    },
+    {
+      "id": "munich-warehouse",
+      "region": "Süddeutschland",
+      "examplePostcode": "80331",
+      "de": "München"
+    },
+    {
+      "id": "stuttgart-warehouse",
+      "region": "Süddeutschland",
+      "examplePostcode": "70173",
+      "de": "Stuttgart"
+    }
+  ],
+  "services": [
+    {
+      "id": "standard",
+      "mode": "sea",
+      "billing": "wm",
+      "minimum": 1,
+      "de": "Standard-Seefracht"
+    },
+    {
+      "id": "air",
+      "mode": "air",
+      "billing": "kg",
+      "minimum": 45,
+      "divisor": 6000,
+      "increment": 1,
+      "de": "Luftfracht"
+    },
+    {
+      "id": "express",
+      "mode": "express",
+      "billing": "kg",
+      "minimum": 0.5,
+      "divisor": 5000,
+      "increment": 0.5,
+      "de": "Expresskurier"
+    },
+    {
+      "id": "de-parcel",
+      "mode": "lastmile",
+      "deliveryType": "parcel",
+      "billing": "kg",
+      "minimum": 1,
+      "divisor": 5000,
+      "increment": 0.5,
+      "de": "Paketzustellung"
+    },
+    {
+      "id": "de-truck",
+      "mode": "lastmile",
+      "deliveryType": "truck",
+      "billing": "pallet",
+      "minimum": 1,
+      "de": "Palette / Lkw"
+    }
+  ],
+  "routes": [
+    {
+      "origin": "shanghai",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            145,
+            210
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            5.6,
+            7.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.2,
+            13.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            156,
+            221
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            5.8,
+            8.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.3,
+            13.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            167,
+            232
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.0,
+            8.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.5,
+            13.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            178,
+            243
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.1,
+            8.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.7,
+            13.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            189,
+            254
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.3,
+            8.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.8,
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            200,
+            265
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.5,
+            8.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.9,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            211,
+            276
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.1,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            152,
+            217
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            5.7,
+            8.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.3,
+            13.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            163,
+            228
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            5.9,
+            8.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.5,
+            13.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            174,
+            239
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.1,
+            8.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.6,
+            13.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            185,
+            250
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.2,
+            8.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.8,
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            196,
+            261
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.4,
+            8.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.9,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            207,
+            272
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.6,
+            8.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.1,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            218,
+            283
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            159,
+            224
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            5.8,
+            8.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.4,
+            13.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            170,
+            235
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.0,
+            8.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.6,
+            13.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            181,
+            246
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.2,
+            8.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.7,
+            13.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            192,
+            257
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.3,
+            8.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.9,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            203,
+            268
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.5,
+            8.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.0,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            214,
+            279
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            225,
+            290
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            166,
+            231
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            5.9,
+            8.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.6,
+            13.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            177,
+            242
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.1,
+            8.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.7,
+            13.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            188,
+            253
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.3,
+            8.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.9,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            199,
+            264
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.4,
+            8.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.0,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            210,
+            275
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.6,
+            8.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            221,
+            286
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            232,
+            297
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            173,
+            238
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.0,
+            8.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.7,
+            13.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            184,
+            249
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.2,
+            8.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.8,
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            195,
+            260
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.4,
+            8.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.0,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            206,
+            271
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.5,
+            8.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.1,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            217,
+            282
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            228,
+            293
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.4,
+            14.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            239,
+            304
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            180,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.1,
+            8.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.8,
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            191,
+            256
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.3,
+            8.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.9,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            202,
+            267
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.5,
+            8.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.1,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            213,
+            278
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.6,
+            8.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            224,
+            289
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.4,
+            14.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            235,
+            300
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            246,
+            311
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            187,
+            252
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.2,
+            8.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.9,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            198,
+            263
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.4,
+            8.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.1,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            209,
+            274
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.6,
+            8.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            220,
+            285
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.4,
+            14.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            231,
+            296
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            242,
+            307
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            253,
+            318
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            194,
+            259
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.3,
+            8.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.0,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            205,
+            270
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.5,
+            8.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            216,
+            281
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            227,
+            292
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            238,
+            303
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            249,
+            314
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            260,
+            325
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            201,
+            266
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.4,
+            8.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.2,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            212,
+            277
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.6,
+            8.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            223,
+            288
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            234,
+            299
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            245,
+            310
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            256,
+            321
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            267,
+            332
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            208,
+            273
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.5,
+            8.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            219,
+            284
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.4,
+            14.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            230,
+            295
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            241,
+            306
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            252,
+            317
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            263,
+            328
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            274,
+            339
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            215,
+            280
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.6,
+            8.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.4,
+            14.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            226,
+            291
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            237,
+            302
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            248,
+            313
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            259,
+            324
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            270,
+            335
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            281,
+            346
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.3,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            222,
+            287
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            233,
+            298
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            244,
+            309
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            255,
+            320
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            266,
+            331
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            277,
+            342
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.3,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            288,
+            353
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            229,
+            294
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            240,
+            305
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            251,
+            316
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            262,
+            327
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            273,
+            338
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            284,
+            349
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            295,
+            360
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            236,
+            301
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            247,
+            312
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            258,
+            323
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            269,
+            334
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            280,
+            345
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            291,
+            356
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            302,
+            367
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            243,
+            308
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            254,
+            319
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            265,
+            330
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            276,
+            341
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.3,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            287,
+            352
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            298,
+            363
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            309,
+            374
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            250,
+            315
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            261,
+            326
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            272,
+            337
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.3,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            283,
+            348
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            294,
+            359
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            305,
+            370
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            316,
+            381
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            257,
+            322
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.1,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            268,
+            333
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.3,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            279,
+            344
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            290,
+            355
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            301,
+            366
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            312,
+            377
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            323,
+            388
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            264,
+            329
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            275,
+            340
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            286,
+            351
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            297,
+            362
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            308,
+            373
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            319,
+            384
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            330,
+            395
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            271,
+            336
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.4,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            282,
+            347
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            293,
+            358
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            304,
+            369
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            315,
+            380
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            326,
+            391
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            337,
+            402
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.3,
+            16.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            278,
+            343
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            289,
+            354
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            300,
+            365
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            311,
+            376
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            322,
+            387
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            55
+          ],
+          "rate": [
+            333,
+            398
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.2,
+            16.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            344,
+            409
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.6,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.4,
+            16.6
+          ]
+        }
+      ]
+    }
+  ],
+  "fclRoutes": [
+    {
+      "origin": "shanghai",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2200,
+              3050
+            ],
+            "40gp": [
+              3150,
+              4150
+            ],
+            "40hc": [
+              3350,
+              4450
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2500,
+              3380
+            ],
+            "40gp": [
+              3480,
+              4510
+            ],
+            "40hc": [
+              3690,
+              4820
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2460,
+              3420
+            ],
+            "40gp": [
+              3530,
+              4650
+            ],
+            "40hc": [
+              3750,
+              4980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2530,
+              3510
+            ],
+            "40gp": [
+              3620,
+              4770
+            ],
+            "40hc": [
+              3850,
+              5120
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2350,
+              3260
+            ],
+            "40gp": [
+              3370,
+              4440
+            ],
+            "40hc": [
+              3580,
+              4760
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2640,
+              3660
+            ],
+            "40gp": [
+              3780,
+              4980
+            ],
+            "40hc": [
+              4020,
+              5340
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2570,
+              3570
+            ],
+            "40gp": [
+              3690,
+              4860
+            ],
+            "40hc": [
+              3920,
+              5210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2280,
+              3140
+            ],
+            "40gp": [
+              3240,
+              4240
+            ],
+            "40hc": [
+              3440,
+              4540
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2590,
+              3470
+            ],
+            "40gp": [
+              3570,
+              4600
+            ],
+            "40hc": [
+              3770,
+              4910
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2560,
+              3510
+            ],
+            "40gp": [
+              3620,
+              4740
+            ],
+            "40hc": [
+              3850,
+              5080
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2630,
+              3610
+            ],
+            "40gp": [
+              3720,
+              4870
+            ],
+            "40hc": [
+              3950,
+              5220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2440,
+              3350
+            ],
+            "40gp": [
+              3460,
+              4530
+            ],
+            "40hc": [
+              3680,
+              4850
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2740,
+              3760
+            ],
+            "40gp": [
+              3880,
+              5080
+            ],
+            "40hc": [
+              4120,
+              5440
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2670,
+              3670
+            ],
+            "40gp": [
+              3780,
+              4950
+            ],
+            "40hc": [
+              4020,
+              5310
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2370,
+              3220
+            ],
+            "40gp": [
+              3320,
+              4320
+            ],
+            "40hc": [
+              3520,
+              4620
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2680,
+              3550
+            ],
+            "40gp": [
+              3660,
+              4690
+            ],
+            "40hc": [
+              3860,
+              5000
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2650,
+              3610
+            ],
+            "40gp": [
+              3720,
+              4840
+            ],
+            "40hc": [
+              3940,
+              5170
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2730,
+              3700
+            ],
+            "40gp": [
+              3820,
+              4970
+            ],
+            "40hc": [
+              4050,
+              5310
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3450
+            ],
+            "40gp": [
+              3550,
+              4620
+            ],
+            "40hc": [
+              3770,
+              4940
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2840,
+              3860
+            ],
+            "40gp": [
+              3980,
+              5180
+            ],
+            "40hc": [
+              4220,
+              5540
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2770,
+              3770
+            ],
+            "40gp": [
+              3880,
+              5050
+            ],
+            "40hc": [
+              4120,
+              5410
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2460,
+              3300
+            ],
+            "40gp": [
+              3400,
+              4400
+            ],
+            "40hc": [
+              3600,
+              4700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2770,
+              3640
+            ],
+            "40gp": [
+              3740,
+              4770
+            ],
+            "40hc": [
+              3950,
+              5080
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2750,
+              3700
+            ],
+            "40gp": [
+              3810,
+              4930
+            ],
+            "40hc": [
+              4040,
+              5270
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2820,
+              3800
+            ],
+            "40gp": [
+              3920,
+              5070
+            ],
+            "40hc": [
+              4150,
+              5410
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2630,
+              3540
+            ],
+            "40gp": [
+              3640,
+              4710
+            ],
+            "40hc": [
+              3860,
+              5030
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2950,
+              3970
+            ],
+            "40gp": [
+              4090,
+              5290
+            ],
+            "40hc": [
+              4330,
+              5650
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2870,
+              3870
+            ],
+            "40gp": [
+              3980,
+              5150
+            ],
+            "40hc": [
+              4220,
+              5500
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3390
+            ],
+            "40gp": [
+              3490,
+              4490
+            ],
+            "40hc": [
+              3690,
+              4790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              2850,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4860
+            ],
+            "40hc": [
+              4040,
+              5170
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2840,
+              3800
+            ],
+            "40gp": [
+              3910,
+              5030
+            ],
+            "40hc": [
+              4130,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2920,
+              3900
+            ],
+            "40gp": [
+              4010,
+              5160
+            ],
+            "40hc": [
+              4240,
+              5510
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2720,
+              3630
+            ],
+            "40gp": [
+              3730,
+              4800
+            ],
+            "40hc": [
+              3950,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              4070
+            ],
+            "40gp": [
+              4190,
+              5390
+            ],
+            "40hc": [
+              4430,
+              5750
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2970,
+              3970
+            ],
+            "40gp": [
+              4080,
+              5250
+            ],
+            "40hc": [
+              4320,
+              5600
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2620,
+              3480
+            ],
+            "40gp": [
+              3580,
+              4580
+            ],
+            "40hc": [
+              3780,
+              4880
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3820
+            ],
+            "40gp": [
+              3920,
+              4950
+            ],
+            "40hc": [
+              4130,
+              5260
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3890
+            ],
+            "40gp": [
+              4000,
+              5120
+            ],
+            "40hc": [
+              4230,
+              5460
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3020,
+              4000
+            ],
+            "40gp": [
+              4110,
+              5260
+            ],
+            "40hc": [
+              4340,
+              5610
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2810,
+              3720
+            ],
+            "40gp": [
+              3830,
+              4900
+            ],
+            "40hc": [
+              4040,
+              5220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3150,
+              4170
+            ],
+            "40gp": [
+              4290,
+              5490
+            ],
+            "40hc": [
+              4530,
+              5850
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3070,
+              4070
+            ],
+            "40gp": [
+              4180,
+              5350
+            ],
+            "40hc": [
+              4420,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3030,
+              3900
+            ],
+            "40gp": [
+              4010,
+              5040
+            ],
+            "40hc": [
+              4210,
+              5350
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3040,
+              3990
+            ],
+            "40gp": [
+              4100,
+              5220
+            ],
+            "40hc": [
+              4320,
+              5560
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3120,
+              4090
+            ],
+            "40gp": [
+              4210,
+              5360
+            ],
+            "40hc": [
+              4440,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2900,
+              3810
+            ],
+            "40gp": [
+              3920,
+              4990
+            ],
+            "40hc": [
+              4130,
+              5310
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3250,
+              4270
+            ],
+            "40gp": [
+              4390,
+              5590
+            ],
+            "40hc": [
+              4630,
+              5950
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3170,
+              4170
+            ],
+            "40gp": [
+              4280,
+              5450
+            ],
+            "40hc": [
+              4520,
+              5800
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2800,
+              3640
+            ],
+            "40gp": [
+              3740,
+              4740
+            ],
+            "40hc": [
+              3940,
+              5040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3120,
+              3990
+            ],
+            "40gp": [
+              4090,
+              5120
+            ],
+            "40hc": [
+              4300,
+              5430
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3130,
+              4080
+            ],
+            "40gp": [
+              4190,
+              5310
+            ],
+            "40hc": [
+              4420,
+              5650
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3210,
+              4190
+            ],
+            "40gp": [
+              4310,
+              5460
+            ],
+            "40hc": [
+              4540,
+              5800
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2990,
+              3900
+            ],
+            "40gp": [
+              4010,
+              5080
+            ],
+            "40hc": [
+              4220,
+              5400
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3350,
+              4370
+            ],
+            "40gp": [
+              4490,
+              5690
+            ],
+            "40hc": [
+              4730,
+              6050
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3270,
+              4260
+            ],
+            "40gp": [
+              4380,
+              5550
+            ],
+            "40hc": [
+              4620,
+              5900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3200,
+              4080
+            ],
+            "40gp": [
+              4180,
+              5210
+            ],
+            "40hc": [
+              4390,
+              5520
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3230,
+              4180
+            ],
+            "40gp": [
+              4290,
+              5410
+            ],
+            "40hc": [
+              4510,
+              5750
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3310,
+              4290
+            ],
+            "40gp": [
+              4400,
+              5550
+            ],
+            "40hc": [
+              4630,
+              5900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3080,
+              3990
+            ],
+            "40gp": [
+              4100,
+              5170
+            ],
+            "40hc": [
+              4310,
+              5490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3460,
+              4480
+            ],
+            "40gp": [
+              4600,
+              5800
+            ],
+            "40hc": [
+              4840,
+              6160
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3370,
+              4360
+            ],
+            "40gp": [
+              4480,
+              5650
+            ],
+            "40hc": [
+              4720,
+              6000
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              2960,
+              3820
+            ],
+            "40gp": [
+              3920,
+              4920
+            ],
+            "40hc": [
+              4120,
+              5220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3290,
+              4170
+            ],
+            "40gp": [
+              4270,
+              5300
+            ],
+            "40hc": [
+              4480,
+              5610
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3320,
+              4270
+            ],
+            "40gp": [
+              4380,
+              5500
+            ],
+            "40hc": [
+              4610,
+              5840
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3410,
+              4390
+            ],
+            "40gp": [
+              4500,
+              5650
+            ],
+            "40hc": [
+              4730,
+              6000
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3170,
+              4080
+            ],
+            "40gp": [
+              4190,
+              5260
+            ],
+            "40hc": [
+              4400,
+              5580
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4580
+            ],
+            "40gp": [
+              4700,
+              5900
+            ],
+            "40hc": [
+              4940,
+              6260
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3470,
+              4460
+            ],
+            "40gp": [
+              4580,
+              5750
+            ],
+            "40hc": [
+              4810,
+              6100
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3380,
+              4250
+            ],
+            "40gp": [
+              4360,
+              5390
+            ],
+            "40hc": [
+              4560,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3420,
+              4370
+            ],
+            "40gp": [
+              4480,
+              5600
+            ],
+            "40hc": [
+              4700,
+              5940
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3510,
+              4480
+            ],
+            "40gp": [
+              4600,
+              5750
+            ],
+            "40hc": [
+              4830,
+              6090
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3260,
+              4170
+            ],
+            "40gp": [
+              4280,
+              5350
+            ],
+            "40hc": [
+              4490,
+              5670
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3660,
+              4680
+            ],
+            "40gp": [
+              4800,
+              6000
+            ],
+            "40hc": [
+              5040,
+              6360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3570,
+              4560
+            ],
+            "40gp": [
+              4680,
+              5850
+            ],
+            "40hc": [
+              4910,
+              6200
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3140,
+              3980
+            ],
+            "40gp": [
+              4080,
+              5080
+            ],
+            "40hc": [
+              4280,
+              5380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3470,
+              4340
+            ],
+            "40gp": [
+              4440,
+              5470
+            ],
+            "40hc": [
+              4650,
+              5780
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3510,
+              4460
+            ],
+            "40gp": [
+              4580,
+              5700
+            ],
+            "40hc": [
+              4800,
+              6030
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3610,
+              4580
+            ],
+            "40gp": [
+              4700,
+              5850
+            ],
+            "40hc": [
+              4930,
+              6190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3350,
+              4260
+            ],
+            "40gp": [
+              4370,
+              5440
+            ],
+            "40hc": [
+              4580,
+              5760
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3760,
+              4780
+            ],
+            "40gp": [
+              4900,
+              6100
+            ],
+            "40hc": [
+              5140,
+              6460
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3670,
+              4660
+            ],
+            "40gp": [
+              4780,
+              5950
+            ],
+            "40hc": [
+              5010,
+              6300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3550,
+              4430
+            ],
+            "40gp": [
+              4530,
+              5560
+            ],
+            "40hc": [
+              4740,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3610,
+              4560
+            ],
+            "40gp": [
+              4670,
+              5790
+            ],
+            "40hc": [
+              4890,
+              6130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3700,
+              4680
+            ],
+            "40gp": [
+              4800,
+              5950
+            ],
+            "40hc": [
+              5030,
+              6290
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4350
+            ],
+            "40gp": [
+              4460,
+              5530
+            ],
+            "40hc": [
+              4680,
+              5850
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3860,
+              4880
+            ],
+            "40gp": [
+              5000,
+              6200
+            ],
+            "40hc": [
+              5240,
+              6560
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3770,
+              4760
+            ],
+            "40gp": [
+              4880,
+              6050
+            ],
+            "40hc": [
+              5110,
+              6400
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3300,
+              4160
+            ],
+            "40gp": [
+              4260,
+              5260
+            ],
+            "40hc": [
+              4460,
+              5560
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3640,
+              4520
+            ],
+            "40gp": [
+              4620,
+              5650
+            ],
+            "40hc": [
+              4830,
+              5960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3700,
+              4650
+            ],
+            "40gp": [
+              4770,
+              5890
+            ],
+            "40hc": [
+              4990,
+              6220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3800,
+              4780
+            ],
+            "40gp": [
+              4890,
+              6040
+            ],
+            "40hc": [
+              5120,
+              6390
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3540,
+              4450
+            ],
+            "40gp": [
+              4550,
+              5620
+            ],
+            "40hc": [
+              4770,
+              5940
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3970,
+              4990
+            ],
+            "40gp": [
+              5110,
+              6310
+            ],
+            "40hc": [
+              5350,
+              6670
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3870,
+              4860
+            ],
+            "40gp": [
+              4980,
+              6150
+            ],
+            "40hc": [
+              5210,
+              6500
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4600
+            ],
+            "40gp": [
+              4710,
+              5740
+            ],
+            "40hc": [
+              4910,
+              6050
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3800,
+              4750
+            ],
+            "40gp": [
+              4860,
+              5980
+            ],
+            "40hc": [
+              5080,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4880
+            ],
+            "40gp": [
+              4990,
+              6140
+            ],
+            "40hc": [
+              5220,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3630,
+              4540
+            ],
+            "40gp": [
+              4640,
+              5710
+            ],
+            "40hc": [
+              4860,
+              6030
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              5090
+            ],
+            "40gp": [
+              5210,
+              6410
+            ],
+            "40hc": [
+              5450,
+              6770
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3970,
+              4960
+            ],
+            "40gp": [
+              5080,
+              6250
+            ],
+            "40hc": [
+              5310,
+              6600
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3480,
+              4320
+            ],
+            "40gp": [
+              4420,
+              5420
+            ],
+            "40hc": [
+              4620,
+              5720
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3820,
+              4690
+            ],
+            "40gp": [
+              4790,
+              5820
+            ],
+            "40hc": [
+              5000,
+              6130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3890,
+              4840
+            ],
+            "40gp": [
+              4960,
+              6080
+            ],
+            "40hc": [
+              5180,
+              6410
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4000,
+              4970
+            ],
+            "40gp": [
+              5090,
+              6240
+            ],
+            "40hc": [
+              5320,
+              6580
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3720,
+              4630
+            ],
+            "40gp": [
+              4730,
+              5800
+            ],
+            "40hc": [
+              4950,
+              6130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4170,
+              5190
+            ],
+            "40gp": [
+              5310,
+              6510
+            ],
+            "40hc": [
+              5550,
+              6870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              5060
+            ],
+            "40gp": [
+              5180,
+              6350
+            ],
+            "40hc": [
+              5410,
+              6700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4780
+            ],
+            "40gp": [
+              4880,
+              5910
+            ],
+            "40hc": [
+              5090,
+              6220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3990,
+              4940
+            ],
+            "40gp": [
+              5050,
+              6170
+            ],
+            "40hc": [
+              5280,
+              6510
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4090,
+              5070
+            ],
+            "40gp": [
+              5190,
+              6340
+            ],
+            "40hc": [
+              5420,
+              6680
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3810,
+              4720
+            ],
+            "40gp": [
+              4830,
+              5900
+            ],
+            "40hc": [
+              5040,
+              6220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4270,
+              5290
+            ],
+            "40gp": [
+              5410,
+              6610
+            ],
+            "40hc": [
+              5650,
+              6970
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4170,
+              5160
+            ],
+            "40gp": [
+              5280,
+              6450
+            ],
+            "40hc": [
+              5510,
+              6800
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3640,
+              4500
+            ],
+            "40gp": [
+              4600,
+              5600
+            ],
+            "40hc": [
+              4800,
+              5900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3990,
+              4870
+            ],
+            "40gp": [
+              4970,
+              6000
+            ],
+            "40hc": [
+              5180,
+              6310
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4080,
+              5030
+            ],
+            "40gp": [
+              5150,
+              6270
+            ],
+            "40hc": [
+              5370,
+              6600
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4190,
+              5170
+            ],
+            "40gp": [
+              5280,
+              6430
+            ],
+            "40hc": [
+              5510,
+              6780
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4810
+            ],
+            "40gp": [
+              4920,
+              5990
+            ],
+            "40hc": [
+              5130,
+              6310
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4370,
+              5390
+            ],
+            "40gp": [
+              5510,
+              6710
+            ],
+            "40hc": [
+              5750,
+              7070
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4260,
+              5260
+            ],
+            "40gp": [
+              5380,
+              6550
+            ],
+            "40hc": [
+              5610,
+              6900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4080,
+              4950
+            ],
+            "40gp": [
+              5060,
+              6090
+            ],
+            "40hc": [
+              5260,
+              6400
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4180,
+              5130
+            ],
+            "40gp": [
+              5240,
+              6360
+            ],
+            "40hc": [
+              5470,
+              6700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4290,
+              5270
+            ],
+            "40gp": [
+              5380,
+              6530
+            ],
+            "40hc": [
+              5610,
+              6880
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3990,
+              4900
+            ],
+            "40gp": [
+              5010,
+              6080
+            ],
+            "40hc": [
+              5220,
+              6400
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4480,
+              5500
+            ],
+            "40gp": [
+              5620,
+              6820
+            ],
+            "40hc": [
+              5860,
+              7180
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4360,
+              5360
+            ],
+            "40gp": [
+              5480,
+              6650
+            ],
+            "40hc": [
+              5710,
+              7000
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "hamburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3820,
+              4660
+            ],
+            "40gp": [
+              4760,
+              5760
+            ],
+            "40hc": [
+              4960,
+              6060
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bremen",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4170,
+              5040
+            ],
+            "40gp": [
+              5140,
+              6170
+            ],
+            "40hc": [
+              5350,
+              6480
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "berlin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4270,
+              5220
+            ],
+            "40gp": [
+              5340,
+              6460
+            ],
+            "40hc": [
+              5560,
+              6790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "frankfurt",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4390,
+              5360
+            ],
+            "40gp": [
+              5480,
+              6630
+            ],
+            "40hc": [
+              5710,
+              6970
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "duisburg",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4080,
+              4990
+            ],
+            "40gp": [
+              5100,
+              6170
+            ],
+            "40hc": [
+              5310,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "munich",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4580,
+              5600
+            ],
+            "40gp": [
+              5720,
+              6920
+            ],
+            "40hc": [
+              5960,
+              7280
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "stuttgart",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4460,
+              5460
+            ],
+            "40gp": [
+              5580,
+              6750
+            ],
+            "40hc": [
+              5810,
+              7100
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "lastMileRoutes": [
+    {
+      "warehouse": "hamburg-warehouse",
+      "postcode": "20095",
+      "offers": [
+        {
+          "service": "de-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            0.75,
+            1.3
+          ]
+        },
+        {
+          "service": "de-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            80,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "bremen-warehouse",
+      "postcode": "28195",
+      "offers": [
+        {
+          "service": "de-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            0.79,
+            1.35
+          ]
+        },
+        {
+          "service": "de-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            88,
+            154
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "berlin-warehouse",
+      "postcode": "10115",
+      "offers": [
+        {
+          "service": "de-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            0.83,
+            1.4
+          ]
+        },
+        {
+          "service": "de-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            96,
+            163
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "frankfurt-warehouse",
+      "postcode": "60311",
+      "offers": [
+        {
+          "service": "de-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            0.87,
+            1.45
+          ]
+        },
+        {
+          "service": "de-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            104,
+            172
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "duisburg-warehouse",
+      "postcode": "47051",
+      "offers": [
+        {
+          "service": "de-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            0.91,
+            1.5
+          ]
+        },
+        {
+          "service": "de-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            112,
+            181
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "munich-warehouse",
+      "postcode": "80331",
+      "offers": [
+        {
+          "service": "de-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            0.95,
+            1.55
+          ]
+        },
+        {
+          "service": "de-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            120,
+            190
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "stuttgart-warehouse",
+      "postcode": "70173",
+      "offers": [
+        {
+          "service": "de-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            0.99,
+            1.6
+          ]
+        },
+        {
+          "service": "de-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            128,
+            199
+          ]
+        }
+      ]
+    }
+  ],
+  "process": [
+    {
+      "No": "01",
+      "Title": "Abholung beim Lieferanten",
+      "Body": "Ware bereitstellen, Ladebedingungen und Abholfenster bestätigen. Jede Verzögerung hier verschiebt alle späteren Termine."
+    },
+    {
+      "No": "02",
+      "Title": "Exportabfertigung",
+      "Body": "Exportanmeldung, Warenbeschreibung und Buchungsschluss passend zur gewählten Abfahrt. Dokumente werden vor dem Schließen des Containers geprüft."
+    },
+    {
+      "No": "03",
+      "Title": "Seefracht oder Luftfracht",
+      "Body": "Der Hauptlauf mit einem Fahrplan, den Sie gegenprüfen können, statt einer Schätzung. Hafen- oder Flughafenpaare richten sich nach der gewählten Route."
+    },
+    {
+      "No": "04",
+      "Title": "Einfuhr nach Deutschland",
+      "Body": "EORI-Nummer, Zollanmeldung und Einfuhrumsatzsteuer. Die Warennummer bestimmt Zollsatz und mögliche Beschränkungen."
+    },
+    {
+      "No": "05",
+      "Title": "Hafen bis Haustür",
+      "Body": "Containerfreigabe, Entladung bei Sammelgut und ein Zustelltermin, der zu Öffnungszeiten und Ausstattung des Empfängers passt."
+    },
+    {
+      "No": "06",
+      "Title": "Zustellung und Nachweis",
+      "Body": "Unterschriebener Liefernachweis, dokumentierte Abweichungen und archivierte Unterlagen, damit die nächste Sendung von einem klaren Stand startet."
+    }
+  ],
+  "regionOrder": [
+    "Norddeutschland",
+    "Ostdeutschland",
+    "Mitte & Westen",
+    "Süddeutschland"
+  ]
+}

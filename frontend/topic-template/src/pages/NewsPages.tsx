@@ -340,8 +340,8 @@ export function NewsPage() {
       {/* Editorial standards */}
       <section aria-labelledby="news-standards" className="bg-navy-950 py-14 text-white sm:py-16 lg:py-20">
         <div className="shell">
-          <p className="eyebrow text-signal-300">How we publish</p>
-          <h2 id="news-standards" className="mt-4 max-w-2xl font-display text-[2rem] font-semibold leading-tight sm:text-[2.5rem]">
+
+          <h2 id="news-standards" className="max-w-2xl font-display text-[2rem] font-semibold leading-tight sm:text-[2.5rem]">
             News you can plan from — not headlines you have to decode.
           </h2>
           <ul className="mt-10 grid gap-8 md:grid-cols-3">
@@ -615,7 +615,7 @@ function NewsDetail({ item }: { item: NewsItem }) {
               </nav>
 
               <div className="rounded-[4px] bg-navy-900 p-7 text-white">
-                <p className="eyebrow text-signal-300">Request a shipment plan</p>
+                <p className="text-sm font-semibold text-signal-300">Request a shipment plan</p>
                 <p className="mt-4 font-display text-2xl font-semibold leading-snug">Facing this situation?</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-navy-200">
                   Start with a product link, a shipment brief, or the route you need to plan.

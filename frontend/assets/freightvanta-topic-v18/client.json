@@ -1,31 +1,31 @@
 {
-  "entry": "/assets/freightvanta-topic-v18/assets/topic-DySdZ2pk.js",
+  "entry": "/assets/freightvanta-topic-v18/assets/topic-D0W0plcq.js",
   "preloads": {
     "en": [
-      "/assets/freightvanta-topic-v18/assets/seo-DkLMKTx6.js",
-      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/en-XZ-q2qwA.js"
+      "/assets/freightvanta-topic-v18/assets/seo-BFHWnjjq.js",
+      "/assets/freightvanta-topic-v18/assets/index-CthZV_t0.js",
+      "/assets/freightvanta-topic-v18/assets/en-CqLnFuyT.js"
     ],
     "de": [
-      "/assets/freightvanta-topic-v18/assets/seo-DkLMKTx6.js",
-      "/assets/freightvanta-topic-v18/assets/index-2sKyYihH.js",
-      "/assets/freightvanta-topic-v18/assets/de-CvsuNSqY.js"
+      "/assets/freightvanta-topic-v18/assets/seo-BFHWnjjq.js",
+      "/assets/freightvanta-topic-v18/assets/index-CthZV_t0.js",
+      "/assets/freightvanta-topic-v18/assets/de-XWcDprk7.js"
     ],
     "fr": [
-      "/assets/freightvanta-topic-v18/assets/seo-DkLMKTx6.js",
-      "/assets/freightvanta-topic-v18/assets/fr-K58pbx_J.js"
+      "/assets/freightvanta-topic-v18/assets/seo-BFHWnjjq.js",
+      "/assets/freightvanta-topic-v18/assets/fr-1YtZZR7v.js"
     ],
     "es": [
-      "/assets/freightvanta-topic-v18/assets/seo-DkLMKTx6.js",
-      "/assets/freightvanta-topic-v18/assets/es-BFYWVb8I.js"
+      "/assets/freightvanta-topic-v18/assets/seo-BFHWnjjq.js",
+      "/assets/freightvanta-topic-v18/assets/es-BEwuhgyw.js"
     ],
     "it": [
-      "/assets/freightvanta-topic-v18/assets/seo-DkLMKTx6.js",
-      "/assets/freightvanta-topic-v18/assets/it-Cla7k6Bt.js"
+      "/assets/freightvanta-topic-v18/assets/seo-BFHWnjjq.js",
+      "/assets/freightvanta-topic-v18/assets/it-CX2CgkWu.js"
     ],
     "nl": [
-      "/assets/freightvanta-topic-v18/assets/seo-DkLMKTx6.js",
-      "/assets/freightvanta-topic-v18/assets/nl-CFYK-MY9.js"
+      "/assets/freightvanta-topic-v18/assets/seo-BFHWnjjq.js",
+      "/assets/freightvanta-topic-v18/assets/nl-B4oNrZtB.js"
     ]
   }
 }

@@ -1,0 +1,23 @@
+/* Shared public contact entry, outside React roots and header menus. */
+a.fv-whatsapp {
+  position: fixed; z-index: 60; inset-inline-end: max(20px, env(safe-area-inset-right));
+  top: 50%; transform: translateY(-50%);
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 52px; padding: 12px 17px; border: 0; border-radius: 999px;
+  background: #107d43; color: #fff;
+  box-shadow: 0 6px 20px -6px rgba(5, 30, 19, .35);
+  font: 600 14px/1.2 Arial, Helvetica, sans-serif; text-decoration: none;
+  white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+a.fv-whatsapp:hover { background: #0b6636; color: #fff; text-decoration: none; }
+a.fv-whatsapp:focus-visible { outline: 3px solid #0a1b33; outline-offset: 4px; }
+a.fv-whatsapp svg { display: block; flex: none; width: 28px; height: 28px; fill: currentColor; stroke: none; }
+@media (max-width: 640px) {
+  a.fv-whatsapp {
+    inset-inline-end: max(12px, env(safe-area-inset-right)); top: auto;
+    bottom: max(var(--fv-whatsapp-bottom, 24px), env(safe-area-inset-bottom));
+    transform: none; width: 52px; padding: 12px;
+  }
+  a.fv-whatsapp span { display: none; }
+}
+@media print { a.fv-whatsapp { display: none; } }

@@ -1,0 +1,9846 @@
+{
+  "version": 1,
+  "dataMode": "demo",
+  "country": "ES",
+  "language": "es",
+  "locale": "es-ES",
+  "currency": "EUR",
+  "basis": "door-to-door",
+  "postcodePattern": "^\\d{5}$",
+  "contactAnchor": "solicitud",
+  "copy": {
+    "home": "Inicio",
+    "breadcrumb": "Costes y tiempos de envío",
+    "resultTitle": "Resultados: costes y plazos",
+    "title": "China a España: consulta de costes y tiempos de envío",
+    "intro": "Estima costes y tiempos desde China a España por mar, avión o mensajería, o consulta el reparto desde un almacén español.",
+    "demo": "Solo orientativo",
+    "demoNote": "Precios y plazos de demostración; no son cotizaciones en tiempo real ni fechas garantizadas. Contacta con nosotros para un presupuesto específico.",
+    "contact": "Consultar precio y plazo",
+    "oceanType": "Envío marítimo",
+    "lcl": "LCL / grupaje",
+    "fcl": "FCL / contenedor completo",
+    "containerType": "Tipo de contenedor",
+    "containerCount": "Cantidad de contenedores",
+    "lastmile": "Última milla en España",
+    "warehouse": "Almacén de salida",
+    "postcode": "Código postal español",
+    "deliveryType": "Método de entrega",
+    "bothDelivery": "Comparar paquetería y camión",
+    "parcel": "Paquetería",
+    "truck": "Palé / camión",
+    "pallets": "Cantidad de palés",
+    "modeLabel": "Modalidad de transporte",
+    "sea": "Transporte marítimo",
+    "air": "Transporte aéreo",
+    "express": "Exprés",
+    "allModes": "Comparar todo",
+    "from": "Origen",
+    "to": "Destino",
+    "oceanLabel": "Servicio marítimo",
+    "bothOcean": "Todos los servicios marítimos",
+    "standard": "Marítimo estándar",
+    "weight": "Peso bruto",
+    "volume": "Volumen total",
+    "search": "Consultar costes y plazos",
+    "cargoHelp": "LCL: peso o volumen. FCL: tipo y cantidad de contenedores. Avión y mensajería: peso facturable.",
+    "door": "Puerta a puerta",
+    "loading": "Cargando rutas de demostración…",
+    "enquiry": "Solicitar presupuesto para esta ruta",
+    "changed": "Datos modificados. Vuelve a buscar.",
+    "empty": "No hay tarifa de ejemplo para esta ruta y servicio. Cambia la selección o solicita presupuesto.",
+    "loadError": "No se pudieron cargar las rutas. Inténtalo de nuevo.",
+    "retry": "Reintentar",
+    "seaNote": "LCL · por peso o volumen",
+    "airNote": "Peso facturable · divisor 6.000",
+    "expressNote": "Peso facturable · divisor 5.000",
+    "transit": "Plazo orientativo",
+    "freight": "Coste estimado",
+    "days": "días",
+    "businessDays": "días laborables",
+    "sample": "Estimación de demostración · EUR",
+    "details": "Detalle del cálculo",
+    "ready": "Selecciona la ruta para consultar costes y plazos en una página de resultados.",
+    "port": "Puerto a puerto · sin reparto interior",
+    "mixedBasis": "Alcance indicado en cada oferta",
+    "lastmileBasis": "Referencia almacén-dirección",
+    "fclNote": "FCL · precio por contenedor",
+    "lastmileNote": "Entrega nacional · sin flete internacional",
+    "fclHelp": "Precio FCL = tarifa por contenedor × cantidad. Solo puerto a puerto; confirma los gastos locales.",
+    "lastmileCargoHelp": "Paquetería por peso facturable (divisor 5.000); camión por palés. Son opciones separadas, no se suman.",
+    "lastmileHelp": "Selecciona un almacén y un código postal de ejemplo. Confirma la disponibilidad.",
+    "samplePostcode": "Usar código postal {postcode}",
+    "sampleHelp": "Almacén de demostración: {warehouse}. Códigos postales: {codes}. Otros códigos no tienen tarifa de ejemplo. Confirma disponibilidad.",
+    "summary": "{n} opciones · {w} kg · {v} CBM · datos de demostración",
+    "count": "Se encontraron {n} opciones de transporte.",
+    "containers": "{n} × {type} × EUR {lo}–{hi}/contenedor. Puerto a puerto; excluye gastos locales, aduanas, impuestos y reparto.",
+    "palletCost": "{n} palés × EUR {lo}–{hi}/palé. Excluye servicios especiales y recargos.",
+    "wm": "{q} W/M × EUR {lo}–{hi}/W/M. Mayor entre CBM, kg ÷ 1.000 y mínimo {min}.",
+    "kg": "{q} kg facturables × EUR {lo}–{hi}/kg. Mayor entre peso bruto, volumen × 1.000.000 ÷ {d} ({v} kg) y mínimo {min} kg, redondeado al alza.",
+    "noVolume": " Sin volumen: las dimensiones del embalaje pueden aumentar el precio.",
+    "exclusions": "Solo demostración: sin precios en tiempo real ni plazos garantizados. FCL puerto a puerto; última milla almacén-dirección. Excluye aranceles, impuestos, seguro, gastos locales y recargos. Internacional en días naturales; reparto nacional en días laborables. Preparación, reserva y retrasos aduaneros adicionales.",
+    "guideTitle": "Planificar costes y plazos de China a España",
+    "regionsTitle": "Regiones españolas y puertos de referencia",
+    "faqTitle": "Preguntas sobre envíos China–España",
+    "openTool": "Abrir la calculadora independiente",
+    "servicesTitle": "Servicios relacionados",
+    "enquirySuffix": "Confirma los precios y plazos actuales.",
+    "fclSummary": "{n} × {type} · Estimación de demostración · EUR",
+    "errors": {
+      "origin": "Selecciona un origen válido.",
+      "destination": "Selecciona un destino válido.",
+      "mode": "Elige la modalidad.",
+      "oceanService": "Elige un servicio marítimo.",
+      "oceanType": "Elige LCL o FCL.",
+      "containerType": "Elige un contenedor válido.",
+      "containerCount": "Introduce entre 1 y 100 contenedores enteros.",
+      "warehouse": "Selecciona un almacén español.",
+      "postcode": "Introduce un código postal español de cinco cifras.",
+      "deliveryType": "Elige el método de entrega.",
+      "pallets": "Introduce entre 1 y 100 palés enteros.",
+      "weight": "Introduce un peso mayor que 0 y hasta 1.000.000 kg.",
+      "volume": "Introduce un volumen válido hasta 10.000 CBM. LCL necesita un volumen positivo."
+    },
+    "processTitle": "Cómo funciona un envío de China a España"
+  },
+  "seo": {
+    "title": "China a España: consulta de costes y tiempos de envío | FreightVanta",
+    "homeTitle": "Envíos China–España: costes y plazos | FreightVanta",
+    "description": "Consulta costes y tiempos de China a España por mar LCL/FCL, avión o mensajería, y reparto desde almacenes españoles. Datos de demostración en EUR.",
+    "keywords": "China a España: consulta de costes y tiempos de envío, Transporte marítimo, Transporte aéreo, Mensajería exprés, Última milla en España, LCL, FCL"
+  },
+  "sections": [
+    {
+      "title": "Puertos y corredores de la España peninsular",
+      "body": "Valencia y Barcelona son las referencias mediterráneas; Bilbao cubre el corredor norte y Algeciras las rutas de Andalucía. Madrid y Zaragoza requieren transporte interior. El precio FCL termina en el puerto indicado, no en el almacén del destinatario."
+    },
+    {
+      "title": "Costes por CBM, contenedor o kilo",
+      "body": "El grupaje LCL factura por volumen o peso. El FCL utiliza el tipo de contenedor y su cantidad; no necesita introducir peso ni volumen. El avión y la mensajería comparan el peso real con el volumétrico."
+    },
+    {
+      "title": "Alcance del reparto nacional",
+      "body": "Los ejemplos de última milla corresponden a códigos postales peninsulares concretos. Canarias, Baleares, Ceuta y Melilla no están incluidas en estas tarifas de demostración. Se necesita una cotización específica para esos destinos y sus trámites."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿El importe incluye IVA, aranceles y gastos de aduana?",
+      "answer": "No. Las estimaciones excluyen impuestos, aranceles, seguro, gastos locales y recargos especiales. Confirme el alcance completo y la documentación de importación antes de reservar."
+    },
+    {
+      "question": "¿Cómo consulto el plazo y precio exactos?",
+      "answer": "Seleccione origen, destino y modalidad para ver una referencia. Después contacte con nosotros con los datos de su envío; los importes y plazos mostrados son ejemplos, no una cotización en tiempo real."
+    }
+  ],
+  "origins": [
+    {
+      "id": "shanghai",
+      "es": "Shanghai, China"
+    },
+    {
+      "id": "ningbo",
+      "es": "Ningbo, China"
+    },
+    {
+      "id": "shenzhen",
+      "es": "Shenzhen, China"
+    },
+    {
+      "id": "qingdao",
+      "es": "Qingdao, China"
+    },
+    {
+      "id": "xiamen",
+      "es": "Xiamen, China"
+    },
+    {
+      "id": "guangzhou",
+      "es": "Guangzhou, China"
+    },
+    {
+      "id": "tianjin",
+      "es": "Tianjin, China"
+    },
+    {
+      "id": "dalian",
+      "es": "Dalian, China"
+    },
+    {
+      "id": "fuzhou",
+      "es": "Fuzhou, China"
+    },
+    {
+      "id": "shantou",
+      "es": "Shantou, China"
+    },
+    {
+      "id": "nanjing",
+      "es": "Nanjing, China"
+    },
+    {
+      "id": "suzhou",
+      "es": "Suzhou, China"
+    },
+    {
+      "id": "foshan",
+      "es": "Foshan, China"
+    },
+    {
+      "id": "zhongshan",
+      "es": "Zhongshan, China"
+    },
+    {
+      "id": "zhuhai",
+      "es": "Zhuhai, China"
+    },
+    {
+      "id": "lianyungang",
+      "es": "Lianyungang, China"
+    },
+    {
+      "id": "chongqing",
+      "es": "Chongqing, China"
+    },
+    {
+      "id": "wuhan",
+      "es": "Wuhan, China"
+    },
+    {
+      "id": "yiwu",
+      "es": "Yiwu, China"
+    },
+    {
+      "id": "chengdu",
+      "es": "Chengdu, China"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "bilbao",
+      "region": "Norte peninsular",
+      "port": {
+        "es": "Bilbao"
+      },
+      "es": "Bilbao, España"
+    },
+    {
+      "id": "zaragoza",
+      "region": "Corredor del Ebro",
+      "port": {
+        "es": "Barcelona"
+      },
+      "es": "Zaragoza, España"
+    },
+    {
+      "id": "valencia",
+      "region": "Costa mediterránea",
+      "port": {
+        "es": "Valencia"
+      },
+      "es": "Valencia, España"
+    },
+    {
+      "id": "barcelona",
+      "region": "Costa mediterránea",
+      "port": {
+        "es": "Barcelona"
+      },
+      "es": "Barcelona, España"
+    },
+    {
+      "id": "madrid",
+      "region": "Centro peninsular",
+      "port": {
+        "es": "Valencia"
+      },
+      "es": "Madrid, España"
+    },
+    {
+      "id": "seville",
+      "region": "Andalucía",
+      "port": {
+        "es": "Algeciras"
+      },
+      "es": "Sevilla, España"
+    },
+    {
+      "id": "malaga",
+      "region": "Andalucía",
+      "port": {
+        "es": "Algeciras"
+      },
+      "es": "Málaga, España"
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "valencia-warehouse",
+      "region": "Costa mediterránea",
+      "examplePostcode": "46001",
+      "es": "Valencia"
+    },
+    {
+      "id": "barcelona-warehouse",
+      "region": "Costa mediterránea",
+      "examplePostcode": "08001",
+      "es": "Barcelona"
+    },
+    {
+      "id": "madrid-warehouse",
+      "region": "Centro peninsular",
+      "examplePostcode": "28001",
+      "es": "Madrid"
+    },
+    {
+      "id": "zaragoza-warehouse",
+      "region": "Corredor del Ebro",
+      "examplePostcode": "50001",
+      "es": "Zaragoza"
+    },
+    {
+      "id": "bilbao-warehouse",
+      "region": "Norte peninsular",
+      "examplePostcode": "48001",
+      "es": "Bilbao"
+    },
+    {
+      "id": "seville-warehouse",
+      "region": "Andalucía",
+      "examplePostcode": "41001",
+      "es": "Sevilla"
+    },
+    {
+      "id": "malaga-warehouse",
+      "region": "Andalucía",
+      "examplePostcode": "29001",
+      "es": "Málaga"
+    }
+  ],
+  "services": [
+    {
+      "id": "standard",
+      "mode": "sea",
+      "billing": "wm",
+      "minimum": 1,
+      "es": "Marítimo estándar"
+    },
+    {
+      "id": "air",
+      "mode": "air",
+      "billing": "kg",
+      "minimum": 45,
+      "divisor": 6000,
+      "increment": 1,
+      "es": "Transporte aéreo"
+    },
+    {
+      "id": "express",
+      "mode": "express",
+      "billing": "kg",
+      "minimum": 0.5,
+      "divisor": 5000,
+      "increment": 0.5,
+      "es": "Mensajería exprés"
+    },
+    {
+      "id": "es-parcel",
+      "mode": "lastmile",
+      "deliveryType": "parcel",
+      "billing": "kg",
+      "minimum": 1,
+      "divisor": 5000,
+      "increment": 0.5,
+      "es": "Paquetería"
+    },
+    {
+      "id": "es-truck",
+      "mode": "lastmile",
+      "deliveryType": "truck",
+      "billing": "pallet",
+      "minimum": 1,
+      "es": "Palé / camión"
+    }
+  ],
+  "routes": [
+    {
+      "origin": "shanghai",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            167,
+            232
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.3,
+            8.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.7,
+            13.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            178,
+            243
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.48,
+            8.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.85,
+            14.05
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            189,
+            254
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.66,
+            8.96
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.0,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            200,
+            265
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.84,
+            9.14
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.15,
+            14.35
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            211,
+            276
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.02,
+            9.32
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            222,
+            287
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.45,
+            14.65
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            233,
+            298
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.38,
+            9.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            174,
+            239
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.4,
+            8.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.82,
+            14.02
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            185,
+            250
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.58,
+            8.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.97,
+            14.17
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            196,
+            261
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.76,
+            9.06
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.12,
+            14.32
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            207,
+            272
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.94,
+            9.24
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.27,
+            14.47
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            218,
+            283
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.12,
+            9.42
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.42,
+            14.62
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            229,
+            294
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.57,
+            14.77
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            240,
+            305
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.48,
+            9.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.72,
+            14.92
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            181,
+            246
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.5,
+            8.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            9.94,
+            14.14
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            192,
+            257
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.68,
+            8.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.09,
+            14.29
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            203,
+            268
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.86,
+            9.16
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.24,
+            14.44
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            214,
+            279
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.04,
+            9.34
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.39,
+            14.59
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            225,
+            290
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.22,
+            9.52
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.54,
+            14.74
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            236,
+            301
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.69,
+            14.89
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            247,
+            312
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.58,
+            9.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.84,
+            15.04
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            188,
+            253
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.6,
+            8.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.06,
+            14.26
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            199,
+            264
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.78,
+            9.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.21,
+            14.41
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            210,
+            275
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.96,
+            9.26
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.36,
+            14.56
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            221,
+            286
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.14,
+            9.44
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.51,
+            14.71
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            232,
+            297
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.32,
+            9.62
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.66,
+            14.86
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            243,
+            308
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.81,
+            15.01
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            254,
+            319
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.68,
+            9.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.96,
+            15.16
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            195,
+            260
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.7,
+            9.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.18,
+            14.38
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            206,
+            271
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.88,
+            9.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.33,
+            14.53
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            217,
+            282
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.06,
+            9.36
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.48,
+            14.68
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            228,
+            293
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.24,
+            9.54
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.63,
+            14.83
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            239,
+            304
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.42,
+            9.72
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.78,
+            14.98
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            250,
+            315
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.93,
+            15.13
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            261,
+            326
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.78,
+            10.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.08,
+            15.28
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            202,
+            267
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.8,
+            9.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.3,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            213,
+            278
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            6.98,
+            9.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.45,
+            14.65
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            224,
+            289
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.16,
+            9.46
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.6,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            235,
+            300
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.34,
+            9.64
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.75,
+            14.95
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            246,
+            311
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.52,
+            9.82
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            257,
+            322
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.05,
+            15.25
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            268,
+            333
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.88,
+            10.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            209,
+            274
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.9,
+            9.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.42,
+            14.62
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            220,
+            285
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.08,
+            9.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.57,
+            14.77
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            231,
+            296
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.26,
+            9.56
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.72,
+            14.92
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            242,
+            307
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.44,
+            9.74
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.87,
+            15.07
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            253,
+            318
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.62,
+            9.92
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.02,
+            15.22
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            264,
+            329
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.17,
+            15.37
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            275,
+            340
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.98,
+            10.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.32,
+            15.52
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            216,
+            281
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.0,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.54,
+            14.74
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            227,
+            292
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.18,
+            9.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.69,
+            14.89
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            238,
+            303
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.36,
+            9.66
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.84,
+            15.04
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            249,
+            314
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.54,
+            9.84
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.99,
+            15.19
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            260,
+            325
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.72,
+            10.02
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.14,
+            15.34
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            271,
+            336
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.29,
+            15.49
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            282,
+            347
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.08,
+            10.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.44,
+            15.64
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            223,
+            288
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.1,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.66,
+            14.86
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            234,
+            299
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.28,
+            9.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.81,
+            15.01
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            245,
+            310
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.46,
+            9.76
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.96,
+            15.16
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            256,
+            321
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.64,
+            9.94
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.11,
+            15.31
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            267,
+            332
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.82,
+            10.12
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.26,
+            15.46
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            278,
+            343
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.41,
+            15.61
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            289,
+            354
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.18,
+            10.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.56,
+            15.76
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            230,
+            295
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.2,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.78,
+            14.98
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            241,
+            306
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.38,
+            9.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.93,
+            15.13
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            252,
+            317
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.56,
+            9.86
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.08,
+            15.28
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            263,
+            328
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.74,
+            10.04
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.23,
+            15.43
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            274,
+            339
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.92,
+            10.22
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.38,
+            15.58
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            285,
+            350
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.53,
+            15.73
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            296,
+            361
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.28,
+            10.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.68,
+            15.88
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            237,
+            302
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.3,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            248,
+            313
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.48,
+            9.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.05,
+            15.25
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            259,
+            324
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.66,
+            9.96
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.2,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            270,
+            335
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.84,
+            10.14
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.35,
+            15.55
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            281,
+            346
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.02,
+            10.32
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            292,
+            357
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.65,
+            15.85
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            303,
+            368
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.38,
+            10.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            244,
+            309
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.02,
+            15.22
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            255,
+            320
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.58,
+            9.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.17,
+            15.37
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            266,
+            331
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.76,
+            10.06
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.32,
+            15.52
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            277,
+            342
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.94,
+            10.24
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.47,
+            15.67
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            288,
+            353
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.12,
+            10.42
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.62,
+            15.82
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            299,
+            364
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.77,
+            15.97
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            310,
+            375
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.48,
+            10.78
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.92,
+            16.12
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            251,
+            316
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.14,
+            15.34
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            262,
+            327
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.68,
+            9.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.29,
+            15.49
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            273,
+            338
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.86,
+            10.16
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.44,
+            15.64
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            284,
+            349
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.04,
+            10.34
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.59,
+            15.79
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            295,
+            360
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.22,
+            10.52
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.74,
+            15.94
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            306,
+            371
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.89,
+            16.09
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            317,
+            382
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.58,
+            10.88
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.04,
+            16.24
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            258,
+            323
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.26,
+            15.46
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            269,
+            334
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.78,
+            10.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.41,
+            15.61
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            280,
+            345
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.96,
+            10.26
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.56,
+            15.76
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            291,
+            356
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.14,
+            10.44
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.71,
+            15.91
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            302,
+            367
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.32,
+            10.62
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.86,
+            16.06
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            313,
+            378
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.01,
+            16.21
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            324,
+            389
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.68,
+            10.98
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.16,
+            16.36
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            265,
+            330
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.38,
+            15.58
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            276,
+            341
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.88,
+            10.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.53,
+            15.73
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            287,
+            352
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.06,
+            10.36
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.68,
+            15.88
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            298,
+            363
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.24,
+            10.54
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.83,
+            16.03
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            309,
+            374
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.42,
+            10.72
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.98,
+            16.18
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            320,
+            385
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.6,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.13,
+            16.33
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            331,
+            396
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.78,
+            11.08
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.28,
+            16.48
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            272,
+            337
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            283,
+            348
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            7.98,
+            10.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.65,
+            15.85
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            294,
+            359
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.16,
+            10.46
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            305,
+            370
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.34,
+            10.64
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.95,
+            16.15
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            316,
+            381
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.52,
+            10.82
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            327,
+            392
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.7,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.25,
+            16.45
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            338,
+            403
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.88,
+            11.18
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.4,
+            16.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            279,
+            344
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.62,
+            15.82
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            290,
+            355
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.08,
+            10.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.77,
+            15.97
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            301,
+            366
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.26,
+            10.56
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.92,
+            16.12
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            312,
+            377
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.44,
+            10.74
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.07,
+            16.27
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            323,
+            388
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.62,
+            10.92
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.22,
+            16.42
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            334,
+            399
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.8,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.37,
+            16.57
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            345,
+            410
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.98,
+            11.28
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.52,
+            16.72
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            286,
+            351
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.74,
+            15.94
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            297,
+            362
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.18,
+            10.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.89,
+            16.09
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            308,
+            373
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.36,
+            10.66
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.04,
+            16.24
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            319,
+            384
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.54,
+            10.84
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.19,
+            16.39
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            330,
+            395
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.72,
+            11.02
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.34,
+            16.54
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            341,
+            406
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.9,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.49,
+            16.69
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            352,
+            417
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.08,
+            11.38
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.64,
+            16.84
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            293,
+            358
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.86,
+            16.06
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            304,
+            369
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.28,
+            10.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.01,
+            16.21
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            315,
+            380
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.46,
+            10.76
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.16,
+            16.36
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            326,
+            391
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.64,
+            10.94
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.31,
+            16.51
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            337,
+            402
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.82,
+            11.12
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.46,
+            16.66
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            348,
+            413
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            9.0,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.61,
+            16.81
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            359,
+            424
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.18,
+            11.48
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.76,
+            16.96
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            300,
+            365
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.98,
+            16.18
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            311,
+            376
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.38,
+            10.68
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.13,
+            16.33
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            322,
+            387
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.56,
+            10.86
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.28,
+            16.48
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            333,
+            398
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            8.74,
+            11.04
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.43,
+            16.63
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            53
+          ],
+          "rate": [
+            344,
+            409
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.92,
+            11.22
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.58,
+            16.78
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            54
+          ],
+          "rate": [
+            355,
+            420
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            8,
+            12
+          ],
+          "rate": [
+            9.1,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.73,
+            16.93
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            366,
+            431
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.28,
+            11.58
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.88,
+            17.08
+          ]
+        }
+      ]
+    }
+  ],
+  "fclRoutes": [
+    {
+      "origin": "shanghai",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3390
+            ],
+            "40gp": [
+              3490,
+              4490
+            ],
+            "40hc": [
+              3690,
+              4790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2770,
+              3620
+            ],
+            "40gp": [
+              3720,
+              4720
+            ],
+            "40hc": [
+              3920,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2540,
+              3390
+            ],
+            "40gp": [
+              3490,
+              4490
+            ],
+            "40hc": [
+              3690,
+              4790
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2770,
+              3620
+            ],
+            "40gp": [
+              3720,
+              4720
+            ],
+            "40hc": [
+              3920,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3000,
+              3850
+            ],
+            "40gp": [
+              3950,
+              4950
+            ],
+            "40hc": [
+              4150,
+              5250
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3230,
+              4080
+            ],
+            "40gp": [
+              4180,
+              5180
+            ],
+            "40hc": [
+              4380,
+              5480
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3230,
+              4080
+            ],
+            "40gp": [
+              4180,
+              5180
+            ],
+            "40hc": [
+              4380,
+              5480
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2625,
+              3475
+            ],
+            "40gp": [
+              3575,
+              4575
+            ],
+            "40hc": [
+              3775,
+              4875
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2855,
+              3705
+            ],
+            "40gp": [
+              3805,
+              4805
+            ],
+            "40hc": [
+              4005,
+              5105
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2625,
+              3475
+            ],
+            "40gp": [
+              3575,
+              4575
+            ],
+            "40hc": [
+              3775,
+              4875
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2855,
+              3705
+            ],
+            "40gp": [
+              3805,
+              4805
+            ],
+            "40hc": [
+              4005,
+              5105
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3085,
+              3935
+            ],
+            "40gp": [
+              4035,
+              5035
+            ],
+            "40hc": [
+              4235,
+              5335
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3315,
+              4165
+            ],
+            "40gp": [
+              4265,
+              5265
+            ],
+            "40hc": [
+              4465,
+              5565
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3315,
+              4165
+            ],
+            "40gp": [
+              4265,
+              5265
+            ],
+            "40hc": [
+              4465,
+              5565
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3790
+            ],
+            "40gp": [
+              3890,
+              4890
+            ],
+            "40hc": [
+              4090,
+              5190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3790
+            ],
+            "40gp": [
+              3890,
+              4890
+            ],
+            "40hc": [
+              4090,
+              5190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3170,
+              4020
+            ],
+            "40gp": [
+              4120,
+              5120
+            ],
+            "40hc": [
+              4320,
+              5420
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3400,
+              4250
+            ],
+            "40gp": [
+              4350,
+              5350
+            ],
+            "40hc": [
+              4550,
+              5650
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3400,
+              4250
+            ],
+            "40gp": [
+              4350,
+              5350
+            ],
+            "40hc": [
+              4550,
+              5650
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3025,
+              3875
+            ],
+            "40gp": [
+              3975,
+              4975
+            ],
+            "40hc": [
+              4175,
+              5275
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3025,
+              3875
+            ],
+            "40gp": [
+              3975,
+              4975
+            ],
+            "40hc": [
+              4175,
+              5275
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3255,
+              4105
+            ],
+            "40gp": [
+              4205,
+              5205
+            ],
+            "40hc": [
+              4405,
+              5505
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3485,
+              4335
+            ],
+            "40gp": [
+              4435,
+              5435
+            ],
+            "40hc": [
+              4635,
+              5735
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3485,
+              4335
+            ],
+            "40gp": [
+              4435,
+              5435
+            ],
+            "40hc": [
+              4635,
+              5735
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3110,
+              3960
+            ],
+            "40gp": [
+              4060,
+              5060
+            ],
+            "40hc": [
+              4260,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3110,
+              3960
+            ],
+            "40gp": [
+              4060,
+              5060
+            ],
+            "40hc": [
+              4260,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3340,
+              4190
+            ],
+            "40gp": [
+              4290,
+              5290
+            ],
+            "40hc": [
+              4490,
+              5590
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3570,
+              4420
+            ],
+            "40gp": [
+              4520,
+              5520
+            ],
+            "40hc": [
+              4720,
+              5820
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3570,
+              4420
+            ],
+            "40gp": [
+              4520,
+              5520
+            ],
+            "40hc": [
+              4720,
+              5820
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3195,
+              4045
+            ],
+            "40gp": [
+              4145,
+              5145
+            ],
+            "40hc": [
+              4345,
+              5445
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3195,
+              4045
+            ],
+            "40gp": [
+              4145,
+              5145
+            ],
+            "40hc": [
+              4345,
+              5445
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3425,
+              4275
+            ],
+            "40gp": [
+              4375,
+              5375
+            ],
+            "40hc": [
+              4575,
+              5675
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3655,
+              4505
+            ],
+            "40gp": [
+              4605,
+              5605
+            ],
+            "40hc": [
+              4805,
+              5905
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3655,
+              4505
+            ],
+            "40gp": [
+              4605,
+              5605
+            ],
+            "40hc": [
+              4805,
+              5905
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4130
+            ],
+            "40gp": [
+              4230,
+              5230
+            ],
+            "40hc": [
+              4430,
+              5530
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4130
+            ],
+            "40gp": [
+              4230,
+              5230
+            ],
+            "40hc": [
+              4430,
+              5530
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3510,
+              4360
+            ],
+            "40gp": [
+              4460,
+              5460
+            ],
+            "40hc": [
+              4660,
+              5760
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3740,
+              4590
+            ],
+            "40gp": [
+              4690,
+              5690
+            ],
+            "40hc": [
+              4890,
+              5990
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3740,
+              4590
+            ],
+            "40gp": [
+              4690,
+              5690
+            ],
+            "40hc": [
+              4890,
+              5990
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3365,
+              4215
+            ],
+            "40gp": [
+              4315,
+              5315
+            ],
+            "40hc": [
+              4515,
+              5615
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3365,
+              4215
+            ],
+            "40gp": [
+              4315,
+              5315
+            ],
+            "40hc": [
+              4515,
+              5615
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3595,
+              4445
+            ],
+            "40gp": [
+              4545,
+              5545
+            ],
+            "40hc": [
+              4745,
+              5845
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3825,
+              4675
+            ],
+            "40gp": [
+              4775,
+              5775
+            ],
+            "40hc": [
+              4975,
+              6075
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3825,
+              4675
+            ],
+            "40gp": [
+              4775,
+              5775
+            ],
+            "40hc": [
+              4975,
+              6075
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4300
+            ],
+            "40gp": [
+              4400,
+              5400
+            ],
+            "40hc": [
+              4600,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4300
+            ],
+            "40gp": [
+              4400,
+              5400
+            ],
+            "40hc": [
+              4600,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3680,
+              4530
+            ],
+            "40gp": [
+              4630,
+              5630
+            ],
+            "40hc": [
+              4830,
+              5930
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3910,
+              4760
+            ],
+            "40gp": [
+              4860,
+              5860
+            ],
+            "40hc": [
+              5060,
+              6160
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3910,
+              4760
+            ],
+            "40gp": [
+              4860,
+              5860
+            ],
+            "40hc": [
+              5060,
+              6160
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3535,
+              4385
+            ],
+            "40gp": [
+              4485,
+              5485
+            ],
+            "40hc": [
+              4685,
+              5785
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3535,
+              4385
+            ],
+            "40gp": [
+              4485,
+              5485
+            ],
+            "40hc": [
+              4685,
+              5785
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3765,
+              4615
+            ],
+            "40gp": [
+              4715,
+              5715
+            ],
+            "40hc": [
+              4915,
+              6015
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3995,
+              4845
+            ],
+            "40gp": [
+              4945,
+              5945
+            ],
+            "40hc": [
+              5145,
+              6245
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              3995,
+              4845
+            ],
+            "40gp": [
+              4945,
+              5945
+            ],
+            "40hc": [
+              5145,
+              6245
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3620,
+              4470
+            ],
+            "40gp": [
+              4570,
+              5570
+            ],
+            "40hc": [
+              4770,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3620,
+              4470
+            ],
+            "40gp": [
+              4570,
+              5570
+            ],
+            "40hc": [
+              4770,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3850,
+              4700
+            ],
+            "40gp": [
+              4800,
+              5800
+            ],
+            "40hc": [
+              5000,
+              6100
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4080,
+              4930
+            ],
+            "40gp": [
+              5030,
+              6030
+            ],
+            "40hc": [
+              5230,
+              6330
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4080,
+              4930
+            ],
+            "40gp": [
+              5030,
+              6030
+            ],
+            "40hc": [
+              5230,
+              6330
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3705,
+              4555
+            ],
+            "40gp": [
+              4655,
+              5655
+            ],
+            "40hc": [
+              4855,
+              5955
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3705,
+              4555
+            ],
+            "40gp": [
+              4655,
+              5655
+            ],
+            "40hc": [
+              4855,
+              5955
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3935,
+              4785
+            ],
+            "40gp": [
+              4885,
+              5885
+            ],
+            "40hc": [
+              5085,
+              6185
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4165,
+              5015
+            ],
+            "40gp": [
+              5115,
+              6115
+            ],
+            "40hc": [
+              5315,
+              6415
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4165,
+              5015
+            ],
+            "40gp": [
+              5115,
+              6115
+            ],
+            "40hc": [
+              5315,
+              6415
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3790,
+              4640
+            ],
+            "40gp": [
+              4740,
+              5740
+            ],
+            "40hc": [
+              4940,
+              6040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3790,
+              4640
+            ],
+            "40gp": [
+              4740,
+              5740
+            ],
+            "40hc": [
+              4940,
+              6040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4020,
+              4870
+            ],
+            "40gp": [
+              4970,
+              5970
+            ],
+            "40hc": [
+              5170,
+              6270
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4250,
+              5100
+            ],
+            "40gp": [
+              5200,
+              6200
+            ],
+            "40hc": [
+              5400,
+              6500
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4250,
+              5100
+            ],
+            "40gp": [
+              5200,
+              6200
+            ],
+            "40hc": [
+              5400,
+              6500
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3875,
+              4725
+            ],
+            "40gp": [
+              4825,
+              5825
+            ],
+            "40hc": [
+              5025,
+              6125
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3875,
+              4725
+            ],
+            "40gp": [
+              4825,
+              5825
+            ],
+            "40hc": [
+              5025,
+              6125
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4105,
+              4955
+            ],
+            "40gp": [
+              5055,
+              6055
+            ],
+            "40hc": [
+              5255,
+              6355
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4335,
+              5185
+            ],
+            "40gp": [
+              5285,
+              6285
+            ],
+            "40hc": [
+              5485,
+              6585
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4335,
+              5185
+            ],
+            "40gp": [
+              5285,
+              6285
+            ],
+            "40hc": [
+              5485,
+              6585
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3960,
+              4810
+            ],
+            "40gp": [
+              4910,
+              5910
+            ],
+            "40hc": [
+              5110,
+              6210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3960,
+              4810
+            ],
+            "40gp": [
+              4910,
+              5910
+            ],
+            "40hc": [
+              5110,
+              6210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4190,
+              5040
+            ],
+            "40gp": [
+              5140,
+              6140
+            ],
+            "40hc": [
+              5340,
+              6440
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              4420,
+              5270
+            ],
+            "40gp": [
+              5370,
+              6370
+            ],
+            "40hc": [
+              5570,
+              6670
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              4420,
+              5270
+            ],
+            "40gp": [
+              5370,
+              6370
+            ],
+            "40hc": [
+              5570,
+              6670
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4045,
+              4895
+            ],
+            "40gp": [
+              4995,
+              5995
+            ],
+            "40hc": [
+              5195,
+              6295
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4045,
+              4895
+            ],
+            "40gp": [
+              4995,
+              5995
+            ],
+            "40hc": [
+              5195,
+              6295
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4275,
+              5125
+            ],
+            "40gp": [
+              5225,
+              6225
+            ],
+            "40hc": [
+              5425,
+              6525
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4505,
+              5355
+            ],
+            "40gp": [
+              5455,
+              6455
+            ],
+            "40hc": [
+              5655,
+              6755
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4505,
+              5355
+            ],
+            "40gp": [
+              5455,
+              6455
+            ],
+            "40hc": [
+              5655,
+              6755
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4130,
+              4980
+            ],
+            "40gp": [
+              5080,
+              6080
+            ],
+            "40hc": [
+              5280,
+              6380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4130,
+              4980
+            ],
+            "40gp": [
+              5080,
+              6080
+            ],
+            "40hc": [
+              5280,
+              6380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4360,
+              5210
+            ],
+            "40gp": [
+              5310,
+              6310
+            ],
+            "40hc": [
+              5510,
+              6610
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4590,
+              5440
+            ],
+            "40gp": [
+              5540,
+              6540
+            ],
+            "40hc": [
+              5740,
+              6840
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4590,
+              5440
+            ],
+            "40gp": [
+              5540,
+              6540
+            ],
+            "40hc": [
+              5740,
+              6840
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4215,
+              5065
+            ],
+            "40gp": [
+              5165,
+              6165
+            ],
+            "40hc": [
+              5365,
+              6465
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4215,
+              5065
+            ],
+            "40gp": [
+              5165,
+              6165
+            ],
+            "40hc": [
+              5365,
+              6465
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4445,
+              5295
+            ],
+            "40gp": [
+              5395,
+              6395
+            ],
+            "40hc": [
+              5595,
+              6695
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4675,
+              5525
+            ],
+            "40gp": [
+              5625,
+              6625
+            ],
+            "40hc": [
+              5825,
+              6925
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4675,
+              5525
+            ],
+            "40gp": [
+              5625,
+              6625
+            ],
+            "40hc": [
+              5825,
+              6925
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4300,
+              5150
+            ],
+            "40gp": [
+              5250,
+              6250
+            ],
+            "40hc": [
+              5450,
+              6550
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4300,
+              5150
+            ],
+            "40gp": [
+              5250,
+              6250
+            ],
+            "40hc": [
+              5450,
+              6550
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4530,
+              5380
+            ],
+            "40gp": [
+              5480,
+              6480
+            ],
+            "40hc": [
+              5680,
+              6780
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4760,
+              5610
+            ],
+            "40gp": [
+              5710,
+              6710
+            ],
+            "40hc": [
+              5910,
+              7010
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4760,
+              5610
+            ],
+            "40gp": [
+              5710,
+              6710
+            ],
+            "40hc": [
+              5910,
+              7010
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "valencia",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "barcelona",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4385,
+              5235
+            ],
+            "40gp": [
+              5335,
+              6335
+            ],
+            "40hc": [
+              5535,
+              6635
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "madrid",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "zaragoza",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4385,
+              5235
+            ],
+            "40gp": [
+              5335,
+              6335
+            ],
+            "40hc": [
+              5535,
+              6635
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bilbao",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              4615,
+              5465
+            ],
+            "40gp": [
+              5565,
+              6565
+            ],
+            "40hc": [
+              5765,
+              6865
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "seville",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              4845,
+              5695
+            ],
+            "40gp": [
+              5795,
+              6795
+            ],
+            "40hc": [
+              5995,
+              7095
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "malaga",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            46
+          ],
+          "rates": {
+            "20gp": [
+              4845,
+              5695
+            ],
+            "40gp": [
+              5795,
+              6795
+            ],
+            "40hc": [
+              5995,
+              7095
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "lastMileRoutes": [
+    {
+      "warehouse": "valencia-warehouse",
+      "postcode": "46001",
+      "offers": [
+        {
+          "service": "es-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            0.93,
+            1.5
+          ]
+        },
+        {
+          "service": "es-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            104,
+            175
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "barcelona-warehouse",
+      "postcode": "08001",
+      "offers": [
+        {
+          "service": "es-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            0.97,
+            1.55
+          ]
+        },
+        {
+          "service": "es-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            112,
+            184
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "madrid-warehouse",
+      "postcode": "28001",
+      "offers": [
+        {
+          "service": "es-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.01,
+            1.6
+          ]
+        },
+        {
+          "service": "es-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            120,
+            193
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "zaragoza-warehouse",
+      "postcode": "50001",
+      "offers": [
+        {
+          "service": "es-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.05,
+            1.65
+          ]
+        },
+        {
+          "service": "es-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            128,
+            202
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "bilbao-warehouse",
+      "postcode": "48001",
+      "offers": [
+        {
+          "service": "es-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.09,
+            1.7
+          ]
+        },
+        {
+          "service": "es-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            136,
+            211
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "seville-warehouse",
+      "postcode": "41001",
+      "offers": [
+        {
+          "service": "es-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.13,
+            1.75
+          ]
+        },
+        {
+          "service": "es-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            144,
+            220
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "malaga-warehouse",
+      "postcode": "29001",
+      "offers": [
+        {
+          "service": "es-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.17,
+            1.8
+          ]
+        },
+        {
+          "service": "es-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            152,
+            229
+          ]
+        }
+      ]
+    }
+  ],
+  "process": [
+    {
+      "No": "01",
+      "Title": "Recogida en el proveedor",
+      "Body": "Mercancía preparada, condiciones de carga y ventana de recogida confirmadas. Cualquier retraso aquí desplaza todas las fechas posteriores."
+    },
+    {
+      "No": "02",
+      "Title": "Despacho de exportación",
+      "Body": "Declaración de exportación, descripción de la mercancía y cierre de reserva alineados con la salida elegida. Los documentos se revisan antes de cerrar el contenedor."
+    },
+    {
+      "No": "03",
+      "Title": "Flete marítimo o aéreo",
+      "Body": "El transporte principal, con un horario comprobable en lugar de una estimación. Los pares de puertos o aeropuertos dependen de la ruta elegida."
+    },
+    {
+      "No": "04",
+      "Title": "Importación en España",
+      "Body": "Número EORI, despacho de aduanas e IVA a la importación. La clasificación arancelaria determina los derechos y posibles restricciones."
+    },
+    {
+      "No": "05",
+      "Title": "Del puerto a la puerta",
+      "Body": "Levante del contenedor, desconsolidación en grupaje y una cita de entrega compatible con el horario y los medios del destinatario."
+    },
+    {
+      "No": "06",
+      "Title": "Entrega y comprobante",
+      "Body": "Prueba de entrega firmada, incidencias registradas y documentación archivada, para que el siguiente envío parta de un estado conocido."
+    }
+  ],
+  "regionOrder": [
+    "Norte peninsular",
+    "Corredor del Ebro",
+    "Costa mediterránea",
+    "Centro peninsular",
+    "Andalucía"
+  ]
+}

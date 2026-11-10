@@ -22,6 +22,8 @@ import {
 } from '../../lib/enquiry';
 import { Link } from '../../lib/router';
 import { cn } from '../../utils/cn';
+import { homeContext } from '../../lib/home-context';
+import { HomepageEnquiryForm } from './HomepageEnquiryForm';
 import { AlertIcon, ArrowRight, CheckIcon, ChevronDown, MailIcon, PhoneIcon, SpinnerIcon } from '../ui/Icons';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
@@ -297,7 +299,15 @@ interface EnquiryFormProps {
   locale: string;
 }
 
-export function EnquiryForm({
+const homePrefillStore = { subscribe: subscribePrefill, getSnapshot: getPrefill, consume: consumePrefill };
+
+export function EnquiryForm(props: EnquiryFormProps) {
+  return props.placement === 'home' && homeContext()
+    ? <HomepageEnquiryForm idPrefix={props.idPrefix} locale={props.locale} prefillStore={homePrefillStore} />
+    : <LegacyEnquiryForm {...props} />;
+}
+
+function LegacyEnquiryForm({
   idPrefix,
   placement,
   copy,
@@ -319,6 +329,21 @@ export function EnquiryForm({
   const summaryRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const prefill = useSyncExternalStore(subscribePrefill, getPrefill, getPrefill);
+
+  // Keep validated calculator enquiries in React state when another field edits.
+  // The DOM value alone would disappear on the next controlled-form render.
+  useEffect(() => {
+    if (placement !== 'home' || new URLSearchParams(location.search).get('enquiry') !== '1') return;
+    const apply = (event?: Event) => {
+      const incoming = (event as CustomEvent<{ brief?: string }> | undefined)?.detail?.brief
+        ?? document.querySelector<HTMLElement>('[data-shipping-planner]')?.dataset.spEnquiryBrief;
+      if (typeof incoming !== 'string' || !incoming.trim()) return;
+      setValues(current => current.cargoDetails.trim() ? current : { ...current, cargoDetails: incoming.slice(0, LIMITS.long) });
+    };
+    apply();
+    document.addEventListener('freightvanta:shipping-enquiry', apply);
+    return () => document.removeEventListener('freightvanta:shipping-enquiry', apply);
+  }, [placement]);
 
   // Apply a starting point chosen from a service CTA.
   useEffect(() => {

@@ -132,7 +132,7 @@ export function FrContactPage() {
                 )}
               </ul>
             )}
-            <h3 className="fr-eyebrow mt-10 text-encre-500">Utile à préciser</h3>
+            <h3 className="text-sm font-semibold mt-10 text-encre-500">Utile à préciser</h3>
             <p className="mt-3 text-[16px] leading-relaxed text-encre-700">{processFr.items[0].copy}</p>
             <FrCheckList items={enquiryFr.settings.reassurance} className="mt-6" />
             <p className="mt-8 text-sm leading-relaxed text-encre-600">
@@ -203,7 +203,7 @@ function LegalBlock({ heading, children }: { heading: string; children: ReactNod
 function DraftNotice({ children }: { children: ReactNode }) {
   return (
     <p className="rounded-[8px] border border-lin-300 border-l-4 border-l-sienne-600 bg-ivoire px-5 py-4 text-[15px] leading-relaxed text-encre-700">
-      <span className="fr-eyebrow mr-2 text-sienne-700">Projet</span>
+      <span className="text-sm font-semibold mr-2 text-sienne-700">Projet</span>
       {children}
     </p>
   );
@@ -411,8 +411,8 @@ export function FrNotFoundPage({ path }: { path: string }) {
     <section className="relative isolate overflow-hidden border-b border-encre-900/10 bg-ivoire py-24 text-encre-900 sm:py-32">
       <div aria-hidden="true" className="fr-chart-bg pointer-events-none absolute inset-0 -z-10" />
       <div className="shell max-w-3xl">
-        <p className="fr-eyebrow text-sienne-700">Route introuvable</p>
-        <h1 className="mt-5 font-fr-serif text-5xl font-semibold leading-tight">Ce relais ne mène nulle part.</h1>
+
+        <h1 className="font-fr-serif text-5xl font-semibold leading-tight">Ce relais ne mène nulle part.</h1>
         <p className="mt-5 text-lg text-encre-600">
           La page <span className="font-mono text-base text-encre-800">{path}</span> n’est pas disponible. Choisissez une prochaine étape.
         </p>

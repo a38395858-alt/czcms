@@ -112,3 +112,50 @@ export const PinIcon = (props: IconProps) => (
     <circle cx="12" cy="9.5" r="2.5" />
   </Svg>
 );
+
+export const DocumentIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <path d="M14 3H5v18h14V8Zm0 0v5h5M8 12h8M8 15h8M8 18h4" />
+  </Svg>
+);
+
+export const ConversationIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <path d="M15 14a6 6 0 0 0 2-4c0-4-3-7-7-7s-7 3-7 7c0 2 1 4 3 5l-1 4 5-2h1M16 10c3 0 5 2 5 5 0 2-1 3-2 4l1 3-4-2c-3 0-5-2-6-4" />
+    <path d="M7 10h.01M10 10h.01M13 10h.01" />
+  </Svg>
+);
+
+export const ApprovalIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <circle cx="9" cy="6" r="4" />
+    <path d="M2 20v-2c0-4 3-6 7-6h2m7-1 5 2v4c0 3-3 5-5 6-2-1-5-3-5-6v-4Zm-2 6 1.5 1.5L20 15" />
+  </Svg>
+);
+
+export const PalletIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <path d="M8 2h8v8H8Zm3 0v3h2V2M3 10h9v9H3Zm9 0h9v9h-9M6 10v3h3v-3m6 0v3h3v-3M2 19h20v3h-4v-1h-4v1h-4v-1H6v1H2Z" />
+  </Svg>
+);
+
+export const ReleaseIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <path d="M10 21H4V3h10l4 4v3m-4-7v5h4M7 12h5m-5 4h3m4-3 4-1 4 4-6 6-4-4Z" />
+    <circle cx="18" cy="16" r=".6" />
+  </Svg>
+);
+
+export const DeliveryIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <path d="M4 7V4h12v14H8m8-10h4l3 5v5h-2M2 9h6m-7 4h6m-3 4v1m12-5h7" />
+    <circle cx="6" cy="18" r="2" />
+    <circle cx="19" cy="18" r="2" />
+  </Svg>
+);
+
+export const PackageIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <path d="m12 2 10 5v10l-10 5-10-5V7Zm0 10L2 7m10 5L22 7M12 12v10M7 4.5l10 5V14" />
+  </Svg>
+);

@@ -43,8 +43,8 @@ export function IndustriesPage() {
                 </div>
               </div>
               <div className="lg:col-span-6">
-                <p className="eyebrow text-signal-700">{industry.menuLine}</p>
-                <h2 className="mt-4 font-display text-[2.2rem] font-semibold leading-tight text-navy-900">{industry.name}</h2>
+
+                <h2 className="font-display text-[2.2rem] font-semibold leading-tight text-navy-900">{industry.name}</h2>
                 <p className="mt-4 text-lg leading-relaxed text-navy-600">{industry.copy}</p>
                 <CheckList items={industry.questions.slice(0, 2)} className="mt-6" />
                 <Link to={`/industries/${industry.slug}`} className="btn btn-dark mt-8 w-full sm:w-auto">

@@ -18,10 +18,10 @@ export function Hero({ section }: { section: HeroSection }) {
 
       <div className="shell grid items-center gap-12 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] lg:gap-12 lg:pb-24 lg:pt-20 xl:gap-16">
         <div className="max-w-2xl">
-          <p className="eyebrow text-signal-300">{section.eyebrow}</p>
+
           <h1
             id="hero-title"
-            className="mt-6 font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.5rem] xl:text-[4rem]"
+            className="font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.5rem] xl:text-[4rem]"
           >
             {section.title}
           </h1>
@@ -45,9 +45,7 @@ export function Hero({ section }: { section: HeroSection }) {
             </Link>
           </div>
 
-          <p className="mt-8 max-w-lg border-l-2 border-white/15 pl-4 text-[15px] leading-relaxed text-navy-300">
-            {section.settings.microcopy}
-          </p>
+
         </div>
 
         <figure className="relative">

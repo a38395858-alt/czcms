@@ -70,7 +70,7 @@ export function cmsHref(to: string): string {
   };
   if (language === 'fr' && path === '/solutions') return `${base}/#solutions`;
   if (homeSections[path]) return `${base}/#${homeSections[path]}`;
-  if (path === '/contact') return `${base}/contact-us`;
+  if (path === '/contact') return `${base}/contact`;
   const serviceAliases: Record<string, string> = {
     '/solutions/packaging-branding': '/services/packaging-branding',
     '/solutions/private-label': '/services/private-white-label',

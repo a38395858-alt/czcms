@@ -1,4 +1,5 @@
 import { orderedTopicSections } from './composition';
+import { BulkProcurementWorkflow } from './BulkProcurementWorkflow';
 import { EnquiryForm, type EnquiryPlacement } from '../enquiry/EnquiryForm';
 import { Breadcrumbs, CheckList, ScopeNote } from '../layout/PageParts';
 import { ArrowRight, CheckIcon, PlusIcon } from '../ui/Icons';
@@ -57,9 +58,7 @@ function scrollToSection(id: string) {
 const toneClass = (tone: TopicTone) =>
   tone === 'navy' ? 'bg-navy-950 text-white' : tone === 'mist' ? 'bg-mist-50' : 'bg-white';
 
-function Kicker({ children, dark }: { children: string; dark?: boolean }) {
-  return <p className={cn('eyebrow', dark ? 'text-signal-300' : 'text-signal-700')}>{children}</p>;
-}
+
 
 export function TopicPage({ content }: { content: TopicPageContent }) {
   useDocumentMeta({
@@ -258,10 +257,10 @@ function HeroSplit({
         />
         <div className="mt-8 grid items-center gap-12 lg:mt-10 lg:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] lg:gap-12 xl:gap-16">
           <div className="max-w-2xl">
-            <p className="eyebrow text-signal-300">{hero.kicker}</p>
+
             <h1
               id="topic-hero-title"
-              className="mt-6 font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.5rem] xl:text-[4rem]"
+              className="font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.5rem] xl:text-[4rem]"
             >
               {hero.title}
             </h1>
@@ -303,10 +302,10 @@ function HeroMirror({
         />
         <div className="mt-8 grid items-center gap-12 lg:mt-10 lg:grid-cols-[minmax(0,54fr)_minmax(0,46fr)] lg:gap-12 xl:gap-16">
           <div className="order-1 lg:order-2 lg:max-w-2xl">
-            <p className="eyebrow text-signal-300">{hero.kicker}</p>
+
             <h1
               id="topic-hero-title"
-              className="mt-6 font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.3rem] xl:text-[3.7rem]"
+              className="font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.3rem] xl:text-[3.7rem]"
             >
               {hero.title}
             </h1>
@@ -345,12 +344,10 @@ function HeroStacked({
           ]}
         />
         <div className="mx-auto mt-10 max-w-4xl text-center">
-          <div className="flex justify-center">
-            <p className="eyebrow text-signal-300">{hero.kicker}</p>
-          </div>
+
           <h1
             id="topic-hero-title"
-            className="mt-6 font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.8rem]"
+            className="font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.8rem]"
           >
             {hero.title}
           </h1>
@@ -407,10 +404,10 @@ function HeroBand({
         />
         <div className="mt-8 grid gap-12 lg:mt-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
-            <p className="eyebrow text-signal-300">{hero.kicker}</p>
+
             <h1
               id="topic-hero-title"
-              className="mt-6 font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.3rem]"
+              className="font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.012em] text-balance sm:text-[3.4rem] lg:text-[3.3rem]"
             >
               {hero.title}
             </h1>
@@ -478,10 +475,8 @@ function RailVertical({ rail }: { rail: TopicRailItem[] }) {
   return (
     <div className="rounded-[4px] border border-white/10 bg-navy-950/90 p-6 sm:p-7">
       <span className="sr-only">Page flow: {rail.map((item) => item.label.toLowerCase()).join(', then ')}.</span>
-      <p aria-hidden="true" className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-navy-300">
-        Page flow
-      </p>
-      <ol aria-hidden="true" className="relative mt-5 before:absolute before:bottom-4 before:left-[7px] before:top-3 before:w-px before:bg-white/20">
+
+      <ol aria-hidden="true" className="relative before:absolute before:bottom-4 before:left-[7px] before:top-3 before:w-px before:bg-white/20">
         {rail.map((item, index) => (
           <li key={item.label} className="relative pb-6 pl-10 last:pb-0">
             <span className="absolute left-0 top-[3px] block h-[15px] w-[15px] rounded-full bg-safety-500 ring-4 ring-navy-950" />
@@ -564,8 +559,8 @@ function TopicSectionBlock({
 function DecisionStacked({ id, content }: { id: string; content: TopicDecision }) {
   return (
     <div className="max-w-4xl">
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <h2 id={id} className="h2 mt-5 text-navy-900">
+
+      <h2 id={id} className="h2 text-navy-900">
         {content.heading}
       </h2>
       <div className="mt-6 max-w-3xl space-y-5">
@@ -584,8 +579,8 @@ function DecisionSplit({ id, content }: { id: string; content: TopicDecision }) 
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-5">
         <div className="lg:sticky lg:top-32">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="h2 mt-5 text-navy-900">
+
+          <h2 id={id} className="h2 text-navy-900">
             {content.heading}
           </h2>
         </div>
@@ -621,8 +616,8 @@ function ScenariosBlock({
 function ScenariosRows({ id, content }: { id: string; content: TopicScenarios }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-5 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className="h2 text-navy-900 lg:col-span-7">
           {content.heading}
         </h2>
@@ -649,8 +644,8 @@ function ScenariosRows({ id, content }: { id: string; content: TopicScenarios })
 function ScenariosGrid({ id, content, tone }: { id: string; content: TopicScenarios; tone: TopicTone }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-5 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className="h2 text-navy-900 lg:col-span-7">
           {content.heading}
         </h2>
@@ -693,8 +688,8 @@ function ScenariosSplit({ id, content }: { id: string; content: TopicScenarios }
     <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-4">
         <div className="lg:sticky lg:top-32">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="h2 mt-5 text-navy-900">
+
+          <h2 id={id} className="h2 text-navy-900">
             {content.heading}
           </h2>
           {content.intro && <p className="mt-5 text-lg leading-relaxed text-navy-600">{content.intro}</p>}
@@ -737,8 +732,8 @@ function ChecklistBlock({
 
   const header = (
     <>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <h2 id={id} className="h2 mt-5 text-navy-900">
+
+      <h2 id={id} className="h2 text-navy-900">
         {content.heading}
       </h2>
       {content.body && <p className="mt-5 text-lg leading-relaxed text-navy-600">{content.body}</p>}
@@ -782,12 +777,8 @@ function ChecklistCentered({
   return (
     <div>
       <div className="mx-auto max-w-3xl text-center">
-        {content.kicker && (
-          <div className="flex justify-center">
-            <Kicker>{content.kicker}</Kicker>
-          </div>
-        )}
-        <h2 id={id} className="h2 mt-5 text-navy-900">
+
+        <h2 id={id} className="h2 text-navy-900">
           {content.heading}
         </h2>
         {content.body && <p className="mt-5 text-lg leading-relaxed text-navy-600">{content.body}</p>}
@@ -825,6 +816,7 @@ function WorkflowBlock({
   tone: TopicTone;
   variant: TopicLayoutVariant;
 }) {
+  if (content.layout === 'connected-ledger') return <BulkProcurementWorkflow id={id} content={content} />;
   if (variant.workflow === 'horizontal') return <WorkflowHorizontal id={id} content={content} tone={tone} />;
   if (variant.workflow === 'steps-grid') return <WorkflowStepsGrid id={id} content={content} tone={tone} />;
   return <WorkflowTimeline id={id} content={content} tone={tone} />;
@@ -836,8 +828,8 @@ function WorkflowTimeline({ id, content, tone }: { id: string; content: TopicWor
     <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-4">
         <div className="lg:sticky lg:top-32">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="h2 mt-5 text-navy-900">
+
+          <h2 id={id} className="h2 text-navy-900">
             {content.heading}
           </h2>
           {content.intro && <p className="mt-5 text-lg leading-relaxed text-navy-600">{content.intro}</p>}
@@ -893,8 +885,8 @@ function WorkflowHorizontal({ id, content, tone }: { id: string; content: TopicW
     <div>
       <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <div className="lg:col-span-6">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="h2 mt-5 text-navy-900">
+
+          <h2 id={id} className="h2 text-navy-900">
             {content.heading}
           </h2>
         </div>
@@ -957,8 +949,8 @@ function WorkflowStepsGrid({ id, content, tone }: { id: string; content: TopicWo
     <div>
       <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <div className="lg:col-span-6">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="h2 mt-5 text-navy-900">
+
+          <h2 id={id} className="h2 text-navy-900">
             {content.heading}
           </h2>
         </div>
@@ -1011,8 +1003,8 @@ function BriefBlock({ id, content }: { id: string; content: TopicBrief }) {
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
       <div className="lg:col-span-5">
         <div className="lg:sticky lg:top-32">
-          {content.kicker && <Kicker dark>{content.kicker}</Kicker>}
-          <h2 id={id} className="h2 mt-5 text-white">
+
+          <h2 id={id} className="h2 text-white">
             {content.heading}
           </h2>
           <div className="mt-6 space-y-5">
@@ -1058,8 +1050,8 @@ function BriefBlock({ id, content }: { id: string; content: TopicBrief }) {
 function ComparisonBlock({ id, content }: { id: string; content: TopicComparison }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-5 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className="h2 text-navy-900 lg:col-span-7">
           {content.heading}
         </h2>
@@ -1104,8 +1096,8 @@ function CheckpointsBlock({
   const last = content.cards.length - 1;
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-5 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className="h2 text-navy-900 lg:col-span-6">
           {content.heading}
         </h2>
@@ -1142,8 +1134,8 @@ function CheckpointsBlock({
 function ScopeTableBlock({ id, content }: { id: string; content: TopicScopeTable }) {
   return (
     <div>
-      {content.kicker && <Kicker>{content.kicker}</Kicker>}
-      <div className="mt-5 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className="h2 text-navy-900 lg:col-span-7">
           {content.heading}
         </h2>
@@ -1208,8 +1200,8 @@ function ControlsBlock({
 }) {
   return (
     <div>
-      {content.kicker && <Kicker dark={dark}>{content.kicker}</Kicker>}
-      <div className="mt-5 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+      <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
         <h2 id={id} className={cn('h2', dark ? 'text-white' : 'text-navy-900', 'lg:col-span-7')}>
           {content.heading}
         </h2>
@@ -1354,8 +1346,8 @@ function FaqBlock({
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-4">
         <div className="lg:sticky lg:top-32">
-          {content.kicker && <Kicker>{content.kicker}</Kicker>}
-          <h2 id={id} className="h2 mt-5 text-navy-900">
+
+          <h2 id={id} className="h2 text-navy-900">
             {content.heading}
           </h2>
           {content.guide && <p className="mt-5 text-[17px] leading-relaxed text-navy-600">{content.guide}</p>}
@@ -1389,8 +1381,8 @@ function FaqStacked({ id, content, tone }: { id: string; content: TopicFaq; tone
   return (
     <div>
       <div className="max-w-3xl">
-        {content.kicker && <Kicker>{content.kicker}</Kicker>}
-        <h2 id={id} className="h2 mt-5 text-navy-900">
+
+        <h2 id={id} className="h2 text-navy-900">
           {content.heading}
         </h2>
         {content.guide && <p className="mt-5 text-[17px] leading-relaxed text-navy-600">{content.guide}</p>}
@@ -1535,12 +1527,10 @@ function TopicEnquiry({ content, variant }: { content: TopicPageContent; variant
         />
         <div className="shell">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="flex justify-center">
-              <p className="eyebrow text-signal-700">{content.enquiry.kicker}</p>
-            </div>
+
             <h2
               id="topic-enquiry-title"
-              className="mt-5 font-display text-[2rem] font-semibold leading-[1.08] text-navy-900 text-balance sm:text-[2.6rem]"
+              className="font-display text-[2rem] font-semibold leading-[1.08] text-navy-900 text-balance sm:text-[2.6rem]"
             >
               {content.enquiry.heading}
             </h2>
@@ -1568,10 +1558,10 @@ function TopicEnquiry({ content, variant }: { content: TopicPageContent; variant
 
   const copy = (
     <div>
-      <p className="eyebrow text-signal-700">{content.enquiry.kicker}</p>
+
       <h2
         id="topic-enquiry-title"
-        className="mt-5 font-display text-[2rem] font-semibold leading-[1.08] text-navy-900 text-balance sm:text-[2.6rem]"
+        className="font-display text-[2rem] font-semibold leading-[1.08] text-navy-900 text-balance sm:text-[2.6rem]"
       >
         {content.enquiry.heading}
       </h2>

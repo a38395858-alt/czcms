@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { FR_TOPICS } from '../../content/fr/topics';
-import { LOCALIZED_HOMEPAGES } from '../../config/site';
+import { LOCALIZED_HOMEPAGES, siteConfig } from '../../config/site';
 import { cmsContext, cmsHref, languageHref } from '../../lib/cms';
 import { openConsentSettings } from '../../lib/analytics';
 import { Link } from '../../lib/router';
@@ -62,7 +62,7 @@ export function FrenchTopicHeader() {
 
 export function FrenchTopicFooter() {
   return <footer className="fr-topic-footer"><div className="shell">
-    <div className="fr-topic-footer-grid"><div><Logo /><p>Du sourcing en Chine au prochain relais confirmé.</p><a href="#demande" className="fr-topic-text-link">Demander un plan <ArrowRight className="h-4 w-4" /></a></div>
+    <div className="fr-topic-footer-grid"><div><Logo /><p>Du sourcing en Chine au prochain relais confirmé.</p><p><a href={`mailto:${siteConfig.contact.email}`} className="fr-topic-text-link">{siteConfig.contact.email}</a></p><a href="#demande" className="fr-topic-text-link">Demander un plan <ArrowRight className="h-4 w-4" /></a></div>
       {['service', 'industry'].map(kind => <nav key={kind} aria-label={kind === 'service' ? 'Services du pied de page' : 'Secteurs du pied de page'}><h2>{kind === 'service' ? 'Solutions' : 'Secteurs'}</h2>{Object.values(FR_TOPICS).filter(t => t.kind === kind).map(t => <Link key={t.id} to={t.route}>{t.pageLabel}</Link>)}</nav>)}
     </div>
     <div className="fr-topic-footer-bottom"><p>© {new Date().getFullYear()} FreightVanta · Français · France</p><div><a href={cmsHref('/fr/confidentialite')}>Confidentialité</a><a href={cmsHref('/fr/cookies')}>Cookies</a><button type="button" onClick={openConsentSettings}>Préférences de mesure d’audience</button></div></div>

@@ -16,7 +16,7 @@ export function Industries({ section }: { section: IndustriesSection }) {
           <h2 id="industries-title" className="h2 text-navy-900">
             {section.title}
           </h2>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-navy-600">{section.body}</p>
+
 
           <figure className="relative mt-10 lg:mt-14">
             <div className="overflow-hidden rounded-[4px] bg-mist-100">

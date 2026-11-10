@@ -150,8 +150,8 @@ export function FrIndustriesPage() {
                 </div>
               </div>
               <div className="lg:col-span-6">
-                <p className="fr-eyebrow text-outremer-700">{industry.menuLine}</p>
-                <h2 className="mt-4 font-fr-serif text-[2.2rem] font-semibold leading-tight text-encre-900">{industry.name}</h2>
+
+                <h2 className="font-fr-serif text-[2.2rem] font-semibold leading-tight text-encre-900">{industry.name}</h2>
                 <p className="mt-4 text-lg leading-relaxed text-encre-600">{industry.copy}</p>
                 <FrCheckList items={industry.questions.slice(0, 2)} className="mt-6" />
                 <Link to={`/fr/secteurs/${industry.slug}`} className="fr-btn fr-btn-dark mt-8 w-full sm:w-auto">
@@ -302,7 +302,7 @@ export function FrGuidesPage() {
                 </div>
                 <div className="lg:col-span-4">
                   <div className="rounded-[14px] bg-encre-900 p-7 text-white">
-                    <p className="fr-eyebrow text-outremer-300">Une expédition en préparation ?</p>
+                    <p className="text-sm font-semibold text-outremer-300">Une expédition en préparation ?</p>
                     <p className="mt-4 font-fr-serif text-2xl font-semibold leading-snug">Transformez ce que vous venez de lire en un plan que votre équipe peut utiliser.</p>
                     <Link to={FR_ANCHORS.enquiry} className="fr-btn fr-btn-primary mt-6 w-full">
                       Demander un plan d’expédition
@@ -408,7 +408,7 @@ function ArticleDetail({ article }: { article: ArticleFr }) {
           <aside className="lg:col-span-4">
             <div className="space-y-8 lg:sticky lg:top-28">
               <div className="rounded-[14px] bg-encre-900 p-7 text-white">
-                <p className="fr-eyebrow text-outremer-300">Demander un plan d’expédition</p>
+                <p className="text-sm font-semibold text-outremer-300">Demander un plan d’expédition</p>
                 <p className="mt-4 font-fr-serif text-2xl font-semibold leading-snug">Vous préparez une expédition de ce type ?</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-lin-200">Un lien produit, un brief d’expédition ou la route à planifier suffit pour commencer.</p>
                 <Link to={FR_ANCHORS.enquiry} className="fr-btn fr-btn-primary mt-6 w-full">
@@ -418,7 +418,7 @@ function ArticleDetail({ article }: { article: ArticleFr }) {
               </div>
               {services.length > 0 && (
                 <div>
-                  <h2 className="fr-eyebrow text-encre-500">Solutions associées</h2>
+                  <h2 className="text-sm font-semibold text-encre-500">Solutions associées</h2>
                   <ul className="mt-3 border-t border-encre-900">
                     {services.map((service) => (
                       <li key={service.slug} className="border-b border-encre-900/10">

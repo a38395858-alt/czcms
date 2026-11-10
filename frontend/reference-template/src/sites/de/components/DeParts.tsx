@@ -49,7 +49,7 @@ interface PageHeroProps {
 }
 
 /** Light, paper-and-hairline page header — the opposite of the English navy hero. */
-export function DePageHero({ breadcrumbs, eyebrow, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
+export function DePageHero({ breadcrumbs, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
   return (
     <section className="relative isolate overflow-hidden border-b border-anthrazit-900 bg-papier text-anthrazit-900">
       <div aria-hidden="true" className="de-grid-bg pointer-events-none absolute inset-0 -z-10" />
@@ -57,8 +57,8 @@ export function DePageHero({ breadcrumbs, eyebrow, title, lead, body, media, med
         <DeBreadcrumbs items={breadcrumbs} />
         <div className={cn('mt-8 grid gap-10 lg:mt-10', media && 'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-14')}>
           <div className={cn(!media && 'max-w-3xl')}>
-            {eyebrow && <p className="de-eyebrow text-enzian-700">{eyebrow}</p>}
-            <h1 className="mt-5 font-de-display text-[2.5rem] font-bold leading-[1.03] tracking-[-0.01em] text-balance sm:text-5xl lg:text-[3.6rem]">
+
+            <h1 className="font-de-display text-[2.5rem] font-bold leading-[1.03] tracking-[-0.01em] text-balance sm:text-5xl lg:text-[3.6rem]">
               {title}
             </h1>
             {lead && <p className="mt-5 text-xl font-semibold leading-snug text-anthrazit-800 sm:text-2xl">{lead}</p>}
@@ -92,7 +92,7 @@ export function DeCheckList({ items, className }: { items: string[]; className?:
 export function DeScopeNote({ children }: { children: ReactNode }) {
   return (
     <div className="border border-anthrazit-900 border-l-4 border-l-enzian-700 bg-white px-5 py-4 text-[15px] leading-relaxed text-anthrazit-700">
-      <p className="de-eyebrow text-enzian-700">Leistungsabgrenzung</p>
+      <p className="text-sm font-semibold text-enzian-700">Leistungsabgrenzung</p>
       <p className="mt-2">{children}</p>
     </div>
   );
@@ -113,8 +113,8 @@ export function DeCtaBand({
     <section aria-label="Sendungsplan anfragen" className="border-t border-anthrazit-900 bg-kiesel-100">
       <div className="shell flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
         <div className="max-w-2xl">
-          <p className="de-eyebrow text-enzian-700">Sendungsplan anfragen</p>
-          <h2 className="mt-4 font-de-display text-[2rem] font-bold leading-tight text-anthrazit-900 sm:text-[2.5rem]">{title}</h2>
+
+          <h2 className="font-de-display text-[2rem] font-bold leading-tight text-anthrazit-900 sm:text-[2.5rem]">{title}</h2>
           <p className="mt-4 text-lg leading-relaxed text-anthrazit-600">{body}</p>
         </div>
         <Link
@@ -160,7 +160,7 @@ function Cover({ article, className, sizes }: { article: ArticleDe; className: s
         />
       ) : (
         <div className="flex h-full w-full items-end bg-kiesel-100 p-4">
-          <span className="de-eyebrow text-anthrazit-500">{article.category}</span>
+          <span className="text-sm font-semibold text-anthrazit-500">{article.category}</span>
         </div>
       )}
     </div>

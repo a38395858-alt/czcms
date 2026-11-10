@@ -1,0 +1,11005 @@
+{
+  "version": 5,
+  "dataMode": "demo",
+  "currency": "USD",
+  "basis": "door-to-door",
+  "origins": [
+    {
+      "id": "shanghai",
+      "en": "Shanghai, China",
+      "zh": "上海，中国",
+      "port": {
+        "en": "Port of Shanghai",
+        "zh": "上海港"
+      }
+    },
+    {
+      "id": "ningbo",
+      "en": "Ningbo, China",
+      "zh": "宁波，中国",
+      "port": {
+        "en": "Port of Ningbo-Zhoushan",
+        "zh": "宁波舟山港"
+      }
+    },
+    {
+      "id": "shenzhen",
+      "en": "Shenzhen, China",
+      "zh": "深圳，中国",
+      "port": {
+        "en": "Yantian Port",
+        "zh": "盐田港"
+      }
+    },
+    {
+      "id": "qingdao",
+      "en": "Qingdao, China",
+      "zh": "青岛，中国",
+      "port": {
+        "en": "Port of Qingdao",
+        "zh": "青岛港"
+      }
+    },
+    {
+      "id": "xiamen",
+      "en": "Xiamen, China",
+      "zh": "厦门，中国",
+      "port": {
+        "en": "Port of Xiamen",
+        "zh": "厦门港"
+      }
+    },
+    {
+      "id": "guangzhou",
+      "en": "Guangzhou, China",
+      "zh": "广州，中国",
+      "port": {
+        "en": "Nansha Port",
+        "zh": "南沙港"
+      }
+    },
+    {
+      "id": "tianjin",
+      "en": "Tianjin, China",
+      "zh": "天津，中国",
+      "port": {
+        "en": "Xingang Port",
+        "zh": "天津新港"
+      }
+    },
+    {
+      "id": "dalian",
+      "en": "Dalian, China",
+      "zh": "大连，中国",
+      "port": {
+        "en": "Port of Dalian",
+        "zh": "大连港"
+      }
+    },
+    {
+      "id": "fuzhou",
+      "en": "Fuzhou, China",
+      "zh": "福州，中国",
+      "port": {
+        "en": "Port of Fuzhou",
+        "zh": "福州港"
+      }
+    },
+    {
+      "id": "shantou",
+      "en": "Shantou, China",
+      "zh": "汕头，中国",
+      "port": {
+        "en": "Port of Shantou",
+        "zh": "汕头港"
+      }
+    },
+    {
+      "id": "nanjing",
+      "en": "Nanjing, China",
+      "zh": "南京，中国",
+      "port": {
+        "en": "Port of Nanjing",
+        "zh": "南京港"
+      }
+    },
+    {
+      "id": "suzhou",
+      "en": "Suzhou, China",
+      "zh": "苏州，中国",
+      "port": {
+        "en": "Taicang Port",
+        "zh": "太仓港"
+      }
+    },
+    {
+      "id": "foshan",
+      "en": "Foshan, China",
+      "zh": "佛山，中国",
+      "port": {
+        "en": "Shunde Port",
+        "zh": "顺德港"
+      }
+    },
+    {
+      "id": "zhongshan",
+      "en": "Zhongshan, China",
+      "zh": "中山，中国",
+      "port": {
+        "en": "Port of Zhongshan",
+        "zh": "中山港"
+      }
+    },
+    {
+      "id": "zhuhai",
+      "en": "Zhuhai, China",
+      "zh": "珠海，中国",
+      "port": {
+        "en": "Port of Zhuhai",
+        "zh": "珠海港"
+      }
+    },
+    {
+      "id": "lianyungang",
+      "en": "Lianyungang, China",
+      "zh": "连云港，中国",
+      "port": {
+        "en": "Port of Lianyungang",
+        "zh": "连云港"
+      }
+    },
+    {
+      "id": "chongqing",
+      "en": "Chongqing, China",
+      "zh": "重庆，中国",
+      "port": {
+        "en": "Chongqing Port",
+        "zh": "重庆港"
+      }
+    },
+    {
+      "id": "wuhan",
+      "en": "Wuhan, China",
+      "zh": "武汉，中国",
+      "port": {
+        "en": "Port of Wuhan",
+        "zh": "武汉港"
+      }
+    },
+    {
+      "id": "yiwu",
+      "en": "Yiwu, China",
+      "zh": "义乌，中国",
+      "port": {
+        "en": "Yiwu feeder via Ningbo",
+        "zh": "义乌（宁波接驳）"
+      }
+    },
+    {
+      "id": "chengdu",
+      "en": "Chengdu, China",
+      "zh": "成都，中国",
+      "port": {
+        "en": "Chengdu feeder via Shenzhen",
+        "zh": "成都（深圳接驳）"
+      }
+    }
+  ],
+  "destinations": [
+    {
+      "id": "los-angeles",
+      "en": "Los Angeles, US",
+      "zh": "洛杉矶，美国",
+      "port": {
+        "en": "Port of Los Angeles",
+        "zh": "洛杉矶港"
+      }
+    },
+    {
+      "id": "new-york",
+      "en": "New York, US",
+      "zh": "纽约，美国",
+      "port": {
+        "en": "Port of New York & New Jersey",
+        "zh": "纽约新泽西港"
+      }
+    },
+    {
+      "id": "chicago",
+      "en": "Chicago, US",
+      "zh": "芝加哥，美国",
+      "port": {
+        "en": "Chicago rail ramp",
+        "zh": "芝加哥铁路堆场"
+      }
+    },
+    {
+      "id": "dallas",
+      "en": "Dallas, US",
+      "zh": "达拉斯，美国",
+      "port": {
+        "en": "Dallas rail ramp",
+        "zh": "达拉斯铁路堆场"
+      }
+    },
+    {
+      "id": "seattle",
+      "en": "Seattle, US",
+      "zh": "西雅图，美国",
+      "port": {
+        "en": "Port of Seattle",
+        "zh": "西雅图港"
+      }
+    },
+    {
+      "id": "houston",
+      "en": "Houston, US",
+      "zh": "休斯敦，美国",
+      "port": {
+        "en": "Port of Houston",
+        "zh": "休斯敦港"
+      }
+    },
+    {
+      "id": "savannah",
+      "en": "Savannah, US",
+      "zh": "萨凡纳，美国",
+      "port": {
+        "en": "Port of Savannah",
+        "zh": "萨凡纳港"
+      }
+    }
+  ],
+  "services": [
+    {
+      "id": "matson",
+      "mode": "sea",
+      "en": "Matson ocean service",
+      "zh": "美森海运",
+      "billing": "wm",
+      "minimum": 1
+    },
+    {
+      "id": "standard",
+      "mode": "sea",
+      "en": "Standard ocean service",
+      "zh": "普船海运",
+      "billing": "wm",
+      "minimum": 1
+    },
+    {
+      "id": "air",
+      "mode": "air",
+      "en": "Air freight",
+      "zh": "空运",
+      "billing": "kg",
+      "divisor": 6000,
+      "minimum": 45,
+      "increment": 1
+    },
+    {
+      "id": "express",
+      "mode": "express",
+      "en": "Express courier",
+      "zh": "国际快递",
+      "billing": "kg",
+      "divisor": 5000,
+      "minimum": 0.5,
+      "increment": 0.5
+    },
+    {
+      "id": "us-parcel",
+      "mode": "lastmile",
+      "deliveryType": "parcel",
+      "en": "US parcel delivery",
+      "zh": "美国快递派送",
+      "billing": "kg",
+      "divisor": 5000,
+      "minimum": 1,
+      "increment": 0.5
+    },
+    {
+      "id": "us-truck",
+      "mode": "lastmile",
+      "deliveryType": "truck",
+      "en": "US pallet delivery",
+      "zh": "美国卡车托盘派送",
+      "billing": "pallet"
+    }
+  ],
+  "fclRoutes": [
+    {
+      "origin": "shanghai",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            12,
+            16
+          ],
+          "rates": {
+            "20gp": [
+              3600,
+              4400
+            ],
+            "40gp": [
+              4800,
+              5900
+            ],
+            "40hc": [
+              5000,
+              6200
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            20,
+            26
+          ],
+          "rates": {
+            "20gp": [
+              2300,
+              3200
+            ],
+            "40gp": [
+              2900,
+              3800
+            ],
+            "40hc": [
+              3100,
+              4100
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3200,
+              4100
+            ],
+            "40gp": [
+              3800,
+              4700
+            ],
+            "40hc": [
+              4000,
+              5000
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3100,
+              4000
+            ],
+            "40gp": [
+              3700,
+              4600
+            ],
+            "40hc": [
+              3900,
+              4900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            26,
+            34
+          ],
+          "rates": {
+            "20gp": [
+              3000,
+              3900
+            ],
+            "40gp": [
+              3600,
+              4500
+            ],
+            "40hc": [
+              3800,
+              4800
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            18,
+            24
+          ],
+          "rates": {
+            "20gp": [
+              2400,
+              3300
+            ],
+            "40gp": [
+              3000,
+              3900
+            ],
+            "40hc": [
+              3200,
+              4200
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            26,
+            34
+          ],
+          "rates": {
+            "20gp": [
+              3000,
+              3900
+            ],
+            "40gp": [
+              3600,
+              4500
+            ],
+            "40hc": [
+              3800,
+              4800
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            27,
+            35
+          ],
+          "rates": {
+            "20gp": [
+              3100,
+              4000
+            ],
+            "40gp": [
+              3700,
+              4600
+            ],
+            "40hc": [
+              3900,
+              4900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            14,
+            18
+          ],
+          "rates": {
+            "20gp": [
+              3630,
+              4430
+            ],
+            "40gp": [
+              4830,
+              5930
+            ],
+            "40hc": [
+              5030,
+              6230
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2330,
+              3230
+            ],
+            "40gp": [
+              2930,
+              3830
+            ],
+            "40hc": [
+              3130,
+              4130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3230,
+              4130
+            ],
+            "40gp": [
+              3830,
+              4730
+            ],
+            "40hc": [
+              4030,
+              5030
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3130,
+              4030
+            ],
+            "40gp": [
+              3730,
+              4630
+            ],
+            "40hc": [
+              3930,
+              4930
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3030,
+              3930
+            ],
+            "40gp": [
+              3630,
+              4530
+            ],
+            "40hc": [
+              3830,
+              4830
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            20,
+            26
+          ],
+          "rates": {
+            "20gp": [
+              2430,
+              3330
+            ],
+            "40gp": [
+              3030,
+              3930
+            ],
+            "40hc": [
+              3230,
+              4230
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3030,
+              3930
+            ],
+            "40gp": [
+              3630,
+              4530
+            ],
+            "40hc": [
+              3830,
+              4830
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3130,
+              4030
+            ],
+            "40gp": [
+              3730,
+              4630
+            ],
+            "40hc": [
+              3930,
+              4930
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            15,
+            19
+          ],
+          "rates": {
+            "20gp": [
+              3648,
+              4448
+            ],
+            "40gp": [
+              4848,
+              5948
+            ],
+            "40hc": [
+              5048,
+              6248
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2348,
+              3248
+            ],
+            "40gp": [
+              2948,
+              3848
+            ],
+            "40hc": [
+              3148,
+              4148
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3248,
+              4148
+            ],
+            "40gp": [
+              3848,
+              4748
+            ],
+            "40hc": [
+              4048,
+              5048
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3148,
+              4048
+            ],
+            "40gp": [
+              3748,
+              4648
+            ],
+            "40hc": [
+              3948,
+              4948
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3048,
+              3948
+            ],
+            "40gp": [
+              3648,
+              4548
+            ],
+            "40hc": [
+              3848,
+              4848
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            21,
+            27
+          ],
+          "rates": {
+            "20gp": [
+              2448,
+              3348
+            ],
+            "40gp": [
+              3048,
+              3948
+            ],
+            "40hc": [
+              3248,
+              4248
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3048,
+              3948
+            ],
+            "40gp": [
+              3648,
+              4548
+            ],
+            "40hc": [
+              3848,
+              4848
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3148,
+              4048
+            ],
+            "40gp": [
+              3748,
+              4648
+            ],
+            "40hc": [
+              3948,
+              4948
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            16,
+            20
+          ],
+          "rates": {
+            "20gp": [
+              3708,
+              4508
+            ],
+            "40gp": [
+              4908,
+              6008
+            ],
+            "40hc": [
+              5108,
+              6308
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            24,
+            30
+          ],
+          "rates": {
+            "20gp": [
+              2408,
+              3308
+            ],
+            "40gp": [
+              3008,
+              3908
+            ],
+            "40hc": [
+              3208,
+              4208
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3308,
+              4208
+            ],
+            "40gp": [
+              3908,
+              4808
+            ],
+            "40hc": [
+              4108,
+              5108
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3208,
+              4108
+            ],
+            "40gp": [
+              3808,
+              4708
+            ],
+            "40hc": [
+              4008,
+              5008
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3108,
+              4008
+            ],
+            "40gp": [
+              3708,
+              4608
+            ],
+            "40hc": [
+              3908,
+              4908
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2508,
+              3408
+            ],
+            "40gp": [
+              3108,
+              4008
+            ],
+            "40hc": [
+              3308,
+              4308
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3108,
+              4008
+            ],
+            "40gp": [
+              3708,
+              4608
+            ],
+            "40hc": [
+              3908,
+              4908
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3208,
+              4108
+            ],
+            "40gp": [
+              3808,
+              4708
+            ],
+            "40hc": [
+              4008,
+              5008
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            17,
+            21
+          ],
+          "rates": {
+            "20gp": [
+              3738,
+              4538
+            ],
+            "40gp": [
+              4938,
+              6038
+            ],
+            "40hc": [
+              5138,
+              6338
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            25,
+            31
+          ],
+          "rates": {
+            "20gp": [
+              2438,
+              3338
+            ],
+            "40gp": [
+              3038,
+              3938
+            ],
+            "40hc": [
+              3238,
+              4238
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3338,
+              4238
+            ],
+            "40gp": [
+              3938,
+              4838
+            ],
+            "40hc": [
+              4138,
+              5138
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3238,
+              4138
+            ],
+            "40gp": [
+              3838,
+              4738
+            ],
+            "40hc": [
+              4038,
+              5038
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3138,
+              4038
+            ],
+            "40gp": [
+              3738,
+              4638
+            ],
+            "40hc": [
+              3938,
+              4938
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2538,
+              3438
+            ],
+            "40gp": [
+              3138,
+              4038
+            ],
+            "40hc": [
+              3338,
+              4338
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3138,
+              4038
+            ],
+            "40gp": [
+              3738,
+              4638
+            ],
+            "40hc": [
+              3938,
+              4938
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3238,
+              4138
+            ],
+            "40gp": [
+              3838,
+              4738
+            ],
+            "40hc": [
+              4038,
+              5038
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            15,
+            19
+          ],
+          "rates": {
+            "20gp": [
+              3660,
+              4460
+            ],
+            "40gp": [
+              4860,
+              5960
+            ],
+            "40hc": [
+              5060,
+              6260
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2360,
+              3260
+            ],
+            "40gp": [
+              2960,
+              3860
+            ],
+            "40hc": [
+              3160,
+              4160
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3260,
+              4160
+            ],
+            "40gp": [
+              3860,
+              4760
+            ],
+            "40hc": [
+              4060,
+              5060
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3160,
+              4060
+            ],
+            "40gp": [
+              3760,
+              4660
+            ],
+            "40hc": [
+              3960,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3060,
+              3960
+            ],
+            "40gp": [
+              3660,
+              4560
+            ],
+            "40hc": [
+              3860,
+              4860
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            21,
+            27
+          ],
+          "rates": {
+            "20gp": [
+              2460,
+              3360
+            ],
+            "40gp": [
+              3060,
+              3960
+            ],
+            "40hc": [
+              3260,
+              4260
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3060,
+              3960
+            ],
+            "40gp": [
+              3660,
+              4560
+            ],
+            "40hc": [
+              3860,
+              4860
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3160,
+              4060
+            ],
+            "40gp": [
+              3760,
+              4660
+            ],
+            "40hc": [
+              3960,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            16,
+            20
+          ],
+          "rates": {
+            "20gp": [
+              3720,
+              4520
+            ],
+            "40gp": [
+              4920,
+              6020
+            ],
+            "40hc": [
+              5120,
+              6320
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            24,
+            30
+          ],
+          "rates": {
+            "20gp": [
+              2420,
+              3320
+            ],
+            "40gp": [
+              3020,
+              3920
+            ],
+            "40hc": [
+              3220,
+              4220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3320,
+              4220
+            ],
+            "40gp": [
+              3920,
+              4820
+            ],
+            "40hc": [
+              4120,
+              5120
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4120
+            ],
+            "40gp": [
+              3820,
+              4720
+            ],
+            "40hc": [
+              4020,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3120,
+              4020
+            ],
+            "40gp": [
+              3720,
+              4620
+            ],
+            "40hc": [
+              3920,
+              4920
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2520,
+              3420
+            ],
+            "40gp": [
+              3120,
+              4020
+            ],
+            "40hc": [
+              3320,
+              4320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3120,
+              4020
+            ],
+            "40gp": [
+              3720,
+              4620
+            ],
+            "40hc": [
+              3920,
+              4920
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4120
+            ],
+            "40gp": [
+              3820,
+              4720
+            ],
+            "40hc": [
+              4020,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            17,
+            21
+          ],
+          "rates": {
+            "20gp": [
+              3744,
+              4544
+            ],
+            "40gp": [
+              4944,
+              6044
+            ],
+            "40hc": [
+              5144,
+              6344
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            25,
+            31
+          ],
+          "rates": {
+            "20gp": [
+              2444,
+              3344
+            ],
+            "40gp": [
+              3044,
+              3944
+            ],
+            "40hc": [
+              3244,
+              4244
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3344,
+              4244
+            ],
+            "40gp": [
+              3944,
+              4844
+            ],
+            "40hc": [
+              4144,
+              5144
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3244,
+              4144
+            ],
+            "40gp": [
+              3844,
+              4744
+            ],
+            "40hc": [
+              4044,
+              5044
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3144,
+              4044
+            ],
+            "40gp": [
+              3744,
+              4644
+            ],
+            "40hc": [
+              3944,
+              4944
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2544,
+              3444
+            ],
+            "40gp": [
+              3144,
+              4044
+            ],
+            "40hc": [
+              3344,
+              4344
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3144,
+              4044
+            ],
+            "40gp": [
+              3744,
+              4644
+            ],
+            "40hc": [
+              3944,
+              4944
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3244,
+              4144
+            ],
+            "40gp": [
+              3844,
+              4744
+            ],
+            "40hc": [
+              4044,
+              5044
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            16,
+            20
+          ],
+          "rates": {
+            "20gp": [
+              3720,
+              4520
+            ],
+            "40gp": [
+              4920,
+              6020
+            ],
+            "40hc": [
+              5120,
+              6320
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            24,
+            30
+          ],
+          "rates": {
+            "20gp": [
+              2420,
+              3320
+            ],
+            "40gp": [
+              3020,
+              3920
+            ],
+            "40hc": [
+              3220,
+              4220
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3320,
+              4220
+            ],
+            "40gp": [
+              3920,
+              4820
+            ],
+            "40hc": [
+              4120,
+              5120
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4120
+            ],
+            "40gp": [
+              3820,
+              4720
+            ],
+            "40hc": [
+              4020,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3120,
+              4020
+            ],
+            "40gp": [
+              3720,
+              4620
+            ],
+            "40hc": [
+              3920,
+              4920
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2520,
+              3420
+            ],
+            "40gp": [
+              3120,
+              4020
+            ],
+            "40hc": [
+              3320,
+              4320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3120,
+              4020
+            ],
+            "40gp": [
+              3720,
+              4620
+            ],
+            "40hc": [
+              3920,
+              4920
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4120
+            ],
+            "40gp": [
+              3820,
+              4720
+            ],
+            "40hc": [
+              4020,
+              5020
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            17,
+            21
+          ],
+          "rates": {
+            "20gp": [
+              3732,
+              4532
+            ],
+            "40gp": [
+              4932,
+              6032
+            ],
+            "40hc": [
+              5132,
+              6332
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            25,
+            31
+          ],
+          "rates": {
+            "20gp": [
+              2432,
+              3332
+            ],
+            "40gp": [
+              3032,
+              3932
+            ],
+            "40hc": [
+              3232,
+              4232
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3332,
+              4232
+            ],
+            "40gp": [
+              3932,
+              4832
+            ],
+            "40hc": [
+              4132,
+              5132
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3232,
+              4132
+            ],
+            "40gp": [
+              3832,
+              4732
+            ],
+            "40hc": [
+              4032,
+              5032
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3132,
+              4032
+            ],
+            "40gp": [
+              3732,
+              4632
+            ],
+            "40hc": [
+              3932,
+              4932
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2532,
+              3432
+            ],
+            "40gp": [
+              3132,
+              4032
+            ],
+            "40hc": [
+              3332,
+              4332
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3132,
+              4032
+            ],
+            "40gp": [
+              3732,
+              4632
+            ],
+            "40hc": [
+              3932,
+              4932
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3232,
+              4132
+            ],
+            "40gp": [
+              3832,
+              4732
+            ],
+            "40hc": [
+              4032,
+              5032
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            14,
+            18
+          ],
+          "rates": {
+            "20gp": [
+              3648,
+              4448
+            ],
+            "40gp": [
+              4848,
+              5948
+            ],
+            "40hc": [
+              5048,
+              6248
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2348,
+              3248
+            ],
+            "40gp": [
+              2948,
+              3848
+            ],
+            "40hc": [
+              3148,
+              4148
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3248,
+              4148
+            ],
+            "40gp": [
+              3848,
+              4748
+            ],
+            "40hc": [
+              4048,
+              5048
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3148,
+              4048
+            ],
+            "40gp": [
+              3748,
+              4648
+            ],
+            "40hc": [
+              3948,
+              4948
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3048,
+              3948
+            ],
+            "40gp": [
+              3648,
+              4548
+            ],
+            "40hc": [
+              3848,
+              4848
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            20,
+            26
+          ],
+          "rates": {
+            "20gp": [
+              2448,
+              3348
+            ],
+            "40gp": [
+              3048,
+              3948
+            ],
+            "40hc": [
+              3248,
+              4248
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3048,
+              3948
+            ],
+            "40gp": [
+              3648,
+              4548
+            ],
+            "40hc": [
+              3848,
+              4848
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3148,
+              4048
+            ],
+            "40gp": [
+              3748,
+              4648
+            ],
+            "40hc": [
+              3948,
+              4948
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            14,
+            18
+          ],
+          "rates": {
+            "20gp": [
+              3636,
+              4436
+            ],
+            "40gp": [
+              4836,
+              5936
+            ],
+            "40hc": [
+              5036,
+              6236
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2336,
+              3236
+            ],
+            "40gp": [
+              2936,
+              3836
+            ],
+            "40hc": [
+              3136,
+              4136
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3236,
+              4136
+            ],
+            "40gp": [
+              3836,
+              4736
+            ],
+            "40hc": [
+              4036,
+              5036
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3136,
+              4036
+            ],
+            "40gp": [
+              3736,
+              4636
+            ],
+            "40hc": [
+              3936,
+              4936
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3036,
+              3936
+            ],
+            "40gp": [
+              3636,
+              4536
+            ],
+            "40hc": [
+              3836,
+              4836
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            20,
+            26
+          ],
+          "rates": {
+            "20gp": [
+              2436,
+              3336
+            ],
+            "40gp": [
+              3036,
+              3936
+            ],
+            "40hc": [
+              3236,
+              4236
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            36
+          ],
+          "rates": {
+            "20gp": [
+              3036,
+              3936
+            ],
+            "40gp": [
+              3636,
+              4536
+            ],
+            "40hc": [
+              3836,
+              4836
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3136,
+              4036
+            ],
+            "40gp": [
+              3736,
+              4636
+            ],
+            "40hc": [
+              3936,
+              4936
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            15,
+            19
+          ],
+          "rates": {
+            "20gp": [
+              3660,
+              4460
+            ],
+            "40gp": [
+              4860,
+              5960
+            ],
+            "40hc": [
+              5060,
+              6260
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2360,
+              3260
+            ],
+            "40gp": [
+              2960,
+              3860
+            ],
+            "40hc": [
+              3160,
+              4160
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3260,
+              4160
+            ],
+            "40gp": [
+              3860,
+              4760
+            ],
+            "40hc": [
+              4060,
+              5060
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3160,
+              4060
+            ],
+            "40gp": [
+              3760,
+              4660
+            ],
+            "40hc": [
+              3960,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3060,
+              3960
+            ],
+            "40gp": [
+              3660,
+              4560
+            ],
+            "40hc": [
+              3860,
+              4860
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            21,
+            27
+          ],
+          "rates": {
+            "20gp": [
+              2460,
+              3360
+            ],
+            "40gp": [
+              3060,
+              3960
+            ],
+            "40hc": [
+              3260,
+              4260
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3060,
+              3960
+            ],
+            "40gp": [
+              3660,
+              4560
+            ],
+            "40hc": [
+              3860,
+              4860
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3160,
+              4060
+            ],
+            "40gp": [
+              3760,
+              4660
+            ],
+            "40hc": [
+              3960,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            15,
+            19
+          ],
+          "rates": {
+            "20gp": [
+              3654,
+              4454
+            ],
+            "40gp": [
+              4854,
+              5954
+            ],
+            "40hc": [
+              5054,
+              6254
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2354,
+              3254
+            ],
+            "40gp": [
+              2954,
+              3854
+            ],
+            "40hc": [
+              3154,
+              4154
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3254,
+              4154
+            ],
+            "40gp": [
+              3854,
+              4754
+            ],
+            "40hc": [
+              4054,
+              5054
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3154,
+              4054
+            ],
+            "40gp": [
+              3754,
+              4654
+            ],
+            "40hc": [
+              3954,
+              4954
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3054,
+              3954
+            ],
+            "40gp": [
+              3654,
+              4554
+            ],
+            "40hc": [
+              3854,
+              4854
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            21,
+            27
+          ],
+          "rates": {
+            "20gp": [
+              2454,
+              3354
+            ],
+            "40gp": [
+              3054,
+              3954
+            ],
+            "40hc": [
+              3254,
+              4254
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3054,
+              3954
+            ],
+            "40gp": [
+              3654,
+              4554
+            ],
+            "40hc": [
+              3854,
+              4854
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3154,
+              4054
+            ],
+            "40gp": [
+              3754,
+              4654
+            ],
+            "40hc": [
+              3954,
+              4954
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            15,
+            19
+          ],
+          "rates": {
+            "20gp": [
+              3666,
+              4466
+            ],
+            "40gp": [
+              4866,
+              5966
+            ],
+            "40hc": [
+              5066,
+              6266
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            23,
+            29
+          ],
+          "rates": {
+            "20gp": [
+              2366,
+              3266
+            ],
+            "40gp": [
+              2966,
+              3866
+            ],
+            "40hc": [
+              3166,
+              4166
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3266,
+              4166
+            ],
+            "40gp": [
+              3866,
+              4766
+            ],
+            "40hc": [
+              4066,
+              5066
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3166,
+              4066
+            ],
+            "40gp": [
+              3766,
+              4666
+            ],
+            "40hc": [
+              3966,
+              4966
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3066,
+              3966
+            ],
+            "40gp": [
+              3666,
+              4566
+            ],
+            "40hc": [
+              3866,
+              4866
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            21,
+            27
+          ],
+          "rates": {
+            "20gp": [
+              2466,
+              3366
+            ],
+            "40gp": [
+              3066,
+              3966
+            ],
+            "40hc": [
+              3266,
+              4266
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3066,
+              3966
+            ],
+            "40gp": [
+              3666,
+              4566
+            ],
+            "40hc": [
+              3866,
+              4866
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3166,
+              4066
+            ],
+            "40gp": [
+              3766,
+              4666
+            ],
+            "40hc": [
+              3966,
+              4966
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            16,
+            20
+          ],
+          "rates": {
+            "20gp": [
+              3696,
+              4496
+            ],
+            "40gp": [
+              4896,
+              5996
+            ],
+            "40hc": [
+              5096,
+              6296
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            24,
+            30
+          ],
+          "rates": {
+            "20gp": [
+              2396,
+              3296
+            ],
+            "40gp": [
+              2996,
+              3896
+            ],
+            "40hc": [
+              3196,
+              4196
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3296,
+              4196
+            ],
+            "40gp": [
+              3896,
+              4796
+            ],
+            "40hc": [
+              4096,
+              5096
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3196,
+              4096
+            ],
+            "40gp": [
+              3796,
+              4696
+            ],
+            "40hc": [
+              3996,
+              4996
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3096,
+              3996
+            ],
+            "40gp": [
+              3696,
+              4596
+            ],
+            "40hc": [
+              3896,
+              4896
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2496,
+              3396
+            ],
+            "40gp": [
+              3096,
+              3996
+            ],
+            "40hc": [
+              3296,
+              4296
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3096,
+              3996
+            ],
+            "40gp": [
+              3696,
+              4596
+            ],
+            "40hc": [
+              3896,
+              4896
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3196,
+              4096
+            ],
+            "40gp": [
+              3796,
+              4696
+            ],
+            "40hc": [
+              3996,
+              4996
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            21,
+            25
+          ],
+          "rates": {
+            "20gp": [
+              3780,
+              4580
+            ],
+            "40gp": [
+              4980,
+              6080
+            ],
+            "40hc": [
+              5180,
+              6380
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            29,
+            35
+          ],
+          "rates": {
+            "20gp": [
+              2480,
+              3380
+            ],
+            "40gp": [
+              3080,
+              3980
+            ],
+            "40hc": [
+              3280,
+              4280
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3380,
+              4280
+            ],
+            "40gp": [
+              3980,
+              4880
+            ],
+            "40hc": [
+              4180,
+              5180
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4180
+            ],
+            "40gp": [
+              3880,
+              4780
+            ],
+            "40hc": [
+              4080,
+              5080
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3180,
+              4080
+            ],
+            "40gp": [
+              3780,
+              4680
+            ],
+            "40hc": [
+              3980,
+              4980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            27,
+            33
+          ],
+          "rates": {
+            "20gp": [
+              2580,
+              3480
+            ],
+            "40gp": [
+              3180,
+              4080
+            ],
+            "40hc": [
+              3380,
+              4380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3180,
+              4080
+            ],
+            "40gp": [
+              3780,
+              4680
+            ],
+            "40hc": [
+              3980,
+              4980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4180
+            ],
+            "40gp": [
+              3880,
+              4780
+            ],
+            "40hc": [
+              4080,
+              5080
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            20,
+            24
+          ],
+          "rates": {
+            "20gp": [
+              3768,
+              4568
+            ],
+            "40gp": [
+              4968,
+              6068
+            ],
+            "40hc": [
+              5168,
+              6368
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            28,
+            34
+          ],
+          "rates": {
+            "20gp": [
+              2468,
+              3368
+            ],
+            "40gp": [
+              3068,
+              3968
+            ],
+            "40hc": [
+              3268,
+              4268
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3368,
+              4268
+            ],
+            "40gp": [
+              3968,
+              4868
+            ],
+            "40hc": [
+              4168,
+              5168
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3268,
+              4168
+            ],
+            "40gp": [
+              3868,
+              4768
+            ],
+            "40hc": [
+              4068,
+              5068
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3168,
+              4068
+            ],
+            "40gp": [
+              3768,
+              4668
+            ],
+            "40hc": [
+              3968,
+              4968
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            26,
+            32
+          ],
+          "rates": {
+            "20gp": [
+              2568,
+              3468
+            ],
+            "40gp": [
+              3168,
+              4068
+            ],
+            "40hc": [
+              3368,
+              4368
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3168,
+              4068
+            ],
+            "40gp": [
+              3768,
+              4668
+            ],
+            "40hc": [
+              3968,
+              4968
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3268,
+              4168
+            ],
+            "40gp": [
+              3868,
+              4768
+            ],
+            "40hc": [
+              4068,
+              5068
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            16,
+            20
+          ],
+          "rates": {
+            "20gp": [
+              3684,
+              4484
+            ],
+            "40gp": [
+              4884,
+              5984
+            ],
+            "40hc": [
+              5084,
+              6284
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            24,
+            30
+          ],
+          "rates": {
+            "20gp": [
+              2384,
+              3284
+            ],
+            "40gp": [
+              2984,
+              3884
+            ],
+            "40hc": [
+              3184,
+              4184
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3284,
+              4184
+            ],
+            "40gp": [
+              3884,
+              4784
+            ],
+            "40hc": [
+              4084,
+              5084
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3184,
+              4084
+            ],
+            "40gp": [
+              3784,
+              4684
+            ],
+            "40hc": [
+              3984,
+              4984
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3084,
+              3984
+            ],
+            "40gp": [
+              3684,
+              4584
+            ],
+            "40hc": [
+              3884,
+              4884
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            22,
+            28
+          ],
+          "rates": {
+            "20gp": [
+              2484,
+              3384
+            ],
+            "40gp": [
+              3084,
+              3984
+            ],
+            "40hc": [
+              3284,
+              4284
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3084,
+              3984
+            ],
+            "40gp": [
+              3684,
+              4584
+            ],
+            "40hc": [
+              3884,
+              4884
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3184,
+              4084
+            ],
+            "40gp": [
+              3784,
+              4684
+            ],
+            "40hc": [
+              3984,
+              4984
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            21,
+            25
+          ],
+          "rates": {
+            "20gp": [
+              3792,
+              4592
+            ],
+            "40gp": [
+              4992,
+              6092
+            ],
+            "40hc": [
+              5192,
+              6392
+            ]
+          }
+        },
+        {
+          "service": "standard",
+          "days": [
+            29,
+            35
+          ],
+          "rates": {
+            "20gp": [
+              2492,
+              3392
+            ],
+            "40gp": [
+              3092,
+              3992
+            ],
+            "40hc": [
+              3292,
+              4292
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3392,
+              4292
+            ],
+            "40gp": [
+              3992,
+              4892
+            ],
+            "40hc": [
+              4192,
+              5192
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            45
+          ],
+          "rates": {
+            "20gp": [
+              3292,
+              4192
+            ],
+            "40gp": [
+              3892,
+              4792
+            ],
+            "40hc": [
+              4092,
+              5092
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3192,
+              4092
+            ],
+            "40gp": [
+              3792,
+              4692
+            ],
+            "40hc": [
+              3992,
+              4992
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            27,
+            33
+          ],
+          "rates": {
+            "20gp": [
+              2592,
+              3492
+            ],
+            "40gp": [
+              3192,
+              4092
+            ],
+            "40hc": [
+              3392,
+              4392
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3192,
+              4092
+            ],
+            "40gp": [
+              3792,
+              4692
+            ],
+            "40hc": [
+              3992,
+              4992
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3292,
+              4192
+            ],
+            "40gp": [
+              3892,
+              4792
+            ],
+            "40hc": [
+              4092,
+              5092
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "lax-warehouse",
+      "en": "Los Angeles warehouse, CA",
+      "zh": "洛杉矶仓，加州",
+      "region": "West",
+      "examplePostcode": "90001"
+    },
+    {
+      "id": "ontario-warehouse",
+      "en": "Ontario warehouse, CA",
+      "region": "West",
+      "examplePostcode": "91761"
+    },
+    {
+      "id": "oakland-warehouse",
+      "en": "Oakland warehouse, CA",
+      "region": "West",
+      "examplePostcode": "94601"
+    },
+    {
+      "id": "seattle-warehouse",
+      "en": "Seattle warehouse, WA",
+      "region": "West",
+      "examplePostcode": "98101"
+    },
+    {
+      "id": "portland-warehouse",
+      "en": "Portland warehouse, OR",
+      "region": "West",
+      "examplePostcode": "97201"
+    },
+    {
+      "id": "las-vegas-warehouse",
+      "en": "Las Vegas warehouse, NV",
+      "region": "West",
+      "examplePostcode": "89101"
+    },
+    {
+      "id": "phoenix-warehouse",
+      "en": "Phoenix warehouse, AZ",
+      "region": "West",
+      "examplePostcode": "85001"
+    },
+    {
+      "id": "dfw-warehouse",
+      "en": "Dallas warehouse, TX",
+      "zh": "达拉斯仓，得克萨斯州",
+      "region": "Central",
+      "examplePostcode": "75201"
+    },
+    {
+      "id": "houston-warehouse",
+      "en": "Houston warehouse, TX",
+      "region": "Central",
+      "examplePostcode": "77002"
+    },
+    {
+      "id": "chicago-warehouse",
+      "en": "Chicago warehouse, IL",
+      "region": "Central",
+      "examplePostcode": "60601"
+    },
+    {
+      "id": "indianapolis-warehouse",
+      "en": "Indianapolis warehouse, IN",
+      "region": "Central",
+      "examplePostcode": "46201"
+    },
+    {
+      "id": "columbus-warehouse",
+      "en": "Columbus warehouse, OH",
+      "region": "Central",
+      "examplePostcode": "43215"
+    },
+    {
+      "id": "memphis-warehouse",
+      "en": "Memphis warehouse, TN",
+      "region": "Central",
+      "examplePostcode": "38103"
+    },
+    {
+      "id": "ewr-warehouse",
+      "en": "New Jersey warehouse, NJ",
+      "zh": "新泽西仓，新泽西州",
+      "region": "East & Southeast",
+      "examplePostcode": "10001"
+    },
+    {
+      "id": "new-york-warehouse",
+      "en": "New York warehouse, NY",
+      "region": "East & Southeast",
+      "examplePostcode": "10001"
+    },
+    {
+      "id": "baltimore-warehouse",
+      "en": "Baltimore warehouse, MD",
+      "region": "East & Southeast",
+      "examplePostcode": "21201"
+    },
+    {
+      "id": "boston-warehouse",
+      "en": "Boston warehouse, MA",
+      "region": "East & Southeast",
+      "examplePostcode": "02108"
+    },
+    {
+      "id": "atlanta-warehouse",
+      "en": "Atlanta warehouse, GA",
+      "region": "East & Southeast",
+      "examplePostcode": "30303"
+    },
+    {
+      "id": "savannah-warehouse",
+      "en": "Savannah warehouse, GA",
+      "region": "East & Southeast",
+      "examplePostcode": "31401"
+    },
+    {
+      "id": "miami-warehouse",
+      "en": "Miami warehouse, FL",
+      "region": "East & Southeast",
+      "examplePostcode": "33101"
+    },
+    {
+      "id": "orlando-warehouse",
+      "en": "Orlando warehouse, FL",
+      "region": "East & Southeast",
+      "examplePostcode": "32801"
+    },
+    {
+      "id": "charlotte-warehouse",
+      "en": "Charlotte warehouse, NC",
+      "region": "East & Southeast",
+      "examplePostcode": "28202"
+    }
+  ],
+  "lastMileRoutes": [
+    {
+      "warehouse": "lax-warehouse",
+      "postcode": "90001",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.2,
+            3.4
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "lax-warehouse",
+      "postcode": "10001",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            4.2,
+            6.1
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            290,
+            410
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "lax-warehouse",
+      "postcode": "60601",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            3.3,
+            4.8
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            4,
+            6
+          ],
+          "rate": [
+            220,
+            320
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "ewr-warehouse",
+      "postcode": "10001",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            2
+          ],
+          "rate": [
+            2,
+            3.2
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            90,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "dfw-warehouse",
+      "postcode": "75201",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            150
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "ontario-warehouse",
+      "postcode": "91761",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            90,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "oakland-warehouse",
+      "postcode": "94601",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.3,
+            3.5
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            105,
+            155
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "seattle-warehouse",
+      "postcode": "98101",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.4,
+            3.6
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            110,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "portland-warehouse",
+      "postcode": "97201",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.2,
+            3.4
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            100,
+            150
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "las-vegas-warehouse",
+      "postcode": "89101",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "phoenix-warehouse",
+      "postcode": "85001",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            150
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "houston-warehouse",
+      "postcode": "77002",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.2,
+            3.4
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            100,
+            155
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "chicago-warehouse",
+      "postcode": "60601",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.3,
+            3.5
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            105,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "indianapolis-warehouse",
+      "postcode": "46201",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "columbus-warehouse",
+      "postcode": "43215",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "memphis-warehouse",
+      "postcode": "38103",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.2,
+            3.4
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            100,
+            150
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "new-york-warehouse",
+      "postcode": "10001",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.4,
+            3.7
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            115,
+            170
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "baltimore-warehouse",
+      "postcode": "21201",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.2,
+            3.4
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            100,
+            150
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "boston-warehouse",
+      "postcode": "02108",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.4,
+            3.7
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            110,
+            165
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "atlanta-warehouse",
+      "postcode": "30303",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "savannah-warehouse",
+      "postcode": "31401",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.2,
+            3.4
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            100,
+            150
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "miami-warehouse",
+      "postcode": "33101",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.3,
+            3.6
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            105,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "orlando-warehouse",
+      "postcode": "32801",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.2,
+            3.4
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            100,
+            155
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "charlotte-warehouse",
+      "postcode": "28202",
+      "offers": [
+        {
+          "service": "us-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            2.1,
+            3.3
+          ]
+        },
+        {
+          "service": "us-truck",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            95,
+            145
+          ]
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "origin": "shanghai",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            18,
+            24
+          ],
+          "rate": [
+            220,
+            280
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            30,
+            40
+          ],
+          "rate": [
+            125,
+            170
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.2,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            9.5,
+            13.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            175,
+            235
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            175,
+            235
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            11
+          ],
+          "rate": [
+            8.0,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            48
+          ],
+          "rate": [
+            165,
+            225
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.1,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            38
+          ],
+          "rate": [
+            130,
+            180
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.5,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            48
+          ],
+          "rate": [
+            168,
+            228
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            49
+          ],
+          "rate": [
+            170,
+            230
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            20,
+            26
+          ],
+          "rate": [
+            225,
+            285
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            130,
+            175
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.5,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.0,
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            180,
+            240
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.8,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            180,
+            240
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            11
+          ],
+          "rate": [
+            8.3,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            170,
+            230
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.4,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            40
+          ],
+          "rate": [
+            135,
+            185
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            173,
+            233
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.3,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            175,
+            235
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.6,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            21,
+            27
+          ],
+          "rate": [
+            228,
+            288
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            133,
+            178
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.1,
+            9.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            9.0,
+            13.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            183,
+            243
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.5,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            183,
+            243
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            7.9,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            173,
+            233
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.0,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            41
+          ],
+          "rate": [
+            138,
+            188
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.4,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.0,
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            176,
+            236
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.9,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            178,
+            238
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.5,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            22,
+            28
+          ],
+          "rate": [
+            238,
+            298
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            34,
+            44
+          ],
+          "rate": [
+            143,
+            188
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.4,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            193,
+            253
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.3,
+            11.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.9,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            193,
+            253
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.8,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            16.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            183,
+            243
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.9,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            148,
+            198
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.4,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            186,
+            246
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.8,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            188,
+            248
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.1,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            23,
+            29
+          ],
+          "rate": [
+            243,
+            303
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            35,
+            45
+          ],
+          "rate": [
+            148,
+            193
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.8,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.3,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            55
+          ],
+          "rate": [
+            198,
+            258
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.1,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            55
+          ],
+          "rate": [
+            198,
+            258
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.6,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            188,
+            248
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.7,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            153,
+            203
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.1,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.3,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            191,
+            251
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.6,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            193,
+            253
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.9,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            21,
+            27
+          ],
+          "rate": [
+            230,
+            290
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            135,
+            180
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.2,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            9.2,
+            13.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            185,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.7,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            185,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.0,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            175,
+            235
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.1,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            41
+          ],
+          "rate": [
+            140,
+            190
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.2,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            178,
+            238
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.0,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            180,
+            240
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            22,
+            28
+          ],
+          "rate": [
+            240,
+            300
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            34,
+            44
+          ],
+          "rate": [
+            145,
+            190
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.1,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.5,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            195,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.4,
+            11.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            12.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            195,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.9,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            185,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.0,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            150,
+            200
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            188,
+            248
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.9,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            190,
+            250
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.2,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            23,
+            29
+          ],
+          "rate": [
+            244,
+            304
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            35,
+            45
+          ],
+          "rate": [
+            149,
+            194
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.2,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.6,
+            14.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            55
+          ],
+          "rate": [
+            199,
+            259
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.5,
+            11.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            12.1,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            55
+          ],
+          "rate": [
+            199,
+            259
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            9.0,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            189,
+            249
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.1,
+            11.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            154,
+            204
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            192,
+            252
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.0,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            194,
+            254
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.3,
+            11.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.1,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            22,
+            28
+          ],
+          "rate": [
+            240,
+            300
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            34,
+            44
+          ],
+          "rate": [
+            145,
+            190
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.7,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.2,
+            14.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            195,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.0,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.7,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            195,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.5,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            16.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            185,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.6,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            150,
+            200
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.2,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            188,
+            248
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.5,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            190,
+            250
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.8,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.7,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            23,
+            29
+          ],
+          "rate": [
+            242,
+            302
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            35,
+            45
+          ],
+          "rate": [
+            147,
+            192
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.6,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.1,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            55
+          ],
+          "rate": [
+            197,
+            257
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.9,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            43,
+            55
+          ],
+          "rate": [
+            197,
+            257
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.4,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            187,
+            247
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.5,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            152,
+            202
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.1,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            190,
+            250
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.4,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            192,
+            252
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.7,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            20,
+            26
+          ],
+          "rate": [
+            228,
+            288
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            133,
+            178
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.6,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.1,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            183,
+            243
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.9,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            183,
+            243
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            11
+          ],
+          "rate": [
+            8.4,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            173,
+            233
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.5,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            40
+          ],
+          "rate": [
+            138,
+            188
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.9,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.1,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            176,
+            236
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.4,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            178,
+            238
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.7,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            20,
+            26
+          ],
+          "rate": [
+            226,
+            286
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            131,
+            176
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.5,
+            9.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.0,
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            181,
+            241
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.8,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            181,
+            241
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            11
+          ],
+          "rate": [
+            8.3,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            171,
+            231
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.4,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            40
+          ],
+          "rate": [
+            136,
+            186
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            5,
+            9
+          ],
+          "rate": [
+            7.8,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            50
+          ],
+          "rate": [
+            174,
+            234
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.3,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            176,
+            236
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.6,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.5,
+            15.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            21,
+            27
+          ],
+          "rate": [
+            230,
+            290
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            135,
+            180
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.2,
+            9.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            9.3,
+            13.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            185,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.8,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            185,
+            245
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.0,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            175,
+            235
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.1,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            41
+          ],
+          "rate": [
+            140,
+            190
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.5,
+            9.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.3,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            178,
+            238
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.0,
+            10.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            14.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            180,
+            240
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.8,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            21,
+            27
+          ],
+          "rate": [
+            229,
+            289
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            134,
+            179
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.3,
+            9.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            9.4,
+            13.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            184,
+            244
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.6,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.9,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            184,
+            244
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.1,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            174,
+            234
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.2,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            41
+          ],
+          "rate": [
+            139,
+            189
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.6,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.4,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            177,
+            237
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.1,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            179,
+            239
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            10.9,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            21,
+            27
+          ],
+          "rate": [
+            231,
+            291
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            33,
+            43
+          ],
+          "rate": [
+            136,
+            181
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.4,
+            9.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            9.5,
+            13.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            186,
+            246
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.7,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            186,
+            246
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.2,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            176,
+            236
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.3,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            41
+          ],
+          "rate": [
+            141,
+            191
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.7,
+            10.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            10.5,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            51
+          ],
+          "rate": [
+            179,
+            239
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.2,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            181,
+            241
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.5,
+            10.8
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            22,
+            28
+          ],
+          "rate": [
+            236,
+            296
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            34,
+            44
+          ],
+          "rate": [
+            141,
+            186
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.4,
+            14.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            191,
+            251
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.3,
+            11.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.9,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            191,
+            251
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.8,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            16.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            181,
+            241
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.9,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            146,
+            196
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.3,
+            10.6
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.4,
+            15.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            184,
+            244
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.8,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            15.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            186,
+            246
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.1,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.9,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            27,
+            33
+          ],
+          "rate": [
+            250,
+            310
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            39,
+            49
+          ],
+          "rate": [
+            155,
+            200
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.9,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.3,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            47,
+            59
+          ],
+          "rate": [
+            205,
+            265
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.2,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            47,
+            59
+          ],
+          "rate": [
+            205,
+            265
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.7,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            57
+          ],
+          "rate": [
+            195,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.8,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            47
+          ],
+          "rate": [
+            160,
+            210
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.3,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            57
+          ],
+          "rate": [
+            198,
+            258
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.7,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            58
+          ],
+          "rate": [
+            200,
+            260
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.0,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            26,
+            32
+          ],
+          "rate": [
+            248,
+            308
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            38,
+            48
+          ],
+          "rate": [
+            153,
+            198
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.9,
+            10.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.3,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            58
+          ],
+          "rate": [
+            203,
+            263
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.2,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            58
+          ],
+          "rate": [
+            203,
+            263
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.7,
+            11.2
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            56
+          ],
+          "rate": [
+            193,
+            253
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.8,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            46
+          ],
+          "rate": [
+            158,
+            208
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.2,
+            10.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.3,
+            15.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            44,
+            56
+          ],
+          "rate": [
+            196,
+            256
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.7,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            57
+          ],
+          "rate": [
+            198,
+            258
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.0,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.8,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            22,
+            28
+          ],
+          "rate": [
+            234,
+            294
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            34,
+            44
+          ],
+          "rate": [
+            139,
+            184
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.7,
+            9.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.1,
+            14.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            189,
+            249
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.0,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            42,
+            54
+          ],
+          "rate": [
+            189,
+            249
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.5,
+            11.0
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            179,
+            239
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.6,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            42
+          ],
+          "rate": [
+            144,
+            194
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.0,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.1,
+            15.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            52
+          ],
+          "rate": [
+            182,
+            242
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.5,
+            10.9
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            53
+          ],
+          "rate": [
+            184,
+            244
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.8,
+            11.1
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "los-angeles",
+      "offers": [
+        {
+          "service": "matson",
+          "days": [
+            27,
+            33
+          ],
+          "rate": [
+            252,
+            312
+          ]
+        },
+        {
+          "service": "standard",
+          "days": [
+            39,
+            49
+          ],
+          "rate": [
+            157,
+            202
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.1,
+            10.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            5
+          ],
+          "rate": [
+            10.5,
+            14.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "new-york",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            47,
+            59
+          ],
+          "rate": [
+            207,
+            267
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.4,
+            11.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            12.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "chicago",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            47,
+            59
+          ],
+          "rate": [
+            207,
+            267
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            12
+          ],
+          "rate": [
+            8.9,
+            11.4
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "dallas",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            57
+          ],
+          "rate": [
+            197,
+            257
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.0,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "seattle",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            47
+          ],
+          "rate": [
+            162,
+            212
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.4,
+            10.7
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            11.5,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "houston",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            45,
+            57
+          ],
+          "rate": [
+            200,
+            260
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.9,
+            11.3
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "savannah",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            46,
+            58
+          ],
+          "rate": [
+            202,
+            262
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.2,
+            11.5
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            4,
+            7
+          ],
+          "rate": [
+            12.0,
+            16.2
+          ]
+        }
+      ]
+    }
+  ]
+}

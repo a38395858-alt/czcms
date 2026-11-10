@@ -1,0 +1,176 @@
+{
+  "en": {
+    "labels": [
+      "Name",
+      "Work email",
+      "Company",
+      "Where should we start?",
+      "What is moving?"
+    ],
+    "options": [
+      "Product sourcing",
+      "Ocean freight",
+      "Air freight",
+      "Warehousing & fulfillment",
+      "Packaging & branding",
+      "Not sure yet"
+    ],
+    "placeholder": "Share the product, origin, destination, quantity, target date, or a product link.",
+    "consent": "I agree that FreightVanta may use these details to review my request and follow up with me, as described in the privacy policy.",
+    "button": "Request a shipment plan",
+    "privacy": "/privacy",
+    "messages": [
+      "Sending…",
+      "Your request has been received.",
+      "Unable to send. Please try again.",
+      "This request was already received.",
+      "Refresh this page and try again."
+    ],
+    "privacyLabel": "privacy policy"
+  },
+  "de": {
+    "labels": [
+      "Name",
+      "Geschäftliche E-Mail",
+      "Unternehmen",
+      "Wo sollen wir beginnen?",
+      "Was wird bewegt?"
+    ],
+    "options": [
+      "Beschaffung in China",
+      "Seefracht",
+      "Luftfracht",
+      "Lager & Fulfillment",
+      "Verpackung & Marke",
+      "Noch nicht sicher"
+    ],
+    "placeholder": "Produkt, Menge, Start, Ziel, gewünschter Termin oder Produktlink.",
+    "consent": "Ich habe die Datenschutzerklärung zur Kenntnis genommen und bin einverstanden, dass FreightVanta meine Angaben zur Bearbeitung meiner Anfrage und zur Kontaktaufnahme verarbeitet.",
+    "button": "Angebot anfordern",
+    "privacy": "/datenschutz",
+    "messages": [
+      "Wird gesendet…",
+      "Ihre Anfrage ist eingegangen.",
+      "Senden fehlgeschlagen. Bitte erneut versuchen.",
+      "Diese Anfrage ist bereits eingegangen.",
+      "Bitte die Seite neu laden und erneut versuchen."
+    ],
+    "privacyLabel": "Datenschutzerklärung"
+  },
+  "fr": {
+    "labels": [
+      "Nom",
+      "E-mail professionnel",
+      "Entreprise",
+      "Par où souhaitez-vous commencer ?",
+      "Que devez-vous faire voyager ?"
+    ],
+    "options": [
+      "Sourcing en Chine",
+      "Fret maritime",
+      "Fret aérien",
+      "Entreposage et logistique e-commerce",
+      "Emballage et image de marque",
+      "Je ne sais pas encore"
+    ],
+    "placeholder": "Produit, quantité, origine, destination, date visée ou lien produit.",
+    "consent": "J’ai pris connaissance de la politique de confidentialité et j’accepte que FreightVanta traite mes données pour étudier ma demande et me recontacter.",
+    "button": "Demander un plan d’expédition",
+    "privacy": "/confidentialite",
+    "messages": [
+      "Envoi en cours…",
+      "Votre demande a bien été reçue.",
+      "Échec de l’envoi. Veuillez réessayer.",
+      "Cette demande a déjà été reçue.",
+      "Actualisez cette page, puis réessayez."
+    ],
+    "privacyLabel": "politique de confidentialité"
+  },
+  "es": {
+    "labels": [
+      "Nombre",
+      "Correo profesional",
+      "Empresa",
+      "¿Por dónde quiere empezar?",
+      "¿Qué hay que mover?"
+    ],
+    "options": [
+      "Búsqueda de proveedores en China",
+      "Transporte marítimo",
+      "Transporte aéreo",
+      "Almacenaje y logística e-commerce",
+      "Embalaje y marca",
+      "Todavía no lo sé"
+    ],
+    "placeholder": "Producto, cantidad, origen, destino, fecha objetivo o enlace de producto.",
+    "consent": "He leído y acepto la política de privacidad. Consiento que FreightVanta trate mis datos para gestionar mi solicitud y ponerse en contacto conmigo.",
+    "button": "Solicitar plan de envío",
+    "privacy": "/privacidad",
+    "messages": [
+      "Enviando…",
+      "Hemos recibido tu solicitud.",
+      "No se pudo enviar. Inténtalo de nuevo.",
+      "Esta solicitud ya se ha recibido.",
+      "Actualiza la página e inténtalo de nuevo."
+    ],
+    "privacyLabel": "política de privacidad"
+  },
+  "it": {
+    "labels": [
+      "Nome",
+      "E-mail di lavoro",
+      "Azienda",
+      "Da dove desidera iniziare?",
+      "Che cosa deve spostare?"
+    ],
+    "options": [
+      "Ricerca fornitori in Cina",
+      "Trasporto marittimo",
+      "Trasporto aereo",
+      "Magazzino e logistica e-commerce",
+      "Imballaggio e brand",
+      "Non lo so ancora"
+    ],
+    "placeholder": "Prodotto, quantità, origine, destinazione, data obiettivo o link al prodotto.",
+    "consent": "Ho letto l’informativa privacy e acconsento al trattamento dei miei dati per la gestione della richiesta e per essere ricontattato.",
+    "button": "Richiedi un piano di spedizione",
+    "privacy": "/privacy",
+    "messages": [
+      "Invio in corso…",
+      "La richiesta è stata ricevuta.",
+      "Invio non riuscito. Riprova.",
+      "Questa richiesta è già stata ricevuta.",
+      "Aggiorna la pagina e riprova."
+    ],
+    "privacyLabel": "informativa privacy"
+  },
+  "nl": {
+    "labels": [
+      "Naam",
+      "Zakelijke e-mail",
+      "Bedrijf",
+      "Waar beginnen we?",
+      "Wat wilt u verzenden?"
+    ],
+    "options": [
+      "Productsourcing",
+      "Zeevracht",
+      "Luchtvracht",
+      "Opslag & fulfilment",
+      "Verpakking & branding",
+      "Weet ik nog niet"
+    ],
+    "placeholder": "Deel het product, de herkomst, bestemming, hoeveelheid, gewenste datum of een productlink.",
+    "consent": "Ik ga ermee akkoord dat FreightVanta deze informatie gebruikt om mijn aanvraag te beoordelen en contact met mij op te nemen, volgens de privacyverklaring.",
+    "button": "Vraag een verzendplan aan",
+    "privacy": "/privacy",
+    "messages": [
+      "Bezig met versturen…",
+      "Uw aanvraag is ontvangen.",
+      "Versturen mislukt. Probeer het opnieuw.",
+      "Deze aanvraag is al ontvangen.",
+      "Vernieuw de pagina en probeer het opnieuw."
+    ],
+    "privacyLabel": "privacyverklaring"
+  }
+}

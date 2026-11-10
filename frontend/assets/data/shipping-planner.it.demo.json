@@ -1,0 +1,9845 @@
+{
+  "version": 1,
+  "dataMode": "demo",
+  "country": "IT",
+  "language": "it",
+  "locale": "it-IT",
+  "currency": "EUR",
+  "basis": "door-to-door",
+  "postcodePattern": "^\\d{5}$",
+  "contactAnchor": "richiesta",
+  "copy": {
+    "home": "Home",
+    "breadcrumb": "Costi e tempi di spedizione",
+    "resultTitle": "Risultati: costi e tempi",
+    "title": "Cina–Italia: calcola costi e tempi di spedizione",
+    "intro": "Stima costi e tempi dalla Cina all’Italia via mare, aereo o corriere, oppure verifica la consegna da un magazzino italiano.",
+    "demo": "Solo indicativo",
+    "demoNote": "Tariffe e tempi dimostrativi, non quotazioni in tempo reale né date garantite. Contattaci per un preventivo specifico e i dettagli di transito.",
+    "contact": "Richiedi costi e tempi",
+    "oceanType": "Spedizione marittima",
+    "lcl": "LCL / groupage",
+    "fcl": "FCL / container completo",
+    "containerType": "Tipo di container",
+    "containerCount": "Numero di container",
+    "lastmile": "Ultimo miglio in Italia",
+    "warehouse": "Magazzino di partenza",
+    "postcode": "CAP italiano",
+    "deliveryType": "Metodo di consegna",
+    "bothDelivery": "Confronta pacco e camion",
+    "parcel": "Consegna pacchi",
+    "truck": "Pallet / camion",
+    "pallets": "Numero di pallet",
+    "modeLabel": "Modalità di trasporto",
+    "sea": "Trasporto marittimo",
+    "air": "Trasporto aereo",
+    "express": "Espresso",
+    "allModes": "Confronta tutto",
+    "from": "Partenza",
+    "to": "Destinazione",
+    "oceanLabel": "Servizio marittimo",
+    "bothOcean": "Tutti i servizi marittimi",
+    "standard": "Mare standard",
+    "weight": "Peso lordo",
+    "volume": "Volume totale",
+    "search": "Verifica costi e tempi",
+    "cargoHelp": "LCL: peso o volume. FCL: tipo e numero di container. Aereo e corriere: peso tassabile.",
+    "door": "Porta a porta",
+    "loading": "Caricamento delle rotte dimostrative…",
+    "enquiry": "Richiedi un preventivo per questa rotta",
+    "changed": "Dati modificati. Ripeti la ricerca.",
+    "empty": "Nessuna tariffa dimostrativa per questa rotta e servizio. Modifica la selezione o richiedi un preventivo.",
+    "loadError": "Impossibile caricare le rotte. Riprova.",
+    "retry": "Riprova",
+    "seaNote": "LCL · in base a peso o volume",
+    "airNote": "Peso tassabile · divisore 6.000",
+    "expressNote": "Peso tassabile · divisore 5.000",
+    "transit": "Tempo indicativo",
+    "freight": "Costo stimato",
+    "days": "giorni",
+    "businessDays": "giorni lavorativi",
+    "sample": "Stima dimostrativa · EUR",
+    "details": "Dettaglio del calcolo",
+    "ready": "Scegli la rotta per consultare costi e tempi in una pagina dei risultati.",
+    "port": "Porto-porto · consegna interna esclusa",
+    "mixedBasis": "Ambito indicato per ogni offerta",
+    "lastmileBasis": "Riferimento magazzino-indirizzo",
+    "fclNote": "FCL · tariffa per container",
+    "lastmileNote": "Consegna nazionale · trasporto internazionale escluso",
+    "fclHelp": "Prezzo FCL = tariffa per container × quantità. Solo porto-porto; spese locali da confermare.",
+    "lastmileCargoHelp": "Pacchi a peso tassabile (divisore 5.000), camion a numero di pallet. Opzioni separate da non sommare.",
+    "lastmileHelp": "Scegli un magazzino e un CAP dimostrativo. Disponibilità da confermare.",
+    "samplePostcode": "Usa il CAP {postcode}",
+    "sampleHelp": "Magazzino dimostrativo: {warehouse}. CAP: {codes}. Nessuna tariffa esempio per altri CAP. Conferma la disponibilità.",
+    "summary": "{n} offerte · {w} kg · {v} CBM · dati dimostrativi",
+    "count": "Trovate {n} opzioni di trasporto.",
+    "containers": "{n} × {type} × EUR {lo}–{hi}/container. Solo porto-porto; spese locali, dogana, imposte e consegna escluse.",
+    "palletCost": "{n} pallet × EUR {lo}–{hi}/pallet. Servizi speciali e supplementi esclusi.",
+    "wm": "{q} W/M × EUR {lo}–{hi}/W/M. Maggiore tra CBM, kg ÷ 1.000 e minimo {min}.",
+    "kg": "{q} kg tassabili × EUR {lo}–{hi}/kg. Maggiore tra peso lordo, volume × 1.000.000 ÷ {d} ({v} kg) e minimo {min} kg, arrotondato in eccesso.",
+    "noVolume": " Volume assente: le dimensioni imballate possono aumentare il costo.",
+    "exclusions": "Solo dimostrazione: prezzi non aggiornati e tempi non garantiti. FCL porto-porto; ultimo miglio magazzino-indirizzo. Dazi, imposte, assicurazione, spese locali e supplementi esclusi. Giorni di calendario per l’internazionale, lavorativi per il nazionale. Preparazione, prenotazione e ritardi doganali aggiuntivi.",
+    "guideTitle": "Pianificare costi e tempi Cina–Italia",
+    "regionsTitle": "Regioni italiane e porti di riferimento",
+    "faqTitle": "Domande sulle spedizioni Cina–Italia",
+    "openTool": "Apri il calcolatore dedicato",
+    "servicesTitle": "Servizi correlati",
+    "enquirySuffix": "Conferma tariffe e tempi aggiornati.",
+    "fclSummary": "{n} × {type} · Stima dimostrativa · EUR",
+    "errors": {
+      "origin": "Seleziona una partenza valida.",
+      "destination": "Seleziona una destinazione valida.",
+      "mode": "Scegli la modalità di trasporto.",
+      "oceanService": "Scegli un servizio marittimo.",
+      "oceanType": "Scegli LCL o FCL.",
+      "containerType": "Scegli un container valido.",
+      "containerCount": "Inserisci da 1 a 100 container interi.",
+      "warehouse": "Seleziona un magazzino italiano.",
+      "postcode": "Inserisci un CAP italiano di cinque cifre.",
+      "deliveryType": "Scegli il metodo di consegna.",
+      "pallets": "Inserisci da 1 a 100 pallet interi.",
+      "weight": "Inserisci un peso maggiore di 0 e fino a 1.000.000 kg.",
+      "volume": "Inserisci un volume valido fino a 10.000 CBM. LCL richiede un volume positivo."
+    },
+    "processTitle": "Come funziona una spedizione dalla Cina all’Italia"
+  },
+  "seo": {
+    "title": "Cina–Italia: calcola costi e tempi di spedizione | FreightVanta",
+    "homeTitle": "Spedizioni Cina–Italia: costi e tempi | FreightVanta",
+    "description": "Confronta costi e tempi Cina–Italia: mare LCL/FCL, aereo, corriere e consegna da magazzini italiani. Stime dimostrative in EUR, senza quotazioni in tempo reale.",
+    "keywords": "Cina–Italia: calcola costi e tempi di spedizione, Trasporto marittimo, Trasporto aereo, Corriere espresso, Ultimo miglio in Italia, LCL, FCL"
+  },
+  "sections": [
+    {
+      "title": "Porti italiani e distribuzione nell’entroterra",
+      "body": "Genova è il riferimento per Milano e Torino; Trieste per il Nord-Est e Bologna. Roma utilizza Civitavecchia come porto di riferimento, mentre Napoli ha un collegamento distinto. La stima FCL copre il solo tratto porto-porto."
+    },
+    {
+      "title": "Scegliere tra groupage e container completo",
+      "body": "Il groupage LCL considera metri cubi e tonnellate. Il FCL viene calcolato per container 20GP, 40GP o 40HQ e quantità, senza peso e volume. Il trasporto aereo e il corriere utilizzano il peso tassabile."
+    },
+    {
+      "title": "CAP italiani, pallet e consegna locale",
+      "body": "Per la consegna da magazzino seleziona un CAP italiano di cinque cifre, mantenendo gli zeri iniziali. Isole, località remote, sponda idraulica e appuntamenti possono richiedere costi aggiuntivi; non sono inclusi nelle tariffe di esempio."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Le tariffe comprendono IVA e oneri doganali?",
+      "answer": "No. IVA, dazi, assicurazione, movimentazioni locali e supplementi speciali sono esclusi. Fattura, packing list, classificazione doganale ed EORI devono essere verificati prima della prenotazione."
+    },
+    {
+      "question": "I tempi di consegna sono garantiti?",
+      "answer": "No. Si tratta di esempi: giorni di calendario per il trasporto internazionale e giorni lavorativi per la consegna locale. Preparazione, prenotazione e ritardi doganali sono aggiuntivi. Contattaci per una verifica aggiornata."
+    }
+  ],
+  "origins": [
+    {
+      "id": "shanghai",
+      "it": "Shanghai, Cina"
+    },
+    {
+      "id": "ningbo",
+      "it": "Ningbo, Cina"
+    },
+    {
+      "id": "shenzhen",
+      "it": "Shenzhen, Cina"
+    },
+    {
+      "id": "qingdao",
+      "it": "Qingdao, Cina"
+    },
+    {
+      "id": "xiamen",
+      "it": "Xiamen, Cina"
+    },
+    {
+      "id": "guangzhou",
+      "it": "Guangzhou, Cina"
+    },
+    {
+      "id": "tianjin",
+      "it": "Tianjin, Cina"
+    },
+    {
+      "id": "dalian",
+      "it": "Dalian, Cina"
+    },
+    {
+      "id": "fuzhou",
+      "it": "Fuzhou, Cina"
+    },
+    {
+      "id": "shantou",
+      "it": "Shantou, Cina"
+    },
+    {
+      "id": "nanjing",
+      "it": "Nanjing, Cina"
+    },
+    {
+      "id": "suzhou",
+      "it": "Suzhou, Cina"
+    },
+    {
+      "id": "foshan",
+      "it": "Foshan, Cina"
+    },
+    {
+      "id": "zhongshan",
+      "it": "Zhongshan, Cina"
+    },
+    {
+      "id": "zhuhai",
+      "it": "Zhuhai, Cina"
+    },
+    {
+      "id": "lianyungang",
+      "it": "Lianyungang, Cina"
+    },
+    {
+      "id": "chongqing",
+      "it": "Chongqing, Cina"
+    },
+    {
+      "id": "wuhan",
+      "it": "Wuhan, Cina"
+    },
+    {
+      "id": "yiwu",
+      "it": "Yiwu, Cina"
+    },
+    {
+      "id": "chengdu",
+      "it": "Chengdu, Cina"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "genoa",
+      "region": "Nord-Ovest",
+      "port": {
+        "it": "Genova"
+      },
+      "it": "Genova, Italia"
+    },
+    {
+      "id": "milan",
+      "region": "Nord-Ovest",
+      "port": {
+        "it": "Genova"
+      },
+      "it": "Milano, Italia"
+    },
+    {
+      "id": "turin",
+      "region": "Nord-Ovest",
+      "port": {
+        "it": "Genova"
+      },
+      "it": "Torino, Italia"
+    },
+    {
+      "id": "trieste",
+      "region": "Nord-Est",
+      "port": {
+        "it": "Trieste"
+      },
+      "it": "Trieste, Italia"
+    },
+    {
+      "id": "bologna",
+      "region": "Nord-Est",
+      "port": {
+        "it": "Trieste"
+      },
+      "it": "Bologna, Italia"
+    },
+    {
+      "id": "rome",
+      "region": "Centro",
+      "port": {
+        "it": "Civitavecchia"
+      },
+      "it": "Roma, Italia"
+    },
+    {
+      "id": "naples",
+      "region": "Sud",
+      "port": {
+        "it": "Napoli"
+      },
+      "it": "Napoli, Italia"
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "genoa-warehouse",
+      "region": "Nord-Ovest",
+      "examplePostcode": "16121",
+      "it": "Genova"
+    },
+    {
+      "id": "milan-warehouse",
+      "region": "Nord-Ovest",
+      "examplePostcode": "20121",
+      "it": "Milano"
+    },
+    {
+      "id": "turin-warehouse",
+      "region": "Nord-Ovest",
+      "examplePostcode": "10121",
+      "it": "Torino"
+    },
+    {
+      "id": "trieste-warehouse",
+      "region": "Nord-Est",
+      "examplePostcode": "34121",
+      "it": "Trieste"
+    },
+    {
+      "id": "bologna-warehouse",
+      "region": "Nord-Est",
+      "examplePostcode": "40121",
+      "it": "Bologna"
+    },
+    {
+      "id": "rome-warehouse",
+      "region": "Centro",
+      "examplePostcode": "00118",
+      "it": "Roma"
+    },
+    {
+      "id": "naples-warehouse",
+      "region": "Sud",
+      "examplePostcode": "80121",
+      "it": "Napoli"
+    }
+  ],
+  "services": [
+    {
+      "id": "standard",
+      "mode": "sea",
+      "billing": "wm",
+      "minimum": 1,
+      "it": "Mare standard"
+    },
+    {
+      "id": "air",
+      "mode": "air",
+      "billing": "kg",
+      "minimum": 45,
+      "divisor": 6000,
+      "increment": 1,
+      "it": "Trasporto aereo"
+    },
+    {
+      "id": "express",
+      "mode": "express",
+      "billing": "kg",
+      "minimum": 0.5,
+      "divisor": 5000,
+      "increment": 0.5,
+      "it": "Corriere espresso"
+    },
+    {
+      "id": "it-parcel",
+      "mode": "lastmile",
+      "deliveryType": "parcel",
+      "billing": "kg",
+      "minimum": 1,
+      "divisor": 5000,
+      "increment": 0.5,
+      "it": "Consegna pacchi"
+    },
+    {
+      "id": "it-truck",
+      "mode": "lastmile",
+      "deliveryType": "truck",
+      "billing": "pallet",
+      "minimum": 1,
+      "it": "Pallet / camion"
+    }
+  ],
+  "routes": [
+    {
+      "origin": "shanghai",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            176,
+            241
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.65,
+            8.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            9.95,
+            14.15
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            187,
+            252
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.83,
+            9.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.1,
+            14.3
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            198,
+            263
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.01,
+            9.31
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.25,
+            14.45
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            209,
+            274
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.19,
+            9.49
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.4,
+            14.6
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            220,
+            285
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.37,
+            9.67
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.55,
+            14.75
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            231,
+            296
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.55,
+            9.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            242,
+            307
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.73,
+            10.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.85,
+            15.05
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            183,
+            248
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.75,
+            9.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.07,
+            14.27
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            194,
+            259
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            6.93,
+            9.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.22,
+            14.42
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            205,
+            270
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.11,
+            9.41
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.37,
+            14.57
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            216,
+            281
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.29,
+            9.59
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.52,
+            14.72
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            227,
+            292
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.47,
+            9.77
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.67,
+            14.87
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            238,
+            303
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.65,
+            9.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.82,
+            15.02
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            249,
+            314
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.83,
+            10.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.97,
+            15.17
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            190,
+            255
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.85,
+            9.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.19,
+            14.39
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            201,
+            266
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.03,
+            9.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.34,
+            14.54
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            212,
+            277
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.21,
+            9.51
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.49,
+            14.69
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            223,
+            288
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.39,
+            9.69
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.64,
+            14.84
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            234,
+            299
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.57,
+            9.87
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.79,
+            14.99
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            245,
+            310
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.75,
+            10.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.94,
+            15.14
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            256,
+            321
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.93,
+            10.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.09,
+            15.29
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            197,
+            262
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            6.95,
+            9.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.31,
+            14.51
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            208,
+            273
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.13,
+            9.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.46,
+            14.66
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            219,
+            284
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.31,
+            9.61
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.61,
+            14.81
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            230,
+            295
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.49,
+            9.79
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.76,
+            14.96
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            241,
+            306
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.67,
+            9.97
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.91,
+            15.11
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            252,
+            317
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.85,
+            10.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.06,
+            15.26
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            263,
+            328
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.03,
+            10.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.21,
+            15.41
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            204,
+            269
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.05,
+            9.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.43,
+            14.63
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            215,
+            280
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.23,
+            9.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.58,
+            14.78
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            226,
+            291
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.41,
+            9.71
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.73,
+            14.93
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            237,
+            302
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.59,
+            9.89
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.88,
+            15.08
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            248,
+            313
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.77,
+            10.07
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.03,
+            15.23
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            259,
+            324
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.95,
+            10.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.18,
+            15.38
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            270,
+            335
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.13,
+            10.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.33,
+            15.53
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            211,
+            276
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.15,
+            9.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.55,
+            14.75
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            222,
+            287
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.33,
+            9.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.7,
+            14.9
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            233,
+            298
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.51,
+            9.81
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.85,
+            15.05
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            244,
+            309
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.69,
+            9.99
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.0,
+            15.2
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            255,
+            320
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.87,
+            10.17
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.15,
+            15.35
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            266,
+            331
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.05,
+            10.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.3,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            277,
+            342
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.23,
+            10.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.45,
+            15.65
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            218,
+            283
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.25,
+            9.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.67,
+            14.87
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            229,
+            294
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.43,
+            9.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.82,
+            15.02
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            240,
+            305
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.61,
+            9.91
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.97,
+            15.17
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            251,
+            316
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.79,
+            10.09
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.12,
+            15.32
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            262,
+            327
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.97,
+            10.27
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.27,
+            15.47
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            273,
+            338
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.15,
+            10.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.42,
+            15.62
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            284,
+            349
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.33,
+            10.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.57,
+            15.77
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            225,
+            290
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.35,
+            9.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.79,
+            14.99
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            236,
+            301
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.53,
+            9.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.94,
+            15.14
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            247,
+            312
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.71,
+            10.01
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.09,
+            15.29
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            258,
+            323
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.89,
+            10.19
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.24,
+            15.44
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            269,
+            334
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.07,
+            10.37
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.39,
+            15.59
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            280,
+            345
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.25,
+            10.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.54,
+            15.74
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            291,
+            356
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.43,
+            10.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.69,
+            15.89
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            232,
+            297
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.45,
+            9.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            10.91,
+            15.11
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            243,
+            308
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.63,
+            9.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.06,
+            15.26
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            254,
+            319
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.81,
+            10.11
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.21,
+            15.41
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            265,
+            330
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.99,
+            10.29
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.36,
+            15.56
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            276,
+            341
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.17,
+            10.47
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.51,
+            15.71
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            287,
+            352
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.35,
+            10.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.66,
+            15.86
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            298,
+            363
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.53,
+            10.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.81,
+            16.01
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            239,
+            304
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.55,
+            9.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.03,
+            15.23
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            250,
+            315
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.73,
+            10.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.18,
+            15.38
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            261,
+            326
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.91,
+            10.21
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.33,
+            15.53
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            272,
+            337
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.09,
+            10.39
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.48,
+            15.68
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            283,
+            348
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.27,
+            10.57
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.63,
+            15.83
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            294,
+            359
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.45,
+            10.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.78,
+            15.98
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            305,
+            370
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.63,
+            10.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.93,
+            16.13
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            246,
+            311
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.65,
+            9.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.15,
+            15.35
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            257,
+            322
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.83,
+            10.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.3,
+            15.5
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            268,
+            333
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.01,
+            10.31
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.45,
+            15.65
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            279,
+            344
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.19,
+            10.49
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.6,
+            15.8
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            290,
+            355
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.37,
+            10.67
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.75,
+            15.95
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            301,
+            366
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.55,
+            10.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.9,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            312,
+            377
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.73,
+            11.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.05,
+            16.25
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            253,
+            318
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.75,
+            10.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.27,
+            15.47
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            264,
+            329
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            7.93,
+            10.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.42,
+            15.62
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            275,
+            340
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.11,
+            10.41
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.57,
+            15.77
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            286,
+            351
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.29,
+            10.59
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.72,
+            15.92
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            297,
+            362
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.47,
+            10.77
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.87,
+            16.07
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            308,
+            373
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.65,
+            10.95
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.02,
+            16.22
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            319,
+            384
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.83,
+            11.13
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.17,
+            16.37
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            260,
+            325
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.85,
+            10.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.39,
+            15.59
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            271,
+            336
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.03,
+            10.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.54,
+            15.74
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            282,
+            347
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.21,
+            10.51
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.69,
+            15.89
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            293,
+            358
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.39,
+            10.69
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.84,
+            16.04
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            304,
+            369
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.57,
+            10.87
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.99,
+            16.19
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            315,
+            380
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.75,
+            11.05
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.14,
+            16.34
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            326,
+            391
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.93,
+            11.23
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.29,
+            16.49
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            267,
+            332
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            7.95,
+            10.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.51,
+            15.71
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            278,
+            343
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.13,
+            10.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.66,
+            15.86
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            289,
+            354
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.31,
+            10.61
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.81,
+            16.01
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            300,
+            365
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.49,
+            10.79
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.96,
+            16.16
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            311,
+            376
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.67,
+            10.97
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.11,
+            16.31
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            322,
+            387
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.85,
+            11.15
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.26,
+            16.46
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            333,
+            398
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.03,
+            11.33
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.41,
+            16.61
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            274,
+            339
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.05,
+            10.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.63,
+            15.83
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            285,
+            350
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.23,
+            10.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.78,
+            15.98
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            296,
+            361
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.41,
+            10.71
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.93,
+            16.13
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            307,
+            372
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.59,
+            10.89
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.08,
+            16.28
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            318,
+            383
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.77,
+            11.07
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.23,
+            16.43
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            329,
+            394
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.95,
+            11.25
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.38,
+            16.58
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            340,
+            405
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.13,
+            11.43
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.53,
+            16.73
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            281,
+            346
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.15,
+            10.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.75,
+            15.95
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            292,
+            357
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.33,
+            10.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.9,
+            16.1
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            303,
+            368
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.51,
+            10.81
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.05,
+            16.25
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            314,
+            379
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.69,
+            10.99
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.2,
+            16.4
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            325,
+            390
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.87,
+            11.17
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.35,
+            16.55
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            336,
+            401
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.05,
+            11.35
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.5,
+            16.7
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            46
+          ],
+          "rate": [
+            347,
+            412
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.23,
+            11.53
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.65,
+            16.85
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            288,
+            353
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.25,
+            10.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.87,
+            16.07
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            299,
+            364
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.43,
+            10.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.02,
+            16.22
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            310,
+            375
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.61,
+            10.91
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.17,
+            16.37
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            321,
+            386
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.79,
+            11.09
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.32,
+            16.52
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            332,
+            397
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.97,
+            11.27
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.47,
+            16.67
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            343,
+            408
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.15,
+            11.45
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.62,
+            16.82
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            36,
+            47
+          ],
+          "rate": [
+            354,
+            419
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.33,
+            11.63
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.77,
+            16.97
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            295,
+            360
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.35,
+            10.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            11.99,
+            16.19
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            306,
+            371
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.53,
+            10.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.14,
+            16.34
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            317,
+            382
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.71,
+            11.01
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.29,
+            16.49
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            328,
+            393
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.89,
+            11.19
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.44,
+            16.64
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            339,
+            404
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.07,
+            11.37
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.59,
+            16.79
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            350,
+            415
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.25,
+            11.55
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.74,
+            16.94
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            37,
+            48
+          ],
+          "rate": [
+            361,
+            426
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.43,
+            11.73
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.89,
+            17.09
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            302,
+            367
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.45,
+            10.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.11,
+            16.31
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            313,
+            378
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.63,
+            10.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.26,
+            16.46
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            324,
+            389
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.81,
+            11.11
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.41,
+            16.61
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            335,
+            400
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.99,
+            11.29
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.56,
+            16.76
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            346,
+            411
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.17,
+            11.47
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.71,
+            16.91
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            357,
+            422
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.35,
+            11.65
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.86,
+            17.06
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            38,
+            49
+          ],
+          "rate": [
+            368,
+            433
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.53,
+            11.83
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            13.01,
+            17.21
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            309,
+            374
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.55,
+            10.85
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.23,
+            16.43
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            320,
+            385
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            8.73,
+            11.03
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.38,
+            16.58
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            331,
+            396
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            8.91,
+            11.21
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.53,
+            16.73
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            342,
+            407
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.09,
+            11.39
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.68,
+            16.88
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            40,
+            51
+          ],
+          "rate": [
+            353,
+            418
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.27,
+            11.57
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.83,
+            17.03
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            41,
+            52
+          ],
+          "rate": [
+            364,
+            429
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            7,
+            11
+          ],
+          "rate": [
+            9.45,
+            11.75
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            12.98,
+            17.18
+          ]
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            39,
+            50
+          ],
+          "rate": [
+            375,
+            440
+          ]
+        },
+        {
+          "service": "air",
+          "days": [
+            6,
+            10
+          ],
+          "rate": [
+            9.63,
+            11.93
+          ]
+        },
+        {
+          "service": "express",
+          "days": [
+            5,
+            8
+          ],
+          "rate": [
+            13.13,
+            17.33
+          ]
+        }
+      ]
+    }
+  ],
+  "fclRoutes": [
+    {
+      "origin": "shanghai",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              2710,
+              3560
+            ],
+            "40gp": [
+              3660,
+              4660
+            ],
+            "40hc": [
+              3860,
+              4960
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3790
+            ],
+            "40gp": [
+              3890,
+              4890
+            ],
+            "40hc": [
+              4090,
+              5190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2940,
+              3790
+            ],
+            "40gp": [
+              3890,
+              4890
+            ],
+            "40hc": [
+              4090,
+              5190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3170,
+              4020
+            ],
+            "40gp": [
+              4120,
+              5120
+            ],
+            "40hc": [
+              4320,
+              5420
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shanghai",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3400,
+              4250
+            ],
+            "40gp": [
+              4350,
+              5350
+            ],
+            "40hc": [
+              4550,
+              5650
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              2795,
+              3645
+            ],
+            "40gp": [
+              3745,
+              4745
+            ],
+            "40hc": [
+              3945,
+              5045
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3025,
+              3875
+            ],
+            "40gp": [
+              3975,
+              4975
+            ],
+            "40hc": [
+              4175,
+              5275
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3025,
+              3875
+            ],
+            "40gp": [
+              3975,
+              4975
+            ],
+            "40hc": [
+              4175,
+              5275
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3255,
+              4105
+            ],
+            "40gp": [
+              4205,
+              5205
+            ],
+            "40hc": [
+              4405,
+              5505
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "ningbo",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3485,
+              4335
+            ],
+            "40gp": [
+              4435,
+              5435
+            ],
+            "40hc": [
+              4635,
+              5735
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              2880,
+              3730
+            ],
+            "40gp": [
+              3830,
+              4830
+            ],
+            "40hc": [
+              4030,
+              5130
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3110,
+              3960
+            ],
+            "40gp": [
+              4060,
+              5060
+            ],
+            "40hc": [
+              4260,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3110,
+              3960
+            ],
+            "40gp": [
+              4060,
+              5060
+            ],
+            "40hc": [
+              4260,
+              5360
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3340,
+              4190
+            ],
+            "40gp": [
+              4290,
+              5290
+            ],
+            "40hc": [
+              4490,
+              5590
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shenzhen",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3570,
+              4420
+            ],
+            "40gp": [
+              4520,
+              5520
+            ],
+            "40hc": [
+              4720,
+              5820
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              2965,
+              3815
+            ],
+            "40gp": [
+              3915,
+              4915
+            ],
+            "40hc": [
+              4115,
+              5215
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3195,
+              4045
+            ],
+            "40gp": [
+              4145,
+              5145
+            ],
+            "40hc": [
+              4345,
+              5445
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3195,
+              4045
+            ],
+            "40gp": [
+              4145,
+              5145
+            ],
+            "40hc": [
+              4345,
+              5445
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3425,
+              4275
+            ],
+            "40gp": [
+              4375,
+              5375
+            ],
+            "40hc": [
+              4575,
+              5675
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "qingdao",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3655,
+              4505
+            ],
+            "40gp": [
+              4605,
+              5605
+            ],
+            "40hc": [
+              4805,
+              5905
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3050,
+              3900
+            ],
+            "40gp": [
+              4000,
+              5000
+            ],
+            "40hc": [
+              4200,
+              5300
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4130
+            ],
+            "40gp": [
+              4230,
+              5230
+            ],
+            "40hc": [
+              4430,
+              5530
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3280,
+              4130
+            ],
+            "40gp": [
+              4230,
+              5230
+            ],
+            "40hc": [
+              4430,
+              5530
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3510,
+              4360
+            ],
+            "40gp": [
+              4460,
+              5460
+            ],
+            "40hc": [
+              4660,
+              5760
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "xiamen",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              3740,
+              4590
+            ],
+            "40gp": [
+              4690,
+              5690
+            ],
+            "40hc": [
+              4890,
+              5990
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3135,
+              3985
+            ],
+            "40gp": [
+              4085,
+              5085
+            ],
+            "40hc": [
+              4285,
+              5385
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3365,
+              4215
+            ],
+            "40gp": [
+              4315,
+              5315
+            ],
+            "40hc": [
+              4515,
+              5615
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3365,
+              4215
+            ],
+            "40gp": [
+              4315,
+              5315
+            ],
+            "40hc": [
+              4515,
+              5615
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3595,
+              4445
+            ],
+            "40gp": [
+              4545,
+              5545
+            ],
+            "40hc": [
+              4745,
+              5845
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "guangzhou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3825,
+              4675
+            ],
+            "40gp": [
+              4775,
+              5775
+            ],
+            "40hc": [
+              4975,
+              6075
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3220,
+              4070
+            ],
+            "40gp": [
+              4170,
+              5170
+            ],
+            "40hc": [
+              4370,
+              5470
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4300
+            ],
+            "40gp": [
+              4400,
+              5400
+            ],
+            "40hc": [
+              4600,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3450,
+              4300
+            ],
+            "40gp": [
+              4400,
+              5400
+            ],
+            "40hc": [
+              4600,
+              5700
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3680,
+              4530
+            ],
+            "40gp": [
+              4630,
+              5630
+            ],
+            "40hc": [
+              4830,
+              5930
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "tianjin",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3910,
+              4760
+            ],
+            "40gp": [
+              4860,
+              5860
+            ],
+            "40hc": [
+              5060,
+              6160
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3305,
+              4155
+            ],
+            "40gp": [
+              4255,
+              5255
+            ],
+            "40hc": [
+              4455,
+              5555
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3535,
+              4385
+            ],
+            "40gp": [
+              4485,
+              5485
+            ],
+            "40hc": [
+              4685,
+              5785
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3535,
+              4385
+            ],
+            "40gp": [
+              4485,
+              5485
+            ],
+            "40hc": [
+              4685,
+              5785
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3765,
+              4615
+            ],
+            "40gp": [
+              4715,
+              5715
+            ],
+            "40hc": [
+              4915,
+              6015
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "dalian",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3995,
+              4845
+            ],
+            "40gp": [
+              4945,
+              5945
+            ],
+            "40hc": [
+              5145,
+              6245
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3390,
+              4240
+            ],
+            "40gp": [
+              4340,
+              5340
+            ],
+            "40hc": [
+              4540,
+              5640
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3620,
+              4470
+            ],
+            "40gp": [
+              4570,
+              5570
+            ],
+            "40hc": [
+              4770,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3620,
+              4470
+            ],
+            "40gp": [
+              4570,
+              5570
+            ],
+            "40hc": [
+              4770,
+              5870
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3850,
+              4700
+            ],
+            "40gp": [
+              4800,
+              5800
+            ],
+            "40hc": [
+              5000,
+              6100
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "fuzhou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4080,
+              4930
+            ],
+            "40gp": [
+              5030,
+              6030
+            ],
+            "40hc": [
+              5230,
+              6330
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3475,
+              4325
+            ],
+            "40gp": [
+              4425,
+              5425
+            ],
+            "40hc": [
+              4625,
+              5725
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3705,
+              4555
+            ],
+            "40gp": [
+              4655,
+              5655
+            ],
+            "40hc": [
+              4855,
+              5955
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              3705,
+              4555
+            ],
+            "40gp": [
+              4655,
+              5655
+            ],
+            "40hc": [
+              4855,
+              5955
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              3935,
+              4785
+            ],
+            "40gp": [
+              4885,
+              5885
+            ],
+            "40hc": [
+              5085,
+              6185
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "shantou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4165,
+              5015
+            ],
+            "40gp": [
+              5115,
+              6115
+            ],
+            "40hc": [
+              5315,
+              6415
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3560,
+              4410
+            ],
+            "40gp": [
+              4510,
+              5510
+            ],
+            "40hc": [
+              4710,
+              5810
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3790,
+              4640
+            ],
+            "40gp": [
+              4740,
+              5740
+            ],
+            "40hc": [
+              4940,
+              6040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3790,
+              4640
+            ],
+            "40gp": [
+              4740,
+              5740
+            ],
+            "40hc": [
+              4940,
+              6040
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4020,
+              4870
+            ],
+            "40gp": [
+              4970,
+              5970
+            ],
+            "40hc": [
+              5170,
+              6270
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "nanjing",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4250,
+              5100
+            ],
+            "40gp": [
+              5200,
+              6200
+            ],
+            "40hc": [
+              5400,
+              6500
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              3645,
+              4495
+            ],
+            "40gp": [
+              4595,
+              5595
+            ],
+            "40hc": [
+              4795,
+              5895
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3875,
+              4725
+            ],
+            "40gp": [
+              4825,
+              5825
+            ],
+            "40hc": [
+              5025,
+              6125
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3875,
+              4725
+            ],
+            "40gp": [
+              4825,
+              5825
+            ],
+            "40hc": [
+              5025,
+              6125
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4105,
+              4955
+            ],
+            "40gp": [
+              5055,
+              6055
+            ],
+            "40hc": [
+              5255,
+              6355
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "suzhou",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4335,
+              5185
+            ],
+            "40gp": [
+              5285,
+              6285
+            ],
+            "40hc": [
+              5485,
+              6585
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              3730,
+              4580
+            ],
+            "40gp": [
+              4680,
+              5680
+            ],
+            "40hc": [
+              4880,
+              5980
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3960,
+              4810
+            ],
+            "40gp": [
+              4910,
+              5910
+            ],
+            "40hc": [
+              5110,
+              6210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3960,
+              4810
+            ],
+            "40gp": [
+              4910,
+              5910
+            ],
+            "40hc": [
+              5110,
+              6210
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4190,
+              5040
+            ],
+            "40gp": [
+              5140,
+              6140
+            ],
+            "40hc": [
+              5340,
+              6440
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "foshan",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4420,
+              5270
+            ],
+            "40gp": [
+              5370,
+              6370
+            ],
+            "40hc": [
+              5570,
+              6670
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              3815,
+              4665
+            ],
+            "40gp": [
+              4765,
+              5765
+            ],
+            "40hc": [
+              4965,
+              6065
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4045,
+              4895
+            ],
+            "40gp": [
+              4995,
+              5995
+            ],
+            "40hc": [
+              5195,
+              6295
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4045,
+              4895
+            ],
+            "40gp": [
+              4995,
+              5995
+            ],
+            "40hc": [
+              5195,
+              6295
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4275,
+              5125
+            ],
+            "40gp": [
+              5225,
+              6225
+            ],
+            "40hc": [
+              5425,
+              6525
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhongshan",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4505,
+              5355
+            ],
+            "40gp": [
+              5455,
+              6455
+            ],
+            "40hc": [
+              5655,
+              6755
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              3900,
+              4750
+            ],
+            "40gp": [
+              4850,
+              5850
+            ],
+            "40hc": [
+              5050,
+              6150
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4130,
+              4980
+            ],
+            "40gp": [
+              5080,
+              6080
+            ],
+            "40hc": [
+              5280,
+              6380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4130,
+              4980
+            ],
+            "40gp": [
+              5080,
+              6080
+            ],
+            "40hc": [
+              5280,
+              6380
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4360,
+              5210
+            ],
+            "40gp": [
+              5310,
+              6310
+            ],
+            "40hc": [
+              5510,
+              6610
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "zhuhai",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              4590,
+              5440
+            ],
+            "40gp": [
+              5540,
+              6540
+            ],
+            "40hc": [
+              5740,
+              6840
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            28,
+            37
+          ],
+          "rates": {
+            "20gp": [
+              3985,
+              4835
+            ],
+            "40gp": [
+              4935,
+              5935
+            ],
+            "40hc": [
+              5135,
+              6235
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4215,
+              5065
+            ],
+            "40gp": [
+              5165,
+              6165
+            ],
+            "40hc": [
+              5365,
+              6465
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4215,
+              5065
+            ],
+            "40gp": [
+              5165,
+              6165
+            ],
+            "40hc": [
+              5365,
+              6465
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4445,
+              5295
+            ],
+            "40gp": [
+              5395,
+              6395
+            ],
+            "40hc": [
+              5595,
+              6695
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "lianyungang",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4675,
+              5525
+            ],
+            "40gp": [
+              5625,
+              6625
+            ],
+            "40hc": [
+              5825,
+              6925
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            29,
+            38
+          ],
+          "rates": {
+            "20gp": [
+              4070,
+              4920
+            ],
+            "40gp": [
+              5020,
+              6020
+            ],
+            "40hc": [
+              5220,
+              6320
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4300,
+              5150
+            ],
+            "40gp": [
+              5250,
+              6250
+            ],
+            "40hc": [
+              5450,
+              6550
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4300,
+              5150
+            ],
+            "40gp": [
+              5250,
+              6250
+            ],
+            "40hc": [
+              5450,
+              6550
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4530,
+              5380
+            ],
+            "40gp": [
+              5480,
+              6480
+            ],
+            "40hc": [
+              5680,
+              6780
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chongqing",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4760,
+              5610
+            ],
+            "40gp": [
+              5710,
+              6710
+            ],
+            "40hc": [
+              5910,
+              7010
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            30,
+            39
+          ],
+          "rates": {
+            "20gp": [
+              4155,
+              5005
+            ],
+            "40gp": [
+              5105,
+              6105
+            ],
+            "40hc": [
+              5305,
+              6405
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4385,
+              5235
+            ],
+            "40gp": [
+              5335,
+              6335
+            ],
+            "40hc": [
+              5535,
+              6635
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4385,
+              5235
+            ],
+            "40gp": [
+              5335,
+              6335
+            ],
+            "40hc": [
+              5535,
+              6635
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4615,
+              5465
+            ],
+            "40gp": [
+              5565,
+              6565
+            ],
+            "40hc": [
+              5765,
+              6865
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "wuhan",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4845,
+              5695
+            ],
+            "40gp": [
+              5795,
+              6795
+            ],
+            "40hc": [
+              5995,
+              7095
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            31,
+            40
+          ],
+          "rates": {
+            "20gp": [
+              4240,
+              5090
+            ],
+            "40gp": [
+              5190,
+              6190
+            ],
+            "40hc": [
+              5390,
+              6490
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4470,
+              5320
+            ],
+            "40gp": [
+              5420,
+              6420
+            ],
+            "40hc": [
+              5620,
+              6720
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4470,
+              5320
+            ],
+            "40gp": [
+              5420,
+              6420
+            ],
+            "40hc": [
+              5620,
+              6720
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4700,
+              5550
+            ],
+            "40gp": [
+              5650,
+              6650
+            ],
+            "40hc": [
+              5850,
+              6950
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "yiwu",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4930,
+              5780
+            ],
+            "40gp": [
+              5880,
+              6880
+            ],
+            "40hc": [
+              6080,
+              7180
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "genoa",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "milan",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "turin",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            32,
+            41
+          ],
+          "rates": {
+            "20gp": [
+              4325,
+              5175
+            ],
+            "40gp": [
+              5275,
+              6275
+            ],
+            "40hc": [
+              5475,
+              6575
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "trieste",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4555,
+              5405
+            ],
+            "40gp": [
+              5505,
+              6505
+            ],
+            "40hc": [
+              5705,
+              6805
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "bologna",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            33,
+            42
+          ],
+          "rates": {
+            "20gp": [
+              4555,
+              5405
+            ],
+            "40gp": [
+              5505,
+              6505
+            ],
+            "40hc": [
+              5705,
+              6805
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "rome",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            34,
+            43
+          ],
+          "rates": {
+            "20gp": [
+              4785,
+              5635
+            ],
+            "40gp": [
+              5735,
+              6735
+            ],
+            "40hc": [
+              5935,
+              7035
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "origin": "chengdu",
+      "destination": "naples",
+      "offers": [
+        {
+          "service": "standard",
+          "days": [
+            35,
+            44
+          ],
+          "rates": {
+            "20gp": [
+              5015,
+              5865
+            ],
+            "40gp": [
+              5965,
+              6965
+            ],
+            "40hc": [
+              6165,
+              7265
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "lastMileRoutes": [
+    {
+      "warehouse": "genoa-warehouse",
+      "postcode": "16121",
+      "offers": [
+        {
+          "service": "it-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.02,
+            1.6
+          ]
+        },
+        {
+          "service": "it-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            116,
+            190
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "milan-warehouse",
+      "postcode": "20121",
+      "offers": [
+        {
+          "service": "it-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.06,
+            1.65
+          ]
+        },
+        {
+          "service": "it-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            124,
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "turin-warehouse",
+      "postcode": "10121",
+      "offers": [
+        {
+          "service": "it-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.1,
+            1.7
+          ]
+        },
+        {
+          "service": "it-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            132,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "trieste-warehouse",
+      "postcode": "34121",
+      "offers": [
+        {
+          "service": "it-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.14,
+            1.75
+          ]
+        },
+        {
+          "service": "it-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            140,
+            217
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "bologna-warehouse",
+      "postcode": "40121",
+      "offers": [
+        {
+          "service": "it-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.18,
+            1.8
+          ]
+        },
+        {
+          "service": "it-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            148,
+            226
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "rome-warehouse",
+      "postcode": "00118",
+      "offers": [
+        {
+          "service": "it-parcel",
+          "days": [
+            2,
+            4
+          ],
+          "rate": [
+            1.22,
+            1.85
+          ]
+        },
+        {
+          "service": "it-truck",
+          "days": [
+            3,
+            6
+          ],
+          "rate": [
+            156,
+            235
+          ]
+        }
+      ]
+    },
+    {
+      "warehouse": "naples-warehouse",
+      "postcode": "80121",
+      "offers": [
+        {
+          "service": "it-parcel",
+          "days": [
+            1,
+            3
+          ],
+          "rate": [
+            1.26,
+            1.9
+          ]
+        },
+        {
+          "service": "it-truck",
+          "days": [
+            2,
+            5
+          ],
+          "rate": [
+            164,
+            244
+          ]
+        }
+      ]
+    }
+  ],
+  "process": [
+    {
+      "No": "01",
+      "Title": "Ritiro presso il fornitore",
+      "Body": "Merce pronta, condizioni di carico e finestra di ritiro confermate. Ogni ritardo qui sposta tutte le date successive."
+    },
+    {
+      "No": "02",
+      "Title": "Sdoganamento export",
+      "Body": "Dichiarazione export, descrizione merce e chiusura prenotazione allineate alla partenza scelta. I documenti sono verificati prima della chiusura del container."
+    },
+    {
+      "No": "03",
+      "Title": "Trasporto marittimo o aereo",
+      "Body": "Il trasporto principale, con un orario verificabile invece di una stima. Le coppie di porti o aeroporti dipendono dalla rotta scelta."
+    },
+    {
+      "No": "04",
+      "Title": "Importazione in Italia",
+      "Body": "Numero EORI, dichiarazione doganale e IVA all’importazione. La classificazione determina i dazi e le eventuali restrizioni."
+    },
+    {
+      "No": "05",
+      "Title": "Dal porto alla porta",
+      "Body": "Svincolo del container, sdoganamento del groupage e un appuntamento di consegna compatibile con orari e mezzi del destinatario."
+    },
+    {
+      "No": "06",
+      "Title": "Consegna e prova",
+      "Body": "Prova di consegna firmata, anomalie registrate e documenti archiviati, così la spedizione successiva parte da uno stato noto."
+    }
+  ],
+  "regionOrder": [
+    "Nord-Ovest",
+    "Nord-Est",
+    "Centro",
+    "Sud"
+  ]
+}

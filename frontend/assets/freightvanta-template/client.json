@@ -1,20 +1,28 @@
 {
-  "entry": "/assets/freightvanta-template/assets/app-347MXHu9.js",
+  "entry": "/assets/freightvanta-template/assets/app-D220BdCL.js",
   "preloads": {
+    "de": [
+      "/assets/freightvanta-template/assets/HomeShippingPlanner-Bh4nY8P5.js",
+      "/assets/freightvanta-template/assets/EnquiryForm-Cnl3c48-.js",
+      "/assets/freightvanta-template/assets/DeHomePage-Bpvm9Zz3.js",
+      "/assets/freightvanta-template/assets/HomeClient-DpTtKejq.js"
+    ],
     "fr": [
-      "/assets/freightvanta-template/assets/hooks-YEHYYXU9.js",
-      "/assets/freightvanta-template/assets/FrHomePage-3oBAkgUA.js",
-      "/assets/freightvanta-template/assets/HomeClient-uvdLp6ZH.js"
+      "/assets/freightvanta-template/assets/HomeShippingPlanner-Bh4nY8P5.js",
+      "/assets/freightvanta-template/assets/EnquiryForm-Cnl3c48-.js",
+      "/assets/freightvanta-template/assets/FrHomePage-Bgp1YJ6L.js",
+      "/assets/freightvanta-template/assets/HomeClient-BRkxwcJZ.js"
     ],
     "es": [
-      "/assets/freightvanta-template/assets/hooks-YEHYYXU9.js",
-      "/assets/freightvanta-template/assets/EsHomePage-3HUC_dWa.js",
-      "/assets/freightvanta-template/assets/HomeClient-D-xw3FGi.js"
+      "/assets/freightvanta-template/assets/HomeShippingPlanner-Bh4nY8P5.js",
+      "/assets/freightvanta-template/assets/EnquiryForm-Cnl3c48-.js",
+      "/assets/freightvanta-template/assets/EsHomePage-BfYgk0hi.js",
+      "/assets/freightvanta-template/assets/HomeClient-Wxmrpihg.js"
     ],
     "it": [
-      "/assets/freightvanta-template/assets/hooks-YEHYYXU9.js",
-      "/assets/freightvanta-template/assets/ItHomePage-B01IYgyZ.js",
-      "/assets/freightvanta-template/assets/HomeClient-Br5x71iq.js"
+      "/assets/freightvanta-template/assets/HomeShippingPlanner-Bh4nY8P5.js",
+      "/assets/freightvanta-template/assets/ItHomePage-aLmVTahh.js",
+      "/assets/freightvanta-template/assets/HomeClient-D1JxyOEk.js"
     ]
   }
 }

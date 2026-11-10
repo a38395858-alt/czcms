@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{{.PageTitle}}</title>
-    <meta name="description" content="{{.MetaDescription}}">
+    <meta name="description" content="{{.MetaDescription}}">{{if .MetaKeywords}}<meta name="keywords" content="{{.MetaKeywords}}">{{end}}
     <meta name="theme-color" content="#10333a">
     {{if .FaviconURL}}<link rel="icon" href="{{.FaviconURL}}"><link rel="apple-touch-icon" href="{{.FaviconURL}}">{{else}}<link rel="icon" href="/assets/freightvanta-topic-v18/favicon-en.svg">{{end}}
     {{if .Preview}}<meta name="robots" content="noindex,nofollow">{{else if .RobotsIndex}}<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">{{else}}<meta name="robots" content="noindex,follow">{{end}}
@@ -16,8 +16,8 @@
     <meta property="og:locale" content="nl_NL">
     <meta property="og:title" content="{{.OGTitle}}">
     <meta property="og:description" content="{{.OGDescription}}">
-    {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}">{{end}}
-    {{if .SocialImageURL}}<meta property="og:image" content="{{.SocialImageURL}}"><meta property="og:image:alt" content="{{.Copy.HeroTitle}}">{{end}}
+    {{if .PublicPageURL}}<meta property="og:url" content="{{.PublicPageURL}}">{{end}}
+    {{if .SocialImageURL}}<meta property="og:image" content="{{.SocialImageURL}}"><meta property="og:image:alt" content="{{.OGTitle}}">{{end}}
     <meta name="twitter:card" content="{{if .SocialImageURL}}summary_large_image{{else}}summary{{end}}">
     <meta name="twitter:title" content="{{.OGTitle}}">
     <meta name="twitter:description" content="{{.OGDescription}}">
@@ -31,7 +31,9 @@
   <link rel="stylesheet" href="/assets/css/public-navigation.css?v=20261013.5">
     <script src="/assets/js/public-navigation.js?v=20261022.1" defer></script>
     <link rel="stylesheet" href="/assets/css/country-layout.css?v=20261019.9">
-  {{if .EnquiryContext}}<script id="freightvanta-enquiry-context" type="application/json">{{.EnquiryContext}}</script><script src="/assets/js/public-enquiry.js?v=20261015.2" defer></script>{{end}}
+    <link rel="stylesheet" href="/assets/css/enquiry-form.css?v=20261105.1">
+  {{if .EnquiryContext}}<script id="freightvanta-enquiry-context" type="application/json">{{.EnquiryContext}}</script><script src="/assets/js/public-enquiry.js?v=20261105.1" defer></script>{{end}}
+{{if .ShippingMarket}}<link rel="stylesheet" href="/assets/css/shipping-planner.css?v=20261106.1"><link rel="stylesheet" href="/assets/css/shipping-planner-sections.css?v=20261103.22"><script type="module" src="/assets/js/shipping-planner.mjs?v=20261105.2"></script>{{end}}
 {{template "head-assets" .}}
 </head>
   <body class="fv-nl-react-template">
@@ -40,7 +42,7 @@
     <div id="root">
       <main id="nl-static-content">
         <section aria-labelledby="nl-static-title">
-          <p>{{.Copy.HeroKicker}}</p>
+
           <h1 id="nl-static-title">{{.Copy.HeroTitle}}</h1>
           <p>{{.Copy.HeroBody}}</p>
         </section>
@@ -55,12 +57,12 @@
         </section>
         <section>
           <h2>{{.Copy.ProcessTitle}}</h2>
-          <p>{{.Copy.ProcessBody}}</p>
+
           {{range .Copy.ProcessSteps}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
         </section>
         <section>
           <h2>{{.Copy.IndustriesTitle}}</h2>
-          <p>{{.Copy.IndustriesBody}}</p>
+
           {{range .Copy.Industries}}<article><h3>{{.Title}}</h3><p>{{.Body}}</p></article>{{end}}
         </section>
         <section>
@@ -74,6 +76,7 @@
       </main>
     </div>
     {{end}}
+    {{template "warehouse-country-footer" .}}
     <noscript>Schakel JavaScript in om interactieve formulieren te gebruiken.</noscript>
   </body>
 </html>

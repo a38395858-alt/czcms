@@ -1,0 +1,354 @@
+{
+  "Country": "ES",
+  "Language": "es",
+  "Name": "España",
+  "Copy": {
+    "name": "España",
+    "title": "Mapa y buscador de almacenes en España",
+    "intro": "Encuentra direcciones de Amazon FBA y almacenes de operadores logísticos. Elige una comunidad o busca cerca de una dirección en España.",
+    "footer": "Buscar almacenes en España",
+    "seoTitle": "Almacenes FBA en España: direcciones y mapa | FreightVanta",
+    "seoDescription": "Busca almacenes FBA en España por código, comunidad o código postal. Consulta direcciones y encuentra almacenes cercanos con distancias en línea recta en km.",
+    "seoKeywords": "almacenes FBA España, dirección Amazon, almacenes cercanos, mapa logístico",
+    "home": "Inicio",
+    "skip": "Ir al contenido",
+    "browse": "Por comunidad",
+    "nearby": "Buscar cerca",
+    "featuredLink": "Ver almacenes destacados",
+    "searchLabel": "Código de almacén, comunidad, ciudad o código postal",
+    "nearbyLabel": "Dirección, ciudad o código postal de España",
+    "placeholder": "Ej. MAD4, Madrid o 28830",
+    "nearbyPlaceholder": "Ej. Madrid, 28830 o una dirección completa",
+    "clear": "Borrar",
+    "search": "Buscar almacenes",
+    "radius": "Radio de búsqueda",
+    "warehouseType": "Tipo de almacén",
+    "all": "Todos",
+    "allTypes": "Todos los tipos",
+    "threePL": "Operadores (3PL)",
+    "stateJump": "Elegir comunidad",
+    "chooseState": "Todas las comunidades",
+    "mapLoading": "Cargando mapa…",
+    "mapError": "El mapa no está disponible. La búsqueda y las direcciones siguen funcionando. Recarga la página para reintentarlo.",
+    "mapCaption": "Pulsa una comunidad para ver sus almacenes",
+    "mapLabel": "Mapa de comunidades y almacenes",
+    "selected": "Selección",
+    "directoryCount": "direcciones del directorio",
+    "legend": "Los números indican direcciones de este directorio",
+    "results": "Resultados",
+    "nearbyResults": "Almacenes cercanos",
+    "emptyBrowse": "No hay direcciones para esta selección. Prueba otra comunidad o tipo. Este directorio es una selección parcial.",
+    "emptyNearby": "No hay almacenes registrados en este radio. Amplía el radio o cambia los filtros; el directorio es parcial.",
+    "nearbyPrompt": "Introduce una dirección, ciudad o código postal e inicia la búsqueda.",
+    "pendingChoice": "Hay varias coincidencias. Elige la ubicación que buscas.",
+    "locationNoMatch": "No se ha encontrado una ubicación en España. Revisa la dirección o prueba una ciudad o un código postal.",
+    "locationError": "La búsqueda de direcciones no está disponible. Reinténtalo o usa una ciudad o código postal.",
+    "invalidQuery": "Escribe entre 2 y 200 caracteres para una ubicación, o un máximo de 120 para un almacén.",
+    "busy": "El buscador está ocupado. Espera un momento y reinténtalo.",
+    "finding": "Buscando ubicación…",
+    "locate": "Ver en el mapa",
+    "copy": "Copiar dirección",
+    "copied": "Dirección copiada",
+    "copyManual": "Dirección seleccionada. Cópiala manualmente.",
+    "fullAddress": "Dirección completa",
+    "source": "Fuente",
+    "directions": "Abrir indicaciones",
+    "featuresTitle": "Direcciones de almacenes destacados",
+    "featuresIntro": "Direcciones de referencia para planificar envíos a España.",
+    "allRegions": "Todas las regiones",
+    "hubsTitle": "Explorar almacenes por región",
+    "hubsIntro": "Regiones con direcciones en esta selección.",
+    "planningTitle": "Planifica tu envío a España",
+    "planningBody": "Compara costes y plazos orientativos y confirma los detalles con nuestro equipo.",
+    "planningCTA": "Consultar costes y plazos",
+    "dataTitle": "Cobertura, coordenadas y fuentes",
+    "coverageNote": "Selección independiente de direcciones públicas; no es un registro completo ni actualizado de Amazon. La inclusión no acredita colaboración ni disponibilidad.",
+    "geometryNote": "Límites: geoBoundaries y organismos nacionales. Incluye las islas Canarias y Baleares, Ceuta y Melilla.",
+    "locationNote": "Los puntos son centros aproximados de códigos postales o ciudades (GeoNames, CC BY 4.0), no accesos a edificios. Distancias en línea recta en km, no por carretera ni tiempos de entrega.",
+    "providerNote": "Búsqueda de direcciones: OpenStreetMap / Nominatim. Las direcciones introducidas se envían a este servicio para localizarlas.",
+    "dispatchNote": "Antes de enviar, confirma la dirección de recepción y la cita en el plan de envío de Amazon o con el operador.",
+    "nearbyHint": "Busca una dirección o código postal. Una coincidencia única muestra los almacenes cercanos; elige una ubicación si hay varias.",
+    "browseHint": "Pulsa una comunidad o escribe un código de almacén. Confirma la dirección de recepción antes del envío.",
+    "reset": "Restablecer vista",
+    "straightLine": "En línea recta",
+    "postalPrecision": "Centro postal aproximado",
+    "cityPrecision": "Centro urbano aproximado",
+    "osmPrecision": "Punto de referencia OSM, por verificar",
+    "unknownPrecision": "Posición sin verificar",
+    "mapReturn": "Volver al mapa del país",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "resultFoot": "Elige un almacén para marcar su punto aproximado de referencia.",
+    "nearbyFoot": "Distancia aproximada en línea recta, sin ruta ni plazo de entrega.",
+    "noscript": "El mapa y la búsqueda cercana requieren JavaScript. La búsqueda de texto funciona sin JavaScript.",
+    "dataError": "No se han podido cargar los almacenes. Recarga la página."
+  },
+  "DefaultState": "Comunidad de Madrid",
+  "MapURL": "/assets/data/warehouse-regions.es.geojson",
+  "States": [
+    {
+      "code": "CN",
+      "name": "Canarias",
+      "region": "Canarias"
+    },
+    {
+      "code": "ML",
+      "name": "Ciudad Autónoma de Melilla",
+      "region": "Ciudad Autónoma de Melilla"
+    },
+    {
+      "code": "CE",
+      "name": "Ciudad Autónoma de Ceuta",
+      "region": "Ciudad Autónoma de Ceuta"
+    },
+    {
+      "code": "RI",
+      "name": "La Rioja",
+      "region": "La Rioja"
+    },
+    {
+      "code": "PV",
+      "name": "País Vasco/Euskadi",
+      "region": "País Vasco/Euskadi"
+    },
+    {
+      "code": "NC",
+      "name": "Comunidad Foral de Navarra",
+      "region": "Comunidad Foral de Navarra"
+    },
+    {
+      "code": "MC",
+      "name": "Región de Murcia",
+      "region": "Región de Murcia"
+    },
+    {
+      "code": "MD",
+      "name": "Comunidad de Madrid",
+      "region": "Comunidad de Madrid"
+    },
+    {
+      "code": "GA",
+      "name": "Galicia",
+      "region": "Galicia"
+    },
+    {
+      "code": "EX",
+      "name": "Extremadura",
+      "region": "Extremadura"
+    },
+    {
+      "code": "VC",
+      "name": "Comunitat Valenciana",
+      "region": "Comunitat Valenciana"
+    },
+    {
+      "code": "CT",
+      "name": "Cataluña/Catalunya",
+      "region": "Cataluña/Catalunya"
+    },
+    {
+      "code": "CM",
+      "name": "Castilla-La Mancha",
+      "region": "Castilla-La Mancha"
+    },
+    {
+      "code": "CL",
+      "name": "Castilla y León",
+      "region": "Castilla y León"
+    },
+    {
+      "code": "CB",
+      "name": "Cantabria",
+      "region": "Cantabria"
+    },
+    {
+      "code": "IB",
+      "name": "Illes Balears",
+      "region": "Illes Balears"
+    },
+    {
+      "code": "AS",
+      "name": "Principado de Asturias",
+      "region": "Principado de Asturias"
+    },
+    {
+      "code": "AR",
+      "name": "Aragón",
+      "region": "Aragón"
+    },
+    {
+      "code": "AN",
+      "name": "Andalucía",
+      "region": "Andalucía"
+    }
+  ],
+  "Warehouses": [
+    {
+      "code": "BCN1",
+      "name": "BCN1",
+      "type": "fba",
+      "address": "Av. de les Garrigues 6-8",
+      "city": "El Prat de Llobregat",
+      "zip": "08820",
+      "country": "ES",
+      "state": "CT",
+      "stateName": "Cataluña/Catalunya",
+      "region": "Cataluña/Catalunya",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/barcelona/el-prat-de-llobregat/bcn1-el-prat-de-llobregat-barcelona-08820",
+      "lat": 41.3278,
+      "lng": 2.0947,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "BCN2",
+      "name": "BCN2",
+      "type": "fba",
+      "address": "Carrer de la VERNEDA 22",
+      "city": "Martorelles",
+      "zip": "08107",
+      "country": "ES",
+      "state": "CT",
+      "stateName": "Cataluña/Catalunya",
+      "region": "Cataluña/Catalunya",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/martorelles/martorelles/bcn2-martorelles-martorelles-08107",
+      "lat": 41.5269,
+      "lng": 2.2375,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "MAD4",
+      "name": "MAD4",
+      "type": "fba",
+      "address": "Avenida de la Astronomia 24",
+      "city": "San Fernando de Henares",
+      "zip": "28830",
+      "country": "ES",
+      "state": "MD",
+      "stateName": "Comunidad de Madrid",
+      "region": "Comunidad de Madrid",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/madrid/san-fernando-de-henares/mad4-san-fernando-de-henares-madrid-28830",
+      "lat": 40.4239,
+      "lng": -3.5326,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "MAD6",
+      "name": "MAD6",
+      "type": "fba",
+      "address": "Avenida de la Logistica 13",
+      "city": "illescas",
+      "zip": "45200",
+      "country": "ES",
+      "state": "CM",
+      "stateName": "Castilla-La Mancha",
+      "region": "Castilla-La Mancha",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/toledo/illescas/mad6-illescas-toledo-45200",
+      "lat": 40.1261,
+      "lng": -3.8502,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "MAD7",
+      "name": "MAD7",
+      "type": "fba",
+      "address": "Carretera antigua Madrid-Toledo 38D",
+      "city": "Illescas",
+      "zip": "45200",
+      "country": "ES",
+      "state": "CM",
+      "stateName": "Castilla-La Mancha",
+      "region": "Castilla-La Mancha",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/illescas/illescas/mad7-illescas-illescas-45200",
+      "lat": 40.1261,
+      "lng": -3.8502,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "MAD9",
+      "name": "MAD9",
+      "type": "fba",
+      "address": "Camino de los Afligidos",
+      "city": "Alcala de Henares",
+      "zip": "28804",
+      "country": "ES",
+      "state": "MD",
+      "stateName": "Comunidad de Madrid",
+      "region": "Comunidad de Madrid",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/madrid/alcala-de-henares/mad9-alcala-de-henares-madrid-28804",
+      "lat": 40.482,
+      "lng": -3.36,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "SVQ1",
+      "name": "SVQ1",
+      "type": "fba",
+      "address": "Poligono Sen",
+      "city": "Dos Hermanas Seville",
+      "zip": "41703",
+      "country": "ES",
+      "state": "AN",
+      "stateName": "Andalucía",
+      "region": "Andalucía",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/andalusia/dos-hermanas-seville/svq1-dos-hermanas-seville-andalusia-41703",
+      "lat": 37.2761,
+      "lng": -5.9414,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "RMU1",
+      "name": "RMU1",
+      "type": "fba",
+      "address": "Calle Isidro Vivancos Munoz Parque Logistico del Sureste",
+      "city": "Murcia",
+      "zip": "30156",
+      "country": "ES",
+      "state": "MC",
+      "stateName": "Región de Murcia",
+      "region": "Región de Murcia",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/murcia/murcia/rmu1-murcia-murcia-30156",
+      "lat": 37.8978,
+      "lng": -1.1395,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "VLC1",
+      "name": "VLC1",
+      "type": "fba",
+      "address": "Calle Panama 28",
+      "city": "Onda",
+      "zip": "12200",
+      "country": "ES",
+      "state": "VC",
+      "stateName": "Comunitat Valenciana",
+      "region": "Comunitat Valenciana",
+      "sourceURL": "https://www.fbanearme.com/locations/spain/castellon/onda/vlc1-onda-castellon-12200",
+      "lat": 39.9644,
+      "lng": -0.2626,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    }
+  ],
+  "FeaturedCodes": [
+    "BCN1",
+    "BCN2",
+    "MAD4",
+    "MAD6",
+    "MAD7",
+    "MAD9"
+  ],
+  "Sources": [
+    {
+      "Name": "FBA Near Me",
+      "URL": "https://www.fbanearme.com/locations/spain"
+    }
+  ]
+}

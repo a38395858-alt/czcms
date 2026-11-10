@@ -9,6 +9,7 @@ import { parseHash } from './lib/router';
 const root = document.getElementById('root')!;
 const route = parseHash(location.hash);
 const loaders = {
+  de: () => import('./sites/de/HomeClient'),
   fr: () => import('./sites/fr/HomeClient'),
   es: () => import('./sites/es/HomeClient'),
   it: () => import('./sites/it/HomeClient'),

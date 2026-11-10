@@ -12,7 +12,7 @@ export function Faq({ section }: { section: FaqSection }) {
             <h2 id="faq-title" className="h2 text-navy-900">
               {section.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-navy-600">{section.settings.aside_prompt}</p>
+
             <Link to={section.settings.aside_link_url} className="text-link mt-3">
               {section.settings.aside_link_label}
               <ArrowRight className="h-4 w-4" />

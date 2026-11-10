@@ -1,10 +1,11 @@
 import { homeContext } from '../lib/home-context';
+import { companyEmail } from '../../../shared/company-contact';
 /**
  * Site-level configuration shared by the English Global and German templates.
  *
  * Values are read from Vite env variables (see `.env`) so owners can configure them without
  * editing templates. Contact, legal, Impressum, locale, and URL details must be verified by
- * FreightVanta before publishing — they are intentionally empty by default and hidden when empty.
+ * FreightVanta before publishing — unconfirmed details remain empty and hidden; the approved company email is shared across sites.
  */
 import type { SiteId } from '../lib/router';
 
@@ -61,7 +62,7 @@ export const siteConfig = {
   enquiryEndpoint: clean(env.VITE_ENQUIRY_ENDPOINT),
   analyticsEndpoint: clean(env.VITE_ANALYTICS_ENDPOINT),
   contact: {
-    email: clean(env.VITE_CONTACT_EMAIL),
+    email: clean(env.VITE_CONTACT_EMAIL) || companyEmail,
     phone: clean(env.VITE_CONTACT_PHONE),
     address: clean(env.VITE_CONTACT_ADDRESS),
   },

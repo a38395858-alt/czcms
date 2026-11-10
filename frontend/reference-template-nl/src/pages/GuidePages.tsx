@@ -71,7 +71,7 @@ export function GuidesPage() {
                 </div>
                 <div className="lg:col-span-4">
                   <div className="rounded-[4px] bg-navy-900 p-7 text-white">
-                    <p className="eyebrow text-signal-300">Planning a shipment?</p>
+                    <p className="text-sm font-semibold text-signal-300">Planning a shipment?</p>
                     <p className="mt-4 font-display text-2xl font-semibold leading-snug">
                       Turn what you have learned into a plan your team can use.
                     </p>
@@ -198,7 +198,7 @@ function ArticleDetail({ article }: { article: Article }) {
           <aside className="lg:col-span-4">
             <div className="space-y-8 lg:sticky lg:top-28">
               <div className="rounded-[4px] bg-navy-900 p-7 text-white">
-                <p className="eyebrow text-signal-300">Request a shipment plan</p>
+                <p className="text-sm font-semibold text-signal-300">Request a shipment plan</p>
                 <p className="mt-4 font-display text-2xl font-semibold leading-snug">Planning a shipment like this?</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-navy-200">
                   Start with a product link, a shipment brief, or the route you need to plan.

@@ -133,8 +133,8 @@ export function ItalianLegalPage({ slug }: { slug: ItLegalSlug }) {
               </li>
             </ol>
           </nav>
-          <p className="it-kicker mt-8 text-rosso-600">Informazioni legali</p>
-          <h1 className="mt-5 max-w-3xl font-bodoni text-[2.4rem] font-bold leading-[1.04] text-verde-950 sm:text-5xl">
+
+          <h1 className="max-w-3xl font-bodoni text-[2.4rem] font-bold leading-[1.04] text-verde-950 sm:text-5xl">
             {page.title}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-fumo-600">{page.lead}</p>

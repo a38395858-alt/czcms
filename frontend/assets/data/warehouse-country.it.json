@@ -1,0 +1,359 @@
+{
+  "Country": "IT",
+  "Language": "it",
+  "Name": "Italia",
+  "Copy": {
+    "name": "Italia",
+    "title": "Mappa e ricerca magazzini in Italia",
+    "intro": "Trova indirizzi Amazon FBA e magazzini di operatori logistici. Scegli una regione o cerca vicino a un indirizzo in Italia.",
+    "footer": "Cerca magazzini in Italia",
+    "seoTitle": "Magazzini FBA Italia: indirizzi e mappa | FreightVanta",
+    "seoDescription": "Cerca magazzini FBA e operatori logistici in Italia per codice, regione o CAP. Consulta gli indirizzi e le distanze in linea d’aria da un indirizzo italiano.",
+    "seoKeywords": "magazzini FBA Italia, indirizzo Amazon, magazzini vicini, mappa logistica",
+    "home": "Home",
+    "skip": "Vai al contenuto principale",
+    "browse": "Per regione",
+    "nearby": "Cerca nelle vicinanze",
+    "featuredLink": "Vedi i magazzini selezionati",
+    "searchLabel": "Codice magazzino, regione, città o CAP",
+    "nearbyLabel": "Indirizzo, città o CAP in Italia",
+    "placeholder": "Es. FCO1, Lazio o 02032",
+    "nearbyPlaceholder": "Es. Roma, 02032 o un indirizzo completo",
+    "clear": "Cancella",
+    "search": "Cerca magazzini",
+    "radius": "Raggio di ricerca",
+    "warehouseType": "Tipo di magazzino",
+    "all": "Tutti",
+    "allTypes": "Tutti i tipi",
+    "threePL": "Operatori (3PL)",
+    "stateJump": "Scegli una regione",
+    "chooseState": "Tutte le regioni",
+    "mapLoading": "Caricamento della mappa…",
+    "mapError": "La mappa non è disponibile. Ricerca e indirizzi restano accessibili. Ricarica la pagina per riprovare.",
+    "mapCaption": "Seleziona una regione per vedere i magazzini",
+    "mapLabel": "Mappa delle regioni e dei magazzini",
+    "selected": "Selezione",
+    "directoryCount": "indirizzi nell’elenco",
+    "legend": "I numeri indicano gli indirizzi di questo elenco",
+    "results": "Risultati",
+    "nearbyResults": "Magazzini nelle vicinanze",
+    "emptyBrowse": "Nessun indirizzo per questa selezione. Prova un’altra regione o un altro tipo. L’elenco è parziale.",
+    "emptyNearby": "Nessun magazzino indicizzato in questo raggio. Amplia il raggio o cambia i filtri; l’elenco è parziale.",
+    "nearbyPrompt": "Inserisci un indirizzo, una città o un CAP e avvia la ricerca.",
+    "pendingChoice": "Sono state trovate più località. Scegli quella desiderata.",
+    "locationNoMatch": "Nessuna località trovata in Italia. Controlla l’indirizzo o prova una città o un CAP.",
+    "locationError": "La ricerca indirizzi non è disponibile. Riprova oppure usa una città o un CAP.",
+    "invalidQuery": "Inserisci da 2 a 200 caratteri per una località, oppure al massimo 120 per un magazzino.",
+    "busy": "La ricerca è occupata. Attendi qualche istante e riprova.",
+    "finding": "Ricerca della località…",
+    "locate": "Mostra sulla mappa",
+    "copy": "Copia indirizzo",
+    "copied": "Indirizzo copiato",
+    "copyManual": "Indirizzo selezionato. Copialo manualmente.",
+    "fullAddress": "Indirizzo completo",
+    "source": "Fonte",
+    "directions": "Apri indicazioni",
+    "featuresTitle": "Indirizzi di magazzini selezionati",
+    "featuresIntro": "Indirizzi di riferimento per pianificare spedizioni verso l’Italia.",
+    "allRegions": "Tutte le regioni",
+    "hubsTitle": "Esplora i magazzini per regione",
+    "hubsIntro": "Regioni con indirizzi in questa selezione.",
+    "planningTitle": "Pianifica una spedizione in Italia",
+    "planningBody": "Confronta costi e tempi indicativi, poi conferma i dettagli con il nostro team.",
+    "planningCTA": "Consulta costi e tempi",
+    "dataTitle": "Copertura, coordinate e fonti",
+    "coverageNote": "Selezione indipendente di indirizzi pubblici, non un registro Amazon completo o aggiornato. L’inclusione non indica collaborazione né disponibilità.",
+    "geometryNote": "Confini: geoBoundaries e istituti nazionali. La mappa comprende tutte le 20 regioni, Sicilia e Sardegna incluse.",
+    "locationNote": "I punti sono centri approssimativi di aree postali o città (GeoNames, CC BY 4.0), non ingressi dei magazzini. Distanze in linea d’aria in km, non stradali né tempi di consegna.",
+    "providerNote": "Ricerca indirizzi: OpenStreetMap / Nominatim. Gli indirizzi inseriti vengono inviati a questo servizio per la localizzazione.",
+    "dispatchNote": "Prima di spedire, conferma indirizzo di ricezione e appuntamento nel piano spedizioni Amazon o con l’operatore.",
+    "nearbyHint": "Cerca un indirizzo o CAP. Un risultato unico mostra subito i magazzini vicini; scegli la località se ci sono più corrispondenze.",
+    "browseHint": "Seleziona una regione o inserisci un codice magazzino. Conferma l’indirizzo di ricezione prima della spedizione.",
+    "reset": "Ripristina vista",
+    "straightLine": "In linea d’aria",
+    "postalPrecision": "Centro postale approssimativo",
+    "cityPrecision": "Centro città approssimativo",
+    "osmPrecision": "Punto di riferimento OSM da verificare",
+    "unknownPrecision": "Posizione non verificata",
+    "mapReturn": "Torna alla mappa nazionale",
+    "zoomIn": "Ingrandisci",
+    "zoomOut": "Riduci",
+    "resultFoot": "Seleziona un magazzino per evidenziare il punto di riferimento approssimativo.",
+    "nearbyFoot": "Distanza approssimativa in linea d’aria, non stradale né tempo di consegna.",
+    "noscript": "Mappa e ricerca nelle vicinanze richiedono JavaScript. La ricerca testuale funziona anche senza JavaScript.",
+    "dataError": "Impossibile caricare i magazzini. Ricarica la pagina."
+  },
+  "DefaultState": "Lazio",
+  "MapURL": "/assets/data/warehouse-regions.it.geojson",
+  "States": [
+    {
+      "code": "21",
+      "name": "Piemonte",
+      "region": "Piemonte"
+    },
+    {
+      "code": "23",
+      "name": "Valle d'Aosta",
+      "region": "Valle d'Aosta"
+    },
+    {
+      "code": "25",
+      "name": "Lombardia",
+      "region": "Lombardia"
+    },
+    {
+      "code": "32",
+      "name": "Trentino-Alto Adige",
+      "region": "Trentino-Alto Adige"
+    },
+    {
+      "code": "34",
+      "name": "Veneto",
+      "region": "Veneto"
+    },
+    {
+      "code": "36",
+      "name": "Friuli Venezia Giulia",
+      "region": "Friuli Venezia Giulia"
+    },
+    {
+      "code": "42",
+      "name": "Liguria",
+      "region": "Liguria"
+    },
+    {
+      "code": "45",
+      "name": "Emilia-Romagna",
+      "region": "Emilia-Romagna"
+    },
+    {
+      "code": "52",
+      "name": "Toscana",
+      "region": "Toscana"
+    },
+    {
+      "code": "55",
+      "name": "Umbria",
+      "region": "Umbria"
+    },
+    {
+      "code": "57",
+      "name": "Marche",
+      "region": "Marche"
+    },
+    {
+      "code": "62",
+      "name": "Lazio",
+      "region": "Lazio"
+    },
+    {
+      "code": "65",
+      "name": "Abruzzo",
+      "region": "Abruzzo"
+    },
+    {
+      "code": "67",
+      "name": "Molise",
+      "region": "Molise"
+    },
+    {
+      "code": "72",
+      "name": "Campania",
+      "region": "Campania"
+    },
+    {
+      "code": "75",
+      "name": "Puglia",
+      "region": "Puglia"
+    },
+    {
+      "code": "77",
+      "name": "Basilicata",
+      "region": "Basilicata"
+    },
+    {
+      "code": "78",
+      "name": "Calabria",
+      "region": "Calabria"
+    },
+    {
+      "code": "82",
+      "name": "Sicilia",
+      "region": "Sicilia"
+    },
+    {
+      "code": "88",
+      "name": "Sardegna",
+      "region": "Sardegna"
+    }
+  ],
+  "Warehouses": [
+    {
+      "code": "MXP3",
+      "name": "MXP3",
+      "type": "fba",
+      "address": "Via Rita Levi Montalcini",
+      "city": "Vercelli",
+      "zip": "13100",
+      "country": "IT",
+      "state": "21",
+      "stateName": "Piemonte",
+      "region": "Piemonte",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/vercelli/vercelli/mxp3-vercelli-vercelli-13100",
+      "lat": 45.3216,
+      "lng": 8.4199,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "MXP5",
+      "name": "MXP5",
+      "type": "fba",
+      "address": "Strada Dogana Po,2U",
+      "city": "Castel San Giovanni",
+      "zip": "29015",
+      "country": "IT",
+      "state": "45",
+      "stateName": "Emilia-Romagna",
+      "region": "Emilia-Romagna",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/piacenza/castel-san-giovanni/mxp5-castel-san-giovanni-piacenza-29015",
+      "lat": 45.0601,
+      "lng": 9.4378,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "BGY1",
+      "name": "BGY1",
+      "type": "fba",
+      "address": "Via delle Motte no10",
+      "city": "Cividate al Piano",
+      "zip": "24050",
+      "country": "IT",
+      "state": "25",
+      "stateName": "Lombardia",
+      "region": "Lombardia",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/bergamo/cividate-al-piano/bgy1-cividate-al-piano-bergamo-24050",
+      "lat": 45.5547,
+      "lng": 9.8302,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "BLQ1",
+      "name": "BLQ1",
+      "type": "fba",
+      "address": "Via Ipazia D’Alessandria 946",
+      "city": "San Bellino",
+      "zip": "45020",
+      "country": "IT",
+      "state": "34",
+      "stateName": "Veneto",
+      "region": "Veneto",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/rovigo/san-bellino/blq1-san-bellino-rovigo-45020",
+      "lat": 45.0294,
+      "lng": 11.5922,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "FCO1",
+      "name": "FCO1",
+      "type": "fba",
+      "address": "Via della Meccanica snc 4",
+      "city": "Passo Corese",
+      "zip": "02032",
+      "country": "IT",
+      "state": "62",
+      "stateName": "Lazio",
+      "region": "Lazio",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/rieti/passo-corese/fco1-passo-corese-rieti-02032",
+      "lat": 42.1584,
+      "lng": 12.6561,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "FCO2",
+      "name": "FCO2",
+      "type": "fba",
+      "address": "Via Palianese",
+      "city": "Colleferro",
+      "zip": "00034",
+      "country": "IT",
+      "state": "62",
+      "stateName": "Lazio",
+      "region": "Lazio",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/rome/colleferro/fco2-colleferro-rome-00034",
+      "lat": 41.7272,
+      "lng": 13.0048,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "PSR2",
+      "name": "PSR2",
+      "type": "fba",
+      "address": "Viale Germania 29",
+      "city": "San Salvo",
+      "zip": "66050",
+      "country": "IT",
+      "state": "65",
+      "stateName": "Abruzzo",
+      "region": "Abruzzo",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/ch/san-salvo/psr2-san-salvo-ch-66050",
+      "lat": 42.05725,
+      "lng": 14.74965,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "TRN1",
+      "name": "TRN1",
+      "type": "fba",
+      "address": "Strada Provinciale per Rondissone 90",
+      "city": "Torrazza",
+      "zip": "10037",
+      "country": "IT",
+      "state": "21",
+      "stateName": "Piemonte",
+      "region": "Piemonte",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/piemonte/torrazza/trn1-torrazza-piemonte-10037",
+      "lat": 45.2154,
+      "lng": 7.9767,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    },
+    {
+      "code": "TRN3",
+      "name": "TRN3",
+      "type": "fba",
+      "address": "Str. John Fitzgerald Kennedy",
+      "city": "Alessandria",
+      "zip": "15122",
+      "country": "IT",
+      "state": "21",
+      "stateName": "Piemonte",
+      "region": "Piemonte",
+      "sourceURL": "https://www.fbanearme.com/locations/italy/piedmont/alessandria/trn3-alessandria-piedmont-15122",
+      "lat": 44.8855,
+      "lng": 8.6775,
+      "coordinatePrecision": "zip-centroid",
+      "coordinateSourceURL": "https://www.geonames.org/"
+    }
+  ],
+  "FeaturedCodes": [
+    "MXP3",
+    "MXP5",
+    "BGY1",
+    "BLQ1",
+    "FCO1",
+    "FCO2"
+  ],
+  "Sources": [
+    {
+      "Name": "FBA Near Me",
+      "URL": "https://www.fbanearme.com/locations/italy"
+    }
+  ]
+}

@@ -13,13 +13,11 @@ export function Operation({ section }: { section: OperationSection }) {
       <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <p className="eyebrow text-signal-300">{section.eyebrow}</p>
-            <h2 id="operation-title" className="h2 mt-5 text-white">
+
+            <h2 id="operation-title" className="h2 text-white">
               {section.title}
             </h2>
-            <p className="mt-8 max-w-md border-l-2 border-signal-500 pl-5 font-display text-xl font-medium leading-snug text-navy-100 sm:text-2xl">
-              {section.settings.pull_quote}
-            </p>
+
             <Link
               to={section.cta_primary_url}
               className="mt-10 inline-flex items-center gap-2 font-semibold text-signal-300 underline decoration-signal-300/40 underline-offset-4 hover:decoration-signal-300"

@@ -1,3 +1,4 @@
+import { HomeShippingLink } from '../../../../reference-template/src/components/HomeShippingPlanner';
 import { useEffect, useRef, useState } from 'react';
 import { localizedUrl, siteConfig } from '../../config/site';
 import { nlAnnouncement, nlFooter, nlNav } from '../../content/nl/home';
@@ -263,6 +264,6 @@ export function NlFooter() {
           <p className="font-archivo text-[12px] uppercase tracking-[0.18em]">{nlFooter.locale_tag}</p>
         </div>
       </div>
-    </footer>
+    <nav className="sp-react-footer-tool"><HomeShippingLink /></nav></footer>
   );
 }

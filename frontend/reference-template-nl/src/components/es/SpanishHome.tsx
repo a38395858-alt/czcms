@@ -67,10 +67,10 @@ export function EsHero() {
       <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-24 h-80 w-80 rounded-full bg-sol-300/40 blur-3xl" />
       <div className="shell relative grid items-center gap-12 pb-12 pt-12 sm:pt-16 lg:grid-cols-12 lg:gap-10 lg:pt-16">
         <div className="lg:col-span-7">
-          <p className="es-kicker text-terra-600">{esHero.eyebrow}</p>
+
           <h1
             id="es-hero-title"
-            className="mt-6 font-bricolage text-[2.4rem] font-extrabold leading-[1.02] tracking-tight text-carbon-900 text-balance sm:text-[3.3rem] xl:text-[4rem]"
+            className="font-bricolage text-[2.4rem] font-extrabold leading-[1.02] tracking-tight text-carbon-900 text-balance sm:text-[3.3rem] xl:text-[4rem]"
           >
             {esHero.title}
           </h1>
@@ -84,9 +84,7 @@ export function EsHero() {
               {esHero.cta_secondary_label}
             </Link>
           </div>
-          <p className="mt-8 max-w-lg border-l-4 border-sol-400 pl-4 text-[15px] leading-relaxed text-carbon-600">
-            {esHero.microcopy}
-          </p>
+
         </div>
 
         <figure className="mx-auto w-full max-w-md lg:col-span-5 lg:ml-auto lg:mr-0">
@@ -250,8 +248,8 @@ export function EsServices() {
   return (
     <section id="servicios" aria-labelledby="es-services-title" className="bg-arena-50 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="es-kicker text-terra-600">{esServicesSection.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="es-services-title" className={cn(esH2, 'lg:col-span-7')}>
             {esServicesSection.title}
           </h2>
@@ -362,15 +360,13 @@ export function EsOperation() {
   return (
     <section id="operacion" aria-labelledby="es-operation-title" className="bg-terra-600 py-20 text-arena-50 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="es-kicker text-arena-50">{esOperation.kicker}</p>
-        <div className="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-14">
+
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <h2 id="es-operation-title" className="font-bricolage text-[2rem] font-extrabold leading-[1.05] tracking-tight sm:text-[2.7rem]">
               {esOperation.title}
             </h2>
-            <blockquote className="mt-8 max-w-md border-l-4 border-sol-400 pl-5">
-              <p className="font-bricolage text-xl font-semibold leading-snug sm:text-[1.5rem]">{esOperation.pull_quote}</p>
-            </blockquote>
+
           </div>
           <ol className="grid gap-x-10 gap-y-2 sm:grid-cols-2 lg:col-span-7">
             {esOperation.items.map((item, index) => (
@@ -404,12 +400,12 @@ export function EsProcess() {
   return (
     <section id="proceso" aria-labelledby="es-process-title" className="bg-arena-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="es-kicker text-terra-600">{esProcess.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="es-process-title" className={cn(esH2, 'lg:col-span-6')}>
             {esProcess.title}
           </h2>
-          <p className="text-lg leading-relaxed text-carbon-600 lg:col-span-5 lg:col-start-8">{esProcess.body}</p>
+
         </div>
 
         <ol className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
@@ -448,11 +444,11 @@ export function EsIndustries() {
     <section id="sectores" aria-labelledby="es-industries-title" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-5">
-          <p className="es-kicker text-terra-600">{esIndustries.kicker}</p>
+
           <h2 id="es-industries-title" className={cn(esH2, 'mt-6')}>
             {esIndustries.title}
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-carbon-600">{esIndustries.body}</p>
+
 
           <figure className="mt-10 max-w-sm">
             <div className="rounded-t-[999px] bg-terra-600 p-2.5">
@@ -515,8 +511,8 @@ export function EsResources() {
   return (
     <section id="recursos" aria-labelledby="es-resources-title" className="bg-arena-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="es-kicker text-terra-600">{esResources.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-14">
+
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <h2 id="es-resources-title" className={esH2}>
               {esResources.title}
@@ -566,11 +562,11 @@ export function EsFaq() {
       <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
-            <p className="es-kicker text-terra-600">{esFaq.kicker}</p>
+
             <h2 id="es-faq-title" className={cn(esH2, 'mt-6')}>
               {esFaq.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-carbon-600">{esFaq.aside_prompt}</p>
+
             <Link
               to={esFaq.aside_link_url}
               className="mt-4 inline-flex items-center gap-2 font-bold text-azul-700 underline decoration-azul-700/40 decoration-2 underline-offset-4 hover:decoration-azul-700"
@@ -608,12 +604,7 @@ export function EsEnquiry() {
       <div className="shell">
         <div className="overflow-hidden rounded-3xl border-2 border-carbon-900 bg-arena-50">
           <div aria-hidden="true" className="azulejo-strip" />
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 bg-azul-700 px-5 py-3 text-white sm:px-8">
-            <p className="font-bricolage text-[12.5px] font-bold uppercase tracking-[0.18em]">{esEnquiry.form_tag}</p>
-            <p aria-hidden="true" className="hidden font-bricolage text-[12.5px] font-bold uppercase tracking-[0.18em] text-sol-300 sm:block">
-              {esEnquiry.kicker}
-            </p>
-          </div>
+
 
           <div className="grid gap-10 p-5 sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10">
             <div className="lg:col-span-5">

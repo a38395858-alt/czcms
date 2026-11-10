@@ -1,0 +1,1 @@
+import{F as e,a as o}from"./FrHomePage-Bgp1YJ6L.js";import"./app-D220BdCL.js";import"./HomeShippingPlanner-Bh4nY8P5.js";import"./EnquiryForm-Cnl3c48-.js";const l={Shell:o,Page:e};export{l as default};

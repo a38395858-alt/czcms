@@ -1979,7 +1979,7 @@ body.page-home.language-nl .dutch-handoff-board i { display:none; }
    cargo-aircraft photograph rather than the generic route-line placeholder. */
 body.theme-atlas-commerce.language-de .guides-de .content-card:first-child .content-art {
   background-color:#0d6c68;
-  background-image:linear-gradient(rgba(6,71,72,.24),rgba(6,71,72,.42)),url("/assets/images/guide-express-freight-v1.png");
+  background-image:linear-gradient(rgba(6,71,72,.24),rgba(6,71,72,.42)),url("/assets/images/guide-express-freight-v1.webp");
   background-position:center,60% center;
   background-size:cover;
   background-repeat:no-repeat;

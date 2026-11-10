@@ -1,0 +1,9 @@
+{
+  "status": "illustrative-only",
+  "note": "Interaction examples only. No verified operator, street address, partner relationship or available facility is represented.",
+  "warehouses": [
+    { "code": "example-ontario", "name": "Ontario 3PL example", "type": "3pl", "example": true, "state": "CA", "stateName": "California", "region": "West", "city": "Ontario", "zip": "91761", "address": "Illustrative listing — no verified street address", "lat": 34.044, "lng": -117.610, "coordinatePrecision": "example", "services": ["Storage", "FBA prep", "Relabeling"] },
+    { "code": "example-chino", "name": "Chino fulfillment example", "type": "3pl", "example": true, "state": "CA", "stateName": "California", "region": "West", "city": "Chino", "zip": "91710", "address": "Illustrative listing — no verified street address", "lat": 34.012, "lng": -117.687, "coordinatePrecision": "example", "services": ["Storage", "Fulfillment", "Returns"] },
+    { "code": "example-fontana", "name": "Fontana prep example", "type": "3pl", "example": true, "state": "CA", "stateName": "California", "region": "West", "city": "Fontana", "zip": "92337", "address": "Illustrative listing — no verified street address", "lat": 34.080, "lng": -117.462, "coordinatePrecision": "example", "services": ["Storage", "FBA prep", "Relabeling"] }
+  ]
+}

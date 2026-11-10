@@ -46,7 +46,7 @@ interface PageHeroProps {
   actions?: ReactNode;
 }
 
-export function PageHero({ breadcrumbs, eyebrow, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
+export function PageHero({ breadcrumbs, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-navy-900 text-white">
       <div aria-hidden="true" className="bg-route-grid pointer-events-none absolute inset-0 -z-10" />
@@ -59,8 +59,8 @@ export function PageHero({ breadcrumbs, eyebrow, title, lead, body, media, media
           )}
         >
           <div className={cn(!media && 'max-w-3xl')}>
-            {eyebrow && <p className="eyebrow text-signal-300">{eyebrow}</p>}
-            <h1 className="mt-5 font-display text-[2.5rem] font-bold leading-[1.03] tracking-[-0.01em] text-balance sm:text-5xl lg:text-[3.6rem]">
+
+            <h1 className="font-display text-[2.5rem] font-bold leading-[1.03] tracking-[-0.01em] text-balance sm:text-5xl lg:text-[3.6rem]">
               {title}
             </h1>
             {lead && (
@@ -124,8 +124,8 @@ export function CtaBand({
     <section aria-label="Request a shipment plan" className="border-t border-mist-200 bg-mist-100">
       <div className="shell flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
         <div className="max-w-2xl">
-          <p className="eyebrow text-signal-700">Request a shipment plan</p>
-          <h2 className="mt-4 font-display text-[2rem] font-semibold leading-tight text-navy-900 sm:text-[2.5rem]">{title}</h2>
+
+          <h2 className="font-display text-[2rem] font-semibold leading-tight text-navy-900 sm:text-[2.5rem]">{title}</h2>
           <p className="mt-4 text-lg leading-relaxed text-navy-600">{body}</p>
         </div>
         <Link

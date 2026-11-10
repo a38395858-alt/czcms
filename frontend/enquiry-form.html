@@ -1,0 +1,11 @@
+{{define "short-enquiry-fields"}}
+<div class="cz-enq-grid">
+  <div class="cz-enq-field"><label for="enquiry-name">{{index .EnquiryForm.Labels 0}}</label><input id="enquiry-name" name="name" autocomplete="name" maxlength="120" required></div>
+  <div class="cz-enq-field"><label for="enquiry-email">{{index .EnquiryForm.Labels 1}}</label><input id="enquiry-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+  <div class="cz-enq-field"><label for="enquiry-company">{{index .EnquiryForm.Labels 2}}</label><input id="enquiry-company" name="company" autocomplete="organization" maxlength="120"></div>
+  <div class="cz-enq-field"><label for="enquiry-start">{{index .EnquiryForm.Labels 3}}</label><select id="enquiry-start" name="starting_point">{{range .EnquiryForm.StartingPoints}}<option value="{{.Value}}">{{.Label}}</option>{{end}}</select></div>
+  <div class="cz-enq-field cz-enq-field-wide"><label for="enquiry-brief">{{index .EnquiryForm.Labels 4}}</label><textarea id="enquiry-brief" name="brief" maxlength="2000" placeholder="{{.EnquiryForm.Placeholder}}"></textarea></div>
+</div>
+<label class="cz-enq-consent"><input type="checkbox" name="consent" required><span>{{.EnquiryForm.BeforePolicy}}<a href="{{.Links.Privacy}}">{{.EnquiryForm.PrivacyLabel}}</a>{{.EnquiryForm.AfterPolicy}}</span></label>
+<button class="cz-enq-submit" type="submit">{{.EnquiryForm.Button}}<span aria-hidden="true">→</span></button>
+{{end}}

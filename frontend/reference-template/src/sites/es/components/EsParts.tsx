@@ -53,7 +53,7 @@ interface PageHeroProps {
 }
 
 /** Sand header with an azulejo band, heavy Archivo headline and a colour-block image. */
-export function EsPageHero({ breadcrumbs, eyebrow, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
+export function EsPageHero({ breadcrumbs, title, lead, body, media, mediaAlt = '', actions }: PageHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-arena-50 text-carbon-900">
       <div aria-hidden="true" className="es-azulejo pointer-events-none absolute inset-y-0 right-0 -z-10 w-1/2 [mask-image:linear-gradient(to_left,#000,transparent)]" />
@@ -61,8 +61,8 @@ export function EsPageHero({ breadcrumbs, eyebrow, title, lead, body, media, med
         <EsBreadcrumbs items={breadcrumbs} />
         <div className={cn('mt-8 grid gap-10 lg:mt-10', media && 'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-14')}>
           <div className={cn(!media && 'max-w-3xl')}>
-            {eyebrow && <p className="es-eyebrow text-mar-700">{eyebrow}</p>}
-            <h1 className="mt-5 font-es text-[2.45rem] font-extrabold leading-[1.02] tracking-[-0.025em] text-balance sm:text-5xl lg:text-[3.5rem]">{title}</h1>
+
+            <h1 className="font-es text-[2.45rem] font-extrabold leading-[1.02] tracking-[-0.025em] text-balance sm:text-5xl lg:text-[3.5rem]">{title}</h1>
             {lead && <p className="mt-5 text-xl font-semibold leading-snug text-carbon-800 sm:text-2xl">{lead}</p>}
             {body && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-carbon-600">{body}</p>}
             {actions && <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div>}
@@ -94,7 +94,7 @@ export function EsCheckList({ items, className }: { items: string[]; className?:
 export function EsScopeNote({ children }: { children: ReactNode }) {
   return (
     <div className="rounded-lg border-l-4 border-mar-700 bg-mar-100 px-5 py-4 text-[15px] leading-relaxed text-carbon-800">
-      <p className="es-eyebrow text-mar-800">Alcance</p>
+      <p className="text-sm font-semibold text-mar-800">Alcance</p>
       <p className="mt-2">{children}</p>
     </div>
   );
@@ -116,8 +116,8 @@ export function EsCtaBand({
     <section aria-label="Solicitar plan de envío" className="bg-albero-300 text-carbon-900">
       <div className="shell flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
         <div className="max-w-2xl">
-          <p className="text-[12px] font-extrabold uppercase tracking-[0.14em] text-pino-900">Solicitar plan de envío</p>
-          <h2 className="mt-4 font-es text-[2rem] font-extrabold leading-tight tracking-[-0.02em] sm:text-[2.5rem]">{title}</h2>
+
+          <h2 className="font-es text-[2rem] font-extrabold leading-tight tracking-[-0.02em] sm:text-[2.5rem]">{title}</h2>
           <p className="mt-4 text-lg leading-relaxed text-carbon-800">{body}</p>
         </div>
         <Link
@@ -158,7 +158,7 @@ function Cover({ article, className, sizes }: { article: ArticleEs; className: s
         <Img media={getMedia(article.coverId)} alt={article.coverAlt} sizes={sizes} className="h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]" />
       ) : (
         <div className="es-azulejo flex h-full w-full items-end bg-arena-100 p-4">
-          <span className="es-eyebrow text-carbon-700">{article.category}</span>
+          <span className="text-sm font-semibold text-carbon-700">{article.category}</span>
         </div>
       )}
     </div>

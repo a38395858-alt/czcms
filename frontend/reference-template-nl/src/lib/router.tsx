@@ -1,4 +1,5 @@
 import { homeContext } from './home-context';
+import { nativeHomeHref, sameDocumentAnchor } from '../../../shared/native-home-links';
 import { createContext, useContext, useEffect, useState, type AnchorHTMLAttributes, type MouseEvent, type ReactNode } from 'react';
 
 /**
@@ -152,6 +153,10 @@ export function routeKey(route: Route): string {
 export function toHref(to: string): string {
   if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(to)) return to;
   const context = homeContext();
+  if (context) {
+    const native = nativeHomeHref(to, context);
+    if (native !== undefined) return native;
+  }
   if (context && to.startsWith('/')) {
     const path = to.replace(/^\/nl\//, '/').slice(1);
     if (/^(?:privacy|cookies|juridisch|contact|over-ons|voorwaarden|guides)$/.test(path)) {
@@ -238,6 +243,13 @@ export function Link({ to, newTab, onClick, rel, target, children, ...rest }: Li
     onClick?.(event);
     if (event.defaultPrevented || openInNewTab || external) return;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    const anchor = !target || target === '_self' ? sameDocumentAnchor(href, window.location.href) : undefined;
+    if (anchor) {
+      event.preventDefault();
+      if (anchor !== window.location.hash) pushIntent = true;
+      window.location.hash = anchor;
+      return;
+    }
     if (href.startsWith('#') && href !== window.location.hash) pushIntent = true;
   };
 

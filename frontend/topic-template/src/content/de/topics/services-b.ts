@@ -268,19 +268,19 @@ export const DE_PRIVATE_WHITE_LABEL_TOPIC: TopicPageContent = {
         heading: 'Wann es passt',
         cards: [
           {
-            title: 'EIN WHITE-LABEL-BASISPRODUKT BRAUCHT IHRE KUNDENGERICHTETE VERSION',
+            title: 'Ein White-Label-Basisprodukt braucht Ihre kundengerichtete Version',
             copy: 'Produktreferenz, Markenmaterialien und Packvorgabe verbinden.',
           },
           {
-            title: 'EIN EIGENMARKEN-PROGRAMM GEHT VOM MUSTER IN DEN EINKAUF',
+            title: 'Ein Eigenmarken-Programm geht vom Muster in den Einkauf',
             copy: 'Musterfreigabe, Spezifikation, Menge und Artwork in einer Aufzeichnung halten.',
           },
           {
-            title: 'EINE VERPACKUNGS- ODER SPRACHÜBERARBEITUNG KOMMT',
+            title: 'Eine Verpackungs- oder Sprachüberarbeitung kommt',
             copy: 'Stichtag und Umgang mit Altbestand definieren.',
           },
           {
-            title: 'DAS PRODUKT MUSS AN LAGER ODER FULFILLMENT ANBINDEN',
+            title: 'Das Produkt muss an Lager oder Fulfillment anbinden',
             copy: 'SKU, Etikett, Bündel und Ausnahmeregeln weiterreichen.',
           },
         ],

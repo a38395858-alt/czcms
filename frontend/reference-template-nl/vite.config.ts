@@ -12,6 +12,7 @@ export default defineConfig(({ isSsrBuild }) => ({
   base: "/assets/nl-template/",
   plugins: [react(), tailwindcss()],
   resolve: {
+    dedupe: ['react', 'react-dom'],
     alias: {
       "@": path.resolve(__dirname, "src"),
     },

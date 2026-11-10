@@ -55,10 +55,10 @@ export function ItHero() {
     <section id="inizio" aria-labelledby="it-hero-title" className="bg-avorio-50">
       <div className="shell grid items-center gap-12 pb-14 pt-12 sm:pt-16 lg:grid-cols-12 lg:gap-12 lg:pt-16">
         <div className="order-1 lg:order-2 lg:col-span-7">
-          <p className="it-kicker text-rosso-600">{itHero.eyebrow}</p>
+
           <h1
             id="it-hero-title"
-            className="mt-6 font-bodoni text-[2.5rem] font-bold leading-[1.02] text-verde-950 text-balance sm:text-[3.4rem] xl:text-[4rem]"
+            className="font-bodoni text-[2.5rem] font-bold leading-[1.02] text-verde-950 text-balance sm:text-[3.4rem] xl:text-[4rem]"
           >
             {itHero.title}
           </h1>
@@ -72,9 +72,7 @@ export function ItHero() {
               {itHero.cta_secondary_label}
             </Link>
           </div>
-          <p className="mt-8 max-w-lg border-l-2 border-oro-500 pl-4 font-bodoni text-[1.08rem] italic leading-relaxed text-fumo-600">
-            {itHero.microcopy}
-          </p>
+
         </div>
 
         <figure className="order-2 mx-auto w-full max-w-md lg:order-1 lg:col-span-5 lg:mx-0">
@@ -163,8 +161,8 @@ export function ItServices() {
   return (
     <section id="servizi" aria-labelledby="it-services-title" className="bg-avorio-50 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="it-kicker text-rosso-600">{itServicesSection.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="it-services-title" className={cn(itH2, 'lg:col-span-7')}>
             {itServicesSection.title}
           </h2>
@@ -282,15 +280,13 @@ export function ItOperation() {
   return (
     <section id="operazione" aria-labelledby="it-operation-title" className="bg-verde-900 py-20 text-avorio-50 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="it-kicker text-oro-300">{itOperation.kicker}</p>
-        <div className="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-14">
+
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <h2 id="it-operation-title" className="font-bodoni text-[2.1rem] font-bold leading-[1.04] sm:text-[2.8rem]">
               {itOperation.title}
             </h2>
-            <blockquote className="mt-8 max-w-md border-l-2 border-oro-500 pl-5">
-              <p className="font-bodoni text-xl font-medium italic leading-snug sm:text-[1.5rem]">{itOperation.pull_quote}</p>
-            </blockquote>
+
           </div>
           <ol className="grid content-start gap-x-10 sm:grid-cols-2 lg:col-span-7">
             {itOperation.items.map((item, index) => (
@@ -314,12 +310,12 @@ export function ItProcess() {
   return (
     <section id="processo" aria-labelledby="it-process-title" className="bg-avorio-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="it-kicker text-rosso-600">{itProcess.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="it-process-title" className={cn(itH2, 'lg:col-span-6')}>
             {itProcess.title}
           </h2>
-          <p className="text-lg leading-relaxed text-fumo-600 lg:col-span-5 lg:col-start-8">{itProcess.body}</p>
+
         </div>
 
         <ol className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
@@ -352,12 +348,12 @@ export function ItIndustries() {
   return (
     <section id="settori" aria-labelledby="it-industries-title" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="it-kicker text-rosso-600">{itIndustries.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="it-industries-title" className={cn(itH2, 'lg:col-span-7')}>
             {itIndustries.title}
           </h2>
-          <p className="text-lg leading-relaxed text-fumo-600 lg:col-span-5">{itIndustries.body}</p>
+
         </div>
 
         <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:gap-10">
@@ -407,8 +403,8 @@ export function ItResources() {
   return (
     <section id="risorse" aria-labelledby="it-resources-title" className="bg-avorio-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="it-kicker text-rosso-600">{itResources.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-14">
+
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <h2 id="it-resources-title" className={itH2}>
               {itResources.title}
@@ -460,11 +456,11 @@ export function ItFaq() {
       <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
-            <p className="it-kicker text-rosso-600">{itFaq.kicker}</p>
+
             <h2 id="it-faq-title" className={cn(itH2, 'mt-6')}>
               {itFaq.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-fumo-600">{itFaq.aside_prompt}</p>
+
             <Link
               to={itFaq.aside_link_url}
               className="mt-4 inline-flex items-center gap-2 font-bold text-rosso-600 underline decoration-rosso-600/40 decoration-2 underline-offset-4 hover:decoration-rosso-600"
@@ -508,10 +504,10 @@ export function ItEnquiry() {
     <section id="richiesta" aria-labelledby="it-enquiry-title" className="bg-verde-950 py-20 text-avorio-50 sm:py-24 lg:py-28">
       <div className="shell">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="it-kicker justify-center text-oro-300">{itEnquiry.kicker}</p>
+
           <h2
             id="it-enquiry-title"
-            className="mt-6 font-bodoni text-[1.9rem] font-bold leading-[1.1] text-balance sm:text-[2.6rem]"
+            className="font-bodoni text-[1.9rem] font-bold leading-[1.1] text-balance sm:text-[2.6rem]"
           >
             {itEnquiry.title}
           </h2>
@@ -532,12 +528,7 @@ export function ItEnquiry() {
         <div className="mx-auto mt-12 max-w-3xl">
           <div className="border border-oro-500/70 bg-oro-500/10 p-2 sm:p-3">
             <div className="bg-white">
-              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 bg-rosso-600 px-5 py-3 text-white sm:px-8">
-                <p className="font-bodoni text-[12.5px] font-bold uppercase tracking-[0.2em]">{itEnquiry.form_tag}</p>
-                <p aria-hidden="true" className="hidden font-bodoni text-[12.5px] font-bold uppercase tracking-[0.2em] text-white/70 sm:block">
-                  FV·IT
-                </p>
-              </div>
+
               <EnquiryForm
                 idPrefix="it-enquiry"
                 placement="it-home"

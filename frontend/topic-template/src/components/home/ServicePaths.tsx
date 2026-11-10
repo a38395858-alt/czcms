@@ -67,8 +67,8 @@ export function ServicePaths({ section }: { section: ServicePathsSection }) {
       <div className="shell">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-7">
-            <p className="eyebrow text-signal-700">{section.eyebrow}</p>
-            <h2 id="services-title" className="h2 mt-5 text-navy-900">
+
+            <h2 id="services-title" className="h2 text-navy-900">
               {section.title}
             </h2>
           </div>
@@ -148,9 +148,7 @@ export function ServicePaths({ section }: { section: ServicePathsSection }) {
                       sizes="(min-width: 1024px) 60vw, 100vw"
                       className="aspect-[16/9] w-full object-cover"
                     />
-                    <span className="absolute left-4 top-4 bg-navy-950/85 px-2.5 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-white">
-                      {item.label}
-                    </span>
+
                   </div>
 
                   <div className="mt-8 grid gap-7 xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-10">

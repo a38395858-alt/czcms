@@ -268,8 +268,8 @@ export function NotFoundPage({ path }: { path: string }) {
     <section className="relative isolate overflow-hidden bg-navy-900 py-24 text-white sm:py-32">
       <div aria-hidden="true" className="bg-route-grid pointer-events-none absolute inset-0 -z-10" />
       <div className="shell max-w-3xl">
-        <p className="eyebrow text-signal-300">Route not found</p>
-        <h1 className="mt-5 font-display text-5xl font-bold leading-tight">This handoff does not lead anywhere.</h1>
+
+        <h1 className="font-display text-5xl font-bold leading-tight">This handoff does not lead anywhere.</h1>
         <p className="mt-5 text-lg text-navy-200">
           The page <span className="font-mono text-base text-navy-100">{path}</span> is not available. Choose a next step below.
         </p>

@@ -1,3 +1,4 @@
+import { HomeShippingLink } from '../../../components/HomeShippingPlanner';
 import { useCallback, useEffect, useRef, useState, type FocusEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowRight, CheckIcon, ChevronDown, CloseIcon, MailIcon, MenuIcon, PhoneIcon, PinIcon } from '../../../components/ui/Icons';
@@ -184,7 +185,7 @@ function ServiziMenu({ open, route }: { open: boolean; route: Route }) {
     <div id="it-menu-servizi" hidden={!open} className="absolute inset-x-0 top-full border-b border-grafite-900 bg-white text-grafite-900 shadow-[0_32px_64px_-28px_rgba(18,18,19,0.4)]">
       <div className="shell grid grid-cols-12 gap-10 py-10">
         <div className="col-span-8">
-          <p className="it-eyebrow text-grafite-500">Servizi</p>
+
           <ul className="mt-4 grid grid-cols-2 gap-x-10">
             {IT_TOPIC_SERVICES.map((service) => {
               const current = route.name === 'service' && route.slug === service.slug;
@@ -593,7 +594,7 @@ export function ItFooter() {
           </div>
         </div>
       </div>
-    </footer>
+    <nav className="sp-react-footer-tool"><HomeShippingLink /></nav></footer>
   );
 }
 

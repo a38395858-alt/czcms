@@ -1,3 +1,4 @@
+import { HomeShippingPlanner } from '../../../reference-template/src/components/HomeShippingPlanner';
 import {
   NlCoverage,
   NlEnquiry,
@@ -31,7 +32,7 @@ export function DutchHomePage() {
 
   return (
     <>
-      <NlHero />
+      <NlHero /><HomeShippingPlanner />
       <NlCoverage />
       <NlServices />
       <NlOperation />
@@ -133,8 +134,8 @@ export function DutchLegalPage({ slug }: { slug: NlLegalSlug }) {
               </li>
             </ol>
           </nav>
-          <p className="nl-kicker mt-8 text-dijk-800">Juridische informatie</p>
-          <h1 className="mt-5 max-w-3xl font-archivo text-[2.3rem] leading-[1.05] tracking-tight text-dijk-950 sm:text-5xl">
+
+          <h1 className="max-w-3xl font-archivo text-[2.3rem] leading-[1.05] tracking-tight text-dijk-950 sm:text-5xl">
             {page.title}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-lei-600">{page.lead}</p>

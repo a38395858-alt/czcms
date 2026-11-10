@@ -31,8 +31,8 @@ function GermanTopicNotFound({ kind, slug }: { kind: 'service' | 'industry'; slu
   return (
     <section className="bg-din-grid bg-paper-25 py-24 sm:py-32">
       <div className="shell max-w-3xl">
-        <p className="de-kicker text-brick-600">404 · Seite nicht gefunden</p>
-        <h1 className="mt-6 font-serif text-[2.4rem] font-bold leading-[1.1] text-graphite-900 sm:text-5xl">
+
+        <h1 className="font-serif text-[2.4rem] font-bold leading-[1.1] text-graphite-900 sm:text-5xl">
           Diese Seite gibt es hier nicht.
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-graphite-500">

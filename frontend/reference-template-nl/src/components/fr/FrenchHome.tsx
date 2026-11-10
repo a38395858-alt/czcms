@@ -44,10 +44,10 @@ export function FrHero() {
   return (
     <section id="accueil" aria-labelledby="fr-hero-title" className="border-b border-sable-200 bg-creme-25">
       <div className="shell pb-16 pt-12 sm:pt-16 lg:pb-24 lg:pt-20">
-        <p className="fr-kicker mx-auto max-w-3xl justify-center text-safran-600">{frHero.eyebrow}</p>
+
         <h1
           id="fr-hero-title"
-          className="mx-auto mt-7 max-w-4xl text-center font-poster text-[2.35rem] font-bold leading-[1.08] tracking-[0.005em] text-encre-900 text-balance sm:text-[3.1rem] xl:text-[3.7rem]"
+          className="mx-auto max-w-4xl text-center font-poster text-[2.35rem] font-bold leading-[1.08] tracking-[0.005em] text-encre-900 text-balance sm:text-[3.1rem] xl:text-[3.7rem]"
         >
           {frHero.title}
         </h1>
@@ -63,7 +63,7 @@ export function FrHero() {
             {frHero.cta_secondary_label}
           </Link>
         </div>
-        <p className="mx-auto mt-6 max-w-xl text-center text-[14.5px] leading-relaxed text-encre-400">{frHero.microcopy}</p>
+
 
         <div className="mx-auto mt-12 max-w-5xl lg:mt-16">
           <figure className="overflow-hidden rounded-[2rem] border-2 border-encre-900 bg-white">
@@ -147,8 +147,8 @@ export function FrServices() {
   return (
     <section id="prestations" aria-labelledby="fr-services-title" className="bg-creme-25 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="fr-kicker fr-kicker--left text-safran-600">{frServicesSection.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="fr-services-title" className={cn(frH2, 'lg:col-span-7')}>
             {frServicesSection.title}
           </h2>
@@ -248,15 +248,13 @@ export function FrOperation() {
   return (
     <section id="coordination" aria-labelledby="fr-operation-title" className="bg-encre-900 py-20 text-creme-50 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="fr-kicker fr-kicker--left text-safran-300">{frOperation.kicker}</p>
-        <div className="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-14">
+
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <h2 id="fr-operation-title" className="font-poster text-[1.95rem] font-bold leading-[1.08] sm:text-[2.55rem]">
               {frOperation.title}
             </h2>
-            <p className="mt-8 max-w-md font-poster text-xl font-medium leading-normal text-encre-200 sm:text-[1.4rem]">
-              {frOperation.pull_quote}
-            </p>
+
           </div>
           <ul className="grid content-start gap-x-10 sm:grid-cols-2 lg:col-span-7">
             {frOperation.items.map((item) => (
@@ -279,12 +277,12 @@ export function FrProcess() {
   return (
     <section id="deroulement" aria-labelledby="fr-process-title" className="bg-creme-50 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="fr-kicker fr-kicker--left text-safran-600">{frProcess.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="fr-process-title" className={cn(frH2, 'lg:col-span-6')}>
             {frProcess.title}
           </h2>
-          <p className="text-lg leading-relaxed text-encre-500 lg:col-span-5 lg:col-start-8">{frProcess.body}</p>
+
         </div>
 
         <ol className="mt-14 grid lg:grid-cols-4 lg:gap-8">
@@ -325,12 +323,12 @@ export function FrIndustries() {
   return (
     <section id="secteurs" aria-labelledby="fr-industries-title" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="fr-kicker fr-kicker--left text-safran-600">{frIndustries.kicker}</p>
-        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
           <h2 id="fr-industries-title" className={cn(frH2, 'lg:col-span-7')}>
             {frIndustries.title}
           </h2>
-          <p className="text-lg leading-relaxed text-encre-500 lg:col-span-5">{frIndustries.body}</p>
+
         </div>
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2">
@@ -368,8 +366,8 @@ export function FrResources() {
   return (
     <section id="ressources" aria-labelledby="fr-resources-title" className="border-y border-sable-200 bg-creme-50 py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="fr-kicker fr-kicker--left text-safran-600">{frResources.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12">
+
+        <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <h2 id="fr-resources-title" className={frH2}>
               {frResources.title}
@@ -417,14 +415,14 @@ export function FrFaq() {
   return (
     <section id="questions" aria-labelledby="fr-faq-title" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="shell">
-        <p className="fr-kicker fr-kicker--left text-safran-600">{frFaq.kicker}</p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-12">
+
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
               <h2 id="fr-faq-title" className={frH2}>
                 {frFaq.title}
               </h2>
-              <p className="mt-5 text-[17px] leading-relaxed text-encre-500">{frFaq.aside_prompt}</p>
+
               <Link
                 to={frFaq.aside_link_url}
                 className="mt-4 inline-flex items-center gap-2 font-semibold text-bleufr-700 underline decoration-bleufr-700/40 decoration-2 underline-offset-4 hover:decoration-bleufr-700"
@@ -462,12 +460,7 @@ export function FrEnquiry() {
     <section id="demande" aria-labelledby="fr-enquiry-title" className="border-t border-sable-200 bg-creme-100 py-20 sm:py-24 lg:py-28">
       <div className="shell">
         <div className="overflow-hidden rounded-[2rem] border-2 border-encre-900 bg-creme-25">
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b-2 border-dashed border-encre-900/40 bg-encre-900 px-5 py-3 text-creme-50 sm:px-8">
-            <p className="font-poster text-[12px] font-semibold uppercase tracking-[0.2em]">{frEnquiry.form_tag}</p>
-            <p aria-hidden="true" className="hidden font-poster text-[12px] font-semibold uppercase tracking-[0.2em] text-safran-300 sm:block">
-              {frEnquiry.kicker}
-            </p>
-          </div>
+
 
           <div className="grid gap-10 p-5 sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10">
             <div className="lg:col-span-5">

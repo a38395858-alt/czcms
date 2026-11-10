@@ -150,8 +150,8 @@ export function EsIndustriesPage() {
                 </div>
               </div>
               <div className="lg:col-span-6">
-                <p className="es-eyebrow text-mar-700">{industry.menuLine}</p>
-                <h2 className="mt-4 font-es text-[2.2rem] font-extrabold leading-tight tracking-[-0.02em] text-carbon-900">{industry.name}</h2>
+
+                <h2 className="font-es text-[2.2rem] font-extrabold leading-tight tracking-[-0.02em] text-carbon-900">{industry.name}</h2>
                 <p className="mt-4 text-lg leading-relaxed text-carbon-600">{industry.copy}</p>
                 <EsCheckList items={industry.questions.slice(0, 2)} className="mt-6" />
                 <Link to={`/es/sectores/${industry.slug}`} className="es-btn es-btn-dark mt-8 w-full sm:w-auto">
@@ -304,7 +304,7 @@ export function EsGuidesPage() {
                 </div>
                 <div className="lg:col-span-4">
                   <div className="rounded-lg bg-pino-900 p-7 text-white">
-                    <p className="es-eyebrow text-albero-300">¿Prepara un envío?</p>
+                    <p className="text-sm font-semibold text-albero-300">¿Prepara un envío?</p>
                     <p className="mt-4 font-es text-2xl font-extrabold leading-snug tracking-[-0.015em]">Convierta lo que acaba de leer en un plan con el que su equipo pueda trabajar.</p>
                     <Link to={ES_ANCHORS.enquiry} className="es-btn es-btn-primary mt-6 w-full">
                       Solicitar plan de envío
@@ -410,7 +410,7 @@ function ArticleDetail({ article }: { article: ArticleEs }) {
           <aside className="lg:col-span-4">
             <div className="space-y-8 lg:sticky lg:top-28">
               <div className="rounded-lg bg-pino-900 p-7 text-white">
-                <p className="es-eyebrow text-albero-300">Solicitar plan de envío</p>
+                <p className="text-sm font-semibold text-albero-300">Solicitar plan de envío</p>
                 <p className="mt-4 font-es text-2xl font-extrabold leading-snug tracking-[-0.015em]">¿Prepara un envío como este?</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-pino-200">Un enlace de producto, un resumen del envío o la ruta que quiere planificar bastan para empezar.</p>
                 <Link to={ES_ANCHORS.enquiry} className="es-btn es-btn-primary mt-6 w-full">
@@ -420,7 +420,7 @@ function ArticleDetail({ article }: { article: ArticleEs }) {
               </div>
               {services.length > 0 && (
                 <div>
-                  <h2 className="es-eyebrow text-carbon-600">Soluciones relacionadas</h2>
+                  <h2 className="text-sm font-semibold text-carbon-600">Soluciones relacionadas</h2>
                   <ul className="mt-3 border-t-2 border-carbon-900">
                     {services.map((service) => (
                       <li key={service.slug} className="border-b border-carbon-900/10">
