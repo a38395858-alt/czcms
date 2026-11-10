@@ -9,19 +9,22 @@ import (
 	"czcms/internal/catalog"
 )
 
-type publicSiteLinks struct{ Services, Industries, About, Contact, Privacy, Cookies, Terms, Legal, Process string }
-type supportSection struct{ Title, Body, URL, Image string }
+type publicSiteLinks struct{ Services, Industries, About, Culture, Contact, Privacy, Cookies, Terms, Legal, Process string }
+type supportSection struct{ Title, Body, URL, Image, ImageSmall string }
 type supportCopy struct {
 	About, Contact, Services, Industries, Privacy, Cookies, Terms, Legal               string
 	Name, Email, Company, Origin, Destination, Brief, Consent, Send, Prepare, Required string
 	PrivacyBody, CookiesBody, TermsBody, LegalBody, MissingDetails                     string
 }
 type publicSupportData struct {
-	Kind, Title, Body string
-	Copy              supportCopy
-	Sections          []supportSection
-	ContactURL        string
-	Notice            string
+	Kind, Title, Body             string
+	Copy                          supportCopy
+	Sections                      []supportSection
+	Solutions                     []supportSection
+	ContactURL                    string
+	Notice                        string
+	Operator                      *publicCompanyData
+	OperatorName, BusinessAddress string
 }
 
 var supportCopies = map[string]supportCopy{
@@ -41,7 +44,7 @@ func siteLinks(data *publicSitePageData) publicSiteLinks {
 		p = paths["en"]
 	}
 	process := map[string]string{"en": "process", "de": "ablauf", "fr": "methode", "es": "proceso", "it": "metodo", "nl": "proces"}[data.LanguageCode]
-	return publicSiteLinks{Services: base + "/services", Industries: base + "/industries", About: base + "/" + p[0], Contact: base + "/" + p[1], Privacy: base + "/" + p[2], Cookies: base + "/cookies", Terms: base + "/" + p[3], Legal: base + "/" + p[4], Process: data.HomePath + "#" + process}
+	return publicSiteLinks{Services: base + "/services", Industries: base + "/industries", About: base + "/" + p[0], Culture: base + "/" + companyCultureSlug(data.LanguageCode), Contact: base + "/" + p[1], Privacy: base + "/" + p[2], Cookies: base + "/cookies", Terms: base + "/" + p[3], Legal: base + "/" + p[4], Process: data.HomePath + "#" + process}
 }
 
 func supportKind(slug string) string {
@@ -50,6 +53,8 @@ func supportKind(slug string) string {
 		return "contact"
 	case "about", "ueber-uns", "a-propos", "quienes-somos", "chi-siamo", "over-ons":
 		return "about"
+	case "company-culture", "unternehmenskultur", "culture-entreprise", "cultura-empresarial", "cultura-aziendale", "bedrijfscultuur":
+		return "culture"
 	case "services":
 		return "services"
 	case "industries":
@@ -70,7 +75,7 @@ func supportKind(slug string) string {
 // destinations without creating records or inventing an operator identity.
 func (s *server) configureSupportPage(r *http.Request, data *publicSitePageData, site catalog.Site, preview bool, network []catalog.PublicLanguageSite, slug string) bool {
 	kind := supportKind(slug)
-	if kind == "" {
+	if kind == "" || (kind == "culture" && !isFreightVantaSite(site)) {
 		return false
 	}
 	copy, ok := supportCopies[data.LanguageCode]
@@ -79,15 +84,35 @@ func (s *server) configureSupportPage(r *http.Request, data *publicSitePageData,
 	}
 	title := map[string]string{"about": copy.About, "contact": copy.Contact, "services": copy.Services, "industries": copy.Industries, "privacy": copy.Privacy, "cookies": copy.Cookies, "terms": copy.Terms, "legal": copy.Legal}[kind]
 	p := &publicSupportData{Kind: kind, Title: title, Copy: copy, Body: data.Copy.HeroBody, ContactURL: publicEnquiryURL(data)}
+	if isFreightVantaSite(site) {
+		company := companyCopyFor(data.LanguageCode)
+		p.Operator = &company
+		p.OperatorName, p.BusinessAddress = freightVantaLegalName, company.BusinessAddress
+	}
 	switch kind {
 	case "contact":
 		p.Body = data.Copy.ContactBody
 		context, _ := json.Marshal(map[string]any{"locale": data.LanguageCode, "siteId": site.ID, "basePath": data.BasePath, "formToken": publicFormToken(s, 0, site.ID)})
 		data.EnquiryContext = template.JS(context)
 	case "about":
-		for _, item := range data.Copy.Advantages {
-			p.Sections = append(p.Sections, supportSection{Title: item.Title, Body: item.Body})
+		if p.Operator != nil {
+			p.Body = p.Operator.Overview
+			p.Sections = p.Operator.Services
+			s.loadImportedTopics()
+			base := strings.TrimSuffix(data.HomePath, "/")
+			for _, route := range []string{"product-sourcing", "services/bulk-procurement", "services/packaging-branding", "services/inventory-storage", "services/private-white-label", "services/worldwide-fulfillment"} {
+				if item, exists := s.importedTopics.pages[data.LanguageCode+"/"+route]; exists {
+					p.Solutions = append(p.Solutions, supportSection{Title: firstNonEmpty(item.ServiceName, item.Heading), Body: firstNonEmpty(item.Description, item.Body), URL: base + "/" + route})
+				}
+			}
+		} else {
+			for _, item := range data.Copy.Advantages {
+				p.Sections = append(p.Sections, supportSection{Title: item.Title, Body: item.Body})
+			}
 		}
+	case "culture":
+		title = p.Operator.CultureTitle
+		p.Title, p.Body = title, p.Operator.CultureIntro
 	case "services", "industries":
 		s.loadImportedTopics()
 		routes := []string{"product-sourcing", "services/bulk-procurement", "services/packaging-branding", "services/inventory-storage", "services/private-white-label", "services/worldwide-fulfillment"}
@@ -100,9 +125,15 @@ func (s *server) configureSupportPage(r *http.Request, data *publicSitePageData,
 				p.Sections = append(p.Sections, supportSection{Title: firstNonEmpty(item.ServiceName, item.Heading), Body: item.Body, URL: base + "/" + route, Image: item.Image})
 			}
 		}
+		if kind == "services" && p.Operator != nil {
+			p.Sections = append(p.Sections, p.Operator.Services...)
+		}
 	case "privacy":
 		p.Body = copy.PrivacyBody
 		p.Notice = copy.MissingDetails
+		if p.Operator != nil {
+			p.Notice = p.Operator.PolicyNotice
+		}
 	case "cookies":
 		p.Body = copy.CookiesBody
 	case "terms":
@@ -110,6 +141,10 @@ func (s *server) configureSupportPage(r *http.Request, data *publicSitePageData,
 	case "legal":
 		p.Body = copy.LegalBody
 		p.Notice = copy.MissingDetails
+		if p.Operator != nil {
+			p.Body = p.Operator.Overview
+			p.Notice = p.Operator.LegalNotice
+		}
 	}
 	data.Support = p
 	data.IsHome = false
@@ -117,6 +152,11 @@ func (s *server) configureSupportPage(r *http.Request, data *publicSitePageData,
 	data.MetaDescription = p.Body
 	data.OGTitle = data.PageTitle
 	data.OGDescription = p.Body
+	if meta, exists := supportMetadata[data.LanguageCode][kind]; exists {
+		data.PageTitle = meta.Title + " | FreightVanta"
+		data.MetaDescription = meta.Description
+		data.OGTitle, data.OGDescription = data.PageTitle, meta.Description
+	}
 	if kind == "privacy" || kind == "legal" || kind == "terms" || kind == "cookies" {
 		data.RobotsIndex = false
 	}

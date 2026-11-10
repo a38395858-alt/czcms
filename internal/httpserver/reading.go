@@ -19,10 +19,11 @@ type readingCopy struct {
 	Checklist                                               []string
 }
 type publicReadingData struct {
-	Copy           readingCopy
-	Headings       []readingHeading
-	Previous, Next *publicContentData
-	ContactURL     string
+	Copy                                                      readingCopy
+	Headings                                                  []readingHeading
+	Previous, Next                                            *publicContentData
+	ContactURL                                                string
+	PublisherLabel, PublisherName, PublisherURL, PlanningNote string
 }
 
 var readingCopies = map[string]readingCopy{
@@ -45,6 +46,18 @@ func (s *server) prepareReadingPage(r *http.Request, data *publicSitePageData, s
 	body, headings := readingOutline(string(data.Content.Body))
 	data.Content.Body = template.HTML(body)
 	data.Reading = &publicReadingData{Copy: copy, Headings: headings, ContactURL: publicEnquiryURL(data)}
+	if isFreightVantaSite(site) && content.ContentType == "article" {
+		data.Reading.PublisherLabel = map[string]string{"en": "Published by", "de": "Veröffentlicht von", "fr": "Publié par", "es": "Publicado por", "it": "Pubblicato da", "nl": "Gepubliceerd door"}[data.LanguageCode]
+		data.Reading.PublisherName, data.Reading.PublisherURL = "FreightVanta", data.Links.About
+		data.Reading.PlanningNote = map[string]string{
+			"en": "Planning information: transit times, rates and cost calculations are examples, not a quotation or delivery commitment. Confirm current requirements with the carrier, customs authority and receiving platform before booking.",
+			"de": "Planungshinweis: Laufzeiten, Frachtraten und Kostenrechnungen sind Beispiele, kein Angebot und keine Lieferzusage. Prüfen Sie aktuelle Vorgaben vor der Buchung beim Frachtführer, Zoll und der Empfangsplattform.",
+			"fr": "Repères de planification : délais, tarifs et calculs de coûts sont des exemples, sans valeur de devis ni d'engagement de livraison. Confirmez les exigences actuelles auprès du transporteur, des douanes et de la plateforme destinataire avant réservation.",
+			"es": "Información para planificar: plazos, tarifas y cálculos de costes son ejemplos, no una cotización ni un compromiso de entrega. Confirme los requisitos vigentes con el transportista, aduanas y la plataforma de destino antes de reservar.",
+			"it": "Indicazioni di pianificazione: tempi, tariffe e calcoli di costo sono esempi, non un preventivo né un impegno di consegna. Verifichi i requisiti attuali con vettore, dogana e piattaforma destinataria prima di prenotare.",
+			"nl": "Planningsinformatie: transittijden, tarieven en kostenberekeningen zijn voorbeelden, geen offerte of leveringsbelofte. Bevestig de actuele eisen bij de vervoerder, douane en het ontvangende platform voordat u boekt.",
+		}[data.LanguageCode]
+	}
 	previous, next, err := s.Catalog.PublishedContentNeighbors(r.Context(), content)
 	if err != nil {
 		s.Logger.Warn("读取内容上下篇失败", "error", err, "content_id", content.ID)

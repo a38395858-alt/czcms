@@ -2,6 +2,25 @@ package config
 
 import "testing"
 
+func TestPreviewOriginsRequireDistinctRootOrigins(t *testing.T) {
+	for _, origins := range []map[string]string{
+		{"germany": "https://example.test/preview/germany"},
+		{"germany": "https://example.test"},
+		{"germany": "https://user:pass@example.test:8442"},
+		{"germany": "https://example.test:8442?redirect=1"},
+		{"germany": "https://example.test:8442", "france": "https://EXAMPLE.TEST:8442"},
+		{"../germany": "https://example.test:8442"},
+	} {
+		if _, err := (Config{PreviewOrigins: origins}).Normalize(); err == nil {
+			t.Fatalf("invalid preview binding accepted: %v", origins)
+		}
+	}
+	cfg, err := (Config{PreviewOrigins: map[string]string{"germany": "https://EXAMPLE.TEST:8442/"}}).Normalize()
+	if err != nil || cfg.PreviewOrigins["germany"] != "https://example.test:8442" || cfg.PreviewSiteCode("example.test:8442") != "germany" || cfg.PreviewSiteCode("example.test") != "" {
+		t.Fatalf("preview origin normalization/matching failed: %+v %v", cfg.PreviewOrigins, err)
+	}
+}
+
 func TestProductionRejectsInsecureCombinations(t *testing.T) {
 	_, err := (Config{Environment: "production", HTTPAddr: "0.0.0.0:8080"}).Normalize()
 	if err == nil {

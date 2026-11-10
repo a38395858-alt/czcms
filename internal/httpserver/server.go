@@ -36,9 +36,11 @@ import (
 	"czcms/internal/config"
 	"czcms/internal/contentsafety"
 	"czcms/internal/filestore"
+	"czcms/internal/hts"
 	"czcms/internal/mailer"
 	"czcms/internal/security"
 	"czcms/internal/spider"
+	"czcms/internal/taric"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -63,6 +65,8 @@ type Dependencies struct {
 	Analytics             *analytics.Service
 	Spider                *spider.Service
 	Mail                  *mailer.Service
+	HTS                   *hts.Service
+	TARIC                 *taric.Service
 	SEOAssistant          SEOAssistant
 	LocalizationAssistant LocalizationAssistant
 	SyncLocalPreviews     func() error
@@ -70,12 +74,16 @@ type Dependencies struct {
 
 type server struct {
 	Dependencies
-	loginIPLimiter     *security.Limiter
-	loginUserLimiter   *security.Limiter
-	mediaImportLimiter *security.Limiter
-	remoteMediaClient  *http.Client
-	trustedProxies     []*net.IPNet
-	importedTopics     importedTopicBundle
+	loginIPLimiter          *security.Limiter
+	loginUserLimiter        *security.Limiter
+	mediaImportLimiter      *security.Limiter
+	warehouseGeocodeLimiter *security.Limiter
+	htsSearchLimiter        *security.Limiter
+	dutyTaxLimiter          *security.Limiter
+	taricMeasureLimiter     *security.Limiter
+	remoteMediaClient       *http.Client
+	trustedProxies          []*net.IPNet
+	importedTopics          importedTopicBundle
 }
 
 type sessionContextKey struct{}
@@ -307,27 +315,49 @@ type publicFormData struct {
 }
 
 type publicSitePageData struct {
-	Header             publicHeaderData
-	SiteName           string
-	MarketCode         string
-	SiteCode           string
-	CanonicalURL       string
-	RedirectURL        string
-	Preview            bool
-	Maintenance        bool
-	NotFound           bool
-	IsHome             bool
-	IsProductSourcing  bool
-	IsServiceTopic     bool
-	IsIndustrySolution bool
-	IsGuideIndex       bool
-	IsTaxonomy         bool
-	TaxonomyKind       string
-	TaxonomyName       string
-	HasContent         bool
-	BasePath           string
-	HomePath           string
-	GuideIndexPath     string
+	Header                publicHeaderData
+	Partners              *publicPartnerNetwork
+	SiteName              string
+	ContactEmail          string
+	MarketCode            string
+	SiteCode              string
+	CanonicalURL          string
+	RedirectURL           string
+	Preview               bool
+	Maintenance           bool
+	NotFound              bool
+	IsHome                bool
+	IsShippingPlanner     bool
+	ShippingPlannerURL    string
+	IsShippingCalculator  bool
+	ShippingCalculatorURL string
+	ShippingMarket        *shippingMarket
+	IsFBAWarehouseLookup  bool
+	FBAWarehouseURL       string
+	FBAWarehouseLabel     string
+	FBAWarehouse          *fbaWarehousePage
+	IsHTSLookup           bool
+	IsDutyTaxCalculator   bool
+	DutyTaxURL            string
+	DutyTaxLabel          string
+	DutyTax               *dutyTaxPage
+	HTSLookupURL          string
+	HTSLookup             *htsLookupPage
+	HTSDetail             *htsDetailPage
+	TARICURL              string
+	TARICLabel            string
+	TARIC                 *taricPage
+	IsProductSourcing     bool
+	IsServiceTopic        bool
+	IsIndustrySolution    bool
+	IsGuideIndex          bool
+	IsTaxonomy            bool
+	TaxonomyKind          string
+	TaxonomyName          string
+	HasContent            bool
+	BasePath              string
+	HomePath              string
+	GuideIndexPath        string
 	// CurrentPath is the public route currently being rendered (including the
 	// locale and preview prefixes when applicable). It is separate from
 	// CanonicalURL because previews suppress canonical links while JSON-LD
@@ -344,9 +374,11 @@ type publicSitePageData struct {
 	Direction        string
 	PageTitle        string
 	MetaDescription  string
+	MetaKeywords     string
 	OGTitle          string
 	OGDescription    string
 	SocialImageURL   string
+	PublicPageURL    string
 	RobotsIndex      bool
 	Copy             publicCopy
 	ProductSourcing  publicProductSourcingCopy
@@ -368,6 +400,7 @@ type publicSitePageData struct {
 	HomeMarkup       template.HTML
 	HomeContext      template.JS
 	EnquiryContext   template.JS
+	EnquiryForm      publicEnquiryCopy
 	HomeFonts        []string
 	HomePreloads     []string
 	HomeScript       string
@@ -380,12 +413,16 @@ type publicSitePageData struct {
 
 func New(deps Dependencies) http.Handler {
 	s := &server{
-		Dependencies:       deps,
-		loginIPLimiter:     security.NewLimiter(20, 10*time.Minute, 10, 10_000),
-		loginUserLimiter:   security.NewLimiter(10, 15*time.Minute, 5, 50_000),
-		mediaImportLimiter: security.NewLimiter(120, time.Hour, 30, 10_000),
-		remoteMediaClient:  newRemoteMediaClient(),
-		trustedProxies:     parseTrustedProxies(deps.Config.TrustedProxies),
+		Dependencies:            deps,
+		loginIPLimiter:          security.NewLimiter(20, 10*time.Minute, 10, 10_000),
+		loginUserLimiter:        security.NewLimiter(10, 15*time.Minute, 5, 50_000),
+		mediaImportLimiter:      security.NewLimiter(120, time.Hour, 30, 10_000),
+		warehouseGeocodeLimiter: security.NewLimiter(30, time.Minute, 8, 10_000),
+		htsSearchLimiter:        security.NewLimiter(120, time.Minute, 30, 10_000),
+		dutyTaxLimiter:          security.NewLimiter(30, time.Minute, 5, 10_000),
+		taricMeasureLimiter:     security.NewLimiter(20, time.Minute, 8, 10_000),
+		remoteMediaClient:       newRemoteMediaClient(),
+		trustedProxies:          parseTrustedProxies(deps.Config.TrustedProxies),
 	}
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)
@@ -408,6 +445,8 @@ func New(deps Dependencies) http.Handler {
 	r.Post("/preview/{siteCode}/topic-enquiry", s.submitTopicEnquiry)
 	r.Post("/preview/{siteCode}/home-enquiry", s.submitHomeEnquiry)
 	r.Post("/preview/{siteCode}/newsletter", s.submitNewsletter)
+	r.Post("/preview/{siteCode}/duty-tax/calculate", s.calculateDutyTax)
+	r.Post("/preview/{siteCode}/duty-tax/enquiries", s.submitDutyTaxEnquiry)
 	r.Get("/setup", s.setupPage)
 	r.Post("/setup", s.setupSubmit)
 	r.Get("/login", s.loginPage)
@@ -416,6 +455,11 @@ func New(deps Dependencies) http.Handler {
 	// responses keep their existing handling.
 	r.With(middleware.Compress(5, "text/css", "text/javascript", "application/javascript", "application/json", "image/svg+xml")).Handle("/assets/*", s.staticAssets())
 	r.Get("/healthz", s.health)
+	r.Get("/api/public/us-warehouse-location", s.warehouseGeocode)
+	r.Get("/api/public/eu-warehouse-location", s.europeanWarehouseGeocode)
+	r.With(middleware.Compress(5, "application/json")).Get("/api/public/hts-search", s.htsSearch)
+	r.With(middleware.Compress(5, "application/json")).Get("/api/public/taric-search", s.taricSearch)
+	r.With(middleware.Compress(5, "application/json")).Get("/api/public/taric-measures", s.taricMeasures)
 
 	r.Group(func(protected chi.Router) {
 		protected.Use(s.requireSession)
@@ -429,6 +473,8 @@ func New(deps Dependencies) http.Handler {
 		protected.Post("/account/mfa", s.mfaSubmit)
 
 		protected.Route("/api/v1", func(api chi.Router) {
+			api.With(s.requirePermission("system.manage")).Get("/system/hts", s.htsStatus)
+			api.With(s.requirePermission("system.manage"), s.requireCSRF).Post("/system/hts/sync", s.htsSync)
 			api.With(s.requirePermission("system.manage")).Get("/system/smtp", s.smtpSettings)
 			api.With(s.requirePermission("system.manage"), s.requireCSRF).Put("/system/smtp", s.smtpSave)
 			api.With(s.requirePermission("system.manage"), s.requireCSRF).Post("/system/smtp/test", s.smtpTest)
@@ -540,6 +586,8 @@ func New(deps Dependencies) http.Handler {
 	r.Post("/topic-enquiry", s.submitTopicEnquiry)
 	r.Post("/home-enquiry", s.submitHomeEnquiry)
 	r.Post("/newsletter", s.submitNewsletter)
+	r.Post("/duty-tax/calculate", s.calculateDutyTax)
+	r.Post("/duty-tax/enquiries", s.submitDutyTaxEnquiry)
 	// Host-routed public pages (for example https://example.com/en/guides/..)
 	// are handled last. Reserved application paths are rejected by
 	// publicCatchAll even if a future router change makes this wildcard win.
@@ -799,6 +847,7 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 		w.Header().Set("Retry-After", "300")
 	}
 	data, status := s.publicPageData(r, site, preview, canonical, routePath, themeOverride)
+	preparePublicSEO(&data, site)
 	data.Header = sharedPublicHeader(data)
 	if data.RedirectURL != "" {
 		target := data.RedirectURL
@@ -817,10 +866,10 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 		// non-HTML consumers and makes the single-page noindex policy explicit.
 		w.Header().Set("X-Robots-Tag", "noindex, follow")
 	}
-	if data.EnquiryContext != "" || data.Form != nil {
+	if data.EnquiryContext != "" || data.Form != nil || data.IsDutyTaxCalculator {
 		w.Header().Set("Cache-Control", "no-store")
 	}
-	if status != http.StatusOK && !maintenance && !data.NotFound {
+	if status != http.StatusOK && !maintenance && !data.NotFound && data.TARIC == nil {
 		s.trackSpiderRequest(r, site, preview, routePath, data, "服务错误", status)
 		if status == http.StatusNotFound {
 			http.NotFound(w, r)
@@ -864,7 +913,7 @@ func (s *server) renderPublicSiteWithTheme(w http.ResponseWriter, r *http.Reques
 	templateName := "public.html"
 	if data.Support != nil {
 		templateName = "support.html"
-	} else if data.ThemeKey == "atlas-commerce" {
+	} else if data.ThemeKey == "atlas-commerce" && !data.IsFBAWarehouseLookup && !data.IsHTSLookup {
 		templateName = "public-atlas.html"
 	}
 	if data.IsHome && data.ThemeKey != "atlas-commerce" && isFreightVantaReferenceLanguage(data.LanguageCode) {
@@ -915,6 +964,7 @@ func (s *server) trackSpiderRequest(r *http.Request, site catalog.Site, preview 
 }
 
 func publicPageKind(data publicSitePageData) string {
+	if data.IsDutyTaxCalculator { return "进口税费工具" }
 	if data.NotFound {
 		return "404 页面"
 	}
@@ -967,6 +1017,26 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 	if len(languages) == 1 {
 		if cleanSlug, prefixed := trimPublicLocalePrefix(routePath, languages); prefixed {
 			return publicSitePageData{RedirectURL: publicURL(basePath, "", cleanSlug)}, http.StatusPermanentRedirect
+		}
+	}
+	if isFreightVantaSite(site) {
+		code := strings.ToLower(strings.Split(locale, "-")[0])
+		links := siteLinks(&publicSitePageData{HomePath: publicURL(basePath, localeIf(len(languages) > 1, locale), ""), LanguageCode: code})
+		if target := publicBuiltinAlias(slug, links); target != "" {
+			if _, aliasErr := s.Catalog.GetPublishedContentByPath(r.Context(), site.ID, locale, slug); errors.Is(aliasErr, catalog.ErrNotFound) {
+				return publicSitePageData{RedirectURL: target}, http.StatusPermanentRedirect
+			} else if aliasErr != nil {
+				return publicSitePageData{}, http.StatusServiceUnavailable
+			}
+		}
+	}
+	if strings.EqualFold(slug, "contact-us") && isFreightVantaSite(site) {
+		// Consolidate the fallback alias, but preserve an editor's published page.
+		if _, aliasErr := s.Catalog.GetPublishedContentByPath(r.Context(), site.ID, locale, slug); errors.Is(aliasErr, catalog.ErrNotFound) {
+			links := siteLinks(&publicSitePageData{HomePath: publicURL(basePath, localeIf(site.LanguageCount > 1, locale), ""), LanguageCode: strings.ToLower(strings.Split(locale, "-")[0])})
+			return publicSitePageData{RedirectURL: links.Contact}, http.StatusPermanentRedirect
+		} else if aliasErr != nil {
+			return publicSitePageData{}, http.StatusServiceUnavailable
 		}
 	}
 	lang := languages[0]
@@ -1026,11 +1096,149 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 		FaviconURL: site.FaviconURL,
 	}
 	data.Links = siteLinks(&data)
+	data.EnquiryForm = enquiryCopyFor(data.LanguageCode)
+	data.ShippingMarket = shippingMarketFor(data.LanguageCode)
+	data.ShippingPlannerURL = publicURL(basePath, localeIf(includeLocale, locale), shippingResultsSlug)
+	data.ShippingCalculatorURL = publicURL(basePath, localeIf(includeLocale, locale), shippingCalculatorSlug)
+	if site.Code == "global" && strings.EqualFold(data.LanguageCode, "en") {
+		data.HTSLookupURL = publicURL(basePath, localeIf(includeLocale, locale), htsLookupSlug)
+		data.FBAWarehouseURL = publicURL(basePath, localeIf(includeLocale, locale), fbaWarehouseLookupSlug)
+		data.FBAWarehouseLabel = "US FBA Warehouse Address Lookup"
+	} else if country := warehouseCountryFor(data.LanguageCode); country != nil && isFreightVantaSite(site) {
+		data.FBAWarehouseURL = publicURL(basePath, localeIf(includeLocale, locale), fbaWarehouseLookupSlug)
+		data.FBAWarehouseLabel = country.Copy["footer"]
+	}
+	if taric.Supported(data.LanguageCode) && isFreightVantaSite(site) {
+		data.TARICURL = publicURL(basePath, localeIf(includeLocale, locale), taricLookupSlug)
+		data.TARICLabel = taricCopies[data.LanguageCode]["title"]
+	}
+	if isFreightVantaSite(site) && strings.EqualFold(data.LanguageCode, "en") {
+		data.DutyTaxURL = publicURL(basePath, localeIf(includeLocale, locale), dutyTaxCalculatorSlug)
+		data.DutyTaxLabel = dutyTaxLabel(data.LanguageCode)
+	}
+	if data.IsHome && (strings.EqualFold(data.LanguageCode, "en") || data.ShippingMarket != nil) {
+		configureShippingPlannerSEO(&data)
+	}
+	if isFreightVantaSite(site) {
+		data.ContactEmail = freightVantaContactEmail
+		data.Partners = partnerNetworkFor(data.LanguageCode)
+	}
 	if data.IsHome || strings.EqualFold(slug, "guides") || strings.EqualFold(slug, "articles") || strings.EqualFold(slug, "insights") {
 		context, _ := json.Marshal(map[string]any{"locale": data.LanguageCode, "siteId": site.ID, "basePath": data.BasePath, "formToken": publicFormToken(s, 0, site.ID)})
 		data.EnquiryContext = template.JS(context)
 	}
 	if slug != "" {
+		if slug == dutyTaxCalculatorSlug && data.DutyTaxURL != "" {
+			s.configureDutyTaxPage(r, &data, site)
+			s.populatePublicNetwork(r, &data, site, preview, network, nil)
+			data.Hreflangs = nil
+			if preview { data.CanonicalURL = "" }
+			data.StructuredData = template.JS(publicJSONLD(data, site))
+			return data, http.StatusOK
+		}
+		if data.TARICURL != "" && (slug == taricLookupSlug || strings.HasPrefix(slug, taricLookupSlug+"/")) {
+			code := ""
+			if slug != taricLookupSlug {
+				code = strings.TrimPrefix(slug, taricLookupSlug+"/")
+			}
+			status, err := s.configureTARIC(r, &data, code)
+			if err != nil {
+				s.Logger.Error("load EU tariff lookup", "error", err)
+				return publicSitePageData{}, http.StatusServiceUnavailable
+			}
+			// All five verified language snapshots use the same EU code set.
+			var euNetwork []catalog.PublicLanguageSite
+			for _, language := range network {
+				if taric.Supported(language.LanguageCode) {
+					euNetwork = append(euNetwork, language)
+				}
+			}
+			s.populatePublicNetworkForFixedPath(r, &data, site, preview, euNetwork, slug)
+			// English navigation returns to US search, never to an equivalent US detail.
+			for _, language := range network {
+				if language.SiteCode == "global" && language.LanguageCode == "en" {
+					target := s.publicLanguageSiteURL(r, site, preview, language, htsLookupSlug)
+					data.Languages = append(data.Languages, publicLanguageData{Code: language.LanguageCode, Locale: language.Locale, Name: language.LanguageName, NativeName: language.NativeName, URL: target})
+				}
+			}
+			if status != http.StatusOK {
+				data.Hreflangs = nil
+			}
+			if preview || status != http.StatusOK {
+				data.CanonicalURL = ""
+			}
+			data.StructuredData = template.JS(publicJSONLD(data, site))
+			return data, status
+		}
+		if strings.HasPrefix(slug, htsLookupSlug+"/") && data.HTSLookupURL != "" {
+			if err := s.configureHTSDetail(r, &data, strings.TrimPrefix(slug, htsLookupSlug+"/")); err != nil {
+				if errors.Is(err, errHTSCodeNotFound) {
+					data.NotFound, data.IsHTSLookup, data.RobotsIndex = true, true, false
+					data.Copy.NotFoundTitle = "HTS code not found"
+					data.Copy.NotFoundBody = "This 10-digit code is not listed in the current snapshot. Search by a 4–6 digit prefix or an English product name."
+					data.PageTitle = "HTS Code Not Found | FreightVanta"
+					data.MetaDescription = data.Copy.NotFoundBody
+					data.OGTitle, data.OGDescription = data.PageTitle, data.MetaDescription
+					data.CanonicalURL, data.Hreflangs = "", nil
+					return data, http.StatusNotFound
+				}
+				s.Logger.Error("load HTS detail", "error", err)
+				return publicSitePageData{}, http.StatusServiceUnavailable
+			}
+			s.populatePublicNetwork(r, &data, site, preview, network, nil)
+			data.Hreflangs = nil
+			if preview {
+				data.CanonicalURL = ""
+			}
+			data.StructuredData = template.JS(publicJSONLD(data, site))
+			return data, http.StatusOK
+		}
+		if slug == htsLookupSlug && data.HTSLookupURL != "" {
+			if err := s.configureHTSLookup(r, &data); err != nil {
+				s.Logger.Error("load HTS lookup", "error", err)
+				return publicSitePageData{}, http.StatusServiceUnavailable
+			}
+			s.populatePublicNetwork(r, &data, site, preview, network, nil)
+			data.Hreflangs = nil
+			if preview {
+				data.CanonicalURL = ""
+			}
+			data.StructuredData = template.JS(publicJSONLD(data, site))
+			return data, http.StatusOK
+		}
+		if slug == fbaWarehouseLookupSlug && data.FBAWarehouseURL != "" {
+			if err := configureFBAWarehousePage(r, &data); err != nil {
+				s.Logger.Error("load US FBA warehouse directory", "error", err)
+				return publicSitePageData{}, http.StatusServiceUnavailable
+			}
+			s.populatePublicNetwork(r, &data, site, preview, network, nil)
+			data.Hreflangs = nil
+			if preview {
+				data.CanonicalURL = ""
+			}
+			data.StructuredData = template.JS(publicJSONLD(data, site))
+			return data, http.StatusOK
+		}
+		if (strings.EqualFold(data.LanguageCode, "en") || data.ShippingMarket != nil) && (slug == "shipping-calculator" || slug == "shipping-results") {
+			data.RedirectURL = data.ShippingCalculatorURL
+			if slug == "shipping-results" {
+				data.RedirectURL = data.ShippingPlannerURL
+			}
+			return data, http.StatusPermanentRedirect
+		}
+		if (slug == shippingResultsSlug || slug == shippingCalculatorSlug) && (strings.EqualFold(data.LanguageCode, "en") || data.ShippingMarket != nil) {
+			data.IsShippingPlanner = slug == shippingResultsSlug
+			data.IsShippingCalculator = slug == shippingCalculatorSlug
+			data.RobotsIndex = data.IsShippingCalculator
+			configureShippingPlannerSEO(&data)
+			s.populatePublicNetwork(r, &data, site, preview, network, nil)
+			data.Hreflangs = nil
+			if preview || data.IsShippingPlanner {
+				data.CanonicalURL = ""
+			}
+			data.StructuredData = template.JS(publicJSONLD(data, site))
+			return data, http.StatusOK
+		}
 		if slug == productSourcingSlug || strings.EqualFold(strings.Trim(slug, "/"), "ProductService/Sourcing") {
 			s.configureProductSourcingPage(r, &data, site, preview, network)
 			return data, http.StatusOK
@@ -1046,7 +1254,32 @@ func (s *server) publicPageData(r *http.Request, site catalog.Site, preview bool
 			if err := s.configureEditorialIndex(r, &data, site, locale, includeLocale); err != nil {
 				return publicSitePageData{}, http.StatusServiceUnavailable
 			}
+			if data.Editorial.Page > data.Editorial.Pages {
+				data.NotFound, data.RobotsIndex = true, false
+				data.CanonicalURL = ""
+				data.PageTitle, data.MetaDescription = copy.NotFoundTitle, copy.NotFoundBody
+				data.OGTitle, data.OGDescription = data.PageTitle, data.MetaDescription
+				data.StructuredData = template.JS(publicJSONLD(data, site))
+				return data, http.StatusNotFound
+			}
+			if strings.TrimSpace(r.URL.Query().Get("topic")) != "" {
+				data.RobotsIndex = false
+			}
+			if data.Editorial.Page > 1 {
+				data.PageTitle += " · " + data.Editorial.Copy.Page + " " + strconv.Itoa(data.Editorial.Page)
+				data.OGTitle = data.PageTitle
+				query := "?page=" + strconv.Itoa(data.Editorial.Page)
+				data.CurrentPath += query
+				if data.CanonicalURL != "" {
+					data.CanonicalURL += query
+				}
+			}
 			s.populatePublicNetworkForFixedPath(r, &data, site, preview, network, "guides")
+			if data.Editorial.Page > 1 || strings.TrimSpace(r.URL.Query().Get("topic")) != "" {
+				// Filtered/paginated archives do not necessarily have equivalent
+				// selections in other languages. Do not point them at page one.
+				data.Hreflangs = nil
+			}
 			if preview {
 				data.CanonicalURL = ""
 			}
@@ -1175,6 +1408,11 @@ func (s *server) populatePublicNetwork(r *http.Request, data *publicSitePageData
 		data.Languages = append(data.Languages, publicLanguageData{
 			Code: language.LanguageCode, Locale: language.Locale, Name: language.LanguageName, NativeName: language.NativeName, URL: languageURL,
 		})
+		if !preview && language.SiteID != current.ID && language.PrimaryDomain == "" {
+			// Temporary previews belong in navigation, never in a public
+			// page's indexable language alternatives.
+			continue
+		}
 		if alternates == nil {
 			data.Hreflangs = append(data.Hreflangs, publicHreflang{Locale: language.Locale, URL: languageURL})
 		} else if _, exists := alternateURLs[key]; exists {
@@ -1194,8 +1432,20 @@ func (s *server) populatePublicNetwork(r *http.Request, data *publicSitePageData
 }
 
 func (s *server) publicLanguageSiteURL(r *http.Request, current catalog.Site, preview bool, language catalog.PublicLanguageSite, slug string) string {
+	if supportKind(slug) == "culture" {
+		slug = companyCultureSlug(strings.ToLower(strings.Split(language.LanguageCode, "-")[0]))
+	}
 	path := publicURL("", localeIf(language.LanguageCount > 1, language.Locale), slug)
 	if r.Header.Get("X-CZCMS-Local-Preview") == "1" {
+		if s.Config.PreviewSiteCode(r.Host) != "" {
+			if origin := s.Config.PreviewOrigins[language.SiteCode]; origin != "" {
+				return origin + path
+			}
+			if language.PrimaryDomain != "" {
+				return "https://" + language.PrimaryDomain + path
+			}
+			return ""
+		}
 		if language.LocalPort < 1 {
 			return ""
 		}
@@ -1203,6 +1453,11 @@ func (s *server) publicLanguageSiteURL(r *http.Request, current catalog.Site, pr
 	}
 	if preview {
 		return publicURL("/preview/"+language.SiteCode, localeIf(language.LanguageCount > 1, language.Locale), slug)
+	}
+	if language.PrimaryDomain == "" && language.SiteID != current.ID {
+		if origin := s.Config.PreviewOrigins[language.SiteCode]; origin != "" {
+			return origin + path
+		}
 	}
 	host := language.PrimaryDomain
 	if language.SiteID == current.ID {
@@ -1434,7 +1689,7 @@ var structuredDataScriptPatternHTTP = regexp.MustCompile(`(?is)^<script\b[^>]*\b
 
 func publicSchemaURL(data publicSitePageData) string {
 	var candidate string
-	if data.IsTaxonomy || data.NotFound {
+	if data.IsTaxonomy || data.NotFound || data.IsGuideIndex || data.Support != nil || data.IsFBAWarehouseLookup || data.IsHTSLookup {
 		candidate = firstNonEmpty(data.CanonicalURL, data.CurrentPath, data.HomePath)
 	} else if data.IsProductSourcing || data.IsServiceTopic || data.IsIndustrySolution {
 		candidate = firstNonEmpty(data.CanonicalURL, data.CurrentPath, data.HomePath)
@@ -1497,6 +1752,9 @@ func publicSchemaOrganization(site catalog.Site, pageURL string) map[string]any 
 		organization["logo"] = map[string]any{"@type": "ImageObject", "url": logo}
 		organization["image"] = logo
 	}
+	if isFreightVantaSite(site) {
+		addFreightVantaIdentity(organization)
+	}
 	return organization
 }
 
@@ -1515,19 +1773,32 @@ func publicSchemaWebsite(site catalog.Site, pageURL string, organization map[str
 
 func publicSchemaBreadcrumb(site catalog.Site, data publicSitePageData, pageURL string) map[string]any {
 	homeURL := firstNonEmpty(publicSchemaOrigin(pageURL)+"/", data.HomePath)
-	name := data.TaxonomyName
+	if data.IsShippingCalculator || data.IsShippingPlanner || data.IsFBAWarehouseLookup || data.IsHTSLookup {
+		homeURL = publicSchemaAbsoluteURL(pageURL, data.HomePath)
+	}
+	name := firstNonEmpty(data.TaxonomyName, data.PageTitle)
 	if data.IsProductSourcing {
 		name = data.ProductSourcing.HeroTitle
 	} else if data.IsServiceTopic {
 		name = data.ServiceTopic.HeroTitle
 	} else if data.IsIndustrySolution {
 		name = data.IndustrySolution.HeroTitle
-	} else if data.HasContent && !data.IsHome {
-		name = firstNonEmpty(data.Content.H1, data.Content.Title)
+	} else if data.HasContent && !data.IsHome && !data.IsGuideIndex && !data.IsTaxonomy {
+		name = firstNonEmpty(data.Content.H1, data.Content.Title, name)
 	}
 	items := []any{map[string]any{"@type": "ListItem", "position": 1, "name": site.Name, "item": homeURL}}
+	if data.IsShippingPlanner {
+		calculatorName := "Shipping calculator"
+		if data.ShippingMarket != nil {
+			calculatorName, _ = data.ShippingMarket.Copy["breadcrumb"].(string)
+		}
+		items = append(items, map[string]any{"@type": "ListItem", "position": 2, "name": calculatorName, "item": publicSchemaAbsoluteURL(pageURL, data.ShippingCalculatorURL)})
+	}
+	if data.Support != nil && data.Support.Kind == "culture" {
+		items = append(items, map[string]any{"@type": "ListItem", "position": 2, "name": data.Support.Copy.About, "item": publicSchemaAbsoluteURL(pageURL, data.Links.About)})
+	}
 	if strings.TrimSpace(name) != "" && pageURL != "" && pageURL != homeURL {
-		items = append(items, map[string]any{"@type": "ListItem", "position": 2, "name": name, "item": pageURL})
+		items = append(items, map[string]any{"@type": "ListItem", "position": len(items) + 1, "name": name, "item": pageURL})
 	}
 	breadcrumb := map[string]any{"@type": "BreadcrumbList", "itemListElement": items}
 	if pageURL != "" {
@@ -1766,6 +2037,20 @@ func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 	// Keeping the WebPage as mainEntity gives crawlers a stable page node while
 	// leaving WebSite as the root entity used by existing integrations.
 	obj["mainEntity"] = publicSchemaWebPage(site, data, pageURL, website, organization)
+	if !data.IsHome {
+		obj = publicSchemaWebPage(site, data, pageURL, website, organization)
+		obj["@context"] = "https://schema.org"
+		if data.Support != nil {
+			switch data.Support.Kind {
+			case "about":
+				obj["@type"] = "AboutPage"
+			case "contact":
+				obj["@type"] = "ContactPage"
+			case "services", "industries":
+				obj["@type"] = "CollectionPage"
+			}
+		}
+	}
 	if data.NotFound {
 		obj = map[string]any{
 			"@context": "https://schema.org", "@type": "WebPage", "name": data.PageTitle,
@@ -1933,7 +2218,9 @@ func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 			}
 		} else {
 			obj["articleSection"] = content.Category
-			if content.OwnerName != "" {
+			// A CMS owner is an editor account, not a verified public author.
+			// Attribute the published business guide to its responsible operator.
+			if !isFreightVantaSite(site) && content.OwnerName != "" {
 				obj["author"] = map[string]any{"@type": "Person", "name": content.OwnerName}
 			}
 		}
@@ -1950,6 +2237,20 @@ func publicJSONLD(data publicSitePageData, site catalog.Site) string {
 		}
 		if images := publicSchemaImageObjects(data, pageURL); len(images) > 0 {
 			obj["image"] = images
+		}
+	}
+	if data.IsShippingCalculator && data.ShippingMarket != nil {
+		questions := make([]any, 0, len(data.ShippingMarket.FAQs))
+		for _, faq := range data.ShippingMarket.FAQs {
+			questions = append(questions, map[string]any{"@type": "Question", "name": faq.Question, "acceptedAnswer": map[string]any{"@type": "Answer", "text": faq.Answer}})
+		}
+		obj["hasPart"] = map[string]any{"@type": "FAQPage", "inLanguage": data.Locale, "mainEntity": questions}
+	}
+	if data.IsFBAWarehouseLookup || data.IsHTSLookup {
+		obj["mainEntity"] = map[string]any{
+			"@type": "WebApplication", "name": strings.TrimSuffix(data.PageTitle, " | FreightVanta"),
+			"url": pageURL, "applicationCategory": "BusinessApplication", "operatingSystem": "Any",
+			"inLanguage": data.LanguageCode, "isAccessibleForFree": true, "description": data.MetaDescription,
 		}
 	}
 	encoded, _ := json.Marshal(obj)
@@ -2023,6 +2324,22 @@ func mergeStructuredFields(target, source map[string]any) {
 		// different URL or type.
 		if (key == "@id" || key == "@type" || key == "url") && target[key] != nil {
 			continue
+		}
+		// Article dates come from the CMS publication history. Copied or
+		// AI-generated JSON-LD must not replace them with stale dates.
+		if (key == "datePublished" || key == "dateModified") && strings.EqualFold(structuredDataType(target["@type"]), "Article") {
+			continue
+		}
+		if key == "author" {
+			if author, ok := value.(map[string]any); ok && strings.TrimSpace(fmt.Sprint(author["name"])) != "" && author["name"] != nil {
+				kind := structuredDataType(author["@type"])
+				if kind == "Person" || kind == "Organization" {
+					// An explicit byline replaces the organization fallback as a
+					// whole; mixing its address and legalName into a Person is wrong.
+					target[key] = value
+					continue
+				}
+			}
 		}
 		if current, ok := target[key].(map[string]any); ok {
 			if incoming, ok := value.(map[string]any); ok {

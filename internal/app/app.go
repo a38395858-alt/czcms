@@ -8,6 +8,7 @@ import (
 	"io/fs"
 	"log/slog"
 	"net/http"
+	"path/filepath"
 	"time"
 
 	webassets "czcms/frontend"
@@ -22,10 +23,12 @@ import (
 	"czcms/internal/contentsafety"
 	"czcms/internal/database"
 	"czcms/internal/filestore"
+	"czcms/internal/hts"
 	"czcms/internal/httpserver"
 	"czcms/internal/mailer"
 	"czcms/internal/security"
 	"czcms/internal/spider"
+	"czcms/internal/taric"
 )
 
 type App struct {
@@ -36,6 +39,8 @@ type App struct {
 	analytics *analytics.Service
 	spider    *spider.Service
 	mail      *mailer.Service
+	hts       *hts.Service
+	taric     *taric.Service
 }
 
 func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
@@ -84,7 +89,7 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 	}
 	layered := cache.NewLayered(memory, redisStore, cfg.CacheTTL)
 
-	tmpl, err := template.ParseFS(webassets.Files, "index.html", "auth.html", "public.html", "editorial.html", "support.html", "head.html", "public-atlas.html", "public-it.html", "public-reference.html", "public-nl.html")
+	tmpl, err := template.ParseFS(webassets.Files, "index.html", "auth.html", "public.html", "editorial.html", "support.html", "partners.html", "head.html", "shipping-planner.html", "hts-lookup.html", "hts-detail.html", "taric-lookup.html", "fba-warehouses.html", "warehouse-countries.html", "public-atlas.html", "public-it.html", "public-reference.html", "public-nl.html", "enquiry-form.html", "duty-tax.html")
 	if err != nil {
 		layered.Close()
 		return fail(fmt.Errorf("解析后台模板: %w", err))
@@ -117,6 +122,16 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 	analyticsService := analytics.New(db, keys, cfg.CookieSecure)
 	spiderService := spider.New(db)
 	mailService := mailer.New(db, keys, logger)
+	htsService, err := hts.New(db, logger, hts.Options{AutoSync: cfg.HTSSyncEnabled, Timezone: cfg.HTSSyncTimezone, Alert: mailService.QueueSystemAlert})
+	if err != nil {
+		layered.Close()
+		return fail(fmt.Errorf("初始化 HTS 查询服务: %w", err))
+	}
+	taricService, err := taric.New(db, logger, taric.Options{Path: filepath.Join(filepath.Dir(cfg.DatabasePath), "taric-current.json.gz"), AutoSync: cfg.TARICSyncEnabled, Alert: mailService.QueueSystemAlert})
+	if err != nil {
+		layered.Close()
+		return fail(fmt.Errorf("初始化欧盟编码查询: %w", err))
+	}
 	handler := httpserver.New(httpserver.Dependencies{
 		DB: db, Cache: layered, Logger: logger, Template: tmpl, Assets: staticFS, Started: time.Now(), Config: cfg,
 		Auth: authService, Authorization: authorization.New(db), Audit: audit.New(db), Keys: keys,
@@ -126,6 +141,8 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 		Analytics:             analyticsService,
 		Spider:                spiderService,
 		Mail:                  mailService,
+		HTS:                   htsService,
+		TARIC:                 taricService,
 		SyncLocalPreviews:     previewManager.Sync,
 	})
 	previewManager.SetHandler(handler)
@@ -137,7 +154,9 @@ func New(rawConfig config.Config, logger *slog.Logger) (*App, error) {
 		return fail(err)
 	}
 	mailService.Start()
-	return &App{db: db, cache: layered, http: handler, previews: previewManager, analytics: analyticsService, spider: spiderService, mail: mailService}, nil
+	htsService.Start()
+	taricService.Start()
+	return &App{db: db, cache: layered, http: remotePreviewHandler(handler, cfg), previews: previewManager, analytics: analyticsService, spider: spiderService, mail: mailService, hts: htsService, taric: taricService}, nil
 }
 
 func (a *App) Handler() http.Handler { return a.http }

@@ -162,7 +162,7 @@ func (s *server) submitPublicForm(w http.ResponseWriter, r *http.Request) {
 	r.Body = http.MaxBytesReader(w, r.Body, 128<<10)
 	host := requestHostname(r.Host)
 	site, _, err := s.Catalog.SiteByHostname(r.Context(), host)
-	if err != nil && chi.URLParam(r, "siteCode") != "" {
+	if chi.URLParam(r, "siteCode") != "" {
 		site, err = s.Catalog.SiteByCode(r.Context(), chi.URLParam(r, "siteCode"))
 	}
 	if err != nil {

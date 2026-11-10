@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/xml"
 	"errors"
-	"fmt"
 	"html"
 	"net/http"
 	"regexp"
@@ -345,7 +344,7 @@ func (s *server) seoAIContent(w http.ResponseWriter, r *http.Request) {
 			writeJSONError(w, http.StatusInternalServerError, "读取 AI 内容覆盖范围失败")
 			return
 		}
-		local := fmt.Sprintf("http://localhost:%d", site.LocalPort)
+		local := s.sitePreviewOrigin(site.Code, site.PrimaryDomain, site.LocalPort)
 		publicOrigin := ""
 		if site.PrimaryDomain != "" {
 			scheme := "https"

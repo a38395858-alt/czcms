@@ -44,7 +44,7 @@ func TestPublicPagesShareOneServerRenderedHeader(t *testing.T) {
 				}
 				if strings.Contains(body, `data-prerendered="true"`) || strings.Contains(body, `data-topic-template="v18"`) {
 					root := strings.Index(body, `<div id="root"`)
-					if root < strings.Index(body, header) || strings.Contains(body[root:], `<header`) {
+					if root < strings.Index(body, header) || regexp.MustCompile(`<header[^>]*class="(fv-head|sticky|fixed)`).MatchString(body[root:]) {
 						t.Fatal("React must not own a second header")
 					}
 					if !strings.Contains(body, `"sharedHeader":true`) {

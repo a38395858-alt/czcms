@@ -882,17 +882,18 @@ func TestLocalPreviewAndBoundDomainRenderNativeHTML(t *testing.T) {
 		}
 	}
 	for _, legacy := range []struct {
-		path  string
-		title string
-		css   string
+		path   string
+		target string
 	}{
-		{path: "ProductService/Sourcing", title: "Product Sourcing from China for Businesses | FreightVanta", css: "/assets/css/product-sourcing-replica.css"},
-		{path: "ProductService/Fulfillment", title: "Fulfillment for China Sourced Products | FreightVanta", css: "/assets/css/service-topics.css"},
+		{path: "ProductService/Sourcing", target: "/product-sourcing"},
+		{path: "ProductService/Fulfillment", target: "/services/worldwide-fulfillment"},
 	} {
 		legacyRequest := httptest.NewRequest(http.MethodGet, "http://localhost:8081/"+legacy.path, nil)
 		legacyResponse := httptest.NewRecorder()
 		portHandler.ServeHTTP(legacyResponse, legacyRequest)
-		assertImportedTopic(t, legacyResponse, true)
+		if legacyResponse.Code != http.StatusPermanentRedirect || legacyResponse.Header().Get("Location") != legacy.target {
+			t.Fatalf("legacy route %s: status=%d location=%q", legacy.path, legacyResponse.Code, legacyResponse.Header().Get("Location"))
+		}
 	}
 	boundTopicRequest := httptest.NewRequest(http.MethodGet, "http://www.example.com/services/bulk-procurement", nil)
 	boundTopicRequest.Host = "www.example.com"
@@ -1019,6 +1020,13 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	if publicSitemapResponse.Code != http.StatusOK || !strings.Contains(publicSitemap, "http://www.example.com/guides/sitemap-eligible") || !strings.Contains(publicSitemap, "http://www.example.com/company/services") || strings.Contains(publicSitemap, "company/about") {
 		t.Fatalf("public sitemap status=%d body=%q", publicSitemapResponse.Code, publicSitemap)
 	}
+	// The browser's native XML viewer needs inline styles to hide its source
+	// copy. Apply the same restricted policy to public and preview sitemaps.
+	for _, response := range []*httptest.ResponseRecorder{localSitemapResponse, previewResponse, publicSitemapResponse} {
+		if got := response.Header().Get("Content-Security-Policy"); got != "default-src 'none'; style-src 'unsafe-inline'; img-src data:; frame-ancestors 'none'; base-uri 'none'; form-action 'none'" {
+			t.Fatalf("sitemap viewer CSP=%q", got)
+		}
+	}
 	for _, file := range []struct {
 		path        string
 		contentType string
@@ -1058,7 +1066,7 @@ func TestSitemapRobotsAndSinglePageNoindex(t *testing.T) {
 	publicRobotsResponse := httptest.NewRecorder()
 	application.Handler().ServeHTTP(publicRobotsResponse, publicRobotsRequest)
 	publicRobots := publicRobotsResponse.Body.String()
-	if publicRobotsResponse.Code != http.StatusOK || !strings.Contains(publicRobots, "Allow: /\n") || !strings.Contains(publicRobots, "Disallow: /company/about\n") || !strings.Contains(publicRobots, "Disallow: /media/\n") || !strings.Contains(publicRobots, "Disallow: /*.png$\n") || !strings.Contains(publicRobots, "User-agent: Googlebot-Image\nDisallow: /\n") || !strings.Contains(publicRobots, "User-agent: msnbot-media\nDisallow: /\n") || !strings.Contains(publicRobots, "# Site-specific rules managed in CZCMS SEO centre.\nUser-agent: PartnerBot\nDisallow: /partner-only/\n") || !strings.Contains(publicRobots, "Sitemap: http://www.example.com/sitemap.xml") || strings.Contains(publicRobots, "User-agent: Bingbot\nDisallow: /\n") {
+	if publicRobotsResponse.Code != http.StatusOK || !strings.Contains(publicRobots, "Allow: /\n") || !strings.Contains(publicRobots, "Disallow: /company/about\n") || strings.Contains(publicRobots, "Disallow: /media/\n") || strings.Contains(publicRobots, "Disallow: /*.png$\n") || strings.Contains(publicRobots, "User-agent: Googlebot-Image\nDisallow: /\n") || strings.Contains(publicRobots, "User-agent: msnbot-media\nDisallow: /\n") || !strings.Contains(publicRobots, "Disallow: /admin\n") || !strings.Contains(publicRobots, "# Site-specific rules managed in CZCMS SEO centre.\nUser-agent: PartnerBot\nDisallow: /partner-only/\n") || !strings.Contains(publicRobots, "Sitemap: http://www.example.com/sitemap.xml") || strings.Contains(publicRobots, "User-agent: Bingbot\nDisallow: /\n") {
 		t.Fatalf("public robots status=%d body=%q", publicRobotsResponse.Code, publicRobots)
 	}
 
@@ -1226,7 +1234,7 @@ func TestFrenchAtelierMaritimeHomepage(t *testing.T) {
 		`Une logistique qui vous suit, sans vous ralentir.`,
 		`Des savoir-faire qui se complètent.`,
 		`Des questions avant d’expédier ?`,
-		`Sourcing en Chine, fret international et logistique e-commerce | FreightVanta`,
+		`Transport Chine–France : coûts et délais | FreightVanta`,
 	} {
 		if !strings.Contains(body, expected) {
 			t.Fatalf("French homepage missing %q", expected)
@@ -1257,7 +1265,7 @@ func TestSpanishMediterraneoHomepage(t *testing.T) {
 		`De origen a destino, sin perder el control.`,
 		`Una cadena coordinada para que tu negocio no se detenga.`,
 		`¿Dudas antes de enviar?`,
-		`Compras en China, transporte internacional y logística e-commerce | FreightVanta`,
+		`Envíos China–España: costes y plazos | FreightVanta`,
 	} {
 		if !strings.Contains(body, expected) && !strings.Contains(regexp.MustCompile(`<[^>]*>`).ReplaceAllString(body, ""), expected) {
 			t.Fatalf("Spanish homepage missing %q", expected)
@@ -1288,7 +1296,7 @@ func TestItalianGraficaHomepage(t *testing.T) {
 		`Una filiera che lavora bene, dall’origine alla consegna.`,
 		`Una catena pensata con cura.`,
 		`Dubbi prima di spedire?`,
-		`Acquisti in Cina, trasporto internazionale e logistica e-commerce | FreightVanta`,
+		`Spedizioni Cina–Italia: costi e tempi | FreightVanta`,
 	} {
 		if !strings.Contains(body, expected) {
 			t.Fatalf("Italian homepage missing %q", expected)
@@ -1326,7 +1334,7 @@ func TestDutchDeltarasterHomepage(t *testing.T) {
 		`Vracht, helder geregeld.`,
 		`Duidelijkheid bij elk knooppunt.`,
 		`Welke vragen spelen vóór de eerste overdracht?`,
-		`Sourcing in China, internationaal transport`,
+		`China–Nederland: vrachtkosten en levertijden`,
 	} {
 		if !strings.Contains(body, expected) {
 			t.Fatalf("Dutch homepage missing %q", expected)

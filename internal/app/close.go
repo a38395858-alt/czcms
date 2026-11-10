@@ -10,6 +10,12 @@ func (a *App) close() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	errs := make([]error, 0, 4)
+	if a.taric != nil {
+		errs = append(errs, a.taric.Close(ctx))
+	}
+	if a.hts != nil {
+		errs = append(errs, a.hts.Close(ctx))
+	}
 	if a.mail != nil {
 		errs = append(errs, a.mail.Close(ctx))
 	}

@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-06",
+  "retrievedAt": "2026-11-06T03:22:12.358Z",
+  "source": "https://ec.europa.eu/taxation_customs/dds2/taric/",
+  "languages": [
+    "de",
+    "fr",
+    "es",
+    "it",
+    "nl"
+  ],
+  "sha256": "f030b9f888f0d1189be05fe015634ce57fe2565b530286518c0d9b56e186abd3"
+}

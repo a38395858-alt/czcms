@@ -1,0 +1,11 @@
+{
+  "release": "2026HTSRev22",
+  "label": "2026 HTS Revision 22",
+  "effectiveDate": "2026-10-30",
+  "retrievedAt": "2026-11-05T01:04:26.428177Z",
+  "sourceURL": "https://hts.usitc.gov/reststop/exportList?from=0101&to=9999&format=JSON&styles=false",
+  "releaseURL": "https://hts.usitc.gov/reststop/releaseList",
+  "sha256": "c2b51667fd9dcf04f3428ac41789392db23e86ed773abba78a5038881c70a478",
+  "officialRows": 35805,
+  "entries": 19949
+}

@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"net"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -28,6 +29,7 @@ type Config struct {
 	CookieSecure          bool
 	PublicHTTPS           bool
 	LocalPreviewListeners bool
+	PreviewOrigins        map[string]string
 	TLSCertFile           string
 	TLSKeyFile            string
 	TrustedProxies        []string
@@ -45,6 +47,9 @@ type Config struct {
 	AIAPIKey              string
 	AIModel               string
 	AIRequestTimeout      time.Duration
+	HTSSyncEnabled        bool
+	TARICSyncEnabled      bool
+	HTSSyncTimezone       string
 }
 
 func Load() (Config, error) {
@@ -90,6 +95,13 @@ func Load() (Config, error) {
 	if cfg.DatabasePath == ":memory:" {
 		cfg.DatabasePath = "file:czcms?mode=memory&cache=shared"
 	}
+	cfg.HTSSyncTimezone = env("CZCMS_HTS_SYNC_TIMEZONE", "Asia/Shanghai")
+	if cfg.TARICSyncEnabled, err = boolEnv("CZCMS_TARIC_SYNC_ENABLED", true); err != nil {
+		return cfg, err
+	}
+	if cfg.HTSSyncEnabled, err = boolEnv("CZCMS_HTS_SYNC_ENABLED", true); err != nil {
+		return Config{}, err
+	}
 	if cfg.CacheTTL, err = durationEnv("CZCMS_CACHE_TTL", 5*time.Minute); err != nil || cfg.CacheTTL <= 0 {
 		return Config{}, fmt.Errorf("CZCMS_CACHE_TTL 必须是有效的正数时间")
 	}
@@ -114,6 +126,17 @@ func Load() (Config, error) {
 	if cfg.LocalPreviewListeners, err = boolEnv("CZCMS_LOCAL_PREVIEW_LISTENERS", cfg.Environment == "development"); err != nil {
 		return Config{}, err
 	}
+	if raw := strings.TrimSpace(os.Getenv("CZCMS_PREVIEW_ORIGINS")); raw != "" {
+		cfg.PreviewOrigins = make(map[string]string)
+		for _, binding := range strings.Split(raw, ",") {
+			code, origin, ok := strings.Cut(strings.TrimSpace(binding), "=")
+			code = strings.TrimSpace(code)
+			if !ok || cfg.PreviewOrigins[code] != "" {
+				return Config{}, fmt.Errorf("CZCMS_PREVIEW_ORIGINS 必须是唯一的 siteCode=https://host:port 列表")
+			}
+			cfg.PreviewOrigins[code] = strings.TrimSpace(origin)
+		}
+	}
 	if cfg.RedisTLS, err = boolEnv("CZCMS_REDIS_TLS", false); err != nil {
 		return Config{}, err
 	}
@@ -133,6 +156,29 @@ func (cfg Config) Normalize() (Config, error) {
 	if cfg.Environment == "" {
 		cfg.Environment = "development"
 	}
+	previewOrigins := make(map[string]string, len(cfg.PreviewOrigins))
+	previewHosts := make(map[string]bool, len(cfg.PreviewOrigins))
+	for code, origin := range cfg.PreviewOrigins {
+		parsed, err := url.Parse(origin)
+		validCode := code != "" && strings.Trim(code, "abcdefghijklmnopqrstuvwxyz0123456789-_") == ""
+		if err != nil || parsed == nil || !validCode || parsed.User != nil || parsed.Hostname() == "" ||
+			(parsed.Scheme != "https" && parsed.Scheme != "http") || (parsed.Path != "" && parsed.Path != "/") ||
+			parsed.RawQuery != "" || parsed.ForceQuery || parsed.Fragment != "" {
+			return Config{}, fmt.Errorf("站点 %q 的预览地址必须是独立端口的 HTTP(S) origin", code)
+		}
+		port, portErr := strconv.Atoi(parsed.Port())
+		if portErr != nil || port < 1024 || port > 65535 || previewHosts[strings.ToLower(parsed.Host)] {
+			return Config{}, fmt.Errorf("站点 %q 的预览地址必须使用唯一的 1024–65535 端口", code)
+		}
+		if cfg.Environment == "production" && parsed.Scheme != "https" {
+			return Config{}, fmt.Errorf("生产环境站点 %q 的端口预览必须使用 HTTPS", code)
+		}
+		parsed.Host = strings.ToLower(parsed.Host)
+		parsed.Path = ""
+		previewOrigins[code] = parsed.String()
+		previewHosts[parsed.Host] = true
+	}
+	cfg.PreviewOrigins = previewOrigins
 	if cfg.HTTPAddr == "" {
 		cfg.HTTPAddr = "127.0.0.1:8080"
 	}
@@ -217,6 +263,18 @@ func (cfg Config) Normalize() (Config, error) {
 		}
 	}
 	return cfg, nil
+}
+
+// PreviewSiteCode matches only explicitly configured preview hosts and ports.
+// Normal domains continue through the catalog's public host router.
+func (cfg Config) PreviewSiteCode(host string) string {
+	for code, origin := range cfg.PreviewOrigins {
+		parsed, err := url.Parse(origin)
+		if err == nil && strings.EqualFold(host, parsed.Host) {
+			return code
+		}
+	}
+	return ""
 }
 
 func isLoopbackAddress(address string) bool {

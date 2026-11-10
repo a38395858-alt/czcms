@@ -26,15 +26,15 @@ func TestSupportDestinationsAndCMSOverride(t *testing.T) {
 	}
 	defer a.Close()
 	markets := []struct {
-		site, locale, contact, about, privacy, legal string
-		port                                         int
+		site, locale, contact, about, privacy, legal, culture string
+		port                                                  int
 	}{
-		{"global", "en", "contact", "about", "privacy", "legal", 8081},
-		{"germany", "de-DE", "kontakt", "ueber-uns", "datenschutz", "impressum", 8082},
-		{"france", "fr-FR", "contact", "a-propos", "confidentialite", "mentions-legales", 8083},
-		{"spain", "es-ES", "contacto", "quienes-somos", "privacidad", "aviso-legal", 8084},
-		{"italy", "it-IT", "contatti", "chi-siamo", "privacy", "note-legali", 8085},
-		{"netherlands", "nl-NL", "contact", "over-ons", "privacy", "bedrijfsgegevens", 8086},
+		{"global", "en", "contact", "about", "privacy", "legal", "company-culture", 8081},
+		{"germany", "de-DE", "kontakt", "ueber-uns", "datenschutz", "impressum", "unternehmenskultur", 8082},
+		{"france", "fr-FR", "contact", "a-propos", "confidentialite", "mentions-legales", "culture-entreprise", 8083},
+		{"spain", "es-ES", "contacto", "quienes-somos", "privacidad", "aviso-legal", "cultura-empresarial", 8084},
+		{"italy", "it-IT", "contatti", "chi-siamo", "privacy", "note-legali", "cultura-aziendale", 8085},
+		{"netherlands", "nl-NL", "contact", "over-ons", "privacy", "bedrijfsgegevens", "bedrijfscultuur", 8086},
 	}
 	get := func(site string, port int, path string) *httptest.ResponseRecorder {
 		t.Helper()
@@ -64,7 +64,7 @@ func TestSupportDestinationsAndCMSOverride(t *testing.T) {
 	for _, m := range markets {
 		t.Run(m.site, func(t *testing.T) {
 			sitemap := get(m.site, m.port, "sitemap.xml").Body.String()
-			for _, route := range []string{"/product-sourcing", "/services/worldwide-fulfillment", "/industries/time-critical-cargo", "/services", "/" + m.about} {
+			for _, route := range []string{"/product-sourcing", "/services/worldwide-fulfillment", "/industries/time-critical-cargo", "/services", "/" + m.about, "/" + m.culture} {
 				if !strings.Contains(sitemap, route+"</loc>") {
 					t.Fatalf("sitemap missing %s", route)
 				}
@@ -72,17 +72,58 @@ func TestSupportDestinationsAndCMSOverride(t *testing.T) {
 			if strings.Contains(sitemap, "/"+m.privacy+"</loc>") || strings.Contains(sitemap, "/"+m.legal+"</loc>") {
 				t.Fatal("provisional legal page in sitemap")
 			}
-			for _, path := range []string{m.contact, m.about, m.privacy, m.legal, "cookies", "terms", "services", "industries", "contact-us"} {
+			for _, path := range []string{m.contact, m.about, m.privacy, m.legal, m.culture, "cookies", "terms", "services", "industries", "contact-us"} {
 				w := get(m.site, m.port, path)
 				body := w.Body.String()
+				if path == "terms" && m.site != "global" {
+					target := map[string]string{"germany": "/agb", "france": "/cgv", "spain": "/condiciones", "italy": "/condizioni", "netherlands": "/voorwaarden"}[m.site]
+					if w.Code != http.StatusPermanentRedirect || w.Header().Get("Location") != target {
+						t.Fatalf("terms alias status=%d location=%q", w.Code, w.Header().Get("Location"))
+					}
+					continue
+				}
+				if path == "contact-us" {
+					if w.Code != http.StatusPermanentRedirect || w.Header().Get("Location") != "/"+m.contact {
+						t.Fatalf("contact alias status=%d location=%q", w.Code, w.Header().Get("Location"))
+					}
+					continue
+				}
 				if w.Code != 200 || strings.Count(body, "<h1>") != 1 {
 					t.Fatalf("/%s status=%d h1=%d", path, w.Code, strings.Count(body, "<h1>"))
 				}
 				if strings.Contains(body, "example.com") {
 					t.Fatalf("/%s contains example contact", path)
 				}
+				if path == m.about || path == m.contact || path == m.privacy || path == m.legal {
+					if !strings.Contains(body, "Shenzhen Tang Xiaopang International Logistics Co., Ltd.") || !strings.Contains(body, "606") || !strings.Contains(body, "Xinqiao") || strings.Contains(body, "have not yet been provided") {
+						t.Fatalf("/%s missing confirmed operator facts", path)
+					}
+					if regexp.MustCompile(`[\p{Han}]`).MatchString(body) {
+						t.Fatalf("/%s contains Chinese text on a %s page", path, m.locale)
+					}
+				}
 				if path == m.contact && (!strings.Contains(body, "data-home-enquiry data-placement=\"contact\"") || !strings.Contains(body, "formToken") || !strings.Contains(body, `name="consent" required`)) {
 					t.Fatal("contact page not connected to protected inbox")
+				}
+				if path == m.about {
+					for _, route := range []string{"product-sourcing", "services/bulk-procurement", "services/packaging-branding", "services/inventory-storage", "services/private-white-label", "services/worldwide-fulfillment", m.culture} {
+						if !strings.Contains(body, `href="/`+route+`"`) {
+							t.Fatalf("about missing business or culture link: %s", route)
+						}
+					}
+					if strings.Count(body, "<article>") != 6 || strings.Contains(body, `class="culture-item"`) {
+						t.Fatal("about should show six businesses and link to the separate culture page")
+					}
+				}
+				if path == m.culture {
+					if strings.Count(body, `class="culture-item"`) != 6 || !strings.Contains(body, `href="/`+m.about+`"`) || regexp.MustCompile(`[\p{Han}]`).MatchString(body) {
+						t.Fatal("culture page needs six localized values and a link back to about")
+					}
+					for _, target := range markets {
+						if !strings.Contains(body, fmt.Sprintf("http://localhost:%d/%s", target.port, target.culture)) {
+							t.Fatalf("culture language switch missing %s", target.culture)
+						}
+					}
 				}
 				if (path == m.privacy || path == m.legal) && !strings.Contains(body, `content="noindex,follow"`) {
 					t.Fatal("incomplete policy is indexable")

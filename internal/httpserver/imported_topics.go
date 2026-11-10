@@ -85,15 +85,15 @@ var importedTopicDocument = template.Must(template.Must(template.New("imported-t
 {{range .Hreflangs}}<link rel="alternate" hreflang="{{.Locale}}" href="{{.URL}}">{{end}}
 <meta property="og:type" content="website"><meta property="og:site_name" content="{{.SiteName}}">
 <meta property="og:title" content="{{.Page.Title}}"><meta property="og:description" content="{{.Page.Description}}">
-{{if .Canonical}}<meta property="og:url" content="{{.Canonical}}">{{end}}
-<meta property="og:image" content="{{.Page.Image}}"><meta name="twitter:card" content="summary_large_image">
+{{if .PageURL}}<meta property="og:url" content="{{.PageURL}}">{{end}}
+<meta property="og:locale" content="{{.Language}}"><meta property="og:image" content="{{.Page.Image}}"><meta property="og:image:alt" content="{{.Page.Heading}}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{.Page.Title}}"><meta name="twitter:description" content="{{.Page.Description}}"><meta name="twitter:image" content="{{.Page.Image}}"><meta name="twitter:image:alt" content="{{.Page.Heading}}">
 {{if .Favicon}}<link rel="icon" href="{{.Favicon}}">{{end}}
 <link rel="stylesheet" href="{{.Page.CSS}}">
 {{range .Page.Preloads}}<link rel="modulepreload" href="{{.}}">{{end}}
 {{range .Fonts}}<link rel="preload" as="font" type="font/woff2" href="{{.}}" crossorigin>{{end}}
 <link rel="stylesheet" href="/assets/css/public-navigation.css?v=20261013.5">
-<link rel="stylesheet" href="/assets/css/enquiry-form.css?v=20261020.1">
-<script src="/assets/js/enquiry-unify.js?v=20261022.1" defer></script>
+<link rel="stylesheet" href="/assets/css/enquiry-form.css?v=20261105.1">
 <script src="/assets/js/public-navigation.js?v=20261022.1" defer></script>
 <script id="freightvanta-cms-context" type="application/json">{{.Context}}</script>
 <script type="application/ld+json">{{.Schema}}</script>
@@ -200,16 +200,16 @@ func (s *server) serveImportedTopicTemplate(w http.ResponseWriter, r *http.Reque
 		}
 	}
 	view := struct {
-		Page                                                                       importedTopicPage
-		Language, Direction, Keywords, Robots, Color, Canonical, SiteName, Favicon string
-		Hreflangs                                                                  []publicHreflang
-		ThemeID                                                                    int64
-		Context, Schema                                                            template.JS
-		Markup                                                                     template.HTML
-		Header                                                                     publicHeaderData
-		Fonts                                                                      []string
+		Page                                                                                importedTopicPage
+		Language, Direction, Keywords, Robots, Color, Canonical, PageURL, SiteName, Favicon string
+		Hreflangs                                                                           []publicHreflang
+		ThemeID                                                                             int64
+		Context, Schema                                                                     template.JS
+		Markup                                                                              template.HTML
+		Header                                                                              publicHeaderData
+		Fonts                                                                               []string
 	}{page, data.Locale, data.Direction, strings.Join(page.Keywords, ", "), robots, color, data.CanonicalURL,
-		site.Name, favicon, data.Hreflangs, data.ThemeID, template.JS(contextJSON),
+		data.PublicPageURL, site.Name, favicon, data.Hreflangs, data.ThemeID, template.JS(contextJSON),
 		template.JS(importedTopicSchema(page, ctx)), template.HTML(markup), data.Header, fonts}
 	var result bytes.Buffer
 	if err := importedTopicDocument.Execute(&result, view); err != nil {
@@ -228,23 +228,32 @@ func importedTopicSchema(page importedTopicPage, ctx importedTopicContext) strin
 		pageURL = ctx.SiteURL + ctx.BasePath + "/" + ctx.Route
 	}
 	orgID := ctx.SiteURL + "/#organization"
+	pageID, websiteID := pageURL+"#webpage", ctx.SiteURL+"/#website"
+	organization := map[string]any{"@type": "Organization", "@id": orgID, "name": "FreightVanta", "url": ctx.SiteURL + "/"}
+	addFreightVantaIdentity(organization)
+	webpage := map[string]any{"@type": "WebPage", "@id": pageID, "name": page.Heading, "description": page.Description, "url": pageURL, "inLanguage": ctx.Locale, "keywords": page.Keywords,
+		"isPartOf": map[string]any{"@id": websiteID}, "publisher": map[string]any{"@id": orgID}, "breadcrumb": map[string]any{"@id": pageURL + "#breadcrumb"},
+		"primaryImageOfPage": map[string]any{"@type": "ImageObject", "url": publicSchemaAbsoluteURL(ctx.SiteURL, page.Image)}}
 	graph := []any{
-		map[string]any{"@type": "Organization", "@id": orgID, "name": "FreightVanta", "url": ctx.SiteURL + "/"},
-		map[string]any{"@type": "WebPage", "name": page.Heading, "description": page.Body, "url": pageURL, "inLanguage": ctx.Locale, "keywords": page.Keywords},
-		map[string]any{"@type": "BreadcrumbList", "itemListElement": []any{
+		organization,
+		map[string]any{"@type": "WebSite", "@id": websiteID, "name": "FreightVanta", "url": ctx.SiteURL + "/", "inLanguage": ctx.Locale, "publisher": map[string]any{"@id": orgID}},
+		webpage,
+		map[string]any{"@type": "BreadcrumbList", "@id": pageURL + "#breadcrumb", "itemListElement": []any{
 			map[string]any{"@type": "ListItem", "position": 1, "name": "FreightVanta", "item": ctx.SiteURL + "/"},
 			map[string]any{"@type": "ListItem", "position": 2, "name": page.Heading, "item": pageURL},
 		}},
 	}
 	if page.ServiceName != "" {
-		graph = append(graph, map[string]any{"@type": "Service", "name": page.ServiceName, "description": page.Body, "url": pageURL, "provider": map[string]any{"@id": orgID}})
+		webpage["mainEntity"] = map[string]any{"@id": pageURL + "#service"}
+		graph = append(graph, map[string]any{"@type": "Service", "@id": pageURL + "#service", "name": page.ServiceName, "description": page.Body, "url": pageURL, "provider": map[string]any{"@id": orgID}, "mainEntityOfPage": map[string]any{"@id": pageID}})
 	}
 	if len(page.FAQs) > 0 {
 		questions := []any{}
 		for _, faq := range page.FAQs {
 			questions = append(questions, map[string]any{"@type": "Question", "name": faq.Question, "acceptedAnswer": map[string]any{"@type": "Answer", "text": faq.Answer}})
 		}
-		graph = append(graph, map[string]any{"@type": "FAQPage", "mainEntity": questions})
+		webpage["hasPart"] = map[string]any{"@id": pageURL + "#faq"}
+		graph = append(graph, map[string]any{"@type": "FAQPage", "@id": pageURL + "#faq", "inLanguage": ctx.Locale, "mainEntity": questions})
 	}
 	encoded, _ := json.Marshal(map[string]any{"@context": "https://schema.org", "@graph": graph})
 	return string(encoded)

@@ -20,7 +20,11 @@ func (s *server) listSites(w http.ResponseWriter, r *http.Request) {
 		writeJSONError(w, http.StatusInternalServerError, "读取站点失败")
 		return
 	}
-	writeJSON(w, http.StatusOK, map[string]any{"sites": items})
+	response := make([]siteResponse, 0, len(items))
+	for _, item := range items {
+		response = append(response, s.presentSite(item))
+	}
+	writeJSON(w, http.StatusOK, map[string]any{"sites": response})
 }
 
 func (s *server) createSite(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +52,7 @@ func (s *server) createSite(w http.ResponseWriter, r *http.Request) {
 	}
 	s.syncLocalPreviews(r)
 	s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "site.created", TargetType: "site", TargetID: strconv.FormatInt(item.ID, 10), Success: true, Metadata: map[string]any{"code": item.Code, "market_code": item.MarketCode, "requested_theme_package_id": input.DefaultThemePackageID}})
-	writeJSON(w, http.StatusCreated, item)
+	writeJSON(w, http.StatusCreated, s.presentSite(item))
 }
 
 func (s *server) listSiteLanguages(w http.ResponseWriter, r *http.Request) {
@@ -215,7 +219,7 @@ func (s *server) updateSite(w http.ResponseWriter, r *http.Request) {
 	}
 	s.syncLocalPreviews(r)
 	s.audit(r, audit.Event{ActorUserID: &session.User.ID, Action: "site.updated", TargetType: "site", TargetID: strconv.FormatInt(id, 10), Success: true, Metadata: map[string]any{"version": item.Version}})
-	writeJSON(w, http.StatusOK, item)
+	writeJSON(w, http.StatusOK, s.presentSite(item))
 }
 
 func (s *server) disableSite(w http.ResponseWriter, r *http.Request) {

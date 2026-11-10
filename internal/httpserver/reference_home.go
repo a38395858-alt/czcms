@@ -1,6 +1,7 @@
 package httpserver
 
 import (
+	"bytes"
 	"encoding/json"
 	"html"
 	"html/template"
@@ -20,7 +21,15 @@ func (s *server) prepareReferenceHome(data *publicSitePageData) {
 		languageURLs[strings.ToLower(strings.Split(language.Code, "-")[0])] = language.URL
 	}
 	languageURLs[locale] = data.HomePath
-	initialContext, _ := json.Marshal(map[string]any{"sharedHeader": true, "locale": locale, "enquiry": json.RawMessage(data.EnquiryContext), "languages": languageURLs})
+	shippingMarkup, shippingTitle := "", ""
+	if data.ShippingMarket != nil {
+		var rendered bytes.Buffer
+		if err := s.Template.ExecuteTemplate(&rendered, "shipping-planner", data); err == nil {
+			shippingMarkup = rendered.String()
+			shippingTitle, _ = data.ShippingMarket.Copy["breadcrumb"].(string)
+		}
+	}
+	initialContext, _ := json.Marshal(map[string]any{"sharedHeader": true, "locale": locale, "enquiry": json.RawMessage(data.EnquiryContext), "languages": languageURLs, "shippingMarkup": shippingMarkup, "shippingURL": data.ShippingCalculatorURL, "shippingTitle": shippingTitle})
 	data.HomeContext = template.JS(initialContext)
 	root := "freightvanta-template/"
 	if locale == "nl" {
@@ -37,6 +46,7 @@ func (s *server) prepareReferenceHome(data *publicSitePageData) {
 		}
 	}
 	fontNames := map[string][]string{
+		"de": {"fira-sans-latin-400-normal-*.woff2", "fira-sans-condensed-latin-700-normal-*.woff2"},
 		"fr": {"source-sans-3-latin-400-normal-*.woff2", "source-serif-4-latin-600-normal-*.woff2"},
 		"es": {"archivo-latin-400-normal-*.woff2", "archivo-latin-800-normal-*.woff2"},
 		"it": {"manrope-latin-400-normal-*.woff2", "bodoni-moda-latin-600-normal-*.woff2"},
@@ -57,6 +67,12 @@ func (s *server) prepareReferenceHome(data *publicSitePageData) {
 	}
 	languages[locale] = data.HomePath
 	markup := string(body)
+	markup = strings.ReplaceAll(markup, "__FV_SHIPPING_PLANNER__", shippingMarkup)
+	markup = strings.ReplaceAll(markup, "__FV_SHIPPING_URL__", html.EscapeString(data.ShippingCalculatorURL))
+	markup = strings.ReplaceAll(markup, "__FV_SHIPPING_TITLE__", html.EscapeString(shippingTitle))
+	// Native home forms share the live page's action and privacy URL even on
+	// local /preview/{site} routes, before React hydrates the document.
+	markup = strings.ReplaceAll(markup, "__FV_ENQUIRY_BASE__", html.EscapeString(data.BasePath))
 	for _, code := range []string{"en", "de", "fr", "es", "it", "nl"} {
 		url, ok := languages[code]
 		if !ok {
@@ -70,11 +86,14 @@ func (s *server) prepareReferenceHome(data *publicSitePageData) {
 		markup = strings.ReplaceAll(markup, placeholder, html.EscapeString(url))
 	}
 	context, _ := json.Marshal(struct {
-		SharedHeader bool              `json:"sharedHeader"`
-		Locale       string            `json:"locale"`
-		Enquiry      json.RawMessage   `json:"enquiry"`
-		Languages    map[string]string `json:"languages"`
-	}{true, locale, json.RawMessage(data.EnquiryContext), languages})
+		SharedHeader   bool              `json:"sharedHeader"`
+		Locale         string            `json:"locale"`
+		Enquiry        json.RawMessage   `json:"enquiry"`
+		Languages      map[string]string `json:"languages"`
+		ShippingMarkup string            `json:"shippingMarkup"`
+		ShippingURL    string            `json:"shippingURL"`
+		ShippingTitle  string            `json:"shippingTitle"`
+	}{true, locale, json.RawMessage(data.EnquiryContext), languages, shippingMarkup, data.ShippingCalculatorURL, shippingTitle})
 	data.HomeMarkup = template.HTML(markup)
 	data.HomeContext = template.JS(context)
 	for _, pattern := range fonts {

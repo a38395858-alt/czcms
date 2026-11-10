@@ -463,6 +463,9 @@ func (s *server) populatePublicNetworkForFixedPath(r *http.Request, data *public
 			continue
 		}
 		data.Languages = append(data.Languages, publicLanguageData{Code: language.LanguageCode, Locale: language.Locale, Name: language.LanguageName, NativeName: language.NativeName, URL: url})
+		if !preview && language.SiteID != current.ID && language.PrimaryDomain == "" {
+			continue
+		}
 		data.Hreflangs = append(data.Hreflangs, publicHreflang{Locale: language.Locale, URL: url})
 		if language.LanguageCode == "en" {
 			defaultURL = url

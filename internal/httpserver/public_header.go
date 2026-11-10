@@ -18,7 +18,8 @@ type publicHeaderMenu struct {
 
 type publicHeaderData struct {
 	LanguageCode, LanguageName, Locale, HomePath, EnquiryURL string
-	GuideIndexPath, MenuLabel                                string
+	GuideIndexPath, MenuLabel, BrandTagline                  string
+	WhatsAppLabel                                            string
 	IsHome                                                   bool
 	SuppressHreflang                                         bool
 	Copy                                                     publicCopy
@@ -42,11 +43,33 @@ var publicHeaderMenus = func() map[string]json.RawMessage {
 func sharedPublicHeader(data publicSitePageData) publicHeaderData {
 	code := strings.ToLower(strings.Split(data.LanguageCode, "-")[0])
 	menuLabel := map[string]string{"en": "Menu", "de": "Menü", "fr": "Menu", "es": "Menú", "it": "Menu", "nl": "Menu"}[code]
+	brandTagline := map[string]string{
+		"en": "International logistics network",
+		"de": "Internationales Logistiknetzwerk",
+		"fr": "Réseau logistique international",
+		"es": "Red logística internacional",
+		"it": "Rete logistica internazionale",
+		"nl": "Internationaal logistiek netwerk",
+	}[code]
+	if brandTagline == "" {
+		brandTagline = "International logistics network"
+	}
 	view := publicHeaderData{
 		LanguageCode: code, LanguageName: data.LanguageName, Locale: data.Locale,
 		HomePath: data.HomePath, EnquiryURL: publicEnquiryURL(&data),
-		GuideIndexPath: data.GuideIndexPath, MenuLabel: menuLabel, IsHome: data.IsHome,
+		GuideIndexPath: data.GuideIndexPath, MenuLabel: menuLabel, BrandTagline: brandTagline, IsHome: data.IsHome,
 		Copy: data.Copy, Links: data.Links, Languages: data.Languages,
+	}
+	view.WhatsAppLabel = map[string]string{
+		"en": "Chat with us on WhatsApp (opens in a new tab)",
+		"de": "Mit uns auf WhatsApp chatten (öffnet einen neuen Tab)",
+		"fr": "Discuter avec nous sur WhatsApp (nouvel onglet)",
+		"es": "Chatea con nosotros por WhatsApp (se abre en otra pestaña)",
+		"it": "Chatta con noi su WhatsApp (si apre in una nuova scheda)",
+		"nl": "Chat met ons via WhatsApp (opent in een nieuw tabblad)",
+	}[code]
+	if view.WhatsAppLabel == "" {
+		view.WhatsAppLabel = "Chat with us on WhatsApp (opens in a new tab)"
 	}
 	source := publicHeaderMenus[code]
 	if source == nil {

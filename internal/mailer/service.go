@@ -141,7 +141,7 @@ func (s *Service) processNext(ctx context.Context) (bool, error) {
 		AND EXISTS(SELECT 1 FROM smtp_settings WHERE id=1 AND enabled=1)
 		RETURNING id,submission_id,recipient,attempts`, lease, stamp(now.Add(2*time.Minute)), stamp(now), stamp(now), stamp(now)).Scan(&id, &submissionID, &recipient, &attempts)
 	if errors.Is(err, sql.ErrNoRows) {
-		return false, nil
+		return s.processNextSystem(ctx, cfg)
 	}
 	if err != nil {
 		return false, err

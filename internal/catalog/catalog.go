@@ -1146,15 +1146,25 @@ func (s *Service) ListContents(ctx context.Context, userID int64, query ContentQ
 		args = append(args, query.Locale)
 	}
 	if query.Status != "" {
-		if !validContentStatus(query.Status) {
+		if query.Status == "scheduled" {
+			where = append(where, "cl.status = 'published' AND datetime(cl.scheduled_at) > datetime(?)")
+			args = append(args, nowUTC())
+		} else if !validContentStatus(query.Status) {
 			return nil, 0, invalid("内容状态无效")
+		} else {
+			where = append(where, "cl.status = ?")
+			args = append(args, query.Status)
+			if query.Status == "published" {
+				where = append(where, "(cl.scheduled_at IS NULL OR cl.scheduled_at = '' OR datetime(cl.scheduled_at) <= datetime(?))")
+				args = append(args, nowUTC())
+			}
 		}
-		where = append(where, "cl.status = ?")
-		args = append(args, query.Status)
 	}
 	if query.ContentType != "" {
 		if query.ContentType == "non_page" {
 			where = append(where, "c.content_type <> 'page'")
+		} else if query.ContentType == "editorial" {
+			where = append(where, "c.content_type NOT IN ('page', 'product')")
 		} else if query.ContentType != "article" && query.ContentType != "page" && query.ContentType != "landing" && query.ContentType != "category" && query.ContentType != "product" {
 			return nil, 0, invalid("内容类型无效")
 		} else {
@@ -1231,6 +1241,8 @@ func (s *Service) ContentCountsForType(ctx context.Context, userID, siteID int64
 	if contentType != "" {
 		if contentType == "non_page" {
 			where = append(where, "c.content_type <> 'page'")
+		} else if contentType == "editorial" {
+			where = append(where, "c.content_type NOT IN ('page', 'product')")
 		} else if contentType != "article" && contentType != "page" && contentType != "landing" && contentType != "category" && contentType != "product" {
 			return nil, invalid("内容类型无效")
 		} else {
@@ -1685,14 +1697,12 @@ func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentI
 	secondary, _ := json.Marshal(seo.SecondaryKeywords)
 	tags, _ := json.Marshal(input.Tags)
 	structured := normalizedStructuredData(seo.StructuredData)
-	publishedAt := current.PublishedAt
-	if input.Status == "published" && current.PublishedAt == nil {
-		value := scheduledPublishTime(input.ScheduledAt, nowUTC())
-		publishedAt = &value
+	now := nowUTC()
+	if hasBeenPublished(current.PublishedAt, now) {
+		// Scheduling controls the first publication, not subsequent edits.
+		input.ScheduledAt = derefContentTime(current.ScheduledAt)
 	}
-	if input.Status != "published" {
-		publishedAt = nil
-	}
+	publishedAt := nextPublishedAt(current.PublishedAt, input.Status, input.ScheduledAt, now)
 	result, err := tx.ExecContext(ctx, `
 		UPDATE content_locales SET status = ?, title = ?, slug = ?, category = ?, tags_json = ?, template_key = ?, scheduled_at = ?, cover_media_id = ?, gallery_media_ids_json = ?, summary = ?, body_html = ?, h1 = ?, seo_title = ?,
 		meta_description = ?, primary_keyword = ?, secondary_keywords_json = ?, canonical_url = ?, robots_index = ?,
@@ -1701,7 +1711,7 @@ func (s *Service) UpdateContentLocale(ctx context.Context, actorUserID, contentI
 		WHERE content_id = ? AND site_id = ? AND locale = ? AND version = ?`,
 		input.Status, input.Title, input.Slug, input.Category, string(tags), input.TemplateKey, nullableText(input.ScheduledAt), input.CoverMediaID, galleryMediaJSON(input.GalleryMediaIDs), input.Summary, input.BodyHTML, seo.H1, seo.Title, seo.MetaDescription,
 		seo.PrimaryKeyword, string(secondary), seo.CanonicalURL, boolInt(seo.RobotsIndex), seo.OGTitle, seo.OGDescription,
-		string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, nowUTC(), contentID, siteID, locale, input.Version)
+		string(structured), input.AIState, publishedAt, input.PageLayout, input.IndexPolicy, now, contentID, siteID, locale, input.Version)
 	if err != nil {
 		return ContentLocale{}, classifyConstraint(err)
 	}
@@ -1792,12 +1802,7 @@ func (s *Service) BulkUpdateContentLocales(ctx context.Context, actorUserID int6
 		if status == "published" && strings.TrimSpace(current.BodyHTML) == "" {
 			return BulkContentUpdateResult{}, invalid("批量发布包含未填写正文的内容，请先完善后再发布")
 		}
-		publishedAt := current.PublishedAt
-		if status == "published" && current.PublishedAt == nil {
-			publishedAt = &now
-		} else if status != "published" {
-			publishedAt = nil
-		}
+		publishedAt := nextPublishedAt(current.PublishedAt, status, derefContentTime(current.ScheduledAt), now)
 		result, updateErr := tx.ExecContext(ctx, `UPDATE content_locales
 			SET status = ?, category = ?, published_at = ?, version = version + 1, updated_at = ?
 			WHERE content_id = ? AND site_id = ? AND locale = ? AND version = ?`,
@@ -2527,6 +2532,36 @@ func scheduledPublishTime(scheduledAt, fallback string) string {
 		return fallback
 	}
 	return parsed.UTC().Format(time.RFC3339Nano)
+}
+
+func derefContentTime(value *string) string {
+	if value == nil {
+		return ""
+	}
+	return *value
+}
+
+func hasBeenPublished(publishedAt *string, now string) bool {
+	if publishedAt == nil || *publishedAt == "" {
+		return false
+	}
+	published, err := time.Parse(time.RFC3339, *publishedAt)
+	current, nowErr := time.Parse(time.RFC3339, now)
+	return err == nil && nowErr == nil && !published.After(current)
+}
+
+// A future timestamp is a publication plan and can be changed or cancelled.
+// Once that time has passed, retain the first publication through every edit,
+// status change and revision restore.
+func nextPublishedAt(current *string, status, scheduledAt, now string) *string {
+	if hasBeenPublished(current, now) {
+		return current
+	}
+	if status != "published" {
+		return nil
+	}
+	value := scheduledPublishTime(scheduledAt, now)
+	return &value
 }
 
 func validateContentExtras(category string, tags []string, templateKey, scheduledAt string, coverMediaID *int64, galleryMediaIDs []int64) error {

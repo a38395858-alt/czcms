@@ -197,7 +197,7 @@ func TestPublicJSONLDUsesPageSpecificGoogleSchemas(t *testing.T) {
 		t.Fatalf("product should not emit article-only keywords: %+v", product)
 	}
 
-	home := publicSitePageData{SiteName: "Global Route English", Locale: "en", HomePath: "/", PageTitle: "Global Route", MetaDescription: "International logistics."}
+	home := publicSitePageData{IsHome: true, SiteName: "Global Route English", Locale: "en", HomePath: "/", PageTitle: "Global Route", MetaDescription: "International logistics."}
 	var homepage map[string]any
 	if err := json.Unmarshal([]byte(publicJSONLD(home, catalog.Site{Name: home.SiteName, SEODescription: home.MetaDescription})), &homepage); err != nil {
 		t.Fatalf("homepage JSON-LD is invalid: %v", err)

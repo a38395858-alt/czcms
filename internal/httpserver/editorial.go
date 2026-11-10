@@ -77,11 +77,11 @@ func publicEnquiryURL(data *publicSitePageData) string {
 func editorialImage(content publicContentData) string {
 	switch content.Slug {
 	case "temperature-controlled-cargo-planning":
-		return "/assets/images/guide-temperature-controlled-cargo-v1.png"
+		return "/assets/images/guide-temperature-controlled-cargo-v1.webp"
 	case "customs-documentation-support":
-		return "/assets/images/guide-customs-documentation-v1.png"
+		return "/assets/images/guide-customs-documentation-v1.webp"
 	case "express-freight-coordination":
-		return "/assets/images/guide-express-freight-v1.png"
+		return "/assets/images/guide-express-freight-v1.webp"
 	}
 	return content.CoverURL
 }

@@ -114,7 +114,7 @@ func (s *server) submitBuiltinEnquiry(w http.ResponseWriter, r *http.Request, ki
 		return
 	}
 	site, _, err := s.Catalog.SiteByHostname(r.Context(), requestHostname(r.Host))
-	if err != nil && chi.URLParam(r, "siteCode") != "" {
+	if chi.URLParam(r, "siteCode") != "" {
 		site, err = s.Catalog.SiteByCode(r.Context(), chi.URLParam(r, "siteCode"))
 	}
 	if err != nil || site.Status != "active" {
@@ -198,6 +198,13 @@ func (s *server) submitBuiltinEnquiry(w http.ResponseWriter, r *http.Request, ki
 	source := "/" + input.Route
 	if kind == "home" {
 		source = "/"
+		// Short topic forms use the homepage submission rules, while retaining
+		// a verified topic path in the inbox and notification email.
+		if input.Placement == "topic" {
+			if _, ok := s.importedTopics.pages[input.Locale+"/"+input.Route]; ok {
+				source += input.Route
+			}
+		}
 		if input.Placement == "contact" {
 			path := map[string]string{"en": "contact", "de": "kontakt", "fr": "contact", "es": "contacto", "it": "contatti", "nl": "contact"}[input.Locale]
 			if path != "" {

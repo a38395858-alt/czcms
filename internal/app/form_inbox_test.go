@@ -47,6 +47,13 @@ func TestAllHomeFormsAndInboxWorkflow(t *testing.T) {
 		if len(match) != 2 {
 			t.Fatalf("%s missing homepage enquiry context: %d", site.code, page.Code)
 		}
+		if site.locale == "it" || site.locale == "nl" {
+			if strings.Contains(page.Body.String(), "__FV_ENQUIRY_BASE__") ||
+				!strings.Contains(page.Body.String(), `action="/preview/`+site.code+`/home-enquiry"`) ||
+				!strings.Contains(page.Body.String(), `href="/preview/`+site.code+`/privacy"`) {
+				t.Fatalf("%s short form lost its site's submission or privacy URL", site.code)
+			}
+		}
 		var ctx map[string]any
 		if err = json.Unmarshal([]byte(match[1]), &ctx); err != nil {
 			t.Fatal(err)
@@ -82,7 +89,7 @@ func TestAllHomeFormsAndInboxWorkflow(t *testing.T) {
 			t.Fatal("honeypot accepted")
 		}
 		delete(payload, "website")
-		if site.locale == "en" || site.locale == "de" {
+		if site.locale == "en" || site.locale == "de" || site.locale == "it" || site.locale == "nl" {
 			delete(payload, "company")
 			delete(payload, "origin")
 			delete(payload, "destination")
