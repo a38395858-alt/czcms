@@ -1,0 +1,126 @@
+{
+  "culture_images": [
+    {
+      "name": "culture-vision-v1",
+      "prompt": "Create a refined square editorial 3D illustration for the VISION section of a logistics company culture page. A miniature unbranded container ship approaching a distant open horizon, precise architectural forms suggesting connected global routes, a clear sense of future ambition rather than a claim of current scale. Warm ivory matte background, deep navy blue and muted teal, small copper accents, soft side lighting, tactile paper and ceramic materials, generous negative space around a centered subject, premium quiet editorial art direction. This is a symbolic conceptual illustration, not a photograph of a real company site. No words, letters, numbers, badges, medals, certificates, seals, logos, watermarks, flags or people. No card border or interface. Composition readable in small square website crops.",
+      "mode": "qianyi-local-api",
+      "model": "gpt-image-2",
+      "source": "frontend/src/assets/ai-image-studio/culture-vision-v1.png",
+      "web_asset": "frontend/assets/company/culture-vision-v1.webp",
+      "sha256": "55d5aed181134074bd9ae3de0f3ab82551753e12363837970df7dd0c028386df"
+    },
+    {
+      "name": "culture-mission-v1",
+      "prompt": "Create a refined square editorial 3D conceptual illustration for an INNOVATION MISSION section of a logistics company culture page. A few unbranded cargo modules fitting into an elegant new interlocking transport system, a single small teal component completing the composition, a thoughtful metaphor for building an innovative logistics enterprise. Warm ivory matte background, deep navy blue and muted teal with restrained copper accents, soft side lighting, tactile paper and ceramic material, generous negative space around a centered subject, premium quiet editorial art direction. Symbolic illustration, not a photograph of a real company facility. No words, letters, numbers, badges, medals, certificates, seals, logos, watermarks, flags or people. No card border or interface. Readable at small square website crops.",
+      "mode": "qianyi-local-api",
+      "model": "gpt-image-2",
+      "source": "frontend/src/assets/ai-image-studio/culture-mission-v1.png",
+      "web_asset": "frontend/assets/company/culture-mission-v1.webp",
+      "sha256": "d39372286d5ec0941f7c76e620976ae3e5478aa267cf6d158ef2f2e0319ebff5"
+    },
+    {
+      "name": "culture-values-v1",
+      "prompt": "Create a refined square editorial 3D conceptual illustration for CUSTOMER FIRST AND DEDICATION on a logistics company's culture page. A carefully protected simple ceramic cargo cube at the center of three smoothly connected routes, balanced modular supports working together around it, visual metaphor for listening to customer needs and dedicated collaboration. Warm ivory matte background, deep navy blue, muted teal, subtle copper detail, soft side lighting, tactile paper and ceramic surfaces, centered subject, generous breathing space, premium quiet editorial art direction. Symbolic conceptual art, not a real warehouse or team. No text, letters, numbers, logos, people, handshake, shields, awards, certificates, stamps, seals, watermarks or flags. No UI or card border. Clearly readable in a small square crop.",
+      "mode": "qianyi-local-api",
+      "model": "gpt-image-2",
+      "source": "frontend/src/assets/ai-image-studio/culture-values-v1.png",
+      "web_asset": "frontend/assets/company/culture-values-v1.webp",
+      "sha256": "af011a3ad92747240db3bfd45207fc47bf74298ea1e870eadc96b42e39ac29b5"
+    },
+    {
+      "name": "culture-motto-v1",
+      "prompt": "Create a refined square editorial 3D conceptual illustration for a company motto about daily renewal and calm long-term progress. An unbranded miniature vessel passing through a calm narrow waterway between smooth architectural forms, restrained concentric ripples, a gentle dawn opening in the distance. Visual metaphor for disciplined steady improvement and quiet far-reaching ambition. Warm ivory matte background, deep navy blue and muted teal, small copper highlight, soft side lighting, tactile paper and ceramic materials, centered subject and generous negative space, premium quiet editorial style. Symbolic illustration, never a photograph of a company-owned asset. No words, letters, numbers, badges, medals, certificates, seals, logos, watermarks, flags or people. No UI and no frame. Small square website crop must remain clear.",
+      "mode": "qianyi-local-api",
+      "model": "gpt-image-2",
+      "source": "frontend/src/assets/ai-image-studio/culture-motto-v1.png",
+      "web_asset": "frontend/assets/company/culture-motto-v1.webp",
+      "sha256": "886dc814c4c0395c399c9986554bac6f331803f0dc5ca63ba63b5a745cc3b6c7"
+    },
+    {
+      "name": "culture-philosophy-v1",
+      "prompt": "Create a refined square editorial 3D conceptual illustration for INTELLIGENT OPERATIONS as a logistics company's direction of development. A restrained miniature system of unbranded cargo cubes and branching transport paths with a few precise luminous teal junctions, a thoughtful metaphor for information-guided coordination, no screens and no futuristic claims. Warm ivory matte background, deep navy blue and muted teal, tiny copper accents, soft side lighting, tactile paper and ceramic materials, centered subject with generous negative space, premium quiet editorial art direction. Symbolic illustration, not a real facility or photograph. No words, letters, numbers, badges, medals, certificates, seals, logos, watermarks, flags, maps or people. No interface or card border. Small square website crops must remain readable.",
+      "mode": "qianyi-local-api",
+      "model": "gpt-image-2",
+      "source": "frontend/src/assets/ai-image-studio/culture-philosophy-v1.png",
+      "web_asset": "frontend/assets/company/culture-philosophy-v1.webp",
+      "sha256": "bffc471ec0162ac3fc140b8054c1486cc0648035701626c472b9ef78d3fabf9c"
+    },
+    {
+      "name": "culture-spirit-v1",
+      "prompt": "Create a refined square editorial 3D conceptual illustration for SINCERITY DILIGENCE IMPROVEMENT INNOVATION AND SHARED SUCCESS on a logistics company culture page. Five simple distinct unbranded structural modules joining into one stable elegant bridge over a calm teal channel, a small cargo cube crossing at its center, visual metaphor for complementary effort and mutual success. Warm ivory matte background, deep navy blue and muted teal with restrained copper accents, soft side lighting, tactile paper and ceramic materials, centered subject, generous surrounding space, premium quiet editorial art direction. Symbolic artwork, not a photo of real company property. No text, letters, numbers, logos, people, awards, certificates, medals, seals, watermarks, flags or handshake. No card or interface frame. Legible in a small square website crop.",
+      "mode": "qianyi-local-api",
+      "model": "gpt-image-2",
+      "source": "frontend/src/assets/ai-image-studio/culture-spirit-v1.png",
+      "web_asset": "frontend/assets/company/culture-spirit-v1.webp",
+      "sha256": "da5896af756f91e199f22024218b6be7602a317eb7bade3e8bb7c2ad649d6313"
+    }
+  ],
+  "carrier_marks": [
+    {
+      "name": "4px",
+      "asset": "frontend/assets/company/partners/4px.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/4px.png",
+      "sha256": "10f4da4fa7ca7ba2b984b092904d9cf363597b058828c393886752e447e8059f"
+    },
+    {
+      "name": "cosco",
+      "asset": "frontend/assets/company/partners/cosco.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/cosco.png",
+      "sha256": "df35ccc02551a080ed09b9f2111a7c58122d5b559ed2f7f24fc0e9421149439d"
+    },
+    {
+      "name": "fedex",
+      "asset": "frontend/assets/company/partners/fedex.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/fedex.png",
+      "sha256": "1b3a16380473b49a9403335aefe9ff8f8a7ec20a0eef949e46c88667e416282f"
+    },
+    {
+      "name": "gofo",
+      "asset": "frontend/assets/company/partners/gofo.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/gofo.png",
+      "sha256": "4b233d1e0ee2671a8bec756092206f2007a54177827074606f7def850546692b"
+    },
+    {
+      "name": "matson",
+      "asset": "frontend/assets/company/partners/matson.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/matson.png",
+      "sha256": "99f830cfde7c329738102663fb1d18356e77620f76802243ed0b20277fbf90e1"
+    },
+    {
+      "name": "uniuni",
+      "asset": "frontend/assets/company/partners/uniuni.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/uniuni.png",
+      "sha256": "b1b938d6feead81c3924a4cf64e1c21dea6104f6c5d3131decfdbb42eb70456a"
+    },
+    {
+      "name": "ups",
+      "asset": "frontend/assets/company/partners/ups.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/ups.png",
+      "sha256": "e8dee04dc02fc304eb02d245b76908b435847850cf285982bf715946fc90379f"
+    },
+    {
+      "name": "usps",
+      "asset": "frontend/assets/company/partners/usps.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/usps.png",
+      "sha256": "55853a0440e912879847c21a53aed993257a38bde316cbeef09f83184d48d847"
+    },
+    {
+      "name": "yanwen",
+      "asset": "frontend/assets/company/partners/yanwen.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/yanwen.png",
+      "sha256": "a664a85c2c0b43d7f2e947b905f9a58658b45c0bb84fc0056cc41fcf7028b885"
+    },
+    {
+      "name": "yunexpress",
+      "asset": "frontend/assets/company/partners/yunexpress.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/yunexpress.png",
+      "sha256": "3e4de8c1bb0d85912ce073c5cb15f13ac1c41d35005c78948e8bf2f7005eca63"
+    },
+    {
+      "name": "zim",
+      "asset": "frontend/assets/company/partners/zim.webp",
+      "source_url": "https://whalelogist.com/wp-content/themes/xjexpress/assets/img/partners/zim.png",
+      "sha256": "8af4fce8daf0cbd0d9b5b6157f581fe2f9c5daee729a549fc1839e3da5aadf82"
+    }
+  ]
+}

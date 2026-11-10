@@ -1,0 +1,248 @@
+{
+  "captured_at": "2026-10-29T01:22:05.086101+00:00",
+  "queries": [
+    {
+      "name": "freightvanta.com",
+      "type": "NS",
+      "status": 0,
+      "answers": [
+        {
+          "name": "freightvanta.com.",
+          "type": 2,
+          "TTL": 21600,
+          "data": "b.share-dns.net."
+        },
+        {
+          "name": "freightvanta.com.",
+          "type": 2,
+          "TTL": 21600,
+          "data": "a.share-dns.com."
+        }
+      ]
+    },
+    {
+      "name": "freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "freightvanta.com",
+      "type": "MX",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "freightvanta.com",
+      "type": "TXT",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "freightvanta.com",
+      "type": "CAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "freightvanta.com",
+      "type": "DS",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "www.freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "www.freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "www.freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "www.freightvanta.com",
+      "type": "CNAME",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "de.freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "de.freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "de.freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "de.freightvanta.com",
+      "type": "CNAME",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "fr.freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "fr.freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "fr.freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "fr.freightvanta.com",
+      "type": "CNAME",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "es.freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "es.freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "es.freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "es.freightvanta.com",
+      "type": "CNAME",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "it.freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "it.freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "it.freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "it.freightvanta.com",
+      "type": "CNAME",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "nl.freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "nl.freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "nl.freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "nl.freightvanta.com",
+      "type": "CNAME",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "*.freightvanta.com",
+      "type": "A",
+      "status": 0,
+      "answers": [
+        {
+          "name": "*.freightvanta.com.",
+          "type": 1,
+          "TTL": 600,
+          "data": "170.106.116.93"
+        }
+      ]
+    },
+    {
+      "name": "*.freightvanta.com",
+      "type": "AAAA",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "*.freightvanta.com",
+      "type": "CNAME",
+      "status": 0,
+      "answers": []
+    },
+    {
+      "name": "_dmarc.freightvanta.com",
+      "type": "TXT",
+      "status": 0,
+      "answers": []
+    }
+  ]
+}

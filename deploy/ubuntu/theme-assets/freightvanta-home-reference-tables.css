@@ -1,0 +1,98 @@
+/* FreightVanta homepage reference tables. Published to theme 1 / theme_css.
+   These CMS sections must not depend on the topic template's utility CSS. */
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) {
+  padding-block:80px;
+  background:#fff;
+  color:var(--fv-navy-800);
+}
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n901"] { background:var(--fv-mist-50); }
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) > .shell {
+  width:min(100% - 40px,1280px);
+  margin-inline:auto;
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) .grid { display:block; }
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) h2 {
+  max-width:30ch;
+  margin:0 0 24px;
+  color:var(--fv-navy-900);
+  font-family:"Barlow Semi Condensed","IBM Plex Sans",sans-serif;
+  font-size:clamp(32px,3.2vw,46px);
+  font-weight:700;
+  letter-spacing:-.025em;
+  line-height:1.12;
+  text-wrap:balance;
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) p {
+  max-width:82ch;
+  margin:0;
+  color:var(--fv-navy-600);
+  font-size:17px;
+  line-height:1.8;
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) .overflow-x-auto {
+  max-width:100%;
+  margin-block:32px 20px;
+  overflow-x:auto;
+  border:1px solid var(--fv-mist-300);
+  border-radius:4px;
+  background:#fff;
+  scrollbar-color:var(--fv-navy-300) var(--fv-mist-100);
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) .overflow-x-auto:focus-visible {
+  outline:2px solid var(--fv-signal-600);
+  outline-offset:4px;
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) table {
+  width:100%;
+  min-width:760px;
+  border-collapse:separate;
+  border-spacing:0;
+  table-layout:fixed;
+  font-size:15.5px;
+  line-height:1.7;
+  font-variant-numeric:tabular-nums;
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) :is(th,td) {
+  padding:18px 20px;
+  border:0;
+  border-bottom:1px solid var(--fv-mist-200);
+  text-align:start;
+  vertical-align:top;
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) thead th {
+  background:var(--fv-navy-900);
+  color:#fff;
+  font-size:14px;
+  font-weight:600;
+  line-height:1.5;
+}
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) tbody th { color:var(--fv-navy-900); font-weight:600; }
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) tbody tr:nth-child(even) { background:var(--fv-mist-50); }
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) tbody tr:last-child > * { border-bottom:0; }
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n900"] tr > :nth-child(1) { width:18%; }
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n900"] tr > :is(:nth-child(2),:nth-child(4)) { width:27%; }
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n900"] tr > :is(:nth-child(3),:nth-child(5)) { width:14%; white-space:nowrap; }
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n901"] tr > :nth-child(1) { width:17%; }
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n901"] tr > :nth-child(2) { width:34%; }
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n901"] tr > :nth-child(3) { width:22%; }
+body.fv-reference-home.language-en.page-home section[aria-labelledby="topic-n901"] tr > :nth-child(4) { width:27%; }
+body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) .overflow-x-auto + p { max-width:112ch; font-size:14px; line-height:1.8; }
+@media (max-width:840px) {
+  body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) { padding-block:56px; }
+  body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) .overflow-x-auto::before {
+    content:"Scroll horizontally to see all columns";
+    display:block;
+    padding:12px 16px;
+    color:var(--fv-navy-600);
+    font-size:13px;
+    line-height:1.5;
+  }
+}
+@media (max-width:560px) {
+  body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) > .shell { width:calc(100% - 32px); }
+  body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) h2 { font-size:32px; margin-bottom:20px; }
+  body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) p { font-size:16px; line-height:1.75; }
+  body.fv-reference-home.language-en.page-home section:is([aria-labelledby="topic-n900"],[aria-labelledby="topic-n901"]) .overflow-x-auto { margin-top:24px; }
+}

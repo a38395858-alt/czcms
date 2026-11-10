@@ -65,6 +65,7 @@
 
 - 后台“SEO 中心”拆为两个可深链接的二级栏目：`#/admin/seo?section=sitemap`（站点地图设置）和 `#/admin/seo?section=robots`（robots 设置）。两页均读取同一份实时站点状态，不维护可被界面覆盖的重复配置。
 - 每个未停用站点自动提供自己的 `/sitemap.xml` 与 `/robots.txt`；创建站点后不需要额外建表或点“生成”，绑定可渲染语言模板后首页和内容会自动进入对应地图。
+- Sitemap 保持标准 UTF-8 XML，由浏览器显示原生可折叠树。该响应单独允许查看器所需的内联样式，并禁止脚本及外部资源；不要套用 HTML 的样式限制，否则 Chrome/Edge 会将原始网址与 XML 树重复显示。Nginx 的 `/sitemap.xml` 精确路由使用相同策略，不改变其他页面的响应头。
 - 本地独立端口使用 `http://localhost:{local_port}/sitemap.xml` 与 `http://localhost:{local_port}/robots.txt`，其中 robots 固定 `Disallow: /`，防止测试站被收录。
 
 ### 2.3 产品管理、产品栏目与元字段

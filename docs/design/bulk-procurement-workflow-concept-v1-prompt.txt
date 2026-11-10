@@ -1,0 +1,23 @@
+Use case: ui-mockup. Create a polished high-fidelity desktop website SECTION design preview for FreightVanta, an international logistics and bulk procurement company. Flat, perfectly front-facing UI screenshot, 1536 by 1024 canvas, no browser chrome, no device frame, no perspective. This is one replacement section, not a full website. All text must be English and clearly readable, accurately typeset.
+
+The current design is six long paragraphs spread over a disconnected 3-column by 2-row timeline. Redesign it with a much clearer hierarchy and a continuous reading order. Preserve all six steps and their exact wording below.
+
+Composition: a sophisticated asymmetric editorial layout, a white outer canvas with generous 64px padding. On the left, approximately 31 percent width, an ink-navy rectangular title panel extending the height of the workflow, square corners, refined white condensed typography matching Barlow Semi Condensed. Main headline exactly: "Keep the larger decision connected." broken into beautiful short lines. Emphasize just "connected." with safety orange. At the lower end of the navy panel, one understated crisp thin-line route diagram connecting a purchase document, package and delivery endpoint; no decorative illustrations, no photographic content, no logo required. Do not add marketing claims or metrics.
+
+Right side approximately 64 percent width: one clean ordered vertical workflow ledger, six horizontal rows of consistent rhythm with delicate light blue-gray separators, plenty of line spacing. Each row has a small orange step number 01 through 06, a small navy line icon relevant to the task, then a bold condensed navy short heading and the original step description in smaller readable IBM Plex Sans style, 22px or larger at this canvas size. A fine vertical route line joins the orange nodes along the left of the ledger and makes the order obvious. No enclosed cards, no pill badges, no gradients, no shadows, no excess whitespace between the heading and actual process. Rows stay within their column. Make it feel composed, premium and practical, suitable for direct HTML/CSS implementation. Colors: white, navy #0a1b33, orange #ff7a1a and mist #f5f8fc.
+
+Text, in this exact sequence:
+01 heading "Confirm the brief"
+Description "Confirm purchasing objective and approved product reference."
+02 heading "Align supplier questions"
+Description "Create a supplier question set for product, packing, cartons and delivery terms."
+03 heading "Assign approval owners"
+Description "Set approval owners for evidence, artwork, commercial milestones and release instructions."
+04 heading "Plan inventory handoff"
+Description "Plan inventory handoff: identifier, count, carton/pallet information and receiving destination."
+05 heading "Prepare release instructions"
+Description "Prepare packaging and release instructions for labels, inserts, bundles and supplier-material removal."
+06 heading "Coordinate the next movement"
+Description "Coordinate the confirmed next movement into storage, freight, retail delivery or fulfillment."
+
+Every sentence must be fully visible, no cropped words, no duplicated or missing step, and no additional footer, form, buttons or navigation. Typography and flow are the main design, avoid generic dashboard or app-card styling. Produce a finished, sharp, elegant web design concept.

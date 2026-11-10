@@ -1,0 +1,15 @@
+{
+  "kind": "deterministic HTML UI design capture",
+  "source": "customs-code-details-concept-v1.html",
+  "market": "cn",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "output": {
+    "width": 1440,
+    "height": 3240
+  },
+  "status": "design concept; not an implemented application feature",
+  "data": "User-provided Chinese reference screenshots; values not independently verified"
+}
